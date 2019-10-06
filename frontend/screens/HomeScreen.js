@@ -6,12 +6,8 @@ const base = new Airtable({ apiKey: AIRTABLE_API_KEY}).base(
 );
 
 import {
-  Image,
-  Platform,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   TextInput,
   Button
@@ -48,27 +44,31 @@ export default class SignUp extends React.Component {
           style={styles.input}
           placeholder="First Name"
           onChangeText={(text) => this.setState({firstName:text})}
+          value={this.state.firstName}
         />
         <TextInput
           style={styles.input}
           placeholder="Last Name"
           onChangeText={(text) => this.setState({lastName:text})}
+          value={this.state.lastName}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry={true}
           onChangeText={(text) => this.setState({password:text})}
+          value={this.state.password}
         />
         <TextInput
           style={styles.input}
           placeholder="Phone Number"
           onChangeText={(text) => this.setState({phoneNumber:text})}
+          value={this.state.phoneNumber}
         />
         <Button
           title="Sign Up"
           onPress={() => 
-            handleSubmit()
+            this.handleSubmit()
           }
         />
       </View>
