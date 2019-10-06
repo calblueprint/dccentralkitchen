@@ -27,14 +27,18 @@ export default class SignUp extends React.Component {
       firstName: '',
       lastName: '',
       password: '',
-      phoneNumber: '',
+      phoneNumber: ''
     }
   }
 
   handleSubmit() {
-    console.log(this.state.username)
-    console.log(this.state.password)
-    console.log(this.state.phoneNumber)
+    addCustomer(this.state.firstName, this.state.lastName, this.state.phoneNumber, this.state.password);
+    this.setState({
+      firstName: '',
+      lastName: '',
+      password: '',
+      phoneNumber: ''
+    })
   }
 
   render() {
@@ -64,7 +68,7 @@ export default class SignUp extends React.Component {
         <Button
           title="Sign Up"
           onPress={() => 
-            addCustomer(this.state.username, "last name", this.state.phoneNumber, this.state.password)
+            handleSubmit()
           }
         />
       </View>
