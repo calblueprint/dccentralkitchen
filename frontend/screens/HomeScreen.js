@@ -15,21 +15,44 @@ import {
 import { MonoText } from '../components/StyledText';
 
 export default class SignUp extends React.Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      username: '',
+      password: '',
+      phoneNumber: '',
+    }
+  }
+
+  handleSubmit() {
+    console.log(this.state.username)
+    console.log(this.state.password)
+    console.log(this.state.phoneNumber)
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder='Username'
+          placeholder="Username"
+          onChangeText={(text) => this.setState({username:text})}
         />
         <TextInput
           style={styles.input}
           placeholder="Password"
           secureTextEntry={true}
+          onChangeText={(text) => this.setState({password:text})}
         />
         <TextInput
           style={styles.input}
           placeholder="Phone Number"
+          onChangeText={(text) => this.setState({phoneNumber:text})}
+        />
+        <Button
+          title="Sign Up"
+          onPress={() => this.handleSubmit()}
         />
       </View>
     );
