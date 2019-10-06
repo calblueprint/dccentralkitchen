@@ -1,5 +1,10 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
+import Airtable from 'airtable'
+const base = new Airtable({ apiKey: "AIRTABLE_API_KEY" }).base(
+  "app4fXK49bqcjDMEo"
+);
+
 import {
   Image,
   Platform,
@@ -80,6 +85,31 @@ function DevelopmentModeNotice() {
       </Text>
     );
   }
+}
+
+function addCustomer(fname, lname, phone_number, password) {
+  base("Customers").create(
+    [
+      {
+        fields: {
+          "First Name": fname,
+          "Last Name": lname,
+          "Phone Number": phone_number,
+          Password: password,
+          Points: 0
+        }
+      }
+    ],
+    function(err, records) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach(function(record) {
+        console.log(record.getId());
+      });
+    }
+  );
 }
 
 function handleLearnMorePress() {

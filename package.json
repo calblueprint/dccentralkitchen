@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/calblueprint/dccentralkitchen/issues"
   },
-  "homepage": "https://github.com/calblueprint/dccentralkitchen#readme"
+  "homepage": "https://github.com/calblueprint/dccentralkitchen#readme",
+  "dependencies": {
+    "airtable": "^0.7.1"
+  }
 }
