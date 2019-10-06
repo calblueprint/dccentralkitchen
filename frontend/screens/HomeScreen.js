@@ -24,7 +24,8 @@ export default class SignUp extends React.Component {
     super(props)
 
     this.state = {
-      username: '',
+      firstName: '',
+      lastName: '',
       password: '',
       phoneNumber: '',
     }
@@ -41,8 +42,13 @@ export default class SignUp extends React.Component {
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder="Username"
-          onChangeText={(text) => this.setState({username:text})}
+          placeholder="First Name"
+          onChangeText={(text) => this.setState({firstName:text})}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Last Name"
+          onChangeText={(text) => this.setState({lastName:text})}
         />
         <TextInput
           style={styles.input}
