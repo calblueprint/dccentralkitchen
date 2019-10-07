@@ -1,80 +1,77 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import Airtable from 'airtable'
-const base = new Airtable({ apiKey: AIRTABLE_API_KEY}).base(
-  "app4fXK49bqcjDMEo"
-);
-
 import {
+  Image,
+  Platform,
+  ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
-  TextInput,
-  Button
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 
-export default class SignUp extends React.Component {
-  constructor(props){
-    super(props)
+export default function HomeScreen() {
+  return (
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}>
+        <View style={styles.welcomeContainer}>
+          <Image
+            source={
+              __DEV__
+                ? require('../assets/images/robot-dev.png')
+                : require('../assets/images/robot-prod.png')
+            }
+            style={styles.welcomeImage}
+          />
+        </View>
 
-    this.state = {
-      firstName: '',
-      lastName: '',
-      password: '',
-      phoneNumber: ''
-    }
-  }
+        <View style={styles.getStartedContainer}>
+          <DevelopmentModeNotice />
 
-  handleSubmit() {
-    addCustomer(this.state.firstName, this.state.lastName, this.state.phoneNumber, this.state.password);
-    this.setState({
-      firstName: '',
-      lastName: '',
-      password: '',
-      phoneNumber: ''
-    })
-  }
+          <Text style={styles.getStartedText}>Get started by opening</Text>
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="First Name"
-          onChangeText={(text) => this.setState({firstName:text})}
-          value={this.state.firstName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Last Name"
-          onChangeText={(text) => this.setState({lastName:text})}
-          value={this.state.lastName}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry={true}
-          onChangeText={(text) => this.setState({password:text})}
-          value={this.state.password}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Phone Number"
-          onChangeText={(text) => this.setState({phoneNumber:text})}
-          value={this.state.phoneNumber}
-        />
-        <Button
-          title="Sign Up"
-          onPress={() => 
-            this.handleSubmit()
-          }
-        />
+          <View
+            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+            <MonoText>screens/HomeScreen.js</MonoText>
+          </View>
+
+          <Text style={styles.getStartedText}>
+            Change this text and your app will automatically reload.
+          </Text>
+        </View>
+
+        <View style={styles.helpContainer}>
+          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+            <Text style={styles.helpLinkText}>
+              Help, it didn’t automatically reload!
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+      <View style={styles.tabBarInfoContainer}>
+        <Text style={styles.tabBarInfoText}>
+          This is a tab bar. You can edit it in:
+        </Text>
+
+        <View
+          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+          <MonoText style={styles.codeHighlightText}>
+            navigation/MainTabNavigator.js
+          </MonoText>
+        </View>
       </View>
-    );
-  }
+    </View>
+  );
 }
+
+HomeScreen.navigationOptions = {
+  header: null,
+};
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
@@ -99,31 +96,6 @@ function DevelopmentModeNotice() {
   }
 }
 
-function addCustomer(fname, lname, phone_number, password) {
-  base("Customers").create(
-    [
-      {
-        fields: {
-          "First Name": fname,
-          "Last Name": lname,
-          "Phone Number": phone_number,
-          Password: password,
-          Points: 0
-        }
-      }
-    ],
-    function(err, records) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      records.forEach(function(record) {
-        console.log(record.getId());
-      });
-    }
-  );
-}
-
 function handleLearnMorePress() {
   WebBrowser.openBrowserAsync(
     'https://docs.expo.io/versions/latest/workflow/development-mode/'
@@ -141,15 +113,86 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  input: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#42A5F5',
-    margin: 10,
-    padding: 8,
-    color: 'white',
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: '500',
+  developmentModeText: {
+    marginBottom: 20,
+    color: 'rgba(0,0,0,0.4)',
+    fontSize: 14,
+    lineHeight: 19,
+    textAlign: 'center',
+  },
+  contentContainer: {
+    paddingTop: 30,
+  },
+  welcomeContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  welcomeImage: {
+    width: 100,
+    height: 80,
+    resizeMode: 'contain',
+    marginTop: 3,
+    marginLeft: -10,
+  },
+  getStartedContainer: {
+    alignItems: 'center',
+    marginHorizontal: 50,
+  },
+  homeScreenFilename: {
+    marginVertical: 7,
+  },
+  codeHighlightText: {
+    color: 'rgba(96,100,109, 0.8)',
+  },
+  codeHighlightContainer: {
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    borderRadius: 3,
+    paddingHorizontal: 4,
+  },
+  getStartedText: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  tabBarInfoContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 20,
+  },
+  tabBarInfoText: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    textAlign: 'center',
+  },
+  navigationFilename: {
+    marginTop: 5,
+  },
+  helpContainer: {
+    marginTop: 15,
+    alignItems: 'center',
+  },
+  helpLink: {
+    paddingVertical: 15,
+  },
+  helpLinkText: {
+    fontSize: 14,
+    color: '#2e78b7',
   },
 });
