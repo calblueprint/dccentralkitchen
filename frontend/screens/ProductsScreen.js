@@ -2,6 +2,8 @@ import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Airtable from 'airtable';
 
+import Product from '../components/Product';
+
 import {
   Image,
   Platform,
@@ -13,36 +15,45 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import Product from '../components/Product';
 
-// Initializing DC Base
+
+// Initializing DC Base: Can probably be done somewhere else but here for now.
 const base = new Airtable({ apiKey: ''}).base(
     "app4fXK49bqcjDMEo"
-  );
+);
 const productsTable = base("Products").select({view: "Grid view"})
+var productsList = [];
+productsTable.firstPage((err, records) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    productsList = records.map(record => record.get("Name"))
+    // console.log(productsList)
+})
 
+class ProductsScreen extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+          productsList: productsList
+      };
+    }
+    
 
-export default function ProductsScreen() {
-    productsTable.firstPage((err, records) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        const productsList = records.map(record => record.get("Name"))
+    render() {
+        const { productsList } = this.state
         console.log(productsList)
-    })
-  return (
-      <Product></Product>
-  )
-} 
+        return (
+            <View>
+                {productsList.map((product) => {
+                    return (
+                    <Text>{product}</Text>
+                    )})
+                }
+            </View>
+            )
+    }
+}
 
-// return (
-//   <div>
-//   {productsList.map((product) => {
-//     return (
-//       {product}
-//     )})
-//   }
-//   </div>
-// )
-// }
+export default ProductsScreen;
