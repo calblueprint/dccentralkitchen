@@ -8,11 +8,18 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AsyncStorage
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
+  
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    // this.props.navigation.navigate('Auth');
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -45,9 +52,9 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+          <TouchableOpacity onPress={this._signOutAsync} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
+              Sign out!
             </Text>
           </TouchableOpacity>
         </View>

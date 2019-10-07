@@ -1,7 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Airtable from 'airtable'
-const base = new Airtable({ apiKey: "keynZcXTqJXwkNhS0"}).base(
+const base = new Airtable({ apiKey: AIRTABLE_API_KEY}).base(
   "app4fXK49bqcjDMEo"
 );
 
@@ -10,7 +10,8 @@ import {
   Text,
   View,
   TextInput,
-  Button
+  Button,
+  AsyncStorage
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
@@ -35,7 +36,13 @@ export default class SignUp extends React.Component {
       password: '',
       phoneNumber: ''
     })
+    this._asyncSignin()
   }
+
+  _asyncSignin = async () => {
+    await AsyncStorage.setItem('userToken', 'abc');
+    this.props.navigation.navigate('App');
+  };
 
   render() {
     return (
