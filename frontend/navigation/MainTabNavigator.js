@@ -13,6 +13,29 @@ const config = Platform.select({
   default: {},
 });
 
+const ProductsStack = createStackNavigator(
+  {
+    Products: ProductsScreen,
+  },
+  config
+);
+
+ProductsStack.navigationOptions = {
+  tabBarLabel: 'Products',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
+
+ProductsScreen.path = '';
+
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -72,6 +95,7 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  ProductsStack,
 });
 
 tabNavigator.path = '';
