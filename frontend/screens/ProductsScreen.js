@@ -32,13 +32,13 @@ productsTable.firstPage((err, records) => {
         console.error(err);
         return;
     }
-    productsList = records.map(record => {record.get("Name")})
-    idList = records.map(record => {record.id})
-    keyValue =  idList.reduce(function(result, field, index) {
+    productsList = records.map(record => record.get("Name"))
+    idList = records.map(record => record.id)
+    keyValue = idList.reduce(function(result, field, index) {
         result[productsList[index]] = field;
         return result;
       }, {})
-    // console.log(productsList)
+    console.log(keyValue);
 })
 
 class ProductsScreen extends React.Component {
@@ -52,8 +52,8 @@ class ProductsScreen extends React.Component {
     
 
     render() {
-        const { productsList, keyValue } = this.state
-        console.log(productsList)
+        const productsList = this.state.productsList
+        const keyValue = this.state.keyValue
         return (
             <FlatList 
                 style = {styles.container}
@@ -61,7 +61,7 @@ class ProductsScreen extends React.Component {
                 data = {keyValue}
                 renderItem={({ product }) => (
                     <View style={styles.item}>
-                        <Text>{product.key}</Text>
+                        <Text>{product}</Text>
                     </View>
                     
                 )}>
@@ -69,6 +69,17 @@ class ProductsScreen extends React.Component {
         )
     }
 }
+
+{/* <ScrollView>
+{productsList.map((product) => {
+    return (
+        <View>
+            <Text>{product}</Text>
+        </View>
+    )
+}
+)}
+</ScrollView> */}
 
 const styles = StyleSheet.create({
     container: {
