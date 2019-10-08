@@ -12,7 +12,8 @@ announceTable.eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
 
     records.forEach(function(record) {
-        first_announcements.push(record)
+        let curr = {title: record.get('Title'), description: record.get('Description'), date: record.get('Date')}
+        first_announcements.push(curr)
         console.log('Retrieved', first_announcements[first_announcements.length - 1]);
     });
 
@@ -30,7 +31,7 @@ class AnnouncementScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            announcements: [],
+            announcements: first_announcements,
         }
     }
 
@@ -48,7 +49,7 @@ class AnnouncementScreen extends React.Component {
     render() {
         return (
           <View>
-              {this.state.announcements.map(announce => <Announcements {...announce.fields} /> )}
+              {this.state.announcements.map(announce => <Announcements title = {announce.title} description = {announce.description} date = {announce.date} /> )}
           </View>
         )
     }
