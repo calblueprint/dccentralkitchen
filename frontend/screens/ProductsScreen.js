@@ -32,13 +32,9 @@ productsTable.firstPage((err, records) => {
         console.error(err);
         return;
     }
-    productsList = records.map(record => record.get("Name"))
-    idList = records.map(record => record.id)
-    keyValue = idList.reduce(function(result, field, index) {
-        result[productsList[index]] = field;
-        return result;
-      }, {})
-    console.log(keyValue);
+    productsNames = records.map(record => record.get("Name"))
+    // idList = records.map(record => record.id)
+    productList = productsNames.map(product => createProductData(product))
 })
 
 class ProductsScreen extends React.Component {
@@ -46,25 +42,24 @@ class ProductsScreen extends React.Component {
       super(props);
       this.state = {
           productsList: productsList,
-          keyValue: keyValue
       };
     }
     
 
     render() {
         const productsList = this.state.productsList
-        const keyValue = this.state.keyValue
         return (
             <FlatList 
                 style = {styles.container}
                 numColumns = {2}
-                data = {keyValue}
+                data = {productsList}
                 renderItem={({ product }) => (
                     <View style={styles.item}>
                         <Text>{product}</Text>
                     </View>
                     
-                )}>
+                )}
+                keyExtractor={(item, index) => index.toString()}>
             </FlatList>
         )
     }
@@ -95,4 +90,11 @@ const styles = StyleSheet.create({
       height: Dimensions.get('window').width / 2
     }
 })
+
+function createProductData(name) {
+    return {
+        name: name
+    }
+}
+
 export default ProductsScreen;
