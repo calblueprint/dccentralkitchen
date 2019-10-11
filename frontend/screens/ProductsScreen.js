@@ -1,15 +1,15 @@
 import React from 'react';
 import Airtable from 'airtable';
-import { styles } from '../styles.js';
-// import Product from '../components/Product';
+import { styles, Button } from '../styles.js';
+import Product from '../components/Product';
 
 import {
   Text,
   View,
   FlatList,
+  TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { DrawerItems } from 'react-navigation';
 
 // Initializing DC Base: Can probably be done somewhere else but here for now.
 const base = new Airtable({ apiKey: ''}).base(
@@ -42,8 +42,11 @@ class ProductsScreen extends React.Component {
     render() {
         const products = this.state.products
         return (
-            <View>
-                <ScrollView horizontal={true}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView 
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                >
                     {categories.map((category) =>
                         <Text>{category}    </Text>
                     )}
@@ -54,24 +57,18 @@ class ProductsScreen extends React.Component {
                     numColumns = {3}
                     data = {products}
                     renderItem={({ item }) => (
-                        <Product product={item} />
+                        <Button onPress={() =>
+                            this.props.navigation.navigate('ProductsDetailed')
+                          }>
+                            <Product product={item}/>
+                        </Button>
                     )}
                     keyExtractor={(item, index) => index.toString()}>
                 </FlatList>
-            </View>
+            </ScrollView>
         )
     }
 }
-
-function Product({ product }) {
-    return (
-      <View style={styles.item}>
-          <Text>
-              {product.name}
-          </Text>
-      </View>
-    );
-  }
 
 
 function createProductData(record) {

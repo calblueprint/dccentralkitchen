@@ -1,19 +1,24 @@
 import React from 'react';
+import { CardContainer, CardBody } from '../styles.js';
+import {
+    Text,
+    View,
+  } from 'react-native';
 
 /**
  * @prop 
 **/
 
-class Product extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {};
-    //     }
-    render() {
-        return (
-            <Text> Hello </Text>
-        )
-    }
-}
+function Product({ product, props }) {
+    return (
+            <CardContainer>
+                <CardBody>
+                    {product.name}
+                </CardBody>
+            </CardContainer>
+    );
+  }
 
 export default Product;
+
+
