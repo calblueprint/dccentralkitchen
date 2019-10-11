@@ -8,62 +8,80 @@ import {
   View,
   FlatList,
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { DrawerItems } from 'react-navigation';
 
 // Initializing DC Base: Can probably be done somewhere else but here for now.
 const base = new Airtable({ apiKey: ''}).base(
     "app4fXK49bqcjDMEo"
 );
 const productsTable = base("Products").select({view: "Grid view"})
-var productsList;
+var products;
+const categories = [ // Hard-coded for now -- should find a way to extract this information dynamically
+    "Cut Fruit & Packaged Products",
+    "Fruit",
+    "Vegetables",
+    "Frozen & Dried"
+]
 productsTable.firstPage((err, records) => {
     if (err) {
         console.error(err);
         return;
     }
-    productsNames = records.map(record => record.get("Name"))
-    // idList = records.map(record => record.id)
-    productsList = productsNames.map(product => createProductData(product))
+    products = records.map(record => createProductData(record))
 })
 
 class ProductsScreen extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          productsList: productsList,
+          products: products,
       };
     }
     
     render() {
-        const productsList = this.state.productsList
+        const products = this.state.products
         return (
-            <FlatList 
-                style = {styles.container}
-                contentContainerStyle = {styles.content_container}
-                numColumns = {3}
-                data = {productsList}
-                renderItem={({ item }) => (
-                    <Item name={item.name} />
-                )}
-                keyExtractor={(item, index) => index.toString()}>
-            </FlatList>
+            <View>
+                <ScrollView horizontal={true}>
+                    {categories.map((category) =>
+                        <Text>{category}    </Text>
+                    )}
+                </ScrollView>
+                <FlatList 
+                    style = {styles.container}
+                    contentContainerStyle = {styles.content_container}
+                    numColumns = {3}
+                    data = {products}
+                    renderItem={({ item }) => (
+                        <Product product={item} />
+                    )}
+                    keyExtractor={(item, index) => index.toString()}>
+                </FlatList>
+            </View>
         )
     }
 }
 
-function Item({ name }) {
+function Product({ product }) {
     return (
       <View style={styles.item}>
           <Text>
-              {name}
+              {product.name}
           </Text>
       </View>
     );
   }
 
 
-function createProductData(name) {
+function createProductData(record) {
+    object = record.fields
     return {
-        name: name
+        name: object["Name"],
+        id: record.id,
+        category: object["Category"],
+        points: object["Points"],
+        customerCost: object["Customer Cost"]
     }
 }
 
