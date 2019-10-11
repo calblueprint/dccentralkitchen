@@ -1,4 +1,15 @@
 import styled from 'styled-components/native';
+import {
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    FlatList,
+    Dimensions,
+  } from 'react-native';
 
 export const Title = styled.Text`
     font-size: 30px;
@@ -57,3 +68,21 @@ export const ButtonText = styled.Text`
     padding: 7.5px 7.5px;
     
 `;
+
+export const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      marginVertical: 20,
+    },
+    content_container: {
+        justifyContent: 'space-between'
+    },
+    item: {
+      backgroundColor: '#919191',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      flex: 1,
+      margin: 1,
+      height: Dimensions.get('window').width / 4
+    }
+})
