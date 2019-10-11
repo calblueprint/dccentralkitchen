@@ -50,17 +50,10 @@ export const CardDate = styled.Text`
 
 export const CardBody = styled.Text`
     font-size: 13.5px;
-    margin-bottom: 7.5%;
 `;
 
 export const Button = styled.TouchableOpacity`
-    background-color: black;
-    border-radius: 5px;
-    border: 1px red solid;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-right: 50%;
+  flex: 1 1 0
 `;
 
 export const ButtonText = styled.Text`
