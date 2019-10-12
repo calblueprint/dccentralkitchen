@@ -1,3 +1,4 @@
+import LoginScreen from '../screens/LoginScreen';
 import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
@@ -8,6 +9,7 @@ import LinksScreen from '../screens/LinksScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -40,7 +42,7 @@ ProductsScreen.path = '';
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen
+    Home: LoginScreen
   },
   config
 );
