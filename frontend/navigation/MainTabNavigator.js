@@ -7,11 +7,35 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AnnouncementScreen from '../screens/AnnouncementScreen'
+import TestPushScreen from '../screens/TestPushScreen'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
+
+const TestPushStack = createStackNavigator(
+    {
+        TestPush: TestPushScreen,
+    },
+    config
+);
+
+TestPushStack.navigationOptions = {
+    tabBarLabel: 'Test Pushes',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+            focused={focused}
+            name={
+                Platform.OS === 'ios'
+                    ? `ios-information-circle${focused ? '' : '-outline'}`
+                    : 'md-information-circle'
+            }
+        />
+    ),
+};
+
+TestPushScreen.path = '';
 
 const AnnounceStack = createStackNavigator(
     {
@@ -96,6 +120,7 @@ const tabNavigator = createBottomTabNavigator({
   LinksStack,
   SettingsStack,
     AnnounceStack,
+    TestPushStack
 });
 
 tabNavigator.path = '';

@@ -25,6 +25,10 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.blueprint.dc",
+      "googleServicesFile": "./google-services.json"
     }
   }
 }

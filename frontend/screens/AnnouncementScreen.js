@@ -2,7 +2,15 @@ import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Airtable from 'airtable';
 import Announcements from '../components/Announcements'
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import {
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 
 
 let base = new Airtable({apiKey: 'keyVrxZxSOUYHkz2e'}).base('app4fXK49bqcjDMEo');
@@ -49,7 +57,9 @@ class AnnouncementScreen extends React.Component {
     render() {
         return (
           <View>
+              <ScrollView>
               {this.state.announcements.map(announce => <Announcements title = {announce.title} description = {announce.description} date = {announce.date} /> )}
+              </ScrollView>
           </View>
         )
     }
