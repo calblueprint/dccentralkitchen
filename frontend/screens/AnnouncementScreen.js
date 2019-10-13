@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 
-let base = new Airtable({apiKey: 'keyVrxZxSOUYHkz2e'}).base('app4fXK49bqcjDMEo');
+let base = new Airtable({apiKey: ''}).base('app4fXK49bqcjDMEo');
 const announceTable = base("Announcements").select({view: "Grid view"})
 let first_announcements = [];
 announceTable.eachPage(function page(records, fetchNextPage) {
