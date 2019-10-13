@@ -1,32 +1,23 @@
-import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
-import Airtable from 'airtable'
-const base = new Airtable({ apiKey: AIRTABLE_API_KEY}).base(
-  "app4fXK49bqcjDMEo"
-);
+import Airtable from "airtable";
+import { Notifications } from "expo";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+import * as WebBrowser from "expo-web-browser";
+import React from "react";
+import { AsyncStorage, Button, Keyboard, StyleSheet, Text, TextInput, View } from "react-native";
+import validatejs from "validate.js";
 
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
-import validatejs from 'validate.js'
-
-// import { TextField } from 'screens/signup/textfield.jsx'
+// import { MonoText } from 'screens/signup/textfield.jsx'
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
- 
-
-
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  AsyncStorage,
-  Keyboard
-} from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import getEnvVars from "../environment";
+
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = getEnvVars();
+const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+  AIRTABLE_BASE_ID
+);
 
 export default class SignUp extends React.Component {
   constructor(props){
