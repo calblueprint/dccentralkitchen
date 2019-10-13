@@ -8,7 +8,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  AsyncStorage
+  AsyncStorage,
+  Button
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
@@ -52,11 +53,11 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={this._signOutAsync} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Sign out!
-            </Text>
-          </TouchableOpacity>
+          <Button 
+            title="Sign out"
+            onPress={this._signOutAsync} 
+            style={styles.helpLink}>
+          </Button>
         </View>
       </ScrollView>
 
