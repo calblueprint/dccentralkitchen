@@ -112,33 +112,14 @@ export default class SignUp extends React.Component {
           console.log(error)
         })
     }
-    console.log("THIS IS PHONE NUMBER ERROR", phoneNumberError)
+
+    var errorMessage = nameError + "\n" + phoneNumberError + "\n" + passwordError 
+
     this.setState({
       nameError: nameError,
       phoneNumberError: phoneNumberError,
       passwordError: passwordError
     })
-    console.log(this.state.phoneNumberError)
-    // base("Customers").select({
-    //   maxRecords: 1,
-    //   filterByFormula: `SEARCH("${formatted_phone_number}", {Phone Number})`
-    //   // `SEARCH({Name} = ${this.state.firstName} ${this.state.lastName}`
-    // }).eachPage(function page(records, fetchNextPage) {
-    //     // This function (`page`) will get called for each page of records.
-    //     if(records.length > 0) {
-    //       // console.log("ENTIRE THING", records)
-    //       console.log("1 ", records[0].get("Name"))
-    //       console.log("Duplicate found.")
-    //       phoneNumberError = records[0].get("Name")
-    //     } else {
-    //       console.log("nothing found but query ran")
-    //     }
-    // }, function done(err) {
-    //     if (err) { console.error(err); return; }
-    // });
-   
-
-    var errorMessage = nameError + "\n" + phoneNumberError + "\n" + passwordError 
     
     if (!nameError && !this.state.phoneNumberError && !this.state.passwordError) {
       this.addCustomer(this.state.firstName, this.state.lastName, this.state.phoneNumber, this.state.password, this.state.pushToken);
@@ -209,15 +190,6 @@ export default class SignUp extends React.Component {
           }
       });
     })
-
-    // airtableAsync.then((resolvedValue) => {
-    //   if (resolvedValue) {
-    //     this.setState({"phoneNumberError": "Phone number in use already."})
-    //     console.log("THIS IS PHONE NUMBER ERROR", phoneNumber)
-    //   } 
-    // }, (error) => {
-    //   console.log(error)
-    // })
   }
 
   _asyncSignin = async () => {
@@ -245,6 +217,7 @@ export default class SignUp extends React.Component {
           placeholder="Phone Number"
           onChangeText={(text) => this.setState({phoneNumber:text})}
           value={this.state.phoneNumber}
+          // For future use to make forms even nicer
           // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
           // error={this.state.phoneNumberError}
           // onBlur={() => {
@@ -259,13 +232,6 @@ export default class SignUp extends React.Component {
           secureTextEntry={true}
           onChangeText={(text) => this.setState({password:text})}
           value={this.state.password}
-          // onChangeText={value => this.setState({password: value.trim()})}
-          // onBlur={() => {
-          //   this.setState({
-          //     passwordError: validate('password', this.state.password)
-          //   })
-          // }}
-          // error={this.state.passwordError}
         />
         <Button
           title="Sign Up"
@@ -331,6 +297,7 @@ const validation = {
       is: 10,
       message: '^Please enter a valid phone number.'
     },
+    // To check for only numbers in the future
     // format: {
     //   pattern: "/^\d+$/",
     //   message: "Phone number cannot contain nondigits."
