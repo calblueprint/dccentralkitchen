@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-// Initializing DC Base: Can probably be done somewhere else but here for now.
+// Initializing DC Base: Can/should it be done somewhere else?
 const base = new Airtable({ apiKey: ''}).base(
     "app4fXK49bqcjDMEo"
 );
 const productsTable = base("Products").select({view: "Grid view"})
-var products;
-const categories = [ // Hard-coded for now -- should find a way to extract this information dynamically
+var fullProducts;
+const categories = [ // Hard-coded for now -- should find a way to extract this information dynamically?
+    "All",
     "Cut Fruit & Packaged Products",
     "Fruit",
     "Vegetables",
@@ -28,30 +29,33 @@ productsTable.firstPage((err, records) => {
         console.error(err);
         return;
     }
-    products = records.map(record => createProductData(record))
+    fullProducts = records.map(record => createProductData(record))
 })
 
 class ProductsScreen extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-          products: products,
+          products: fullProducts,
+          filter: null
       };
     }
 
-    handleCategoryPress = () => {
-
+    handleCategoryPress = (filter) => {
+        const toSet = filter == "All" ? 
+            fullProducts :
+            fullProducts.filter(product => product.category.includes(filter))
+        this.setState({products: toSet})
     }
     
     render() {
-        const products = this.state.products
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
                 <ScrollView 
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
                     {categories.map((category) =>
-                        <Button onPress={() => this.handleCategoryPress}>
+                        <Button onPress={() => this.handleCategoryPress(category)}>
                             <ScrollCategory>{category}    </ScrollCategory>
                         </Button>
                     )}
@@ -59,7 +63,7 @@ class ProductsScreen extends React.Component {
                 <FlatList 
                     style = {styles.container}
                     numColumns = {3}
-                    data = {products}
+                    data = {this.state.products}
                     renderItem={({ item }) => (
                         <Button onPress={() =>
                             this.props.navigation.navigate('ProductsDetailed', {

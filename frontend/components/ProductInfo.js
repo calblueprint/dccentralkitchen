@@ -13,7 +13,7 @@ import {
 function ProductInfo({ product }) {
     const { name, id, category, points, customerCost } = product;
     return (
-        <View>
+        <View style={{width: 300}}>
             <Title>{name}</Title>
             <Subtitle>Category: {category}</Subtitle>
             <View style={{flexDirection: 'row'}}>
