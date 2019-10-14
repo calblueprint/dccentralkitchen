@@ -82,6 +82,9 @@ export const styles = StyleSheet.create({
       flex: 1,
       marginVertical: 20,
     },
+    imageContainer: {
+        flexDirection: 'row'
+    },
     item: {
       backgroundColor: '#919191',
       alignItems: 'center',
