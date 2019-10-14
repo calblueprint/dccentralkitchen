@@ -9,7 +9,7 @@ import {
  * @prop 
 **/
 
-function Product({ product, props }) {
+function Product({ product }) {
     return (
             <CardContainer>
                 <CardBody>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Airtable from 'airtable';
-import { styles, Button } from '../styles.js';
+import { styles, Button, ScrollCategory } from '../styles.js';
 import Product from '../components/Product';
 
 import {
@@ -38,6 +38,10 @@ class ProductsScreen extends React.Component {
           products: products,
       };
     }
+
+    handleCategoryPress = () => {
+
+    }
     
     render() {
         const products = this.state.products
@@ -45,20 +49,23 @@ class ProductsScreen extends React.Component {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <ScrollView 
                 horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                >
+                showsHorizontalScrollIndicator={false}>
                     {categories.map((category) =>
-                        <Text>{category}    </Text>
+                        <Button onPress={() => this.handleCategoryPress}>
+                            <ScrollCategory>{category}    </ScrollCategory>
+                        </Button>
                     )}
                 </ScrollView>
                 <FlatList 
                     style = {styles.container}
-                    contentContainerStyle = {styles.content_container}
                     numColumns = {3}
                     data = {products}
                     renderItem={({ item }) => (
                         <Button onPress={() =>
-                            this.props.navigation.navigate('ProductsDetailed')
+                            this.props.navigation.navigate('ProductsDetailed', {
+                                currentProduct: item
+                            }
+                            )
                           }>
                             <Product product={item}/>
                         </Button>

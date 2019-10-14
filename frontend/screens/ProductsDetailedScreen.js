@@ -1,20 +1,34 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import Airtable from 'airtable';
+import { styles, Button } from '../styles.js';
+import Product from '../components/Product';
+import ProductInfo from '../components/ProductInfo';
+
+
 import {
   Text,
   View,
+  FlatList,
+  TouchableOpacity
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-export default function ProductsDetailedScreen() {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
-  return (
-    <Text>Detailed Product's Information</Text>
-    )
-}
 
-ProductsDetailedScreen.navigationOptions = {
-  title: 'app.json',
-};
+class ProductsDetailedScreen extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render () {
+    const currentProduct = this.props.navigation.state.params.currentProduct;
+    return (
+      <ProductInfo product={currentProduct}/>
+      )
+    }
+    
+  }
+  
+  export default ProductsDetailedScreen;
