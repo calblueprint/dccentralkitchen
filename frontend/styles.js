@@ -12,10 +12,26 @@ import {
   } from 'react-native';
 
 export const Title = styled.Text`
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    margin: 5% 5%;
+    margin: 5% 5% 2.5%;
 `;
+export const Subtitle = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+    margin: 1% 5%;
+`;
+
+export const Notice = styled.Text`
+    font-size: 12px;
+    margin: 2% 5%;
+`;
+
+export const ScrollCategory = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+`;
+
 export const CardContainer = styled.View`
     background-color: #fff;
     border-radius: 5px;
@@ -37,7 +53,6 @@ export const CardHeader = styled.View`
 export const CardSubject = styled.Text`
     font-size: 24px;
     font-weight: bold;
-   
 `;
 
 export const CardDate = styled.Text`
@@ -66,9 +81,6 @@ export const styles = StyleSheet.create({
     container: {
       flex: 1,
       marginVertical: 20,
-    },
-    content_container: {
-        justifyContent: 'space-between'
     },
     item: {
       backgroundColor: '#919191',
