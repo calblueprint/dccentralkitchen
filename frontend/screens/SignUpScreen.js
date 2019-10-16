@@ -121,7 +121,7 @@ export default class SignUp extends React.Component {
         phoneNumber: '',
         pushToken: ''
       })
-      // this._asyncSignin()
+      this._asyncSignin()
     } else {
       alert(errorMessage)
       console.log("form error")
@@ -184,7 +184,7 @@ export default class SignUp extends React.Component {
   }
 
   _asyncSignin = async () => {
-    await AsyncStorage.setItem('userToken', 'abc');
+    await AsyncStorage.setItem('userToken', this.state.firstName + this.state.lastName);
     this.props.navigation.navigate('App');
   };
 
