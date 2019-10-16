@@ -1,8 +1,9 @@
 import React from 'react';
-import { CardContainer, CardBody } from '../styles.js';
+import { ProductContainer, ProductBody } from '../styles.js';
 import {
     Text,
     View,
+    Image
   } from 'react-native';
 
 /**
@@ -11,11 +12,15 @@ import {
 
 function Product({ product }) {
     return (
-            <CardContainer>
-                <CardBody>
-                    {product.name}
-                </CardBody>
-            </CardContainer>
+      <View style={{alignItems: 'center'}}>
+          <Image
+            source={require('../assets/images/robot-dev.png')}
+            style={{ width: 50, height: 50, borderRadius: 80 / 2 }}/>
+          <ProductBody>
+              {product.name}
+          </ProductBody>
+      </View>
+      
     );
   }
 

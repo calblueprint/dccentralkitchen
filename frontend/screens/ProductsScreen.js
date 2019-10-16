@@ -56,7 +56,7 @@ class ProductsScreen extends React.Component {
                 showsHorizontalScrollIndicator={false}>
                     {categories.map((category) =>
                         <Button onPress={() => this.handleCategoryPress(category)}>
-                            <ScrollCategory>{category}    </ScrollCategory>
+                            <ScrollCategory> {category}   </ScrollCategory>
                         </Button>
                     )}
                 </ScrollView>
