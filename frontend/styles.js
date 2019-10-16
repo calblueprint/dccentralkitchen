@@ -32,39 +32,17 @@ export const ScrollCategory = styled.Text`
     font-weight: bold;
 `;
 
-export const CardContainer = styled.View`
+export const ProductContainer = styled.View`
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 20px;
     margin: 5% 5%;
-    border-left-width: 7.5px;
-    border-left-color: #000;
     box-shadow: 0px 10px 20px #e3e1e1;
 `;
 
-export const CardHeader = styled.View`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-`;
-
-export const CardSubject = styled.Text`
-    font-size: 24px;
+export const ProductBody = styled.Text`
+    font-size: 12px;
     font-weight: bold;
-`;
-
-export const CardDate = styled.Text`
-    font-size: 10px;
-    font-weight: 600;
-    padding: 5px 7.5px;
-    border: 1px solid black;
-    border-radius: 5px;
-`;
-
-export const CardBody = styled.Text`
-    font-size: 13.5px;
 `;
 
 export const Button = styled.TouchableOpacity`
