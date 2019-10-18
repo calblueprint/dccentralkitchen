@@ -16,10 +16,13 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   
+  // Sign out function -- it clears the local storage then navigates
+  // to the authentication page.
   _signOutAsync = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
+
   render() {
     return (
       <View style={styles.container}>
