@@ -7,6 +7,9 @@ import React from "react";
 import { AsyncStorage, Button, Keyboard, StyleSheet, Text, TextInput, View } from "react-native";
 import validatejs from "validate.js";
 
+// I abstracted portions of the validation flow into these files 
+// but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
+// so I put it all in this one file.
 // import { MonoText } from 'screens/signup/textfield.jsx'
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
@@ -52,7 +55,6 @@ export default class SignUp extends React.Component {
         return;
       }
       let token = await Notifications.getExpoPushTokenAsync();
-      console.log(token);
       this.setState({"pushToken": token})
     } else {
       alert('Must use physical device for Push Notifications');
@@ -72,6 +74,9 @@ export default class SignUp extends React.Component {
     );
   }
 
+  // Handling submission. This function runs the validation functions
+  // as well as the duplicate checking. If there are no errors on the
+  // validation or duplicate side, then an Airtable record is created.
   async handleSubmit() {
     let phoneNumberError = validate('phoneNumber', this.state.phoneNumber)
     const passwordError = validate('password', this.state.password)
@@ -79,28 +84,22 @@ export default class SignUp extends React.Component {
     if (!this.state.firstName || !this.state.lastName) {
       nameError = "Name inputs cannot be blank."
     } 
-
-    // In case we want to do name checking
+    // In case we want to do name checking using validate.js
     // const nameError = validate('name', this.state.firstName)
-
-    console.log('name error: ', nameError)
-    console.log('password error: ', passwordError)
-    console.log('phonenumber error: ', phoneNumberError)
     
     let formatted_phone_number = this.state.phoneNumber
     formatted_phone_number = "(" +  formatted_phone_number.slice(0, 3) + ") " + formatted_phone_number.slice(3, 6) + "-" + formatted_phone_number.slice(6, 10)
-    console.log(formatted_phone_number)
 
+    // If we don't have any bugs already with form validation, 
+    // we'll check for duplicates here in the Airtable.
     if (!phoneNumberError) { 
       await this.checkForDuplicates(formatted_phone_number)
         .then(resolvedValue => {
           if (resolvedValue) {
             phoneNumberError = "Phone number in use already."
-            console.log("THIS IS PHONE NUMBER ERROR", phoneNumberError)
-            
           } 
         }, (error) => {
-          console.log(error)
+          console.error(error)
         })
     }
 
@@ -118,17 +117,24 @@ export default class SignUp extends React.Component {
         firstName: '',
         lastName: '',
         password: '',
+        passwordError: '',
         phoneNumber: '',
+        phoneNumberError: '',
         pushToken: ''
       })
       this._asyncSignin()
     } else {
+      // For now it just tells you what you did wrong -- stretch
+      // is to make it update onBlur() -- code is below for it.
       alert(errorMessage)
-      console.log("form error")
     }
     Keyboard.dismiss()
   }
 
+
+  // Helper function for adding customers to the database. Takes 
+  // in all the relevant information from the form and calls the 
+  // Airtable API to create the record.
   addCustomer(fname, lname, phoneNumber, password, pushToken) {
     base("Customers").create(
       [
@@ -149,24 +155,24 @@ export default class SignUp extends React.Component {
           return;
         }
         records.forEach(function(record) {
+          // Prints when you add for now, 
+          // not sure what else we should be doing here.
           console.log(record.getId());
         });
       }
     );
   }
 
+  // This function checks the customers table for any duplicates
+  // based on the phone number. It returns a promise because 
+  // the Airtable API call is an async function. 
   async checkForDuplicates(phoneNumber) {
-    console.log("we about to check in airtable")
-    console.log(phoneNumber)
     return new Promise((resolve, reject) => {
-      let duplicate = false
       base("Customers").select({
         maxRecords: 1,
         filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
       }).eachPage(function page(records, fetchNextPage) {
           if(records.length > 0) {
-            console.log("1 ", records[0].get("Name"))
-            console.log("IF THIS PRINTS I SHOULD NOT LOG IN")
             resolve(true)
           } else {
             resolve(false)
@@ -183,6 +189,8 @@ export default class SignUp extends React.Component {
     })
   }
 
+  // Sign in function. It sets the user token in local storage
+  // to be the fname + lname and then navigates to homescreen.
   _asyncSignin = async () => {
     await AsyncStorage.setItem('userToken', this.state.firstName + this.state.lastName);
     this.props.navigation.navigate('App');
@@ -235,6 +243,8 @@ export default class SignUp extends React.Component {
   }
 }
 
+// This is the validate function that utilizes validate.js 
+// to check a fieldname based on an inputted value. 
 function validate(fieldName, value) {
   // Validate.js validates your values as an object
   // e.g. var form = {email: 'email@example.com'}
@@ -255,7 +265,8 @@ function validate(fieldName, value) {
   return ""
 }
 
-// For handling errors within the form
+// For handling errors within the form. This is strecth to handle the 
+// onBlur thing that I talked about. 
 const TextField = props => (
   <View>
     <TextInput
@@ -270,9 +281,9 @@ const TextField = props => (
 )
 
 // For future use, to match for better passwords
-var pattern = "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})"
+const pattern = "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})"
 
-// This is to create constraints for the validatejs library 
+// This is to create constraints for the validatejs library
 const validation = {
   name: {
     presence: {
