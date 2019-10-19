@@ -1,6 +1,7 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import Airtable from 'airtable'
+import Airtable from 'airtable';
+
 const base = new Airtable({ apiKey: "keynZcXTqJXwkNhS0"}).base(
   "app4fXK49bqcjDMEo"
 );
@@ -69,6 +70,12 @@ export default class SignUp extends React.Component {
           title="Sign Up"
           onPress={() => 
             this.handleSubmit()
+          }
+        />
+        <Button
+          title="Already have an account? Log in"
+          onPress={() =>
+            this.props.navigation.navigate('Login')
           }
         />
       </View>

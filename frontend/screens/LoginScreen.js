@@ -46,7 +46,10 @@ export default class Login extends React.Component {
   }
 
   async handleSubmit() {
-    await this.lookupCustomer(this.state.phoneNumber, this.state.password).then((resp) => {
+    let formatted_phone_number = this.state.phoneNumber
+    formatted_phone_number = "(" +  formatted_phone_number.slice(0, 3) + ") " + formatted_phone_number.slice(3, 6) + "-" + formatted_phone_number.slice(6, 10)
+
+    await this.lookupCustomer(formatted_phone_number, this.state.password).then((resp) => {
       if (resp) {
         this.setState({userDisplay: resp, phoneNumber: '', password: ''});
       }
@@ -58,7 +61,8 @@ export default class Login extends React.Component {
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder="Phone Number"
+          placeholder="Phone Number (i.e. 1234567890)"
+          keyboardType="number-pad"
           value={this.state.phoneNumber}
           onChangeText={(text) => this.setState({phoneNumber:text})}
         />
@@ -89,6 +93,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginTop: '20%',
+    alignContent: 'center',
   },
   input: {
     width: 350,
