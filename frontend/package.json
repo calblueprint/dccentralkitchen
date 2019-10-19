@@ -21,6 +21,8 @@
     "expo-constants": "^7.0.0",
     "expo-font": "^7.0.0",
     "expo-web-browser": "^7.0.0",
+    "install": "^0.13.0",
+    "npm": "^6.12.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
@@ -28,7 +30,7 @@
     "react-native-phone-input": "^0.2.4",
     "react-native-web": "^0.11.7",
     "react-navigation": "^3.12.0",
-    "react-phone-number-input": "^2.3.24"
+    "styled-components": "^4.4.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",

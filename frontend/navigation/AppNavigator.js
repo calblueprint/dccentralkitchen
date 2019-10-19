@@ -3,6 +3,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import Login from '../screens/LoginScreen';
+import SignUp from '../screens/SignUpScreen';
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -10,5 +11,6 @@ export default createAppContainer(
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     Main: MainTabNavigator,
     Login: Login,
+    SignUp: SignUp,
   })
 );

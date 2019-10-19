@@ -18,6 +18,7 @@ const HomeStack = createStackNavigator(
   {
     Home: SignUpScreen,
     Login: LoginScreen,
+    SignUp: SignUpScreen,
   },
   config
 );
