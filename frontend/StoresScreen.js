@@ -33,11 +33,6 @@ class StoresScreen extends React.Component {
 function createStoreData(record) {
     object = record.fields
     return {
-        name: object["Name"],
-        id: record.id,
-        category: object["Category"],
-        points: object["Points"],
-        customerCost: object["Customer Cost"]
     }
 }
 
