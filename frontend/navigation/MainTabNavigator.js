@@ -1,4 +1,3 @@
-import LoginScreen from '../screens/LoginScreen';
 import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
@@ -6,6 +5,7 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import LoginScreen from '../screens/LoginScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -42,7 +42,7 @@ ProductsScreen.path = '';
 
 const HomeStack = createStackNavigator(
   {
-    Home: LoginScreen
+    Home: HomeScreen
   },
   config
 );

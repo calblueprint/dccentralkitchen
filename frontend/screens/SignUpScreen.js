@@ -1,11 +1,24 @@
 import Airtable from 'airtable';
+import Airtable from 'airtable';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  AsyncStorage,
+  Button,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
 import validatejs from 'validate.js';
+
+const base = new Airtable({ apiKey: 'keynZcXTqJXwkNhS0' }).base(
+  'app4fXK49bqcjDMEo'
+);
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -258,6 +271,10 @@ export default class SignUp extends React.Component {
           value={this.state.password}
         />
         <Button title="Sign Up" onPress={() => this.handleSubmit()} />
+        <Button
+          title="Already have an account? Log in"
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
       </View>
     );
   }
