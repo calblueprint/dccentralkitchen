@@ -46,8 +46,9 @@ export default class Login extends React.Component {
   }
 
   async handleSubmit() {
-    let formatted_phone_number = this.state.phoneNumber
-    formatted_phone_number = "(" +  formatted_phone_number.slice(0, 3) + ") " + formatted_phone_number.slice(3, 6) + "-" + formatted_phone_number.slice(6, 10)
+    let formatted_phone_number = this.state.phoneNumber;
+    formatted_phone_number = formatted_phone_number.replace('[^0-9]', "");
+    formatted_phone_number = "(" +  formatted_phone_number.slice(0, 3) + ") " + formatted_phone_number.slice(3, 6) + "-" + formatted_phone_number.slice(6, 10);
 
     await this.lookupCustomer(formatted_phone_number, this.state.password).then((resp) => {
       if (resp) {
@@ -63,6 +64,7 @@ export default class Login extends React.Component {
           style={styles.input}
           placeholder="Phone Number (i.e. 1234567890)"
           keyboardType="number-pad"
+          maxLength={10}
           value={this.state.phoneNumber}
           onChangeText={(text) => this.setState({phoneNumber:text})}
         />
