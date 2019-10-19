@@ -1,7 +1,10 @@
 import React from 'react';
-import Airtable from 'airtable'
-const base = new Airtable({ apiKey: "keynZcXTqJXwkNhS0"}).base(
-  "app4fXK49bqcjDMEo"
+import Airtable from 'airtable';
+import getEnvVars from "../environment"
+
+const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = getEnvVars();
+const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+  AIRTABLE_BASE_ID
 );
 
 import {
