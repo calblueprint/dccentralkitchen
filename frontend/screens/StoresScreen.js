@@ -1,7 +1,6 @@
 import React from 'react';
 import Airtable from 'airtable';
 import { styles, Button, ScrollCategory } from '../styles.js';
-import Product from '../components/Product';
 
 import {
   Text,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import GoogleMapReact from 'google-map-react';
 
 // Initializing DC Base: Can/should it be done somewhere else?
 const base = new Airtable({ apiKey: ''}).base(
@@ -26,6 +26,12 @@ class StoresScreen extends React.Component {
     
     render() {
         return (
+          <GoogleMapReact>
+            bootstrapURLKeys={{ key:  }}
+            defaultCenter={{lat: 59.95, lng: 30.33}}
+            defaultZoom={11}
+            <Text>hi </Text>
+          </GoogleMapReact>
         )
     }
 }
@@ -36,4 +42,4 @@ function createStoreData(record) {
     }
 }
 
-export default ProductsScreen;
+export default StoresScreen;
