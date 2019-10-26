@@ -14,28 +14,33 @@ import MapView from 'react-native-maps';
 
 import { BASE } from "../lib/common.js"
 const storesTable = BASE("Stores").select({view: "Grid view"})
+const initialRegion = {
+  latitude: 37.78825,
+  longitude: -122.4324,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+};
 
 class StoresScreen extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        region: initialRegion
       };
     }
     
     render() {
         return (
           <MapView
-          style={{flex: 1}}
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        />
+            style={{flex: 1}}
+            region={this.state.region}
+            onRegionChange={this.onRegionChange}
+         />
         )
     }
 }
+
+
 
 function createStoreData(record) {
     object = record.fields
