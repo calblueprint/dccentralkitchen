@@ -1,3 +1,4 @@
+// TODO: @Johnathan get this as well as other signup files to work.
 const validation = {
     phonenumber: {
       presence: {

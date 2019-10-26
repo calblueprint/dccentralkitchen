@@ -10,6 +10,7 @@ import validatejs from "validate.js";
 // I abstracted portions of the validation flow into these files 
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
 // so I put it all in this one file.
+// TODO: @Johnathan Abstract everything in to separate files
 // import { MonoText } from 'screens/signup/textfield.jsx'
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
@@ -217,6 +218,7 @@ export default class SignUp extends React.Component {
           onChangeText={(text) => this.setState({phoneNumber:text})}
           value={this.state.phoneNumber}
           // For future use to make forms even nicer
+          // TODO: @Johnathan Figure out onBlur
           // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
           // error={this.state.phoneNumberError}
           // onBlur={() => {
@@ -281,6 +283,7 @@ const TextField = props => (
 )
 
 // For future use, to match for better passwords
+// TODO: @Johnathan Fix passwords check
 const pattern = "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,20})"
 
 // This is to create constraints for the validatejs library
