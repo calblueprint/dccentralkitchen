@@ -9,13 +9,9 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import GoogleMapReact from 'google-map-react';
 
-// Initializing DC Base: Can/should it be done somewhere else?
-const base = new Airtable({ apiKey: ''}).base(
-    "app4fXK49bqcjDMEo"
-);
-const storesTable = base("Stores").select({view: "Grid view"})
+import { BASE } from "../lib/common.js"
+const storesTable = BASE("Stores").select({view: "Grid view"})
 
 class StoresScreen extends React.Component {
     constructor(props) {
@@ -26,12 +22,9 @@ class StoresScreen extends React.Component {
     
     render() {
         return (
-          <GoogleMapReact>
-            bootstrapURLKeys={{ key:  }}
-            defaultCenter={{lat: 59.95, lng: 30.33}}
-            defaultZoom={11}
-            <Text>hi </Text>
-          </GoogleMapReact>
+          <View>
+            <Text> Hello </Text>
+          </View>
         )
     }
 }
