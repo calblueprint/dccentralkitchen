@@ -169,6 +169,7 @@ export default class SignUp extends React.Component {
   // the Airtable API call is an async function. 
   async checkForDuplicates(phoneNumber) {
     return new Promise((resolve, reject) => {
+      let duplicate = false;
       base("Customers").select({
         maxRecords: 1,
         filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
