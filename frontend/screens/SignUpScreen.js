@@ -210,6 +210,11 @@ export default class SignUp extends React.Component {
     });
   }
 
+  // Purely to bypass signups for development -- developer is not required to sign up to enter home screen.
+  devBypass() {
+    this.props.navigation.navigate('App');
+  }
+
   // Sign in function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignin = async () => {
@@ -258,6 +263,7 @@ export default class SignUp extends React.Component {
           value={this.state.password}
         />
         <Button title="Sign Up" onPress={() => this.handleSubmit()} />
+        <Button title="Testing Bypass" onPress={() => this.devBypass()} />
       </View>
     );
   }
