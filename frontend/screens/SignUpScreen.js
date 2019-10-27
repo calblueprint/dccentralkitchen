@@ -1,5 +1,4 @@
 import Airtable from 'airtable';
-import Airtable from 'airtable';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -15,10 +14,6 @@ import {
   View
 } from 'react-native';
 import validatejs from 'validate.js';
-
-const base = new Airtable({ apiKey: 'keynZcXTqJXwkNhS0' }).base(
-  'app4fXK49bqcjDMEo'
-);
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
