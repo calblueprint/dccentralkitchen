@@ -1,28 +1,25 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import Airtable from 'airtable';
 import Announcements from '../components/Announcements'
 import {
-    Image,
-    Platform,
     ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+    View,TouchableOpacity,Text,
 } from 'react-native';
 
 
-let base = new Airtable({apiKey: ''}).base('app4fXK49bqcjDMEo');
+//call Airtable
+let base = new Airtable({apiKey: 'keynDN2jVflxnkEmY'}).base('app4fXK49bqcjDMEo');
 const announceTable = base("Announcements").select({view: "Grid view"})
 let first_announcements = [];
 announceTable.eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
 
+    //Grabs title, description, date,
     records.forEach(function(record) {
-        let curr = {title: record.get('Title'), description: record.get('Description'), date: record.get('Date')}
+        let this_date = new Date(record.get('Date'))
+        let curr = {title: record.get('Title'), description: record.get('Description'), date: this_date, id: record.get('')}
         first_announcements.push(curr)
-        console.log('Retrieved', first_announcements[first_announcements.length - 1]);
+        console.log('Retrieved', typeof curr.date);
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
@@ -49,7 +46,6 @@ class AnnouncementScreen extends React.Component {
             .then(data => {
                 this.setState({ announcements:data.records });
             }).catch(err => {
-            // Error :(
         });
         console.log(this.state.announcements)
     }
@@ -57,8 +53,21 @@ class AnnouncementScreen extends React.Component {
     render() {
         return (
           <View>
-              <ScrollView>
-              {this.state.announcements.map(announce => <Announcements title = {announce.title} description = {announce.description} date = {announce.date} /> )}
+              <View style={{flexDirection: 'row',}}>
+                  <TouchableOpacity style={{flex: 1, alignItems: 'center',}} >
+                      <Text>
+                          Inbox
+                      </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{flex: 1, alignItems: 'center',}}>
+                      <Text>
+                          Events
+                      </Text>
+                  </TouchableOpacity>
+              </View>
+              <ScrollView >
+              {this.state.announcements.map(announce => <Announcements announcement = {announce}
+                                                                       navigation = {this.props.navigation}/> )}
               </ScrollView>
           </View>
         )

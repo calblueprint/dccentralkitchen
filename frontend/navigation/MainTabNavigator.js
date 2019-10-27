@@ -8,6 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AnnouncementScreen from '../screens/AnnouncementScreen'
 import TestPushScreen from '../screens/TestPushScreen'
+import DetailedAnScreen from '../screens/DetailedAnnouncements'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -40,6 +41,7 @@ TestPushScreen.path = '';
 const AnnounceStack = createStackNavigator(
     {
         Announcements: AnnouncementScreen,
+        DetailedAn: DetailedAnScreen,
     },
     config
 );
