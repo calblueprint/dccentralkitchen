@@ -9,11 +9,20 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-// import MapView from 'react-native-maps';
+import MapView from 'react-native-maps';
 
 
 import { BASE } from "../lib/common.js"
 const storesTable = BASE("Stores").select({view: "Grid view"})
+var stores;
+storesTable.firstPage((err, records) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  stores = records.map(record => createStoreData(record));
+});
+
 const initialRegion = {
   latitude: 38.905548,
   longitude: -77.036623,
@@ -24,9 +33,9 @@ const initialRegion = {
 class StoresScreen extends React.Component {
     constructor(props) {
       super(props);
-      // this.state = {
-      //   region: initialRegion
-      // };
+      this.state = {
+        region: initialRegion
+      };
     }
     
     render() {

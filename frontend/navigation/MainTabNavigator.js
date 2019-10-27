@@ -130,7 +130,7 @@ const tabNavigator = createBottomTabNavigator({
   LinksStack,
   SettingsStack,
   ProductsStack,
-  // StoresStack
+  StoresStack
 });
 
 tabNavigator.path = '';
