@@ -260,10 +260,6 @@ export default class SignUp extends React.Component {
           title="Already have an account? Log in"
           onPress={() => this.props.navigation.navigate('Login')}
         />
-        <Button
-          title="Already have an account? Log in"
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
       </View>
     );
   }
