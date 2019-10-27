@@ -3,10 +3,10 @@ import { FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from '../components/Product';
-import { base } from '../lib/common.js';
+import { BASE } from '../lib/common.js';
 import { Button, ScrollCategory, styles } from '../styles.js';
 
-const productsTable = base('Products').select({ view: 'Grid view' });
+const productsTable = BASE('Products').select({ view: 'Grid view' });
 var fullProducts;
 const categories = [
   // Hard-coded for now -- should find a way to extract this information dynamically?
