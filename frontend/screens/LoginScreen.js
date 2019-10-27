@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { BASE } from '../lib/common.js';
 
@@ -14,6 +14,10 @@ export default class Login extends React.Component {
     };
   }
 
+  // lookupCustomer searches for users based on their
+  // phone numbers in the form (XXX) XXX-XXXX and checks against
+  // a correct password. If the user is found, we return their first
+  // and last name. Otherwise, we will display an error on the login screen.
   async lookupCustomer(phone_number, password) {
     return new Promise((resolve, reject) => {
       BASE('Customers')
@@ -29,10 +33,10 @@ export default class Login extends React.Component {
         .eachPage(
           function page(records, fetchNextPage) {
             if (records.length == 0) {
-              resolve('Incorrect phone number or password. Please try again.');
+              reject('Incorrect phone number or password. Please try again.');
             } else {
               records.forEach(function(record) {
-                resolve('Logged in as ' + record.get('Name'));
+                resolve([record.get('First Name'), record.get('Last Name')]);
               });
             }
             fetchNextPage();
@@ -46,6 +50,17 @@ export default class Login extends React.Component {
     });
   }
 
+  // From SignUpScreen. Sign in function. It sets the user token in local storage
+  // to be the fname + lname and then navigates to homescreen.
+  _asyncSignin = async (firstName, lastName) => {
+    //TODO @tmnguyen refactor use RECORD_IDs as tokens
+    // Possibly pass user info as props
+    await AsyncStorage.setItem('userToken', firstName + lastName);
+    this.props.navigation.navigate('App');
+  };
+
+  // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
+  // the user is found.
   async handleSubmit() {
     let formatted_phone_number = this.state.phoneNumber;
     formatted_phone_number = formatted_phone_number.replace('[^0-9]', '');
@@ -57,13 +72,18 @@ export default class Login extends React.Component {
       '-' +
       formatted_phone_number.slice(6, 10);
 
-    await this.lookupCustomer(formatted_phone_number, this.state.password).then(
-      resp => {
+    await this.lookupCustomer(formatted_phone_number, this.state.password)
+      .then(resp => {
         if (resp) {
+          let firstName = resp[0];
+          let lastName = resp[1];
+          this._asyncSignin(firstName, lastName);
           this.setState({ userDisplay: resp, phoneNumber: '', password: '' });
         }
-      }
-    );
+      })
+      .catch(err => {
+        this.setState({ userDisplay: err, phoneNumber: '', password: '' });
+      });
   }
 
   render() {
@@ -91,6 +111,7 @@ export default class Login extends React.Component {
   }
 }
 
+// TODO @anniero98 refactor to use styled-components
 const styles = StyleSheet.create({
   container: {
     flex: 1,
