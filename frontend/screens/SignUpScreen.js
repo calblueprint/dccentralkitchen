@@ -267,11 +267,7 @@ export default class SignUp extends React.Component {
           value={this.state.password}
         />
         <Button title="Sign Up" onPress={() => this.handleSubmit()} />
-<<<<<<< HEAD
-        <Button title="Testing Bypass" onPress={() => this.testingBypass()} />
-=======
         <Button title="Testing Bypass" onPress={() => this.devBypass()} />
->>>>>>> adec705f9e7e55bc25eab3a8927c40d66bdb8e42
       </View>
     );
   }
