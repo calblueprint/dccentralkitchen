@@ -6,7 +6,7 @@ import getEnvVars from '../environment';
 /**
  * Usage:
  * import { base } from "../lib/common.js"
- * base("Products")...
+ * BASE("Products")...
  **/
 
 const { AIRTABLE_API_KEY, AIRTABLE_BASE_ID } = getEnvVars();
