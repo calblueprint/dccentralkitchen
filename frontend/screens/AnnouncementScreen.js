@@ -14,10 +14,10 @@ let first_announcements = [];
 announceTable.eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
 
-    //Grabs title, description, date,
+    //Grabs title, description, date, per record and stores it in list.
     records.forEach(function(record) {
         let this_date = new Date(record.get('Date'))
-        let curr = {title: record.get('Title'), description: record.get('Description'), date: this_date, id: record.get('')}
+        let curr = {title: record.get('Title'), description: record.get('Description'), date: this_date, id: record.get('ID')}
         first_announcements.push(curr)
         console.log('Retrieved', typeof curr.date);
     });
@@ -40,18 +40,9 @@ class AnnouncementScreen extends React.Component {
         }
     }
 
-    async get() {
-        await fetch('https://api.airtable.com/v0/app4fXK49bqcjDMEo/Announcements?api_key=keyVrxZxSOUYHkz2e')
-            .then((resp) => resp.json())
-            .then(data => {
-                this.setState({ announcements:data.records });
-            }).catch(err => {
-        });
-        console.log(this.state.announcements)
-    }
-
     render() {
         return (
+
           <View>
               <View style={{flexDirection: 'row',}}>
                   <TouchableOpacity style={{flex: 1, alignItems: 'center',}} >
@@ -66,7 +57,7 @@ class AnnouncementScreen extends React.Component {
                   </TouchableOpacity>
               </View>
               <ScrollView >
-              {this.state.announcements.map(announce => <Announcements announcement = {announce}
+              {this.state.announcements.map(announce => <Announcements key={announce.id} announcement = {announce}
                                                                        navigation = {this.props.navigation}/> )}
               </ScrollView>
           </View>
