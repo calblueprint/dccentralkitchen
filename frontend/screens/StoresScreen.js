@@ -15,8 +15,8 @@ import MapView from 'react-native-maps';
 import { BASE } from "../lib/common.js"
 const storesTable = BASE("Stores").select({view: "Grid view"})
 const initialRegion = {
-  latitude: 37.78825,
-  longitude: -122.4324,
+  latitude: 38.905548,
+  longitude: -77.036623,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
