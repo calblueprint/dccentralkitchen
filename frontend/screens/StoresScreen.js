@@ -9,7 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import MapView from 'react-native-maps';
+// import MapView from 'react-native-maps';
 
 
 import { BASE } from "../lib/common.js"
@@ -24,9 +24,9 @@ const initialRegion = {
 class StoresScreen extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {
-        region: initialRegion
-      };
+      // this.state = {
+      //   region: initialRegion
+      // };
     }
     
     render() {

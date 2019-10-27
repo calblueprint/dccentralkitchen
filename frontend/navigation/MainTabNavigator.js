@@ -15,6 +15,13 @@ const config = Platform.select({
   default: {}
 });
 
+const StoresStack = createStackNavigator(
+  {
+    Stores: StoresScreen,
+  },
+  config
+);
+
 StoresStack.navigationOptions = {
   tabBarLabel: 'Stores',
   tabBarIcon: ({ focused }) => (
@@ -28,6 +35,7 @@ StoresStack.navigationOptions = {
     />  
     ),
   };
+
   
 StoresScreen.path = '';
 
@@ -55,12 +63,6 @@ ProductsStack.navigationOptions = {
 
 ProductsScreen.path = '';
 
-const StoresStack = createStackNavigator(
-  {
-    Stores: StoresScreen,
-  },
-  config
-);
 
 const HomeStack = createStackNavigator(
   {
@@ -128,7 +130,7 @@ const tabNavigator = createBottomTabNavigator({
   LinksStack,
   SettingsStack,
   ProductsStack,
-  StoresStack
+  // StoresStack
 });
 
 tabNavigator.path = '';
