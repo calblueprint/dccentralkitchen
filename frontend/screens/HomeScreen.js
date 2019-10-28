@@ -15,7 +15,21 @@ import {
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+<<<<<<< HEAD
   
+=======
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      points: '',
+      rewards: [],
+      redeemable: {},
+      announcements: ''
+    };
+    this.getUsersRewards = this.getUsersRewards.bind(this)
+  }
+>>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
   // Sign out function -- it clears the local storage then navigates
   // to the authentication page.
   _signOutAsync = async () => {
@@ -23,6 +37,119 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
+<<<<<<< HEAD
+=======
+  async componentDidMount() {
+    const phoneNumber = await AsyncStorage.getItem('phoneNumber');
+    await this.getUser(phoneNumber).then(
+      data => {
+        if (data) {
+          let points = data["fields"]["Points"]
+          let rewards = data["fields"]["Rewards"]
+          let name = data["fields"]["Name"]
+          let rewardRecords = []
+          rewards.forEach(id =>  {
+            rewardRecords.push(
+              new Promise((resolve, reject) => {
+                BASE('Rewards').find(id, function(err, record) {
+                  if (err) { console.error(err); reject(err); }
+                  console.log('Retrieved', record.id);
+                  resolve(record)
+                })
+              })
+            )
+          })
+          console.log(rewardRecords)
+          Promise.all(rewardRecords).then(records => {
+            this.setState({
+              points: points,
+              rewards: records,
+              name: name
+            })
+          })
+        } else {
+          console.error('Error fetching user info')
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  // TODO: @Johnathan merge this with checkforduplicates and make it a
+  // helper
+  async getUser(phoneNumber) {
+    return new Promise((resolve, reject) => {
+      BASE('Customers')
+        .select({
+          maxRecords: 1,
+          filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
+        })
+        .eachPage(
+          function page(records, fetchNextPage) {
+            if (records.length > 0) {
+              resolve(records[0]);
+            } else {
+              resolve('');
+            }
+            fetchNextPage();
+          },
+          err => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            } 
+          }
+        );
+    });
+  }
+  
+  getUsersRewards(rewardIDArray) {
+    let rewardRecords = []
+    rewardIDArray.forEach(id =>  {
+      rewardRecords.push(
+        new Promise((resolve, reject) => {
+          BASE('Rewards').find(id, function(err, record) {
+            if (err) { console.error(err); reject(err); }
+            // console.log('Retrieved', record.id);
+            resolve(record)
+          });
+        })
+      )
+    console.log(rewardRecords)
+    return rewardRecords
+    })
+    
+  }
+
+  async checkAvailableRewards(points) {
+    let availableRewards = {}
+    return new Promise((resolve, reject) => {
+      BASE('Rewards')
+        .select({
+          filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
+        })
+        .eachPage(
+          function page(records, fetchNextPage) {
+            records.forEach(record => {
+              if (parseInt(record.get('Point Values')) <= points) {
+                availableRewards[record.get('Name')] = record.getId()
+              }
+            resolve(availableRewards)
+            })
+          },
+          err => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            } 
+          }
+        );
+    });
+  }
+  
+>>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
   render() {
     return (
       <View style={styles.container}>
@@ -41,10 +168,14 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View style={styles.getStartedContainer}>
+<<<<<<< HEAD
             <DevelopmentModeNotice />
 
             <Text style={styles.getStartedText}>Get started by opening</Text>
 
+=======
+            <Text style={styles.getStartedText}> {"Welcome, " + this.state.name}</Text>
+>>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
             <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText>screens/HomeScreen.js</MonoText>
@@ -66,6 +197,7 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
+<<<<<<< HEAD
             This is a tab bar. You can edit it in:
           </Text>
 
@@ -75,6 +207,25 @@ export default class HomeScreen extends React.Component {
               navigation/MainTabNavigator.js
             </MonoText>
           </View>
+=======
+            Your Rewards:
+          </Text>
+          { this.state.rewards ? 
+            this.state.rewards.map(reward => {
+              return(
+                <View
+                  key={reward.get("Name")}
+                  style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+                  <MonoText style={styles.codeHighlightText}>
+                    {reward.get("Name")}
+                  </MonoText>
+                </View>
+              )
+            })
+            : ''
+          }
+          
+>>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
         </View>
       </View>
     );
@@ -170,13 +321,14 @@ const styles = StyleSheet.create({
   },
   tabBarInfoContainer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 200,
+    // marginTop: 20,
     left: 0,
     right: 0,
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
+        shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
       },
