@@ -74,7 +74,7 @@ export default class Login extends React.Component {
     await this.lookupCustomer(formatted_phone_number, this.state.password)
       .then(resp => {
         if (resp) {
-          this._asyncSignin(firstName, lastName);
+          this._asyncSignin(resp);
           this.setState({ userDisplay: resp, phoneNumber: '', password: '' });
         }
       })

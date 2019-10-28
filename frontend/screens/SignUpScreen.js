@@ -169,7 +169,7 @@ export default class SignUp extends React.Component {
         function(err, records) {
           if (err) {
             console.error(err);
-            return;
+            reject("Error adding")
           }
           records.forEach(function(record) {
             // Prints when you add for now,
@@ -250,6 +250,8 @@ export default class SignUp extends React.Component {
           placeholder="Phone Number"
           onChangeText={text => this.setState({ phoneNumber: text })}
           value={this.state.phoneNumber}
+          keyboardType="number-pad"
+          maxLength={10}
           // For future use to make forms even nicer
           // TODO: @Johnathan Figure out onBlur
           // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}

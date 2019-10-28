@@ -13,10 +13,10 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import { BASE } from '../lib/common'
+import { BASE } from '../lib/common.js';
+
 
 export default class HomeScreen extends React.Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -36,33 +36,43 @@ export default class HomeScreen extends React.Component {
   };
 
   async componentDidMount() {
-    const phoneNumber = await AsyncStorage.getItem('userId');
-    await this.getUser(phoneNumber).then(
+    const userId = await AsyncStorage.getItem('userId');
+    console.log(userId)
+    await this.getUser(userId).then(
       data => {
         if (data) {
           let points = data["fields"]["Points"]
           let rewards = data["fields"]["Rewards"]
           let name = data["fields"]["Name"]
           let rewardRecords = []
-          rewards.forEach(id =>  {
-            rewardRecords.push(
-              new Promise((resolve, reject) => {
-                BASE('Rewards').find(id, function(err, record) {
-                  if (err) { console.error(err); reject(err); }
-                  console.log('Retrieved', record.id);
-                  resolve(record)
+          if (rewards) {
+            rewards.forEach(id =>  {
+              rewardRecords.push(
+                new Promise((resolve, reject) => {
+                  BASE('Rewards').find(id, function(err, record) {
+                    if (err) { console.error(err); reject(err); }
+                    console.log('Retrieved', record.id);
+                    // console.log('Retrieved', record.id);
+                    resolve(record)
+                  })
                 })
+              )
+            })
+            console.log(rewardRecords)
+            Promise.all(rewardRecords).then(records => {
+              this.setState({
+                points: points,
+                rewards: records,
+                name: name
               })
-            )
-          })
-          console.log(rewardRecords)
-          Promise.all(rewardRecords).then(records => {
+            })
+          } else {
             this.setState({
               points: points,
-              rewards: records,
               name: name
             })
-          })
+          }
+          
         } else {
           console.error('Error fetching user info')
         }
@@ -72,7 +82,6 @@ export default class HomeScreen extends React.Component {
       }
     );
   }
-
   // TODO: @Johnathan merge this with checkforduplicates and make it a
   // helper
   async getUser(id) {
@@ -102,12 +111,26 @@ export default class HomeScreen extends React.Component {
     return new Promise((resolve, reject) => {
       BASE('Customers').find(id, function(err, record) {
         if (err) { console.error(err); reject(err); }
+        console.log('Retrieved', record.id);
+        console
         resolve(record)
       });
     })
   }
   
   getUsersRewards(rewardIDArray) {
+    // let rewardRecords = []
+    // return new Promise((resolve, reject) => {
+    //   rewardIDArray.forEach((id) =>  {
+    //     BASE('Rewards').find(id, function(err, record) {
+    //       if (err) { console.error(err); reject(err); }
+    //       console.log('Retrieved', record.id);
+    //       rewardRecords.push(record)
+    //     });
+    //   console.log(rewardRecords)
+    //   resolve(rewardRecords)
+    //   })
+    // })
     let rewardRecords = []
     rewardIDArray.forEach(id =>  {
       rewardRecords.push(
@@ -172,12 +195,10 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.getStartedText}> {"Welcome, " + this.state.name}</Text>
             <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText>screens/HomeScreen.js</MonoText>
+              <MonoText>{this.state.points} / 1000 </MonoText>
             </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
+            <Text style={styles.getStartedText}> {1000 - parseInt(this.state.points) + " points to your next reward"}</Text>
+           
           </View>
 
           <View style={styles.helpContainer}>
