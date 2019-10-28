@@ -5,9 +5,11 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import LoginScreen from '../screens/LoginScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },

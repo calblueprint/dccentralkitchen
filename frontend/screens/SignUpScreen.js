@@ -1,4 +1,3 @@
-import Airtable from 'airtable';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -16,7 +15,6 @@ import validatejs from 'validate.js';
 // import validate from  'screens/signup/validation_wrapper'
 
 import { MonoText } from '../components/StyledText';
-import getEnvVars from '../environment';
 import { BASE } from '../lib/common.js';
 
 export default class SignUp extends React.Component {
@@ -263,6 +261,10 @@ export default class SignUp extends React.Component {
           value={this.state.password}
         />
         <Button title="Sign Up" onPress={() => this.handleSubmit()} />
+        <Button
+          title="Already have an account? Log in"
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
         <Button title="Testing Bypass" onPress={() => this.devBypass()} />
       </View>
     );
