@@ -13,11 +13,10 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import { BASE } from '../lib/common'
 
 export default class HomeScreen extends React.Component {
-<<<<<<< HEAD
   
-=======
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +28,6 @@ export default class HomeScreen extends React.Component {
     };
     this.getUsersRewards = this.getUsersRewards.bind(this)
   }
->>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
   // Sign out function -- it clears the local storage then navigates
   // to the authentication page.
   _signOutAsync = async () => {
@@ -37,10 +35,8 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
-<<<<<<< HEAD
-=======
   async componentDidMount() {
-    const phoneNumber = await AsyncStorage.getItem('phoneNumber');
+    const phoneNumber = await AsyncStorage.getItem('userId');
     await this.getUser(phoneNumber).then(
       data => {
         if (data) {
@@ -79,30 +75,36 @@ export default class HomeScreen extends React.Component {
 
   // TODO: @Johnathan merge this with checkforduplicates and make it a
   // helper
-  async getUser(phoneNumber) {
+  async getUser(id) {
+    // return new Promise((resolve, reject) => {
+    //   BASE('Customers')
+    //     .select({
+    //       maxRecords: 1,
+    //       filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
+    //     })
+    //     .eachPage(
+    //       function page(records, fetchNextPage) {
+    //         if (records.length > 0) {
+    //           resolve(records[0]);
+    //         } else {
+    //           resolve('');
+    //         }
+    //         fetchNextPage();
+    //       },
+    //       err => {
+    //         if (err) {
+    //           console.error(err);
+    //           reject(err);
+    //         } 
+    //       }
+    //     );
+    // });
     return new Promise((resolve, reject) => {
-      BASE('Customers')
-        .select({
-          maxRecords: 1,
-          filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
-        })
-        .eachPage(
-          function page(records, fetchNextPage) {
-            if (records.length > 0) {
-              resolve(records[0]);
-            } else {
-              resolve('');
-            }
-            fetchNextPage();
-          },
-          err => {
-            if (err) {
-              console.error(err);
-              reject(err);
-            } 
-          }
-        );
-    });
+      BASE('Customers').find(id, function(err, record) {
+        if (err) { console.error(err); reject(err); }
+        resolve(record)
+      });
+    })
   }
   
   getUsersRewards(rewardIDArray) {
@@ -149,7 +151,6 @@ export default class HomeScreen extends React.Component {
     });
   }
   
->>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
   render() {
     return (
       <View style={styles.container}>
@@ -168,14 +169,7 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View style={styles.getStartedContainer}>
-<<<<<<< HEAD
-            <DevelopmentModeNotice />
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-=======
             <Text style={styles.getStartedText}> {"Welcome, " + this.state.name}</Text>
->>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
             <View
               style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText>screens/HomeScreen.js</MonoText>
@@ -197,17 +191,6 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
-<<<<<<< HEAD
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-=======
             Your Rewards:
           </Text>
           { this.state.rewards ? 
@@ -225,7 +208,6 @@ export default class HomeScreen extends React.Component {
             : ''
           }
           
->>>>>>> a6adfe9... Fixed promise bug, basic homepage working onw
         </View>
       </View>
     );
