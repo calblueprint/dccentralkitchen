@@ -1,5 +1,4 @@
 import React from 'react';
-import Airtable from 'airtable';
 import { styles, Button, ScrollCategory } from '../styles.js';
 
 import {
@@ -8,12 +7,12 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 
 import { BASE } from "../lib/common.js"
-const storesTable = BASE("Stores").select({view: "Grid view"})
+const storesTable = BASE("Stores").select({view: "Grid view"});
+
 var stores;
 storesTable.firstPage((err, records) => {
   if (err) {
@@ -34,27 +33,50 @@ class StoresScreen extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        region: initialRegion
+        region: initialRegion,
+        stores: stores
       };
     }
-    
+
+    onRegionChange = region => {
+      this.setState({ region: region });
+    }
+
+    handleMarkerPress = marker => {
+      this.props.navigation.navigate('StoresDetailed');
+    };
+
     render() {
         return (
-          <MapView
-            style={{flex: 1}}
-            region={this.state.region}
-            onRegionChange={this.onRegionChange}
-         />
+            <MapView 
+              style={{flex: 1}}
+              region={this.state.region}
+              onRegionChange={this.onRegionChange}>
+                {this.state.stores.map(marker => (
+                  <Marker
+                    coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+                    title={marker.name}
+                    description={marker.name}
+                    onPress={() => this.handleMarkerPress(marker)}
+                  />
+                ))}
+            </MapView>
         )
     }
 }
 
 
 
+
 function createStoreData(record) {
     object = record.fields
     return {
+      name: object['Store Name'],
+      id: record.id,
+      latitude: object['Latitude'],
+      longitude: object['Longitude']
     }
 }
+
 
 export default StoresScreen;

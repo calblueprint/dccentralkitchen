@@ -9,6 +9,7 @@ import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import StoresScreen from '../screens/StoresScreen';
+import StoresDetailedScreen from '../screens/StoresDetailedScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -18,6 +19,7 @@ const config = Platform.select({
 const StoresStack = createStackNavigator(
   {
     Stores: StoresScreen,
+    StoresDetailed: StoresDetailedScreen
   },
   config
 );
