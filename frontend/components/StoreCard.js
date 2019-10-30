@@ -10,7 +10,7 @@ import { Subtitle, Title } from '../styles.js';
 function StoreCard({ store }) {
   const { name, id, latitude, longitude, hours, address } = store;
   return (
-    <Text>{store.name}</Text>
+    <Text>{name}</Text>
   );
 }
 

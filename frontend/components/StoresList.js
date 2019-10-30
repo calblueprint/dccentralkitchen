@@ -5,22 +5,22 @@ import StoreCard from './StoreCard';
 
 import { Subtitle, Title, styles } from '../styles.js';
 
-
 /**
  * @prop
  **/
 
 function StoresList({stores}) {
   return (
-      <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
         <FlatList
-        style={styles.container}
-        numColumns={3}
-        data={stores}
-        renderItem={({ item }) => (
-            <StoreCard store={item}/>)}>
+            style={styles.container}
+            numColumns={3}
+            data={stores}
+            renderItem={({ item }) => (
+                <StoreCard store={item}/>)}
+                keyExtractor={(item, index) => index.toString()}>
         </FlatList>
-      </ScrollView>
+    </ScrollView>
   );
 }
 
