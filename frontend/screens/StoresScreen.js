@@ -11,6 +11,8 @@ import MapView, { Marker } from 'react-native-maps';
 
 
 import { BASE } from "../lib/common.js"
+import StoresList from '../components/StoresList';
+
 const storesTable = BASE("Stores").select({view: "Grid view"});
 
 var stores;
@@ -62,6 +64,7 @@ class StoresScreen extends React.Component {
                     onPress={() => this.handleMarkerPress(store)}
                   />
                 ))}
+                <StoresList stores={this.state.stores}/>
             </MapView>
         )
     }
