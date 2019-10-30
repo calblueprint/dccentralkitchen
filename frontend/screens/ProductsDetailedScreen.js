@@ -14,7 +14,7 @@ class ProductsDetailedScreen extends React.Component {
     const currentProduct = this.props.navigation.state.params.currentProduct;
     return (
       <View style={styles.imageContainer}>
-        <ProductInfo product={currentProduct} />
+        <ProductInfo product={currentProduct}/>
         <View style={{ marginTop: 40 }}>
           <Image
             source={require('../assets/images/robot-dev.png')}

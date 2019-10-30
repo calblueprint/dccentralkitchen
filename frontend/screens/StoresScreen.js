@@ -42,8 +42,10 @@ class StoresScreen extends React.Component {
       this.setState({ region: region });
     }
 
-    handleMarkerPress = marker => {
-      this.props.navigation.navigate('StoresDetailed');
+    handleMarkerPress = store => {
+      this.props.navigation.navigate('StoresDetailed', {
+        currentStore: store
+      });
     };
 
     render() {
@@ -52,12 +54,12 @@ class StoresScreen extends React.Component {
               style={{flex: 1}}
               region={this.state.region}
               onRegionChange={this.onRegionChange}>
-                {this.state.stores.map(marker => (
+                {this.state.stores.map(store => (
                   <Marker
-                    coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                    title={marker.name}
-                    description={marker.name}
-                    onPress={() => this.handleMarkerPress(marker)}
+                    coordinate={{latitude: store.latitude, longitude: store.longitude}}
+                    title={store.name}
+                    description={store.name}
+                    onPress={() => this.handleMarkerPress(store)}
                   />
                 ))}
             </MapView>
@@ -74,7 +76,9 @@ function createStoreData(record) {
       name: object['Store Name'],
       id: record.id,
       latitude: object['Latitude'],
-      longitude: object['Longitude']
+      longitude: object['Longitude'],
+      hours: object['Store Hours'],
+      address: object['Address']
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
 
-import ProductInfo from '../components/ProductInfo';
+import StoreInfo from '../components/StoreInfo';
 import { styles } from '../styles.js';
 
 class ProductsDetailedScreen extends React.Component {
@@ -11,9 +11,10 @@ class ProductsDetailedScreen extends React.Component {
   }
 
   render() {
+    const currentStore = this.props.navigation.state.params.currentStore;
     return (
-      <View style={styles.imageContainer}>
-       <Text>hi</Text>
+      <View>
+        <StoreInfo store={currentStore}/>
       </View>
     );
   }
