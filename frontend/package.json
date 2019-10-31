@@ -13,6 +13,9 @@
   "eslintConfig": {
     "extends": "universe/native"
   },
+  "eslintConfig": {
+    "extends": "universe/native"
+  },
   "jest": {
     "preset": "jest-expo"
   },
