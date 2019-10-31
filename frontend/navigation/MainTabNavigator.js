@@ -1,15 +1,15 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import LoginScreen from '../screens/LoginScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import SignUpScreen from '../screens/SignUpScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -63,25 +63,6 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen
-  },
-  config
-);
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
-  )
-};
-
-LinksStack.path = '';
-
 const SettingsStack = createStackNavigator(
   {
     Settings: SettingsScreen
@@ -103,9 +84,8 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
-  ProductsStack
+  ProductsStack,
+  SettingsStack
 });
 
 tabNavigator.path = '';

@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
   Image,
@@ -6,14 +5,13 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   AsyncStorage,
   Button
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import { BASE } from '../lib/common.js';
+import { BASE } from '../lib/common';
 
 
 export default class HomeScreen extends React.Component {
@@ -179,7 +177,8 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
+          contentContainerStyle={styles.contentContainer}
+        >
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -201,12 +200,12 @@ export default class HomeScreen extends React.Component {
            
           </View>
 
-          <View style={styles.helpContainer}>
-            <Button 
+          <View style={styles.signOutContainer}>
+            <Button
               title="Sign out"
-              onPress={this._signOutAsync} 
-              style={styles.helpLink}>
-            </Button>
+              onPress={this._signOutAsync}
+              style={styles.signOutButton}
+            ></Button>
           </View>
         </ScrollView>
 
@@ -236,23 +235,12 @@ export default class HomeScreen extends React.Component {
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+  header: null
 };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
+    return <Text style={styles.developmentModeText}>~development mode~</Text>;
   } else {
     return (
       <Text style={styles.developmentModeText}>
@@ -262,63 +250,41 @@ function DevelopmentModeNotice() {
   }
 }
 
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
     fontSize: 14,
     lineHeight: 19,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 20
   },
   welcomeImage: {
     width: 100,
     height: 80,
     resizeMode: 'contain',
     marginTop: 3,
-    marginLeft: -10,
+    marginLeft: -10
   },
   getStartedContainer: {
     alignItems: 'center',
-    marginHorizontal: 50,
+    marginHorizontal: 50
   },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
+  helloTitle: {
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
+    fontWeight: 'bold',
+    color: 'rgba(13, 99, 139, 0.8)',
     lineHeight: 24,
     textAlign: 'center',
   },
@@ -343,23 +309,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fbfbfb',
     paddingVertical: 20,
   },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
+  helloMessage: {
+    paddingVertical: 10,
+    fontSize: 15.5,
+    fontWeight: '600',
+    color: 'rgba(30, 183, 255, 0.8)',
+    lineHeight: 20,
+    textAlign: 'left'
   },
   navigationFilename: {
-    marginTop: 5,
+    marginTop: 5
   },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
+  signOutContainer: {
+    marginTop: 20,
+    alignItems: 'center'
   },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+  signOutButton: {
+    fontSize: 20,
+    paddingVertical: 15
+  }
 });
