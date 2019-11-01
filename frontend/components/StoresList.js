@@ -11,8 +11,8 @@ import { Subtitle, Title, styles } from '../styles.js';
 
 function StoresList({stores}) {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-        <FlatList
+    <ScrollView>
+      <FlatList
             style={styles.container}
             numColumns={3}
             data={stores}
