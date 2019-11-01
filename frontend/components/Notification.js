@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 import { Notifications } from 'expo';
 
+//TODO Migrate push notications to sever
 //general component to send push notification takes in title, body, Push Token
 export default class Notification extends React.Component {
 

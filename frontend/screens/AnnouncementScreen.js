@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 
-//call Airtable
+//TODO change to Common.js
 let base = new Airtable({apiKey: ''}).base('app4fXK49bqcjDMEo');
 const announceTable = base("Announcements").select({view: "Grid view"})
 let first_announcements = [];

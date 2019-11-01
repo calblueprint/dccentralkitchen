@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native'
 
+//TODO Update Styling to reflect mid-fi/Switch to Styled Components
 const styles = StyleSheet.create({
     rowContainer: {
         flex: 1,
@@ -28,6 +29,7 @@ class DetailedAnScreen extends React.Component {
     constructor(props) {
         super(props);
     }
+
 
     render() {
         let announcement = this.props.navigation.state.params.currentAnnouncement;
