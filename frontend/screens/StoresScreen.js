@@ -1,5 +1,5 @@
 import React from "react";
-import { Title } from "../styles.js";
+import { Title, StoreModalBar, styles } from "../styles.js";
 import { View, StyleSheet } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import MapView, { Marker } from "react-native-maps";
@@ -34,7 +34,7 @@ class StoresScreen extends React.Component {
   }
 
   renderInner = () => (
-    <View style={{ backgroundColor: "white", opacity: 0.8 }}>
+    <View style={styles.storesModal}>
       <StoresList
         stores={this.state.stores}
         screenChanger={store => this.detailedStoreTransition(store)}
@@ -43,22 +43,8 @@ class StoresScreen extends React.Component {
   );
 
   renderHeader = () => (
-    <View
-      style={{
-        backgroundColor: "white",
-        opacity: 0.8
-      }}
-    >
-      <View
-        style={{
-          borderBottomColor: "black",
-          borderBottomWidth: 5,
-          borderRadius: 2,
-          height: 15,
-          width: 50,
-          marginLeft: "40%"
-        }}
-      />
+    <View style={styles.storesModal}>
+      <StoreModalBar />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Title>Nearby</Title>
         <Title>Favourites</Title>

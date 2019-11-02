@@ -59,6 +59,15 @@ export const ButtonText = styled.Text`
   padding: 7.5px 7.5px;
 `;
 
+export const StoreModalBar = styled.View`
+  border: 1px solid black;
+  background-color: black
+  height: 5px;
+  width: 50px;
+  border-radius: 5px;
+  margin: 2% 0% 0% 42%;
+`;
+
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
   container: {
@@ -76,7 +85,8 @@ export const styles = StyleSheet.create({
     margin: 1,
     height: Dimensions.get("window").width / 4
   },
-  modal: {
-    backgroundColor: "grey"
+  storesModal: {
+    backgroundColor: "white",
+    opacity: 0.8
   }
 });
