@@ -1,5 +1,15 @@
-import { Dimensions, FlatList, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components/native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
+import styled from "styled-components/native";
 
 export const Title = styled.Text`
   font-size: 24px;
@@ -10,6 +20,11 @@ export const Subtitle = styled.Text`
   font-size: 16px;
   font-weight: bold;
   margin: 1% 5%;
+`;
+
+export const H3 = styled.Text`
+  font-size: 12px;
+  margin: 1% 6.5%;
 `;
 
 export const Notice = styled.Text`
@@ -51,14 +66,17 @@ export const styles = StyleSheet.create({
     marginVertical: 20
   },
   imageContainer: {
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   item: {
-    backgroundColor: '#919191',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    backgroundColor: "#919191",
+    alignItems: "center",
+    justifyContent: "flex-end",
     flex: 1,
     margin: 1,
-    height: Dimensions.get('window').width / 4
+    height: Dimensions.get("window").width / 4
+  },
+  modal: {
+    backgroundColor: "grey"
   }
 });

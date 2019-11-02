@@ -1,26 +1,21 @@
-import React from 'react';
-import { Text, View, FlatList } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import StoreCard from './StoreCard';
-
-import { Subtitle, Title, styles } from '../styles.js';
+import React from "react";
+import { View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import StoreCard from "./StoreCard";
 
 /**
  * @prop
  **/
 
-function StoresList({stores}) {
+function StoresList({ stores, screenChanger }) {
   return (
-    <ScrollView>
-      <FlatList
-            style={styles.container}
-            numColumns={3}
-            data={stores}
-            renderItem={({ item }) => (
-                <StoreCard store={item}/>)}
-                keyExtractor={(item, index) => index.toString()}>
-        </FlatList>
-    </ScrollView>
+    <View>
+      <ScrollView>
+        {stores.map(store => (
+          <StoreCard store={store} callBack={() => screenChanger(store)} />
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 
