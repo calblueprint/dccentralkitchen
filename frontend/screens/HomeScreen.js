@@ -36,41 +36,49 @@ export default class HomeScreen extends React.Component {
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     console.log(userId)
-    await this.getUser(userId).then(
+    this.getUser(userId).then(
       data => {
         if (data) {
           let points = data["fields"]["Points"]
           let rewards = data["fields"]["Rewards"]
           let name = data["fields"]["Name"]
-          let rewardRecords = []
-          if (rewards) {
-            rewards.forEach(id =>  {
-              rewardRecords.push(
-                new Promise((resolve, reject) => {
-                  BASE('Rewards').find(id, function(err, record) {
-                    if (err) { console.error(err); reject(err); }
-                    console.log('Retrieved', record.id);
-                    // console.log('Retrieved', record.id);
-                    resolve(record)
+          this.checkAvailableRewards(points).then(
+            availableRewards => {
+              this.setState({
+                redeemable: availableRewards
+              })
+              console.log("AVILALBE REWARDS", this.state.redeemable)
+              console.log("SLD be same", availableRewards)
+              let rewardRecords = []
+              if (rewards) {
+                rewards.forEach(id =>  {
+                  rewardRecords.push(
+                    new Promise((resolve, reject) => {
+                      BASE('Rewards').find(id, function(err, record) {
+                        if (err) { console.error(err); reject(err); }
+                        resolve(record)
+                      })
+                    })
+                  )
+                })
+                // console.log(rewardRecords)
+                Promise.all(rewardRecords).then(records => {
+                  this.setState({
+                    points: points,
+                    rewards: records,
+                    name: name,
+                    // redeemable: availableRewards
                   })
                 })
-              )
-            })
-            console.log(rewardRecords)
-            Promise.all(rewardRecords).then(records => {
-              this.setState({
-                points: points,
-                rewards: records,
-                name: name
-              })
-            })
-          } else {
-            this.setState({
-              points: points,
-              name: name
-            })
-          }
-          
+                console.log(this.state.redeemable)
+              } else {
+                this.setState({
+                  points: points,
+                  name: name,
+                })
+              }
+            }
+          )
         } else {
           console.error('Error fetching user info')
         }
@@ -83,29 +91,6 @@ export default class HomeScreen extends React.Component {
   // TODO: @Johnathan merge this with checkforduplicates and make it a
   // helper
   async getUser(id) {
-    // return new Promise((resolve, reject) => {
-    //   BASE('Customers')
-    //     .select({
-    //       maxRecords: 1,
-    //       filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
-    //     })
-    //     .eachPage(
-    //       function page(records, fetchNextPage) {
-    //         if (records.length > 0) {
-    //           resolve(records[0]);
-    //         } else {
-    //           resolve('');
-    //         }
-    //         fetchNextPage();
-    //       },
-    //       err => {
-    //         if (err) {
-    //           console.error(err);
-    //           reject(err);
-    //         } 
-    //       }
-    //     );
-    // });
     return new Promise((resolve, reject) => {
       BASE('Customers').find(id, function(err, record) {
         if (err) { console.error(err); reject(err); }
@@ -151,16 +136,14 @@ export default class HomeScreen extends React.Component {
     return new Promise((resolve, reject) => {
       BASE('Rewards')
         .select({
-          filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
+          filterByFormula: `{Point Values} <= ${points}`
         })
         .eachPage(
           function page(records, fetchNextPage) {
             records.forEach(record => {
-              if (parseInt(record.get('Point Values')) <= points) {
-                availableRewards[record.get('Name')] = record.getId()
-              }
-            resolve(availableRewards)
+                availableRewards[record.get('Name')] = record.getId()  
             })
+            resolve(availableRewards)
           },
           err => {
             if (err) {
@@ -211,14 +194,34 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
-            Your Rewards:
+            Rewards available to redeem::
+          </Text>
+          { this.state.redeemable ? 
+            Object.keys(this.state.redeemable).map((key, index) => {
+              return(
+                <View
+                  key={index}
+                  style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+                  <MonoText style={styles.codeHighlightText}>
+                    {key}
+                  </MonoText>
+                </View>
+              )
+            })
+            : ''
+          }
+        </View>
+        <View style={styles.tabBarInfoContainer2}>
+          <Text style={styles.tabBarInfoText}>
+            Your rewards:
           </Text>
           { this.state.rewards ? 
             this.state.rewards.map(reward => {
               return(
                 <View
                   key={reward.get("Name")}
-                  style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+                  style={[styles.codeHighlightContainer, styles.navigationFilename]}
+                  >
                   <MonoText style={styles.codeHighlightText}>
                     {reward.get("Name")}
                   </MonoText>
@@ -227,7 +230,6 @@ export default class HomeScreen extends React.Component {
             })
             : ''
           }
-          
         </View>
       </View>
     );
@@ -291,6 +293,27 @@ const styles = StyleSheet.create({
   tabBarInfoContainer: {
     position: 'absolute',
     bottom: 200,
+    // marginTop: 20,
+    left: 0,
+    right: 0,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 20,
+  },
+  tabBarInfoContainer2: {
+    position: 'absolute',
+    bottom: 400,
     // marginTop: 20,
     left: 0,
     right: 0,
