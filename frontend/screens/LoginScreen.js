@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { BASE } from '../lib/common.js';
+import { BASE } from '../lib/common';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -24,11 +24,11 @@ export default class Login extends React.Component {
         .select({
           maxRecords: 1,
           filterByFormula:
-            "AND({Phone Number} = '" +
-            phone_number +
-            "', {Password} = '" +
-            password +
-            "')"
+            `AND({Phone Number} = '${ 
+            phone_number 
+            }', {Password} = '${ 
+            password 
+            }')`
         })
         .eachPage(
           function page(records, fetchNextPage) {
@@ -53,7 +53,7 @@ export default class Login extends React.Component {
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignin = async (firstName, lastName) => {
-    //TODO @tmnguyen refactor use RECORD_IDs as tokens
+    // TODO @tmnguyen refactor use RECORD_IDs as tokens
     // Possibly pass user info as props
     await AsyncStorage.setItem('userToken', firstName + lastName);
     this.props.navigation.navigate('App');
@@ -65,18 +65,18 @@ export default class Login extends React.Component {
     let formatted_phone_number = this.state.phoneNumber;
     formatted_phone_number = formatted_phone_number.replace('[^0-9]', '');
     formatted_phone_number =
-      '(' +
-      formatted_phone_number.slice(0, 3) +
-      ') ' +
-      formatted_phone_number.slice(3, 6) +
-      '-' +
-      formatted_phone_number.slice(6, 10);
+      `(${ 
+      formatted_phone_number.slice(0, 3) 
+      }) ${ 
+      formatted_phone_number.slice(3, 6) 
+      }-${ 
+      formatted_phone_number.slice(6, 10)}`;
 
     await this.lookupCustomer(formatted_phone_number, this.state.password)
       .then(resp => {
         if (resp) {
-          let firstName = resp[0];
-          let lastName = resp[1];
+          const firstName = resp[0];
+          const lastName = resp[1];
           this._asyncSignin(firstName, lastName);
           this.setState({ userDisplay: resp, phoneNumber: '', password: '' });
         }
@@ -100,7 +100,7 @@ export default class Login extends React.Component {
         <TextInput
           style={styles.input}
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password}
         />

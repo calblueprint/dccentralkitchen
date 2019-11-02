@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/calblueprint/dccentralkitchen#readme",
   "dependencies": {
-    "airtable": "^0.7.1"
+    "react-navigation": "^4.0.10"
   }
 }

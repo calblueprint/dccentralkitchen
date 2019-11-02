@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { Subtitle, Title } from '../styles.js';
+import { Subtitle, Title } from '../styles';
 import SpecialNotice from './SpecialNotice';
 
 /**
  * @prop
- **/
+ * */
 
 function ProductInfo({ product }) {
   const { name, id, category, points, customerCost } = product;

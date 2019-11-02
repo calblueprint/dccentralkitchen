@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  AsyncStorage,
-  Button
-} from 'react-native';
+import { AsyncStorage, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default class HomeScreen extends React.Component {
   // Sign out function -- it clears the local storage then navigates
@@ -23,8 +14,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
-          contentContainerStyle={styles.contentContainer}
-        >
+          contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -56,8 +46,7 @@ export default class HomeScreen extends React.Component {
             <Button
               title="Sign out"
               onPress={this._signOutAsync}
-              style={styles.signOutButton}
-            ></Button>
+              style={styles.signOutButton} />
           </View>
         </ScrollView>
       </View>
@@ -72,13 +61,12 @@ HomeScreen.navigationOptions = {
 function DevelopmentModeNotice() {
   if (__DEV__) {
     return <Text style={styles.developmentModeText}>~development mode~</Text>;
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
   }
+  return (
+    <Text style={styles.developmentModeText}>
+      You are not in development mode: your app will run at full speed.
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({
