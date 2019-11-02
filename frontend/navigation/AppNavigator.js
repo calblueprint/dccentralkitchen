@@ -2,16 +2,15 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-
+import LoginScreen from '../screens/LoginScreen';
+import SignInScreen from '../screens/SignUpScreen';
 import MainTabNavigator from './MainTabNavigator';
-import SignInScreen from '../screens/SignUpScreen'
 
-
-const AuthStack = createStackNavigator({ SignIn: SignInScreen });
-import {
-  AsyncStorage
-} from 'react-native';
-
+const AuthStack = createStackNavigator({
+  SignIn: SignInScreen,
+  Login: LoginScreen
+});
+import { AsyncStorage } from 'react-native';
 
 class AuthLoadingScreen extends React.Component {
   constructor() {
@@ -30,9 +29,7 @@ class AuthLoadingScreen extends React.Component {
 
   // Render any loading content that you like here
   render() {
-    return (
-      null
-    );
+    return null;
   }
 }
 
@@ -43,10 +40,10 @@ export default createAppContainer(
     {
       AuthLoading: AuthLoadingScreen,
       App: MainTabNavigator,
-      Auth: AuthStack,
+      Auth: AuthStack
     },
     {
-      initialRouteName: "AuthLoading",
+      initialRouteName: 'AuthLoading'
     }
   )
 );

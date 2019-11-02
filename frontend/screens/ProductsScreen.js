@@ -3,11 +3,11 @@ import { FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from '../components/Product';
-import { BASE } from '../lib/common.js';
-import { Button, ScrollCategory, styles } from '../styles.js';
+import { BASE } from '../lib/common';
+import { Button, ScrollCategory, styles } from '../styles';
 
 const productsTable = BASE('Products').select({ view: 'Grid view' });
-var fullProducts;
+let fullProducts;
 const categories = [
   // Hard-coded for now -- should find a way to extract this information dynamically?
   'All',
@@ -45,8 +45,11 @@ class ProductsScreen extends React.Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {categories.map(category => (
-            <Button onPress={() => this.handleCategoryPress(category)}>
+          {categories.map((category, index) => (
+            <Button
+              key={index}
+              onPress={() => this.handleCategoryPress(category)}
+            >
               <ScrollCategory> {category} </ScrollCategory>
             </Button>
           ))}
@@ -54,9 +57,12 @@ class ProductsScreen extends React.Component {
         <FlatList
           // TODO @tommypoa refactor styles to use styled-components
           style={styles.container}
+          keyExtractor={(item, _) => item.id}
           numColumns={3}
           data={this.state.products}
           renderItem={({ item }) => (
+            // TODO @tommypoa: think it would be better to extract the `onPress` here,
+            // and possibly create the Button wrapping a Product using a function as with other components, but in-file
             <Button
               onPress={() =>
                 this.props.navigation.navigate('ProductsDetailed', {
@@ -67,7 +73,6 @@ class ProductsScreen extends React.Component {
               <Product product={item} />
             </Button>
           )}
-          keyExtractor={(item, index) => index.toString()}
         ></FlatList>
       </ScrollView>
     );
