@@ -1,5 +1,5 @@
-import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
+import React from 'react';
 
 export default function SettingsScreen() {
   /**
@@ -10,5 +10,5 @@ export default function SettingsScreen() {
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
+  title: 'app.json'
 };
