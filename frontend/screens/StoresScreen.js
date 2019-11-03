@@ -1,11 +1,13 @@
 import React from "react";
-import { Title, StoreModalBar, styles } from "../styles.js";
+import { Title, StoreModalBar, styles } from "../styles";
 import { View, StyleSheet } from "react-native";
 import BottomSheet from "reanimated-bottom-sheet";
 import MapView, { Marker } from "react-native-maps";
+import StoreCard from "../components/StoreCard";
+import { ScrollView } from "react-native-gesture-handler";
 
-import { BASE } from "../lib/common.js";
-import StoresList from "../components/StoresList";
+
+import { BASE } from "../lib/common";
 
 const storesTable = BASE("Stores").select({ view: "Grid view" });
 var stores;
@@ -33,21 +35,24 @@ class StoresScreen extends React.Component {
     };
   }
 
-  renderInner = () => (
-    <View style={styles.storesModal}>
-      <StoresList
-        stores={this.state.stores}
-        screenChanger={store => this.detailedStoreTransition(store)}
-      />
-    </View>
-  );
-
-  renderHeader = () => (
+  renderHeader = () => ( // TODO @tommypoa Favourites functionality
     <View style={styles.storesModal}>
       <StoreModalBar />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Title>Nearby</Title>
-        <Title>Favourites</Title>
+        {/* <Title>Favourites</Title> */}
+      </View>
+    </View>
+  );
+
+  renderInner = () => (
+    <View style={styles.storesModal}>
+      <View>
+        <ScrollView>
+          {stores.map(store => (
+            <StoreCard store={store} callBack={() => this.detailedStoreTransition(store)} />
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
