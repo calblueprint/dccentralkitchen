@@ -1,11 +1,10 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import {
-  createBottomTabNavigator,
-  createStackNavigator
-} from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
+import AnnouncementScreen from '../screens/AnnouncementScreen';
+import DetailedAnScreen from '../screens/DetailedAnnouncements';
 import HomeScreen from '../screens/HomeScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
@@ -15,6 +14,30 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {}
 });
+
+const AnnounceStack = createStackNavigator(
+  {
+    Announcements: AnnouncementScreen,
+    DetailedAn: DetailedAnScreen
+  },
+  config
+);
+
+AnnounceStack.navigationOptions = {
+  tabBarLabel: 'Announcements',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  )
+};
+
+AnnouncementScreen.path = '';
 
 const ProductsStack = createStackNavigator(
   {
@@ -84,6 +107,7 @@ SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
+  AnnounceStack,
   ProductsStack,
   SettingsStack
 });
