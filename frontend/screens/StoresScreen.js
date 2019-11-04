@@ -11,7 +11,7 @@ import { BASE } from "../lib/common";
 
 const storesTable = BASE("Stores").select({ view: "Grid view" });
 var stores;
-storesTable.firstPage((err, records) => {
+storesTable.firstPage((err, records) => { // TODO @tommypoa fetch all pages
   if (err) {
     console.error(err);
     return;
