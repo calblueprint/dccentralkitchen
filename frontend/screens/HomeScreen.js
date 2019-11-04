@@ -24,8 +24,8 @@ export default class HomeScreen extends React.Component {
       redeemable: {},
       announcements: ''
     };
-    this.getUsersRewards = this.getUsersRewards.bind(this)
   }
+
   // Sign out function -- it clears the local storage then navigates
   // to the authentication page.
   _signOutAsync = async () => {
@@ -35,124 +35,61 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-    console.log(userId)
-    this.getUser(userId).then(
-      data => {
-        if (data) {
-          let points = data["fields"]["Points"]
-          let rewards = data["fields"]["Rewards"]
-          let name = data["fields"]["Name"]
-          this.checkAvailableRewards(points).then(
-            availableRewards => {
+    this.getUser(userId).then(userRecord => {
+      if (userRecord) {
+        let points = userRecord["fields"]["Points"]
+        let rewards = userRecord["fields"]["Rewards"]
+        let name = userRecord["fields"]["Name"]
+        this.checkAvailableRewards(points).then(records => {
+          availableRewards = {}
+          records.forEach(record => {
+            availableRewards[record.get('Name')] = record.getId()  
+          })
+          this.setState({
+            redeemable: availableRewards
+          })
+          if (rewards) {
+            let rewardRecords = rewards.map(id => BASE('Rewards').find(id))
+            Promise.all(rewardRecords).then(records => {
               this.setState({
-                redeemable: availableRewards
+                points: points,
+                rewards: records,
+                name: name,
               })
-              console.log("AVILALBE REWARDS", this.state.redeemable)
-              console.log("SLD be same", availableRewards)
-              let rewardRecords = []
-              if (rewards) {
-                rewards.forEach(id =>  {
-                  rewardRecords.push(
-                    new Promise((resolve, reject) => {
-                      BASE('Rewards').find(id, function(err, record) {
-                        if (err) { console.error(err); reject(err); }
-                        resolve(record)
-                      })
-                    })
-                  )
-                })
-                // console.log(rewardRecords)
-                Promise.all(rewardRecords).then(records => {
-                  this.setState({
-                    points: points,
-                    rewards: records,
-                    name: name,
-                    // redeemable: availableRewards
-                  })
-                })
-                console.log(this.state.redeemable)
-              } else {
-                this.setState({
-                  points: points,
-                  name: name,
-                })
-              }
-            }
-          )
-        } else {
-          console.error('Error fetching user info')
-        }
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-  // TODO: @Johnathan merge this with checkforduplicates and make it a
-  // helper
-  async getUser(id) {
-    return new Promise((resolve, reject) => {
-      BASE('Customers').find(id, function(err, record) {
-        if (err) { console.error(err); reject(err); }
-        console.log('Retrieved', record.id);
-        console
-        resolve(record)
-      });
-    })
-  }
-  
-  getUsersRewards(rewardIDArray) {
-    // let rewardRecords = []
-    // return new Promise((resolve, reject) => {
-    //   rewardIDArray.forEach((id) =>  {
-    //     BASE('Rewards').find(id, function(err, record) {
-    //       if (err) { console.error(err); reject(err); }
-    //       console.log('Retrieved', record.id);
-    //       rewardRecords.push(record)
-    //     });
-    //   console.log(rewardRecords)
-    //   resolve(rewardRecords)
-    //   })
-    // })
-    let rewardRecords = []
-    rewardIDArray.forEach(id =>  {
-      rewardRecords.push(
-        new Promise((resolve, reject) => {
-          BASE('Rewards').find(id, function(err, record) {
-            if (err) { console.error(err); reject(err); }
-            // console.log('Retrieved', record.id);
-            resolve(record)
-          });
+            })
+          } else {
+            this.setState({
+              points: points,
+              name: name,
+            })
+          }
+        }).catch(err => {
+          console.error(err)
         })
-      )
-    console.log(rewardRecords)
-    return rewardRecords
+      } else {
+        console.error('User data is undefined or empty.')
+      }
+    }).catch(err => {
+      console.error(err)
     })
-    
   }
 
+  // Calls Airtable API to return a promise that
+  // will resolve to be a user record.
+  async getUser(id) {
+    return BASE('Customers').find(id)
+  }
+  
+  // Calls Airtable API to returna promise that 
+  // will resolve to be an array of records that
+  // require less than the given number points to
+  // redeem. 
   async checkAvailableRewards(points) {
-    let availableRewards = {}
-    return new Promise((resolve, reject) => {
-      BASE('Rewards')
-        .select({
-          filterByFormula: `{Point Values} <= ${points}`
-        })
-        .eachPage(
-          function page(records, fetchNextPage) {
-            records.forEach(record => {
-                availableRewards[record.get('Name')] = record.getId()  
-            })
-            resolve(availableRewards)
-          },
-          err => {
-            if (err) {
-              console.error(err);
-              reject(err);
-            } 
-          }
-        );
-    });
+    return BASE('Rewards')
+      .select({
+        filterByFormula: `{Point Values} <= ${points}`
+      })
+      .firstPage()
   }
   
   render() {
@@ -194,7 +131,7 @@ export default class HomeScreen extends React.Component {
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
-            Rewards available to redeem::
+            Rewards available to redeem:
           </Text>
           { this.state.redeemable ? 
             Object.keys(this.state.redeemable).map((key, index) => {
@@ -292,7 +229,7 @@ const styles = StyleSheet.create({
   },
   tabBarInfoContainer: {
     position: 'absolute',
-    bottom: 200,
+    bottom: 150,
     // marginTop: 20,
     left: 0,
     right: 0,
@@ -313,7 +250,7 @@ const styles = StyleSheet.create({
   },
   tabBarInfoContainer2: {
     position: 'absolute',
-    bottom: 400,
+    bottom: 300,
     // marginTop: 20,
     left: 0,
     right: 0,

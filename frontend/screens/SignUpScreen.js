@@ -10,6 +10,8 @@ import validatejs from 'validate.js';
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
 // so I put it all in this one file.
 // TODO: @Johnathan Abstract everything in to separate files
+// TODO: @Johnathan Refactor Airtable calls
+
 // import { MonoText } from 'screens/signup/textfield.jsx'
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
@@ -94,7 +96,7 @@ export default class SignUp extends React.Component {
     // If we don't have any bugs already with form validation,
     // we'll check for duplicates here in the Airtable.
     if (!phoneNumberError) {
-      await this.checkForDuplicates(formatted_phone_number).then(
+      this.checkForDuplicates(formatted_phone_number).then(
         resolvedValue => {
           if (resolvedValue) {
             phoneNumberError = 'Phone number in use already.';
@@ -120,7 +122,7 @@ export default class SignUp extends React.Component {
       !this.state.phoneNumberError &&
       !this.state.passwordError
     ) {
-      await this.addCustomer(
+      this.addCustomer(
         this.state.firstName,
         this.state.lastName,
         this.state.phoneNumber,
