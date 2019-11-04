@@ -4,7 +4,7 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
-import DetailedAnScreen from '../screens/DetailedAnnouncements';
+import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
@@ -18,7 +18,7 @@ const config = Platform.select({
 const AnnounceStack = createStackNavigator(
   {
     Announcements: AnnouncementScreen,
-    DetailedAn: DetailedAnScreen
+    AnnouncementsDetailed: AnnouncementsDetailedScreen
   },
   config
 );
