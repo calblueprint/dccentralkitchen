@@ -36,7 +36,7 @@ export default class Login extends React.Component {
               reject('Incorrect phone number or password. Please try again.');
             } else {
               records.forEach(function(record) {
-                resolve([record.get('First Name'), record.get('Last Name')]);
+                resolve(record.getId());
               });
             }
             fetchNextPage();
@@ -52,10 +52,9 @@ export default class Login extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
-  _asyncSignin = async (firstName, lastName) => {
-    // TODO @tmnguyen refactor use RECORD_IDs as tokens
-    // Possibly pass user info as props
-    await AsyncStorage.setItem('userToken', firstName + lastName);
+  _asyncSignin = async (userId) => {
+    await AsyncStorage.setItem('userId', userId);
+    console.log(userId)
     this.props.navigation.navigate('App');
   };
 
@@ -75,9 +74,7 @@ export default class Login extends React.Component {
     await this.lookupCustomer(formatted_phone_number, this.state.password)
       .then(resp => {
         if (resp) {
-          const firstName = resp[0];
-          const lastName = resp[1];
-          this._asyncSignin(firstName, lastName);
+          this._asyncSignin(resp);
           this.setState({ userDisplay: resp, phoneNumber: '', password: '' });
         }
       })
