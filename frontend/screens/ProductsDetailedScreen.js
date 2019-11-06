@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, View } from 'react-native';
 
 import ProductInfo from '../components/ProductInfo';
-import { styles } from '../styles.js';
+import { styles } from '../styles';
 
 class ProductsDetailedScreen extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class ProductsDetailedScreen extends React.Component {
     const currentProduct = this.props.navigation.state.params.currentProduct;
     return (
       <View style={styles.imageContainer}>
-        <ProductInfo product={currentProduct}/>
+        <ProductInfo product={currentProduct} />
         <View style={{ marginTop: 40 }}>
           <Image
             source={require('../assets/images/robot-dev.png')}

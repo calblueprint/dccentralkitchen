@@ -1,17 +1,17 @@
-import React from "react";
-import { Title, StoreModalBar, styles } from "../styles";
-import { View, StyleSheet } from "react-native";
-import BottomSheet from "reanimated-bottom-sheet";
-import MapView, { Marker } from "react-native-maps";
-import StoreCard from "../components/StoreCard";
-import { ScrollView } from "react-native-gesture-handler";
+import React from 'react';
+import { Title, StoreModalBar, styles } from '../styles';
+import { View, StyleSheet } from 'react-native';
+import BottomSheet from 'reanimated-bottom-sheet';
+import MapView, { Marker } from 'react-native-maps';
+import StoreCard from '../components/StoreCard';
+import { ScrollView } from 'react-native-gesture-handler';
 
+import { BASE } from '../lib/common';
 
-import { BASE } from "../lib/common";
-
-const storesTable = BASE("Stores").select({ view: "Grid view" });
+const storesTable = BASE('Stores').select({ view: 'Grid view' });
 var stores;
-storesTable.firstPage((err, records) => { // TODO @tommypoa fetch all pages
+storesTable.firstPage((err, records) => {
+  // TODO @tommypoa fetch all pages
   if (err) {
     console.error(err);
     return;
@@ -26,6 +26,18 @@ const initialRegion = {
   longitudeDelta: 0.0421
 };
 
+function createStoreData(record) {
+  object = record.fields;
+  return {
+    name: object['Store Name'],
+    id: record.id,
+    latitude: object['Latitude'],
+    longitude: object['Longitude'],
+    hours: object['Store Hours'],
+    address: object['Address']
+  };
+}
+
 class StoresScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -35,10 +47,11 @@ class StoresScreen extends React.Component {
     };
   }
 
-  renderHeader = () => ( // TODO @tommypoa Favourites functionality
+  renderHeader = () => (
+    // TODO @tommypoa Favourites functionality
     <View style={styles.storesModal}>
       <StoreModalBar />
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <Title>Nearby</Title>
         {/* <Title>Favourites</Title> */}
       </View>
@@ -49,8 +62,11 @@ class StoresScreen extends React.Component {
     <View style={styles.storesModal}>
       <View>
         <ScrollView>
-          {stores.map(store => (
-            <StoreCard store={store} callBack={() => this.detailedStoreTransition(store)} />
+          {this.state.stores.map(store => (
+            <StoreCard
+              store={store}
+              callBack={() => this.detailedStoreTransition(store)}
+            />
           ))}
         </ScrollView>
       </View>
@@ -62,7 +78,7 @@ class StoresScreen extends React.Component {
   };
 
   detailedStoreTransition = store => {
-    this.props.navigation.navigate("StoresDetailed", {
+    this.props.navigation.navigate('StoresDetailed', {
       currentStore: store
     });
   };
@@ -73,8 +89,7 @@ class StoresScreen extends React.Component {
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
-          onRegionChange={this.onRegionChange}
-        >
+          onRegionChange={this.onRegionChange}>
           {this.state.stores.map(store => (
             <Marker
               coordinate={{
@@ -92,7 +107,7 @@ class StoresScreen extends React.Component {
             initialSnap={1}
             enabledInnerScrolling={true}
             enabledGestureInteraction={true}
-            snapPoints={["80%", "40%", "10%"]}
+            snapPoints={['80%', '40%', '10%']}
             renderContent={this.renderInner}
             renderHeader={this.renderHeader}
           />
@@ -100,18 +115,6 @@ class StoresScreen extends React.Component {
       </View>
     );
   }
-}
-
-function createStoreData(record) {
-  object = record.fields;
-  return {
-    name: object["Store Name"],
-    id: record.id,
-    latitude: object["Latitude"],
-    longitude: object["Longitude"],
-    hours: object["Store Hours"],
-    address: object["Address"]
-  };
 }
 
 export default StoresScreen;

@@ -1,24 +1,9 @@
-<<<<<<< HEAD
-import React from "react";
-import { Platform } from "react-native";
+import React from 'react';
+import { Platform } from 'react-native';
 import {
   createBottomTabNavigator,
   createStackNavigator
-} from "react-navigation";
-
-import TabBarIcon from "../components/TabBarIcon";
-import AnnouncementScreen from "../screens/AnnouncementScreen";
-import DetailedAnScreen from "../screens/DetailedAnnouncements";
-import HomeScreen from "../screens/HomeScreen";
-import ProductsDetailedScreen from "../screens/ProductsDetailedScreen";
-import ProductsScreen from "../screens/ProductsScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import StoresScreen from "../screens/StoresScreen";
-import StoresDetailedScreen from "../screens/StoresDetailedScreen";
-=======
-import React from 'react';
-import { Platform } from 'react-native';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
@@ -27,10 +12,11 @@ import HomeScreen from '../screens/HomeScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
->>>>>>> master
+import StoresScreen from '../screens/StoresScreen';
+import StoresDetailedScreen from '../screens/StoresDetailedScreen';
 
 const config = Platform.select({
-  web: { headerMode: "screen" },
+  web: { headerMode: 'screen' },
   default: {}
 });
 
@@ -43,20 +29,20 @@ const StoresStack = createStackNavigator(
 );
 
 StoresStack.navigationOptions = {
-  tabBarLabel: "Stores",
+  tabBarLabel: 'Stores',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
       }
     />
   )
 };
 
-StoresScreen.path = "";
+StoresScreen.path = '';
 
 const AnnounceStack = createStackNavigator(
   {
@@ -67,20 +53,20 @@ const AnnounceStack = createStackNavigator(
 );
 
 AnnounceStack.navigationOptions = {
-  tabBarLabel: "Announcements",
+  tabBarLabel: 'Announcements',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
       }
     />
   )
 };
 
-AnnouncementScreen.path = "";
+AnnouncementScreen.path = '';
 
 const ProductsStack = createStackNavigator(
   {
@@ -91,20 +77,20 @@ const ProductsStack = createStackNavigator(
 );
 
 ProductsStack.navigationOptions = {
-  tabBarLabel: "Products",
+  tabBarLabel: 'Products',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
       }
     />
   )
 };
 
-ProductsScreen.path = "";
+ProductsScreen.path = '';
 
 const HomeStack = createStackNavigator(
   {
@@ -114,20 +100,20 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
+  tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
-          : "md-information-circle"
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
       }
     />
   )
 };
 
-HomeStack.path = "";
+HomeStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -137,16 +123,16 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: "Settings",
+  tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-options" : "md-options"}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
     />
   )
 };
 
-SettingsStack.path = "";
+SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
@@ -156,6 +142,6 @@ const tabNavigator = createBottomTabNavigator({
   StoresStack
 });
 
-tabNavigator.path = "";
+tabNavigator.path = '';
 
 export default tabNavigator;
