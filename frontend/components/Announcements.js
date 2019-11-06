@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableHighlight, TouchableOpacity,} from 'react-native'
-
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const styles = StyleSheet.create({
     rowContainer: {
@@ -45,7 +44,7 @@ class Announcements extends React.Component {
         return(
             <TouchableOpacity
                 onPress={() =>
-                this.props.navigation.navigate('DetailedAn', {
+                this.props.navigation.navigate('AnnouncementsDetailed', {
                     currentAnnouncement: this.props.announcement
                 })}>
                 <View style={styles.rowContainer}>

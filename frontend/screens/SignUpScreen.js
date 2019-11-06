@@ -10,6 +10,8 @@ import validatejs from 'validate.js';
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
 // so I put it all in this one file.
 // TODO: @Johnathan Abstract everything in to separate files
+// TODO: @Johnathan Refactor Airtable calls
+
 // import { MonoText } from 'screens/signup/textfield.jsx'
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
@@ -98,7 +100,7 @@ export default class SignUp extends React.Component {
     // If we don't have any bugs already with form validation,
     // we'll check for duplicates here in the Airtable.
     if (!phoneNumberError) {
-      await this.checkForDuplicates(formatted_phone_number).then(
+      this.checkForDuplicates(formatted_phone_number).then(
         resolvedValue => {
           if (resolvedValue) {
             phoneNumberError = 'Phone number in use already.';
@@ -130,17 +132,20 @@ export default class SignUp extends React.Component {
         this.state.phoneNumber,
         this.state.password,
         this.state.pushToken
-      );
-      this.setState({
-        firstName: '',
-        lastName: '',
-        password: '',
-        passwordError: '',
-        phoneNumber: '',
-        phoneNumberError: '',
-        pushToken: ''
-      });
-      this._asyncSignin();
+      ).then(data => {
+        this.setState({
+          firstName: '',
+          lastName: '',
+          password: '',
+          passwordError: '',
+          phoneNumber: '',
+          phoneNumberError: '',
+          pushToken: '',
+          id: data
+        });
+        this._asyncSignin();
+      })
+      
     } else {
       // For now it just tells you what you did wrong -- stretch
       // is to make it update onBlur() -- code is below for it.
@@ -152,32 +157,36 @@ export default class SignUp extends React.Component {
   // Helper function for adding customers to the database. Takes
   // in all the relevant information from the form and calls the
   // Airtable API to create the record.
-  addCustomer(fname, lname, phoneNumber, password, pushToken) {
-    BASE('Customers').create(
-      [
-        {
-          fields: {
-            'First Name': fname,
-            'Last Name': lname,
-            'Phone Number': phoneNumber,
-            Password: password,
-            Points: 0,
-            'Push Token': pushToken
+  async addCustomer(fname, lname, phoneNumber, password, pushToken) {
+    return new Promise((resolve, reject) => {
+      BASE('Customers').create(
+        [
+          {
+            fields: {
+              'First Name': fname,
+              'Last Name': lname,
+              'Phone Number': phoneNumber,
+              Password: password,
+              Points: 0,
+              'Push Token': pushToken
+            }
           }
+        ],
+        function(err, records) {
+          if (err) {
+            console.error(err);
+            reject("Error adding")
+          }
+          records.forEach(function(record) {
+            // Prints when you add for now,
+            // not sure what else we should be doing here.
+            console.log(record.getId());
+            resolve(record.getId())
+          });
         }
-      ],
-      function(err, records) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        records.forEach(function(record) {
-          // Prints when you add for now,
-          // not sure what else we should be doing here.
-          console.log(record.getId());
-        });
-      }
-    );
+      );
+    })  
+
   }
 
   // This function checks the customers table for any duplicates
@@ -221,8 +230,8 @@ export default class SignUp extends React.Component {
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignin = async () => {
     await AsyncStorage.setItem(
-      'userToken',
-      this.state.firstName + this.state.lastName
+      'userId',
+      this.state.id
     );
     this.props.navigation.navigate('App');
   };
@@ -247,6 +256,8 @@ export default class SignUp extends React.Component {
           placeholder="Phone Number"
           onChangeText={text => this.setState({ phoneNumber: text })}
           value={this.state.phoneNumber}
+          keyboardType="number-pad"
+          maxLength={10}
           // For future use to make forms even nicer
           // TODO: @Johnathan Figure out onBlur
           // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { Platform } from "react-native";
 import {
@@ -14,6 +15,19 @@ import ProductsScreen from "../screens/ProductsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import StoresScreen from "../screens/StoresScreen";
 import StoresDetailedScreen from "../screens/StoresDetailedScreen";
+=======
+import React from 'react';
+import { Platform } from 'react-native';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+
+import TabBarIcon from '../components/TabBarIcon';
+import AnnouncementScreen from '../screens/AnnouncementScreen';
+import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
+import HomeScreen from '../screens/HomeScreen';
+import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
+import ProductsScreen from '../screens/ProductsScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+>>>>>>> master
 
 const config = Platform.select({
   web: { headerMode: "screen" },
@@ -47,7 +61,7 @@ StoresScreen.path = "";
 const AnnounceStack = createStackNavigator(
   {
     Announcements: AnnouncementScreen,
-    DetailedAn: DetailedAnScreen
+    AnnouncementsDetailed: AnnouncementsDetailedScreen
   },
   config
 );

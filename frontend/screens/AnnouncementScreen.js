@@ -1,4 +1,3 @@
-import Airtable from 'airtable';
 import React from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
@@ -6,21 +5,21 @@ import Announcements from '../components/Announcements';
 import { BASE } from '../lib/common';
 
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
-const first_announcements = [];
+const firstAnnouncements = [];
 announceTable.eachPage(
   function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
 
     // Grabs title, description, date, per record and stores it in list.
     records.forEach(function(record) {
-      let this_date = new Date(record.get('Date'));
+      let thisDate = new Date(record.get('Created'));
       let curr = {
         title: record.get('Title'),
         description: record.get('Description'),
-        date: this_date,
+        date: thisDate,
         id: record.get('ID')
       };
-      first_announcements.push(curr);
+      firstAnnouncements.push(curr);
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
@@ -29,14 +28,16 @@ announceTable.eachPage(
     fetchNextPage();
   },
   function done(err) {
-    if (err) { console.error(err);  }
+    if (err) {
+      console.error(err);
+    }
 });
 
 class AnnouncementScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      announcements: first_announcements
+      announcements: firstAnnouncements
     };
   }
 
