@@ -218,7 +218,13 @@ export default class SignUp extends React.Component {
   }
 
   // Purely to bypass signups for development -- developer is not required to sign up to enter home screen.
-  devBypass() {
+  // Configures to use David Ro's test account
+  _devBypass = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem(
+      'userId',
+      'recomWMtzSUQCcIvr'
+    );
     this.props.navigation.navigate('App');
   }
 
@@ -276,7 +282,7 @@ export default class SignUp extends React.Component {
           title="Already have an account? Log in"
           onPress={() => this.props.navigation.navigate('Login')}
         />
-        <Button title="Testing Bypass" onPress={() => this.devBypass()} />
+        <Button title="Testing Bypass" onPress={() => this._devBypass()} />
       </View>
     );
   }
