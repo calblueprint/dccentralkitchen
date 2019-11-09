@@ -2,7 +2,7 @@ import React from 'react';
 import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import { BASE } from '../lib/common';
+import { BASE, IMG_KEY } from '../lib/common';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -22,6 +22,41 @@ export default class HomeScreen extends React.Component {
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
+
+  _uploadImage = async () => {
+    let url = "https://i.imgur.com/EMNDZC3.png"
+    let params = "?key=" + IMG_KEY + "&image=" +  url
+    fetch(`https://api.imgbb.com/1/upload${params}`, {
+      method: 'POST',
+    })
+    .then(data => {
+      return data.json()
+    })
+    .then(data => {
+      console.log("SHOULD BE JOSN DATA", data)
+      let postUrl = data["data"]["display_url"]
+      console.log("post url", postUrl)
+      BASE('d').create([
+        {
+          "fields": {
+            "Attachments": [
+              {
+                "url": postUrl
+              }
+            ]
+          }
+        }
+      ], {typecast: true}, function(err, records) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        records.forEach(function (record) {
+          console.log(record.getId());
+        });
+      });
+    })
+  }
 
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
@@ -112,7 +147,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.signOutContainer}>
             <Button
               title="Sign out"
-              onPress={this._signOutAsync}
+              onPress={this._uploadImage}
               style={styles.signOutButton} />
           </View>
         </ScrollView>
