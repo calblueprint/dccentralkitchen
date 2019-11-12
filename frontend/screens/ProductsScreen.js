@@ -24,6 +24,17 @@ productsTable.firstPage((err, records) => {
   fullProducts = records.map(record => createProductData(record));
 });
 
+function createProductData(record) {
+  object = record.fields;
+  return {
+    name: object['Name'],
+    id: record.id,
+    category: object['Category'],
+    points: object['Points'],
+    customerCost: object['Customer Cost']
+  };
+}
+
 class ProductsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -48,8 +59,7 @@ class ProductsScreen extends React.Component {
           {categories.map((category, index) => (
             <Button
               key={index}
-              onPress={() => this.handleCategoryPress(category)}
-            >
+              onPress={() => this.handleCategoryPress(category)}>
               <ScrollCategory> {category} </ScrollCategory>
             </Button>
           ))}
@@ -68,26 +78,13 @@ class ProductsScreen extends React.Component {
                 this.props.navigation.navigate('ProductsDetailed', {
                   currentProduct: item
                 })
-              }
-            >
+              }>
               <Product product={item} />
             </Button>
-          )}
-        ></FlatList>
+          )}></FlatList>
       </ScrollView>
     );
   }
-}
-
-function createProductData(record) {
-  object = record.fields;
-  return {
-    name: object['Name'],
-    id: record.id,
-    category: object['Category'],
-    points: object['Points'],
-    customerCost: object['Customer Cost']
-  };
 }
 
 export default ProductsScreen;

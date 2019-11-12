@@ -71,6 +71,10 @@ export default class SignUp extends React.Component {
     );
   }
 
+  // Purely to bypass signups for development
+  testingBypass() {
+    this.props.navigation.navigate('App');
+  }
   // Handling submission. This function runs the validation functions
   // as well as the duplicate checking. If there are no errors on the
   // validation or duplicate side, then an Airtable record is created.

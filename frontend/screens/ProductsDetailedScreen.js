@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, View } from 'react-native';
 
 import ProductInfo from '../components/ProductInfo';
-import { styles } from '../styles.js';
+import { styles } from '../styles';
 
 class ProductsDetailedScreen extends React.Component {
   constructor(props) {

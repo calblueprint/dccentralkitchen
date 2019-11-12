@@ -1,5 +1,15 @@
-import { Dimensions, FlatList, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components/native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
+import styled from "styled-components/native";
 
 export const Title = styled.Text`
   font-size: 24px;
@@ -10,6 +20,11 @@ export const Subtitle = styled.Text`
   font-size: 16px;
   font-weight: bold;
   margin: 1% 5%;
+`;
+
+export const H3 = styled.Text`
+  font-size: 12px;
+  margin: 1% 6.5%;
 `;
 
 export const Notice = styled.Text`
@@ -44,6 +59,15 @@ export const ButtonText = styled.Text`
   padding: 7.5px 7.5px;
 `;
 
+export const StoreModalBar = styled.View`
+  border: 1px solid black;
+  background-color: black
+  height: 5px;
+  width: 50px;
+  border-radius: 5px;
+  margin: 2% 0% 0% 42%;
+`;
+
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
   container: {
@@ -51,14 +75,18 @@ export const styles = StyleSheet.create({
     marginVertical: 20
   },
   imageContainer: {
-    flexDirection: 'row'
+    flexDirection: "row"
   },
   item: {
-    backgroundColor: '#919191',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    backgroundColor: "#919191",
+    alignItems: "center",
+    justifyContent: "flex-end",
     flex: 1,
     margin: 1,
-    height: Dimensions.get('window').width / 4
+    height: Dimensions.get("window").width / 4
+  },
+  storesModal: {
+    backgroundColor: "white",
+    opacity: 0.8
   }
 });
