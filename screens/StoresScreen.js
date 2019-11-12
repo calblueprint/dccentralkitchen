@@ -93,7 +93,7 @@ class StoresScreen extends React.Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}>
           {this.state.stores.map(store => (
-            <Marker
+            <Marker key={store.id}
               coordinate={{
                 latitude: store.latitude,
                 longitude: store.longitude
