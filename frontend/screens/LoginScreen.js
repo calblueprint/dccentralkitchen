@@ -51,7 +51,7 @@ export default class Login extends React.Component {
   }
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
-  // to be the fname + lname and then navigates to homescreen.
+  // to be the user ID and then navigates to homescreen.
   _asyncSignin = async (userId) => {
     await AsyncStorage.setItem('userId', userId);
     console.log(userId)
