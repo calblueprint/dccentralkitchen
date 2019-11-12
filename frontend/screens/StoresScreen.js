@@ -1,15 +1,29 @@
 import React from 'react';
-import { Title, StoreModalBar, styles } from '../styles';
-import { View, StyleSheet } from 'react-native';
-import BottomSheet from 'reanimated-bottom-sheet';
-import MapView, { Marker } from 'react-native-maps';
-import StoreCard from '../components/StoreCard';
+import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import MapView, { Marker } from 'react-native-maps';
+import BottomSheet from 'reanimated-bottom-sheet';
 
-import { BASE } from '../lib/common';
+import StoreCard from '../components/StoreCard';
+import BASE from '../lib/common';
+import { StoreModalBar, styles, Title } from '../styles';
 
 const storesTable = BASE('Stores').select({ view: 'Grid view' });
-var stores;
+let stores;
+function createStoreData(record) {
+  const data = record.fields;
+  return {
+    name: data['Store Name'],
+    id: data.id,
+    latitude: data.Latitude,
+    longitude: data.Longitude,
+    hours: data['Store Hours'],
+    address: data.Address
+  };
+}
+// The state is initially populated with stores by calling the Airtable API to get all store records
+// We transform them to a JS object via the createStoreData method
+
 storesTable.firstPage((err, records) => {
   // TODO @tommypoa fetch all pages
   if (err) {
@@ -26,24 +40,12 @@ const initialRegion = {
   longitudeDelta: 0.0421
 };
 
-function createStoreData(record) {
-  object = record.fields;
-  return {
-    name: object['Store Name'],
-    id: record.id,
-    latitude: object['Latitude'],
-    longitude: object['Longitude'],
-    hours: object['Store Hours'],
-    address: object['Address']
-  };
-}
-
 class StoresScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       region: initialRegion,
-      stores: stores
+      stores
     };
   }
 
@@ -62,9 +64,9 @@ class StoresScreen extends React.Component {
     <View style={styles.storesModal}>
       <View>
         <ScrollView>
-          {this.state.stores.map(store => (
+          {this.state.stores.map((store) => (
             <StoreCard
-              store={store}
+              store={store} key={store.id}
               callBack={() => this.detailedStoreTransition(store)}
             />
           ))}
@@ -74,7 +76,7 @@ class StoresScreen extends React.Component {
   );
 
   onRegionChange = region => {
-    this.setState({ region: region });
+    this.setState({ region });
   };
 
   detailedStoreTransition = store => {

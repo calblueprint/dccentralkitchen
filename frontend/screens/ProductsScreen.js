@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from '../components/Product';
-import { BASE } from '../lib/common';
+import BASE from '../lib/common';
 import { Button, ScrollCategory, styles } from '../styles';
 
 const productsTable = BASE('Products').select({ view: 'Grid view' });
@@ -25,13 +25,13 @@ productsTable.firstPage((err, records) => {
 });
 
 function createProductData(record) {
-  object = record.fields;
+  let data = record.fields;
   return {
-    name: object['Name'],
-    id: record.id,
-    category: object['Category'],
-    points: object['Points'],
-    customerCost: object['Customer Cost']
+    name: data.Name,
+    id: data.id,
+    category: data.Category,
+    points: data.Points,
+    customerCost: data['Customer Cost']
   };
 }
 
@@ -46,7 +46,7 @@ class ProductsScreen extends React.Component {
 
   handleCategoryPress = filter => {
     const toSet =
-      filter == 'All'
+      filter === 'All'
         ? fullProducts
         : fullProducts.filter(product => product.category.includes(filter));
     this.setState({ products: toSet });
@@ -58,7 +58,7 @@ class ProductsScreen extends React.Component {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {categories.map((category, index) => (
             <Button
-              key={index}
+              key={category.concat(index.toString())}
               onPress={() => this.handleCategoryPress(category)}>
               <ScrollCategory> {category} </ScrollCategory>
             </Button>
@@ -67,7 +67,7 @@ class ProductsScreen extends React.Component {
         <FlatList
           // TODO @tommypoa refactor styles to use styled-components
           style={styles.container}
-          keyExtractor={(item, _) => item.id}
+          keyExtractor={item => item.id}
           numColumns={3}
           data={this.state.products}
           renderItem={({ item }) => (
@@ -81,7 +81,8 @@ class ProductsScreen extends React.Component {
               }>
               <Product product={item} />
             </Button>
-          )}></FlatList>
+          )}
+        />
       </ScrollView>
     );
   }

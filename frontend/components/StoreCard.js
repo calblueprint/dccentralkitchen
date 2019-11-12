@@ -1,7 +1,7 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
-import { Subtitle, H3 } from "../styles.js";
+import { H3, Subtitle } from "../styles";
 
 /**
  * @prop

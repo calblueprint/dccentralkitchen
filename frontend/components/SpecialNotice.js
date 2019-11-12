@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Notice } from '../styles.js';
+import { Notice } from '../styles';
 
 function SpecialNotice() {
   return (

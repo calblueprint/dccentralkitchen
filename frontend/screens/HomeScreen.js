@@ -2,7 +2,7 @@ import React from 'react';
 import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import { BASE } from '../lib/common';
+import BASE from '../lib/common';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {

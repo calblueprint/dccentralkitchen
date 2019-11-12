@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View } from 'react-native';
 
-import { ProductBody, ProductContainer } from '../styles.js';
+import { ProductBody, ProductContainer } from '../styles';
 
 /**
  * @prop

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Image, View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import StoreInfo from '../components/StoreInfo';
-import { styles } from '../styles.js';
 
 class StoresDetailedScreen extends React.Component {
   constructor(props) {

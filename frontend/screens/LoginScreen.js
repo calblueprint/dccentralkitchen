@@ -1,7 +1,7 @@
 import React from 'react';
 import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { BASE } from '../lib/common';
+import BASE from '../lib/common';
 
 export default class Login extends React.Component {
   constructor(props) {

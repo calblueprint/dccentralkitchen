@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { Subtitle, Title } from '../styles.js';
+import { Subtitle, Title } from '../styles';
 
 /**
  * @prop
