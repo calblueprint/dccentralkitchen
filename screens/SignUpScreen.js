@@ -27,10 +27,10 @@ import validatejs from 'validate.js';
 import BASE from '../lib/common';
 
 export default class SignUp extends React.Component {
-  static async createPushToken() {
-    return new Promise((resolve, reject) => {
-      const { token } = this.state;
 
+  // Helper function for adding a new customer
+  static async createPushToken(token) {
+    return new Promise((resolve, reject) => {
       BASE('Push Tokens').create(
         [
           {
@@ -40,7 +40,7 @@ export default class SignUp extends React.Component {
           }
         ],
         // eslint-disable-next-line func-names
-        function(err, records) {
+        function (err, records) {
           if (err) {
             console.error(err);
             return;
@@ -62,6 +62,7 @@ export default class SignUp extends React.Component {
     });
   }
 
+  // Helper function for adding a new customer
   static async createCustomer(fName, lName, phoneNumber, password, tokenId) {
     return new Promise((resolve, reject) => {
       BASE('Customers').create(
@@ -77,12 +78,12 @@ export default class SignUp extends React.Component {
             }
           }
         ],
-        function(err, records) {
+        function (err, records) {
           if (err) {
             console.error(err);
             return;
           }
-          records.forEach(function(record) {
+          records.forEach(function (record) {
             // Prints when you add for now,
             // not sure what else we should be doing here.
             custId = record.getId();
@@ -92,26 +93,6 @@ export default class SignUp extends React.Component {
             resolve(custId);
           });
         }
-      );
-    });
-  }
-
-  // Helper function for adding customers to the database. Takes
-  // in all the relevant information from the form and calls the
-  // Airtable API to create the record.
-  static async addCustomer() {
-    return new Promise((resolve, reject) => {
-      SignUp.createPushToken().then(tokenId =>
-        SignUp.createCustomer(
-          this.state.firstName,
-          this.state.lastName,
-          this.state.phoneNumber,
-          this.state.password,
-          tokenId
-        ).then(custId => {
-          console.log(custId);
-          resolve(custId);
-        })
       );
     });
   }
@@ -159,7 +140,7 @@ export default class SignUp extends React.Component {
       passwordError: '',
       phoneNumber: '',
       phoneNumberError: '',
-      pushToken: ''
+      token: ''
     };
   }
 
@@ -192,8 +173,8 @@ export default class SignUp extends React.Component {
         alert('Failed to get push token for push notification!');
         return;
       }
-      const token = await Notifications.getExpoPushTokenAsync();
-      this.setState({ pushToken: token });
+      const pushToken = await Notifications.getExpoPushTokenAsync();
+      await this.setState({ token: pushToken });
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -213,6 +194,26 @@ export default class SignUp extends React.Component {
     await AsyncStorage.setItem('userId', this.state.id);
     this.props.navigation.navigate('App');
   };
+
+  // Helper function for adding customers to the database. Takes
+  // in all the relevant information from the form and calls the
+  // Airtable API to create the record.
+  async addCustomer() {
+    return new Promise((resolve, reject) => {
+      SignUp.createPushToken(this.state.token).then(tokenId =>
+        SignUp.createCustomer(
+          this.state.firstName,
+          this.state.lastName,
+          this.state.phoneNumber,
+          this.state.password,
+          tokenId
+        ).then(custId => {
+          console.log(custId);
+          resolve(custId);
+        })
+      );
+    });
+  }
 
   // Handling submission. This function runs the validation functions
   // as well as the duplicate checking. If there are no errors on the
@@ -265,7 +266,7 @@ export default class SignUp extends React.Component {
       !this.state.phoneNumberError &&
       !this.state.passwordError
     ) {
-      SignUp.addCustomer()
+      this.addCustomer()
         .then(data => {
           this.setState({
             firstName: '',
@@ -274,7 +275,7 @@ export default class SignUp extends React.Component {
             passwordError: '',
             phoneNumber: '',
             phoneNumberError: '',
-            pushToken: '',
+            token: '',
             id: data
           });
           this._asyncSignin();
