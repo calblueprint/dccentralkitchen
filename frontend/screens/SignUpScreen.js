@@ -148,32 +148,76 @@ export default class SignUp extends React.Component {
   // Helper function for adding customers to the database. Takes
   // in all the relevant information from the form and calls the
   // Airtable API to create the record.
+  //Kyle's updates: create separate push token record in Push Tokens table and link the customer record to push token
   addCustomer(fname, lname, phoneNumber, password, pushToken) {
-    BASE('Customers').create(
-      [
-        {
-          fields: {
-            'First Name': fname,
-            'Last Name': lname,
-            'Phone Number': phoneNumber,
-            Password: password,
-            Points: 0,
-            'Push Token': pushToken
+    let custId  = ""
+    let pushId = ""
+    BASE('Push Tokens').create(
+        [
+          {
+            fields: {
+              'Name': pushToken
+            }
           }
+        ],
+        function(err, records) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          records.forEach(function(record) {
+            // Prints when you add for now,
+            // not sure what else we should be doing here.
+            pushId = record.getId()
+            console.log(pushId);
+          });
         }
-      ],
-      function(err, records) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        records.forEach(function(record) {
-          // Prints when you add for now,
-          // not sure what else we should be doing here.
-          console.log(record.getId());
-        });
-      }
     );
+
+    BASE('Customers').create(
+        [
+          {
+            fields: {
+              'First Name': fname,
+              'Last Name': lname,
+              'Phone Number': phoneNumber,
+              Password: password,
+              Points: 0,
+
+            }
+          }
+        ],
+        function(err, records) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+          records.forEach(function(record) {
+            // Prints when you add for now,
+            // not sure what else we should be doing here.
+            custId = record.getId()
+            console.log(custId);
+          });
+        }
+    );
+    BASE('Push Tokens').update(
+      {
+        ['id']: pushId,
+        "fields": {
+          "Customer": [
+            custId
+          ]
+        }
+      }
+    , function(err, records) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      records.forEach(function(record) {
+        console.log(record.get('Name'));
+      });
+    });
   }
 
   // This function checks the customers table for any duplicates
