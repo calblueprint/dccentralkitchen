@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/calblueprint/dccentralkitchen#readme",
   "dependencies": {
+    "expo-camera": "^7.0.0",
     "react-navigation": "^4.0.10"
   }
 }

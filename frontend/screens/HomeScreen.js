@@ -3,6 +3,8 @@ import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, Vi
 
 import { MonoText } from '../components/StyledText';
 import { BASE, IMG_KEY } from '../lib/common';
+import ReceiptScanner from './Camera'
+
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -148,6 +150,12 @@ export default class HomeScreen extends React.Component {
             <Button
               title="Sign out"
               onPress={this._uploadImage}
+              style={styles.signOutButton} />
+          </View>
+          <View style={styles.signOutContainer}>
+            <Button
+              title="Go to Camera"
+              onPress={() => this.props.navigation.navigate('Camera')}
               style={styles.signOutButton} />
           </View>
         </ScrollView>
