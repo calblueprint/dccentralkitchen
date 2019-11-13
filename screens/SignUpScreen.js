@@ -33,8 +33,8 @@ export default class SignUp extends React.Component {
               'Last Name': lname,
               'Phone Number': phoneNumber,
               Password: password,
-              Points: 0,
-              'Push Tokens': pushToken
+              Points: 0 // ,
+              // 'Push Tokens': [pushToken]
             }
           }
         ],
@@ -216,6 +216,8 @@ export default class SignUp extends React.Component {
           id: data
         });
         this._asyncSignin();
+      }).catch(err => {
+        console.error(err);
       });
     } else {
       // For now it just tells you what you did wrong -- stretch
