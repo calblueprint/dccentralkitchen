@@ -5,44 +5,48 @@ import {
   createStackNavigator
 } from 'react-navigation';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import TabBarIcon from '../components/TabBarIcon';
+
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import StoresScreen from '../screens/StoresScreen';
 import StoresDetailedScreen from '../screens/StoresDetailedScreen';
+import StoresScreen from '../screens/StoresScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {}
 });
 
-const StoresStack = createStackNavigator(
+// Home
+const HomeStack = createStackNavigator(
   {
-    Stores: StoresScreen,
-    StoresDetailed: StoresDetailedScreen
+    Home: HomeScreen
   },
   config
 );
 
-StoresStack.navigationOptions = {
-  tabBarLabel: 'Stores',
+HomeStack.navigationOptions = {
+  tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
           ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          : `md-information-circle${focused ? '' : '-outline'}`
       }
     />
   )
 };
 
-StoresScreen.path = '';
+HomeStack.path = '';
+
+// Announcements
 
 const AnnounceStack = createStackNavigator(
   {
@@ -59,14 +63,16 @@ AnnounceStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-notifications${focused ? '' : '-outline'}`
+          : `md-notifications${focused ? '' : '-outline'}`
       }
     />
   )
 };
 
 AnnouncementScreen.path = '';
+
+// Products
 
 const ProductsStack = createStackNavigator(
   {
@@ -78,68 +84,54 @@ const ProductsStack = createStackNavigator(
 
 ProductsStack.navigationOptions = {
   tabBarLabel: 'Products',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
+  tabBarIcon: ({ focused }) => <Icon size={20} name="shopping-cart" />
 };
 
 ProductsScreen.path = '';
 
-const HomeStack = createStackNavigator(
+// Stores
+
+const StoresStack = createStackNavigator(
   {
-    Home: HomeScreen
+    Stores: StoresScreen,
+    StoresDetailed: StoresDetailedScreen
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
+StoresStack.navigationOptions = {
+  tabBarLabel: 'Stores',
+  tabBarIcon: ({ focused }) => <Icon focused={focused} size={20} name="map-o" />
 };
 
-HomeStack.path = '';
+StoresScreen.path = '';
 
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen
-  },
-  config
-);
+// TODO Sprint 7: Add customer settings screenn
+// const SettingsStack = createStackNavigator(
+//   {
+//     Settings: SettingsScreen
+//   },
+//   config
+// );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
-  )
-};
+// SettingsStack.navigationOptions = {
+//   tabBarLabel: 'Settings',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+//     />
+//   )
+// };
 
-SettingsStack.path = '';
+// SettingsStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   AnnounceStack,
   ProductsStack,
-  SettingsStack,
   StoresStack
+  // SettingsStack
 });
 
 tabNavigator.path = '';
