@@ -1,14 +1,17 @@
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 
-import StoreCard from '../components/StoreCard';
-import BASE from '../lib/common';
-import { StoreModalBar, styles, Title } from '../styles';
+import StoreCard from '../../components/StoreCard';
+import BASE from '../../lib/common';
+import { StoreModalBar, styles, Title } from '../../styles';
 
 const storesTable = BASE('Stores').select({ view: 'Grid view' });
+
 let stores;
 function createStoreData(record) {
   const data = record.fields;
@@ -33,9 +36,7 @@ storesTable.firstPage((err, records) => {
   stores = records.map(record => createStoreData(record));
 });
 
-const initialRegion = {
-  latitude: 38.905548,
-  longitude: -77.036623,
+const deltas = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421
 };
@@ -44,10 +45,29 @@ class StoresScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: initialRegion,
+      locationErrorMsg: null,
+      region: null,
       stores
     };
   }
+
+  findCurrentLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+    if (status !== 'granted') {
+      this.setState({
+        locationErrorMsg: 'Permission to access location was denied'
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    const region = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      ...deltas
+    };
+    await this.setState({ region });
+  };
 
   renderHeader = () => (
     // TODO @tommypoa Favourites functionality
@@ -86,8 +106,19 @@ class StoresScreen extends React.Component {
   };
 
   render() {
+    let text = '';
+
+    if (this.state.locationErrorMsg) {
+      text = this.state.locationErrorMsg;
+    } else if (this.state.location) {
+      text = JSON.stringify(this.state.location);
+    }
     return (
-      <View style={{ ...StyleSheet.absoluteFillObject }}>
+      <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
+        <TouchableOpacity onPress={this.findCurrentLocationAsync}>
+          <Text> Tap for Location </Text>
+          <Text>{text}</Text>
+        </TouchableOpacity>
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
@@ -114,7 +145,7 @@ class StoresScreen extends React.Component {
             renderHeader={this.renderHeader}
           />
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
