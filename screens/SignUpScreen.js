@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -14,6 +13,13 @@ import {
 } from 'react-native';
 import validatejs from 'validate.js';
 
+// import registerForPushNotificationsAsync from './signup/notifications';
+import {
+  checkForDuplicateCustomer,
+  createCustomer,
+  createPushToken
+} from './signup/auth_shared_airtable';
+
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
 // so I put it all in this one file.
@@ -24,111 +30,7 @@ import validatejs from 'validate.js';
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
 
-import BASE from '../lib/common';
-
 export default class SignUp extends React.Component {
-
-  // Helper function for adding a new customer
-  static async createPushToken(token) {
-    return new Promise((resolve, reject) => {
-      BASE('Push Tokens').create(
-        [
-          {
-            fields: {
-              Token: token
-            }
-          }
-        ],
-        // eslint-disable-next-line func-names
-        function (err, records) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          // eslint-disable-next-line func-names
-          records.forEach(function(record) {
-            // Sanity-check by printing token (string) value
-            const data = record.fields;
-            console.log(data.Token);
-
-            // Resolve with tokenId for use in other functions
-            const tokenId = record.getId();
-            console.log(tokenId);
-
-            resolve(tokenId);
-          });
-        }
-      );
-    });
-  }
-
-  // Helper function for adding a new customer
-  static async createCustomer(fName, lName, phoneNumber, password, tokenId) {
-    return new Promise((resolve, reject) => {
-      BASE('Customers').create(
-        [
-          {
-            fields: {
-              'First Name': fName,
-              'Last Name': lName,
-              'Phone Number': phoneNumber,
-              Password: password,
-              Points: 0,
-              'Push Tokens': [tokenId]
-            }
-          }
-        ],
-        function (err, records) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          records.forEach(function (record) {
-            // Prints when you add for now,
-            // not sure what else we should be doing here.
-            custId = record.getId();
-            console.log(custId);
-
-            // Resolve with custId for use in other functions
-            resolve(custId);
-          });
-        }
-      );
-    });
-  }
-
-  // This function checks the customers table for any duplicates
-  // based on the phone number. It returns a promise because
-  // the Airtable API call is an async function.
-  static async checkForDuplicates(phoneNumber) {
-    return new Promise((resolve, reject) => {
-      const duplicate = false;
-      BASE('Customers')
-        .select({
-          maxRecords: 1,
-          filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
-        })
-        .eachPage(
-          function page(records, fetchNextPage) {
-            if (records.length > 0) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-            fetchNextPage();
-          },
-          err => {
-            if (err) {
-              console.error(err);
-              reject(err);
-            } else {
-              resolve(duplicate);
-            }
-          }
-        );
-    });
-  }
-
   constructor(props) {
     super(props);
 
@@ -157,6 +59,21 @@ export default class SignUp extends React.Component {
     );
   }
 
+  // Purely to bypass signups for development -- developer is not required to sign up to enter home screen.
+  // Configures to use David Ro's test account
+  _devBypass = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('userId', 'recomWMtzSUQCcIvr');
+    this.props.navigation.navigate('App');
+  };
+
+  // Sign in function. It sets the user token in local storage
+  // to be the fname + lname and then navigates to homescreen.
+  _asyncSignin = async () => {
+    await AsyncStorage.setItem('userId', this.state.id);
+    this.props.navigation.navigate('App');
+  };
+
   registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
       const { status: existingStatus } = await Permissions.getAsync(
@@ -180,38 +97,63 @@ export default class SignUp extends React.Component {
     }
   };
 
-  // Purely to bypass signups for development -- developer is not required to sign up to enter home screen.
-  // Configures to use David Ro's test account
-  _devBypass = async () => {
-    // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recomWMtzSUQCcIvr');
-    this.props.navigation.navigate('App');
-  };
-
-  // Sign in function. It sets the user token in local storage
-  // to be the fname + lname and then navigates to homescreen.
-  _asyncSignin = async () => {
-    await AsyncStorage.setItem('userId', this.state.id);
-    this.props.navigation.navigate('App');
-  };
-
   // Helper function for adding customers to the database. Takes
   // in all the relevant information from the form and calls the
   // Airtable API to create the record.
   async addCustomer() {
     return new Promise((resolve, reject) => {
-      SignUp.createPushToken(this.state.token).then(tokenId =>
-        SignUp.createCustomer(
-          this.state.firstName,
-          this.state.lastName,
-          this.state.phoneNumber,
-          this.state.password,
-          tokenId
-        ).then(custId => {
-          console.log(custId);
-          resolve(custId);
+      createPushToken(this.state.token)
+        .then(tokenRecords => {
+          if (tokenRecords) {
+            let tokenId = null;
+
+            // Get tokenId
+            tokenRecords.forEach(function process(record) {
+              // Sanity-check by printing token (string) value
+              const data = record.fields;
+              console.log(data.Token);
+
+              // Resolve with tokenId for use in other functions
+              tokenId = record.getId();
+            });
+
+            // Create customer with this tokenId
+            createCustomer(
+              this.state.firstName,
+              this.state.lastName,
+              this.state.phoneNumber,
+              this.state.password,
+              tokenId
+            )
+              .then(customerRecords => {
+                if (customerRecords) {
+                  let custId = null;
+
+                  customerRecords.forEach(function id(record) {
+                    custId = record.getId();
+                  });
+
+                  console.log(customerRecords);
+                  resolve(custId);
+                  return custId;
+                }
+                reject(new Error('Error creating new customer'));
+
+                // double error handling?
+              })
+              .catch(err => {
+                console.error(err);
+                reject(err);
+              });
+          } else {
+            // No tokenRecord found
+            reject(new Error('Error creating new push token'));
+          }
         })
-      );
+        .catch(err => {
+          console.error(err);
+          reject(err);
+        });
     });
   }
 
@@ -229,18 +171,13 @@ export default class SignUp extends React.Component {
     // const nameError = validate('name', this.state.firstName)
 
     let formattedPhoneNumber = this.state.phoneNumber;
-    formattedPhoneNumber = `(${formattedPhoneNumber.slice(
-      0,
-      3
-    )}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(
-      6,
-      10
-    )}`;
+    // eslint-disable-next-line prettier/prettier
+    formattedPhoneNumber = `(${formattedPhoneNumber.slice(0, 3)}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(6, 10)}`;
 
     // If we don't have any bugs already with form validation,
     // we'll check for duplicates here in the Airtable.
     if (!phoneNumberError) {
-      SignUp.checkForDuplicates(formattedPhoneNumber).then(
+      checkForDuplicateCustomer(formattedPhoneNumber).then(
         resolvedValue => {
           if (resolvedValue) {
             phoneNumberError = 'Phone number in use already.';
@@ -252,8 +189,7 @@ export default class SignUp extends React.Component {
       );
     }
 
-    var errorMessage =
-      nameError + '\n' + phoneNumberError + '\n' + passwordError;
+    const errorMessage = ` ${nameError}\n ${phoneNumberError}\n ${passwordError}`;
 
     this.setState({
       nameError,
@@ -262,12 +198,13 @@ export default class SignUp extends React.Component {
     });
 
     if (
-      !nameError &&
+      !this.state.nameError &&
       !this.state.phoneNumberError &&
       !this.state.passwordError
     ) {
       this.addCustomer()
-        .then(data => {
+        .then(custId => {
+          console.log('custId after addCustomer', custId);
           this.setState({
             firstName: '',
             lastName: '',
@@ -276,7 +213,7 @@ export default class SignUp extends React.Component {
             phoneNumber: '',
             phoneNumberError: '',
             token: '',
-            id: data
+            id: custId
           });
           this._asyncSignin();
         })
@@ -347,10 +284,10 @@ function validate(fieldName, value) {
   // Validate.js validates your values as an object
   // e.g. var form = {email: 'email@example.com'}
   // Line 8-9 creates an object based on the field name and field value
-  let values = {};
+  const values = {};
   values[fieldName] = value;
 
-  let constraints = {};
+  const constraints = {};
   constraints[fieldName] = validation[fieldName];
   // The values and validated against the constraints
   // the variable result hold the error messages of the field

@@ -1,81 +1,88 @@
+import { Notifications } from 'expo';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import BASE from '../lib/common';
+import { checkForDuplicates, createPushToken, lookupCustomer, updateCustomerPushTokens } from './signup/auth_shared_airtable';
+
+// import registerForPushNotificationsAsync from './signup/notifications';
 
 export default class Login extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
       phoneNumber: '',
       password: '',
-      userDisplay: ''
+      userDisplay: '',
+      token: null
     };
   }
 
-  // lookupCustomer searches for users based on their
-  // phone numbers in the form (XXX) XXX-XXXX and checks against
-  // a correct password. If the user is found, we return their first
-  // and last name. Otherwise, we will display an error on the login screen.
-  async lookupCustomer(phone_number, password) {
-    return new Promise((resolve, reject) => {
-      BASE('Customers')
-        .select({
-          maxRecords: 1,
-          filterByFormula:
-            `AND({Phone Number} = '${ 
-            phone_number 
-            }', {Password} = '${ 
-            password 
-            }')`
-        })
-        .eachPage(
-          function page(records, fetchNextPage) {
-            if (records.length == 0) {
-              reject('Incorrect phone number or password. Please try again.');
-            } else {
-              records.forEach(function(record) {
-                resolve(record.getId());
-              });
-            }
-            fetchNextPage();
-          },
-          function done(err) {
-            if (err) {
-              reject(err);
-            }
-          }
-        );
-    });
+  componentDidMount() {
+    this.registerForPushNotificationsAsync();
+
+    // From SignUpScreen.js, see comment there for details
+    this._notificationSubscription = Notifications.addListener(
+      this._handleNotification
+    );
   }
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncSignin = async (userId) => {
+  _asyncSignin = async userId => {
     await AsyncStorage.setItem('userId', userId);
-    console.log(userId)
+    console.log(userId);
     this.props.navigation.navigate('App');
+  };
+
+  registerForPushNotificationsAsync = async () => {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      const pushToken = await Notifications.getExpoPushTokenAsync();
+      await this.setState({ token: pushToken });
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
   };
 
   // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
   // the user is found.
   async handleSubmit() {
-    let formatted_phone_number = this.state.phoneNumber;
-    formatted_phone_number = formatted_phone_number.replace('[^0-9]', '');
-    formatted_phone_number =
-      `(${ 
-      formatted_phone_number.slice(0, 3) 
-      }) ${ 
-      formatted_phone_number.slice(3, 6) 
-      }-${ 
-      formatted_phone_number.slice(6, 10)}`;
+    let formattedPhoneNumber = this.state.phoneNumber;
+    formattedPhoneNumber = formattedPhoneNumber.replace('[^0-9]', '');
+    formattedPhoneNumber = `(${formattedPhoneNumber.slice(
+      0,
+      3
+    )}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(
+      6,
+      10
+    )}`;
 
-    await this.lookupCustomer(formatted_phone_number, this.state.password)
+    await lookupCustomer(formattedPhoneNumber, this.state.password)
       .then(resp => {
         if (resp) {
-          this._asyncSignin(resp);
-          this.setState({ userDisplay: resp, phoneNumber: '', password: '' });
+          let customerInfo = resp;
+          this._asyncSignin(customerInfo.custId);
+          this.setState({
+            userDisplay: customerInfo.custId,
+            phoneNumber: '',
+            password: ''
+          });
         }
       })
       .catch(err => {
