@@ -7,7 +7,7 @@ import BASE from '../lib/common';
 import { Button, ScrollCategory, styles } from '../styles';
 
 const productsTable = BASE('Products').select({ view: 'Grid view' });
-let fullProducts;
+// let fullProducts;
 const categories = [
   // Hard-coded for now -- should find a way to extract this information dynamically?
   'All',
@@ -16,13 +16,15 @@ const categories = [
   'Vegetables',
   'Frozen & Dried'
 ];
-productsTable.firstPage((err, records) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  fullProducts = records.map(record => createProductData(record));
-});
+// productsTable.firstPage((err, records) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   fullProducts = records.map(record => createProductData(record));
+// });
+
+const fullProducts = this.props.navigation.state.params.products;
 
 function createProductData(record) {
   let data = record.fields;

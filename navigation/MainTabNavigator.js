@@ -11,6 +11,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
+import AllProductsScreen from '../screens/AllProductsScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -76,6 +77,7 @@ AnnouncementScreen.path = '';
 
 const ProductsStack = createStackNavigator(
   {
+    AllProducts: AllProductsScreen,
     Products: ProductsScreen,
     ProductsDetailed: ProductsDetailedScreen
   },
