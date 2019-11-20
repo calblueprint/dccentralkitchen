@@ -11,12 +11,10 @@ import {
   View
 } from 'react-native';
 
-import BASE from '../lib/common';
 import {
-  createPushToken,
   lookupCustomer,
   updateCustomerPushTokens
-} from './signup/auth_shared_airtable';
+} from './signup/authAirtable';
 
 // import registerForPushNotificationsAsync from './signup/notifications';
 
@@ -27,7 +25,7 @@ export default class Login extends React.Component {
     this.state = {
       phoneNumber: '',
       password: '',
-      userDisplay: '',
+      errorMsg: '',
       token: null
     };
   }
@@ -43,7 +41,7 @@ export default class Login extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncSignin = async userId => {
+  _asyncSignIn = async userId => {
     await AsyncStorage.setItem('userId', userId);
     console.log(userId);
     this.props.navigation.navigate('App');
@@ -86,34 +84,40 @@ export default class Login extends React.Component {
     )}`;
 
     lookupCustomer(formattedPhoneNumber, this.state.password)
-      .then(resp => {
-        if (resp) {
-          const customerInfo = resp;
-          this.setState({
-            userDisplay: customerInfo.custId,
-            phoneNumber: '',
-            password: ''
-          });
-          return customerInfo;
-        }
-        console.error('No customer found!');
-        return null;
-      })
-      .catch(err => {
-        this.setState({ userDisplay: err, phoneNumber: '', password: '' });
-      })
       .then(customerInfo => {
         if (customerInfo) {
-          updateCustomerPushTokens(customerInfo, this.state.token);
-          this._asyncSignin(customerInfo.custId);
-        } else {
-          console.error('Failed to update customer push tokens');
+          console.log(
+            'Customer lookup successful. Customer Record ID:',
+            customerInfo.custId
+          );
+          this.setState({ errorMsg: '' });
+          return customerInfo;
         }
+        // If no records exist, resolves with null; set error message
+        this.setState({
+          errorMsg: 'Incorrect phone number or password. Please try again.',
+          phoneNumber: '',
+          password: ''
+        });
+        return null;
       })
-      .catch(err => {
-        console.error(err);
-        alert(err);
-      });
+      .catch(err => console.error(err))
+      .then(customerInfo => {
+        if (customerInfo) {
+          updateCustomerPushTokens(customerInfo, this.state.token)
+            .then(customerId => {
+              if (customerId) {
+                this._asyncSignIn(customerId);
+              }
+              // Otherwise, lookup failed
+              return null;
+            })
+            .catch(err => console.error(err));
+        }
+        // Otherwise, lookup failed
+        return null;
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -135,7 +139,7 @@ export default class Login extends React.Component {
           value={this.state.password}
         />
         <Button title="Log In" onPress={() => this.handleSubmit()} />
-        <Text style={styles.text}>{this.state.userDisplay}</Text>
+        <Text style={styles.text}>{this.state.errorMsg}</Text>
       </View>
     );
   }

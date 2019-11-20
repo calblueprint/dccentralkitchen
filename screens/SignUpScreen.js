@@ -18,7 +18,7 @@ import {
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
-} from './signup/auth_shared_airtable';
+} from './signup/authAirtable';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -156,7 +156,7 @@ export default class SignUp extends React.Component {
   // as well as the duplicate checking. If there are no errors on the
   // validation or duplicate side, then an Airtable record is created.
   async handleSubmit() {
-    let phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
+    const phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
     const passwordError = validate('password', this.state.password);
     let nameError = '';
     if (!this.state.firstName || !this.state.lastName) {
@@ -169,35 +169,35 @@ export default class SignUp extends React.Component {
     // eslint-disable-next-line prettier/prettier
     formattedPhoneNumber = `(${formattedPhoneNumber.slice(0, 3)}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(6, 10)}`;
 
-    // If we don't have any bugs already with form validation,
-    // we'll check for duplicates here in the Airtable.
-    if (!phoneNumberError) {
-      checkForDuplicateCustomer(formattedPhoneNumber).then(
-        resolvedValue => {
-          if (resolvedValue) {
-            phoneNumberError = 'Phone number in use already.';
-          }
-        },
-        error => {
-          console.error(error);
-        }
-      );
-    }
-
-    const errorMessage = ` ${nameError}\n ${phoneNumberError}\n ${passwordError}`;
-
-    this.setState({
+    // Have to await this or else Airtable call may happen first
+    await this.setState({
       nameError,
       phoneNumberError,
       passwordError
     });
+
+    // If we don't have any bugs already with form validation,
+    // we'll check for duplicates here in the Airtable.
+    if (!phoneNumberError) {
+      const that = this;
+      await checkForDuplicateCustomer(formattedPhoneNumber).then(
+        async resolvedValue => {
+          if (resolvedValue) {
+            // Again, must await this
+            await that.setState({
+              phoneNumberError: 'Phone number in use already.'
+            });
+          }
+        }
+      );
+    }
 
     if (
       !this.state.nameError &&
       !this.state.phoneNumberError &&
       !this.state.passwordError
     ) {
-      this.addCustomer()
+      await this.addCustomer()
         .then(custId => {
           this.setState({
             firstName: '',
@@ -209,15 +209,16 @@ export default class SignUp extends React.Component {
             token: '',
             id: custId
           });
-          this._asyncSignin();
         })
         .catch(err => {
           console.error(err);
-        });
+        })
+        .then(_ => this._asyncSignin());
     } else {
-      // For now it just tells you what you did wrong -- stretch
-      // is to make it update onBlur() -- code is below for it.
-      alert(errorMessage);
+      // TODO @anniero98 for some reason checkDuplicateCustomers sets the state correctly, but alerts with an empty message.
+      // have exceeded time allotted for this fix, so tabling for now
+      console.log(this.state);
+      alert(`${nameError}\n ${phoneNumberError}\n ${passwordError}`);
     }
     Keyboard.dismiss();
   }
