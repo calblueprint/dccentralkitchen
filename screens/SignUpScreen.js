@@ -109,10 +109,6 @@ export default class SignUp extends React.Component {
 
             // Get tokenId
             tokenRecords.forEach(function process(record) {
-              // Sanity-check by printing token (string) value
-              const data = record.fields;
-              console.log(data.Token);
-
               // Resolve with tokenId for use in other functions
               tokenId = record.getId();
             });
@@ -133,7 +129,6 @@ export default class SignUp extends React.Component {
                     custId = record.getId();
                   });
 
-                  console.log(customerRecords);
                   resolve(custId);
                   return custId;
                 }
@@ -204,7 +199,6 @@ export default class SignUp extends React.Component {
     ) {
       this.addCustomer()
         .then(custId => {
-          console.log('custId after addCustomer', custId);
           this.setState({
             firstName: '',
             lastName: '',
@@ -250,15 +244,15 @@ export default class SignUp extends React.Component {
           value={this.state.phoneNumber}
           keyboardType="number-pad"
           maxLength={10}
-          // For future use to make forms even nicer
-          // TODO: @Johnathan Figure out onBlur
-          // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
-          // error={this.state.phoneNumberError}
-          // onBlur={() => {
-          //   this.setState({
-          //     phoneNumberError: validate('phoneNumber', this.state.phoneNumber)
-          //   })
-          // }}
+        // For future use to make forms even nicer
+        // TODO: @Johnathan Figure out onBlur
+        // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
+        // error={this.state.phoneNumberError}
+        // onBlur={() => {
+        //   this.setState({
+        //     phoneNumberError: validate('phoneNumber', this.state.phoneNumber)
+        //   })
+        // }}
         />
         <TextInput
           style={styles.input}

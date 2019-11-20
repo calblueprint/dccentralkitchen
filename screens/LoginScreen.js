@@ -2,15 +2,25 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  AsyncStorage,
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
 
 import BASE from '../lib/common';
-import { checkForDuplicates, createPushToken, lookupCustomer, updateCustomerPushTokens } from './signup/auth_shared_airtable';
+import {
+  createPushToken,
+  lookupCustomer,
+  updateCustomerPushTokens
+} from './signup/auth_shared_airtable';
 
 // import registerForPushNotificationsAsync from './signup/notifications';
 
 export default class Login extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -46,7 +56,9 @@ export default class Login extends React.Component {
       );
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
@@ -73,20 +85,34 @@ export default class Login extends React.Component {
       10
     )}`;
 
-    await lookupCustomer(formattedPhoneNumber, this.state.password)
+    lookupCustomer(formattedPhoneNumber, this.state.password)
       .then(resp => {
         if (resp) {
-          let customerInfo = resp;
-          this._asyncSignin(customerInfo.custId);
+          const customerInfo = resp;
           this.setState({
             userDisplay: customerInfo.custId,
             phoneNumber: '',
             password: ''
           });
+          return customerInfo;
         }
+        console.error('No customer found!');
+        return null;
       })
       .catch(err => {
         this.setState({ userDisplay: err, phoneNumber: '', password: '' });
+      })
+      .then(customerInfo => {
+        if (customerInfo) {
+          updateCustomerPushTokens(customerInfo, this.state.token);
+          this._asyncSignin(customerInfo.custId);
+        } else {
+          console.error('Failed to update customer push tokens');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert(err);
       });
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import BASE from '../../lib/common';
 
 export const createPushToken = function async(token) {
@@ -68,7 +69,8 @@ export const lookupCustomer = function async(phoneNumber, password) {
   return new Promise((resolve, reject) => {
     const customerInfo = {
       custId: null,
-      pushTokens: null
+      pushTokens: null,
+      tokenNames: null
     };
 
     BASE('Customers')
@@ -86,8 +88,8 @@ export const lookupCustomer = function async(phoneNumber, password) {
             records.forEach(function id(record) {
               customerInfo.custId = record.getId();
               customerInfo.pushTokens = record['Push Tokens'];
+              customerInfo.tokenNames = record.fields.token_names;
             });
-
             resolve(customerInfo);
           }
           fetchNextPage();
@@ -110,36 +112,45 @@ export const updateCustomerPushTokens = function async(
   return new Promise((resolve, reject) => {
     // Loop through and check if pushToken is new
     // If it is new, add to pushTokens
-    const { customerId, pushTokens } = customerInfo;
+    const { custId, pushTokens, tokenNames } = customerInfo;
+    console.log(currentToken);
+    console.log(pushTokens);
     let isNew = true;
     let i;
-    for (i = 0; i < pushTokens.length; i++) {
-      if (pushTokens[i] === currentToken) {
+    for (i = 0; i < tokenNames.length; i++) {
+      if (tokenNames[i] === currentToken) {
         isNew = false;
         break;
       }
     }
     // Update this customer's pushTokens array
     if (isNew) {
-      pushTokens.push(currentToken);
+      // Create new token
+      createPushToken(currentToken)
+        .then(tokenId => pushTokens.push(tokenId))
+        .catch(err => reject(err))
+      console.log(pushTokens);
     }
+
+    console.log(custId);
 
     BASE('Customers').update([
       {
-        id: customerId,
+        id: custId,
         fields: {
           'Push Tokens': pushTokens
         }
       }
-    ]),
-      function (err, records) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        records.forEach(function (record) {
-          resolve(record.getId());
-        });
-      };
+    ], function done(err, records) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      records.forEach(function id(record) {
+        resolve(record.getId());
+      });
+    });
+
+
   });
 };
