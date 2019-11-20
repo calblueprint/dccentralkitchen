@@ -58,7 +58,17 @@ class AllProductsScreen extends React.Component {
       <View>
         <View flexDirection={'row'}>
           <Title>Fruits</Title>
-          <Title>See all</Title>
+          <Button
+            onPress={() =>
+              this.props.navigation.navigate('Products', {
+                products: products.filter(product =>
+                  product.category.includes('Fruit')
+                ),
+                navigation: this.props.navigation
+              })
+            }>
+            <Title>See all</Title>
+          </Button>
         </View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {products
@@ -81,7 +91,8 @@ class AllProductsScreen extends React.Component {
               this.props.navigation.navigate('Products', {
                 products: products.filter(product =>
                   product.category.includes('Vegetables')
-                )
+                ),
+                navigation: this.props.navigation
               })
             }>
             <Title>See all</Title>

@@ -24,7 +24,7 @@ const categories = [
 //   fullProducts = records.map(record => createProductData(record));
 // });
 
-const fullProducts = this.props.navigation.state.params.products;
+var fullProducts;
 
 function createProductData(record) {
   let data = record.fields;
@@ -39,9 +39,10 @@ function createProductData(record) {
 
 class ProductsScreen extends React.Component {
   constructor(props) {
+    fullProducts = props.navigation.state.params.products;
     super(props);
     this.state = {
-      products: fullProducts,
+      products: props.navigation.state.params.products,
       filter: null
     };
   }
@@ -57,20 +58,11 @@ class ProductsScreen extends React.Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {categories.map((category, index) => (
-            <Button
-              key={category.concat(index.toString())}
-              onPress={() => this.handleCategoryPress(category)}>
-              <ScrollCategory> {category} </ScrollCategory>
-            </Button>
-          ))}
-        </ScrollView>
         <FlatList
           // TODO @tommypoa refactor styles to use styled-components
           style={styles.container}
           keyExtractor={item => item.id}
-          numColumns={3}
+          numColumns={2}
           data={this.state.products}
           renderItem={({ item }) => (
             // TODO @tommypoa: think it would be better to extract the `onPress` here,
