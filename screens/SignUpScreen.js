@@ -2,23 +2,10 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import {
-  AsyncStorage,
-  Button,
-  Keyboard,
-  StyleSheet,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
+import { AsyncStorage, Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
 import validatejs from 'validate.js';
 
-// import registerForPushNotificationsAsync from './signup/notifications';
-import {
-  checkForDuplicateCustomer,
-  createCustomer,
-  createPushToken
-} from './signup/authAirtable';
+import { checkForDuplicateCustomer, createCustomer, createPushToken } from './signup/authAirtable';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -215,9 +202,6 @@ export default class SignUp extends React.Component {
         })
         .then(_ => this._asyncSignin());
     } else {
-      // TODO @anniero98 for some reason checkDuplicateCustomers sets the state correctly, but alerts with an empty message.
-      // have exceeded time allotted for this fix, so tabling for now
-      console.log(this.state);
       alert(
         `${this.state.nameError}\n ${this.state.phoneNumberError}\n ${this.state.passwordError}`
       );
@@ -281,10 +265,10 @@ function validate(fieldName, value) {
   // Validate.js validates your values as an object
   // e.g. var form = {email: 'email@example.com'}
   // Line 8-9 creates an object based on the field name and field value
-  let values = {};
+  const values = {};
   values[fieldName] = value;
 
-  let constraints = {};
+  const constraints = {};
   constraints[fieldName] = validation[fieldName];
   // The values and validated against the constraints
   // the variable result hold the error messages of the field

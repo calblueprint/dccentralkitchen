@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
-import { nullLiteral } from '@babel/types';
 import BASE from '../../lib/common';
 
-// Takes in Expo-generated token (a string) 
+// Takes in Expo-generated token (a string)
 // and creates a new record in the Push Tokens table
 export const createPushToken = function async(token) {
   return BASE('Push Tokens').create([
@@ -44,7 +42,7 @@ export const checkForDuplicateCustomer = function async(phoneNumber) {
         maxRecords: 1,
         filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
       })
-      .all()
+      .firstPage()
       .then(records => {
         if (records.length > 0) {
           resolve(true);
@@ -56,10 +54,10 @@ export const checkForDuplicateCustomer = function async(phoneNumber) {
   });
 };
 
-// lookupCustomer searches for users based on their
-// phone numbers in the form (XXX) XXX-XXXX and checks against
-// a correct password. If the user is found, we return their first
-// and last name. Otherwise, we will display an error on the login screen.
+// lookupCustomer searches for users based on their phone numbers
+// in the form (XXX) XXX-XXXX and checks against a correct password
+// If the user is found, we return a subset of fields in Airtable
+// Otherwise, we return null & display an error on the login screen.
 export const lookupCustomer = function async(phoneNumber, password) {
   return new Promise((resolve, reject) => {
     let customerInfo = {
@@ -73,7 +71,7 @@ export const lookupCustomer = function async(phoneNumber, password) {
         maxRecords: 1,
         filterByFormula: `AND({Phone Number} = '${phoneNumber}', {Password} = '${password}')`
       })
-      .all()
+      .firstPage()
       .then(records => {
         if (records.length !== 0) {
           records.forEach(function id(record) {
@@ -84,13 +82,14 @@ export const lookupCustomer = function async(phoneNumber, password) {
         } else {
           customerInfo = null;
         }
-        // If no records exist, resolves with object of null fields
+        // If no records exist, resolves with null object
         resolve(customerInfo);
       })
       .catch(err => reject(err));
   });
 };
 
+// updateCustomerPushTokens is called after lookupCustomer; and only if lookupCustomer returns non-null.
 export const updateCustomerPushTokens = function async(
   customerInfo,
   currentToken
@@ -121,7 +120,7 @@ export const updateCustomerPushTokens = function async(
             pushTokens.push(tokenId);
             return pushTokens;
           }
-          console.log("Error creating token");
+          console.log('Error creating token');
           return null;
         })
         .catch(err => reject(err))
@@ -141,13 +140,13 @@ export const updateCustomerPushTokens = function async(
                 // If update is successful, resolve with customer ID
                 records.forEach(record => resolve(record.getId()));
               })
-              .catch(err => reject(err))
+              .catch(err => reject(err));
           }
           // Otherwise, error creating token; do nothing
           // Return null for semantics, resolve is what passes value back from the promise
           return null;
-
-        }).catch(err => reject(err));
+        })
+        .catch(err => reject(err));
     }
   });
 };
