@@ -83,7 +83,7 @@ export default class Login extends React.Component {
       10
     )}`;
 
-    lookupCustomer(formattedPhoneNumber, this.state.password)
+    await lookupCustomer(formattedPhoneNumber, this.state.password)
       .then(customerInfo => {
         if (customerInfo) {
           console.log(

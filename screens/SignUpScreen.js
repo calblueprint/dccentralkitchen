@@ -218,7 +218,9 @@ export default class SignUp extends React.Component {
       // TODO @anniero98 for some reason checkDuplicateCustomers sets the state correctly, but alerts with an empty message.
       // have exceeded time allotted for this fix, so tabling for now
       console.log(this.state);
-      alert(`${nameError}\n ${phoneNumberError}\n ${passwordError}`);
+      alert(
+        `${this.state.nameError}\n ${this.state.phoneNumberError}\n ${this.state.passwordError}`
+      );
     }
     Keyboard.dismiss();
   }
@@ -279,10 +281,10 @@ function validate(fieldName, value) {
   // Validate.js validates your values as an object
   // e.g. var form = {email: 'email@example.com'}
   // Line 8-9 creates an object based on the field name and field value
-  const values = {};
+  let values = {};
   values[fieldName] = value;
 
-  const constraints = {};
+  let constraints = {};
   constraints[fieldName] = validation[fieldName];
   // The values and validated against the constraints
   // the variable result hold the error messages of the field
