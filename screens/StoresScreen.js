@@ -19,7 +19,8 @@ function createStoreData(record) {
     latitude: data.Latitude,
     longitude: data.Longitude,
     hours: data['Store Hours'],
-    address: data.Address
+    address: data.Address,
+    products: data.Products
   };
 }
 // The state is initially populated with stores by calling the Airtable API to get all store records
@@ -55,10 +56,6 @@ class StoresScreen extends React.Component {
     // TODO @tommypoa Favourites functionality
     <View style={styles.storesModal}>
       <StoreModalBar />
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <Title>Nearby</Title>
-        {/* <Title>Favourites</Title> */}
-      </View>
     </View>
   );
 
@@ -68,9 +65,12 @@ class StoresScreen extends React.Component {
         <StoreCard
           store={this.state.store}
           key={this.state.store.id}
-          callBack={() => this.detailedStoreTransition(store)}
+          callBack={() => this.detailedStoreTransition(this.state.store)}
         />
-        <StoreProducts navigation={this.props.navigation} />
+        <StoreProducts
+          navigation={this.props.navigation}
+          products={this.state.store.products}
+        />
       </ScrollView>
     </View>
   );
@@ -116,7 +116,7 @@ class StoresScreen extends React.Component {
             initialSnap={1}
             enabledInnerScrolling={true}
             enabledGestureInteraction={true}
-            snapPoints={['80%', '40%', '10%']}
+            snapPoints={['80%', '45%', '10%']}
             renderContent={this.renderInner}
             renderHeader={this.renderHeader}
           />

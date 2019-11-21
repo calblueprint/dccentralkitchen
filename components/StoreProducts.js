@@ -35,9 +35,14 @@ function createProductData(record) {
   };
 }
 
+function filterProductRecord(storeProducts) {
+  return fullProducts.filter(product => storeProducts.includes(product.id));
+}
+
 class StoreProducts extends React.Component {
   constructor(props) {
     super(props);
+    fullProducts = filterProductRecord(this.props.products);
     this.state = {
       products: fullProducts,
       filter: null
