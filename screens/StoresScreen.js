@@ -7,6 +7,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import StoreCard from '../components/StoreCard';
 import BASE from '../lib/common';
 import { StoreModalBar, styles, Title } from '../styles';
+import StoreProducts from '../components/StoreProducts';
 
 const storesTable = BASE('Stores').select({ view: 'Grid view' });
 let stores;
@@ -45,7 +46,8 @@ class StoresScreen extends React.Component {
     super(props);
     this.state = {
       region: initialRegion,
-      stores
+      stores,
+      store: stores[0]
     };
   }
 
@@ -62,16 +64,14 @@ class StoresScreen extends React.Component {
 
   renderInner = () => (
     <View style={styles.storesModal}>
-      <View>
-        <ScrollView>
-          {this.state.stores.map((store) => (
-            <StoreCard
-              store={store} key={store.id}
-              callBack={() => this.detailedStoreTransition(store)}
-            />
-          ))}
-        </ScrollView>
-      </View>
+      <ScrollView>
+        <StoreCard
+          store={this.state.store}
+          key={this.state.store.id}
+          callBack={() => this.detailedStoreTransition(store)}
+        />
+        <StoreProducts navigation={this.props.navigation} />
+      </ScrollView>
     </View>
   );
 
@@ -85,6 +85,12 @@ class StoresScreen extends React.Component {
     });
   };
 
+  changeCurrentStore = store => {
+    this.setState({
+      store: store
+    });
+  };
+
   render() {
     return (
       <View style={{ ...StyleSheet.absoluteFillObject }}>
@@ -93,14 +99,15 @@ class StoresScreen extends React.Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}>
           {this.state.stores.map(store => (
-            <Marker key={store.id}
+            <Marker
+              key={store.id}
               coordinate={{
                 latitude: store.latitude,
                 longitude: store.longitude
               }}
               title={store.name}
               description={store.name}
-              onPress={() => this.detailedStoreTransition(store)}
+              onPress={() => this.changeCurrentStore(store)}
             />
           ))}
         </MapView>

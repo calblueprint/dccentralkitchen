@@ -96,7 +96,9 @@ ProductsScreen.path = '';
 const StoresStack = createStackNavigator(
   {
     Stores: StoresScreen,
-    StoresDetailed: StoresDetailedScreen
+    StoresDetailed: StoresDetailedScreen,
+    Products: ProductsScreen,
+    ProductsDetailed: ProductsDetailedScreen
   },
   config
 );
