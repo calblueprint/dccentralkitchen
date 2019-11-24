@@ -8,18 +8,18 @@ import {
   Text,
   TouchableOpacity,
   View
-} from "react-native";
-import styled from "styled-components/native";
+} from 'react-native';
+import styled from 'styled-components/native';
 
 export const Title = styled.Text`
   font-size: 24px;
   font-weight: bold;
-  margin: 5% 5% 2.5%;
+  margin: 5% 5% 0%;
 `;
 export const Subtitle = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  margin: 1% 5%;
+  margin: 2% 5%;
 `;
 
 export const H3 = styled.Text`
@@ -65,7 +65,7 @@ export const StoreModalBar = styled.View`
   height: 5px;
   width: 50px;
   border-radius: 5px;
-  margin: 2% 0% 0% 42%;
+  margin: 2% 0% 2% 42%;
 `;
 
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
@@ -75,18 +75,18 @@ export const styles = StyleSheet.create({
     marginVertical: 20
   },
   imageContainer: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   item: {
-    backgroundColor: "#919191",
-    alignItems: "center",
-    justifyContent: "flex-end",
+    backgroundColor: '#919191',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
     flex: 1,
     margin: 1,
-    height: Dimensions.get("window").width / 4
+    height: Dimensions.get('window').width / 4
   },
   storesModal: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     opacity: 0.8
   }
 });

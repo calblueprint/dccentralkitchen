@@ -1,7 +1,7 @@
-import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
 
-import { H3, Subtitle } from "../styles";
+import { H3, Subtitle, Title } from '../styles';
 
 /**
  * @prop
@@ -13,7 +13,8 @@ function StoreCard({ store, callBack }) {
   return (
     <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={callBack}>
-        <Subtitle>{name}</Subtitle>
+        <Subtitle>Showing products for</Subtitle>
+        <Title>{name}</Title>
         <H3>{address}</H3>
         <H3>{hours}</H3>
       </TouchableOpacity>
