@@ -83,44 +83,40 @@ export default class Login extends React.Component {
       10
     )}`;
 
-    try {
-      await lookupCustomer(formattedPhoneNumber, this.state.password)
-        .then(customerInfo => {
-          if (customerInfo) {
-            console.log(
-              'Customer lookup successful. Customer Record ID:',
-              customerInfo.custId
-            );
-            this.setState({ errorMsg: '' });
-            return customerInfo;
-          }
-          // If no records exist, resolves with null; set error message
-          this.setState({
-            errorMsg: 'Incorrect phone number or password. Please try again.',
-            phoneNumber: '',
-            password: ''
-          });
-          return null;
-        })
-        .then(customerInfo => {
-          if (customerInfo) {
-            updateCustomerPushTokens(customerInfo, this.state.token)
-              .then(customerId => {
-                if (customerId) {
-                  this._asyncSignIn(customerId);
-                }
-                // Otherwise, lookup failed
-                return null;
-              })
-              .catch(err => console.error(err));
-          }
-          // Otherwise, lookup failed
-          return null;
-        })
-        .catch(err => console.error(err));
-    } catch (err) {
-      console.error(err);
-    }
+    lookupCustomer(formattedPhoneNumber, this.state.password)
+      .then(customerInfo => {
+        if (customerInfo) {
+          console.log(
+            'Customer lookup successful. Customer Record ID:',
+            customerInfo.custId
+          );
+          this.setState({ errorMsg: '' });
+          return customerInfo;
+        }
+        // If no records exist, resolves with null; set error message
+        this.setState({
+          errorMsg: 'Incorrect phone number or password. Please try again.',
+          phoneNumber: '',
+          password: ''
+        });
+        return null;
+      })
+      .then(customerInfo => {
+        if (customerInfo) {
+          updateCustomerPushTokens(customerInfo, this.state.token)
+            .then(customerId => {
+              if (customerId) {
+                this._asyncSignIn(customerId);
+              }
+              // Otherwise, lookup failed
+              return null;
+            })
+            .catch(err => console.error(err));
+        }
+        // Otherwise, lookup failed
+        return null;
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
