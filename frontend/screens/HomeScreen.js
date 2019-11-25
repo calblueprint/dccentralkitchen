@@ -3,8 +3,6 @@ import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, Vi
 
 import { MonoText } from '../components/StyledText';
 import { BASE, IMG_KEY } from '../lib/common';
-import ReceiptScanner from './Camera'
-
 
 export default class HomeScreen extends React.Component {
   constructor(props) {

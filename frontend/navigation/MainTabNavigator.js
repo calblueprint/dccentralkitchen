@@ -9,7 +9,6 @@ import HomeScreen from '../screens/HomeScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import ReceiptReader from '../screens/Camera'
 import ReceiptScanner from '../screens/Camera';
 
 const config = Platform.select({
