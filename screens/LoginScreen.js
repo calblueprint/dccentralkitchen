@@ -2,19 +2,9 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import {
-  AsyncStorage,
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
+import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import {
-  lookupCustomer,
-  updateCustomerPushTokens
-} from './signup/authAirtable';
+import { lookupCustomer, updateCustomerPushTokens } from './signup/authAirtable';
 
 // import registerForPushNotificationsAsync from './signup/notifications';
 
@@ -72,7 +62,7 @@ export default class Login extends React.Component {
 
   // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
   // the user is found.
-  async handleSubmit() {
+  handleSubmit() {
     let formattedPhoneNumber = this.state.phoneNumber;
     formattedPhoneNumber = formattedPhoneNumber.replace('[^0-9]', '');
     formattedPhoneNumber = `(${formattedPhoneNumber.slice(

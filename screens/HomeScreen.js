@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  AsyncStorage,
-  Button,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 import BASE from '../lib/common';
@@ -18,58 +9,21 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       name: '',
-      points: '',
-      rewards: [],
-      redeemable: {},
-      announcements: ''
+      points: ''
     };
   }
 
-  // Sign out function -- it clears the local storage then navigates
-  // to the authentication page.
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
-  };
-
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-    this.getUser(userId)
-      .then(userRecord => {
+    HomeScreen.getUser(userId)
+      .then(async userRecord => {
         if (userRecord) {
-          const points = userRecord.fields.Points;
-          const rewards = userRecord.fields.Rewards;
           const name = userRecord.fields.Name;
-          this.checkAvailableRewards(points)
-            .then(records => {
-              availableRewards = {};
-              records.forEach(record => {
-                availableRewards[record.get('Name')] = record.getId();
-              });
-              this.setState({
-                redeemable: availableRewards
-              });
-              if (rewards) {
-                const rewardRecords = rewards.map(id =>
-                  BASE('Rewards').find(id)
-                );
-                Promise.all(rewardRecords).then(records => {
-                  this.setState({
-                    points,
-                    rewards: records,
-                    name
-                  });
-                });
-              } else {
-                this.setState({
-                  points,
-                  name
-                });
-              }
-            })
-            .catch(err => {
-              console.error(err);
-            });
+          const points = userRecord.fields.Points;
+          await this.setState({
+            name,
+            points
+          });
         } else {
           console.error('User data is undefined or empty.');
         }
@@ -81,21 +35,28 @@ export default class HomeScreen extends React.Component {
 
   // Calls Airtable API to return a promise that
   // will resolve to be a user record.
-  async getUser(id) {
+  static async getUser(id) {
     return BASE('Customers').find(id);
   }
 
-  // Calls Airtable API to return a promise that
-  // will resolve to be an array of records that
-  // require less than the given number points to
-  // redeem.
-  async checkAvailableRewards(points) {
-    return BASE('Rewards')
-      .select({
-        filterByFormula: `{Point Values} <= ${points}`
-      })
-      .firstPage();
-  }
+  // Sign out function -- it clears the local storage then navigates
+  // to the authentication page.
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
+
+  // // Calls Airtable API to returna promise that
+  // // will resolve to be an array of records that
+  // // require less than the given number points to
+  // // redeem.
+  // async checkAvailableRewards(points) {
+  //   return BASE('Rewards')
+  //     .select({
+  //       filterByFormula: `{Point Values} <= ${points}`
+  //     })
+  //     .firstPage();
+  // }
 
   render() {
     return (
@@ -141,45 +102,6 @@ export default class HomeScreen extends React.Component {
             />
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            Rewards available to redeem:
-          </Text>
-          {this.state.redeemable
-            ? Object.keys(this.state.redeemable).map((key, index) => {
-                return (
-                  <View
-                    key={index}
-                    style={[
-                      styles.codeHighlightContainer,
-                      styles.navigationFilename
-                    ]}>
-                    <MonoText style={styles.codeHighlightText}>{key}</MonoText>
-                  </View>
-                );
-              })
-            : ''}
-        </View>
-        <View style={styles.tabBarInfoContainer2}>
-          <Text style={styles.tabBarInfoText}>Your rewards:</Text>
-          {this.state.rewards
-            ? this.state.rewards.map(reward => {
-                return (
-                  <View
-                    key={reward.get('Name')}
-                    style={[
-                      styles.codeHighlightContainer,
-                      styles.navigationFilename
-                    ]}>
-                    <MonoText style={styles.codeHighlightText}>
-                      {reward.get('Name')}
-                    </MonoText>
-                  </View>
-                );
-              })
-            : ''}
-        </View>
       </View>
     );
   }
