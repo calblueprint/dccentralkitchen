@@ -4,7 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from '../components/Product';
 import BASE from '../lib/common';
-import { Button, ScrollCategory, styles } from '../styles';
+import { styles } from '../styles/products';
+import { Button, ScrollCategory } from '../styles/shared';
 
 const productsTable = BASE('Products').select({ view: 'Grid view' });
 let fullProducts;
@@ -25,7 +26,7 @@ productsTable.firstPage((err, records) => {
 });
 
 function createProductData(record) {
-  let data = record.fields;
+  const data = record.fields;
   return {
     name: data.Name,
     id: data.id,
@@ -55,7 +56,7 @@ class ProductsScreen extends React.Component {
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {categories.map((category, index) => (
             <Button
               key={category.concat(index.toString())}
