@@ -1,10 +1,11 @@
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { AsyncStorage, Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
 import validatejs from 'validate.js';
+
+import { checkForDuplicateCustomer, createCustomer, createPushToken } from './signup/authAirtable';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -16,76 +17,7 @@ import validatejs from 'validate.js';
 // import validation from  'screens/signup/validation'
 // import validate from  'screens/signup/validation_wrapper'
 
-import { MonoText } from '../components/StyledText';
-import BASE from '../lib/common';
-
 export default class SignUp extends React.Component {
-  // Helper function for adding customers to the database. Takes
-  // in all the relevant information from the form and calls the
-  // Airtable API to create the record.
-  static async addCustomer(fname, lname, phoneNumber, password, pushToken) {
-    return new Promise((resolve, reject) => {
-      BASE('Customers').create(
-        [
-          {
-            fields: {
-              'First Name': fname,
-              'Last Name': lname,
-              'Phone Number': phoneNumber,
-              Password: password,
-              Points: 0 // ,
-              // 'Push Tokens': [pushToken]
-            }
-          }
-        ],
-        function(err, records) {
-          if (err) {
-            console.error(err);
-            reject(err, 'Error adding');
-          }
-          records.forEach(function(record) {
-            // Prints when you add for now,
-            // not sure what else we should be doing here.
-            console.log(record.getId());
-            resolve(record.getId());
-          });
-        }
-      );
-    });
-  }
-
-  // This function checks the customers table for any duplicates
-  // based on the phone number. It returns a promise because
-  // the Airtable API call is an async function.
-  static async checkForDuplicates(phoneNumber) {
-    return new Promise((resolve, reject) => {
-      const duplicate = false;
-      BASE('Customers')
-        .select({
-          maxRecords: 1,
-          filterByFormula: `SEARCH("${phoneNumber}", {Phone Number})`
-        })
-        .eachPage(
-          function page(records, fetchNextPage) {
-            if (records.length > 0) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-            fetchNextPage();
-          },
-          err => {
-            if (err) {
-              console.error(err);
-              reject(err);
-            } else {
-              resolve(duplicate);
-            }
-          }
-        );
-    });
-  }
-
   constructor(props) {
     super(props);
 
@@ -97,7 +29,7 @@ export default class SignUp extends React.Component {
       passwordError: '',
       phoneNumber: '',
       phoneNumberError: '',
-      pushToken: ''
+      token: ''
     };
   }
 
@@ -113,6 +45,21 @@ export default class SignUp extends React.Component {
       this._handleNotification
     );
   }
+
+  // Purely to bypass signups for development -- developer is not required to sign up to enter home screen.
+  // Configures to use David Ro's test account
+  _devBypass = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('userId', 'recomWMtzSUQCcIvr');
+    this.props.navigation.navigate('App');
+  };
+
+  // Sign in function. It sets the user token in local storage
+  // to be the fname + lname and then navigates to homescreen.
+  _asyncSignin = async () => {
+    await AsyncStorage.setItem('userId', this.state.id);
+    this.props.navigation.navigate('App');
+  };
 
   registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
@@ -130,33 +77,73 @@ export default class SignUp extends React.Component {
         alert('Failed to get push token for push notification!');
         return;
       }
-      const token = await Notifications.getExpoPushTokenAsync();
-      this.setState({ pushToken: token });
+      const pushToken = await Notifications.getExpoPushTokenAsync();
+      await this.setState({ token: pushToken });
     } else {
       alert('Must use physical device for Push Notifications');
     }
   };
 
-  // Purely to bypass signups for development -- developer is not required to sign up to enter home screen.
-  // Configures to use David Ro's test account
-  _devBypass = async () => {
-    // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recomWMtzSUQCcIvr');
-    this.props.navigation.navigate('App');
-  };
+  // Helper function for adding customers to the database. Takes
+  // in all the relevant information from the form and calls the
+  // Airtable API to create the record.
+  async addCustomer() {
+    return new Promise((resolve, reject) => {
+      createPushToken(this.state.token)
+        .then(tokenRecords => {
+          if (tokenRecords) {
+            let tokenId = null;
 
-  // Sign in function. It sets the user token in local storage
-  // to be the fname + lname and then navigates to homescreen.
-  _asyncSignin = async () => {
-    await AsyncStorage.setItem('userId', this.state.id);
-    this.props.navigation.navigate('App');
-  };
+            // Get tokenId
+            tokenRecords.forEach(function process(record) {
+              // Resolve with tokenId for use in other functions
+              tokenId = record.getId();
+            });
+
+            // Create customer with this tokenId
+            createCustomer(
+              this.state.firstName,
+              this.state.lastName,
+              this.state.phoneNumber,
+              this.state.password,
+              tokenId
+            )
+              .then(customerRecords => {
+                if (customerRecords) {
+                  let custId = null;
+
+                  customerRecords.forEach(function id(record) {
+                    custId = record.getId();
+                  });
+
+                  resolve(custId);
+                  return custId;
+                }
+                reject(new Error('Error creating new customer'));
+
+                // double error handling?
+              })
+              .catch(err => {
+                console.error(err);
+                reject(err);
+              });
+          } else {
+            // No tokenRecord found
+            reject(new Error('Error creating new push token'));
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          reject(err);
+        });
+    });
+  }
 
   // Handling submission. This function runs the validation functions
   // as well as the duplicate checking. If there are no errors on the
   // validation or duplicate side, then an Airtable record is created.
   async handleSubmit() {
-    let phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
+    const phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
     const passwordError = validate('password', this.state.password);
     let nameError = '';
     if (!this.state.firstName || !this.state.lastName) {
@@ -166,70 +153,60 @@ export default class SignUp extends React.Component {
     // const nameError = validate('name', this.state.firstName)
 
     let formattedPhoneNumber = this.state.phoneNumber;
-    formattedPhoneNumber = `(${formattedPhoneNumber.slice(
-      0,
-      3
-    )}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(
-      6,
-      10
-    )}`;
+    // eslint-disable-next-line prettier/prettier
+    formattedPhoneNumber = `(${formattedPhoneNumber.slice(0, 3)}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(6, 10)}`;
 
-    // If we don't have any bugs already with form validation,
-    // we'll check for duplicates here in the Airtable.
-    if (!phoneNumberError) {
-      SignUp.checkForDuplicates(formattedPhoneNumber).then(
-        resolvedValue => {
-          if (resolvedValue) {
-            phoneNumberError = 'Phone number in use already.';
-          }
-        },
-        error => {
-          console.error(error);
-        }
-      );
-    }
-
-    var errorMessage = nameError + '\n' + phoneNumberError + '\n' + passwordError;
-
-    this.setState({
+    // Have to await this or else Airtable call may happen first
+    await this.setState({
       nameError,
       phoneNumberError,
       passwordError
     });
 
-    if (!nameError && !this.state.phoneNumberError && !this.state.passwordError) {
-      SignUp.addCustomer(
-        this.state.firstName,
-        this.state.lastName,
-        this.state.phoneNumber,
-        this.state.password,
-        this.state.pushToken
-      ).then(data => {
-        this.setState({
-          firstName: '',
-          lastName: '',
-          password: '',
-          passwordError: '',
-          phoneNumber: '',
-          phoneNumberError: '',
-          pushToken: '',
-          id: data
-        });
-        this._asyncSignin();
-      }).catch(err => {
-        console.error(err);
-      });
+    // If we don't have any bugs already with form validation,
+    // we'll check for duplicates here in the Airtable.
+    if (!phoneNumberError) {
+      const that = this;
+      await checkForDuplicateCustomer(formattedPhoneNumber).then(
+        async resolvedValue => {
+          if (resolvedValue) {
+            // Again, must await this
+            await that.setState({
+              phoneNumberError: 'Phone number in use already.'
+            });
+          }
+        }
+      );
+    }
+
+    if (
+      !this.state.nameError &&
+      !this.state.phoneNumberError &&
+      !this.state.passwordError
+    ) {
+      await this.addCustomer()
+        .then(custId => {
+          this.setState({
+            firstName: '',
+            lastName: '',
+            password: '',
+            passwordError: '',
+            phoneNumber: '',
+            phoneNumberError: '',
+            token: '',
+            id: custId
+          });
+        })
+        .catch(err => {
+          console.error(err);
+        })
+        .then(_ => this._asyncSignin());
     } else {
-      // For now it just tells you what you did wrong -- stretch
-      // is to make it update onBlur() -- code is below for it.
-      alert(errorMessage);
+      alert(
+        `${this.state.nameError}\n ${this.state.phoneNumberError}\n ${this.state.passwordError}`
+      );
     }
     Keyboard.dismiss();
-  }
-
-  // Purely to bypass signups for development
-  testingBypass() {
-    this.props.navigation.navigate('App');
   }
 
   render() {
@@ -254,15 +231,15 @@ export default class SignUp extends React.Component {
           value={this.state.phoneNumber}
           keyboardType="number-pad"
           maxLength={10}
-          // For future use to make forms even nicer
-          // TODO: @Johnathan Figure out onBlur
-          // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
-          // error={this.state.phoneNumberError}
-          // onBlur={() => {
-          //   this.setState({
-          //     phoneNumberError: validate('phoneNumber', this.state.phoneNumber)
-          //   })
-          // }}
+        // For future use to make forms even nicer
+        // TODO: @Johnathan Figure out onBlur
+        // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
+        // error={this.state.phoneNumberError}
+        // onBlur={() => {
+        //   this.setState({
+        //     phoneNumberError: validate('phoneNumber', this.state.phoneNumber)
+        //   })
+        // }}
         />
         <TextInput
           style={styles.input}
@@ -288,10 +265,10 @@ function validate(fieldName, value) {
   // Validate.js validates your values as an object
   // e.g. var form = {email: 'email@example.com'}
   // Line 8-9 creates an object based on the field name and field value
-  let values = {};
+  const values = {};
   values[fieldName] = value;
 
-  let constraints = {};
+  const constraints = {};
   constraints[fieldName] = validation[fieldName];
   // The values and validated against the constraints
   // the variable result hold the error messages of the field

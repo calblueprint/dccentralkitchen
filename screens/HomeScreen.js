@@ -1,5 +1,14 @@
 import React from 'react';
-import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  AsyncStorage,
+  Button,
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 import BASE from '../lib/common';
@@ -9,11 +18,34 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       name: '',
-      points: '',
-      rewards: [],
-      redeemable: {},
-      announcements: ''
+      points: ''
     };
+  }
+
+  async componentDidMount() {
+    const userId = await AsyncStorage.getItem('userId');
+    HomeScreen.getUser(userId)
+      .then(async userRecord => {
+        if (userRecord) {
+          const name = userRecord.fields.Name;
+          const points = userRecord.fields.Points;
+          await this.setState({
+            name,
+            points
+          });
+        } else {
+          console.error('User data is undefined or empty.');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  // Calls Airtable API to return a promise that
+  // will resolve to be a user record.
+  static async getUser(id) {
+    return BASE('Customers').find(id);
   }
 
   // Sign out function -- it clears the local storage then navigates
@@ -23,65 +55,19 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
-  async componentDidMount() {
-    const userId = await AsyncStorage.getItem('userId');
-    this.getUser(userId).then(userRecord => {
-      if (userRecord) {
-        let points = userRecord["fields"]["Points"]
-        let rewards = userRecord["fields"]["Rewards"]
-        let name = userRecord["fields"]["Name"]
-        this.checkAvailableRewards(points).then(records => {
-          availableRewards = {}
-          records.forEach(record => {
-            availableRewards[record.get('Name')] = record.getId()  
-          })
-          this.setState({
-            redeemable: availableRewards
-          })
-          if (rewards) {
-            let rewardRecords = rewards.map(id => BASE('Rewards').find(id))
-            Promise.all(rewardRecords).then(records => {
-              this.setState({
-                points: points,
-                rewards: records,
-                name: name,
-              })
-            })
-          } else {
-            this.setState({
-              points: points,
-              name: name,
-            })
-          }
-        }).catch(err => {
-          console.error(err)
-        })
-      } else {
-        console.error('User data is undefined or empty.')
-      }
-    }).catch(err => {
-      console.error(err)
-    })
-  }
+  // TODO @JohnathanZhou refactor Available Rewards display
+  // // Calls Airtable API to return a promise that
+  // // will resolve to be an array of records that
+  // // require less than the given number points to
+  // // redeem.
+  // async checkAvailableRewards(points) {
+  //   return BASE('Rewards')
+  //     .select({
+  //       filterByFormula: `{Point Values} <= ${points}`
+  //     })
+  //     .firstPage();
+  // }
 
-  // Calls Airtable API to return a promise that
-  // will resolve to be a user record.
-  async getUser(id) {
-    return BASE('Customers').find(id)
-  }
-  
-  // Calls Airtable API to returna promise that 
-  // will resolve to be an array of records that
-  // require less than the given number points to
-  // redeem. 
-  async checkAvailableRewards(points) {
-    return BASE('Rewards')
-      .select({
-        filterByFormula: `{Point Values} <= ${points}`
-      })
-      .firstPage()
-  }
-  
   render() {
     return (
       <View style={styles.container}>
@@ -100,62 +86,39 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}> {"Welcome, " + this.state.name}</Text>
+            <Text style={styles.getStartedText}>
+              {' '}
+              {`Welcome, ${this.state.name}`}
+            </Text>
             <View
-              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+              style={[
+                styles.codeHighlightContainer,
+                styles.homeScreenFilename
+              ]}>
               <MonoText>{this.state.points} / 1000 </MonoText>
             </View>
-            <Text style={styles.getStartedText}> {1000 - parseInt(this.state.points) + " points to your next reward"}</Text>
-           
+            <Text style={styles.getStartedText}>
+              {' '}
+              {`${1000 -
+                parseInt(this.state.points)} points to your next reward`}
+            </Text>
           </View>
 
           <View style={styles.signOutContainer}>
             <Button
               title="Sign out"
               onPress={this._signOutAsync}
-              style={styles.signOutButton} />
+              style={styles.signOutButton}
+            />
+          </View>
+          <View style={styles.signOutContainer}>
+            <Button
+              title="Go to Camera"
+              onPress={() => this.props.navigation.navigate('Camera')}
+              style={styles.signOutButton}
+            />
           </View>
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            Rewards available to redeem:
-          </Text>
-          { this.state.redeemable ? 
-            Object.keys(this.state.redeemable).map((key, index) => {
-              return(
-                <View
-                  key={index}
-                  style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-                  <MonoText style={styles.codeHighlightText}>
-                    {key}
-                  </MonoText>
-                </View>
-              )
-            })
-            : ''
-          }
-        </View>
-        <View style={styles.tabBarInfoContainer2}>
-          <Text style={styles.tabBarInfoText}>
-            Your rewards:
-          </Text>
-          { this.state.rewards ? 
-            this.state.rewards.map(reward => {
-              return(
-                <View
-                  key={reward.get("Name")}
-                  style={[styles.codeHighlightContainer, styles.navigationFilename]}
-                  >
-                  <MonoText style={styles.codeHighlightText}>
-                    {reward.get("Name")}
-                  </MonoText>
-                </View>
-              )
-            })
-            : ''
-          }
-        </View>
       </View>
     );
   }
@@ -212,7 +175,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'rgba(13, 99, 139, 0.8)',
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   tabBarInfoContainer: {
     position: 'absolute',
@@ -225,15 +188,15 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
       },
       android: {
-        elevation: 20,
-      },
+        elevation: 20
+      }
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   tabBarInfoContainer2: {
     position: 'absolute',
@@ -246,15 +209,15 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
       },
       android: {
-        elevation: 20,
-      },
+        elevation: 20
+      }
     }),
     alignItems: 'center',
     backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   helloMessage: {
     paddingVertical: 10,
