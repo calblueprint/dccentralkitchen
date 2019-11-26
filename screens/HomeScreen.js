@@ -1,5 +1,14 @@
 import React from 'react';
-import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  AsyncStorage,
+  Button,
+  Image,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 import BASE from '../lib/common';
@@ -46,7 +55,8 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
-  // // Calls Airtable API to returna promise that
+  // TODO @JohnathanZhou refactor Available Rewards display
+  // // Calls Airtable API to return a promise that
   // // will resolve to be an array of records that
   // // require less than the given number points to
   // // redeem.
@@ -98,6 +108,13 @@ export default class HomeScreen extends React.Component {
             <Button
               title="Sign out"
               onPress={this._signOutAsync}
+              style={styles.signOutButton}
+            />
+          </View>
+          <View style={styles.signOutContainer}>
+            <Button
+              title="Go to Camera"
+              onPress={() => this.props.navigation.navigate('Camera')}
               style={styles.signOutButton}
             />
           </View>

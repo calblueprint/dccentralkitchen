@@ -21,7 +21,8 @@ module.exports = {
     'constructor-super': 'warn',
     'valid-typeof': 'warn',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'prettier/prettier': ['error']
+    'prettier/prettier': ['error'],
+    'react/destructuring-assignment': ['enabled', 'never'],
   },
   extends: ['eslint:recommended', 'airbnb', 'prettier', 'prettier/react']
 };
