@@ -6,10 +6,10 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import BASE from '../../lib/common';
 
-import StoreCard from '../components/StoreCard';
-import StoreProducts from '../components/StoreProducts';
-import { Title } from '../styles/shared';
-import { StoreModal, StoreModalBar } from '../styles/stores';
+import StoreCard from '../../components/StoreCard';
+import StoreProducts from '../../components/StoreProducts';
+import { Title } from '../../styles/shared';
+import { StoreModal, StoreModalBar } from '../../styles/stores';
 
 const storesTable = BASE('Stores').select({ view: 'Grid view' });
 
