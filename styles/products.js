@@ -1,40 +1,9 @@
-import {
-  Dimensions,
-  FlatList,
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-
-export const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  margin: 5% 5% 0%;
-`;
-export const Subtitle = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
-  margin: 2% 5%;
-`;
-
-export const H3 = styled.Text`
-  font-size: 12px;
-  margin: 1% 6.5%;
-`;
 
 export const Notice = styled.Text`
   font-size: 12px;
   margin: 2% 5%;
-`;
-
-export const ScrollCategory = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
 `;
 
 export const ProductContainer = styled.View`
@@ -50,24 +19,9 @@ export const ProductBody = styled.Text`
   font-weight: bold;
 `;
 
-export const Button = styled.TouchableOpacity`
-  flex: 1 1 0;
+export const ImageContainer = styled.View`
+  flexdirection: row;
 `;
-
-export const ButtonText = styled.Text`
-  color: white;
-  padding: 7.5px 7.5px;
-`;
-
-export const StoreModalBar = styled.View`
-  border: 1px solid black;
-  background-color: black
-  height: 5px;
-  width: 50px;
-  border-radius: 5px;
-  margin: 2% 0% 2% 42%;
-`;
-
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
   container: {

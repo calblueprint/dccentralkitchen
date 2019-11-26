@@ -4,7 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from './Product';
 import BASE from '../lib/common';
-import { Button, ScrollCategory, styles, H3, Title, Subtitle } from '../styles';
+import { Button, ScrollCategory, H3, Title, Subtitle } from '../styles/shared';
+import { styles } from '../styles/products';
 
 function createProductData(record) {
   console.log(record);

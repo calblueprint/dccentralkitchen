@@ -2,7 +2,14 @@ import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import BASE from '../../lib/common';
+
+import StoreCard from '../components/StoreCard';
+import StoreProducts from '../components/StoreProducts';
+import { Title } from '../styles/shared';
+import { StoreModal, StoreModalBar } from '../styles/stores';
 
 const storesTable = BASE('Stores').select({ view: 'Grid view' });
 
@@ -67,14 +74,14 @@ class StoresScreen extends React.Component {
 
   renderHeader = () => (
     // TODO @tommypoa Favourites functionality
-    <View style={styles.storesModal}>
+    <StoreModal>
       <StoreModalBar />
-    </View>
+    </StoreModal>
   );
 
   renderInner = () => {
     return (
-      <View style={styles.storesModal}>
+      <StoreModal>
         <StoreCard
           store={this.state.store}
           key={this.state.store.id}
@@ -84,7 +91,7 @@ class StoresScreen extends React.Component {
           navigation={this.props.navigation}
           store={this.state.store}
         />
-      </View>
+      </StoreModal>
     );
   };
 
