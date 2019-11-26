@@ -23,41 +23,6 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
-  _uploadImage = async () => {
-    let url = "https://i.imgur.com/EMNDZC3.png"
-    let params = "?key=" + IMG_KEY + "&image=" +  url
-    fetch(`https://api.imgbb.com/1/upload${params}`, {
-      method: 'POST',
-    })
-    .then(data => {
-      return data.json()
-    })
-    .then(data => {
-      console.log("SHOULD BE JOSN DATA", data)
-      let postUrl = data["data"]["display_url"]
-      console.log("post url", postUrl)
-      BASE('d').create([
-        {
-          "fields": {
-            "Attachments": [
-              {
-                "url": postUrl
-              }
-            ]
-          }
-        }
-      ], {typecast: true}, function(err, records) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        records.forEach(function (record) {
-          console.log(record.getId());
-        });
-      });
-    })
-  }
-
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     this.getUser(userId).then(userRecord => {
@@ -147,7 +112,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.signOutContainer}>
             <Button
               title="Sign out"
-              onPress={this._uploadImage}
+              onPress={this._signOutAsync}
               style={styles.signOutButton} />
           </View>
           <View style={styles.signOutContainer}>
