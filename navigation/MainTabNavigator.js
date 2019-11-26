@@ -13,7 +13,7 @@ import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen'
 import HomeScreen from '../screens/HomeScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ReceiptScanner from '../screens/Camera';
 import StoresDetailedScreen from '../screens/StoresDetailedScreen';
 import StoresScreen from '../screens/StoresScreen';
 
@@ -25,7 +25,8 @@ const config = Platform.select({
 // Home
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen
+    Home: HomeScreen,
+    Camera: ReceiptScanner
   },
   config
 );
@@ -106,7 +107,7 @@ StoresStack.navigationOptions = {
 
 StoresScreen.path = '';
 
-// TODO Sprint 7: Add customer settings screenn
+// TODO Spring 2020: Add customer profile/settings screenn
 // const SettingsStack = createStackNavigator(
 //   {
 //     Settings: SettingsScreen

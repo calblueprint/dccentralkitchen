@@ -17,6 +17,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "expo-camera": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@expo/samples": "~3.0.3",
     "@expo/vector-icons": "^10.0.3",
