@@ -6,7 +6,8 @@ import BottomSheet from 'reanimated-bottom-sheet';
 
 import StoreCard from '../components/StoreCard';
 import BASE from '../lib/common';
-import { StoreModalBar, styles, Title } from '../styles';
+import { Title } from '../styles/shared';
+import { StoreModal, StoreModalBar } from '../styles/stores';
 
 const storesTable = BASE('Stores').select({ view: 'Grid view' });
 let stores;
@@ -51,17 +52,17 @@ class StoresScreen extends React.Component {
 
   renderHeader = () => (
     // TODO @tommypoa Favourites functionality
-    <View style={styles.storesModal}>
+    <StoreModal>
       <StoreModalBar />
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <Title>Nearby</Title>
         {/* <Title>Favourites</Title> */}
       </View>
-    </View>
+    </StoreModal>
   );
 
   renderInner = () => (
-    <View style={styles.storesModal}>
+    <StoreModal>
       <View>
         <ScrollView>
           {this.state.stores.map((store) => (
@@ -72,7 +73,7 @@ class StoresScreen extends React.Component {
           ))}
         </ScrollView>
       </View>
-    </View>
+    </StoreModal>
   );
 
   onRegionChange = region => {
