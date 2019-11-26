@@ -4,7 +4,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from '../components/Product';
 import BASE from '../lib/common';
-import { Button, ScrollCategory, styles, H3, Title, Subtitle } from '../styles';
+import { Button, ScrollCategory, H3, Title, Subtitle } from '../styles/shared';
+import { styles } from '../styles/products';
 
 const productsTable = BASE('Products').select({ view: 'Grid view' });
 let fullProducts;
@@ -25,7 +26,7 @@ productsTable.firstPage((err, records) => {
 });
 
 function createProductData(record) {
-  let data = record.fields;
+  const data = record.fields;
   return {
     name: data.Name,
     id: data.id,
@@ -53,10 +54,10 @@ class AllProductsScreen extends React.Component {
   };
 
   render() {
-    var products = this.state.products; // TODO @tommypoa ASYNC
+    let {products} = this.state; // TODO @tommypoa ASYNC
     return (
       <View>
-        <View flexDirection={'row'}>
+        <View flexDirection="row">
           <Title>Fruits</Title>
           <Button
             onPress={() =>
@@ -70,7 +71,7 @@ class AllProductsScreen extends React.Component {
             <Title>See all</Title>
           </Button>
         </View>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {products
             .filter(product => product.category.includes('Fruit'))
             .map((product, index) => (
@@ -84,7 +85,7 @@ class AllProductsScreen extends React.Component {
               </Button>
             ))}
         </ScrollView>
-        <View flexDirection={'row'}>
+        <View flexDirection="row">
           <Title>Veggies</Title>
           <Button
             onPress={() =>
@@ -98,7 +99,7 @@ class AllProductsScreen extends React.Component {
             <Title>See all</Title>
           </Button>
         </View>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {products
             .filter(product => product.category.includes('Vegetables'))
             .map((product, index) => (

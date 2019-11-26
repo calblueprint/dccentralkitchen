@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Notice } from '../styles';
+import { Notice } from '../styles/products';
 
 function SpecialNotice() {
   return (
