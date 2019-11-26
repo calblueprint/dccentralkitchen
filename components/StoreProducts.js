@@ -7,6 +7,7 @@ import BASE from '../lib/common';
 import { Button, ScrollCategory, styles, H3, Title, Subtitle } from '../styles';
 
 function createProductData(record) {
+  console.log(record);
   const data = record.fields;
   return {
     name: data.Name,
@@ -17,41 +18,53 @@ function createProductData(record) {
   };
 }
 
-let fullProducts;
-const productsTable = BASE('Products').select({ view: 'Grid view' });
-productsTable.firstPage((err, records) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  fullProducts = records.map(record => createProductData(record));
-});
+// let fullProducts;
+// const productsTable = BASE('Products').select({ view: 'Grid view' });
+// productsTable.firstPage((err, records) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   fullProducts = records.map(record => createProductData(record));
+// });
 
-function filterProductRecord(storeProducts) {
-  return fullProducts.filter(product => storeProducts.includes(product.id));
-}
+// function filterProductRecord(storeProducts) {
+//   return fullProducts.filter(product => storeProducts.includes(product.id));
+// }
 
 class StoreProducts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: filterProductRecord(props.products)
+      products: [],
+      navigation: null
     };
   }
 
+  componentDidUpdate() {
+    const { navigation, store } = this.props;
+    this.setState({
+      products: store.products.map(id =>
+        createProductData(BASE('Products').find(id))
+      ),
+      navigation
+    });
+  }
+
   render() {
-    const { products } = this.state; // TODO @tommypoa ASYNC
+    const { navigation, products } = this.state; // TODO @tommypoa ASYNC
     return (
       <View>
         <View flexDirection="row">
           <Title>Fruits</Title>
           <Button
             onPress={() =>
-              this.props.navigation.navigate('Products', {
+              navigation.navigate('Products', {
                 products: products.filter(product =>
                   product.category.includes('Fruit')
                 ),
-                navigation: this.props.navigation
+                navigation: this.props.navigation,
+                productType: 'Fruits'
               })
             }>
             <Title>See all</Title>
@@ -63,7 +76,7 @@ class StoreProducts extends React.Component {
             .map((product, index) => (
               <Button
                 onPress={() =>
-                  this.props.navigation.navigate('ProductsDetailed', {
+                  navigation.navigate('ProductsDetailed', {
                     currentProduct: product
                   })
                 }>
@@ -75,11 +88,12 @@ class StoreProducts extends React.Component {
           <Title>Veggies</Title>
           <Button
             onPress={() =>
-              this.props.navigation.navigate('Products', {
+              navigation.navigate('Products', {
                 products: products.filter(product =>
                   product.category.includes('Vegetables')
                 ),
-                navigation: this.props.navigation
+                navigation,
+                productType: 'Vegetables'
               })
             }>
             <Title>See all</Title>
@@ -91,7 +105,7 @@ class StoreProducts extends React.Component {
             .map((product, index) => (
               <Button
                 onPress={() =>
-                  this.props.navigation.navigate('ProductsDetailed', {
+                  navigation.navigate('ProductsDetailed', {
                     currentProduct: product
                   })
                 }>

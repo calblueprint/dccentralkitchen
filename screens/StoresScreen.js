@@ -59,9 +59,9 @@ class StoresScreen extends React.Component {
     </View>
   );
 
-  renderInner = () => (
-    <View style={styles.storesModal}>
-      <ScrollView>
+  renderInner = () => {
+    return (
+      <View style={styles.storesModal}>
         <StoreCard
           store={this.state.store}
           key={this.state.store.id}
@@ -69,11 +69,11 @@ class StoresScreen extends React.Component {
         />
         <StoreProducts
           navigation={this.props.navigation}
-          products={this.state.store.products}
+          store={this.state.store}
         />
-      </ScrollView>
-    </View>
-  );
+      </View>
+    );
+  };
 
   onRegionChange = region => {
     this.setState({ region });
@@ -87,7 +87,7 @@ class StoresScreen extends React.Component {
 
   changeCurrentStore = store => {
     this.setState({
-      store: store
+      store
     });
   };
 
@@ -116,7 +116,7 @@ class StoresScreen extends React.Component {
             initialSnap={1}
             enabledInnerScrolling={true}
             enabledGestureInteraction={true}
-            snapPoints={['80%', '45%', '10%']}
+            snapPoints={['200%', '50%', '10%']}
             renderContent={this.renderInner}
             renderHeader={this.renderHeader}
           />
