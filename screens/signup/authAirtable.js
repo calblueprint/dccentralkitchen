@@ -157,6 +157,8 @@ export const updateCustomerPushTokens = function async(
           return null;
         })
         .catch(err => reject(err));
+    } else {
+      resolve(custId);
     }
   });
 };
