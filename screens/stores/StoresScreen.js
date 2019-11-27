@@ -11,9 +11,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { getStoreData } from './storeHelpers';
-
-import StoreCard from '../../components/StoreCard';
+import { getStoreData, getProductData } from './storeHelpers';
 import StoreProducts from '../../components/StoreProducts';
 import { StoreModal, StoreModalBar } from '../../styles/stores';
 
@@ -27,27 +25,40 @@ export default class StoresScreen extends React.Component {
     super(props);
     this.state = {
       locationErrorMsg: null,
+      location: null,
       region: null,
       stores: null,
-      store: null
+      store: null,
+      storeProducts: null
     };
   }
 
   componentDidMount() {
     // The state is initially populated with stores by calling the Airtable API to get all store records
-    this._populateStores();
+    this._populateInitialStoresProducts();
     this._findCurrentLocationAsync();
   }
 
-  _populateStores = async () => {
+  _populateInitialStoresProducts = async () => {
+    getStoreData()
+      // Set initial store to first store for now; TODO calculate distances and sort by closest to location
+      .then(stores => {
+        this.setState({ stores, store: stores[0] });
+        // Once we choose a initial store, we must populate store products here; better to perform API calls at top level, then pass data as props.
+        this._populateStoreProducts(stores[0]);
+      })
+      .catch(err => console.error(err));
+  };
+
+  _populateStoreProducts = async store => {
     try {
-      const stores = await getStoreData();
+      const products = await getProductData(store);
       // Set initial store to first store for now; calculate distance next
-      if (stores) {
-        await this.setState({ stores, store: stores[0] });
+      if (products) {
+        await this.setState({ storeProducts: products });
       }
     } catch (err) {
-      console.err(err);
+      console.error(err);
     }
   };
 
@@ -65,7 +76,7 @@ export default class StoresScreen extends React.Component {
         longitude: location.coords.longitude,
         ...deltas
       };
-      await this.setState({ region });
+      this.setState({ locationErrorMsg: '', location, region });
     }
   };
 
@@ -77,16 +88,13 @@ export default class StoresScreen extends React.Component {
   );
 
   renderContent = () => {
+    console.log('current store :', this.state.store);
     return (
       <StoreModal>
-        <StoreCard
-          store={this.state.store}
-          key={this.state.store.id}
-          callBack={() => this.detailedStoreTransition(this.state.store)}
-        />
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
+          products={this.state.storeProducts}
         />
       </StoreModal>
     );
@@ -96,17 +104,14 @@ export default class StoresScreen extends React.Component {
     this.setState({ region });
   };
 
-  detailedStoreTransition = store => {
-    this.props.navigation.navigate('StoresDetailed', {
-      currentStore: store
-    });
-  };
-
-  changeCurrentStore = store => {
+  // Since we must now also populate the current store products at the top level,
+  // we make this an async function and call this._populateStoreProducts
+  async changeCurrentStore(store) {
     this.setState({
       store
     });
-  };
+    await this._populateStoreProducts(store);
+  }
 
   render() {
     let text = '';
@@ -118,19 +123,21 @@ export default class StoresScreen extends React.Component {
     }
 
     // If populateStores has not finished, return nothing
-    if (!this.state.stores) {
+    if (!this.state.stores || !this.state.storeProducts) {
       return <View />;
     }
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
-        <TouchableOpacity onPress={this._findCurrentLocationAsync}>
-          {!this.state.locationErrorMsg && (
+        {/* Janky way to do a conditional rendering */}
+        {this.state.locationErrorMsg !== '' && (
+          <TouchableOpacity onPress={this._findCurrentLocationAsync}>
             <View>
-              <Text> Tap for Location </Text>
+              <Text> Tap to center on current location </Text>
               <Text>{text}</Text>
             </View>
-          )}
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
+        {/* Display Map */}
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
@@ -148,14 +155,15 @@ export default class StoresScreen extends React.Component {
             />
           ))}
         </MapView>
+        {/* Display bottom sheet */}
         <View style={{ flex: 1 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling
             enabledGestureInteraction
             snapPoints={['200%', '50%', '10%']}
-            renderContent={this.renderContent}
             renderHeader={this.renderHeader}
+            renderContent={this.renderContent}
           />
         </View>
       </SafeAreaView>

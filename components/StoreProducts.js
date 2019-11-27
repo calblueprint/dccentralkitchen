@@ -1,23 +1,10 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from './Product';
-import BASE from '../lib/common';
-import { Button, ScrollCategory, H3, Title, Subtitle } from '../styles/shared';
-import { styles } from '../styles/products';
-
-function createProductData(record) {
-  console.log(record);
-  const data = record.fields;
-  return {
-    name: data.Name,
-    id: data.id,
-    category: data.Category,
-    points: data.Points,
-    customerCost: data['Customer Cost']
-  };
-}
+import { Button, Title } from '../styles/shared';
+import StoreCard from './StoreCard';
 
 // let fullProducts;
 // const productsTable = BASE('Products').select({ view: 'Grid view' });
@@ -33,39 +20,53 @@ function createProductData(record) {
 //   return fullProducts.filter(product => storeProducts.includes(product.id));
 // }
 
+function filterFruit(product) {
+  if (product) {
+    return product.category.includes('Fruit');
+  }
+  return false;
+}
+
+function filterVegetables(product) {
+  if (product) {
+    return product.category.includes('Vegetables');
+  }
+  return false;
+}
+
 class StoreProducts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
-      navigation: null
+      products: this.props.products,
+      store: this.props.store,
+      navigation: this.props.navigation
     };
   }
 
-  componentDidMount() {
-    const { navigation, store } = this.props;
-    // Gracefully handle empty products list in current store
-    let products = [];
-    if (store.products) {
-      products = store.products.map(id =>
-        createProductData(BASE('Products').find(id))
-      );
-    }
-    this.setState({ products, navigation });
-  }
+  detailedStoreTransition = store => {
+    this.props.navigation.navigate('StoresDetailed', {
+      currentStore: store
+    });
+  };
 
   render() {
     const { navigation, products } = this.state; // TODO @tommypoa ASYNC
     return (
       <View>
+        <StoreCard
+          store={this.state.store}
+          key={this.state.store.id}
+          callBack={() => this.detailedStoreTransition(this.state.store)}
+        />
+        {/* Display fruits available at this store */}
         <View flexDirection="row">
           <Title>Fruits</Title>
+          {/* TODO @tommypoa See all: pass current store as prop and show as Title if non-null prop */}
           <Button
             onPress={() =>
               navigation.navigate('Products', {
-                products: products.filter(product =>
-                  product.category.includes('Fruit')
-                ),
+                products: products.filter(filterFruit),
                 navigation: this.props.navigation,
                 productType: 'Fruits'
               })
@@ -74,27 +75,26 @@ class StoreProducts extends React.Component {
           </Button>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products
-            .filter(product => product.category.includes('Fruit'))
-            .map((product, index) => (
-              <Button
-                onPress={() =>
-                  navigation.navigate('ProductsDetailed', {
-                    currentProduct: product
-                  })
-                }>
-                <Product product={product} />
-              </Button>
-            ))}
+          {products.filter(filterFruit).map(product => (
+            <Button
+              key={product.id}
+              onPress={() =>
+                navigation.navigate('ProductsDetailed', {
+                  currentProduct: product
+                })
+              }>
+              <Product product={product} />
+            </Button>
+          ))}
         </ScrollView>
+        {/* Display vegetables available at this store */}
         <View flexDirection="row">
           <Title>Veggies</Title>
+          {/* TODO @tommypoa See all: pass current store as prop and show as Title if non-null prop */}
           <Button
             onPress={() =>
               navigation.navigate('Products', {
-                products: products.filter(product =>
-                  product.category.includes('Vegetables')
-                ),
+                products: products.filter(filterVegetables),
                 navigation,
                 productType: 'Vegetables'
               })
@@ -103,18 +103,17 @@ class StoreProducts extends React.Component {
           </Button>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products
-            .filter(product => product.category.includes('Vegetables'))
-            .map((product, index) => (
-              <Button
-                onPress={() =>
-                  navigation.navigate('ProductsDetailed', {
-                    currentProduct: product
-                  })
-                }>
-                <Product product={product} />
-              </Button>
-            ))}
+          {products.filter(filterVegetables).map(product => (
+            <Button
+              key={product.id}
+              onPress={() =>
+                navigation.navigate('ProductsDetailed', {
+                  currentProduct: product
+                })
+              }>
+              <Product product={product} />
+            </Button>
+          ))}
         </ScrollView>
       </View>
     );
