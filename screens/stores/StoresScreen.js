@@ -1,75 +1,72 @@
 import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import BASE from '../../lib/common';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { getStoreData } from './storeHelpers';
 
 import StoreCard from '../../components/StoreCard';
 import StoreProducts from '../../components/StoreProducts';
-import { Title } from '../../styles/shared';
 import { StoreModal, StoreModalBar } from '../../styles/stores';
-
-const storesTable = BASE('Stores').select({ view: 'Grid view' });
-
-let stores;
-function createStoreData(record) {
-  const data = record.fields;
-  return {
-    name: data['Store Name'],
-    id: data.id,
-    latitude: data.Latitude,
-    longitude: data.Longitude,
-    hours: data['Store Hours'],
-    address: data.Address,
-    products: data.Products
-  };
-}
-// The state is initially populated with stores by calling the Airtable API to get all store records
-// We transform them to a JS object via the createStoreData method
-
-storesTable.firstPage((err, records) => {
-  // TODO @tommypoa fetch all pages
-  if (err) {
-    console.error(err);
-    return;
-  }
-  stores = records.map(record => createStoreData(record));
-});
 
 const deltas = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421
 };
 
-class StoresScreen extends React.Component {
+export default class StoresScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       locationErrorMsg: null,
       region: null,
       stores: null,
-      store: stores[0]
+      store: null
     };
   }
 
-  findCurrentLocationAsync = async () => {
+  componentDidMount() {
+    // The state is initially populated with stores by calling the Airtable API to get all store records
+    this._populateStores();
+    this._findCurrentLocationAsync();
+  }
+
+  _populateStores = async () => {
+    try {
+      const stores = await getStoreData();
+      // Set initial store to first store for now; calculate distance next
+      if (stores) {
+        await this.setState({ stores, store: stores[0] });
+      }
+    } catch (err) {
+      console.err(err);
+    }
+  };
+
+  _findCurrentLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
 
     if (status !== 'granted') {
       this.setState({
         locationErrorMsg: 'Permission to access location was denied'
       });
+    } else {
+      const location = await Location.getCurrentPositionAsync({});
+      const region = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        ...deltas
+      };
+      await this.setState({ region });
     }
-
-    const location = await Location.getCurrentPositionAsync({});
-    const region = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      ...deltas
-    };
-    await this.setState({ region });
   };
 
   renderHeader = () => (
@@ -79,7 +76,7 @@ class StoresScreen extends React.Component {
     </StoreModal>
   );
 
-  renderInner = () => {
+  renderContent = () => {
     return (
       <StoreModal>
         <StoreCard
@@ -95,7 +92,7 @@ class StoresScreen extends React.Component {
     );
   };
 
-  onRegionChange = region => {
+  onRegionChangeComplete = region => {
     this.setState({ region });
   };
 
@@ -119,16 +116,25 @@ class StoresScreen extends React.Component {
     } else if (this.state.location) {
       text = JSON.stringify(this.state.location);
     }
+
+    // If populateStores has not finished, return nothing
+    if (!this.state.stores) {
+      return <View />;
+    }
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
-        <TouchableOpacity onPress={this.findCurrentLocationAsync}>
-          <Text> Tap for Location </Text>
-          <Text>{text}</Text>
+        <TouchableOpacity onPress={this._findCurrentLocationAsync}>
+          {!this.state.locationErrorMsg && (
+            <View>
+              <Text> Tap for Location </Text>
+              <Text>{text}</Text>
+            </View>
+          )}
         </TouchableOpacity>
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
-          onRegionChange={this.onRegionChange}>
+          onRegionChangeComplete={this.onRegionChangeComplete}>
           {this.state.stores.map(store => (
             <Marker
               key={store.id}
@@ -148,7 +154,7 @@ class StoresScreen extends React.Component {
             enabledInnerScrolling
             enabledGestureInteraction
             snapPoints={['200%', '50%', '10%']}
-            renderContent={this.renderInner}
+            renderContent={this.renderContent}
             renderHeader={this.renderHeader}
           />
         </View>
@@ -156,5 +162,3 @@ class StoresScreen extends React.Component {
     );
   }
 }
-
-export default StoresScreen;

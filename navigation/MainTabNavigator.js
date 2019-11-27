@@ -15,8 +15,8 @@ import AllProductsScreen from '../screens/AllProductsScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ReceiptScanner from '../screens/Camera';
-import StoresDetailedScreen from '../screens/StoresDetailedScreen';
-import StoresScreen from '../screens/StoresScreen';
+import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
+import StoresScreen from '../screens/stores/StoresScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },

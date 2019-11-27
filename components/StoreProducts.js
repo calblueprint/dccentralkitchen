@@ -42,14 +42,16 @@ class StoreProducts extends React.Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     const { navigation, store } = this.props;
-    this.setState({
-      products: store.products.map(id =>
+    // Gracefully handle empty products list in current store
+    let products = [];
+    if (store.products) {
+      products = store.products.map(id =>
         createProductData(BASE('Products').find(id))
-      ),
-      navigation
-    });
+      );
+    }
+    this.setState({ products, navigation });
   }
 
   render() {
