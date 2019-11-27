@@ -129,7 +129,7 @@ export default class StoresScreen extends React.Component {
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
         {/* Janky way to do a conditional rendering */}
-        {this.state.locationErrorMsg !== '' && (
+        {!this.state.locationErrorMsg && (
           <TouchableOpacity onPress={this._findCurrentLocationAsync}>
             <View>
               <Text> Tap to center on current location </Text>
