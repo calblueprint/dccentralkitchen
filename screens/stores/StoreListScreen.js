@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { StoreModal } from '../../styles/stores';
 import StoreCard from '../../components/StoreCard';
 import { Title } from '../../styles/shared';
+import { StoreModal } from '../../styles/stores';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class StoreListScreen extends React.Component {
         <ScrollView>
           {this.state.stores.map(store => (
             <StoreCard
+              key={store.id}
               store={store}
               callBack={() => this.detailedStoreTransition(store)}
             />

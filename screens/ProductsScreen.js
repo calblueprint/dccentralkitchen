@@ -37,7 +37,8 @@ class ProductsScreen extends React.Component {
             <Button
               onPress={() =>
                 navigation.navigate('ProductsDetailed', {
-                  currentProduct: item
+                  currentProduct: item,
+                  store
                 })
               }>
               <Product product={item} />
