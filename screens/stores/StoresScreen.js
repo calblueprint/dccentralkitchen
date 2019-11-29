@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import { getStoreData, getProductData } from './storeHelpers';
 import StoreProducts from '../../components/StoreProducts';
-import { StoreModal, StoreModalBar } from '../../styles/stores';
+import { StoreModal, StoreModalBar, SearchBar } from '../../styles/stores';
+import { Subtitle } from '../../styles/shared';
 
 const deltas = {
   latitudeDelta: 0.0922,
@@ -91,6 +92,7 @@ export default class StoresScreen extends React.Component {
     console.log('current store :', this.state.store);
     return (
       <StoreModal>
+        <Subtitle>Showing products for</Subtitle>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -143,7 +145,7 @@ export default class StoresScreen extends React.Component {
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {this.state.stores.map(store => (
-            <MapView.Marker
+            <Marker
               coordinate={{
                 latitude: store.latitude,
                 longitude: store.longitude
@@ -153,6 +155,16 @@ export default class StoresScreen extends React.Component {
               onPress={() => this.changeCurrentStore(store)}
             />
           ))}
+          {/* Display search bar */}
+          <SearchBar
+            onPress={() =>
+              this.props.navigation.navigate('StoreList', {
+                stores: this.state.stores,
+                navigation: this.props.navigation
+              })
+            }>
+            <Subtitle>Search</Subtitle>
+          </SearchBar>
         </MapView>
         {/* Display bottom sheet */}
         <View style={{ flex: 1 }}>
@@ -160,7 +172,7 @@ export default class StoresScreen extends React.Component {
             initialSnap={1}
             enabledInnerScrolling
             enabledGestureInteraction
-            snapPoints={['200%', '50%', '10%']}
+            snapPoints={['200%', '45%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />

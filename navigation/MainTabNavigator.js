@@ -17,6 +17,7 @@ import ProductsScreen from '../screens/ProductsScreen';
 import ReceiptScanner from '../screens/Camera';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
+import StoreListScreen from '../screens/stores/StoreListScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -98,6 +99,7 @@ const StoresStack = createStackNavigator(
   {
     Stores: StoresScreen,
     StoresDetailed: StoresDetailedScreen,
+    StoreList: StoreListScreen,
     Products: ProductsScreen,
     ProductsDetailed: ProductsDetailedScreen
   },

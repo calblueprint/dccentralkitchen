@@ -13,7 +13,6 @@ function StoreCard({ store, callBack }) {
   return (
     <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={callBack}>
-        <Subtitle>Showing products for</Subtitle>
         <Title>{name}</Title>
         <H3>{address}</H3>
         <H3>{hours}</H3>
