@@ -197,6 +197,7 @@ export default class StoresScreen extends React.Component {
                 .concat(coords.longitude.toString())}
               coordinate={coords}
               title="Your Location"
+              pinColor="#166e00"
             />
           )}
         </MapView>

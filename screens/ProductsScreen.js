@@ -22,6 +22,7 @@ class ProductsScreen extends React.Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <Title>
+          {/* tommypoa98 i think this is so funny */}
           {productType} @ {store.name}
         </Title>
 
