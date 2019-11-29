@@ -1,14 +1,9 @@
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import orderByDistance from 'geolib/es/orderByDistance';
+import convertDistance from 'geolib/es/convertDistance';
+import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 
@@ -50,43 +45,7 @@ export default class StoresScreen extends React.Component {
     this._populateInitialStoresProducts();
   }
 
-  // The state is initially populated with stores by calling the Airtable API to get all store records
-  _populateInitialStoresProducts = async () => {
-    getStoreData()
-      .then(async stores => {
-        // If stores exist, we should order them by distance to our current location.
-        await this._orderStoresByDistance(stores);
-      })
-      .catch(err => console.error(err));
-  };
-
-  // Calculate distances and sort by closest to location
-  // _findCurrentLocationAsync populates this.state.region with the correct lat/lon
-  // Since it's initially set to a default value, we use that instead of this.state.location
-  _orderStoresByDistance = async stores => {
-    // const sortedStores = [];
-    const latlng = this.state.region;
-    // Geolib library function returns sorted
-    const sortedStores = orderByDistance(latlng, stores);
-    this.setState({ stores: sortedStores, store: sortedStores[0] });
-
-    // Once we choose the closest store, we must populate store products here
-    // Better to perform API calls at top level, and then pass data as props.
-    await this._populateStoreProducts(stores[0]);
-  };
-
-  _populateStoreProducts = async store => {
-    try {
-      const products = await getProductData(store);
-      // Set initial store to first store for now; calculate distance next
-      if (products) {
-        this.setState({ storeProducts: products });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+  // Asks for permission if necessary, then gets current location
   _findCurrentLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
 
@@ -103,6 +62,53 @@ export default class StoresScreen extends React.Component {
       };
       this.setState({ locationErrorMsg: null, location, region });
     }
+  };
+
+  // The state is initially populated with stores by calling the Airtable API to get all store records
+  _populateInitialStoresProducts = async () => {
+    getStoreData()
+      .then(async stores => {
+        // If stores exist, we should order them by distance to our current location.
+        await this._orderStoresByDistance(stores);
+      })
+      .catch(err => console.error(err));
+  };
+
+  _populateStoreProducts = async store => {
+    try {
+      const products = await getProductData(store);
+      if (products) {
+        this.setState({ storeProducts: products });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Calculate distances and sort by closest to location
+  // _findCurrentLocationAsync populates this.state.region with the correct lat/lon
+  // Since it's initially set to a default value, we use that instead of this.state.location
+  _orderStoresByDistance = async stores => {
+    const sortedStores = [];
+    const latlng = this.state.region;
+
+    // We need distance to display in the StoreList
+    stores.forEach(store => {
+      const currStore = store;
+      const distanceMeters = getDistance(latlng, store);
+      // Convert distance to 'x.xx' form, in miles units
+      currStore.distance = convertDistance(distanceMeters, 'mi').toFixed(2);
+      sortedStores.push(currStore);
+    });
+    // sorts in place
+    sortedStores.sort(function compare(a, b) {
+      return a.distance - b.distance;
+    });
+    this.setState({ stores: sortedStores, store: sortedStores[0] });
+
+    // Once we choose the closest store, we must populate store products here
+    // Better to perform API calls at top level, and then pass data as props.
+    await this._populateStoreProducts(stores[0]);
   };
 
   renderHeader = () => (

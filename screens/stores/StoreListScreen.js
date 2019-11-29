@@ -10,6 +10,7 @@ class StoreListScreen extends React.Component {
     super(props);
     const { stores, navigation } = this.props.navigation.state.params;
     this.state = { stores, navigation };
+    console.log(this.state.stores);
   }
 
   detailedStoreTransition = store => {

@@ -40,7 +40,6 @@ class StoreProducts extends React.Component {
         {/* Display fruits available at this store */}
         <View flexDirection="row">
           <Title>Fruits</Title>
-          {/* TODO @tommypoa See all: pass current store as prop and show as Title if non-null prop */}
           <Button
             onPress={() =>
               navigation.navigate('Products', {
