@@ -6,20 +6,6 @@ import Product from './Product';
 import { Button, Title } from '../styles/shared';
 import StoreCard from './StoreCard';
 
-// let fullProducts;
-// const productsTable = BASE('Products').select({ view: 'Grid view' });
-// productsTable.firstPage((err, records) => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-//   fullProducts = records.map(record => createProductData(record));
-// });
-
-// function filterProductRecord(storeProducts) {
-//   return fullProducts.filter(product => storeProducts.includes(product.id));
-// }
-
 function filterFruit(product) {
   if (product) {
     return product.category.includes('Fruit');
@@ -39,7 +25,6 @@ class StoreProducts extends React.Component {
     super(props);
     this.state = {
       products: this.props.products,
-      store: this.props.store,
       navigation: this.props.navigation
     };
   }
@@ -52,12 +37,13 @@ class StoreProducts extends React.Component {
 
   render() {
     const { navigation, products } = this.state; // TODO @tommypoa ASYNC
+    const { store } = this.props;
     return (
       <View>
         <StoreCard
-          store={this.state.store}
-          key={this.state.store.id}
-          callBack={() => this.detailedStoreTransition(this.state.store)}
+          store={store}
+          key={store.id}
+          callBack={() => this.detailedStoreTransition(store)}
         />
         {/* Display fruits available at this store */}
         <View flexDirection="row">

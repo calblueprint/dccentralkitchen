@@ -143,8 +143,7 @@ export default class StoresScreen extends React.Component {
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {this.state.stores.map(store => (
-            <Marker
-              key={store.id}
+            <MapView.Marker
               coordinate={{
                 latitude: store.latitude,
                 longitude: store.longitude

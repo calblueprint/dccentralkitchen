@@ -2,7 +2,6 @@ import BASE from '../../lib/common';
 
 function createStoreData(record) {
   const data = record.fields;
-  //   console.log(data['Store Name'], data.Products);
   return {
     name: data['Store Name'],
     id: data.id,
@@ -33,7 +32,10 @@ export const getStoreData = function async() {
       .select()
       .all()
       .then(records => {
-        const stores = records.map(record => createStoreData(record));
+        const stores = records
+          .map(record => createStoreData(record))
+          .sort((a, b) => (a.name > b.name ? 1 : -1));
+        console.log('stores array: ', stores);
         resolve(stores);
       })
       .catch(err => reject(err));
@@ -45,7 +47,6 @@ export const getStoreData = function async() {
 // or null if no products exist for this store
 export const getProductData = function async(store) {
   // Gracefully handle empty products list in current store
-  console.log(store);
   return new Promise((resolve, reject) => {
     const currProducts = store.products;
     if (currProducts) {
