@@ -2,8 +2,8 @@ import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Product from './Product';
 import { Button, Title } from '../styles/shared';
+import Product from './Product';
 import StoreCard from './StoreCard';
 
 function filterFruit(product) {
@@ -21,14 +21,6 @@ function filterVegetables(product) {
 }
 
 class StoreProducts extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: this.props.products,
-      navigation: this.props.navigation
-    };
-  }
-
   detailedStoreTransition = store => {
     this.props.navigation.navigate('StoresDetailed', {
       currentStore: store
@@ -36,8 +28,7 @@ class StoreProducts extends React.Component {
   };
 
   render() {
-    const { navigation, products } = this.state; // TODO @tommypoa ASYNC
-    const { store } = this.props;
+    const { navigation, products, store } = this.props;
     return (
       <View>
         <StoreCard
@@ -45,6 +36,7 @@ class StoreProducts extends React.Component {
           key={store.id}
           callBack={() => this.detailedStoreTransition(store)}
         />
+        {/* TODO @tommypoa can probably make this (e.g Fruits title + fruits products) a sub-component and re-use it in AllProducts */}
         {/* Display fruits available at this store */}
         <View flexDirection="row">
           <Title>Fruits</Title>
@@ -85,7 +77,7 @@ class StoreProducts extends React.Component {
                 products: products.filter(filterVegetables),
                 navigation,
                 productType: 'Vegetables',
-                store: store
+                store
               })
             }>
             <Title>See all</Title>
@@ -98,7 +90,7 @@ class StoreProducts extends React.Component {
               onPress={() =>
                 navigation.navigate('ProductsDetailed', {
                   currentProduct: product,
-                  store: store
+                  store
                 })
               }>
               <Product product={product} />

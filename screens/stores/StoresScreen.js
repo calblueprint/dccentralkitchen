@@ -1,8 +1,6 @@
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import MapView, { Marker } from 'react-native-maps';
-import BottomSheet from 'reanimated-bottom-sheet';
-
+import orderByDistance from 'geolib/es/orderByDistance';
 import React from 'react';
 import {
   SafeAreaView,
@@ -11,12 +9,23 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { getStoreData, getProductData } from './storeHelpers';
-import StoreProducts from '../../components/StoreProducts';
-import { StoreModal, StoreModalBar, SearchBar } from '../../styles/stores';
-import { Subtitle } from '../../styles/shared';
+import MapView, { Marker } from 'react-native-maps';
+import BottomSheet from 'reanimated-bottom-sheet';
 
+import StoreProducts from '../../components/StoreProducts';
+import { Subtitle } from '../../styles/shared';
+import { SearchBar, StoreModal, StoreModalBar } from '../../styles/stores';
+import { getProductData, getStoreData } from './storeHelpers';
+
+// TODO is this const necessary?
 const deltas = {
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421
+};
+
+const initialRegion = {
+  latitude: 38.905548,
+  longitude: -77.036623,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421
 };
@@ -25,9 +34,10 @@ export default class StoresScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // TODO don't need this error message rly
       locationErrorMsg: null,
       location: null,
-      region: null,
+      region: initialRegion,
       stores: null,
       store: null,
       storeProducts: null
@@ -35,20 +45,34 @@ export default class StoresScreen extends React.Component {
   }
 
   componentDidMount() {
-    // The state is initially populated with stores by calling the Airtable API to get all store records
-    this._populateInitialStoresProducts();
+    // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     this._findCurrentLocationAsync();
+    this._populateInitialStoresProducts();
   }
 
+  // The state is initially populated with stores by calling the Airtable API to get all store records
   _populateInitialStoresProducts = async () => {
     getStoreData()
-      // Set initial store to first store for now; TODO calculate distances and sort by closest to location
-      .then(stores => {
-        this.setState({ stores, store: stores[0] });
-        // Once we choose a initial store, we must populate store products here; better to perform API calls at top level, then pass data as props.
-        this._populateStoreProducts(stores[0]);
+      .then(async stores => {
+        // If stores exist, we should order them by distance to our current location.
+        await this._orderStoresByDistance(stores);
       })
       .catch(err => console.error(err));
+  };
+
+  // Calculate distances and sort by closest to location
+  // _findCurrentLocationAsync populates this.state.region with the correct lat/lon
+  // Since it's initially set to a default value, we use that instead of this.state.location
+  _orderStoresByDistance = async stores => {
+    // const sortedStores = [];
+    const latlng = this.state.region;
+    // Geolib library function returns sorted
+    const sortedStores = orderByDistance(latlng, stores);
+    this.setState({ stores: sortedStores, store: sortedStores[0] });
+
+    // Once we choose the closest store, we must populate store products here
+    // Better to perform API calls at top level, and then pass data as props.
+    await this._populateStoreProducts(stores[0]);
   };
 
   _populateStoreProducts = async store => {
@@ -56,7 +80,7 @@ export default class StoresScreen extends React.Component {
       const products = await getProductData(store);
       // Set initial store to first store for now; calculate distance next
       if (products) {
-        await this.setState({ storeProducts: products });
+        this.setState({ storeProducts: products });
       }
     } catch (err) {
       console.error(err);
@@ -77,7 +101,7 @@ export default class StoresScreen extends React.Component {
         longitude: location.coords.longitude,
         ...deltas
       };
-      this.setState({ locationErrorMsg: '', location, region });
+      this.setState({ locationErrorMsg: null, location, region });
     }
   };
 
@@ -89,7 +113,6 @@ export default class StoresScreen extends React.Component {
   );
 
   renderContent = () => {
-    console.log('current store :', this.state.store);
     return (
       <StoreModal>
         <Subtitle>Showing products for</Subtitle>
@@ -116,12 +139,9 @@ export default class StoresScreen extends React.Component {
   }
 
   render() {
-    let text = '';
-
-    if (this.state.locationErrorMsg) {
-      text = this.state.locationErrorMsg;
-    } else if (this.state.location) {
-      text = JSON.stringify(this.state.location);
+    let coords = null;
+    if (this.state.location) {
+      coords = this.state.location.coords;
     }
 
     // If populateStores has not finished, return nothing
@@ -131,30 +151,21 @@ export default class StoresScreen extends React.Component {
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
         {/* Janky way to do a conditional rendering */}
-        {!this.state.locationErrorMsg && (
+        {this.state.location && (
           <TouchableOpacity onPress={this._findCurrentLocationAsync}>
             <View>
               <Text> Tap to center on current location </Text>
-              <Text>{text}</Text>
             </View>
           </TouchableOpacity>
+        )}
+        {this.state.locationErrorMsg && (
+          <Text>{this.state.locationErrorMsg}</Text>
         )}
         {/* Display Map */}
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
-          {this.state.stores.map(store => (
-            <Marker
-              coordinate={{
-                latitude: store.latitude,
-                longitude: store.longitude
-              }}
-              title={store.name}
-              description={store.name}
-              onPress={() => this.changeCurrentStore(store)}
-            />
-          ))}
           {/* Display search bar */}
           <SearchBar
             onPress={() =>
@@ -165,6 +176,29 @@ export default class StoresScreen extends React.Component {
             }>
             <Subtitle>Search</Subtitle>
           </SearchBar>
+          {/* Display store markers */}
+          {this.state.stores.map(store => (
+            <Marker
+              key={store.id}
+              coordinate={{
+                latitude: store.latitude,
+                longitude: store.longitude
+              }}
+              title={store.name}
+              description={store.name}
+              onPress={() => this.changeCurrentStore(store)}
+            />
+          ))}
+          {/* If current location found, show current location marker */}
+          {this.state.location && (
+            <Marker
+              key={coords.latitude
+                .toString()
+                .concat(coords.longitude.toString())}
+              coordinate={coords}
+              title="Your Location"
+            />
+          )}
         </MapView>
         {/* Display bottom sheet */}
         <View style={{ flex: 1 }}>

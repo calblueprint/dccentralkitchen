@@ -9,7 +9,9 @@ function createStoreData(record) {
     longitude: data.Longitude,
     hours: data['Store Hours'],
     address: data.Address,
-    products: data.Products
+    products: data.Products,
+    // distance set and used to sort in StoresScreen._orderStoresByDistance
+    distance: null
   };
 }
 
@@ -32,10 +34,9 @@ export const getStoreData = function async() {
       .select()
       .all()
       .then(records => {
-        const stores = records
-          .map(record => createStoreData(record))
-          .sort((a, b) => (a.name > b.name ? 1 : -1));
-        console.log('stores array: ', stores);
+        const stores = records.map(record => createStoreData(record));
+        //   .sort((a, b) => (a.name > b.name ? 1 : -1));
+        // console.log('stores array: ', stores);
         resolve(stores);
       })
       .catch(err => reject(err));
@@ -51,12 +52,10 @@ export const getProductData = function async(store) {
     const currProducts = store.products;
     if (currProducts) {
       const productRecords = currProducts.map(id => BASE('Products').find(id));
-      console.log('records: ', productRecords);
 
       Promise.all(productRecords)
         .then(records => {
           const products = records.map(record => createProductData(record));
-          console.log('products array: ', products);
           resolve(products);
         })
         .catch(err => reject(err));
