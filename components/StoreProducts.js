@@ -54,7 +54,8 @@ class StoreProducts extends React.Component {
               navigation.navigate('Products', {
                 products: products.filter(filterFruit),
                 navigation: this.props.navigation,
-                productType: 'Fruits'
+                productType: 'Fruits',
+                store
               })
             }>
             <Title>See all</Title>
@@ -66,7 +67,8 @@ class StoreProducts extends React.Component {
               key={product.id}
               onPress={() =>
                 navigation.navigate('ProductsDetailed', {
-                  currentProduct: product
+                  currentProduct: product,
+                  store
                 })
               }>
               <Product product={product} />
@@ -82,7 +84,8 @@ class StoreProducts extends React.Component {
               navigation.navigate('Products', {
                 products: products.filter(filterVegetables),
                 navigation,
-                productType: 'Vegetables'
+                productType: 'Vegetables',
+                store: store
               })
             }>
             <Title>See all</Title>
@@ -94,7 +97,8 @@ class StoreProducts extends React.Component {
               key={product.id}
               onPress={() =>
                 navigation.navigate('ProductsDetailed', {
-                  currentProduct: product
+                  currentProduct: product,
+                  store: store
                 })
               }>
               <Product product={product} />
