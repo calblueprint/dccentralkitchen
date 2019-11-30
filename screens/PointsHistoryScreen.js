@@ -30,7 +30,7 @@ export default class PointsHistoryScreen extends React.Component {
   }
 
   async getCustomerTransactions(userId) {
-    return BASE('Transactions').select()
+    return BASE('Transactions').select({view: "Grid View"})
       .all()
       .then(records => {
         const userTrans = [];
