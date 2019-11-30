@@ -1,9 +1,9 @@
 import * as Font from 'expo-font';
 import React from 'react';
 import { AsyncStorage, ScrollView, Text, View } from 'react-native';
+import getCustomerTransactions from './historyHelpers';
 
 import Transactions from '../components/Transactions';
-import getCustomerTransactions from './historyHelpers';
 
 export default class PointsHistoryScreen extends React.Component {
   constructor(props) {
@@ -16,7 +16,6 @@ export default class PointsHistoryScreen extends React.Component {
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     getCustomerTransactions(userId).then(transactions => {
-      // TODO @kyleqhua you'll want to split out the three most recent transations into a separate array; maybe call it 'recents'
       this.setState({ transactions });
     });
 
@@ -30,7 +29,6 @@ export default class PointsHistoryScreen extends React.Component {
       <View>
         <Text> RECENT TRANSACTIONS</Text>
         <ScrollView>
-          {/* TODO @kyleqhua here, display recents first and add appropriate FE dividers etc */}
           {this.state.transactions.map(transaction => (
             <Transactions
               key={transaction.id}

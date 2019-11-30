@@ -1,6 +1,6 @@
 import BASE from '../lib/common';
 
-export default getCustomerTransactions = function async(userId) {
+const getCustomerTransactions = function async(userId) {
   const transList = [];
   return BASE('Transactions')
     .select({ view: 'Transactions' })
@@ -37,3 +37,5 @@ export default getCustomerTransactions = function async(userId) {
       return transList;
     });
 };
+
+export default getCustomerTransactions;
