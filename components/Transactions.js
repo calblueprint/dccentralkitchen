@@ -1,31 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Card, IconContainer, ContentContainer, MainText, Overline } from '../styles/transactions';
+import { TouchableOpacity } from 'react-native';
 
-export default class Transactions extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      transactionRecord: null,
-      date: null,
-      store: '',
-      rewardPoints: 0
-    };
-  }
+import {
+  Card,
+  ContentContainer,
+  IconContainer,
+  MainText,
+  Overline
+} from '../styles/transactions';
 
-  render() {
-    return (
-      <TouchableOpacity>
-        <Card>
-          <IconContainer>
+/**
+ * @prop
+ * */
 
-          </IconContainer>
-          <ContentContainer>
-            <Overline>{this.props.date.toLocaleDateString()} @ {this.props.storeId}</Overline>
-            <MainText>{this.props.points} Points Redeemed</MainText>
-          </ContentContainer>
-        </Card>
-      </TouchableOpacity>
-    );
-  }
+function Transactions(props) {
+  const { date, storeName, points } = props;
+  return (
+    <TouchableOpacity>
+      <Card>
+        <IconContainer />
+        <ContentContainer>
+          <Overline>
+            {date.toLocaleDateString()} @ {storeName}
+          </Overline>
+          <MainText>{points} Points Redeemed</MainText>
+        </ContentContainer>
+      </Card>
+    </TouchableOpacity>
+  );
 }
+
+export default Transactions;

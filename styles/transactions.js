@@ -1,4 +1,3 @@
-import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Card = styled.View`
@@ -22,28 +21,22 @@ export const ContentContainer = styled.View`
   flex-direction: column;
 `;
 
-
 export const MainText = styled.Text`
   font-family: Poppins;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 24px;
-display: flex;
-align-items: center;
-color: rgba(0, 0, 0, 0.8);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.8);
 `;
 
 export const Overline = styled.Text`
- font-family: Poppins;
-font-style: normal;
-font-weight: 500;
-font-size: 12px;
-line-height: 16px;
-color: #999999;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #999999;
 `;
-
-
-
-
-
