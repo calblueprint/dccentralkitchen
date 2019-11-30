@@ -1,16 +1,17 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import LoginScreen from '../screens/LoginScreen';
-import SignInScreen from '../screens/SignUpScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
+import SignInScreen from '../screens/auth/SignUpScreen';
 import MainTabNavigator from './MainTabNavigator';
 
+// TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
 const AuthStack = createStackNavigator({
   SignIn: SignInScreen,
   Login: LoginScreen
 });
-import { AsyncStorage } from 'react-native';
 
 class AuthLoadingScreen extends React.Component {
   constructor() {
