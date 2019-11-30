@@ -11,13 +11,23 @@ export default class ReceiptScanner extends React.Component {
       hasCameraPermission: null,
       type: Camera.Constants.Type.back,
       dataURI: [],
-      uploadStatus: ''
+      uploadStatus: '',
+      customerId: '',
+      transactionId: ''
     };
   }
   
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    let userId = this.props.navigation.getParam('customerId', 'defaultValue')
+    let transactionId = this.props.navigation.getParam('transactionId', 'defaultValue')
+    this.setState({ 
+      hasCameraPermission: status === 'granted',
+      customerId: userId,
+      transactionId: transactionId
+    });
+    console.log(this.props.navigation.getParam('id', 'defaultValue'))
+  
   }
 
   // Runs the expo-camera takePictureAsync function to generate the image binary to upload.
@@ -53,12 +63,22 @@ export default class ReceiptScanner extends React.Component {
     })
     .then(data => {
       return data.json()
+    }).catch(err => {
+      console.error(err)
     })
     .then(data => {
       let postUrl = data.secure_url
-      return BASE('images').create([
+      let currentDate = new Date()
+      return BASE('Receipts').create([
         {
           "fields": {
+            "Transaction": [
+              this.state.transactionId
+            ],
+            "Time": currentDate.toISOString(),
+            "Customer": [
+              this.state.customerId
+            ],
             "Attachments": [
               {
                 "url": postUrl
@@ -67,11 +87,15 @@ export default class ReceiptScanner extends React.Component {
           }
         }
       ], {typecast: true})
+    }).catch(err => {
+      console.error(err)
     })
     .then(() => {
       this.setState({
         uploadStatus: "Upload Completed"
       })
+    }).catch(err => {
+      console.error(err)
     })
   }
 

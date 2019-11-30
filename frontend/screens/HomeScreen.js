@@ -1,5 +1,15 @@
 import React from 'react';
-import { AsyncStorage, Button, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { 
+  AsyncStorage, 
+  Button, 
+  Image, 
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  RefreshControl
+} from 'react-native';
 
 import { MonoText } from '../components/StyledText';
 import { BASE, IMG_KEY } from '../lib/common';
@@ -8,11 +18,15 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: '',
       name: '',
       points: '',
       rewards: [],
       redeemable: {},
-      announcements: ''
+      announcements: '',
+      transactions: [],
+      latestTransaction: '',
+      refreshing: false,
     };
   }
 
@@ -23,39 +37,65 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.getUser(this.state.userId).then(userRecord => {
+      let name = userRecord["fields"]["Name"]
+      let points = userRecord["fields"]["Points"]
+      let transactions = userRecord["fields"]["Transactions"]
+      if (transactions) {
+        let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
+        Promise.all(transactionRecords).then(records => {
+          this.setState({
+            points: points,
+            transactions: records,
+            name: name,
+            refreshing: false
+          })
+        })
+      } else {
+        this.setState({
+          points: points,
+          name: name,
+          refreshing: false
+        })
+      }
+    })
+  }
+
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
+    this.setState({
+      userId: userId
+    })
     this.getUser(userId).then(userRecord => {
       if (userRecord) {
         let points = userRecord["fields"]["Points"]
-        let rewards = userRecord["fields"]["Rewards"]
+        // let rewards = userRecord["fields"]["Rewards"]
         let name = userRecord["fields"]["Name"]
-        this.checkAvailableRewards(points).then(records => {
-          availableRewards = {}
-          records.forEach(record => {
-            availableRewards[record.get('Name')] = record.getId()  
-          })
-          this.setState({
-            redeemable: availableRewards
-          })
-          if (rewards) {
-            let rewardRecords = rewards.map(id => BASE('Rewards').find(id))
-            Promise.all(rewardRecords).then(records => {
-              this.setState({
-                points: points,
-                rewards: records,
-                name: name,
-              })
-            })
-          } else {
+        let transactions = userRecord["fields"]["Transactions"]
+        this.setState({
+          latestTransaction: transactions[0]
+        })
+        availableRewards = {}
+        // records.forEach(record => {
+        //   availableRewards[record.get('Name')] = record.getId()  
+        // })
+        if (transactions) {
+          let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
+          Promise.all(transactionRecords).then(records => {
             this.setState({
               points: points,
+              transactions: records,
               name: name,
             })
-          }
-        }).catch(err => {
-          console.error(err)
-        })
+          })
+        } else {
+          this.setState({
+            points: points,
+            name: name,
+          })
+        }
       } else {
         console.error('User data is undefined or empty.')
       }
@@ -87,7 +127,14 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
+          contentContainerStyle={styles.contentContainer}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+          >
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -118,12 +165,15 @@ export default class HomeScreen extends React.Component {
           <View style={styles.signOutContainer}>
             <Button
               title="Go to Camera"
-              onPress={() => this.props.navigation.navigate('Camera')}
+              onPress={() => this.props.navigation.navigate('Camera', {
+                transactionId: this.state.latestTransaction,
+                customerId: this.state.id
+              })}
               style={styles.signOutButton} />
           </View>
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
+        {/* <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
             Rewards available to redeem:
           </Text>
@@ -141,21 +191,25 @@ export default class HomeScreen extends React.Component {
             })
             : ''
           }
-        </View>
-        <View style={styles.tabBarInfoContainer2}>
+        </View> */}
+        <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
-            Your rewards:
+            Your transaction history:
           </Text>
-          { this.state.rewards ? 
-            this.state.rewards.map(reward => {
+          { this.state.transactions ? 
+            this.state.transactions.splice(0, 3).map(transaction => {
               return(
                 <View
-                  key={reward.get("Name")}
+                  key={transaction.get("transaction_id")}
                   style={[styles.codeHighlightContainer, styles.navigationFilename]}
                   >
                   <MonoText style={styles.codeHighlightText}>
-                    {reward.get("Name")}
+                    Date: {transaction.get("Date")}
                   </MonoText>
+                  <MonoText style={styles.codeHighlightText}>
+                    Points Redeemed: {transaction.get("Points Rewarded")}
+                  </MonoText>
+                  
                 </View>
               )
             })
