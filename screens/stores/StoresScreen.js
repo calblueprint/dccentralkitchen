@@ -3,7 +3,13 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 
@@ -14,8 +20,10 @@ import { getProductData, getStoreData } from './storeHelpers';
 
 // TODO is this const necessary?
 const deltas = {
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421
+  // latitudeDelta: 0.0922,
+  // longitudeDelta: 0.0421
+  latitudeDelta: 0.01,
+  longitudeDelta: 0.01
 };
 
 const initialRegion = {
@@ -43,6 +51,17 @@ export default class StoresScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     this._findCurrentLocationAsync();
     this._populateInitialStoresProducts();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const store = nextProps.navigation.state.params.currentStore;
+    this.changeCurrentStore(store);
+    const region = {
+      latitude: store.latitude,
+      longitude: store.longitude,
+      ...deltas
+    };
+    this.setState({ region });
   }
 
   // Asks for permission if necessary, then gets current location

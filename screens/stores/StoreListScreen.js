@@ -14,7 +14,7 @@ class StoreListScreen extends React.Component {
   }
 
   detailedStoreTransition = store => {
-    this.state.navigation.navigate('StoresDetailed', {
+    this.state.navigation.navigate('Stores', {
       currentStore: store
     });
   };
