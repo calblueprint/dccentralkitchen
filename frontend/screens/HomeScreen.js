@@ -37,6 +37,8 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
+  // This is what runs when you pull to refresh. It is essentially the
+  // same code from the componentDidMount
   _onRefresh = () => {
     this.setState({refreshing: true});
     this.getUser(this.state.userId).then(userRecord => {
@@ -71,16 +73,12 @@ export default class HomeScreen extends React.Component {
     this.getUser(userId).then(userRecord => {
       if (userRecord) {
         let points = userRecord["fields"]["Points"]
-        // let rewards = userRecord["fields"]["Rewards"]
+        let rewardCount = userRecord["fields"]["Rewards"]
         let name = userRecord["fields"]["Name"]
         let transactions = userRecord["fields"]["Transactions"]
         this.setState({
           latestTransaction: transactions[0]
         })
-        availableRewards = {}
-        // records.forEach(record => {
-        //   availableRewards[record.get('Name')] = record.getId()  
-        // })
         if (transactions) {
           let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
           Promise.all(transactionRecords).then(records => {
@@ -109,19 +107,7 @@ export default class HomeScreen extends React.Component {
   async getUser(id) {
     return BASE('Customers').find(id)
   }
-  
-  // Calls Airtable API to returna promise that 
-  // will resolve to be an array of records that
-  // require less than the given number points to
-  // redeem. 
-  async checkAvailableRewards(points) {
-    return BASE('Rewards')
-      .select({
-        filterByFormula: `{Point Values} <= ${points}`
-      })
-      .firstPage()
-  }
-  
+
   render() {
     return (
       <View style={styles.container}>
@@ -172,26 +158,6 @@ export default class HomeScreen extends React.Component {
               style={styles.signOutButton} />
           </View>
         </ScrollView>
-
-        {/* <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            Rewards available to redeem:
-          </Text>
-          { this.state.redeemable ? 
-            Object.keys(this.state.redeemable).map((key, index) => {
-              return(
-                <View
-                  key={index}
-                  style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-                  <MonoText style={styles.codeHighlightText}>
-                    {key}
-                  </MonoText>
-                </View>
-              )
-            })
-            : ''
-          }
-        </View> */}
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
             Your transaction history:
@@ -277,27 +243,6 @@ const styles = StyleSheet.create({
   tabBarInfoContainer: {
     position: 'absolute',
     bottom: 150,
-    // marginTop: 20,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoContainer2: {
-    position: 'absolute',
-    bottom: 300,
     // marginTop: 20,
     left: 0,
     right: 0,
