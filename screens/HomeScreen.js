@@ -25,7 +25,8 @@ export default class HomeScreen extends React.Component {
       announcements: '',
       transactions: [],
       latestTransaction: '',
-      refreshing: false,
+      refreshing: false, 
+      updates: false
     };
   }
 
@@ -37,7 +38,14 @@ export default class HomeScreen extends React.Component {
       let name = userRecord["fields"]["Name"]
       let points = userRecord["fields"]["Points"]
       let transactions = userRecord["fields"]["Transactions"]
-      if (transactions) {
+      
+      if (transactions) {       
+        if (this.state.latestTransaction != transactions.slice(-1)[0] ) {
+          this.setState({
+            latestTransaction: transactions[0],
+            updates: true
+          })
+        } 
         let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
         Promise.all(transactionRecords).then(records => {
           this.setState({
@@ -68,10 +76,10 @@ export default class HomeScreen extends React.Component {
         let rewardCount = userRecord["fields"]["Rewards"]
         let name = userRecord["fields"]["Name"]
         let transactions = userRecord["fields"]["Transactions"]
-        this.setState({
-          latestTransaction: transactions[0]
-        })
         if (transactions) {
+          this.setState({
+            latestTransaction: transactions[0]
+          })
           let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
           Promise.all(transactionRecords).then(records => {
             this.setState({
@@ -157,15 +165,19 @@ export default class HomeScreen extends React.Component {
               style={styles.signOutButton}
             />
           </View>
-          <View style={styles.signOutContainer}>
-            <Button
-              title="Go to Camera"
-              onPress={() => this.props.navigation.navigate('Camera', {
-                transactionId: this.state.latestTransaction,
-                customerId: this.state.userId
-              })}
-              style={styles.signOutButton} />
-          </View>
+          { this.state.updates ?
+            <View style={styles.signOutContainer}>
+              <Text>New transaction noted, upload your receipt!</Text>
+              <Button
+                title="Upload Receipt"
+                onPress={() => this.props.navigation.navigate('Camera', {
+                  transactionId: this.state.latestTransaction,
+                  customerId: this.state.userId
+                })}
+                style={styles.signOutButton} />
+            </View>
+            : <Text></Text>
+          }
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>
@@ -184,7 +196,6 @@ export default class HomeScreen extends React.Component {
                   <MonoText style={styles.codeHighlightText}>
                     Points Redeemed: {transaction.get("Points Rewarded")}
                   </MonoText>
-                  
                 </View>
               )
             })
