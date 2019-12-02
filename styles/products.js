@@ -20,16 +20,13 @@ export const ProductBody = styled.Text`
 `;
 
 export const ImageContainer = styled.View`
-  flexdirection: row;
+  flex-direction: row;
 `;
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 20
-  },
-  imageContainer: {
-    flexDirection: 'row'
   },
   item: {
     backgroundColor: '#919191',

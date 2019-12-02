@@ -3988,6 +3988,11 @@ gentle-fs@^2.0.1, gentle-fs@^2.2.1:
     read-cmd-shim "^1.0.1"
     slide "^1.1.6"
 
+geolib@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/geolib/-/geolib-3.1.0.tgz#c2b5124105f2cc37f097700f8ec63e65c7061920"
+  integrity sha512-46P2RFHUskJGVi8jE389tK2CPmpnpU+7bRr3hQks7ojU7dEqtqKbih+yB1nBXTTpUUt47VPen16oMV3P6IRQyg==
+
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -7875,6 +7880,13 @@ react-navigation-stack@1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.5.3.tgz#cdc9f5a6dbdc55509a15f60d765722573dec1997"
   integrity sha512-MQcwDVbZUYsTtDJb5cFOSm+K+e7KpUCoROaGoUOR+JHWE3uuaJ3pd/Nu+32a57J98TNBf4qq0+2TPJWl6z6IBg==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-navigation-stack@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.10.3.tgz#e714e442b20427f0d2d3c18fce1f9e8cfe69be0b"
+  integrity sha512-1gksFi/g/Lg9sBhgLlD0OiEB5xnatHb4C0eNMA5tli9cTVlhq375XNPIqOiTyftibBmjdApAsZFj5srUCoOu/w==
   dependencies:
     prop-types "^15.7.2"
 
