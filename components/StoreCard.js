@@ -1,21 +1,21 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-import { H3, Subtitle } from '../styles/shared';
+import { H3, Subtitle, Title } from '../styles/shared';
 
 /**
  * @prop
  * */
 
 function StoreCard({ store, callBack }) {
-  // Don't know if this is the best way or if there is a way to not pass in navigation as props
-  const { name, id, latitude, longitude, hours, address } = store;
+  const { name, hours, address, distance } = store;
   return (
     <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={callBack}>
-        <Subtitle>{name}</Subtitle>
-        <H3>{address}</H3>
+        <Title>{name}</Title>
+        <Subtitle>{address}</Subtitle>
         <H3>{hours}</H3>
+        <H3>Distance: {distance} mi </H3>
       </TouchableOpacity>
     </View>
   );

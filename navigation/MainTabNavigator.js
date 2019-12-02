@@ -11,11 +11,13 @@ import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
+import AllProductsScreen from '../screens/AllProductsScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ReceiptScanner from '../screens/Camera';
-import StoresDetailedScreen from '../screens/StoresDetailedScreen';
-import StoresScreen from '../screens/StoresScreen';
+import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
+import StoresScreen from '../screens/stores/StoresScreen';
+import StoreListScreen from '../screens/stores/StoreListScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -77,6 +79,7 @@ AnnouncementScreen.path = '';
 
 const ProductsStack = createStackNavigator(
   {
+    AllProducts: AllProductsScreen,
     Products: ProductsScreen,
     ProductsDetailed: ProductsDetailedScreen
   },
@@ -95,7 +98,10 @@ ProductsScreen.path = '';
 const StoresStack = createStackNavigator(
   {
     Stores: StoresScreen,
-    StoresDetailed: StoresDetailedScreen
+    StoresDetailed: StoresDetailedScreen,
+    StoreList: StoreListScreen,
+    Products: ProductsScreen,
+    ProductsDetailed: ProductsDetailedScreen
   },
   config
 );
