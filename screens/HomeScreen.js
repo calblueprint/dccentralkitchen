@@ -13,7 +13,7 @@ import {
 
 import { MonoText } from '../components/StyledText';
 import { BASE, IMG_KEY } from '../lib/common';
-
+console.log(BASE)
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +33,7 @@ export default class HomeScreen extends React.Component {
   // Calls Airtable API to return a promise that
   // will resolve to be a user record.
   static async getUser(id) {
+    console.log(BASE)
     return BASE('Customers').find(id);
   }
 
@@ -107,13 +108,6 @@ export default class HomeScreen extends React.Component {
       console.error(err)
     })
   }
-
-  // Calls Airtable API to return a promise that
-  // will resolve to be a user record.
-  async getUser(id) {
-    return BASE('Customers').find(id)
-  }
-
   // TODO @JohnathanZhou refactor Available Rewards display
   // // Calls Airtable API to return a promise that
   // // will resolve to be an array of records that
@@ -174,13 +168,6 @@ export default class HomeScreen extends React.Component {
             <Button
               title="Sign out"
               onPress={this._signOutAsync}
-              style={styles.signOutButton}
-            />
-          </View>
-          <View style={styles.signOutContainer}>
-            <Button
-              title="Go to Camera"
-              onPress={() => this.props.navigation.navigate('Camera')}
               style={styles.signOutButton}
             />
           </View>
