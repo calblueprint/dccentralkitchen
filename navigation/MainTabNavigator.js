@@ -11,9 +11,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
-import AllProductsScreen from '../screens/AllProductsScreen';
-import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
-import ProductsScreen from '../screens/ProductsScreen';
+import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
+import ProductsScreen from '../screens/products/ProductsScreen';
 import ReceiptScanner from '../screens/Camera';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
@@ -75,24 +74,6 @@ AnnounceStack.navigationOptions = {
 
 AnnouncementScreen.path = '';
 
-// Products
-
-const ProductsStack = createStackNavigator(
-  {
-    AllProducts: AllProductsScreen,
-    Products: ProductsScreen,
-    ProductsDetailed: ProductsDetailedScreen
-  },
-  config
-);
-
-ProductsStack.navigationOptions = {
-  tabBarLabel: 'Products',
-  tabBarIcon: ({ focused }) => <Icon size={20} name="shopping-cart" />
-};
-
-ProductsScreen.path = '';
-
 // Stores
 
 const StoresStack = createStackNavigator(
@@ -136,7 +117,6 @@ StoresScreen.path = '';
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   AnnounceStack,
-  ProductsStack,
   StoresStack
   // SettingsStack
 });

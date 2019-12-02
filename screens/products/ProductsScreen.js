@@ -2,9 +2,9 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Product from '../components/Product';
-import { styles } from '../styles/products';
-import { Button, Title } from '../styles/shared';
+import Product from '../../components/Product';
+import { styles } from '../../styles/products';
+import { Button, Title } from '../../styles/shared';
 
 class ProductsScreen extends React.Component {
   constructor(props) {
