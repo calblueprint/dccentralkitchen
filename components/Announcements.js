@@ -1,29 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-const styles = StyleSheet.create({
-  rowContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderBottomColor: 'gray',
-    borderBottomWidth: 1,
-    height: 150
-  },
-  dateContainer: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  contentContainer: {
-    flex: 4,
-    flexDirection: 'column'
-  },
-  date: {
-    fontWeight: 'bold'
-  },
-  title: {
-    color: 'blue'
-  }
-});
+import {
+  Card,
+  ContentContainer,
+  DateContainer,
+    DateText,
+    ContentText
+} from '../styles/announcements';
 
 class Announcements extends React.Component {
   constructor(props) {
@@ -48,17 +31,17 @@ class Announcements extends React.Component {
             currentAnnouncement: this.props.announcement
           })
         }>
-        <View style={styles.rowContainer}>
-          <View style={styles.dateContainer}>
-            <Text style={styles.date}>
+        <Card>
+          <DateContainer>
+            <DateText>
               {this.props.announcement.date.toDateString()}
-            </Text>
-          </View>
-          <View style={styles.contentContainer}>
-            <Text style={styles.title}>{this.props.announcement.title}</Text>
-            <Text>{this.displaySummary()}</Text>
-          </View>
-        </View>
+            </DateText>
+          </DateContainer>
+          <ContentContainer>
+            <DateText>{this.props.announcement.title}</DateText>
+            <ContentText>{this.displaySummary()}</ContentText>
+          </ContentContainer>
+        </Card>
       </TouchableOpacity>
     );
   }

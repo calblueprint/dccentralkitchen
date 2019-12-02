@@ -1,8 +1,10 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {AsyncStorage, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 
 import Announcements from '../components/Announcements';
 import BASE from '../lib/common';
+import getCustomerTransactions from "./historyHelpers";
+import * as Font from "expo-font";
 
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
 const firstAnnouncements = [];
@@ -39,6 +41,12 @@ class AnnouncementScreen extends React.Component {
     this.state = {
       announcements: firstAnnouncements
     };
+  }
+
+  async componentDidMount() {
+    Font.loadAsync({
+      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
+    });
   }
 
   render() {
