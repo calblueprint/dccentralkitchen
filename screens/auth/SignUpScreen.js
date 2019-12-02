@@ -2,10 +2,22 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  AsyncStorage,
+  Button,
+  Keyboard,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
 import validatejs from 'validate.js';
 
-import { checkForDuplicateCustomer, createCustomer, createPushToken } from './signup/authAirtable';
+import { Input, SignUpContainer } from '../../styles/auth';
+import {
+  checkForDuplicateCustomer,
+  createCustomer,
+  createPushToken
+} from './authAirtable';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -211,38 +223,25 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
+      <SignUpContainer>
+        <Input
           placeholder="First Name"
           onChangeText={text => this.setState({ firstName: text })}
           value={this.state.firstName}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Last Name"
           onChangeText={text => this.setState({ lastName: text })}
           value={this.state.lastName}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Phone Number"
           onChangeText={text => this.setState({ phoneNumber: text })}
           value={this.state.phoneNumber}
           keyboardType="number-pad"
           maxLength={10}
-        // For future use to make forms even nicer
-        // TODO: @Johnathan Figure out onBlur
-        // onChangeText={(text) => this.setState({phoneNumber:text.trim()})}
-        // error={this.state.phoneNumberError}
-        // onBlur={() => {
-        //   this.setState({
-        //     phoneNumberError: validate('phoneNumber', this.state.phoneNumber)
-        //   })
-        // }}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Password"
           secureTextEntry
           onChangeText={text => this.setState({ password: text })}
@@ -254,7 +253,7 @@ export default class SignUp extends React.Component {
           onPress={() => this.props.navigation.navigate('Login')}
         />
         <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-      </View>
+      </SignUpContainer>
     );
   }
 }
@@ -337,21 +336,3 @@ const validation = {
     // }
   }
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  input: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#42A5F5',
-    margin: 10,
-    padding: 8,
-    color: 'white',
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: '500'
-  }
-});
