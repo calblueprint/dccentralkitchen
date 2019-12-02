@@ -15,7 +15,7 @@ const releaseChannel = "dev" // figure out how to toggle this per the original t
 const ENV = {
   dev: {
     AIRTABLE_BASE_ID: 'app4fXK49bqcjDMEo',
-    AIRTABLE_API_KEY: 'keya0jqh5CEcNfG0F'
+    AIRTABLE_API_KEY: ''
   }
   //   staging: {
   //     apiUrl: "[your.staging.api.here]",
