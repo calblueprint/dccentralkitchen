@@ -27,6 +27,41 @@ class StoreProducts extends React.Component {
     });
   };
 
+  renderProducts = (filterType, productType, products, navigation, store) => {
+    return (
+      <View>
+        <View flexDirection="row">
+          <Title>{productType}</Title>
+          <Button
+            onPress={() =>
+              navigation.navigate('Products', {
+                products: products.filter(filterType),
+                navigation: this.props.navigation,
+                productType: productType,
+                store
+              })
+            }>
+            <Title>See all</Title>
+          </Button>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {products.filter(filterType).map(product => (
+            <Button
+              key={product.id}
+              onPress={() =>
+                navigation.navigate('ProductsDetailed', {
+                  currentProduct: product,
+                  store
+                })
+              }>
+              <Product product={product} />
+            </Button>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+
   render() {
     const { navigation, products, store } = this.props;
     return (
@@ -38,64 +73,24 @@ class StoreProducts extends React.Component {
         />
         {/* TODO @tommypoa can probably make this (e.g Fruits title + fruits products) a sub-component and re-use it in AllProducts */}
         {/* Display fruits available at this store */}
-        <View flexDirection="row">
-          <Title>Fruits</Title>
-          <Button
-            onPress={() =>
-              navigation.navigate('Products', {
-                products: products.filter(filterFruit),
-                navigation: this.props.navigation,
-                productType: 'Fruits',
-                store
-              })
-            }>
-            <Title>See all</Title>
-          </Button>
+        <View>
+          {this.renderProducts(
+            filterFruit,
+            'Fruit',
+            products,
+            navigation,
+            store
+          )}
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products.filter(filterFruit).map(product => (
-            <Button
-              key={product.id}
-              onPress={() =>
-                navigation.navigate('ProductsDetailed', {
-                  currentProduct: product,
-                  store
-                })
-              }>
-              <Product product={product} />
-            </Button>
-          ))}
-        </ScrollView>
-        {/* Display vegetables available at this store */}
-        <View flexDirection="row">
-          <Title>Veggies</Title>
-          {/* TODO @tommypoa See all: pass current store as prop and show as Title if non-null prop */}
-          <Button
-            onPress={() =>
-              navigation.navigate('Products', {
-                products: products.filter(filterVegetables),
-                navigation,
-                productType: 'Vegetables',
-                store
-              })
-            }>
-            <Title>See all</Title>
-          </Button>
+        <View>
+          {this.renderProducts(
+            filterVegetables,
+            'Vegetables',
+            products,
+            navigation,
+            store
+          )}
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products.filter(filterVegetables).map(product => (
-            <Button
-              key={product.id}
-              onPress={() =>
-                navigation.navigate('ProductsDetailed', {
-                  currentProduct: product,
-                  store
-                })
-              }>
-              <Product product={product} />
-            </Button>
-          ))}
-        </ScrollView>
       </View>
     );
   }

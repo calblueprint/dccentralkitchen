@@ -12,6 +12,20 @@ class ProductsScreen extends React.Component {
     this.state = {};
   }
 
+  renderProduct = product => {
+    return (
+      <Button
+        onPress={() =>
+          navigation.navigate('ProductsDetailed', {
+            currentProduct: product,
+            store
+          })
+        }>
+        <Product product={product} />
+      </Button>
+    );
+  };
+
   render() {
     const {
       products,
@@ -21,10 +35,8 @@ class ProductsScreen extends React.Component {
     } = this.props.navigation.state.params;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Title>
-          {/* tommypoa98 i think this is so funny */}
-          {productType} @ {store.name}
-        </Title>
+        <Title>{store.name}</Title>
+        <Title>{productType}</Title>
 
         <FlatList
           // TODO @tommypoa refactor styles to use styled-components
@@ -32,19 +44,7 @@ class ProductsScreen extends React.Component {
           keyExtractor={item => item.id}
           numColumns={2}
           data={products}
-          renderItem={({ item }) => (
-            // TODO @tommypoa: think it would be better to extract the `onPress` here,
-            // and possibly create the Button wrapping a Product using a function as with other components, but in-file
-            <Button
-              onPress={() =>
-                navigation.navigate('ProductsDetailed', {
-                  currentProduct: item,
-                  store
-                })
-              }>
-              <Product product={item} />
-            </Button>
-          )}
+          renderItem={({ item }) => this.renderProduct(item)}
         />
       </ScrollView>
     );
