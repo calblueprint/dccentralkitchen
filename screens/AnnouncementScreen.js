@@ -3,11 +3,17 @@ import {AsyncStorage, ScrollView, Text, TouchableOpacity, View} from 'react-nati
 
 import Announcements from '../components/Announcements';
 import BASE from '../lib/common';
-import getCustomerTransactions from "./historyHelpers";
 import * as Font from "expo-font";
-
+import {
+  TopText,
+} from '../styles/announcements';
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
 const firstAnnouncements = [];
+
+Font.loadAsync({
+  Poppins: require('../assets/fonts/Poppins-Regular.ttf')
+});
+
 announceTable.eachPage(
   function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
@@ -43,7 +49,7 @@ class AnnouncementScreen extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     Font.loadAsync({
       Poppins: require('../assets/fonts/Poppins-Regular.ttf')
     });
@@ -52,14 +58,7 @@ class AnnouncementScreen extends React.Component {
   render() {
     return (
       <View>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
-            <Text>Inbox</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
-            <Text>Events</Text>
-          </TouchableOpacity>
-        </View>
+        <TopText> News </TopText>
         <ScrollView>
           {this.state.announcements.map(announce => (
             <Announcements

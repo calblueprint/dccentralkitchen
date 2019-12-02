@@ -7,7 +7,7 @@ export const Card = styled.View`
   border-width: 1px;
   border-color: grey;
   padding: 20px;
-  margin: 5% 5%;
+  margin: 2% 5%;
   flex-direction: row;
 `;
 
