@@ -7,7 +7,8 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TabBarIcon from '../components/TabBarIcon';
-
+// testing purposes for transactions;
+import PointsHistoryScreen from '../screens/PointsHistoryScreen';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -75,6 +76,30 @@ AnnounceStack.navigationOptions = {
 
 AnnouncementScreen.path = '';
 
+// Testing for Points History
+const HistoryStack = createStackNavigator(
+  {
+    PointsHistory: PointsHistoryScreen
+  },
+  config
+);
+
+AnnounceStack.navigationOptions = {
+  tabBarLabel: 'Announcements',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-notifications${focused ? '' : '-outline'}`
+          : `md-notifications${focused ? '' : '-outline'}`
+      }
+    />
+  )
+};
+
+PointsHistoryScreen.path = '';
+
 // Products
 
 const ProductsStack = createStackNavigator(
@@ -137,7 +162,9 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   AnnounceStack,
   ProductsStack,
-  StoresStack
+  StoresStack,
+  // testing for Points History
+  HistoryStack
   // SettingsStack
 });
 
