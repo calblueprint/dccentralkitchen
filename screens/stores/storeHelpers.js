@@ -35,11 +35,6 @@ export const getStoreData = function async() {
       .all()
       .then(records => {
         const stores = records.map(record => createStoreData(record));
-<<<<<<< HEAD
-        //   .sort((a, b) => (a.name > b.name ? 1 : -1));
-        // console.log('stores array: ', stores);
-=======
->>>>>>> 7a0f0f11bbcde748a20b7ff099611601d15acb70
         resolve(stores);
       })
       .catch(err => reject(err));
