@@ -2,11 +2,10 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
 
-import { lookupCustomer, updateCustomerPushTokens } from './signup/authAirtable';
-
-// import registerForPushNotificationsAsync from './signup/notifications';
+import { ErrorMsg, Input, LoginContainer } from '../../styles/auth';
+import { lookupCustomer, updateCustomerPushTokens } from './authAirtable';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -111,50 +110,23 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
+      <LoginContainer>
+        <Input
           placeholder="Phone Number (i.e. 1234567890)"
           keyboardType="number-pad"
           maxLength={10}
           value={this.state.phoneNumber}
           onChangeText={text => this.setState({ phoneNumber: text })}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Password"
           secureTextEntry
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password}
         />
         <Button title="Log In" onPress={() => this.handleSubmit()} />
-        <Text style={styles.text}>{this.state.errorMsg}</Text>
-      </View>
+        <ErrorMsg>{this.state.errorMsg}</ErrorMsg>
+      </LoginContainer>
     );
   }
 }
-
-// TODO @anniero98 refactor to use styled-components
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: '20%',
-    alignContent: 'center'
-  },
-  input: {
-    width: 350,
-    height: 55,
-    backgroundColor: '#42A5F5',
-    margin: 10,
-    padding: 8,
-    color: 'white',
-    borderRadius: 14,
-    fontSize: 18,
-    fontWeight: '500'
-  },
-  text: {
-    fontSize: 14,
-    textAlign: 'center'
-  }
-});

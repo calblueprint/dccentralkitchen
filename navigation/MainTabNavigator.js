@@ -11,8 +11,14 @@ import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
 import HomeScreen from '../screens/HomeScreen';
+<<<<<<< HEAD
 import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
 import ProductsScreen from '../screens/products/ProductsScreen';
+=======
+import AllProductsScreen from '../screens/AllProductsScreen';
+import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
+import ProductsScreen from '../screens/ProductsScreen';
+>>>>>>> 7a0f0f11bbcde748a20b7ff099611601d15acb70
 import ReceiptScanner from '../screens/Camera';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
@@ -74,6 +80,27 @@ AnnounceStack.navigationOptions = {
 
 AnnouncementScreen.path = '';
 
+<<<<<<< HEAD
+=======
+// Products
+
+const ProductsStack = createStackNavigator(
+  {
+    AllProducts: AllProductsScreen,
+    Products: ProductsScreen,
+    ProductsDetailed: ProductsDetailedScreen
+  },
+  config
+);
+
+ProductsStack.navigationOptions = {
+  tabBarLabel: 'Products',
+  tabBarIcon: ({ focused }) => <Icon size={20} name="shopping-cart" />
+};
+
+ProductsScreen.path = '';
+
+>>>>>>> 7a0f0f11bbcde748a20b7ff099611601d15acb70
 // Stores
 
 const StoresStack = createStackNavigator(
