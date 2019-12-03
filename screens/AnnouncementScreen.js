@@ -10,10 +10,6 @@ import {
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
 const firstAnnouncements = [];
 
-Font.loadAsync({
-  Poppins: require('../assets/fonts/Poppins-Regular.ttf')
-});
-
 announceTable.eachPage(
   function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
