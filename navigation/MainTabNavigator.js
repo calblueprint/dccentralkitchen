@@ -10,7 +10,7 @@ import TabBarIcon from '../components/TabBarIcon';
 
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
-import HomeScreen from '../screens/HomeScreen';
+import RewardsScreen from '../screens/RewardsScreen';
 import AllProductsScreen from '../screens/AllProductsScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
@@ -27,7 +27,7 @@ const config = Platform.select({
 // Home
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: RewardsScreen,
     Camera: ReceiptScanner
   },
   config
