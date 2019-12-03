@@ -38,7 +38,6 @@ export default class HomeScreen extends React.Component {
       let name = userRecord["fields"]["Name"]
       let points = userRecord["fields"]["Points"]
       let transactions = userRecord["fields"]["Transactions"]
-      
       if (transactions) {       
         if (this.state.latestTransaction != transactions.slice(-1)[0] ) {
           this.setState({
@@ -46,12 +45,11 @@ export default class HomeScreen extends React.Component {
             updates: true
           })
         } 
-        let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
-        Promise.all(transactionRecords).then(records => {
+        this.setState({
+          points, name
+        })
+        this.setTransactions(transactions).then(() => {
           this.setState({
-            points: points,
-            transactions: records,
-            name: name,
             refreshing: false
           })
         })
@@ -67,33 +65,20 @@ export default class HomeScreen extends React.Component {
 
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-    this.setState({
-      userId: userId
-    })
     HomeScreen.getUser(userId).then(userRecord => {
       if (userRecord) {
         let points = userRecord["fields"]["Points"]
-        let rewardCount = userRecord["fields"]["Rewards"]
         let name = userRecord["fields"]["Name"]
         let transactions = userRecord["fields"]["Transactions"]
+        this.setState({
+          points, name, userId
+        })
         if (transactions) {
           this.setState({
             latestTransaction: transactions[0]
           })
-          let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
-          Promise.all(transactionRecords).then(records => {
-            this.setState({
-              points: points,
-              transactions: records,
-              name: name,
-            })
-          })
-        } else {
-          this.setState({
-            points: points,
-            name: name,
-          })
-        }
+          this.setTransactions(transactions)
+        } 
       } else {
         console.error('User data is undefined or empty.')
       }
@@ -102,6 +87,34 @@ export default class HomeScreen extends React.Component {
     })
   }
 
+  // Helper for setting transactions to state.
+  async setTransactions(transactions) {
+    let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
+    Promise.all(transactionRecords).then(records => {
+      let transactionArray = records.map(record => this.createTransactionData(record))
+      this.setState({
+        transactions: transactionArray,
+      })
+    })
+  }
+
+  createTransactionData(record) {
+    const transaction = record.fields;
+    return {
+      customer: transaction['Customer'],
+      phone: transaction['Customer Lookup (Phone #)'],
+      transaction_id: transaction['transaction_id'],
+      products: transaction['Products Purchased'],
+      Date: transaction['Date'],
+      "Points Rewarded": transaction["Points Rewarded"],
+      Clerk: transaction["Clerk"],
+      "Items Redeemed": transaction["Items Redeemed"],
+      "Customer Name": transaction["Customer Name"],
+      "Store Name": transaction["Store Name"],
+      Receipts: transaction["Receipts"]
+    };
+  }
+  
   // Calls Airtable API to return a promise that
   // will resolve to be a user record.
   static async getUser(id) {
@@ -187,14 +200,14 @@ export default class HomeScreen extends React.Component {
             this.state.transactions.splice(0, 3).map(transaction => {
               return(
                 <View
-                  key={transaction.get("transaction_id")}
+                  key={transaction["transaction_id"]}
                   style={[styles.codeHighlightContainer, styles.navigationFilename]}
                   >
                   <MonoText style={styles.codeHighlightText}>
-                    Date: {transaction.get("Date")}
+                    Date: {transaction["Date"]}
                   </MonoText>
                   <MonoText style={styles.codeHighlightText}>
-                    Points Redeemed: {transaction.get("Points Rewarded")}
+                    Points Redeemed: {transaction["Points Rewarded"]}
                   </MonoText>
                 </View>
               )
