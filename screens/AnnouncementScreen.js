@@ -1,12 +1,11 @@
+import * as Font from "expo-font";
 import React from 'react';
-import {AsyncStorage, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import { AsyncStorage, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import Announcements from '../components/Announcements';
 import BASE from '../lib/common';
-import * as Font from "expo-font";
-import {
-  TopText,
-} from '../styles/announcements';
+import { TopText } from '../styles/announcements';
+
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
 const firstAnnouncements = [];
 
@@ -15,7 +14,7 @@ announceTable.eachPage(
     // This function (`page`) will get called for each page of records.
 
     // Grabs title, description, date, per record and stores it in list.
-    records.forEach(function(record) {
+    records.forEach(function (record) {
       let thisDate = new Date(record.get('Created'));
       let curr = {
         title: record.get('Title'),
@@ -35,7 +34,7 @@ announceTable.eachPage(
     if (err) {
       console.error(err);
     }
-});
+  });
 
 class AnnouncementScreen extends React.Component {
   constructor(props) {
@@ -45,8 +44,8 @@ class AnnouncementScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    Font.loadAsync({
+  async componentDidMount() {
+    await Font.loadAsync({
       Poppins: require('../assets/fonts/Poppins-Regular.ttf')
     });
   }
