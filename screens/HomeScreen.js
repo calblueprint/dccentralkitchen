@@ -1,15 +1,15 @@
 import React from 'react';
-import {
-  AsyncStorage,
-  Button,
-  Image,
+import { 
+  AsyncStorage, 
+  Button, 
+  Image, 
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  RefreshControl
 } from 'react-native';
-
 import { MonoText } from '../components/StyledText';
 import BASE from '../lib/common';
 
@@ -17,31 +17,104 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: '',
       name: '',
-      points: ''
+      points: '',
+      rewards: [],
+      redeemable: {},
+      announcements: '',
+      transactions: [],
+      latestTransaction: '',
+      refreshing: false, 
+      updates: false
     };
+  }
+
+  // This is what runs when you pull to refresh. It is essentially the
+  // same code from the componentDidMount
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    HomeScreen.getUser(this.state.userId).then(userRecord => {
+      let name = userRecord["fields"]["Name"]
+      let points = userRecord["fields"]["Points"]
+      let transactions = userRecord["fields"]["Transactions"]
+      if (transactions) {       
+        if (this.state.latestTransaction != transactions.slice(-1)[0] ) {
+          this.setState({
+            latestTransaction: transactions[0],
+            updates: true
+          })
+        } 
+        this.setState({
+          points, name
+        })
+        this.setTransactions(transactions).then(() => {
+          this.setState({
+            refreshing: false
+          })
+        })
+      } else {
+        this.setState({
+          points: points,
+          name: name,
+          refreshing: false
+        })
+      }
+    })
   }
 
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-    HomeScreen.getUser(userId)
-      .then(async userRecord => {
-        if (userRecord) {
-          const name = userRecord.fields.Name;
-          const points = userRecord.fields.Points;
-          await this.setState({
-            name,
-            points
-          });
-        } else {
-          console.error('User data is undefined or empty.');
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    HomeScreen.getUser(userId).then(userRecord => {
+      if (userRecord) {
+        let points = userRecord["fields"]["Points"]
+        let name = userRecord["fields"]["Name"]
+        let transactions = userRecord["fields"]["Transactions"]
+        this.setState({
+          points, name, userId
+        })
+        if (transactions) {
+          this.setState({
+            latestTransaction: transactions[0]
+          })
+          this.setTransactions(transactions)
+        } 
+      } else {
+        console.error('User data is undefined or empty.')
+      }
+    }).catch(err => {
+      console.error(err)
+    })
   }
 
+  // Helper for setting transactions to state.
+  async setTransactions(transactions) {
+    let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
+    Promise.all(transactionRecords).then(records => {
+      let transactionArray = records.map(record => this.createTransactionData(record))
+      this.setState({
+        transactions: transactionArray,
+      })
+    })
+  }
+
+  createTransactionData(record) {
+    const transaction = record.fields;
+    return {
+      customer: transaction['Customer'],
+      phone: transaction['Customer Lookup (Phone #)'],
+      transaction_id: transaction['transaction_id'],
+      products: transaction['Products Purchased'],
+      Date: transaction['Date'],
+      "Points Rewarded": transaction["Points Rewarded"],
+      Clerk: transaction["Clerk"],
+      "Items Redeemed": transaction["Items Redeemed"],
+      "Customer Name": transaction["Customer Name"],
+      "Store Name": transaction["Store Name"],
+      Receipts: transaction["Receipts"]
+    };
+  }
+  
   // Calls Airtable API to return a promise that
   // will resolve to be a user record.
   static async getUser(id) {
@@ -55,25 +128,19 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Auth');
   };
 
-  // TODO @JohnathanZhou refactor Available Rewards display
-  // // Calls Airtable API to return a promise that
-  // // will resolve to be an array of records that
-  // // require less than the given number points to
-  // // redeem.
-  // async checkAvailableRewards(points) {
-  //   return BASE('Rewards')
-  //     .select({
-  //       filterByFormula: `{Point Values} <= ${points}`
-  //     })
-  //     .firstPage();
-  // }
-
   render() {
     return (
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
+          contentContainerStyle={styles.contentContainer}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          }
+          >
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -95,12 +162,12 @@ export default class HomeScreen extends React.Component {
                 styles.codeHighlightContainer,
                 styles.homeScreenFilename
               ]}>
-              <MonoText>{this.state.points} / 1000 </MonoText>
+              <MonoText>{this.state.points} total points </MonoText>
             </View>
             <Text style={styles.getStartedText}>
               {' '}
               {`${1000 -
-                parseInt(this.state.points)} points to your next reward`}
+                parseInt(this.state.points) % 1000} points to your next reward`}
             </Text>
           </View>
 
@@ -111,14 +178,43 @@ export default class HomeScreen extends React.Component {
               style={styles.signOutButton}
             />
           </View>
-          <View style={styles.signOutContainer}>
-            <Button
-              title="Go to Camera"
-              onPress={() => this.props.navigation.navigate('Camera')}
-              style={styles.signOutButton}
-            />
-          </View>
+          { this.state.updates ?
+            <View style={styles.signOutContainer}>
+              <Text>New transaction noted, upload your receipt!</Text>
+              <Button
+                title="Upload Receipt"
+                onPress={() => this.props.navigation.navigate('Camera', {
+                  transactionId: this.state.latestTransaction,
+                  customerId: this.state.userId
+                })}
+                style={styles.signOutButton} />
+            </View>
+            : <Text></Text>
+          }
         </ScrollView>
+        <View style={styles.tabBarInfoContainer}>
+          <Text style={styles.tabBarInfoText}>
+            Your transaction history:
+          </Text>
+          { this.state.transactions ? 
+            this.state.transactions.splice(0, 3).map(transaction => {
+              return(
+                <View
+                  key={transaction["transaction_id"]}
+                  style={[styles.codeHighlightContainer, styles.navigationFilename]}
+                  >
+                  <MonoText style={styles.codeHighlightText}>
+                    Date: {transaction["Date"]}
+                  </MonoText>
+                  <MonoText style={styles.codeHighlightText}>
+                    Points Redeemed: {transaction["Points Rewarded"]}
+                  </MonoText>
+                </View>
+              )
+            })
+            : ''
+          }
+        </View>
       </View>
     );
   }
@@ -180,27 +276,6 @@ const styles = StyleSheet.create({
   tabBarInfoContainer: {
     position: 'absolute',
     bottom: 150,
-    // marginTop: 20,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20
-  },
-  tabBarInfoContainer2: {
-    position: 'absolute',
-    bottom: 300,
     // marginTop: 20,
     left: 0,
     right: 0,
