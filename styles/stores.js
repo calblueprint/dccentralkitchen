@@ -13,3 +13,10 @@ export const StoreModal = styled.View`
   background-color: #fff;
   opacity: 0.8;
 `;
+
+export const SearchBar = styled.TouchableOpacity`
+  background-color: white;
+  align-items: center;
+  margin: 1%;
+  border-radius: 5px;
+`;
