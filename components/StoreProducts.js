@@ -21,13 +21,24 @@ function filterVegetables(product) {
 }
 
 class StoreProducts extends React.Component {
+  constructor(props) {
+    super(props);
+    const { navigation, store, products } = this.props;
+    this.state = {
+      navigation,
+      store,
+      products
+    };
+  }
+
   detailedStoreTransition = store => {
     this.props.navigation.navigate('StoresDetailed', {
       currentStore: store
     });
   };
 
-  renderProducts = (filterType, productType, products, navigation, store) => {
+  renderProducts = (filterType, productType) => {
+    const { navigation, store, products } = this.state;
     return (
       <View>
         <View flexDirection="row">
@@ -36,8 +47,8 @@ class StoreProducts extends React.Component {
             onPress={() =>
               navigation.navigate('Products', {
                 products: products.filter(filterType),
-                navigation: this.props.navigation,
-                productType: productType,
+                navigation,
+                productType,
                 store
               })
             }>
@@ -63,7 +74,7 @@ class StoreProducts extends React.Component {
   };
 
   render() {
-    const { navigation, products, store } = this.props;
+    const { store } = this.state;
     return (
       <View>
         <StoreCard
@@ -71,26 +82,9 @@ class StoreProducts extends React.Component {
           key={store.id}
           callBack={() => this.detailedStoreTransition(store)}
         />
-        {/* TODO @tommypoa can probably make this (e.g Fruits title + fruits products) a sub-component and re-use it in AllProducts */}
         {/* Display fruits available at this store */}
-        <View>
-          {this.renderProducts(
-            filterFruit,
-            'Fruit',
-            products,
-            navigation,
-            store
-          )}
-        </View>
-        <View>
-          {this.renderProducts(
-            filterVegetables,
-            'Vegetables',
-            products,
-            navigation,
-            store
-          )}
-        </View>
+        <View>{this.renderProducts(filterFruit, 'Fruit')}</View>
+        <View>{this.renderProducts(filterVegetables, 'Vegetables')}</View>
       </View>
     );
   }
