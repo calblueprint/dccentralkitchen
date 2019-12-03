@@ -1,22 +1,20 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import {
-  createBottomTabNavigator,
-  createStackNavigator
-} from 'react-navigation';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
-import TabBarIcon from '../components/TabBarIcon';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 
+import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
+import ReceiptScanner from '../screens/Camera';
 import HomeScreen from '../screens/HomeScreen';
+// testing purposes for transactions;
+import PointsHistoryScreen from '../screens/PointsHistoryScreen';
 import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
 import ProductsScreen from '../screens/products/ProductsScreen';
-import ReceiptScanner from '../screens/Camera';
+import StoreListScreen from '../screens/stores/StoreListScreen';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
-import StoreListScreen from '../screens/stores/StoreListScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -46,7 +44,7 @@ HomeStack.navigationOptions = {
   )
 };
 
-HomeStack.path = '';
+HomeScreen.path = '';
 
 // Announcements
 
@@ -74,6 +72,30 @@ AnnounceStack.navigationOptions = {
 
 AnnouncementScreen.path = '';
 
+// Testing for Points History
+
+AnnounceStack.navigationOptions = {
+  tabBarLabel: 'Announcements',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-notifications${focused ? '' : '-outline'}`
+          : `md-notifications${focused ? '' : '-outline'}`
+      }
+    />
+  )
+};
+
+const HistoryStack = createStackNavigator(
+  {
+    PointsHistory: PointsHistoryScreen
+  },
+  config
+);
+
+PointsHistoryScreen.path = '';
 // Stores
 
 const StoresStack = createStackNavigator(
@@ -116,6 +138,8 @@ StoresScreen.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
+  // testing for Points History
+  HistoryStack,
   AnnounceStack,
   StoresStack
   // SettingsStack

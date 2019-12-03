@@ -1,11 +1,15 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {AsyncStorage, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 
 import Announcements from '../components/Announcements';
 import BASE from '../lib/common';
-
+import * as Font from "expo-font";
+import {
+  TopText,
+} from '../styles/announcements';
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
 const firstAnnouncements = [];
+
 announceTable.eachPage(
   function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
@@ -41,17 +45,16 @@ class AnnouncementScreen extends React.Component {
     };
   }
 
+  componentDidMount() {
+    Font.loadAsync({
+      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
+    });
+  }
+
   render() {
     return (
       <View>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
-            <Text>Inbox</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ flex: 1, alignItems: 'center' }}>
-            <Text>Events</Text>
-          </TouchableOpacity>
-        </View>
+        <TopText> News </TopText>
         <ScrollView>
           {this.state.announcements.map(announce => (
             <Announcements
