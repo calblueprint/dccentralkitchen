@@ -1,7 +1,10 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
@@ -72,8 +75,6 @@ AnnounceStack.navigationOptions = {
 
 AnnouncementScreen.path = '';
 
-// Testing for Points History
-
 AnnounceStack.navigationOptions = {
   tabBarLabel: 'Announcements',
   tabBarIcon: ({ focused }) => (
@@ -88,6 +89,8 @@ AnnounceStack.navigationOptions = {
   )
 };
 
+// Testing for Points History
+
 const HistoryStack = createStackNavigator(
   {
     PointsHistory: PointsHistoryScreen
@@ -96,6 +99,7 @@ const HistoryStack = createStackNavigator(
 );
 
 PointsHistoryScreen.path = '';
+
 // Stores
 
 const StoresStack = createStackNavigator(

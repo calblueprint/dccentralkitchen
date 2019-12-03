@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Product from '../../components/Product';
 import { styles } from '../../styles/products';
-import { Button, Title } from '../../styles/shared';
+import { Title } from '../../styles/shared';
 
 class ProductsScreen extends React.Component {
   constructor(props) {
@@ -12,27 +12,12 @@ class ProductsScreen extends React.Component {
     this.state = {};
   }
 
-  renderProduct = product => {
-    return (
-      <Button
-        onPress={() =>
-          navigation.navigate('ProductsDetailed', {
-            currentProduct: product,
-            store
-          })
-        }>
-        <Product product={product} />
-      </Button>
-    );
+  renderProduct = (product, navigation, store) => {
+    return <Product product={product} navigation={navigation} store={store} />;
   };
 
   render() {
-    const {
-      products,
-      navigation,
-      productType,
-      store
-    } = this.props.navigation.state.params;
+    const { products, productType, store } = this.props.navigation.state.params;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <Title>{store.name}</Title>
@@ -44,7 +29,9 @@ class ProductsScreen extends React.Component {
           keyExtractor={item => item.id}
           numColumns={2}
           data={products}
-          renderItem={({ item }) => this.renderProduct(item)}
+          renderItem={({ item }) =>
+            this.renderProduct(item, this.props.navigation, store)
+          }
         />
       </ScrollView>
     );

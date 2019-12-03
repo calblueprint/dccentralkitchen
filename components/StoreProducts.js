@@ -1,10 +1,10 @@
+import StoreCard from './StoreCard';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Product from './Product';
 
 import { Button, Title } from '../styles/shared';
-import Product from './Product';
-import StoreCard from './StoreCard';
 
 function filterFruit(product) {
   if (product) {
@@ -21,16 +21,6 @@ function filterVegetables(product) {
 }
 
 class StoreProducts extends React.Component {
-  constructor(props) {
-    super(props);
-    const { navigation, store, products } = this.props;
-    this.state = {
-      navigation,
-      store,
-      products
-    };
-  }
-
   detailedStoreTransition = store => {
     this.props.navigation.navigate('StoresDetailed', {
       currentStore: store
@@ -38,7 +28,7 @@ class StoreProducts extends React.Component {
   };
 
   renderProducts = (filterType, productType) => {
-    const { navigation, store, products } = this.state;
+    const { navigation, store, products } = this.props;
     return (
       <View>
         <View flexDirection="row">
@@ -57,16 +47,13 @@ class StoreProducts extends React.Component {
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {products.filter(filterType).map(product => (
-            <Button
+            // TODO See if there is a better way to pass the props over to a component
+            <Product
               key={product.id}
-              onPress={() =>
-                navigation.navigate('ProductsDetailed', {
-                  currentProduct: product,
-                  store
-                })
-              }>
-              <Product product={product} />
-            </Button>
+              product={product}
+              navigation={navigation}
+              store={store}
+            />
           ))}
         </ScrollView>
       </View>
@@ -74,7 +61,7 @@ class StoreProducts extends React.Component {
   };
 
   render() {
-    const { store } = this.state;
+    const { store } = this.props;
     return (
       <View>
         <StoreCard
