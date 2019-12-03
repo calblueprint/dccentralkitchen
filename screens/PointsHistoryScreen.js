@@ -1,9 +1,9 @@
 import * as Font from 'expo-font';
 import React from 'react';
 import { AsyncStorage, ScrollView, Text, View } from 'react-native';
-import getCustomerTransactions from './historyHelpers';
 
 import Transactions from '../components/Transactions';
+import getCustomerTransactions from './historyHelpers';
 
 export default class PointsHistoryScreen extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export default class PointsHistoryScreen extends React.Component {
       this.setState({ transactions, recent });
     });
 
-    Font.loadAsync({
+    await Font.loadAsync({
       Poppins: require('../assets/fonts/Poppins-Regular.ttf')
     });
   }
