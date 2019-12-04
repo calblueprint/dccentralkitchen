@@ -1,24 +1,23 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   createBottomTabNavigator,
   createStackNavigator
 } from 'react-navigation';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 import TabBarIcon from '../components/TabBarIcon';
-// testing purposes for transactions;
-import PointsHistoryScreen from '../screens/PointsHistoryScreen';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
-import HomeScreen from '../screens/HomeScreen';
-import AllProductsScreen from '../screens/AllProductsScreen';
-import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
-import ProductsScreen from '../screens/ProductsScreen';
 import ReceiptScanner from '../screens/Camera';
+import HomeScreen from '../screens/HomeScreen';
+// testing purposes for transactions;
+import PointsHistoryScreen from '../screens/PointsHistoryScreen';
+import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
+import ProductsScreen from '../screens/products/ProductsScreen';
+import StoreListScreen from '../screens/stores/StoreListScreen';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
-import StoreListScreen from '../screens/stores/StoreListScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -48,7 +47,7 @@ HomeStack.navigationOptions = {
   )
 };
 
-HomeStack.path = '';
+HomeScreen.path = '';
 
 // Announcements
 
@@ -76,14 +75,6 @@ AnnounceStack.navigationOptions = {
 
 AnnouncementScreen.path = '';
 
-// Testing for Points History
-const HistoryStack = createStackNavigator(
-  {
-    PointsHistory: PointsHistoryScreen
-  },
-  config
-);
-
 AnnounceStack.navigationOptions = {
   tabBarLabel: 'Announcements',
   tabBarIcon: ({ focused }) => (
@@ -98,25 +89,16 @@ AnnounceStack.navigationOptions = {
   )
 };
 
-PointsHistoryScreen.path = '';
+// Testing for Points History
 
-// Products
-
-const ProductsStack = createStackNavigator(
+const HistoryStack = createStackNavigator(
   {
-    AllProducts: AllProductsScreen,
-    Products: ProductsScreen,
-    ProductsDetailed: ProductsDetailedScreen
+    PointsHistory: PointsHistoryScreen
   },
   config
 );
 
-ProductsStack.navigationOptions = {
-  tabBarLabel: 'Products',
-  tabBarIcon: ({ focused }) => <Icon size={20} name="shopping-cart" />
-};
-
-ProductsScreen.path = '';
+PointsHistoryScreen.path = '';
 
 // Stores
 
@@ -160,11 +142,10 @@ StoresScreen.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  AnnounceStack,
-  ProductsStack,
-  StoresStack,
   // testing for Points History
-  HistoryStack
+  HistoryStack,
+  AnnounceStack,
+  StoresStack
   // SettingsStack
 });
 
