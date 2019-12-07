@@ -14,6 +14,7 @@ function StoreCard({ store, callBack }) {
     <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={callBack}>
         <Title>{name}</Title>
+        <H3>Distance: {distance} mi </H3>
         <InLineContainer>
           <MaterialCommunityIcons name="directions" size={16} />
           <Subtitle>{address}</Subtitle>
@@ -22,7 +23,6 @@ function StoreCard({ store, callBack }) {
           <FontAwesome name="clock-o" size={12} />
           <H3>{hours}</H3>
         </InLineContainer>
-        <H3>Distance: {distance} mi </H3>
       </TouchableOpacity>
     </View>
   );
