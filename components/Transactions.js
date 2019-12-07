@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-
+import { FontAwesome } from '@expo/vector-icons';
 import {
   Card,
   ContentContainer,
@@ -18,7 +18,9 @@ function Transactions(props) {
   return (
     <TouchableOpacity>
       <Card>
-        <IconContainer />
+        <IconContainer>
+          <FontAwesome name="check" size={32} color="green" />
+        </IconContainer>
         <ContentContainer>
           <Overline>
             {date.toLocaleDateString()} @ {storeName}

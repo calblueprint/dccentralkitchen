@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
 import { SearchBar, StoreModal, StoreModalBar } from '../../styles/stores';
 import { getProductData, getStoreData } from './storeHelpers';
+
 
 // TODO is this const necessary?
 const deltas = {
