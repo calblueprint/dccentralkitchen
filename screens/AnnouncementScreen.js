@@ -44,9 +44,7 @@ class AnnouncementScreen extends React.Component {
   }
 
   async componentDidMount() {
-    await Font.loadAsync({
-      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
-    });
+
   }
 
   render() {
