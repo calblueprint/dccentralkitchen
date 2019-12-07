@@ -1,24 +1,21 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import {
-  createBottomTabNavigator,
-  createStackNavigator
-} from 'react-navigation';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+
 import TabBarIcon from '../components/TabBarIcon';
-// testing purposes for transactions;
-import PointsHistoryScreen from '../screens/PointsHistoryScreen';
+import AllProductsScreen from '../screens/AllProductsScreen';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
-import RewardsScreen from '../screens/RewardsScreen';
-import AllProductsScreen from '../screens/AllProductsScreen';
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
-import ReceiptScanner from '../screens/Camera';
+import ReceiptScanner from '../screens/rewards/Camera';
+// testing purposes for transactions;
+import PointsHistoryScreen from '../screens/rewards/PointsHistoryScreen';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
+import StoreListScreen from '../screens/stores/StoreListScreen';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
-import StoreListScreen from '../screens/stores/StoreListScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
