@@ -18,6 +18,8 @@ import ProductsScreen from '../screens/products/ProductsScreen';
 import StoreListScreen from '../screens/stores/StoreListScreen';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import StoresScreen from '../screens/stores/StoresScreen';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -108,14 +110,22 @@ const StoresStack = createStackNavigator(
     StoresDetailed: StoresDetailedScreen,
     StoreList: StoreListScreen,
     Products: ProductsScreen,
-    ProductsDetailed: ProductsDetailedScreen
+    ProductsDetailed: ProductsDetailedScreen,
   },
   config
 );
 
 StoresStack.navigationOptions = {
   tabBarLabel: 'Stores',
-  tabBarIcon: ({ focused }) => <Icon focused={focused} size={20} name="map-o" />
+  tabBarIcon: ({ focused }) => <Icon focused={focused} size={20} name="map-o" />,
+  headerLeft: () => <Icon title="HELLO" name="menu" size={30} color="#900" style = {{ marginLeft: 10}}
+    onPress={ alert("hello") }
+  />
+//   headerLeft: (
+//     <TouchableOpacity onPress={() => navigation.goBack(null)} style={{left: Dimensions.get("window").height < 667 ? '8%' : '3%', backgroundColor: 'red', width: '100%'}}>
+//       <Icon title="HELLO"></Icon>
+//     </TouchableOpacity>
+// ),
 };
 
 StoresScreen.path = '';
@@ -150,5 +160,12 @@ const tabNavigator = createBottomTabNavigator({
 });
 
 tabNavigator.path = '';
+
+const MyDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: HomeScreen,
+  },
+});
+
 
 export default tabNavigator;

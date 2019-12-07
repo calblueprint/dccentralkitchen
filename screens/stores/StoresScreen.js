@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Button
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -17,6 +18,9 @@ import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
 import { SearchBar, StoreModal, StoreModalBar } from '../../styles/stores';
 import { getProductData, getStoreData } from './storeHelpers';
+import { Dimensions } from "react-native";
+
+const width = Dimensions.get('window').width; //full width
 
 // TODO is this const necessary?
 const deltas = {
@@ -186,6 +190,29 @@ export default class StoresScreen extends React.Component {
         {this.state.locationErrorMsg && (
           <Text>{this.state.locationErrorMsg}</Text>
         )}
+        <TouchableOpacity
+          style={{
+            backgroundColor:'white',
+            width:50,
+            height:50,
+            zIndex:100,
+            position:'absolute', // comment out this line to see the menu toggle
+            top:10,
+            left: 15,
+            borderRadius: 23,
+            borderColor: '#ffffff',
+            borderWidth: 4,
+            shadowOpacity: 0.25,
+            shadowRadius: 5,
+            shadowColor: 'black',
+            shadowOffset: { height: 3, width: 4 },
+          }}>
+          <Button 
+            color="black" 
+            title="="
+            onPress={() => this.props.navigation.navigate('DrawerToggle')}>
+          </Button>
+        </TouchableOpacity>
         {/* Display Map */}
         <MapView
           style={{ flex: 100 }}
@@ -227,7 +254,7 @@ export default class StoresScreen extends React.Component {
           )}
         </MapView>
         {/* Display bottom sheet */}
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, marginBottom: 140 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling
@@ -237,6 +264,21 @@ export default class StoresScreen extends React.Component {
             renderContent={this.renderContent}
           />
         </View>
+        <TouchableOpacity style={{ 
+          position: 'absolute',
+          height: 45,
+          bottom: 0,
+          backgroundColor: '#008550',
+          alignSelf: 'stretch',
+          width: width,
+          alignItems: "center",
+          justifyContent: "center"
+         }}
+        onPress={() => this.props.navigation.navigate('Home')}>
+            <View>
+              <Text style={{color: 'white'}}> Your rewards </Text>
+            </View>
+          </TouchableOpacity>
       </SafeAreaView>
     );
   }
