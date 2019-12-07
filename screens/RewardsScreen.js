@@ -51,7 +51,7 @@ export default class RewardsScreen extends React.Component {
   // same code from the componentDidMount
   _onRefresh = () => {
     this.setState({refreshing: true});
-    HomeScreen.getUser(this.state.userId).then(userRecord => {
+    RewardsScreen.getUser(this.state.userId).then(userRecord => {
       let name = userRecord["fields"]["Name"]
       let points = userRecord["fields"]["Points"]
       let transactions = userRecord["fields"]["Transactions"]
@@ -82,7 +82,7 @@ export default class RewardsScreen extends React.Component {
 
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
-    HomeScreen.getUser(userId).then(userRecord => {
+    RewardsScreen.getUser(userId).then(userRecord => {
       if (userRecord) {
         let points = userRecord["fields"]["Points"]
         let name = userRecord["fields"]["Name"]
