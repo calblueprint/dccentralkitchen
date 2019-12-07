@@ -89,22 +89,22 @@ export default class RewardsScreen extends React.Component {
         <Text style={styles.tabBarInfoText}>Your transaction history:</Text>
         {this.state.transactions
           ? this.state.transactions.splice(0, 3).map(transaction => {
-              return (
-                <View
-                  key={transaction.transaction_id}
-                  style={[
-                    styles.codeHighlightContainer,
-                    styles.navigationFilename
-                  ]}>
-                  <MonoText style={styles.codeHighlightText}>
-                    Date: {transaction.Date}
-                  </MonoText>
-                  <MonoText style={styles.codeHighlightText}>
-                    Points Redeemed: {transaction['Points Rewarded']}
-                  </MonoText>
-                </View>
-              );
-            })
+            return (
+              <View
+                key={transaction.transaction_id}
+                style={[
+                  styles.codeHighlightContainer,
+                  styles.navigationFilename
+                ]}>
+                <MonoText style={styles.codeHighlightText}>
+                  Date: {transaction.Date}
+                </MonoText>
+                <MonoText style={styles.codeHighlightText}>
+                  Points Redeemed: {transaction['Points Rewarded']}
+                </MonoText>
+              </View>
+            );
+          })
           : ''}
       </View>
     );
@@ -176,16 +176,16 @@ export default class RewardsScreen extends React.Component {
               />
             </View>
           ) : (
-            <Text />
-          )}
+              <Text />
+            )}
         </ScrollView>
-        {/* <TabView
+        <TabView
           navigationState={this.state}
           renderScene={this.renderScene}
           onIndexChange={index => this.setState({ index })}
           initialLayout={{ width: Dimensions.get('window').width }}
           style={styles.container}
-        /> */}
+        />
       </View>
     );
   }
