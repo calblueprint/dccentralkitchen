@@ -48,16 +48,16 @@ class AuthLoadingScreen extends React.Component {
 }
 
 const MyDrawerNavigator = createDrawerNavigator({
-  Announcements: {
-    screen: AnnounceStack,
-    navigationOptions: ({ navigation }) => ({
-      title: "Announcements",
-    }),
-  },
   Stores: {
     screen: StoresStack,
     navigationOptions: ({ navigation }) => ({
       title: "Stores",
+    }),
+  },
+  Announcements: {
+    screen: AnnounceStack,
+    navigationOptions: ({ navigation }) => ({
+      title: "Announcements",
     }),
   },
   // To be merged with points history

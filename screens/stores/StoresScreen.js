@@ -17,7 +17,7 @@ import Hamburger from '../../components/Hamburger'
 
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
-import { SearchBar, StoreModal, StoreModalBar } from '../../styles/stores';
+import { SearchBar, StoreModal, StoreModalBar, TopText } from '../../styles/stores';
 import { getProductData, getStoreData } from './storeHelpers';
 import { Dimensions } from "react-native";
 
@@ -183,6 +183,7 @@ export default class StoresScreen extends React.Component {
     }
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
+        <TopText>Stores</TopText>
         {/* Janky way to do a conditional rendering */}
         {this.state.location && (
           <TouchableOpacity onPress={this._findCurrentLocationAsync}>
@@ -194,29 +195,6 @@ export default class StoresScreen extends React.Component {
         {this.state.locationErrorMsg && (
           <Text>{this.state.locationErrorMsg}</Text>
         )}
-        {/* <TouchableOpacity
-          style={{
-            backgroundColor:'white',
-            width:50,
-            height:50,
-            zIndex:100,
-            position:'absolute', // comment out this line to see the menu toggle
-            top:10,
-            left: 15,
-            borderRadius: 23,
-            borderColor: '#ffffff',
-            borderWidth: 4,
-            shadowOpacity: 0.25,
-            shadowRadius: 5,
-            shadowColor: 'black',
-            shadowOffset: { height: 3, width: 4 },
-          }}>
-          <Button 
-            color="black" 
-            title="="
-            onPress={() => this.props.navigation.toggleDrawer()} >
-          </Button>
-        </TouchableOpacity> */}
         <Hamburger navigation = {this.props.navigation}></Hamburger>
         {/* Display Map */}
         <MapView

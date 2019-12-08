@@ -32,6 +32,8 @@ export const ContentText = styled.Text`
 
 export const TopText = styled.Text`
   font-style: normal;
-  font-weight: 500;
+  font-weight: 900;
   text-align: center;
+  margin-top: 55;
+  font-size: 25
 `;
