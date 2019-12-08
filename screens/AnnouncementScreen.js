@@ -5,7 +5,6 @@ import { AsyncStorage, ScrollView, Text, TouchableOpacity, View } from 'react-na
 import Announcements from '../components/Announcements';
 import BASE from '../lib/common';
 import { TopText } from '../styles/announcements';
-
 const announceTable = BASE('Announcements').select({ view: 'Grid view' });
 const firstAnnouncements = [];
 
@@ -45,9 +44,7 @@ class AnnouncementScreen extends React.Component {
   }
 
   async componentDidMount() {
-    await Font.loadAsync({
-      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
-    });
+
   }
 
   render() {

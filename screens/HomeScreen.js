@@ -13,6 +13,7 @@ import {
 import { MonoText } from '../components/StyledText';
 import Hamburger from '../components/Hamburger'
 import BASE from '../lib/common';
+import * as Font from "expo-font";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -65,6 +66,9 @@ export default class HomeScreen extends React.Component {
   }
 
   async componentDidMount() {
+    Font.loadAsync({
+      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
+    });
     const userId = await AsyncStorage.getItem('userId');
     HomeScreen.getUser(userId).then(userRecord => {
       if (userRecord) {

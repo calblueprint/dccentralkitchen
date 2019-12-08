@@ -23,6 +23,7 @@ import { Dimensions } from "react-native";
 
 const width = Dimensions.get('window').width; //full width
 
+
 // TODO is this const necessary?
 const deltas = {
   // latitudeDelta: 0.0922,
