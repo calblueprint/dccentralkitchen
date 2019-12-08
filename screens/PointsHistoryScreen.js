@@ -20,10 +20,6 @@ export default class PointsHistoryScreen extends React.Component {
       const recent = transactions.splice(0, 3);
       this.setState({ transactions, recent });
     });
-
-    await Font.loadAsync({
-      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
-    });
   }
 
   render() {

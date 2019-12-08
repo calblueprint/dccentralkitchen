@@ -16,11 +16,12 @@ export const H3 = styled.Text`
 
 export const InLineContainer = styled.View`
   flex-direction: row;
+  margin: 0 6.5%;
 `;
 
 export const ScrollCategory = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: normal;
 `;
 
 export const Button = styled.TouchableOpacity`
