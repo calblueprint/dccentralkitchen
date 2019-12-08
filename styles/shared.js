@@ -32,3 +32,7 @@ export const ButtonText = styled.Text`
   color: white;
   padding: 7.5px 7.5px;
 `;
+
+export const PoppinsText = styled.Text`
+  font-family: 'Poppins';
+`;

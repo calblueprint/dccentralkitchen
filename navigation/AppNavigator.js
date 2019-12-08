@@ -1,5 +1,4 @@
 import React from 'react';
-import * as Font from 'expo-font';
 import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -8,12 +7,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignInScreen from '../screens/auth/SignUpScreen';
 
-import {
-  StoresStack,
-  HomeStack,
-  AnnounceStack,
-  HistoryStack
-} from './StackNavigators';
+import { StoresStack, RewardsStack, AnnounceStack } from './StackNavigators';
 
 // TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
 const AuthStack = createStackNavigator({
@@ -25,12 +19,6 @@ class AuthLoadingScreen extends React.Component {
   constructor() {
     super();
     this._bootstrapAsync();
-  }
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
-    });
   }
 
   // Fetch the token from storage then navigate to our appropriate place
@@ -55,23 +43,17 @@ const MyDrawerNavigator = createDrawerNavigator({
       title: 'Stores'
     })
   },
-  Announcements: {
-    screen: AnnounceStack,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Announcements'
-    })
-  },
-  // To be merged with points history
-  Home: {
-    screen: HomeStack,
+  Rewards: {
+    screen: RewardsStack,
     navigationOptions: ({ navigation }) => ({
       title: 'Your Profile'
     })
   },
-  History: {
-    screen: HistoryStack,
+  // TODO change the name of Announcements to News (?) across app & Airtable
+  Announcements: {
+    screen: AnnounceStack,
     navigationOptions: ({ navigation }) => ({
-      title: 'Points History'
+      title: 'News'
     })
   }
 });

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { PoppinsText } from './shared';
 
 export const Card = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
@@ -21,7 +22,7 @@ export const ContentContainer = styled.View`
   flex-direction: column;
 `;
 
-export const MainText = styled.Text`
+export const MainText = styled(PoppinsText)`
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -31,7 +32,7 @@ export const MainText = styled.Text`
   color: rgba(0, 0, 0, 0.8);
 `;
 
-export const Overline = styled.Text`
+export const Overline = styled(PoppinsText)`
   font-style: normal;
   font-weight: 500;
   font-size: 12px;

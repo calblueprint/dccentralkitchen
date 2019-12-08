@@ -2,8 +2,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
 
 import StoresScreen from '../screens/stores/StoresScreen';
-import HomeScreen from '../screens/HomeScreen';
-import ReceiptScanner from '../screens/Camera';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
+import ReceiptScanner from '../screens/rewards/Camera';
 
 import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
 import ProductsScreen from '../screens/products/ProductsScreen';
@@ -11,7 +11,6 @@ import StoreListScreen from '../screens/stores/StoreListScreen';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 import AnnouncementScreen from '../screens/AnnouncementScreen';
 import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
-import PointsHistoryScreen from '../screens/PointsHistoryScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -33,16 +32,16 @@ StoresStack.navigationOptions = {
   drawerLabel: 'Stores'
 };
 
-export const HomeStack = createStackNavigator(
+export const RewardsStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    RewardsHome: RewardsScreen,
     Camera: ReceiptScanner
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  drawerLabel: 'Home'
+RewardsStack.navigationOptions = {
+  drawerLabel: 'Rewards'
 };
 
 export const AnnounceStack = createStackNavigator(
@@ -55,15 +54,4 @@ export const AnnounceStack = createStackNavigator(
 
 AnnounceStack.navigationOptions = {
   drawerLabel: 'Announcements'
-};
-
-export const HistoryStack = createStackNavigator(
-  {
-    PointsHistory: PointsHistoryScreen
-  },
-  config
-);
-
-HistoryStack.navigationOptions = {
-  drawerLabel: 'History'
 };

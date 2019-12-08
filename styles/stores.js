@@ -26,5 +26,5 @@ export const TopText = styled.Text`
   font-weight: 900;
   text-align: center;
   margin-top: 10;
-  font-size: 25
+  font-size: 25;
 `;
