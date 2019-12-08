@@ -3,7 +3,9 @@ import React from 'react';
 import { AsyncStorage, ScrollView, Text, View } from 'react-native';
 
 import Transactions from '../components/Transactions';
+import Hamburger from '../components/Hamburger.js'
 import getCustomerTransactions from './historyHelpers';
+
 
 export default class PointsHistoryScreen extends React.Component {
   constructor(props) {
@@ -25,8 +27,9 @@ export default class PointsHistoryScreen extends React.Component {
   render() {
     return (
       <View>
-        <ScrollView>
-          <Text> RECENT TRANSACTIONS</Text>
+        <Hamburger navigation = {this.props.navigation}></Hamburger>
+        <ScrollView style = {{marginTop: 50}}>
+          <Text style = {{textAlign: "center"}}> Recent Transactions</Text>
           {this.state.recent.map(transaction => (
             <Transactions
               key={transaction.id}
@@ -35,7 +38,7 @@ export default class PointsHistoryScreen extends React.Component {
               storeName={transaction.storeName}
             />
           ))}
-          <Text> History </Text>
+          <Text style = {{textAlign: "center"}}> Complete History </Text>
           {this.state.transactions.map(transaction => (
             <Transactions
               key={transaction.id}
@@ -49,3 +52,7 @@ export default class PointsHistoryScreen extends React.Component {
     );
   }
 }
+
+PointsHistoryScreen.navigationOptions = {
+  header: null
+};

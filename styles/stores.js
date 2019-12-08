@@ -20,3 +20,11 @@ export const SearchBar = styled.TouchableOpacity`
   margin: 1%;
   border-radius: 5px;
 `;
+
+export const TopText = styled.Text`
+  font-style: normal;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 10;
+  font-size: 25
+`;
