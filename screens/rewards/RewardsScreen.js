@@ -53,10 +53,10 @@ export default class RewardsScreen extends React.Component {
         console.error('User data is undefined or empty.');
         return false;
       })
-      .then(async exists => {
+      .then(exists => {
         if (exists) {
           // Get transactions
-          await getCustomerTransactions(userId).then(transactions => {
+          getCustomerTransactions(userId).then(transactions => {
             this.setState({ latestTransaction: transactions[0], transactions });
           });
         }
@@ -70,24 +70,45 @@ export default class RewardsScreen extends React.Component {
     });
   }
 
-  // This is what runs when you pull to refresh - it updates the current transactions
-  // Sets 'update' to true if the latest transaction is new
+  // This is what runs when you pull to refresh - (what runs in componentDidMount plus some modifications)
+  // It updates the current transactions & user points,
+  // sets 'update' to true if the latest transaction is new
   // or if the latest transaction does not have a receipt attached
   // which prompts on the History page
   _onRefresh = async () => {
     this.setState({ refreshing: true });
-    getCustomerTransactions(this.state.user.id).then(transactions => {
-      if (this.state.latestTransaction !== transactions[0]) {
-        this.setState({
-          latestTransaction: transactions[0],
-          transactions
-        });
-      }
-      if (this.state.latestTransaction.receipts == null) {
-        this.setState({ updates: true });
-      }
-      this.setState({ refreshing: false });
-    });
+    const userId = await AsyncStorage.getItem('userId');
+    getUser(userId)
+      .then(userRecord => {
+        if (userRecord) {
+          const user = {
+            id: userId,
+            points: userRecord.fields.Points,
+            name: userRecord.fields.Name
+          };
+          this.setState({ user });
+          return true;
+        }
+        console.error('User data is undefined or empty.');
+        return false;
+      })
+      .then(exists => {
+        if (exists) {
+          getCustomerTransactions(this.state.user.id).then(transactions => {
+            if (this.state.latestTransaction !== transactions[0]) {
+              this.setState({
+                latestTransaction: transactions[0],
+                transactions
+              });
+            }
+            if (this.state.latestTransaction.receipts == null) {
+              this.setState({ updates: true });
+            }
+            this.setState({ refreshing: false });
+          });
+        }
+      })
+      .catch(err => console.error(err));
   };
 
   renderScene = ({ route }) => {
@@ -135,13 +156,6 @@ export default class RewardsScreen extends React.Component {
       />
     );
   };
-
-  // // Sign out function -- it clears the local storage then navigates
-  // // to the authentication page.
-  // _signOutAsync = async () => {
-  //   await AsyncStorage.clear();
-  //   this.props.navigation.navigate('Auth');
-  // };
 
   render() {
     return (
