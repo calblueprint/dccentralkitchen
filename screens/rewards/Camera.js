@@ -1,8 +1,7 @@
-import { Camera } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { Button, Text, TouchableOpacity, View } from 'react-native';
-
+import { Text, View, TouchableOpacity, Button } from 'react-native';
+import * as Permissions from 'expo-permissions';
+import { Camera } from 'expo-camera';
 import BASE, { IMG_KEY } from '../../lib/common';
 
 export default class ReceiptScanner extends React.Component {

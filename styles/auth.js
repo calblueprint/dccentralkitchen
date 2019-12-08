@@ -8,7 +8,7 @@ export const SignUpContainer = styled.View`
 export const Input = styled.TextInput`
   width: 350px;
   height: 55px;
-  background-color: #42a5f5;
+  background-color: #008550;
   margin: 10px;
   padding: 8px;
   border-radius: 14px;
@@ -26,6 +26,6 @@ export const LoginContainer = styled.View`
 `;
 
 export const ErrorMsg = styled.Text`
-    font-size: 14;
-    text-align: center;
+  font-size: 14;
+  text-align: center;
 `;

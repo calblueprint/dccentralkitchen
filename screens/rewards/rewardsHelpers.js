@@ -5,7 +5,8 @@ function createTransactionData(record) {
   return {
     id: transaction.transaction_id,
     customer: transaction.Customer,
-    date: transaction.Date,
+    // TODO not entirely sure why this was converted to a Date object
+    date: new Date(transaction.Date),
     points: transaction['Points Rewarded'],
     storeName: transaction['Store Name'],
     productsPurchased: transaction['Products Purchased'],

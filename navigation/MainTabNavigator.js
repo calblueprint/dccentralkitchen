@@ -1,7 +1,10 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import AllProductsScreen from '../screens/AllProductsScreen';
@@ -10,8 +13,6 @@ import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen'
 import ProductsDetailedScreen from '../screens/ProductsDetailedScreen';
 import ProductsScreen from '../screens/ProductsScreen';
 import ReceiptScanner from '../screens/rewards/Camera';
-// testing purposes for transactions;
-import PointsHistoryScreen from '../screens/rewards/PointsHistoryScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 import StoreListScreen from '../screens/stores/StoreListScreen';
 import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
@@ -57,30 +58,8 @@ const AnnounceStack = createStackNavigator(
   config
 );
 
-AnnounceStack.navigationOptions = {
-  tabBarLabel: 'Announcements',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-notifications${focused ? '' : '-outline'}`
-          : `md-notifications${focused ? '' : '-outline'}`
-      }
-    />
-  )
-};
-
 AnnouncementScreen.path = '';
 
-// Testing for Points History
-const HistoryStack = createStackNavigator(
-  {
-    PointsHistory: PointsHistoryScreen
-  },
-  config
-);
-
 AnnounceStack.navigationOptions = {
   tabBarLabel: 'Announcements',
   tabBarIcon: ({ focused }) => (
@@ -94,8 +73,6 @@ AnnounceStack.navigationOptions = {
     />
   )
 };
-
-PointsHistoryScreen.path = '';
 
 // Products
 
@@ -159,9 +136,7 @@ const tabNavigator = createBottomTabNavigator({
   HomeStack,
   AnnounceStack,
   ProductsStack,
-  StoresStack,
-  // testing for Points History
-  HistoryStack
+  StoresStack
   // SettingsStack
 });
 
