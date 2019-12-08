@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Hamburger from '../../components/Hamburger'
 
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
@@ -190,7 +191,7 @@ export default class StoresScreen extends React.Component {
         {this.state.locationErrorMsg && (
           <Text>{this.state.locationErrorMsg}</Text>
         )}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             backgroundColor:'white',
             width:50,
@@ -210,10 +211,10 @@ export default class StoresScreen extends React.Component {
           <Button 
             color="black" 
             title="="
-            // onPress={() => this.props.navigation.navigate('DrawerToggle')}>
             onPress={() => this.props.navigation.toggleDrawer()} >
           </Button>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <Hamburger navigation = {this.props.navigation}></Hamburger>
         {/* Display Map */}
         <MapView
           style={{ flex: 100 }}

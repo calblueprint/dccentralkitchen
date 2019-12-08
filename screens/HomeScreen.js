@@ -11,6 +11,7 @@ import {
   RefreshControl
 } from 'react-native';
 import { MonoText } from '../components/StyledText';
+import Hamburger from '../components/Hamburger'
 import BASE from '../lib/common';
 
 export default class HomeScreen extends React.Component {
@@ -141,6 +142,7 @@ export default class HomeScreen extends React.Component {
             />
           }
           >
+          <Hamburger navigation = {this.props.navigation}></Hamburger>
           <View style={styles.welcomeContainer}>
             <Image
               source={
