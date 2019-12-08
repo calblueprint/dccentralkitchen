@@ -8,15 +8,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
-} from 'react-native';
+  View,
+  Button
+, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Hamburger from '../../components/Hamburger'
 
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
-import { SearchBar, StoreModal, StoreModalBar } from '../../styles/stores';
+import { SearchBar, StoreModal, StoreModalBar, TopText } from '../../styles/stores';
 import { getProductData, getStoreData } from './storeHelpers';
+
+
+const {width} = Dimensions.get('window'); // full width
 
 // TODO is this const necessary?
 const deltas = {
@@ -175,6 +180,7 @@ export default class StoresScreen extends React.Component {
     }
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
+        <TopText>Stores</TopText>
         {/* Janky way to do a conditional rendering */}
         {this.state.location && (
           <TouchableOpacity onPress={this._findCurrentLocationAsync}>
@@ -186,6 +192,7 @@ export default class StoresScreen extends React.Component {
         {this.state.locationErrorMsg && (
           <Text>{this.state.locationErrorMsg}</Text>
         )}
+        <Hamburger navigation={this.props.navigation} />
         {/* Display Map */}
         <MapView
           style={{ flex: 100 }}
@@ -227,7 +234,7 @@ export default class StoresScreen extends React.Component {
           )}
         </MapView>
         {/* Display bottom sheet */}
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling
@@ -237,7 +244,27 @@ export default class StoresScreen extends React.Component {
             renderContent={this.renderContent}
           />
         </View>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            height: 80,
+            bottom: 0,
+            backgroundColor: '#008550',
+            alignSelf: 'stretch',
+            width,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onPress={() => this.props.navigation.navigate('Rewards')}>
+          <View>
+            <Text style={{ color: 'white' }}> Your rewards </Text>
+          </View>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
 }
+
+StoresScreen.navigationOptions = {
+  header: null
+};

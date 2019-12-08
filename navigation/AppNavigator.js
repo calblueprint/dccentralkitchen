@@ -3,9 +3,11 @@ import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignInScreen from '../screens/auth/SignUpScreen';
-import MainTabNavigator from './MainTabNavigator';
+
+import { StoresStack, RewardsStack, AnnounceStack } from './StackNavigators';
 
 // TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
 const AuthStack = createStackNavigator({
@@ -34,13 +36,37 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
+const MyDrawerNavigator = createDrawerNavigator({
+  Stores: {
+    screen: StoresStack,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Stores'
+    })
+  },
+  Rewards: {
+    screen: RewardsStack,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Your Profile'
+    })
+  },
+  // TODO change the name of Announcements to News (?) across app & Airtable
+  Announcements: {
+    screen: AnnounceStack,
+    navigationOptions: ({ navigation }) => ({
+      title: 'News'
+    })
+  }
+});
+
 export default createAppContainer(
   createSwitchNavigator(
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     {
       AuthLoading: AuthLoadingScreen,
-      App: MainTabNavigator,
+      App: {
+        screen: MyDrawerNavigator
+      },
       Auth: AuthStack
     },
     {
