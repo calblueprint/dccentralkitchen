@@ -5,6 +5,16 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignInScreen from '../screens/auth/SignUpScreen';
+import StoresScreen from '../screens/stores/StoresScreen';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import PointsHistoryScreen from '../screens/PointsHistoryScreen';
+import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
+import ProductsScreen from '../screens/products/ProductsScreen';
+import StoreListScreen from '../screens/stores/StoreListScreen';
+import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
+
+import {StoresStack, HomeStack} from './StackNavigators'
+// import HomeStack from './StackNavigators'
 import MainTabNavigator from './MainTabNavigator';
 
 // TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
@@ -34,14 +44,58 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
+const MyDrawerNavigator = createDrawerNavigator({
+  Stores: {
+    screen: StoresStack,
+    navigationOptions: ({ navigation }) => ({
+      title: "Stores",
+    }),
+  },
+  Home: {
+    screen: HomeStack,
+    navigationOptions: ({ navigation }) => ({
+      title: "Home",
+    }),
+  },
+});
+
+// const StoresStack = createStackNavigator(
+//   {
+//     Stores: {screen:() => StoresScreen},
+//     StoresDetailed: {screen:() =>StoresDetailedScreen},
+//     StoreList: {screen:() =>StoreListScreen},
+//     Products: {screen:() =>ProductsScreen},
+//     ProductsDetailed: {screen:() =>ProductsDetailedScreen},
+//   },
+//   config
+// );
+
+// StoresStack.navigationOptions = {
+//   drawerLabel: 'Stores',
+//   // tabBarIcon: ({ focused }) => <Icon focused={focused} size={20} name="map-o" />,
+//   headerLeft: () => <Icon title="HELLO" name="menu" size={30} color="#900" style = {{ marginLeft: 10}}
+//     onPress={ () => alert("hello") }
+//   />
+//   // headerLeft: (
+//   //   <TouchableOpacity onPress={() => navigation.goBack(null)} style={{left: Dimensions.get("window").height < 667 ? '8%' : '3%', backgroundColor: 'red', width: '100%'}}>
+//   //     <Icon title="HELLO"></Icon>
+//   //   </TouchableOpacity>
+// // ),
+// };
+
 export default createAppContainer(
   createSwitchNavigator(
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     {
       AuthLoading: AuthLoadingScreen,
-      App: MainTabNavigator,
-      Auth: AuthStack
+      App: {
+        screen: MyDrawerNavigator,
+      },
+      Auth: AuthStack,
+      // App: {
+      //   screen: MyDrawerNavigator,
+      // }
     },
     {
       initialRouteName: 'AuthLoading'

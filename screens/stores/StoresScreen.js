@@ -210,7 +210,8 @@ export default class StoresScreen extends React.Component {
           <Button 
             color="black" 
             title="="
-            onPress={() => this.props.navigation.navigate('DrawerToggle')}>
+            // onPress={() => this.props.navigation.navigate('DrawerToggle')}>
+            onPress={() => this.props.navigation.toggleDrawer()} >
           </Button>
         </TouchableOpacity>
         {/* Display Map */}
@@ -254,7 +255,7 @@ export default class StoresScreen extends React.Component {
           )}
         </MapView>
         {/* Display bottom sheet */}
-        <View style={{ flex: 1, marginBottom: 140 }}>
+        <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling
@@ -266,7 +267,7 @@ export default class StoresScreen extends React.Component {
         </View>
         <TouchableOpacity style={{ 
           position: 'absolute',
-          height: 45,
+          height: 80,
           bottom: 0,
           backgroundColor: '#008550',
           alignSelf: 'stretch',
