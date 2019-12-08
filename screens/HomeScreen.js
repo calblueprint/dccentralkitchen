@@ -1,8 +1,8 @@
 import React from 'react';
-import { 
-  AsyncStorage, 
-  Button, 
-  Image, 
+import {
+  AsyncStorage,
+  Button,
+  Image,
   Platform,
   ScrollView,
   StyleSheet,
@@ -11,9 +11,8 @@ import {
   RefreshControl
 } from 'react-native';
 import { MonoText } from '../components/StyledText';
-import Hamburger from '../components/Hamburger'
+import Hamburger from '../components/Hamburger';
 import BASE from '../lib/common';
-import * as Font from "expo-font";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -27,7 +26,7 @@ export default class HomeScreen extends React.Component {
       announcements: '',
       transactions: [],
       latestTransaction: '',
-      refreshing: false, 
+      refreshing: false,
       updates: false
     };
   }
@@ -35,91 +34,97 @@ export default class HomeScreen extends React.Component {
   // This is what runs when you pull to refresh. It is essentially the
   // same code from the componentDidMount
   _onRefresh = () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     HomeScreen.getUser(this.state.userId).then(userRecord => {
-      let name = userRecord["fields"]["Name"]
-      let points = userRecord["fields"]["Points"]
-      let transactions = userRecord["fields"]["Transactions"]
-      if (transactions) {       
-        if (this.state.latestTransaction != transactions.slice(-1)[0] ) {
+      const name = userRecord.fields.Name
+      const points = userRecord.fields.Points
+      const transactions = userRecord.fields.Transactions
+      if (transactions) {
+        if (this.state.latestTransaction != transactions.slice(-1)[0]) {
           this.setState({
             latestTransaction: transactions[0],
             updates: true
-          })
-        } 
+          });
+        }
         this.setState({
-          points, name
-        })
+          points,
+          name
+        });
         this.setTransactions(transactions).then(() => {
           this.setState({
             refreshing: false
-          })
-        })
+          });
+        });
       } else {
         this.setState({
-          points: points,
-          name: name,
+          points,
+          name,
           refreshing: false
-        })
+        });
       }
-    })
-  }
+    });
+  };
 
   async componentDidMount() {
-    Font.loadAsync({
-      Poppins: require('../assets/fonts/Poppins-Regular.ttf')
-    });
     const userId = await AsyncStorage.getItem('userId');
-    HomeScreen.getUser(userId).then(userRecord => {
-      if (userRecord) {
-        let points = userRecord["fields"]["Points"]
-        let name = userRecord["fields"]["Name"]
-        let transactions = userRecord["fields"]["Transactions"]
-        this.setState({
-          points, name, userId
-        })
-        if (transactions) {
+    HomeScreen.getUser(userId)
+      .then(userRecord => {
+        if (userRecord) {
+          let points = userRecord['fields']['Points'];
+          let name = userRecord['fields']['Name'];
+          let transactions = userRecord['fields']['Transactions'];
           this.setState({
-            latestTransaction: transactions[0]
-          })
-          this.setTransactions(transactions)
-        } 
-      } else {
-        console.error('User data is undefined or empty.')
-      }
-    }).catch(err => {
-      console.error(err)
-    })
+            points,
+            name,
+            userId
+          });
+          if (transactions) {
+            this.setState({
+              latestTransaction: transactions[0]
+            });
+            this.setTransactions(transactions);
+          }
+        } else {
+          console.error('User data is undefined or empty.');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }
 
   // Helper for setting transactions to state.
   async setTransactions(transactions) {
-    let transactionRecords = transactions.map(id => BASE('Transactions').find(id))
+    const transactionRecords = transactions.map(id =>
+      BASE('Transactions').find(id)
+    );
     Promise.all(transactionRecords).then(records => {
-      let transactionArray = records.map(record => this.createTransactionData(record))
+      const transactionArray = records.map(record =>
+        this.createTransactionData(record)
+      );
       this.setState({
-        transactions: transactionArray,
-      })
-    })
+        transactions: transactionArray
+      });
+    });
   }
 
   createTransactionData(record) {
     const transaction = record.fields;
     return {
-      customer: transaction['Customer'],
+      customer: transaction.Customer,
       phone: transaction['Customer Lookup (Phone #)'],
-      transaction_id: transaction['transaction_id'],
+      transaction_id: transaction.transaction_id,
       products: transaction['Products Purchased'],
-      Date: transaction['Date'],
-      "Points Rewarded": transaction["Points Rewarded"],
-      Clerk: transaction["Clerk"],
-      "Items Redeemed": transaction["Items Redeemed"],
-      "Customer Name": transaction["Customer Name"],
-      "Store Name": transaction["Store Name"],
-      Receipts: transaction["Receipts"]
+      Date: transaction.Date,
+      'Points Rewarded': transaction['Points Rewarded'],
+      Clerk: transaction.Clerk,
+      'Items Redeemed': transaction['Items Redeemed'],
+      'Customer Name': transaction['Customer Name'],
+      'Store Name': transaction['Store Name'],
+      Receipts: transaction.Receipts
     };
   }
-  
+
   // Calls Airtable API to return a promise that
   // will resolve to be a user record.
   static async getUser(id) {
@@ -144,9 +149,8 @@ export default class HomeScreen extends React.Component {
               refreshing={this.state.refreshing}
               onRefresh={this._onRefresh}
             />
-          }
-          >
-          <Hamburger navigation = {this.props.navigation}></Hamburger>
+          }>
+          <Hamburger navigation={this.props.navigation} />
           <View style={styles.welcomeContainer}>
             <Image
               source={
@@ -173,7 +177,8 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.getStartedText}>
               {' '}
               {`${1000 -
-                parseInt(this.state.points) % 1000} points to your next reward`}
+                (parseInt(this.state.points) %
+                  1000)} points to your next reward`}
             </Text>
           </View>
 
@@ -184,42 +189,45 @@ export default class HomeScreen extends React.Component {
               style={styles.signOutButton}
             />
           </View>
-          { this.state.updates ?
+          {this.state.updates ? (
             <View style={styles.signOutContainer}>
               <Text>New transaction noted, upload your receipt!</Text>
               <Button
                 title="Upload Receipt"
-                onPress={() => this.props.navigation.navigate('Camera', {
-                  transactionId: this.state.latestTransaction,
-                  customerId: this.state.userId
-                })}
-                style={styles.signOutButton} />
+                onPress={() =>
+                  this.props.navigation.navigate('Camera', {
+                    transactionId: this.state.latestTransaction,
+                    customerId: this.state.userId
+                  })
+                }
+                style={styles.signOutButton}
+              />
             </View>
-            : <Text></Text>
-          }
+          ) : (
+            <Text />
+          )}
         </ScrollView>
         <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            Your transaction history:
-          </Text>
-          { this.state.transactions ? 
-            this.state.transactions.splice(0, 3).map(transaction => {
-              return(
-                <View
-                  key={transaction["transaction_id"]}
-                  style={[styles.codeHighlightContainer, styles.navigationFilename]}
-                  >
-                  <MonoText style={styles.codeHighlightText}>
-                    Date: {transaction["Date"]}
-                  </MonoText>
-                  <MonoText style={styles.codeHighlightText}>
-                    Points Redeemed: {transaction["Points Rewarded"]}
-                  </MonoText>
-                </View>
-              )
-            })
-            : ''
-          }
+          <Text style={styles.tabBarInfoText}>Your transaction history:</Text>
+          {this.state.transactions
+            ? this.state.transactions.splice(0, 3).map(transaction => {
+                return (
+                  <View
+                    key={transaction['transaction_id']}
+                    style={[
+                      styles.codeHighlightContainer,
+                      styles.navigationFilename
+                    ]}>
+                    <MonoText style={styles.codeHighlightText}>
+                      Date: {transaction['Date']}
+                    </MonoText>
+                    <MonoText style={styles.codeHighlightText}>
+                      Points Redeemed: {transaction['Points Rewarded']}
+                    </MonoText>
+                  </View>
+                );
+              })
+            : ''}
         </View>
       </View>
     );
