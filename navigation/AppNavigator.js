@@ -5,15 +5,18 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignInScreen from '../screens/auth/SignUpScreen';
-import StoresScreen from '../screens/stores/StoresScreen';
+// import StoresScreen from '../screens/stores/StoresScreen';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import PointsHistoryScreen from '../screens/PointsHistoryScreen';
-import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
-import ProductsScreen from '../screens/products/ProductsScreen';
-import StoreListScreen from '../screens/stores/StoreListScreen';
-import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
+// import PointsHistoryScreen from '../screens/PointsHistoryScreen';
+// import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
+// import ProductsScreen from '../screens/products/ProductsScreen';
+// import StoreListScreen from '../screens/stores/StoreListScreen';
+// import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
 
-import {StoresStack, HomeStack} from './StackNavigators'
+
+
+
+import {StoresStack, HomeStack, AnnounceStack, HistoryStack} from './StackNavigators'
 // import HomeStack from './StackNavigators'
 import MainTabNavigator from './MainTabNavigator';
 
@@ -45,18 +48,32 @@ class AuthLoadingScreen extends React.Component {
 }
 
 const MyDrawerNavigator = createDrawerNavigator({
+  Announcements: {
+    screen: AnnounceStack,
+    navigationOptions: ({ navigation }) => ({
+      title: "Announcements",
+    }),
+  },
   Stores: {
     screen: StoresStack,
     navigationOptions: ({ navigation }) => ({
       title: "Stores",
     }),
   },
+  // To be merged with points history
   Home: {
     screen: HomeStack,
     navigationOptions: ({ navigation }) => ({
-      title: "Home",
+      title: "Your Profile",
     }),
   },
+  History: {
+    screen: HistoryStack,
+    navigationOptions: ({ navigation }) => ({
+      title: "Points History",
+    }),
+  },
+  
 });
 
 // const StoresStack = createStackNavigator(

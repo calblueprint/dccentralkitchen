@@ -39,6 +39,8 @@ const initialRegion = {
   longitudeDelta: 0.0421
 };
 
+
+
 export default class StoresScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -286,3 +288,7 @@ export default class StoresScreen extends React.Component {
     );
   }
 }
+
+StoresScreen.navigationOptions = {
+  header: null
+};

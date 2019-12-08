@@ -22,7 +22,6 @@ export const ContentContainer = styled.View`
 `;
 
 export const MainText = styled.Text`
-  font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -33,7 +32,6 @@ export const MainText = styled.Text`
 `;
 
 export const Overline = styled.Text`
-  font-family: Poppins;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;

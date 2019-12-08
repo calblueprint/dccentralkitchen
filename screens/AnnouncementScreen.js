@@ -35,6 +35,8 @@ announceTable.eachPage(
     }
   });
 
+
+
 class AnnouncementScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -64,5 +66,9 @@ class AnnouncementScreen extends React.Component {
     );
   }
 }
+
+AnnouncementScreen.navigationOptions = {
+  header: null
+};
 
 export default AnnouncementScreen;

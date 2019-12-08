@@ -17,7 +17,7 @@ export default class Hamburger extends React.Component {
                     height:50,
                     zIndex:100,
                     position:'absolute', // comment out this line to see the menu toggle
-                    top:10,
+                    top:50,
                     left: 15,
                     borderRadius: 23,
                     borderColor: '#ffffff',

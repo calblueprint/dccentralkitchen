@@ -18,7 +18,6 @@ export const DateContainer = styled.View`
 `;
 
 export const DateText = styled.Text`
-  font-family: Poppins;
   font-weight: bold;
 `;
 
@@ -28,12 +27,10 @@ export const ContentContainer = styled.View`
 `;
 
 export const ContentText = styled.Text`
-  font-family: Poppins;
   font-weight: normal;
 `;
 
 export const TopText = styled.Text`
-  font-family: Poppins;
   font-style: normal;
   font-weight: 500;
   text-align: center;

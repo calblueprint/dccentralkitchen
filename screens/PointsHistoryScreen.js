@@ -5,6 +5,7 @@ import { AsyncStorage, ScrollView, Text, View } from 'react-native';
 import Transactions from '../components/Transactions';
 import getCustomerTransactions from './historyHelpers';
 
+
 export default class PointsHistoryScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -49,3 +50,7 @@ export default class PointsHistoryScreen extends React.Component {
     );
   }
 }
+
+PointsHistoryScreen.navigationOptions = {
+  header: null
+};
