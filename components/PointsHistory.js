@@ -34,12 +34,12 @@ function PointsHistory({ transactions, user, updates, navigation }) {
             />
           </View>
         ) : (
-          <Text />
-        )}
+            <Text />
+          )}
         {/* Points history */}
         <View>
-          <ScrollView>
-            <Text> RECENT TRANSACTIONS</Text>
+          <ScrollView style={{ marginTop: 50 }}>
+            <Text style={{ textAlign: 'center' }}> Recent Transactions</Text>
             {recent.map(transaction => (
               <Transactions
                 key={transaction.id}
@@ -48,7 +48,7 @@ function PointsHistory({ transactions, user, updates, navigation }) {
                 storeName={transaction.storeName}
               />
             ))}
-            <Text> History </Text>
+            <Text style={{ textAlign: 'center' }}> Complete History </Text>
             {transactions.map(transaction => (
               <Transactions
                 key={transaction.id}
