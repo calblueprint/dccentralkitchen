@@ -2,8 +2,9 @@
 node_modules/**/*
 
 environment.js
+.airtable-schema-generator.env
 package-lock.json
-.DS_Store
+*.DS_Store
 
 npm-debug.*
 *.jks
