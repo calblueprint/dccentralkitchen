@@ -7,8 +7,11 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "lint": "eslint ./screens ./components ; exit 0",
-    "lint-fix": "eslint ./screens ./components --fix ; exit 0",
+    "lint:js": "eslint . --ext  .jsx,.js ./screens ./components",
+    "lint:js:fix": "yarn run lint:js --fix",
+    "lint:js:quiet": "eslint . --ext .jsx,.js --quiet ./screens ./components",
+    "lint:js:quiet:fix": "yarn run lint:js:quiet --fix",
+    "pretty": "prettier --config prettier.config.js --write \"./{screens,components,styles}/**/*.js\" \"./{screens,components,styles}/*.js\"",
     "generate-schema": "generate-airtable-schema"
   },
   "airtable-schema-generator": {
@@ -20,6 +23,20 @@
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "yarn run pretty",
+      "yarn run lint:js:fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-checkout": "yarnhook",
+      "post-merge": "yarnhook",
+      "post-rewrite": "yarnhook"
+    }
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
@@ -77,8 +94,11 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-react-native": "^3.8.1",
+    "husky": "^4.2.1",
     "jest-expo": "^35.0.0",
-    "prettier": "^1.18.2"
+    "lint-staged": "^10.0.6",
+    "prettier": "^1.18.2",
+    "yarnhook": "^0.4.3"
   },
   "private": true,
   "rnpm": {
