@@ -1,12 +1,10 @@
-import * as Font from "expo-font";
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 import Announcements from '../components/Announcements';
-import Hamburger from '../components/Hamburger.js'
-import BASE from '../lib/common';
+import Hamburger from '../components/Hamburger';
 import { TopText } from '../styles/announcements';
-const announceTable = BASE('Announcements').select({ view: 'Grid view' });
+import getAnnouncements from './AnnouncementHelper';
 
 class AnnouncementScreen extends React.Component {
   constructor(props) {
@@ -17,39 +15,28 @@ class AnnouncementScreen extends React.Component {
   }
 
   async componentDidMount() {
-    announceTable.firstPage()
-      .then(data => {
-        let announcementsArray = data.map(record => {
-          let announcement = {};
-          let thisDate = new Date(record.get('Created'));
-          announcement['title'] = record.get('Title'),
-          announcement['description'] = record.get('Description'),
-          announcement['date'] = thisDate,
-          announcement['id'] = record.get('ID')
-          return announcement;
-        })
-        this.setState({
-          announcements: announcementsArray
-        })
-      })
+    getAnnouncements().then(announcements => {
+      this.setState({ announcements });
+    });
   }
 
   render() {
     return (
       <View>
-        <Hamburger navigation = {this.props.navigation}></Hamburger>
+        <Hamburger navigation={this.props.navigation} />
         <TopText> News </TopText>
         <ScrollView>
-          {this.state.announcements ?
+          {this.state.announcements ? (
             this.state.announcements.map(announce => (
-            <Announcements
-              key={announce.id}
-              announcement={announce}
-              navigation={this.props.navigation}
-            />
-          ))
-          : <Text>''</Text>
-        }
+              <Announcements
+                key={announce.id}
+                announcement={announce}
+                navigation={this.props.navigation}
+              />
+            ))
+          ) : (
+            <Text>&apos;&apos;</Text>
+          )}
         </ScrollView>
       </View>
     );
@@ -61,4 +48,3 @@ AnnouncementScreen.navigationOptions = {
 };
 
 export default AnnouncementScreen;
-
