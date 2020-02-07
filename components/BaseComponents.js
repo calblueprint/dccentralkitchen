@@ -22,6 +22,8 @@ export const TextButtonDisabled = styled(TextButton)`
 export const ButtonContainer = styled.TouchableOpacity``;
 
 export const ButtonLabel = styled(TextButton)`
+  top: 25%;
+  bottom: 25%;
   font-family: poppins-regular;
   font-style: normal;
   font-weight: 600;
@@ -32,22 +34,22 @@ export const ButtonLabel = styled(TextButton)`
   text-align: center;
   letter-spacing: 0.01;
   text-transform: uppercase;
-  color: ${props => (props.filledButton ? '#ffffff' : '#000000')};s
+  color: ${props => (props.filledButton ? '#ffffff' : '#000000')};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
+  width: 344px;
+  height: 40px;
   background: #008550;
   border-radius: 20px;
 `;
 
-export const FilledButtonContainerPressed = styled(ButtonContainer)`
+export const FilledButtonContainerPressed = styled(FilledButtonContainer)`
   background: #004e14;
-  border-radius: 20px;
 `;
 
-export const FilledButtonContainerDisabled = styled(ButtonContainer)`
+export const FilledButtonContainerDisabled = styled(FilledButtonContainer)`
   background: #bdbdbd;
-  border-radius: 20px;
 `;
 
 export const Title = styled.Text`
