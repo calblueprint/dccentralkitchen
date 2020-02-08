@@ -13,7 +13,7 @@ function Product({ product, store, navigation }) {
   return (
     <Button
       onPress={() =>
-        navigation.navigate('ProductsDetailed', {
+        navigation.navigate('ProductDetails', {
           currentProduct: product,
           store
         })

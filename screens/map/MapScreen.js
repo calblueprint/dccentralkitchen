@@ -9,19 +9,24 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
-, Dimensions } from 'react-native';
+  Button,
+  Dimensions
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import Hamburger from '../../components/Hamburger'
+import Hamburger from '../../components/Hamburger';
 
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
-import { SearchBar, StoreModal, StoreModalBar, TopText } from '../../styles/stores';
-import { getProductData, getStoreData } from './storeHelpers';
+import {
+  SearchBar,
+  StoreModal,
+  StoreModalBar,
+  TopText
+} from '../../styles/stores';
+import { getProductData, getStoreData } from '../../lib/mapUtils';
 
-
-const {width} = Dimensions.get('window'); // full width
+const { width } = Dimensions.get('window'); // full width
 
 // TODO is this const necessary?
 const deltas = {
@@ -38,7 +43,7 @@ const initialRegion = {
   longitudeDelta: 0.0421
 };
 
-export default class StoresScreen extends React.Component {
+export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -265,6 +270,6 @@ export default class StoresScreen extends React.Component {
   }
 }
 
-StoresScreen.navigationOptions = {
+MapScreen.navigationOptions = {
   header: null
 };

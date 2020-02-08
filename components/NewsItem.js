@@ -1,20 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import {
   Card,
   ContentContainer,
   DateContainer,
-    DateText,
-    ContentText
-} from '../styles/announcements';
+  DateText,
+  ContentText
+} from '../styles/news';
 
-class Announcements extends React.Component {
+class NewsItem extends React.Component {
   constructor(props) {
     super(props);
   }
 
   displaySummary() {
-    const des = this.props.announcement.description;
+    const des = this.props.newsItem.description;
     if (des.length >= 43) {
       let sum = des.substring(0, 40);
       sum = sum.concat('...');
@@ -27,18 +27,16 @@ class Announcements extends React.Component {
     return (
       <TouchableOpacity
         onPress={() =>
-          this.props.navigation.navigate('AnnouncementsDetailed', {
-            currentAnnouncement: this.props.announcement
+          this.props.navigation.navigate('NewsDetails', {
+            currentNewsItem: this.props.newsItem
           })
         }>
         <Card>
           <DateContainer>
-            <DateText>
-              {this.props.announcement.date.toDateString()}
-            </DateText>
+            <DateText>{this.props.newsItem.date.toDateString()}</DateText>
           </DateContainer>
           <ContentContainer>
-            <DateText>{this.props.announcement.title}</DateText>
+            <DateText>{this.props.newsItem.title}</DateText>
             <ContentText>{this.displaySummary()}</ContentText>
           </ContentContainer>
         </Card>
@@ -47,4 +45,4 @@ class Announcements extends React.Component {
   }
 }
 
-export default Announcements;
+export default NewsItem;

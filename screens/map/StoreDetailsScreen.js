@@ -3,14 +3,14 @@ import { View } from 'react-native';
 
 import StoreInfo from '../../components/StoreInfo';
 
-class StoresDetailedScreen extends React.Component {
+class StoreDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   render() {
-    const currentStore = this.props.navigation.state.params.currentStore;
+    const { currentStore } = this.props.navigation.state.params;
     return (
       <View>
         <StoreInfo store={currentStore} />
@@ -19,4 +19,4 @@ class StoresDetailedScreen extends React.Component {
   }
 }
 
-export default StoresDetailedScreen;
+export default StoreDetailsScreen;

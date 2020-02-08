@@ -12,7 +12,8 @@ class StoreListScreen extends React.Component {
     this.state = { stores, navigation };
   }
 
-  detailedStoreTransition = store => {
+  // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
+  storeDetailsTransition = store => {
     this.state.navigation.navigate('Stores', {
       currentStore: store
     });
@@ -27,7 +28,7 @@ class StoreListScreen extends React.Component {
             <StoreCard
               key={store.id}
               store={store}
-              callBack={() => this.detailedStoreTransition(store)}
+              callBack={() => this.storeDetailsTransition(store)}
             />
           ))}
         </ScrollView>

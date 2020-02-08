@@ -5,7 +5,7 @@ import ProductInfo from '../../components/ProductInfo';
 import { ImageContainer } from '../../styles/products';
 import { Title } from '../../styles/shared';
 
-class ProductsDetailedScreen extends React.Component {
+class ProductDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -33,4 +33,4 @@ class ProductsDetailedScreen extends React.Component {
   }
 }
 
-export default ProductsDetailedScreen;
+export default ProductDetailsScreen;

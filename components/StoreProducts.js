@@ -1,9 +1,8 @@
-import StoreCard from './StoreCard';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import StoreCard from './StoreCard';
 import Product from './Product';
-
 import { Button, Title } from '../styles/shared';
 
 function filterFruit(product) {
@@ -21,8 +20,9 @@ function filterVegetables(product) {
 }
 
 class StoreProducts extends React.Component {
-  detailedStoreTransition = store => {
-    this.props.navigation.navigate('StoresDetailed', {
+  // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
+  storeDetailsTransition = store => {
+    this.props.navigation.navigate('StoreDetails', {
       currentStore: store
     });
   };
@@ -67,7 +67,7 @@ class StoreProducts extends React.Component {
         <StoreCard
           store={store}
           key={store.id}
-          callBack={() => this.detailedStoreTransition(store)}
+          callBack={() => this.storeDetailsTransition(store)}
         />
         {/* Display fruits available at this store */}
         <View>{this.renderProducts(filterFruit, 'Fruit')}</View>

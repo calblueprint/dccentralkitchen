@@ -17,7 +17,7 @@ import {
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
-} from './authAirtable';
+} from '../../lib/authUtils';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -45,6 +45,8 @@ export default class SignUp extends React.Component {
     };
   }
 
+  // TODO @johnathanzhou or @anniero98
+  // Notifications is jank - the `_handleNotification` function doesn't even exist. Unclear to devs what the flow should be with receiving notifications
   componentDidMount() {
     this.registerForPushNotificationsAsync();
 
@@ -166,7 +168,13 @@ export default class SignUp extends React.Component {
 
     let formattedPhoneNumber = this.state.phoneNumber;
     // eslint-disable-next-line prettier/prettier
-    formattedPhoneNumber = `(${formattedPhoneNumber.slice(0, 3)}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(6, 10)}`;
+    formattedPhoneNumber = `(${formattedPhoneNumber.slice(
+      0,
+      3
+    )}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(
+      6,
+      10
+    )}`;
 
     // Have to await this or else Airtable call may happen first
     await this.setState({

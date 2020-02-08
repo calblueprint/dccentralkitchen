@@ -5,7 +5,7 @@ import React from 'react';
 import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
 
 import { ErrorMsg, Input, LoginContainer } from '../../styles/auth';
-import { lookupCustomer, updateCustomerPushTokens } from './authAirtable';
+import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
 
 export default class Login extends React.Component {
   constructor(props) {

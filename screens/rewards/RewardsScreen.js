@@ -13,7 +13,7 @@ import { TabView, TabBar } from 'react-native-tab-view';
 
 import RewardsHome from '../../components/RewardsHome';
 import PointsHistory from '../../components/PointsHistory';
-import { getCustomerTransactions, getUser } from './rewardsHelpers';
+import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -64,10 +64,6 @@ export default class RewardsScreen extends React.Component {
       .catch(err => {
         console.error(err);
       });
-
-    await Font.loadAsync({
-      Poppins: require('../../assets/fonts/Poppins-Regular.ttf')
-    });
   }
 
   // This is what runs when you pull to refresh - (what runs in componentDidMount plus some modifications)

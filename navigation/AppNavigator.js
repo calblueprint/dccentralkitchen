@@ -5,13 +5,12 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import LoginScreen from '../screens/auth/LoginScreen';
-import SignInScreen from '../screens/auth/SignUpScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
 
-import { StoresStack, RewardsStack, AnnounceStack } from './StackNavigators';
+import { StoresStack, RewardsStack, NewsStack } from './StackNavigators';
 
-// TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
 const AuthStack = createStackNavigator({
-  SignIn: SignInScreen,
+  SignUp: SignUpScreen,
   Login: LoginScreen
 });
 
@@ -49,9 +48,8 @@ const MyDrawerNavigator = createDrawerNavigator({
       title: 'Your Profile'
     })
   },
-  // TODO change the name of Announcements to News (?) across app & Airtable
-  Announcements: {
-    screen: AnnounceStack,
+  News: {
+    screen: NewsStack,
     navigationOptions: ({ navigation }) => ({
       title: 'News'
     })
