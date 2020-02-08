@@ -15,10 +15,7 @@ class ProductsDetailedScreen extends React.Component {
     const { currentProduct, store } = this.props.navigation.state.params;
     return (
       <View>
-        <Title>
-          Current Store:
-          {store.name}
-        </Title>
+        <Title>Current Store: {store.name}</Title>
         <ImageContainer>
           <ProductInfo product={currentProduct} />
           <View style={{ marginTop: 40 }}>
