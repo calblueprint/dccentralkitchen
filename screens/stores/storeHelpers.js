@@ -11,7 +11,8 @@ function createStoreData(record) {
     address: data.Address,
     products: data.Products,
     // distance set and used to sort in StoresScreen._orderStoresByDistance
-    distance: null
+    distance: null,
+    ebt: data['SNAP or EBT Accepted']
   };
 }
 

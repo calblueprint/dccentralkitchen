@@ -9,7 +9,7 @@ import { H3, InLineContainer, Subtitle, Title } from '../styles/shared';
  * */
 
 function StoreCard({ store, callBack }) {
-  const { name, hours, address, distance } = store;
+  const { name, hours, address, distance, ebt } = store;
   return (
     <View style={{ marginBottom: 10 }}>
       <TouchableOpacity onPress={callBack}>
@@ -23,6 +23,9 @@ function StoreCard({ store, callBack }) {
           <FontAwesome name="clock-o" size={12} />
           <H3>{hours}</H3>
         </InLineContainer>
+        <H3>
+          EBT: {ebt ? <Subtitle>yuh</Subtitle> : <Subtitle>nuu</Subtitle>}
+        </H3>
       </TouchableOpacity>
     </View>
   );

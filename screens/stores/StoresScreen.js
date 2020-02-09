@@ -9,19 +9,25 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
-, Dimensions } from 'react-native';
+  Button,
+  Dimensions
+} from 'react-native';
+
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import Hamburger from '../../components/Hamburger'
+import Hamburger from '../../components/Hamburger';
 
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
-import { SearchBar, StoreModal, StoreModalBar, TopText } from '../../styles/stores';
+import {
+  SearchBar,
+  StoreModal,
+  StoreModalBar,
+  TopText
+} from '../../styles/stores';
 import { getProductData, getStoreData } from './storeHelpers';
 
-
-const {width} = Dimensions.get('window'); // full width
+const { width } = Dimensions.get('window'); // full width
 
 // TODO is this const necessary?
 const deltas = {
@@ -239,7 +245,7 @@ export default class StoresScreen extends React.Component {
             initialSnap={1}
             enabledInnerScrolling
             enabledGestureInteraction
-            snapPoints={['200%', '45%', '10%']}
+            snapPoints={['500%', '45%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />
