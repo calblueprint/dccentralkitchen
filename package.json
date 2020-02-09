@@ -82,7 +82,7 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "airtable-schema-generator": "^1.0.8",
+    "airtable-schema-generator": "^1.1.5",
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.0.0",
     "eslint": "^5.16.0",
