@@ -45,6 +45,7 @@
     "@react-navigation/core": "^3.0.0-alpha.13",
     "@react-navigation/web": "^1.0.0-alpha.9",
     "airtable": "^0.7.1",
+    "babel-plugin-inline-dotenv": "^1.5.0",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
     "expo-camera": "^7.0.0",
