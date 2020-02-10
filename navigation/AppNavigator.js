@@ -40,20 +40,23 @@ const MyDrawerNavigator = createDrawerNavigator({
   Stores: {
     screen: StoresStack,
     navigationOptions: ({ navigation }) => ({
-      title: 'Stores'
+      title: 'Stores',
+      edgeWidth: -10
     })
   },
   Rewards: {
     screen: RewardsStack,
     navigationOptions: ({ navigation }) => ({
-      title: 'Your Profile'
+      title: 'Your Profile',
+      edgeWidth: -10
     })
   },
   // TODO change the name of Announcements to News (?) across app & Airtable
   Announcements: {
     screen: AnnounceStack,
     navigationOptions: ({ navigation }) => ({
-      title: 'News'
+      title: 'News',
+      edgeWidth: -10
     })
   }
 });

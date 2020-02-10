@@ -7,7 +7,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 
@@ -19,6 +20,10 @@ const routes = [
   { key: 'home', title: 'My Rewards' },
   { key: 'history', title: 'Points History' }
 ];
+
+const {width} = Dimensions.get('window'); // full width
+
+
 export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -170,7 +175,13 @@ export default class RewardsScreen extends React.Component {
               onRefresh={this._onRefresh}
             />
           }>
-          <Text styles={{ fontSize: 24 }}> Healthy Rewards </Text>
+          <TouchableOpacity
+            style={styles.topTab}
+            onPress={() => this.props.navigation.navigate('Stores')}>
+            <View>
+              <Text style={{ color: 'white', fontSize: 30, }}> Healthy Rewards </Text>
+            </View>
+          </TouchableOpacity>
           <TabView
             navigationState={this.state}
             renderScene={this.renderScene}
@@ -208,6 +219,18 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   tabView: {
-    flex: 1
+    flex: 1,
+    marginTop: 150
+  },
+  topTab: {
+    position: 'absolute',
+    height: 200,
+    top: 0,
+    backgroundColor: '#008550',
+    alignSelf: 'stretch',
+    width,
+    fontSize: 30,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
