@@ -1,7 +1,8 @@
 .expo/*
 node_modules/**/*
 
-environment.js
+.env.development
+.env.production
 .airtable-schema-generator.env
 package-lock.json
 *.DS_Store

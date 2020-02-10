@@ -45,6 +45,7 @@
     "@react-navigation/core": "^3.0.0-alpha.13",
     "@react-navigation/web": "^1.0.0-alpha.9",
     "airtable": "^0.7.1",
+    "babel-plugin-inline-dotenv": "^1.5.0",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
     "expo-camera": "^7.0.0",
@@ -81,7 +82,7 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "airtable-schema-generator": "^1.0.8",
+    "airtable-schema-generator": "^1.1.5",
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.0.0",
     "eslint": "^5.16.0",
