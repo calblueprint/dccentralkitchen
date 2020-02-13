@@ -239,7 +239,9 @@ export default class StoresScreen extends React.Component {
             />
           )}
         </MapView>
-        {/* Display bottom sheet */}
+        {/* Display bottom sheet. 
+            snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. 
+            500% set as a high upper boundary to prevent users from allowing sheet to reach that point */}
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}

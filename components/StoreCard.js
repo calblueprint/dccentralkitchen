@@ -23,9 +23,7 @@ function StoreCard({ store, callBack }) {
           <FontAwesome name="clock-o" size={12} />
           <H3>{hours}</H3>
         </InLineContainer>
-        <H3>
-          EBT: {ebt ? <Subtitle>yuh</Subtitle> : <Subtitle>nuu</Subtitle>}
-        </H3>
+        <H3>EBT: {ebt ? <Subtitle>Yes</Subtitle> : <Subtitle>No</Subtitle>}</H3>
       </TouchableOpacity>
     </View>
   );

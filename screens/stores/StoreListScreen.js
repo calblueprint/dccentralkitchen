@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 
 import StoreCard from '../../components/StoreCard';
 import { Title } from '../../styles/shared';
@@ -10,7 +10,12 @@ class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
     const { stores, navigation } = this.props.navigation.state.params;
-    this.state = { stores, navigation, search: '', searchStores: stores };
+    this.state = {
+      allStores: stores,
+      navigation,
+      searchStr: '',
+      filteredStores: stores
+    };
   }
 
   detailedStoreTransition = store => {
@@ -19,21 +24,21 @@ class StoreListScreen extends React.Component {
     });
   };
 
-  updateSearch = search => {
+  updateSearch = searchStr => {
     this.setState({
-      search,
-      searchStores: this.state.stores.filter(this.filterStore(search))
+      searchStr,
+      filteredStores: this.state.allStores.filter(this.filterStore(searchStr))
     });
   };
 
-  filterStore(search) {
+  filterStore(searchStr) {
     return store => {
-      return store.name.toLowerCase().includes(search.toLowerCase());
+      return store.name.toLowerCase().includes(searchStr.toLowerCase());
     };
   }
 
   render() {
-    const { search } = this.state;
+    const { searchStr } = this.state;
 
     return (
       <StoreModal>
@@ -41,11 +46,11 @@ class StoreListScreen extends React.Component {
         <SearchBar
           placeholder="Type Here..."
           onChangeText={this.updateSearch}
-          value={search}
+          value={searchStr}
         />
         <Title>Store List</Title>
         <ScrollView>
-          {this.state.searchStores.map(store => (
+          {this.state.filteredStores.map(store => (
             <StoreCard
               key={store.id}
               store={store}
