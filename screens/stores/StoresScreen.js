@@ -29,10 +29,7 @@ import { getProductData, getStoreData } from './storeHelpers';
 
 const { width } = Dimensions.get('window'); // full width
 
-// TODO is this const necessary?
 const deltas = {
-  // latitudeDelta: 0.0922,
-  // longitudeDelta: 0.0421
   latitudeDelta: 0.01,
   longitudeDelta: 0.01
 };

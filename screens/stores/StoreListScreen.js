@@ -44,7 +44,7 @@ class StoreListScreen extends React.Component {
       <StoreModal>
         {/* Search bar */}
         <SearchBar
-          placeholder="Type Here..."
+          placeholder="Search by store name"
           onChangeText={this.updateSearch}
           value={searchStr}
         />
