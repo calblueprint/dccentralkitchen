@@ -4,7 +4,8 @@ import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Product from './Product';
 
-import { Button, Title } from '../styles/shared';
+import {TextButton} from '../components/BaseComponents';
+import { Button ,Title} from '../styles/shared';
 
 function filterFruit(product) {
   if (product) {
@@ -42,7 +43,7 @@ class StoreProducts extends React.Component {
                 store
               })
             }>
-            <Title>See all</Title>
+            <TextButton>See all</TextButton>
           </Button>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
