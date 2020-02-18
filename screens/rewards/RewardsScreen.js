@@ -15,6 +15,7 @@ import { TabView, TabBar } from 'react-native-tab-view';
 import RewardsHome from '../../components/RewardsHome';
 import PointsHistory from '../../components/PointsHistory';
 import { getCustomerTransactions, getUser } from './rewardsHelpers';
+import { styles } from '../../styles/rewards'
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -175,13 +176,16 @@ export default class RewardsScreen extends React.Component {
               onRefresh={this._onRefresh}
             />
           }>
-          <TouchableOpacity
-            style={styles.topTab}
-            onPress={() => this.props.navigation.navigate('Stores')}>
+          <View
+            style={styles.topTab}>
             <View>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Stores')}>
+                <Text style={{ color: 'white', fontSize: 25, }}> ⬇ </Text>
+              </TouchableOpacity>
               <Text style={{ color: 'white', fontSize: 30, }}> Healthy Rewards </Text>
             </View>
-          </TouchableOpacity>
+          </View>
           <TabView
             navigationState={this.state}
             renderScene={this.renderScene}
@@ -203,34 +207,4 @@ RewardsScreen.navigationOptions = {
   header: null
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  contentContainer: {
-    paddingTop: 30
-  },
-  rewardsTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'rgba(13, 99, 139, 0.8)',
-    lineHeight: 24,
-    textAlign: 'center'
-  },
-  tabView: {
-    flex: 1,
-    marginTop: 150
-  },
-  topTab: {
-    position: 'absolute',
-    height: 200,
-    top: 0,
-    backgroundColor: '#008550',
-    alignSelf: 'stretch',
-    width,
-    fontSize: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
+

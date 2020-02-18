@@ -41,14 +41,15 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: StoresStack,
     navigationOptions: ({ navigation }) => ({
       title: 'Stores',
-      edgeWidth: -10
+      drawerLockMode: 'locked-closed'
     })
   },
   Rewards: {
     screen: RewardsStack,
     navigationOptions: ({ navigation }) => ({
       title: 'Your Profile',
-      edgeWidth: -10
+      drawerLockMode: 'locked-closed'
+
     })
   },
   // TODO change the name of Announcements to News (?) across app & Airtable
@@ -56,7 +57,8 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: AnnounceStack,
     navigationOptions: ({ navigation }) => ({
       title: 'News',
-      edgeWidth: -10
+      drawerLockMode: 'locked-closed'
+
     })
   }
 });

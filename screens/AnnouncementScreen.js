@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollView, Text, ViewComponent, TouchableOpacity, Button, View } from 'react-native';
 
 import Announcements from '../components/Announcements';
-import Hamburger from '../components/Hamburger';
 import { TopText } from '../styles/announcements';
 import getAnnouncements from './AnnouncementHelper';
 
@@ -24,6 +23,7 @@ class AnnouncementScreen extends React.Component {
     // const {goBack} = this.props.navigation;
     return (
       <View>
+        {/* TODO @johnathanzhou make this into a new component */}
         <TouchableOpacity
               style={{
                   backgroundColor:'white',
