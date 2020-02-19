@@ -35,7 +35,7 @@ export const FilledButtonContainer = styled(ButtonContainer)`
   ${props =>
     props.pressed
       ? 'box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 24px 38px rgba(0, 0, 0, 0.14);'
-      : ''}
+      : ''};
   border-radius: 20px;
 `;
 

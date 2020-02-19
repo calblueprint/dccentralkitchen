@@ -41,7 +41,7 @@ async function loadResourcesAsync() {
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       // Used across application
       'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
-      'poppins-semibold': require('./assets/fonts/Poppins-Semibold.ttf'),
+      'poppins-semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
       'poppins-medium': require('./assets/fonts/Poppins-Medium.ttf')
     })
   ]);
