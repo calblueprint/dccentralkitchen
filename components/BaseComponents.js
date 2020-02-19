@@ -9,15 +9,7 @@ export const TextButton = styled.Text`
   display: flex;
   align-items: center;
   text-align: center;
-  color: ${Colors.primaryGreen};
-`;
-
-export const TextButtonPressed = styled(TextButton)`
-  color: ${Colors.darkerGreen};
-`;
-
-export const TextButtonDisabled = styled(TextButton)`
-  color: ${Colors.base};
+  color: ${props => (props.color ? props.color : Colors.primaryGreen)};
 `;
 
 export const ButtonContainer = styled.TouchableOpacity``;
@@ -33,24 +25,18 @@ export const ButtonLabel = styled(TextButton)`
   text-align: center;
   letter-spacing: 0.01;
   text-transform: uppercase;
-  color: ${props => (props.filledButton ? '#ffffff' : '#000000')};
+  color: ${props => (props.filledButton ? Colors.white : Colors.black)};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
   width: 344px;
   height: 40px;
-  background: ${Colors.primaryGreen};
+  background: ${props => (props.color ? props.color : Colors.primaryGreen)};
+  ${props =>
+    props.pressed
+      ? 'box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 24px 38px rgba(0, 0, 0, 0.14);'
+      : ''}
   border-radius: 20px;
-`;
-
-export const FilledButtonContainerPressed = styled(FilledButtonContainer)`
-  background: #004e14;
-  box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2),
-    0px 24px 38px rgba(0, 0, 0, 0.14);
-`;
-
-export const FilledButtonContainerDisabled = styled(FilledButtonContainer)`
-  background: ${Colors.lightestGreen};
 `;
 
 export const Title = styled.Text`
