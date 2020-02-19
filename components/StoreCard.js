@@ -1,8 +1,8 @@
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import {Subhead, Body, Title,Caption} from '../components/BaseComponents';
-import { H3, InLineContainer, Subtitle } from '../styles/shared';
+import { Body, Title, Caption } from '../components/BaseComponents';
+import { InLineContainer } from '../styles/shared';
 
 /**
  * @prop

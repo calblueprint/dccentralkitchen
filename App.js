@@ -8,9 +8,6 @@ import { Ionicons } from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
-  Font.loadAsync({
-    'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf')
-  });
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -43,7 +40,9 @@ async function loadResourcesAsync() {
       // remove this if you are not using it in your app
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       // Used across application
-      Poppins: require('./assets/fonts/Poppins-Regular.ttf')
+      'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
+      'poppins-semibold': require('./assets/fonts/Poppins-Semibold.ttf'),
+      'poppins-medium': require('./assets/fonts/Poppins-Medium.ttf')
     })
   ]);
 }
