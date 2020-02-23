@@ -271,5 +271,5 @@ export default class StoresScreen extends React.Component {
 }
 
 StoresScreen.navigationOptions = {
-  header: null
+  headerShown: false
 };
