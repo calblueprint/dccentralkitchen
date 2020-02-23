@@ -1,66 +1,63 @@
 import styled from 'styled-components/native';
-import { Dimensions, StyleSheet } from 'react-native';
-
+import { StyleSheet } from 'react-native';
 
 export const Container = styled.View`
-    flex: 1,
-    backgroundColor: '#fff'
+  flex: 1;
+  background-color: #fff;
 `;
-export const ContentContainer = styled.View`
+
+export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
+  contentContainerStyle: {
     paddingTop: 30
+  }
+}))`
+  flex: 1;
+  background-color: #fff;
 `;
+
 export const RewardsTitle = styled.View`
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'rgba(13, 99, 139, 0.8)',
-    lineHeight: 24,
-    textAlign: 'center'
+  font-size: 17;
+  font-weight: bold;
+  color: rgba(13, 99, 139, 0.8);
+  line-height: 24;
+  text-align: center;
 `;
-export const TabView = styled.View`
-    flex: 1,
-    marginTop: 150
+export const TopTab = styled.View`
+  position: absolute;
+  height: 200;
+  top: 0;
+  background-color: #008550;
+  align-self: stretch;
+  width: 100%;
+  font-size: 30;
+  align-items: center;
+  justify-content: center;
 `;
-export const topTab = styled.View`
-    position: 'absolute',
-    height: 200,
-    top: 0,
-    backgroundColor: '#008550',
-    alignSelf: 'stretch',
-    width,
-    fontSize: 30,
-    alignItems: 'center',
-    justifyContent: 'center'
+// TODO @anniero98 figure out how to pass styles to third-party components (TabView, TabBar)
+export const StyledTabView = styled.View`
+  flex: 1;
+  margin-top: 150;
 `;
-// TODO @johnathanzhou re-work styles used in rewards screen
 
 export const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff'
-    },
-    contentContainer: {
-      paddingTop: 30
-    },
-    rewardsTitle: {
-      fontSize: 17,
-      fontWeight: 'bold',
-      color: 'rgba(13, 99, 139, 0.8)',
-      lineHeight: 24,
-      textAlign: 'center'
-    },
-    tabView: {
-      flex: 1,
-      marginTop: 150
-    },
-    topTab: {
-      position: 'absolute',
-      height: 200,
-      top: 0,
-      backgroundColor: '#008550',
-      alignSelf: 'stretch',
-      width: Dimensions.get('window').width,
-      fontSize: 30,
-      alignItems: 'center',
-      justifyContent: 'center'
-    }
-  });
+  tabView: {
+    flex: 1,
+    marginTop: 150
+  },
+  tabBar: {
+    backgroundColor: '#008550',
+    elevation: 0,
+    borderBottomWidth: 0,
+    height: 50
+  },
+  tabBarLabel: {
+    color: 'white',
+    textTransform: 'capitalize',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  tabBarIndicator: {
+    backgroundColor: '#fff',
+    height: 2.5
+  }
+});
