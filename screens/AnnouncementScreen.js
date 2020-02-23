@@ -44,7 +44,7 @@ class AnnouncementScreen extends React.Component {
 }
 
 AnnouncementScreen.navigationOptions = {
-  header: null
+  headerShown: false
 };
 
 export default AnnouncementScreen;

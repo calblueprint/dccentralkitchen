@@ -189,7 +189,7 @@ export default class RewardsScreen extends React.Component {
 }
 
 RewardsScreen.navigationOptions = {
-  header: null
+  headerShown: false
 };
 
 const styles = StyleSheet.create({
