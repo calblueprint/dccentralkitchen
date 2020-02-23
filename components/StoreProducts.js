@@ -1,9 +1,11 @@
-import StoreCard from './StoreCard';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+
+import StoreCard from './StoreCard';
 import Product from './Product';
 
+import { TextButton } from './BaseComponents';
 import { Button, Title } from '../styles/shared';
 
 function filterFruit(product) {
@@ -42,7 +44,7 @@ class StoreProducts extends React.Component {
                 store
               })
             }>
-            <Title>See all</Title>
+            <TextButton>See All</TextButton>
           </Button>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

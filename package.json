@@ -41,6 +41,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-elements": "^1.2.6",
     "react-native-gesture-handler": "~1.3.0",
+    "react-native-global-props": "^1.1.5",
     "react-native-maps": "~0.25.0",
     "react-native-phone-input": "^0.2.4",
     "react-native-reanimated": "~1.2.0",
@@ -54,7 +55,7 @@
     "react-navigation-tabs": "^2.6.2",
     "react-phone-number-input": "^2.3.24",
     "reanimated-bottom-sheet": "^1.0.0-alpha.15",
-    "styled-components": "^4.4.0",
+    "styled-components": "^5.0.1",
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
