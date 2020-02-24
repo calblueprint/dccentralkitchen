@@ -1,17 +1,14 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from '../screens/auth/LoginScreen';
-import SignInScreen from '../screens/auth/SignUpScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
+import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
 
-import { StoresStack, RewardsStack, AnnounceStack } from './StackNavigators';
-
-// TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
 const AuthStack = createStackNavigator({
-  SignIn: SignInScreen,
+  SignUp: SignUpScreen,
   Login: LoginScreen
 });
 
@@ -50,9 +47,8 @@ const MyDrawerNavigator = createDrawerNavigator({
       drawerLockMode: 'locked-closed'
     })
   },
-  // TODO change the name of Announcements to News (?) across app & Airtable
-  Announcements: {
-    screen: AnnounceStack,
+  News: {
+    screen: NewsStack,
     navigationOptions: () => ({
       title: 'News'
     })

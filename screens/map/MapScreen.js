@@ -4,28 +4,25 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
 import {
+  Dimensions,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-  Button,
-  Dimensions
+  View
 } from 'react-native';
-
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
-
-import StoreProducts from '../../components/StoreProducts';
-import { Subtitle } from '../../styles/shared';
+import StoreProducts from '../../components/product/StoreProducts';
+import { getProductData, getStoreData } from '../../lib/mapUtils';
+import { Subtitle } from '../../styled/shared';
 import {
   SearchBar,
   StoreModal,
   StoreModalBar,
   TopText
-} from '../../styles/stores';
-import { getProductData, getStoreData } from './storeHelpers';
+} from '../../styled/store';
 
 const { width } = Dimensions.get('window'); // full width
 
@@ -41,7 +38,7 @@ const initialRegion = {
   longitudeDelta: 0.0421
 };
 
-export default class StoresScreen extends React.Component {
+export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -270,6 +267,6 @@ export default class StoresScreen extends React.Component {
   }
 }
 
-StoresScreen.navigationOptions = {
+MapScreen.navigationOptions = {
   headerShown: false
 };

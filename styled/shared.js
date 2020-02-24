@@ -34,5 +34,5 @@ export const ButtonText = styled.Text`
 `;
 
 export const PoppinsText = styled.Text`
-  font-family: 'Poppins';
+  font-family: poppins-regular;
 `;

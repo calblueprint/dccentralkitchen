@@ -1,19 +1,22 @@
 import React from 'react';
-import * as Font from 'expo-font';
 import {
   AsyncStorage,
   Dimensions,
   RefreshControl,
   Text,
-  View,
-  TouchableOpacity
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { TabView, TabBar } from 'react-native-tab-view';
-
-import RewardsHome from '../../components/RewardsHome';
-import PointsHistory from '../../components/PointsHistory';
-import { getCustomerTransactions, getUser } from './rewardsHelpers';
-import { Container, ScrollViewContainer, RewardsTitle, TopTab, styles } from '../../styles/rewards';
+import { TabBar, TabView } from 'react-native-tab-view';
+import PointsHistory from '../../components/rewards/PointsHistory';
+import RewardsHome from '../../components/rewards/RewardsHome';
+import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
+import {
+  Container,
+  ScrollViewContainer,
+  styles,
+  TopTab
+} from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -65,10 +68,6 @@ export default class RewardsScreen extends React.Component {
       .catch(err => {
         console.error(err);
       });
-
-    await Font.loadAsync({
-      Poppins: require('../../assets/fonts/Poppins-Regular.ttf')
-    });
   }
 
   // This is what runs when you pull to refresh - (what runs in componentDidMount plus some modifications)
@@ -164,7 +163,7 @@ export default class RewardsScreen extends React.Component {
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Stores')}>
                 {/* TODO: change this to a proper icon */}
-                <Text style={{ color: 'white', fontSize: 25, }}> ⬇ </Text>
+                <Text style={{ color: 'white', fontSize: 25 }}> ⬇ </Text>
               </TouchableOpacity>
               <Text style={{ color: 'white', fontSize: 30 }}>
                 Healthy Rewards
@@ -191,5 +190,3 @@ export default class RewardsScreen extends React.Component {
 RewardsScreen.navigationOptions = {
   headerShown: false
 };
-
-

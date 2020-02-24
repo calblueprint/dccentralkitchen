@@ -11,13 +11,12 @@ import {
   View
 } from 'react-native';
 import validatejs from 'validate.js';
-
-import { Input, SignUpContainer } from '../../styles/auth';
 import {
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
-} from './authAirtable';
+} from '../../lib/authUtils';
+import { Input, SignUpContainer } from '../../styled/auth';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -45,6 +44,8 @@ export default class SignUp extends React.Component {
     };
   }
 
+  // TODO @johnathanzhou or @anniero98
+  // Notifications is jank - the `_handleNotification` function doesn't even exist. Unclear to devs what the flow should be with receiving notifications
   componentDidMount() {
     this.registerForPushNotificationsAsync();
 

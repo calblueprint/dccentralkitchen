@@ -1,19 +1,19 @@
+import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import {
   Card,
   ContentContainer,
   IconContainer,
   MainText,
   Overline
-} from '../styles/transactions';
+} from '../../styled/transaction';
 
 /**
  * @prop
  * */
 
-function Transactions(props) {
+function Transaction(props) {
   const { date, storeName, points } = props;
   return (
     <TouchableOpacity>
@@ -32,4 +32,4 @@ function Transactions(props) {
   );
 }
 
-export default Transactions;
+export default Transaction;
