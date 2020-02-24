@@ -1564,10 +1564,10 @@ agentkeepalive@^3.4.1:
   dependencies:
     humanize-ms "^1.2.1"
 
-airtable-schema-generator@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/airtable-schema-generator/-/airtable-schema-generator-1.1.5.tgz#bb171120959135b9e27c897c54ba9d813835a7b9"
-  integrity sha512-3xNjmo/gHuKHemMN8Ov0vGktKZdtq2fNu0tdmtqN6SU2cPqAoKcKhc9GnVR1E6flmGPmnjEysTez2qwi5oalTg==
+airtable-schema-generator@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/airtable-schema-generator/-/airtable-schema-generator-1.2.5.tgz#12c41783b3cf8d1216f3066cc6bd9d56398c8a11"
+  integrity sha512-1bxkc0xrPfz56c0/eAiuM3sxKN1wAvlNKNsiNuEQzeVHuEvjk3kNLH2aX+6QF6dEV8M20JyH8NalaYE+avgaDQ==
   dependencies:
     dotenv-safe "^8.2.0"
     nightmare "^3.0.0"
