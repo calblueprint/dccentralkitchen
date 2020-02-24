@@ -39,20 +39,21 @@ class AuthLoadingScreen extends React.Component {
 const MyDrawerNavigator = createDrawerNavigator({
   Stores: {
     screen: StoresStack,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       title: 'Stores'
     })
   },
   Rewards: {
     screen: RewardsStack,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Your Profile'
+    navigationOptions: () => ({
+      title: 'Your Profile',
+      drawerLockMode: 'locked-closed'
     })
   },
   // TODO change the name of Announcements to News (?) across app & Airtable
   Announcements: {
     screen: AnnounceStack,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       title: 'News'
     })
   }

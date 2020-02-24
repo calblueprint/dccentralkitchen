@@ -4,21 +4,22 @@ import {
   AsyncStorage,
   Dimensions,
   RefreshControl,
-  ScrollView,
-  StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
 
 import RewardsHome from '../../components/RewardsHome';
 import PointsHistory from '../../components/PointsHistory';
 import { getCustomerTransactions, getUser } from './rewardsHelpers';
+import { Container, ScrollViewContainer, RewardsTitle, TopTab, styles } from '../../styles/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
   { key: 'history', title: 'Points History' }
 ];
+
 export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -139,38 +140,37 @@ export default class RewardsScreen extends React.Component {
   renderTabBar = props => {
     return (
       <TabBar
-        style={{
-          backgroundColor: '#008550',
-          elevation: 0,
-          borderBottomWidth: 0,
-          height: 50
-        }}
-        labelStyle={{
-          color: 'white',
-          textTransform: 'capitalize',
-          fontSize: 16,
-          fontWeight: 'bold'
-        }}
+        style={styles.tabBar}
+        labelStyle={styles.tabBarLabel}
         {...props}
-        indicatorStyle={{ backgroundColor: '#fff', height: 2.5 }}
+        indicatorStyle={styles.tabBarIndicator}
       />
     );
   };
 
   render() {
     return (
-      <View style={styles.container}>
+      <Container>
         {/* Pull-to-refresh functionality */}
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}
+        <ScrollViewContainer
           refreshControl={
             <RefreshControl
               refreshing={this.state.refreshing}
               onRefresh={this._onRefresh}
             />
           }>
-          <Text styles={{ fontSize: 24 }}> Healthy Rewards </Text>
+          <TopTab>
+            <View>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Stores')}>
+                {/* TODO: change this to a proper icon */}
+                <Text style={{ color: 'white', fontSize: 25, }}> ⬇ </Text>
+              </TouchableOpacity>
+              <Text style={{ color: 'white', fontSize: 30 }}>
+                Healthy Rewards
+              </Text>
+            </View>
+          </TopTab>
           <TabView
             navigationState={this.state}
             renderScene={this.renderScene}
@@ -182,8 +182,8 @@ export default class RewardsScreen extends React.Component {
             }}
             style={styles.tabView}
           />
-        </ScrollView>
-      </View>
+        </ScrollViewContainer>
+      </Container>
     );
   }
 }
@@ -192,22 +192,4 @@ RewardsScreen.navigationOptions = {
   headerShown: false
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
-  contentContainer: {
-    paddingTop: 30
-  },
-  rewardsTitle: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: 'rgba(13, 99, 139, 0.8)',
-    lineHeight: 24,
-    textAlign: 'center'
-  },
-  tabView: {
-    flex: 1
-  }
-});
+
