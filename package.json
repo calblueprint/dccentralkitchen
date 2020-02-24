@@ -7,8 +7,16 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "lint": "eslint ./screens ./components ; exit 0",
-    "lint-fix": "eslint ./screens ./components --fix ; exit 0"
+    "lint:js": "eslint . --ext  .jsx,.js ./screens ./components",
+    "lint:js:fix": "yarn run lint:js --fix",
+    "lint:js:quiet": "eslint . --ext .jsx,.js --quiet ./screens ./components",
+    "lint:js:quiet:fix": "yarn run lint:js:quiet --fix",
+    "pretty": "prettier --config prettier.config.js --write \"./{screens,components,styles}/**/*.js\" \"./{screens,components,styles}/*.js\"",
+    "generate-schema": "generate-airtable-schema"
+  },
+  "airtable-schema-generator": {
+    "input": "lib/airtable",
+    "output": "lib/airtable"
   },
   "eslintConfig": {
     "extends": "universe/native"
@@ -16,13 +24,28 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --config prettier.config.js --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-checkout": "yarnhook",
+      "post-merge": "yarnhook",
+      "post-rewrite": "yarnhook"
+    }
+  },
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@expo/samples": "~3.0.3",
     "@expo/vector-icons": "^10.0.3",
+    "@react-native-community/masked-view": "^0.1.1",
     "@react-navigation/core": "^3.0.0-alpha.13",
     "@react-navigation/web": "^1.0.0-alpha.9",
     "airtable": "^0.7.1",
+    "babel-plugin-inline-dotenv": "^1.5.0",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
     "expo-camera": "^7.0.0",
@@ -38,6 +61,7 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-geocode": "^0.2.0",
+    "react-is": "^16.12.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
     "react-native-elements": "^1.2.6",
     "react-native-gesture-handler": "~1.3.0",
@@ -45,33 +69,38 @@
     "react-native-maps": "~0.25.0",
     "react-native-phone-input": "^0.2.4",
     "react-native-reanimated": "~1.2.0",
+    "react-native-safe-area-context": "~0.3.6",
     "react-native-screens": "^1.0.0-alpha.23",
     "react-native-tab-view": "^2.11.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.7",
-    "react-navigation": "^3.12.0",
+    "react-navigation": "^4.0.10",
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-stack": "^1.10.3",
-    "react-navigation-tabs": "^2.6.2",
+    "react-navigation-tabs": "^2.7.0",
     "react-phone-number-input": "^2.3.24",
     "reanimated-bottom-sheet": "^1.0.0-alpha.15",
     "styled-components": "^5.0.1",
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
+    "airtable-schema-generator": "^1.1.5",
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.5.0",
+    "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-react-native": "^3.8.1",
+    "husky": "^4.2.1",
     "jest-expo": "^35.0.0",
-    "prettier": "^1.18.2"
+    "lint-staged": "^10.0.6",
+    "prettier": "^1.18.2",
+    "yarnhook": "^0.4.3"
   },
   "private": true,
   "rnpm": {
