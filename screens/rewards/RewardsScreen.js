@@ -8,15 +8,15 @@ import {
   View
 } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import PointsHistory from '../../components/PointsHistory';
-import RewardsHome from '../../components/RewardsHome';
+import PointsHistory from '../../components/rewards/PointsHistory';
+import RewardsHome from '../../components/rewards/RewardsHome';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
 import {
   Container,
   ScrollViewContainer,
   styles,
   TopTab
-} from '../../styles/rewards';
+} from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },

@@ -1,10 +1,9 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
-
-import NewsItem from '../../components/NewsItem';
 import Hamburger from '../../components/Hamburger';
-import { TopText } from '../../styles/news';
+import NewsItem from '../../components/news/NewsItem';
 import getNewsItems from '../../lib/newsUtils';
+import { TopText } from '../../styled/news';
 
 class NewsScreen extends React.Component {
   constructor(props) {

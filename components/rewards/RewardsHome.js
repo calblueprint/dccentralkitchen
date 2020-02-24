@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
-import { MonoText } from './StyledText';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Body } from '../BaseComponents';
 /**
  * @prop
  * */
@@ -10,7 +10,7 @@ function RewardsHome({ transactions, user }) {
     <View>
       <View style={styles.getStartedContainer}>
         <Text> {`Welcome, ${user.name}`}</Text>
-        <MonoText>{user.points} total points </MonoText>
+        <Body>{user.points} total points </Body>
         <Text style={styles.getStartedText}>
           {' '}
           {`${1000 -
@@ -23,12 +23,12 @@ function RewardsHome({ transactions, user }) {
         {transactions.splice(0, 3).map(transaction => {
           return (
             <View key={transaction.id}>
-              <MonoText style={styles.codeHighlightText}>
+              <Body style={styles.codeHighlightText}>
                 Date: {transaction.Date}
-              </MonoText>
-              <MonoText style={styles.codeHighlightText}>
+              </Body>
+              <Body style={styles.codeHighlightText}>
                 Points Redeemed: {transaction['Points Rewarded']}
-              </MonoText>
+              </Body>
             </View>
           );
         })}

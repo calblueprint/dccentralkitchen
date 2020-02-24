@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-
-import { Subtitle, Title } from '../styles/shared';
+import { Subtitle, Title } from '../../styled/shared';
 import SpecialNotice from './SpecialNotice';
 
 /**

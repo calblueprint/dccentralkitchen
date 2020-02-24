@@ -14,15 +14,15 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
-import StoreProducts from '../../components/StoreProducts';
+import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Subtitle } from '../../styles/shared';
+import { Subtitle } from '../../styled/shared';
 import {
   SearchBar,
   StoreModal,
   StoreModalBar,
   TopText
-} from '../../styles/stores';
+} from '../../styled/store';
 
 const { width } = Dimensions.get('window'); // full width
 

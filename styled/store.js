@@ -25,6 +25,6 @@ export const TopText = styled.Text`
   font-style: normal;
   font-weight: 900;
   text-align: center;
-  margin-top: 10;
-  font-size: 25;
+  margin-top: 10px;
+  font-size: 25px;
 `;

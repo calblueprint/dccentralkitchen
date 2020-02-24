@@ -6,10 +6,6 @@
 
 ## Relevant Links
 
-### Asana task(s)
-
-[//]: # "Add the relevant Asana link(s) here"
-
 ### Online sources
 
 [//]: # "Optional - copy links to any tutorial or documentation that was useful to you when working on this PR"

@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Button } from 'react-native';
-import Transactions from './Transactions';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Transaction from './Transaction';
 /**
  * @prop
  * */
@@ -34,14 +34,14 @@ function PointsHistory({ transactions, user, updates, navigation }) {
             />
           </View>
         ) : (
-            <Text />
-          )}
+          <Text />
+        )}
         {/* Points history */}
         <View>
           <ScrollView style={{ marginTop: 50 }}>
             <Text style={{ textAlign: 'center' }}> Recent Transactions</Text>
             {recent.map(transaction => (
-              <Transactions
+              <Transaction
                 key={transaction.id}
                 date={transaction.date}
                 points={transaction.points}
@@ -50,7 +50,7 @@ function PointsHistory({ transactions, user, updates, navigation }) {
             ))}
             <Text style={{ textAlign: 'center' }}> Complete History </Text>
             {transactions.map(transaction => (
-              <Transactions
+              <Transaction
                 key={transaction.id}
                 date={transaction.date}
                 points={transaction.points}

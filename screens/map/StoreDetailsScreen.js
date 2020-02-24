@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-
-import StoreInfo from '../../components/StoreInfo';
+import StoreInfo from '../../components/store/StoreInfo';
 
 class StoreDetailsScreen extends React.Component {
   constructor(props) {

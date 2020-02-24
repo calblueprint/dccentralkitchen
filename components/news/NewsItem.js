@@ -3,16 +3,12 @@ import { TouchableOpacity } from 'react-native';
 import {
   Card,
   ContentContainer,
+  ContentText,
   DateContainer,
-  DateText,
-  ContentText
-} from '../styles/news';
+  DateText
+} from '../../styled/news';
 
 class NewsItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   displaySummary() {
     const des = this.props.newsItem.description;
     if (des.length >= 43) {

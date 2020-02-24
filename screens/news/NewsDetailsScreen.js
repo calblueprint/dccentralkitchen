@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { DateText, ContentText } from '../../styles/news';
+import { ContentText, DateText } from '../../styled/news';
 
 function NewsDetailsScreen(props) {
   const { currentNewsItem } = props.navigation.state.params;
