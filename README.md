@@ -44,26 +44,29 @@ Please request access from a member of the Healthy Corners team. [TODO edit for 
    Install Expo (which is used for development)
    Expo is \_\_\_\_ [TODO quick blurb on why we used Expo]
 
-   - Install `expo-cli` via Expo's website [TODO link]
-   - Install Expo's mobile app on mobile device(s) that you will use to test when developing.
-   - If developing on a MacBook, it'd be optimal to install Xcode so that you can run the application on an iOS simulator. [TODO Windows instructions]
-
+   - Install `expo-cli` via [Expo's website](https://docs.expo.io/versions/latest/get-started/installation/)
+   - Install Expo's mobile app on the mobile device(s) that you will use to test when developing.
+   - If developing on a MacBook, install Xcode so that you can run the application on an iOS simulator. [TODO Xcode instructions][TODO instructions on how to use Xcode]
+   - [TODO Windows instructions]
+   
 2. Clone the repo and install dependencies
-   Clone this repo in your favorite folder using your favorite method.
+   - Clone this repo using `git clone`
+   
    We use `yarn` instead of `npm` because that's what Expo uses under the hood to manage its dependencies.
-   - Run `yarn install`
-     This will install all dependencies that are listed in `package.json`.
+   - Run `yarn install` in the downloaded repo. This will install all dependencies that are listed in `package.json`.
+     
 3. Add `environment.js`
    We use `environment.js` as our config file for secrets and API keys. [TODO add .env.example to repo]
    Constants and functions in this file are never called directly [TODO this currently isn't true for IMG_API_KEY]; instead, `common.js` uses them to create a `BASE` constant that we use for all Airtable API calls.
+   
 4. Configure `eslint` and `prettier` for VSCode
-   We develop with VS Code as our IDE [TODO link to vscode]. It has very handy extensions that you can add as packages; the useful ones in our case are for a linter and formatter - `eslint` and `prettier`, respectively.
-   We've configured the project with rules already using `.eslintrc.js` and `prettier.config.js`. See this guide for more, or if you get blocked in the next step. [TODO link to documentation on ESLint setup from Notion]
+   We develop with (VSCode)[https://code.visualstudio.com/] as our editor. It has very handy extensions that you can add as packages; the useful ones in our case are for a code linter and formatter - `eslint` and `prettier`, respectively.
+   We've pre-configured the project with linting rules using `.eslintrc.js` and `prettier.config.js`. See this guide for more, or if you get blocked in the next step. [TODO create a separate doc for this ESLint doc in Notion: https://www.notion.so/ESLint-Prettier-in-VSCode-23198173239d41c69cb02748a1cd2f08]
    If all went well when you ran `yarn install`, you should just need to run `eslint --init` and follow the prompts. If it generates a new `.eslintrc.js` file for you, simply copy over the contents of [TODO link to file in repo].
 
 ### Contributing
 
-One of the amazing developers in Blueprint created this package [TODO link to airtable generator] that generates helper functions for working with the Airtable API. Take a look at the README for details of how it works. In our code, we only ever call functions in 'requests.js'; see `utilities/` for example usage. [TODO well make that folder LOL]
+One of the amazing developers in Blueprint created this package [TODO link to airtable generator] that generates helper functions for working with the Airtable API. Take a look at the README for details of how it works. In our code, we only ever call functions in 'requests.js'; see `utilities/` for example usage. [TODO we'll make that folder LOL]
 
 ## Features
 

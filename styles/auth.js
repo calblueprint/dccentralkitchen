@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 
 export const SignUpContainer = styled.View`
-  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #fff;
 `;
 

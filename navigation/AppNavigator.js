@@ -1,13 +1,11 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
-
-import { StoresStack, RewardsStack, NewsStack } from './StackNavigators';
+import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
   SignUp: SignUpScreen,
@@ -38,19 +36,20 @@ class AuthLoadingScreen extends React.Component {
 const MyDrawerNavigator = createDrawerNavigator({
   Stores: {
     screen: StoresStack,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       title: 'Stores'
     })
   },
   Rewards: {
     screen: RewardsStack,
-    navigationOptions: ({ navigation }) => ({
-      title: 'Your Profile'
+    navigationOptions: () => ({
+      title: 'Your Profile',
+      drawerLockMode: 'locked-closed'
     })
   },
   News: {
     screen: NewsStack,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       title: 'News'
     })
   }
