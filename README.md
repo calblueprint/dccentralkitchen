@@ -39,8 +39,10 @@ Please request access from a member of the Healthy Corners team. [TODO edit for 
 
 ### Setup
 
-1. Requirements
-   Install `yarn` and `Node`.
+1. Set up requirements
+
+   Install `yarn` and `Node`. We use `yarn` instead of `npm` because that's what Expo uses under the hood to manage its dependencies.
+   
    Install Expo (which is used for development)
    Expo is \_\_\_\_ [TODO quick blurb on why we used Expo]
 
@@ -50,17 +52,17 @@ Please request access from a member of the Healthy Corners team. [TODO edit for 
    - [TODO Windows instructions]
    
 2. Clone the repo and install dependencies
-   - Clone this repo using `git clone`
-   
-   We use `yarn` instead of `npm` because that's what Expo uses under the hood to manage its dependencies.
+   - Clone this repo using `git clone`   
    - Run `yarn install` in the downloaded repo. This will install all dependencies that are listed in `package.json`.
      
 3. Add `environment.js`
+
    We use `environment.js` as our config file for secrets and API keys. [TODO add .env.example to repo]
    Constants and functions in this file are never called directly [TODO this currently isn't true for IMG_API_KEY]; instead, `common.js` uses them to create a `BASE` constant that we use for all Airtable API calls.
    
 4. Configure `eslint` and `prettier` for VSCode
-   We develop with (VSCode)[https://code.visualstudio.com/] as our editor. It has very handy extensions that you can add as packages; the useful ones in our case are for a code linter and formatter - `eslint` and `prettier`, respectively.
+
+   We develop with [VSCode](https://code.visualstudio.com/) as our editor. It has very handy extensions that you can add as packages; the useful ones in our case are for a code linter and formatter - `eslint` and `prettier`, respectively.
    We've pre-configured the project with linting rules using `.eslintrc.js` and `prettier.config.js`. See this guide for more, or if you get blocked in the next step. [TODO create a separate doc for this ESLint doc in Notion: https://www.notion.so/ESLint-Prettier-in-VSCode-23198173239d41c69cb02748a1cd2f08]
    If all went well when you ran `yarn install`, you should just need to run `eslint --init` and follow the prompts. If it generates a new `.eslintrc.js` file for you, simply copy over the contents of [TODO link to file in repo].
 
