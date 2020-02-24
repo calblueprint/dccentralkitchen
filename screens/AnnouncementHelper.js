@@ -10,7 +10,7 @@ function createAnnouncementData(announcement) {
 }
 
 const getAnnouncements = function async() {
-  return BASE('Announcements')
+  return BASE('News')
     .select({
       view: 'Grid view',
       sort: [{ field: 'Created', direction: 'desc' }]

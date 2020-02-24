@@ -166,7 +166,13 @@ export default class SignUp extends React.Component {
 
     let formattedPhoneNumber = this.state.phoneNumber;
     // eslint-disable-next-line prettier/prettier
-    formattedPhoneNumber = `(${formattedPhoneNumber.slice(0, 3)}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(6, 10)}`;
+    formattedPhoneNumber = `(${formattedPhoneNumber.slice(
+      0,
+      3
+    )}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(
+      6,
+      10
+    )}`;
 
     // Have to await this or else Airtable call may happen first
     await this.setState({

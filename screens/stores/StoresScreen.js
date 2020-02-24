@@ -9,24 +9,27 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button
-, Dimensions } from 'react-native';
+  Button,
+  Dimensions
+} from 'react-native';
+
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import Hamburger from '../../components/Hamburger'
+import Hamburger from '../../components/Hamburger';
 
 import StoreProducts from '../../components/StoreProducts';
 import { Subtitle } from '../../styles/shared';
-import { SearchBar, StoreModal, StoreModalBar, TopText } from '../../styles/stores';
+import {
+  SearchBar,
+  StoreModal,
+  StoreModalBar,
+  TopText
+} from '../../styles/stores';
 import { getProductData, getStoreData } from './storeHelpers';
 
+const { width } = Dimensions.get('window'); // full width
 
-const {width} = Dimensions.get('window'); // full width
-
-// TODO is this const necessary?
 const deltas = {
-  // latitudeDelta: 0.0922,
-  // longitudeDelta: 0.0421
   latitudeDelta: 0.01,
   longitudeDelta: 0.01
 };
@@ -233,13 +236,15 @@ export default class StoresScreen extends React.Component {
             />
           )}
         </MapView>
-        {/* Display bottom sheet */}
+        {/* Display bottom sheet. 
+            snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. 
+            500% set as a high upper boundary to prevent users from allowing sheet to reach that point */}
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling
             enabledGestureInteraction
-            snapPoints={['200%', '45%', '10%']}
+            snapPoints={['500%', '45%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />
@@ -266,5 +271,5 @@ export default class StoresScreen extends React.Component {
 }
 
 StoresScreen.navigationOptions = {
-  header: null
+  headerShown: false
 };
