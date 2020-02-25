@@ -28,6 +28,6 @@ export const LoginContainer = styled.View`
 `;
 
 export const ErrorMsg = styled.Text`
-  font-size: 14;
+  font-size: 14px;
   text-align: center;
 `;

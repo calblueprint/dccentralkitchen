@@ -35,6 +35,6 @@ export const TopText = styled(PoppinsText)`
   font-style: normal;
   font-weight: 900;
   text-align: center;
-  margin-top: 55;
-  font-size: 25;
+  margin-top: 55px;
+  font-size: 25px;
 `;
