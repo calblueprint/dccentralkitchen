@@ -2,11 +2,14 @@ import React from 'react';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
 import StoreCard from '../../components/store/StoreCard';
+import StoreProductButton from '../../components/store/StoreProductButton';
+
 import { Title } from '../../components/BaseComponents';
 import {
-  StoreModal,
+  StoreListContainer,
   StoreListHeaderContainer,
   StoreListTitle,
+  StoreCardContainer,
   styles
 } from '../../styled/store';
 import { View } from 'react-native';
@@ -61,18 +64,21 @@ class StoreListScreen extends React.Component {
             inputStyle={styles.input}
           />
         </StoreListHeaderContainer>
-        <StoreModal>
+        <StoreListContainer>
           <Title>Store List</Title>
           <ScrollView>
             {this.state.filteredStores.map(store => (
-              <StoreCard
-                key={store.id}
-                store={store}
-                callBack={() => this.storeDetailsTransition(store)}
-              />
+              <StoreCardContainer>
+                <StoreCard
+                  key={store.id}
+                  store={store}
+                  callBack={() => this.storeDetailsTransition(store)}
+                />
+                <StoreProductButton />
+              </StoreCardContainer>
             ))}
           </ScrollView>
-        </StoreModal>
+        </StoreListContainer>
       </View>
     );
   }

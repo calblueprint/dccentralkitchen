@@ -17,9 +17,19 @@ export const StoreModal = styled.View`
   padding: 2.5%;
 `;
 
+export const StoreListContainer = styled.View`
+  background-color: #fff;
+  opacity: 0.8;
+  padding: 2.5%;
+`;
+
 export const StoreListHeaderContainer = styled.View`
   background-color: #f07723;
   opacity: 0.8;
+`;
+
+export const StoreCardContainer = styled.View`
+  flex-direction: row;
 `;
 
 export const StoreListTitle = styled(Title)`
