@@ -1,12 +1,12 @@
 import React from 'react';
-import { Notice } from '../../styled/product';
+import { Body } from '../BaseComponents';
 
 function SpecialNotice() {
   return (
-    <Notice>
+    <Body>
       Note: not all products listed are available at every store. Please call
       individual stores to ask which products are available.
-    </Notice>
+    </Body>
   );
 }
 

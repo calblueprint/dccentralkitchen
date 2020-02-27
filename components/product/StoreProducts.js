@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Title } from '../../styled/shared';
-import { TextButton } from '../BaseComponents';
+import { ButtonContainer, TextButton } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
@@ -29,7 +29,7 @@ class StoreProducts extends React.Component {
       <View>
         <View flexDirection="row">
           <Title>{productType}</Title>
-          <Button
+          <ButtonContainer
             onPress={() =>
               navigation.navigate('Products', {
                 products: products.filter(filterType),
@@ -39,7 +39,7 @@ class StoreProducts extends React.Component {
               })
             }>
             <TextButton>See All</TextButton>
-          </Button>
+          </ButtonContainer>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {products.filter(filterType).map(product => (

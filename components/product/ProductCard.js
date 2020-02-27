@@ -1,7 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
-import { ProductBody } from '../../styled/product';
-import { Button } from '../../styled/shared';
+import { Image } from 'react-native';
 import { ButtonContainer, Caption } from '../BaseComponents';
 
 /**
