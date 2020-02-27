@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import ProductInfo from '../../components/product/ProductInfo';
 import { ImageContainer } from '../../styled/product';
-import { Title } from '../../styled/shared';
 
 class ProductDetailsScreen extends React.Component {
   constructor(props) {
