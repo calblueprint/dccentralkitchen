@@ -3,7 +3,13 @@ import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-c
 import { ScrollView } from 'react-native-gesture-handler';
 import StoreCard from '../../components/store/StoreCard';
 import { Title } from '../../components/BaseComponents';
-import { StoreModal } from '../../styled/store';
+import {
+  StoreModal,
+  StoreListHeaderContainer,
+  StoreListTitle,
+  styles
+} from '../../styled/store';
+import { View } from 'react-native';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
@@ -41,24 +47,33 @@ class StoreListScreen extends React.Component {
     const { searchStr } = this.state;
 
     return (
-      <StoreModal>
-        {/* Search bar */}
-        <SearchBar
-          placeholder="Search by store name"
-          onChangeText={this.updateSearch}
-          value={searchStr}
-        />
-        <Title>Store List</Title>
-        <ScrollView>
-          {this.state.filteredStores.map(store => (
-            <StoreCard
-              key={store.id}
-              store={store}
-              callBack={() => this.storeDetailsTransition(store)}
-            />
-          ))}
-        </ScrollView>
-      </StoreModal>
+      <View>
+        <StoreListHeaderContainer>
+          <StoreListTitle>Find a store</StoreListTitle>
+          {/* Search bar */}
+          <SearchBar
+            placeholder="Search by store name"
+            onChangeText={this.updateSearch}
+            value={searchStr}
+            containerStyle={styles.container}
+            inputContainerStyle={styles.inputContainer}
+            searchIcon={styles.searchIcon}
+            inputStyle={styles.input}
+          />
+        </StoreListHeaderContainer>
+        <StoreModal>
+          <Title>Store List</Title>
+          <ScrollView>
+            {this.state.filteredStores.map(store => (
+              <StoreCard
+                key={store.id}
+                store={store}
+                callBack={() => this.storeDetailsTransition(store)}
+              />
+            ))}
+          </ScrollView>
+        </StoreModal>
+      </View>
     );
   }
 }

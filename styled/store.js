@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import { Title } from '../components/BaseComponents';
+import { StyleSheet } from 'react-native';
 
 export const StoreModalBar = styled.View`
   border: 1px solid black;
@@ -12,6 +14,18 @@ export const StoreModalBar = styled.View`
 export const StoreModal = styled.View`
   background-color: #fff;
   opacity: 0.8;
+  padding: 2.5%;
+`;
+
+export const StoreListHeaderContainer = styled.View`
+  background-color: #f07723;
+  opacity: 0.8;
+`;
+
+export const StoreListTitle = styled(Title)`
+  text-align: center;
+  color: white;
+  margin-top: 2.5%;
 `;
 
 export const SearchBar = styled.TouchableOpacity`
@@ -28,3 +42,20 @@ export const TopText = styled.Text`
   margin-top: 10px;
   font-size: 25px;
 `;
+
+export const styles = StyleSheet.create({
+  inputContainer: {
+    backgroundColor: 'white'
+  },
+  container: {
+    backgroundColor: '#f07723',
+    borderBottomColor: 'transparent',
+    borderTopColor: 'transparent'
+  },
+  input: {
+    fontFamily: 'Arial' // @tommpoa TODO – load poppins!
+  },
+  searchIcon: {
+    color: '#f07723'
+  }
+});
