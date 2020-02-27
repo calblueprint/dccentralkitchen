@@ -1,11 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-export const Notice = styled.Text`
-  font-size: 12px;
-  margin: 2% 5%;
-`;
-
 export const ProductContainer = styled.View`
   background-color: #fff;
   border-radius: 10px;

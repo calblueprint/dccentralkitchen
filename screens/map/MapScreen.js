@@ -72,7 +72,7 @@ export default class MapScreen extends React.Component {
   // Asks for permission if necessary, then gets current location
   _findCurrentLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
-
+    // Error message not checked anywhere
     if (status !== 'granted') {
       this.setState({
         locationErrorMsg: 'Permission to access location was denied'
@@ -181,17 +181,6 @@ export default class MapScreen extends React.Component {
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
         <TopText>Stores</TopText>
-        {/* Janky way to do a conditional rendering */}
-        {this.state.location && (
-          <TouchableOpacity onPress={this._findCurrentLocationAsync}>
-            <View>
-              <Text> Tap to center on current location </Text>
-            </View>
-          </TouchableOpacity>
-        )}
-        {this.state.locationErrorMsg && (
-          <Text>{this.state.locationErrorMsg}</Text>
-        )}
         <Hamburger navigation={this.props.navigation} />
         {/* Display Map */}
         <MapView

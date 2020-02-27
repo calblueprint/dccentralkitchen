@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import SpecialNotice from './SpecialNotice';
-import { Caption, Title, Subhead } from '../BaseComponents';
+import { Body, Caption, Title, Subhead } from '../BaseComponents';
 
 /**
  * @prop
@@ -17,7 +16,10 @@ function ProductInfo({ product }) {
         <Caption>${customerCost} each</Caption>
         <Caption>Points Earned: {points}</Caption>
       </View>
-      <SpecialNotice />
+      <Body>
+        Note: not all products listed are available at every store. Please call
+        individual stores to ask which products are available.
+      </Body>
     </View>
   );
 }

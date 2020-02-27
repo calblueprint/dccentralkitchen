@@ -1,8 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Button, Title } from '../../styled/shared';
-import { ButtonContainer, TextButton } from '../BaseComponents';
+import { ButtonContainer, TextButton, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
