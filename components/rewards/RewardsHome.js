@@ -1,6 +1,7 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { Body } from '../BaseComponents';
+import { Platform, StyleSheet, View } from 'react-native';
+import { Body, Caption, Title } from '../BaseComponents';
+
 /**
  * @prop
  * */
@@ -9,17 +10,19 @@ function RewardsHome({ transactions, user }) {
   return (
     <View>
       <View style={styles.getStartedContainer}>
-        <Text> {`Welcome, ${user.name}`}</Text>
+        <Title> {`Welcome, ${user.name}`}</Title>
         <Body>{user.points} total points </Body>
-        <Text style={styles.getStartedText}>
+        <Body style={styles.getStartedText}>
           {' '}
           {`${1000 -
             (parseInt(user.points) % 1000)} points to your next reward`}
-        </Text>
+        </Body>
       </View>
 
       <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>Your transaction history:</Text>
+        <Caption style={styles.tabBarInfoText}>
+          Your transaction history:
+        </Caption>
         {transactions.splice(0, 3).map(transaction => {
           return (
             <View key={transaction.id}>

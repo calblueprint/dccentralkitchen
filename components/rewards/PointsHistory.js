@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Body, Title, Caption } from '../BaseComponents';
 import Transaction from './Transaction';
 /**
  * @prop
@@ -36,10 +37,14 @@ function PointsHistory({ transactions, user, updates, navigation }) {
         ) : (
           <Text />
         )}
+        {/* end receipt prompt */}
         {/* Points history */}
         <View>
           <ScrollView style={{ marginTop: 50 }}>
-            <Text style={{ textAlign: 'center' }}> Recent Transactions</Text>
+            <Caption style={{ textAlign: 'center' }}>
+              {' '}
+              Recent Transactions
+            </Caption>
             {recent.map(transaction => (
               <Transaction
                 key={transaction.id}
@@ -48,7 +53,10 @@ function PointsHistory({ transactions, user, updates, navigation }) {
                 storeName={transaction.storeName}
               />
             ))}
-            <Text style={{ textAlign: 'center' }}> Complete History </Text>
+            <Caption style={{ textAlign: 'center' }}>
+              {' '}
+              Complete History{' '}
+            </Caption>
             {transactions.map(transaction => (
               <Transaction
                 key={transaction.id}
