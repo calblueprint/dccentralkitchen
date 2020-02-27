@@ -22,11 +22,6 @@ function filterVegetables(product) {
 
 class StoreProducts extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
-  storeDetailsTransition = store => {
-    this.props.navigation.navigate('StoreDetails', {
-      currentStore: store
-    });
-  };
 
   renderProducts = (filterType, productType) => {
     const { navigation, store, products } = this.props;
@@ -65,11 +60,7 @@ class StoreProducts extends React.Component {
     const { store } = this.props;
     return (
       <View>
-        <StoreCard
-          store={store}
-          key={store.id}
-          callBack={() => this.storeDetailsTransition(store)}
-        />
+        <StoreCard store={store} key={store.id} />
         {/* Display fruits available at this store */}
         <View>{this.renderProducts(filterFruit, 'Fruit')}</View>
         <View>{this.renderProducts(filterVegetables, 'Vegetables')}</View>
