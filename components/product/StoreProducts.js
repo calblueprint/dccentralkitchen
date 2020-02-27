@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Title } from '../../styled/shared';
 import { TextButton } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
-import Product from './Product';
+import ProductCard from './ProductCard';
 
 function filterFruit(product) {
   if (product) {
@@ -44,7 +44,7 @@ class StoreProducts extends React.Component {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {products.filter(filterType).map(product => (
             // TODO See if there is a better way to pass the props over to a component
-            <Product
+            <ProductCard
               key={product.id}
               product={product}
               navigation={navigation}
