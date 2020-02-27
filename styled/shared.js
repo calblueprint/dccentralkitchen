@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+export const RowContainer = styled.View`
+  flex-direction: row;
+`;
+
 export const InLineContainer = styled.View`
   flex-direction: row;
   margin: 0 6.5%;

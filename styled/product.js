@@ -1,22 +1,24 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-export const ProductContainer = styled.View`
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 5% 5%;
-  box-shadow: 0px 10px 20px #e3e1e1;
+export const ProductInfoContainer = styled.View`
+  width: 80%;
+  padding: 5%;
 `;
 
-export const ProductBody = styled.Text`
-  font-size: 12px;
-  font-weight: bold;
-`;
-
-export const ImageContainer = styled.View`
+export const ProductInfoCaptionContainer = styled.View`
   flex-direction: row;
+  justify-content: space-around;
 `;
+
+export const ProductInfoImageContainer = styled.View`
+  margin-top: 7.5%;
+`;
+
+export const ProductNoticeContainer = styled.View`
+  margin-top: 2%;
+`;
+
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import ProductInfo from '../../components/product/ProductInfo';
-import { ImageContainer } from '../../styled/product';
+import { ProductInfoImageContainer } from '../../styled/product';
+import { RowContainer } from '../../styled/shared';
 
 class ProductDetailsScreen extends React.Component {
   constructor(props) {
@@ -12,17 +13,15 @@ class ProductDetailsScreen extends React.Component {
   render() {
     const { currentProduct, store } = this.props.navigation.state.params;
     return (
-      <View>
-        <ImageContainer>
-          <ProductInfo product={currentProduct} />
-          <View style={{ marginTop: 40 }}>
-            <Image
-              source={require('../../assets/images/robot-dev.png')}
-              style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
-            />
-          </View>
-        </ImageContainer>
-      </View>
+      <RowContainer>
+        <ProductInfo product={currentProduct} />
+        <ProductInfoImageContainer>
+          <Image
+            source={require('../../assets/images/robot-dev.png')}
+            style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
+          />
+        </ProductInfoImageContainer>
+      </RowContainer>
     );
   }
 }
