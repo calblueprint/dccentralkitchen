@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { ButtonContainer, Caption } from '../BaseComponents';
+import { ColumnContainer } from '../../styled/shared';
 
 /**
  * @prop
@@ -16,11 +17,13 @@ function ProductCard({ product, store, navigation }) {
           store
         })
       }>
-      <Image
-        source={require('../../assets/images/robot-dev.png')}
-        style={{ width: 50, height: 50, borderRadius: 80 / 2 }}
-      />
-      <Caption>{product.name}</Caption>
+      <ColumnContainer>
+        <Image
+          source={require('../../assets/images/robot-dev.png')}
+          style={{ borderRadius: 80 / 2 }}
+        />
+        <Caption>{product.name}</Caption>
+      </ColumnContainer>
     </ButtonContainer>
   );
 }

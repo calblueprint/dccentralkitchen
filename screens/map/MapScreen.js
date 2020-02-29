@@ -22,8 +22,7 @@ import {
   SearchBar,
   BottomSheetContainer,
   BottomSheetHeaderContainer,
-  StoreModalBar,
-  TopText
+  StoreModalBar
 } from '../../styled/store';
 import { InLineContainer } from '../../styled/shared';
 
@@ -183,7 +182,6 @@ export default class MapScreen extends React.Component {
     }
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
-        <TopText>Stores</TopText>
         <Hamburger navigation={this.props.navigation} />
         {/* Display Map */}
         <MapView
@@ -237,10 +235,10 @@ export default class MapScreen extends React.Component {
             500% set as a high upper boundary to prevent users from allowing sheet to reach that point */}
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
-            initialSnap={2}
+            initialSnap={1}
             enabledInnerScrolling
             enabledGestureInteraction
-            snapPoints={['500%', '30%', '10%']}
+            snapPoints={['500%', '45%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />

@@ -1,9 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { ButtonContainer, TextButton, Title } from '../BaseComponents';
+import { ButtonContainer, ButtonLabel, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
+import { SpaceBetweenRowContainer } from '../../styled/shared';
+import { styles } from '../../styled/product';
 
 function filterFruit(product) {
   if (product) {
@@ -26,7 +28,7 @@ class StoreProducts extends React.Component {
     const { navigation, store, products } = this.props;
     return (
       <View>
-        <View flexDirection="row">
+        <SpaceBetweenRowContainer>
           <Title>{productType}</Title>
           <ButtonContainer
             onPress={() =>
@@ -37,10 +39,13 @@ class StoreProducts extends React.Component {
                 store
               })
             }>
-            <TextButton>See All</TextButton>
+            <ButtonLabel color="black">See All ({products.length})</ButtonLabel>
           </ButtonContainer>
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        </SpaceBetweenRowContainer>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.horizontalScroll}>
           {products.filter(filterType).map(product => (
             // TODO See if there is a better way to pass the props over to a component
             <ProductCard

@@ -1,6 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
+export const ProductCardContainer = styled.View`
+  text-align: center;
+  justify-content: center;
+`;
+
 export const ProductInfoContainer = styled.View`
   width: 80%;
   padding: 5%;
@@ -36,5 +41,9 @@ export const styles = StyleSheet.create({
   storesModal: {
     backgroundColor: 'white',
     opacity: 0.8
+  },
+  horizontalScroll: {
+    padding: '5%',
+    alignItems: 'center'
   }
 });

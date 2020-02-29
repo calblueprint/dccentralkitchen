@@ -4,6 +4,12 @@ export const RowContainer = styled.View`
   flex-direction: row;
 `;
 
+export const ColumnContainer = styled.View`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const InLineContainer = styled.View`
   flex-direction: row;
   display: flex;

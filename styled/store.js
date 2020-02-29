@@ -34,7 +34,7 @@ export const StoreListHeaderContainer = styled.View`
 `;
 
 export const StoreCardContainer = styled.View`
-  flex-direction: row;
+  margin: 7.5px;
 `;
 
 export const StoreListTitle = styled(Title)`
