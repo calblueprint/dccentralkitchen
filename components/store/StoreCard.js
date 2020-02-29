@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../assets/Colors';
 import { InLineContainer } from '../../styled/shared';
-import { ViewProductsContainer } from '../../styled/store';
+import { SpaceBetweenRowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
@@ -16,10 +16,10 @@ function StoreCard({ store, callBack, seeProduct }) {
   return (
     <View style={{ marginBottom: 10 }}>
       <ButtonContainer onPress={callBack}>
-        <ViewProductsContainer>
+        <SpaceBetweenRowContainer>
           <Title color={Colors.activeText}>{name}</Title>
           {seeProduct && <StoreProductButton callBack={callBack} />}
-        </ViewProductsContainer>
+        </SpaceBetweenRowContainer>
         <Caption color={Colors.secondaryText}>Distance: {distance} mi </Caption>
         <InLineContainer>
           <MaterialCommunityIcons name="directions" size={16} />

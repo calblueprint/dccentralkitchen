@@ -43,12 +43,6 @@ export const StoreListTitle = styled(Title)`
   margin-top: 2.5%;
 `;
 
-export const ViewProductsContainer = styled.View`
-  flex-direction: row;
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const SearchBar = styled(ButtonContainer)`
   background-color: white;
   align-items: center;

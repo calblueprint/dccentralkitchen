@@ -9,6 +9,12 @@ export const InLineContainer = styled.View`
   display: flex;
 `;
 
+export const SpaceBetweenRowContainer = styled.View`
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+`;
+
 export const ScrollCategory = styled.Text`
   font-size: 14px;
   font-weight: normal;
