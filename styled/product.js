@@ -1,10 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 
-export const ProductCardContainer = styled.View`
-  text-align: center;
-  justify-content: center;
-`;
+export const ProductCardContainer = styled.View``;
 
 export const ProductInfoContainer = styled.View`
   width: 80%;
