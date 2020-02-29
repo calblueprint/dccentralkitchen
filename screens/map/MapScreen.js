@@ -20,7 +20,8 @@ import { getProductData, getStoreData } from '../../lib/mapUtils';
 import { Body, ButtonLabel } from '../../components/BaseComponents';
 import {
   SearchBar,
-  StoreModal,
+  BottomSheetContainer,
+  BottomSheetHeaderContainer,
   StoreModalBar,
   TopText
 } from '../../styled/store';
@@ -139,21 +140,21 @@ export default class MapScreen extends React.Component {
 
   renderHeader = () => (
     // TODO @tommypoa Favourites functionality
-    <StoreModal>
+    <BottomSheetHeaderContainer>
       <StoreModalBar />
-    </StoreModal>
+    </BottomSheetHeaderContainer>
   );
 
   renderContent = () => {
     return (
-      <StoreModal>
+      <BottomSheetContainer>
         <Body>Showing products for</Body>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
           products={this.state.storeProducts}
         />
-      </StoreModal>
+      </BottomSheetContainer>
     );
   };
 
@@ -236,10 +237,10 @@ export default class MapScreen extends React.Component {
             500% set as a high upper boundary to prevent users from allowing sheet to reach that point */}
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
-            initialSnap={1}
+            initialSnap={2}
             enabledInnerScrolling
             enabledGestureInteraction
-            snapPoints={['500%', '45%', '10%']}
+            snapPoints={['500%', '30%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />

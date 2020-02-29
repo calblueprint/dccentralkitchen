@@ -11,9 +11,14 @@ export const StoreModalBar = styled.View`
   margin: 2% 0% 0% 42%;
 `;
 
-export const StoreModal = styled.View`
+export const BottomSheetHeaderContainer = styled.View`
   background-color: #fff;
-  opacity: 0.8;
+  border-radius: 30px;
+  box-shadow: 0px -2px 1px;
+`;
+
+export const BottomSheetContainer = styled.View`
+  background-color: #fff;
   padding: 2.5%;
 `;
 
@@ -60,6 +65,8 @@ export const TopText = styled.Text`
   margin-top: 10px;
   font-size: 25px;
 `;
+
+// FlatList styles
 
 export const styles = StyleSheet.create({
   inputContainer: {
