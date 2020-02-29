@@ -2,7 +2,6 @@ import React from 'react';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
 import StoreCard from '../../components/store/StoreCard';
-import StoreProductButton from '../../components/store/StoreProductButton';
 
 import { Title } from '../../components/BaseComponents';
 import {
@@ -28,6 +27,7 @@ class StoreListScreen extends React.Component {
 
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   storeDetailsTransition = store => {
+    console.log('hi');
     this.state.navigation.navigate('Stores', {
       currentStore: store
     });
@@ -68,14 +68,12 @@ class StoreListScreen extends React.Component {
           <Title>Store List</Title>
           <ScrollView>
             {this.state.filteredStores.map(store => (
-              <StoreCardContainer>
-                <StoreCard
-                  key={store.id}
-                  store={store}
-                  callBack={() => this.storeDetailsTransition(store)}
-                />
-                <StoreProductButton />
-              </StoreCardContainer>
+              <StoreCard
+                key={store.id}
+                store={store}
+                callBack={() => this.storeDetailsTransition(store)}
+                seeProduct={true}
+              />
             ))}
           </ScrollView>
         </StoreListContainer>

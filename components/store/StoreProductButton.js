@@ -1,15 +1,19 @@
 import React from 'react';
-import { FilledButtonContainer, TextButton } from '../BaseComponents';
+import { FilledButtonContainer, ButtonLabel } from '../BaseComponents';
 
 /**
  * @prop
  * */
 
-function StoreProductButton() {
+function StoreProductButton({ callBack }) {
   //   const { name, hours, address, distance, ebt } = store;
   return (
-    <FilledButtonContainer width="30%" height="20%" color="#f07723">
-      <TextButton color="white">See Products</TextButton>
+    <FilledButtonContainer
+      width="40%"
+      height="125%"
+      color="#f07723"
+      onPress={callBack}>
+      <ButtonLabel color="#fff">See Products</ButtonLabel>
     </FilledButtonContainer>
   );
 }

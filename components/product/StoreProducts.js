@@ -59,7 +59,7 @@ class StoreProducts extends React.Component {
     const { store } = this.props;
     return (
       <View>
-        <StoreCard store={store} key={store.id} />
+        <StoreCard store={store} key={store.id} seeProduct={false} />
         {/* Display fruits available at this store */}
         <View>{this.renderProducts(filterFruit, 'Fruit')}</View>
         <View>{this.renderProducts(filterVegetables, 'Vegetables')}</View>

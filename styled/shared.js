@@ -6,7 +6,7 @@ export const RowContainer = styled.View`
 
 export const InLineContainer = styled.View`
   flex-direction: row;
-  margin: 0 6.5%;
+  display: flex;
 `;
 
 export const ScrollCategory = styled.Text`

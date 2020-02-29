@@ -23,9 +23,9 @@ export const ButtonLabel = styled(TextButton)`
   display: flex;
   align-items: center;
   text-align: center;
-  letter-spacing: 0.01;
+  letter-spacing: 0.01px;
   text-transform: uppercase;
-  color: ${props => (props.filledButton ? Colors.white : Colors.black)};
+  color: ${props => (props.color ? props.color : Colors.black)};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
@@ -36,7 +36,7 @@ export const FilledButtonContainer = styled(ButtonContainer)`
     props.pressed
       ? 'box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 24px 38px rgba(0, 0, 0, 0.14);'
       : ''};
-  border-radius: 20px;
+  border-radius: 10px;
 `;
 
 export const Title = styled.Text`

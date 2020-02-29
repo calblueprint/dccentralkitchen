@@ -20,7 +20,7 @@ export const StoreModal = styled.View`
 export const StoreListContainer = styled.View`
   background-color: #fff;
   opacity: 0.8;
-  padding: 2.5%;
+  padding: 4%;
 `;
 
 export const StoreListHeaderContainer = styled.View`
@@ -36,6 +36,12 @@ export const StoreListTitle = styled(Title)`
   text-align: center;
   color: white;
   margin-top: 2.5%;
+`;
+
+export const ViewProductsContainer = styled.View`
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const SearchBar = styled.TouchableOpacity`
