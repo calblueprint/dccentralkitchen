@@ -52,12 +52,15 @@ export const SearchBar = styled(ButtonContainer)`
   border-radius: 20px;
 `;
 
-export const TopText = styled.Text`
-  font-style: normal;
-  font-weight: 900;
-  text-align: center;
-  margin-top: 10px;
-  font-size: 25px;
+export const EBTStatusBar = styled.View`
+  display: flex;
+  flex-direction: row;
+  background-color: green;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 50%;
+  border-radius: 20px;
 `;
 
 // FlatList styles

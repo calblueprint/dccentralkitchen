@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import Colors from '../../assets/Colors';
 import { InLineContainer } from '../../styled/shared';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
-import { StoreCardContainer } from '../../styled/store';
+import { StoreCardContainer, EBTStatusBar } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
@@ -18,6 +18,12 @@ function StoreCard({ store, callBack, seeProduct }) {
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
         <Title color={Colors.activeText}>{name}</Title>
+        {ebt && (
+          <EBTStatusBar>
+            <FontAwesome name="check" size={12} color="#004E14" />
+            <Caption color="#004E14"> EBT</Caption>
+          </EBTStatusBar>
+        )}
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption color={Colors.secondaryText}>Distance: {distance} mi </Caption>
