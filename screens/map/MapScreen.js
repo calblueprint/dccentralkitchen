@@ -3,6 +3,7 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   Dimensions,
   SafeAreaView,
@@ -16,13 +17,14 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Body } from '../../components/BaseComponents';
+import { Body, ButtonLabel } from '../../components/BaseComponents';
 import {
   SearchBar,
   StoreModal,
   StoreModalBar,
   TopText
 } from '../../styled/store';
+import { InLineContainer } from '../../styled/shared';
 
 const { width } = Dimensions.get('window'); // full width
 
@@ -195,7 +197,14 @@ export default class MapScreen extends React.Component {
                 navigation: this.props.navigation
               })
             }>
-            <Body>Search</Body>
+            <InLineContainer>
+              <FontAwesome
+                name="search"
+                size={12}
+                style={{ color: '#f07723' }}
+              />
+              <ButtonLabel>Find a store</ButtonLabel>
+            </InLineContainer>
           </SearchBar>
           {/* Display store markers */}
           {this.state.stores.map(store => (

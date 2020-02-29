@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Title } from '../components/BaseComponents';
+import { Title, ButtonContainer } from '../components/BaseComponents';
 import { StyleSheet } from 'react-native';
 
 export const StoreModalBar = styled.View`
@@ -44,11 +44,13 @@ export const ViewProductsContainer = styled.View`
   justify-content: space-between;
 `;
 
-export const SearchBar = styled.TouchableOpacity`
+export const SearchBar = styled(ButtonContainer)`
   background-color: white;
   align-items: center;
-  margin: 1%;
-  border-radius: 5px;
+  justify-content: center;
+  margin: 5% 25%;
+  height: 5%
+  border-radius: 20px;
 `;
 
 export const TopText = styled.Text`
