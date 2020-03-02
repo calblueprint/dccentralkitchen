@@ -1,5 +1,6 @@
 import React from 'react';
 import { FilledButtonContainer, ButtonLabel } from '../BaseComponents';
+import Colors from '../../assets/Colors';
 
 /**
  * @prop
@@ -10,8 +11,8 @@ function StoreProductButton({ callBack }) {
   return (
     <FilledButtonContainer
       width="40%"
-      height="50%"
-      color="#f07723"
+      height="50px"
+      color={Colors.primaryOrange}
       onPress={callBack}>
       <ButtonLabel color="#fff">See Products</ButtonLabel>
     </FilledButtonContainer>

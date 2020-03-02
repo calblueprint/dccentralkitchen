@@ -24,7 +24,7 @@ import {
   BottomSheetHeaderContainer,
   StoreModalBar
 } from '../../styled/store';
-import { InLineContainer } from '../../styled/shared';
+import Colors from '../../assets/Colors';
 
 const { width } = Dimensions.get('window'); // full width
 
@@ -196,14 +196,8 @@ export default class MapScreen extends React.Component {
                 navigation: this.props.navigation
               })
             }>
-            <InLineContainer>
-              <FontAwesome
-                name="search"
-                size={12}
-                style={{ color: '#f07723' }}
-              />
-              <ButtonLabel>Find a store</ButtonLabel>
-            </InLineContainer>
+            <FontAwesome name="search" size={12} style={{ color: '#f07723' }} />
+            <Body color={Colors.secondaryText}> Find a store</Body>
           </SearchBar>
           {/* Display store markers */}
           {this.state.stores.map(store => (

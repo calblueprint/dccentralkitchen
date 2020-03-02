@@ -21,7 +21,7 @@ function StoreCard({ store, callBack, seeProduct }) {
         {ebt && (
           <EBTStatusBar>
             <FontAwesome name="check" size={12} color="#004E14" />
-            <Caption color="#004E14"> EBT</Caption>
+            <Caption color={Colors.darkerGreen}> EBT</Caption>
           </EBTStatusBar>
         )}
         {seeProduct && <StoreProductButton callBack={callBack} />}

@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { Title, ButtonContainer } from '../components/BaseComponents';
 import { StyleSheet } from 'react-native';
+import Colors from '../assets/Colors';
 
 export const StoreModalBar = styled.View`
   border: 1px solid black;
@@ -31,6 +32,12 @@ export const StoreListContainer = styled.View`
 export const StoreListHeaderContainer = styled.View`
   background-color: #f07723;
   opacity: 0.8;
+
+  ${Title} {
+    text-align: center;
+    color: white;
+    margin-top: 2.5%;
+  }
 `;
 
 export const StoreCardContainer = styled.View`
@@ -44,18 +51,20 @@ export const StoreListTitle = styled(Title)`
 `;
 
 export const SearchBar = styled(ButtonContainer)`
-  background-color: white;
+  display: flex;
+  flex-direction: row
   align-items: center;
   justify-content: center;
-  margin: 5% 25%;
+  margin: 20px 25%;
   height: 5%
   border-radius: 20px;
+  background-color: white;
 `;
 
 export const EBTStatusBar = styled.View`
   display: flex;
   flex-direction: row;
-  background-color: green;
+  background-color: ${Colors.lightestGreen};
   align-items: center;
   justify-content: center;
   width: 15%;

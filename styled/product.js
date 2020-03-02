@@ -1,5 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import { Caption } from '../components/BaseComponents';
 
 export const ProductCardContainer = styled.View``;
 
@@ -10,7 +11,11 @@ export const ProductInfoContainer = styled.View`
 
 export const ProductInfoCaptionContainer = styled.View`
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
+
+  ${Caption} {
+    margin-right: 100px;
+  }
 `;
 
 export const ProductInfoImageContainer = styled.View`
