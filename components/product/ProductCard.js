@@ -1,13 +1,13 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { ButtonContainer, Caption } from '../BaseComponents';
+import { ButtonContainer, Body } from '../BaseComponents';
 import { ColumnContainer } from '../../styled/shared';
 
 /**
  * @prop
  * */
 
-// TODO @tommypoa to use styled-components
+// TODO @tommypoa to use styled-components // Create Stylesheet for react native elements
 function ProductCard({ product, store, navigation }) {
   return (
     <ButtonContainer
@@ -20,9 +20,9 @@ function ProductCard({ product, store, navigation }) {
       <ColumnContainer>
         <Image
           source={require('../../assets/images/robot-dev.png')}
-          style={{ borderRadius: 80 / 2 }}
+          style={{ height: 80, width: 80, borderRadius: 80 / 2 }}
         />
-        <Caption>{product.name}</Caption>
+        <Body>{product.name}</Body>
       </ColumnContainer>
     </ButtonContainer>
   );

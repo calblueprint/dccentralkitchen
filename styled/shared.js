@@ -6,8 +6,6 @@ export const RowContainer = styled.View`
 
 export const ColumnContainer = styled.View`
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const InLineContainer = styled.View`

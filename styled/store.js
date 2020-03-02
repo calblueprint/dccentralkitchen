@@ -32,12 +32,6 @@ export const StoreListContainer = styled.View`
 export const StoreListHeaderContainer = styled.View`
   background-color: #f07723;
   opacity: 0.8;
-
-  ${Title} {
-    text-align: center;
-    color: white;
-    margin-top: 2.5%;
-  }
 `;
 
 export const StoreCardContainer = styled.View`

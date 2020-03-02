@@ -2,7 +2,9 @@ import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Caption } from '../components/BaseComponents';
 
-export const ProductCardContainer = styled.View``;
+export const ProductCardContainer = styled.View`
+  margin-right: 10px;
+`;
 
 export const ProductInfoContainer = styled.View`
   width: 80%;
@@ -12,10 +14,6 @@ export const ProductInfoContainer = styled.View`
 export const ProductInfoCaptionContainer = styled.View`
   flex-direction: row;
   justify-content: flex-start;
-
-  ${Caption} {
-    margin-right: 100px;
-  }
 `;
 
 export const ProductInfoImageContainer = styled.View`
@@ -45,7 +43,7 @@ export const styles = StyleSheet.create({
     opacity: 0.8
   },
   horizontalScroll: {
-    padding: '5%',
+    padding: '1%',
     alignItems: 'center'
   }
 });
