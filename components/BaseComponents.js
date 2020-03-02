@@ -13,7 +13,7 @@ export const TextButton = styled.Text`
 `;
 
 export const ButtonContainer = styled.TouchableOpacity``;
-// get rid of the top / bottom
+// TODO @tommypoa Replace top / bottom 25%
 export const ButtonLabel = styled(TextButton)`
   top: 25%;
   bottom: 25%;

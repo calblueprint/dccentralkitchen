@@ -19,6 +19,12 @@ export const SpaceBetweenRowContainer = styled.View`
   justify-content: space-between;
 `;
 
+export const SpaceAroundRowContainer = styled.View`
+  flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+`;
+
 export const ScrollCategory = styled.Text`
   font-size: 14px;
   font-weight: normal;

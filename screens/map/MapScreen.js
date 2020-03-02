@@ -232,7 +232,7 @@ export default class MapScreen extends React.Component {
             initialSnap={1}
             enabledInnerScrolling
             enabledGestureInteraction
-            snapPoints={['500%', '45%', '10%']}
+            snapPoints={['500%', '25%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />

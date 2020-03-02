@@ -10,8 +10,8 @@ function StoreProductButton({ callBack }) {
   //   const { name, hours, address, distance, ebt } = store;
   return (
     <FilledButtonContainer
-      width="40%"
-      height="50px"
+      width="130px"
+      height="35px"
       color={Colors.primaryOrange}
       onPress={callBack}>
       <ButtonLabel color="#fff">See Products</ButtonLabel>

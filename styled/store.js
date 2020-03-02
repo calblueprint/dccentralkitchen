@@ -61,9 +61,11 @@ export const EBTStatusBar = styled.View`
   background-color: ${Colors.lightestGreen};
   align-items: center;
   justify-content: center;
-  width: 15%;
-  height: 50%;
+  width: 50px;
+  height: 20px;
   border-radius: 20px;
+  margin-top: 7px;
+  margin-left: 5px;
 `;
 
 // FlatList styles
