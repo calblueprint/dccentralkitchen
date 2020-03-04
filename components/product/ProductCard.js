@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { ButtonContainer, Caption } from '../BaseComponents';
+import { ButtonContainer, Body } from '../BaseComponents';
 
 /**
  * @prop
@@ -20,7 +20,7 @@ function ProductCard({ product, store, navigation }) {
         source={require('../../assets/images/robot-dev.png')}
         style={{ width: 50, height: 50, borderRadius: 80 / 2 }}
       />
-      <Caption>{product.name}</Caption>
+      <Body>{product.name}</Body>
     </ButtonContainer>
   );
 }
