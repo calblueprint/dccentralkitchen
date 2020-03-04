@@ -1,6 +1,8 @@
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Body, Caption, Title } from '../BaseComponents';
+import { styles } from '../../styled/rewards';
+import { ProgressBar } from '../rewards/ProgressBar';
 
 /**
  * @prop
@@ -9,6 +11,7 @@ import { Body, Caption, Title } from '../BaseComponents';
 function RewardsHome({ transactions, user }) {
   return (
     <View>
+      <ProgressBar percentage="50" />
       <View style={styles.getStartedContainer}>
         <Title> {`Welcome, ${user.name}`}</Title>
         <Body>{user.points} total points </Body>
@@ -39,36 +42,4 @@ function RewardsHome({ transactions, user }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 150,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20
-  },
-  navigationFilename: {
-    marginTop: 5
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-    paddingVertical: 20
-  }
-});
-
 export default React.memo(RewardsHome);
