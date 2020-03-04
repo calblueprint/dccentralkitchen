@@ -13,7 +13,8 @@ export const ProductInfoContainer = styled.View`
 
 export const ProductInfoCaptionContainer = styled.View`
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 80%;
 `;
 
 export const ProductInfoImageContainer = styled.View`
