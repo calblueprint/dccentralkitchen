@@ -1,37 +1,24 @@
 import styled from 'styled-components/native';
-import { PoppinsText } from './shared';
+import { TouchableOpacity } from 'react-native';
 
-export const Card = styled.View`
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-radius: 4px;
-  border-width: 1px;
-  border-color: grey;
-  padding: 10px;
-  margin: 2% 5%;
-  flex-direction: row;
-  flex: 1;
+export const Touchable = styled.TouchableOpacity`
+  backgroundColor: 'white',
+  width: 50,
+  height: 50,
+  zIndex: 100,
+  position: 'absolute', 
+  top: 50,
+  left: 15,
+  borderRadius: 23,
+  borderColor: '#ffffff',
+  borderWidth: 4,
+  shadowOpacity: 0.25,
+  shadowRadius: 5,
+  shadowColor: 'black',
+  shadowOffset: { height: 3, width: 4 } 
 `;
 
-export const DateContainer = styled.View`
-  flex-direction: column;
-  flex: 1;
-`;
-
-export const DateText = styled(PoppinsText)`
-  font-weight: bold;
-`;
-
-export const ContentContainer = styled.View`
-  flex-direction: column;
-  flex: 4;
-`;
-
-export const ContentText = styled(PoppinsText)`
-  font-weight: normal;
-`;
-
-export const TopText = styled(PoppinsText)`
+export const TopText = styled.Text`
   font-style: normal;
   font-weight: 900;
   text-align: center;
