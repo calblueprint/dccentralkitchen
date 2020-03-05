@@ -25,12 +25,12 @@ export const ButtonLabel = styled(TextButton)`
   text-align: center;
   letter-spacing: 0.01;
   text-transform: uppercase;
-  color: ${props => (props.filledButton ? Colors.white : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
-  width: 344px;
-  height: 40px;
+  width: ${props => props.width || '344px'};
+  height: ${props => props.height || '40px'};
   background: ${props => (props.color ? props.color : Colors.primaryGreen)};
   ${props =>
     props.pressed
@@ -43,7 +43,8 @@ export const BigTitle = styled.Text`
   font-family: poppins-medium;
   font-size: 32px;
   line-height: 48px;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  text-align: ${props => props.align || 'left'};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const Title = styled.Text`

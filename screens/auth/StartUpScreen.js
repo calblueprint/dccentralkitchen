@@ -3,9 +3,17 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
-
-import { ErrorMsg, Input, StartUpContainer } from '../../styled/auth';
-import { BigTitle } from '../../components/BaseComponents';
+import Colors from '../../assets/Colors';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer
+} from '../../components/BaseComponents';
+import {
+  StartUpContainer,
+  StartUpTitleContainer,
+  StartUpButtonContainer
+} from '../../styled/auth';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -24,7 +32,14 @@ export default class Login extends React.Component {
   render() {
     return (
       <StartUpContainer>
-        <BigTitle>Welcome to Healthy Corners!</BigTitle>
+        <StartUpTitleContainer>
+          <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
+        </StartUpTitleContainer>
+        <StartUpButtonContainer>
+          <FilledButtonContainer width="291px">
+            <ButtonLabel color="white">SIGN UP</ButtonLabel>
+          </FilledButtonContainer>
+        </StartUpButtonContainer>
       </StartUpContainer>
     );
   }

@@ -1,10 +1,22 @@
 import styled from 'styled-components/native';
 
+// StartUpScreen
+
 export const StartUpContainer = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  margin-top: 241px;
+`;
+
+export const StartUpTitleContainer = styled.View`
+  margin-left: 58px;
+  margin-right: 47px;
+`;
+
+export const StartUpButtonContainer = styled.View`
+  margin-top: 108px;
 `;
 
 export const SignUpContainer = styled.View`
