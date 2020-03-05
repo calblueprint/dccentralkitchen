@@ -2,10 +2,9 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
-
-import { ErrorMsg, Input, LoginContainer } from '../../styles/auth';
-import { lookupCustomer, updateCustomerPushTokens } from './authAirtable';
+import { AsyncStorage, Button } from 'react-native';
+import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
+import { ErrorMsg, Input, LoginContainer } from '../../styled/auth';
 
 export default class Login extends React.Component {
   constructor(props) {

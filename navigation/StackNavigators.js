@@ -1,16 +1,16 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
 
-import StoresScreen from '../screens/stores/StoresScreen';
+import MapScreen from '../screens/map/MapScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 import ReceiptScanner from '../screens/rewards/Camera';
 
-import ProductsDetailedScreen from '../screens/products/ProductsDetailedScreen';
-import ProductsScreen from '../screens/products/ProductsScreen';
-import StoreListScreen from '../screens/stores/StoreListScreen';
-import StoresDetailedScreen from '../screens/stores/StoresDetailedScreen';
-import AnnouncementScreen from '../screens/AnnouncementScreen';
-import AnnouncementsDetailedScreen from '../screens/AnnouncementsDetailedScreen';
+import ProductDetailsScreen from '../screens/map/ProductDetailsScreen';
+import ProductsScreen from '../screens/map/ProductsScreen';
+import StoreListScreen from '../screens/map/StoreListScreen';
+import StoreDetailsScreen from '../screens/map/StoreDetailsScreen';
+import NewsScreen from '../screens/news/NewsScreen';
+import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -19,11 +19,11 @@ const config = Platform.select({
 
 export const StoresStack = createStackNavigator(
   {
-    Stores: StoresScreen,
-    StoresDetailed: StoresDetailedScreen,
+    Stores: MapScreen,
+    StoreDetails: StoreDetailsScreen,
     StoreList: StoreListScreen,
     Products: ProductsScreen,
-    ProductsDetailed: ProductsDetailedScreen
+    ProductDetails: ProductDetailsScreen
   },
   config
 );
@@ -44,14 +44,14 @@ RewardsStack.navigationOptions = {
   drawerLabel: 'Rewards'
 };
 
-export const AnnounceStack = createStackNavigator(
+export const NewsStack = createStackNavigator(
   {
-    Announcements: AnnouncementScreen,
-    AnnouncementsDetailed: AnnouncementsDetailedScreen
+    News: NewsScreen,
+    NewsDetails: NewsDetailsScreen
   },
   config
 );
 
-AnnounceStack.navigationOptions = {
-  drawerLabel: 'Announcements'
+NewsStack.navigationOptions = {
+  drawerLabel: 'News'
 };

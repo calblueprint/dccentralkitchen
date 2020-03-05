@@ -1,6 +1,9 @@
 .expo/*
 node_modules/**/*
 
+# Deprecated env file
+environment.js
+# env files
 .env.development
 .env.production
 .airtable-schema-generator.env
