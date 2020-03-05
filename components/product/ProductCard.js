@@ -19,7 +19,7 @@ function ProductCard({ product, store, navigation }) {
       }>
       <ColumnContainer>
         <Image
-          source={require('../../assets/images/robot-dev.png')}
+          source={{ uri: product.image }}
           style={{ height: 100, width: 100, borderRadius: 80 / 2 }}
         />
         <Body>{product.name}</Body>
