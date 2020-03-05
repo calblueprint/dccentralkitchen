@@ -39,6 +39,13 @@ export const FilledButtonContainer = styled(ButtonContainer)`
   border-radius: 20px;
 `;
 
+export const BigTitle = styled.Text`
+  font-family: poppins-medium;
+  font-size: 32px;
+  line-height: 48px;
+  color: ${props => (props.color ? props.color : Colors.black)};
+`;
+
 export const Title = styled.Text`
   font-family: poppins-medium;
   font-size: 20px;

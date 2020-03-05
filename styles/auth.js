@@ -1,5 +1,12 @@
 import styled from 'styled-components/native';
 
+export const StartUpContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+`;
+
 export const SignUpContainer = styled.View`
   display: flex;
   justify-content: center;

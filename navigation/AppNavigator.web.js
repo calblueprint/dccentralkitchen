@@ -1,9 +1,13 @@
 import { createBrowserApp } from '@react-navigation/web';
 import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 
+import StartUpScreen from '../screens/auth/StartUpScreen';
 import SignInScreen from '../screens/auth/SignUpScreen';
 
-const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+const AuthStack = createStackNavigator({
+  StartUp: StartUpScreen,
+  SignIn: SignInScreen
+});
 
 const switchNavigator = createSwitchNavigator({
   // You could add another route here for authentication.

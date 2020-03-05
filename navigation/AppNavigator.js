@@ -4,6 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import StartUpScreen from '../screens/auth/StartUpScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignInScreen from '../screens/auth/SignUpScreen';
 
@@ -11,6 +12,7 @@ import { StoresStack, RewardsStack, AnnounceStack } from './StackNavigators';
 
 // TODO @JohnathanZhou should be either SignUpScreen or SignInScreen for consistency?
 const AuthStack = createStackNavigator({
+  StartUp: StartUpScreen,
   SignIn: SignInScreen,
   Login: LoginScreen
 });
@@ -27,7 +29,12 @@ class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    // Correct version
+    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    // Testing purpose
+    this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here
