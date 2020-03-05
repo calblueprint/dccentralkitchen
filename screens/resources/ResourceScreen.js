@@ -1,27 +1,47 @@
 import React from 'react';
-import { TouchableOpacity, Button, View } from 'react-native';
-import { Linking } from 'react-native';
 import { TopText } from '../../styled/resources';
+import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
+import getResources from '../../lib/resourceUtils';
+import { Title } from '../../components/BaseComponents';
+import ResourceCard from '../../components/resources/ResourceCard';
 
-const resources = [
-  {
-    name: 'DC Central Kitchen',
-    url: 'https://dccentralkitchen.org/'
-  },
-  {
-    name: 'Healthy Corners Initiative',
-    url: 'https://dccentralkitchen.org/healthy-corners/'
-  },
-  {
-    name: 'Important Link',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-  }
-];
+function filterCategory(resource, category) {
+  return resource.category == category;
+}
 
 class ResourceScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      resources: [],
+      DCCentralKitchenResources: [],
+      CommunityResources: [],
+      GovernmentResources: [],
+      ResourcesForSeniors: []
+    };
+  }
+
+  async componentDidMount() {
+    getResources().then(resources => {
+      (DCCentralKitchenResources = resources.filter(
+        resource => resource.category == 'DC Central Kitchen Resources'
+      )),
+        (CommunityResources = resources.filter(
+          resource => resource.category == 'Community Resources'
+        )),
+        (GovernmentResources = resources.filter(
+          resource => resource.category == 'Government Resources'
+        )),
+        (ResourcesForSeniors = resources.filter(
+          resource => resource.category == 'Resources for Seniors'
+        )),
+        this.setState({
+          DCCentralKitchenResources,
+          CommunityResources,
+          GovernmentResources,
+          ResourcesForSeniors
+        });
+    });
   }
 
   render() {
@@ -50,14 +70,43 @@ class ResourceScreen extends React.Component {
             onPress={() => this.props.navigation.goBack(null)}
           />
         </TouchableOpacity>
-        <TopText> Community Resources </TopText>
-        {resources.map(r => (
-          <Button
-            color="black"
-            title={r.name}
-            onPress={() => Linking.openURL(r.url)}
-          />
-        ))}
+
+        <TopText> Resources </TopText>
+
+        <ScrollView>
+          <Title>DC Central Kitchen Resources</Title>
+          {this.state.DCCentralKitchenResources.map(resource => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
+          <Title>Community Resources</Title>
+          {this.state.CommunityResources.map(resource => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
+          <Title>Government Resources</Title>
+          {this.state.GovernmentResources.map(resource => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
+          <Title>Resources for Seniors</Title>
+          {this.state.ResourcesForSeniors.map(resource => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
+        </ScrollView>
       </View>
     );
   }
