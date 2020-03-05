@@ -4,7 +4,23 @@ import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button } from 'react-native';
 import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
-import { ErrorMsg, Input, LoginContainer } from '../../styled/auth';
+import {
+  ErrorMsg,
+  Input,
+  LoginContainer,
+  LoginInputsContainer,
+  LoginButtonContainer
+} from '../../styled/auth';
+import { JustifyCenterContainer } from '../../styled/shared';
+import Colors from '../../assets/Colors';
+import {
+  BigTitle,
+  Body,
+  ButtonLabel,
+  ButtonContainer,
+  Caption,
+  FilledButtonContainer
+} from '../../components/BaseComponents';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -110,20 +126,36 @@ export default class Login extends React.Component {
   render() {
     return (
       <LoginContainer>
-        <Input
-          placeholder="Phone Number (i.e. 1234567890)"
-          keyboardType="number-pad"
-          maxLength={10}
-          value={this.state.phoneNumber}
-          onChangeText={text => this.setState({ phoneNumber: text })}
-        />
-        <Input
-          placeholder="Password"
-          secureTextEntry
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-        />
-        <Button title="Log In" onPress={() => this.handleSubmit()} />
+        <BigTitle>Log in</BigTitle>
+        <LoginInputsContainer>
+          <Caption color={Colors.primaryGreen}> Phone Number</Caption>
+          <Input
+            placeholder="513-668-6868"
+            keyboardType="number-pad"
+            maxLength={10}
+            value={this.state.phoneNumber}
+            onChangeText={text => this.setState({ phoneNumber: text })}
+          />
+
+          <Input
+            placeholder="Password"
+            secureTextEntry
+            onChangeText={text => this.setState({ password: text })}
+            value={this.state.password}
+          />
+        </LoginInputsContainer>
+        <JustifyCenterContainer>
+          <LoginButtonContainer>
+            <FilledButtonContainer
+              width="291px"
+              onPress={() => this.handleSubmit()}>
+              <ButtonLabel color="white">LOG IN</ButtonLabel>
+            </FilledButtonContainer>
+          </LoginButtonContainer>
+          <ButtonContainer>
+            <Body color={Colors.primaryGreen}>Forgot password?</Body>
+          </ButtonContainer>
+        </JustifyCenterContainer>
         <ErrorMsg>{this.state.errorMsg}</ErrorMsg>
       </LoginContainer>
     );

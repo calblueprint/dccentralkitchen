@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Colors from '../assets/Colors';
 
 // StartUpScreen
 
@@ -29,34 +30,43 @@ export const StartUpLogInContainer = styled.View`
   justify-content: space-between;
 `;
 
-export const SignUpContainer = styled.View`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-`;
-
-export const Input = styled.TextInput`
-  width: 350px;
-  height: 55px;
-  background-color: #008550;
-  margin: 10px;
-  padding: 8px;
-  border-radius: 14px;
-  color: white;
-  font-size: 18px;
-  font-weight: 500;
-  align-content: center;
-`;
+// LoginScreen
 
 export const LoginContainer = styled.View`
-  flex: 1;
+  margin: 79px 42px 0 42px;
   background-color: #fff;
-  margin-top: 20%;
-  align-content: center;
+`;
+
+// Margin-top value is 140 (figma) - 36 (input margin bottom) = 104px.
+export const LoginButtonContainer = styled.View`
+  margin-top: 104px;
+  margin-bottom: 13px;
+  width: 286px;
 `;
 
 export const ErrorMsg = styled.Text`
   font-size: 14px;
   text-align: center;
+`;
+
+export const LoginInputsContainer = styled.View`
+  margin-top: 32px;
+`;
+
+// TODO @tommypoa Check if Text Input can take in Text component from BaseComponents
+export const Input = styled.TextInput`
+  font-size: 18px;
+  font-weight: 500;
+  width: 291px;
+  height: 36px;
+  margin-bottom: 36px;
+  border-bottom-color: ${Colors.primaryGreen};
+  border-bottom-width: 2px;
+`;
+
+export const SignUpContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
 `;

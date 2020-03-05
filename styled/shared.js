@@ -36,3 +36,9 @@ export const ButtonText = styled.Text`
 export const PoppinsText = styled.Text`
   font-family: poppins-regular;
 `;
+
+export const JustifyCenterContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

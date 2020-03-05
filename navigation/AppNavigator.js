@@ -9,9 +9,9 @@ import SignUpScreen from '../screens/auth/SignUpScreen';
 import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
+  Login: LoginScreen,
   StartUp: StartUpScreen,
-  SignUp: SignUpScreen,
-  Login: LoginScreen
+  SignUp: SignUpScreen
 });
 
 class AuthLoadingScreen extends React.Component {
