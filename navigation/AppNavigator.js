@@ -10,7 +10,7 @@ import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
   StartUp: StartUpScreen,
-  SignIn: SignInScreen,
+  SignUp: SignUpScreen,
   Login: LoginScreen
 });
 
