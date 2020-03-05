@@ -16,7 +16,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Body, Subhead } from '../../components/BaseComponents';
+import { Subhead } from '../../components/BaseComponents';
 import {
   SearchBar,
   BottomSheetContainer,
@@ -168,6 +168,7 @@ export default class MapScreen extends React.Component {
     this.setState({
       store
     });
+    this.bottomSheetRef.snapTo(0);
     await this._populateStoreProducts(store);
   }
 
@@ -202,7 +203,7 @@ export default class MapScreen extends React.Component {
               size={16}
               color={Colors.primaryOrange}
             />
-            <Body color={Colors.secondaryText}> Find a store</Body>
+            <Subhead color={Colors.secondaryText}> Find a store</Subhead>
           </SearchBar>
           {/* Display store markers */}
           {this.state.stores.map(store => (
@@ -242,6 +243,7 @@ export default class MapScreen extends React.Component {
             snapPoints={['25%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
+            ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
         <TouchableOpacity
