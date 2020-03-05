@@ -3,7 +3,7 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Dimensions,
   SafeAreaView,
@@ -17,12 +17,12 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Body, ButtonLabel } from '../../components/BaseComponents';
+import { Body, Subhead } from '../../components/BaseComponents';
 import {
   SearchBar,
   BottomSheetContainer,
   BottomSheetHeaderContainer,
-  StoreModalBar
+  DragBar
 } from '../../styled/store';
 import Colors from '../../assets/Colors';
 
@@ -140,14 +140,16 @@ export default class MapScreen extends React.Component {
   renderHeader = () => (
     // TODO @tommypoa Favourites functionality
     <BottomSheetHeaderContainer>
-      <StoreModalBar />
+      <DragBar />
     </BottomSheetHeaderContainer>
   );
 
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Body>Showing products for</Body>
+        <Subhead color={Colors.secondaryText}>
+          Browsing healthy products at
+        </Subhead>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -196,7 +198,11 @@ export default class MapScreen extends React.Component {
                 navigation: this.props.navigation
               })
             }>
-            <FontAwesome name="search" size={12} style={{ color: '#f07723' }} />
+            <FontAwesome5
+              name="search"
+              size={16}
+              color={Colors.primaryOrange}
+            />
             <Body color={Colors.secondaryText}> Find a store</Body>
           </SearchBar>
           {/* Display store markers */}

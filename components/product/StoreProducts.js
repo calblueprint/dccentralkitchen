@@ -15,45 +15,6 @@ import { styles } from '../../styled/product';
 
 class StoreProducts extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
-
-  renderProducts = (filterType, productType) => {
-    const { navigation, store, products } = this.props;
-    return (
-      <View>
-        <SpaceBetweenRowContainer>
-          <Title>{productType}</Title>
-          <ButtonContainer
-            onPress={() =>
-              navigation.navigate('Products', {
-                products: products.filter(filterType),
-                navigation,
-                productType,
-                store
-              })
-            }>
-            <ButtonLabel color="black">See All ({products.length})</ButtonLabel>
-          </ButtonContainer>
-        </SpaceBetweenRowContainer>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.horizontalScroll}>
-          {products.filter(filterType).map(product => (
-            // TODO See if there is a better way to pass the props over to a component
-            <ProductCardContainer key={product.id}>
-              <ProductCard
-                key={product.id}
-                product={product}
-                navigation={navigation}
-                store={store}
-              />
-            </ProductCardContainer>
-          ))}
-        </ScrollView>
-      </View>
-    );
-  };
-
   render() {
     const { navigation, store, products } = this.props;
     return (
@@ -61,7 +22,7 @@ class StoreProducts extends React.Component {
         <StoreCard store={store} key={store.id} seeProduct={false} />
         <View>
           <SpaceBetweenRowContainer>
-            <Title>PRODUCTS</Title>
+            <Title>Products</Title>
             <ButtonContainer
               onPress={() =>
                 navigation.navigate('Products', {
@@ -70,7 +31,7 @@ class StoreProducts extends React.Component {
                   store
                 })
               }>
-              <Subhead color="black">See All ({products.length})</Subhead>
+              <Subhead color="black">See all {products.length}</Subhead>
             </ButtonContainer>
           </SpaceBetweenRowContainer>
           <ScrollView

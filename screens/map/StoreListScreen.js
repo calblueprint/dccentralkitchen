@@ -65,7 +65,6 @@ class StoreListScreen extends React.Component {
           />
         </StoreListHeaderContainer>
         <StoreListContainer>
-          <Title>Store List</Title>
           <ScrollView>
             {this.state.filteredStores.map(store => (
               <StoreCard

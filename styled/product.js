@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { Caption } from '../components/BaseComponents';
 
 export const ProductCardContainer = styled.View`
   margin-right: 10px;
