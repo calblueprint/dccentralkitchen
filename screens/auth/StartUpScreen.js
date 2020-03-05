@@ -6,13 +6,16 @@ import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
 import Colors from '../../assets/Colors';
 import {
   BigTitle,
+  Body,
   ButtonLabel,
+  ButtonContainer,
   FilledButtonContainer
 } from '../../components/BaseComponents';
 import {
   StartUpContainer,
   StartUpTitleContainer,
-  StartUpButtonContainer
+  StartUpSignInContainer,
+  StartUpLogInContainer
 } from '../../styled/auth';
 
 export default class Login extends React.Component {
@@ -35,11 +38,17 @@ export default class Login extends React.Component {
         <StartUpTitleContainer>
           <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
         </StartUpTitleContainer>
-        <StartUpButtonContainer>
+        <StartUpSignInContainer>
           <FilledButtonContainer width="291px">
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>
-        </StartUpButtonContainer>
+        </StartUpSignInContainer>
+        <StartUpLogInContainer>
+          <Body color={Colors.secondaryText}>Already have an account?</Body>
+          <ButtonContainer>
+            <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
+          </ButtonContainer>
+        </StartUpLogInContainer>
       </StartUpContainer>
     );
   }

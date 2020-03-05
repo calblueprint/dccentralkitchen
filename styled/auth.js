@@ -15,8 +15,18 @@ export const StartUpTitleContainer = styled.View`
   margin-right: 47px;
 `;
 
-export const StartUpButtonContainer = styled.View`
+export const StartUpSignInContainer = styled.View`
   margin-top: 108px;
+`;
+
+export const StartUpLogInContainer = styled.View`
+  margin-top: 16px;
+  margin-left: 42px;
+  margin-right: 47px;
+  width: 286px
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const SignUpContainer = styled.View`
