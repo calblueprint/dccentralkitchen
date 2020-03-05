@@ -7,6 +7,7 @@ export const ProductListHeaderContainer = styled.View`
   padding-top: 45px;
   height: 106px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
   background-color: ${props =>
     props.backgroundColor ? props.backgroundColor : Colors.lightest};
 `;

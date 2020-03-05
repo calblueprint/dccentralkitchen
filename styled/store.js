@@ -30,12 +30,13 @@ export const BottomSheetContainer = styled.View`
 `;
 
 export const StoreListContainer = styled.View`
-  background-color: #fff;
-  padding: 4%;
+  padding: 0 4% 4% 4%;
 `;
 
 export const StoreListHeaderContainer = styled.View`
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   background-color: ${Colors.primaryOrange};
+  margin-bottom: 16px;
 `;
 
 export const StoreCardContainer = styled.View`
@@ -59,6 +60,7 @@ export const SearchBar = styled(ButtonContainer)`
   height: 40px;
   border-radius: 20px;
   background-color: white;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
 `;
 
 export const EBTStatusBar = styled.View`
@@ -89,9 +91,6 @@ export const styles = StyleSheet.create({
     borderTopColor: 'transparent'
   },
   input: {
-    fontFamily: 'Arial' // @tommpoa TODO – load poppins!
-  },
-  searchIcon: {
-    color: Colors.primaryOrange
+    fontFamily: 'poppins-regular' // @tommpoa TODO – load poppins!
   }
 });
