@@ -61,7 +61,7 @@ const MyDrawerNavigator = createDrawerNavigator({
   Resources: {
     screen: ResourcesStack,
     navigationOptions: () => ({
-      title: 'Community Resources'
+      title: 'Resources'
     })
   }
 });
