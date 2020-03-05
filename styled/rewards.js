@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import { Subhead, Caption } from '../components/BaseComponents';
 
 export const Container = styled.View`
   flex: 1;
@@ -34,12 +35,12 @@ export const StarIcon = styled.View`
 
 export const ContentContainer = styled.View`
   flex-direction: column;
-  flex: 4;
+  flex: 5;
 `;
 
-export const ContentText = styled(PoppinsText)`
-  font-weight: normal;
-`;
+export const ContentText = styled(Subhead)``;
+
+export const ContentText2 = styled(Caption)``;
 
 export const RewardsTitle = styled.View`
   font-size: 17px;

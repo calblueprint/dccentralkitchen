@@ -3,9 +3,20 @@ import { Text, View } from 'react-native';
 import { Body, Overline } from '../BaseComponents';
 import { ProgressBar, Colors } from 'react-native-paper';
 import RewardsCard from '../../components/rewards/RewardsCard';
+import { Container } from '../../styled/rewards';
+
 /**
  * @prop
  * */
+
+function createList(N) {
+  let foo = [];
+
+  for (var i = 1; i <= N; i++) {
+    foo.push(i);
+  }
+  return foo;
+}
 
 function RewardsHome({ transactions, user }) {
   return (
@@ -34,6 +45,17 @@ function RewardsHome({ transactions, user }) {
           (parseInt(user.points) %
             1000)} points to unlock your next $5 reward`}{' '}
       </Body>
+
+      <Overline>
+        {' '}
+        AVALIABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)}){' '}
+      </Overline>
+      {createList(Math.floor(parseInt(user.points) / 1000)).map(a => (
+        <RewardsCard></RewardsCard>
+      ))}
+
+      <RewardsCard></RewardsCard>
+      <RewardsCard></RewardsCard>
     </View>
   );
 }
