@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import { Title, ButtonContainer } from '../components/BaseComponents';
 import { StyleSheet } from 'react-native';
+import { Title, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../assets/Colors';
 
 export const DragBar = styled.View`
@@ -10,12 +10,14 @@ export const DragBar = styled.View`
   border-radius: 5px;
   margin: 8px auto 0px auto;
 `;
+
 export const DividerBar = styled.View`
   margin-top: 16px;
   height: 1px;
   width: 100%;
   background-color: ${Colors.light};
 `;
+
 export const BottomSheetHeaderContainer = styled.View`
   background-color: #fff;
   border-top-left-radius: 32px;
@@ -29,13 +31,11 @@ export const BottomSheetContainer = styled.View`
 
 export const StoreListContainer = styled.View`
   background-color: #fff;
-  opacity: 0.8;
   padding: 4%;
 `;
 
 export const StoreListHeaderContainer = styled.View`
-  background-color: #f07723;
-  opacity: 0.8;
+  background-color: ${Colors.primaryOrange};
 `;
 
 export const StoreCardContainer = styled.View`
@@ -46,7 +46,7 @@ export const StoreCardContainer = styled.View`
 export const StoreListTitle = styled(Title)`
   text-align: center;
   color: white;
-  margin-top: 2.5%;
+  margin-top: 45px;
 `;
 
 export const SearchBar = styled(ButtonContainer)`
@@ -59,13 +59,6 @@ export const SearchBar = styled(ButtonContainer)`
   height: 40px;
   border-radius: 20px;
   background-color: white;
-`;
-
-export const StoreDetailLine = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
 `;
 
 export const EBTStatusBar = styled.View`

@@ -9,9 +9,8 @@ import {
 } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
-import { ProductCardContainer } from '../../styled/product';
+import { ProductCardContainer, styles } from '../../styled/product';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
-import { styles } from '../../styled/product';
 
 class StoreProducts extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen

@@ -8,7 +8,6 @@ import {
   Dimensions,
   SafeAreaView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -236,9 +235,11 @@ export default class MapScreen extends React.Component {
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}
-            enabledInnerScrolling
+            enabledInnerScrolling={false}
+            enabledBottomClamp
+            overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={['500%', '25%', '10%']}
+            snapPoints={['25%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
           />
@@ -246,9 +247,9 @@ export default class MapScreen extends React.Component {
         <TouchableOpacity
           style={{
             position: 'absolute',
-            height: 80,
+            height: 77,
             bottom: 0,
-            backgroundColor: '#008550',
+            backgroundColor: Colors.primaryGreen,
             alignSelf: 'stretch',
             width,
             alignItems: 'center',
@@ -256,7 +257,7 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('Rewards')}>
           <View>
-            <Text style={{ color: 'white' }}> Your rewards </Text>
+            <Subhead color={'#fff'}> Your Rewards </Subhead>
           </View>
         </TouchableOpacity>
       </SafeAreaView>
