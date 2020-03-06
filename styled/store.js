@@ -46,7 +46,7 @@ export const StoreCardContainer = styled.View`
 
 export const StoreListTitle = styled(Title)`
   text-align: center;
-  color: white;
+  color: #fff;
   margin-top: 45px;
 `;
 
@@ -83,7 +83,7 @@ export const EBTStatusBar = styled.View`
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: 'white'
+    backgroundColor: '#fff'
   },
   container: {
     backgroundColor: 'rgba(255,0,0,0)',
@@ -91,6 +91,6 @@ export const styles = StyleSheet.create({
     borderTopColor: 'transparent'
   },
   input: {
-    fontFamily: 'poppins-regular' // @tommpoa TODO – load poppins!
+    fontFamily: 'poppins-regular'
   }
 });
