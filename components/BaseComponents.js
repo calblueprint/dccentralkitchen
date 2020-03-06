@@ -23,7 +23,7 @@ export const ButtonLabel = styled(TextButton)`
   display: flex;
   align-items: center;
   text-align: center;
-  letter-spacing: 0.01;
+  letter-spacing: 0.01px;
   text-transform: uppercase;
   color: ${props => props.color || Colors.black};
 `;
