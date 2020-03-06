@@ -162,7 +162,7 @@ export default class Login extends React.Component {
               maxLength={10}
               value={this.state.phoneNumber}
               onChangeText={text => this.setState({ phoneNumber: text })}
-              bcolor={
+              borderColor={
                 this.state.phoneNumBool
                   ? Colors.primaryGreen
                   : Colors.activeText
@@ -178,7 +178,7 @@ export default class Login extends React.Component {
               secureTextEntry
               onChangeText={text => this.setState({ password: text })}
               value={this.state.password}
-              color={
+              borderColor={
                 this.state.passwordBool
                   ? Colors.primaryGreen
                   : Colors.activeText
