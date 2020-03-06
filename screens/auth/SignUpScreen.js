@@ -57,7 +57,17 @@ export default class SignUp extends React.Component {
       passwordError: '',
       phoneNumber: '',
       phoneNumberError: '',
-      token: ''
+      token: '',
+      firstnameBool: false,
+      lastnameBool: false,
+      phoneBool: false,
+      passwordBool: false,
+      booleans: [
+        'firstnameBool',
+        'lastnameBool',
+        'phonenumBool',
+        'passwordBool'
+      ]
     };
   }
 
@@ -245,17 +255,43 @@ export default class SignUp extends React.Component {
     Keyboard.dismiss();
   }
 
+  onFocus(index) {
+    this.setState({
+      [this.state.booleans[index]]: true
+    });
+  }
+
+  onBlur(index) {
+    this.setState({
+      [this.state.booleans[index]]: false
+    });
+  }
+
   render() {
     return (
       <SignUpContainer>
         <BigTitle>Sign Up</BigTitle>
         <InputsContainer>
           <InputContainer>
-            <Caption color={Colors.primaryGreen}> Name</Caption>
+            <Caption
+              color={
+                this.state.firstnameBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }>
+              Name
+            </Caption>
             <Input
+              onBlur={() => this.onBlur(0)}
+              onFocus={() => this.onFocus(0)}
               placeholder="First Name"
               onChangeText={text => this.setState({ firstName: text })}
               value={this.state.firstName}
+              color={
+                this.state.firstnameBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }
             />
             <InputNoticeContainer>
               <Caption color={Colors.secondaryText}>
@@ -265,30 +301,65 @@ export default class SignUp extends React.Component {
           </InputContainer>
           <InputContainer>
             <Input
+              onBlur={() => this.onBlur(1)}
+              onFocus={() => this.onFocus(1)}
               placeholder="Last Name"
               onChangeText={text => this.setState({ lastName: text })}
               value={this.state.lastName}
+              color={
+                this.state.lastnameBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }
             />
           </InputContainer>
 
           <InputContainer>
-            <Caption color={Colors.primaryGreen}> Phone Number</Caption>
+            <Caption
+              color={
+                this.state.phonenumBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }>
+              Phone Number
+            </Caption>
             <Input
+              onBlur={() => this.onBlur(2)}
+              onFocus={() => this.onFocus(2)}
               placeholder="Phone Number"
               onChangeText={text => this.setState({ phoneNumber: text })}
               value={this.state.phoneNumber}
               keyboardType="number-pad"
               maxLength={10}
+              color={
+                this.state.phonenumBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }
             />
           </InputContainer>
 
           <InputContainer>
-            <Caption color={Colors.primaryGreen}> Password</Caption>
+            <Caption
+              color={
+                this.state.passwordBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }>
+              Password
+            </Caption>
             <Input
+              onBlur={() => this.onBlur(3)}
+              onFocus={() => this.onFocus(3)}
               placeholder="Password"
               secureTextEntry
               onChangeText={text => this.setState({ password: text })}
               value={this.state.password}
+              color={
+                this.state.passwordBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }
             />
           </InputContainer>
         </InputsContainer>

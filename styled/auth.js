@@ -65,7 +65,7 @@ export const Input = styled.TextInput`
   font-weight: 500;
   width: 291px;
   height: 36px;
-  border-bottom-color: ${Colors.primaryGreen};
+  border-bottom-color: ${props => props.color || Colors.activeText};
   border-bottom-width: 2px;
 `;
 
