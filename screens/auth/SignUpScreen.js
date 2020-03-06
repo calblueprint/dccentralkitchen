@@ -58,14 +58,14 @@ export default class SignUp extends React.Component {
       phoneNumber: '',
       phoneNumberError: '',
       token: '',
-      firstnameBool: false,
-      lastnameBool: false,
-      phoneBool: false,
+      firstNameBool: false,
+      lastNameBool: false,
+      phoneNumBool: false,
       passwordBool: false,
       booleans: [
-        'firstnameBool',
-        'lastnameBool',
-        'phonenumBool',
+        'firstNameBool',
+        'lastNameBool',
+        'phoneNumBool',
         'passwordBool'
       ]
     };
@@ -275,7 +275,7 @@ export default class SignUp extends React.Component {
           <InputContainer>
             <Caption
               color={
-                this.state.firstnameBool
+                this.state.firstNameBool
                   ? Colors.primaryGreen
                   : Colors.activeText
               }>
@@ -288,7 +288,7 @@ export default class SignUp extends React.Component {
               onChangeText={text => this.setState({ firstName: text })}
               value={this.state.firstName}
               color={
-                this.state.firstnameBool
+                this.state.firstNameBool
                   ? Colors.primaryGreen
                   : Colors.activeText
               }
@@ -307,7 +307,7 @@ export default class SignUp extends React.Component {
               onChangeText={text => this.setState({ lastName: text })}
               value={this.state.lastName}
               color={
-                this.state.lastnameBool
+                this.state.lastNameBool
                   ? Colors.primaryGreen
                   : Colors.activeText
               }
@@ -317,7 +317,7 @@ export default class SignUp extends React.Component {
           <InputContainer>
             <Caption
               color={
-                this.state.phonenumBool
+                this.state.phoneNumBool
                   ? Colors.primaryGreen
                   : Colors.activeText
               }>
@@ -332,7 +332,7 @@ export default class SignUp extends React.Component {
               keyboardType="number-pad"
               maxLength={10}
               color={
-                this.state.phonenumBool
+                this.state.phoneNumBool
                   ? Colors.primaryGreen
                   : Colors.activeText
               }
