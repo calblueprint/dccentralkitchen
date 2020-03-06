@@ -30,7 +30,7 @@ export const ButtonLabel = styled(TextButton)`
 
 export const FilledButtonContainer = styled(ButtonContainer)`
   width: ${props => props.width || '344px'};
-  height: ${props => props.width || '40px'};
+  height: ${props => props.height || '40px'};
   background: ${props => props.color || Colors.primaryGreen};
   ${props =>
     props.pressed
