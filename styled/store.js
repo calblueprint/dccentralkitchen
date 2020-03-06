@@ -17,7 +17,6 @@ export const DividerBar = styled.View`
   width: 100%;
   background-color: ${Colors.light};
 `;
-
 export const BottomSheetHeaderContainer = styled.View`
   background-color: #fff;
   border-top-left-radius: 32px;
@@ -25,6 +24,7 @@ export const BottomSheetHeaderContainer = styled.View`
 `;
 
 export const BottomSheetContainer = styled.View`
+  box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
   background-color: #fff;
   padding: 4%;
 `;

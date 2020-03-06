@@ -231,8 +231,7 @@ export default class MapScreen extends React.Component {
           )}
         </MapView>
         {/* Display bottom sheet. 
-            snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. 
-            500% set as a high upper boundary to prevent users from allowing sheet to reach that point */}
+            snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}
@@ -240,7 +239,7 @@ export default class MapScreen extends React.Component {
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={['25%', '10%']}
+            snapPoints={['22%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
