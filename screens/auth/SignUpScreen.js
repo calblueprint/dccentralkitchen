@@ -287,7 +287,7 @@ export default class SignUp extends React.Component {
               placeholder="First Name"
               onChangeText={text => this.setState({ firstName: text })}
               value={this.state.firstName}
-              color={
+              borderColor={
                 this.state.firstNameBool
                   ? Colors.primaryGreen
                   : Colors.activeText
@@ -306,7 +306,7 @@ export default class SignUp extends React.Component {
               placeholder="Last Name"
               onChangeText={text => this.setState({ lastName: text })}
               value={this.state.lastName}
-              color={
+              borderColor={
                 this.state.lastNameBool
                   ? Colors.primaryGreen
                   : Colors.activeText
@@ -331,7 +331,7 @@ export default class SignUp extends React.Component {
               value={this.state.phoneNumber}
               keyboardType="number-pad"
               maxLength={10}
-              color={
+              borderColor={
                 this.state.phoneNumBool
                   ? Colors.primaryGreen
                   : Colors.activeText
@@ -355,7 +355,7 @@ export default class SignUp extends React.Component {
               secureTextEntry
               onChangeText={text => this.setState({ password: text })}
               value={this.state.password}
-              color={
+              borderColor={
                 this.state.passwordBool
                   ? Colors.primaryGreen
                   : Colors.activeText

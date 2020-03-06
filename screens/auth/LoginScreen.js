@@ -31,7 +31,10 @@ export default class Login extends React.Component {
       phoneNumber: '',
       password: '',
       errorMsg: '',
-      token: null
+      token: null,
+      phoneNumBool: false,
+      passwordBool: false,
+      booleans: ['phoneNumBool', 'passwordBool']
     };
   }
 
@@ -124,28 +127,62 @@ export default class Login extends React.Component {
       .catch(err => console.error(err));
   }
 
+  onFocus(index) {
+    this.setState({
+      [this.state.booleans[index]]: true
+    });
+  }
+
+  onBlur(index) {
+    this.setState({
+      [this.state.booleans[index]]: false
+    });
+  }
+
   render() {
     return (
       <LoginContainer>
         <BigTitle>Log in</BigTitle>
         <InputsContainer>
           <InputContainer>
-            <Caption color={Colors.primaryGreen}> Phone Number</Caption>
+            <Caption
+              color={
+                this.state.phoneNumBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }>
+              {' '}
+              Phone Number
+            </Caption>
             <Input
+              onBlur={() => this.onBlur(0)}
+              onFocus={() => this.onFocus(0)}
               placeholder="513-668-6868"
               keyboardType="number-pad"
               maxLength={10}
               value={this.state.phoneNumber}
               onChangeText={text => this.setState({ phoneNumber: text })}
+              bcolor={
+                this.state.phoneNumBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }
             />
           </InputContainer>
 
           <InputContainer>
             <Input
+              onBlur={() => this.onBlur(1)}
+              onFocus={() => this.onFocus(1)}
               placeholder="Password"
               secureTextEntry
               onChangeText={text => this.setState({ password: text })}
               value={this.state.password}
+              color={
+                this.state.passwordBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }
             />
           </InputContainer>
         </InputsContainer>
