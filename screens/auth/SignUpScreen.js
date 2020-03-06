@@ -16,7 +16,24 @@ import {
   createCustomer,
   createPushToken
 } from '../../lib/authUtils';
-import { Input, SignUpContainer } from '../../styled/auth';
+import Colors from '../../assets/Colors';
+
+import {
+  BigTitle,
+  Body,
+  ButtonLabel,
+  ButtonContainer,
+  Caption,
+  FilledButtonContainer
+} from '../../components/BaseComponents';
+import {
+  Input,
+  InputContainer,
+  InputsContainer,
+  InputNoticeContainer,
+  SignUpContainer,
+  SignupButtonContainer
+} from '../../styled/auth';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -231,34 +248,57 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <SignUpContainer>
-        <Input
-          placeholder="First Name"
-          onChangeText={text => this.setState({ firstName: text })}
-          value={this.state.firstName}
-        />
-        <Input
-          placeholder="Last Name"
-          onChangeText={text => this.setState({ lastName: text })}
-          value={this.state.lastName}
-        />
-        <Input
-          placeholder="Phone Number"
-          onChangeText={text => this.setState({ phoneNumber: text })}
-          value={this.state.phoneNumber}
-          keyboardType="number-pad"
-          maxLength={10}
-        />
-        <Input
-          placeholder="Password"
-          secureTextEntry
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-        />
-        <Button title="Sign Up" onPress={() => this.handleSubmit()} />
-        <Button
-          title="Already have an account? Log in"
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
+        <BigTitle>Sign Up</BigTitle>
+        <InputsContainer>
+          <InputContainer>
+            <Caption color={Colors.primaryGreen}> Name</Caption>
+            <Input
+              placeholder="First Name"
+              onChangeText={text => this.setState({ firstName: text })}
+              value={this.state.firstName}
+            />
+            <InputNoticeContainer>
+              <Caption color={Colors.secondaryText}>
+                Note: this is how clerks will greet you!
+              </Caption>
+            </InputNoticeContainer>
+          </InputContainer>
+          <InputContainer>
+            <Input
+              placeholder="Last Name"
+              onChangeText={text => this.setState({ lastName: text })}
+              value={this.state.lastName}
+            />
+          </InputContainer>
+
+          <InputContainer>
+            <Caption color={Colors.primaryGreen}> Phone Number</Caption>
+            <Input
+              placeholder="Phone Number"
+              onChangeText={text => this.setState({ phoneNumber: text })}
+              value={this.state.phoneNumber}
+              keyboardType="number-pad"
+              maxLength={10}
+            />
+          </InputContainer>
+
+          <InputContainer>
+            <Caption color={Colors.primaryGreen}> Password</Caption>
+            <Input
+              placeholder="Password"
+              secureTextEntry
+              onChangeText={text => this.setState({ password: text })}
+              value={this.state.password}
+            />
+          </InputContainer>
+        </InputsContainer>
+        <SignupButtonContainer>
+          <FilledButtonContainer
+            width="291px"
+            onPress={() => this.handleSubmit()}>
+            <ButtonLabel color="white">SIGN UP</ButtonLabel>
+          </FilledButtonContainer>
+        </SignupButtonContainer>
         <Button title="Testing Bypass" onPress={() => this._devBypass()} />
       </SignUpContainer>
     );

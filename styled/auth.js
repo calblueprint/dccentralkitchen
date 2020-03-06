@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import Colors from '../assets/Colors';
 
+// TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
+
 // StartUpScreen
 
 export const StartUpContainer = styled.View`
@@ -49,7 +51,11 @@ export const ErrorMsg = styled.Text`
   text-align: center;
 `;
 
-export const LoginInputsContainer = styled.View`
+export const InputContainer = styled.View`
+  margin-bottom: 36px;
+`;
+
+export const InputsContainer = styled.View`
   margin-top: 32px;
 `;
 
@@ -59,14 +65,23 @@ export const Input = styled.TextInput`
   font-weight: 500;
   width: 291px;
   height: 36px;
-  margin-bottom: 36px;
   border-bottom-color: ${Colors.primaryGreen};
   border-bottom-width: 2px;
 `;
 
+// SignUpScreen
+
 export const SignUpContainer = styled.View`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 79px 42px 0 42px;
   background-color: #fff;
+`;
+// TODO @tommypoa: consider adding props to margins to reduce number of containers
+export const InputNoticeContainer = styled.View`
+  margin-top: 4px;
+`;
+
+// Margin-top value is 71 (figma) - 36 (input margin bottom) = 35px.
+export const SignupButtonContainer = styled.View`
+  margin-top: 35px;
+  width: 286px;
 `;

@@ -8,7 +8,8 @@ import {
   ErrorMsg,
   Input,
   LoginContainer,
-  LoginInputsContainer,
+  InputContainer,
+  InputsContainer,
   LoginButtonContainer
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
@@ -127,23 +128,27 @@ export default class Login extends React.Component {
     return (
       <LoginContainer>
         <BigTitle>Log in</BigTitle>
-        <LoginInputsContainer>
-          <Caption color={Colors.primaryGreen}> Phone Number</Caption>
-          <Input
-            placeholder="513-668-6868"
-            keyboardType="number-pad"
-            maxLength={10}
-            value={this.state.phoneNumber}
-            onChangeText={text => this.setState({ phoneNumber: text })}
-          />
+        <InputsContainer>
+          <InputContainer>
+            <Caption color={Colors.primaryGreen}> Phone Number</Caption>
+            <Input
+              placeholder="513-668-6868"
+              keyboardType="number-pad"
+              maxLength={10}
+              value={this.state.phoneNumber}
+              onChangeText={text => this.setState({ phoneNumber: text })}
+            />
+          </InputContainer>
 
-          <Input
-            placeholder="Password"
-            secureTextEntry
-            onChangeText={text => this.setState({ password: text })}
-            value={this.state.password}
-          />
-        </LoginInputsContainer>
+          <InputContainer>
+            <Input
+              placeholder="Password"
+              secureTextEntry
+              onChangeText={text => this.setState({ password: text })}
+              value={this.state.password}
+            />
+          </InputContainer>
+        </InputsContainer>
         <JustifyCenterContainer>
           <LoginButtonContainer>
             <FilledButtonContainer

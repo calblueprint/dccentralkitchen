@@ -32,6 +32,14 @@ export default class Login extends React.Component {
 
   componentDidMount() {}
 
+  navigateLogin() {
+    this.props.navigation.navigate('Login');
+  }
+
+  navigateSignup() {
+    this.props.navigation.navigate('SignUp');
+  }
+
   render() {
     return (
       <StartUpContainer>
@@ -39,13 +47,15 @@ export default class Login extends React.Component {
           <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
         </StartUpTitleContainer>
         <StartUpSignInContainer>
-          <FilledButtonContainer width="291px">
+          <FilledButtonContainer
+            width="291px"
+            onPress={() => this.navigateSignup()}>
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>
         </StartUpSignInContainer>
         <StartUpLogInContainer>
           <Body color={Colors.secondaryText}>Already have an account?</Body>
-          <ButtonContainer>
+          <ButtonContainer onPress={() => this.navigateLogin()}>
             <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
           </ButtonContainer>
         </StartUpLogInContainer>

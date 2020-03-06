@@ -9,8 +9,8 @@ import SignUpScreen from '../screens/auth/SignUpScreen';
 import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
-  Login: LoginScreen,
   StartUp: StartUpScreen,
+  Login: LoginScreen,
   SignUp: SignUpScreen
 });
 
