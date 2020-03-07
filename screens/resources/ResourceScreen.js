@@ -4,10 +4,7 @@ import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
 import getResources from '../../lib/resourceUtils';
 import { Title } from '../../components/BaseComponents';
 import ResourceCard from '../../components/resources/ResourceCard';
-
-function filterCategory(resource, category) {
-  return resource.category == category;
-}
+import ResourceTab from '../../components/resources/ResourceTab';
 
 class ResourceScreen extends React.Component {
   constructor(props) {
@@ -74,7 +71,7 @@ class ResourceScreen extends React.Component {
         <TopText> Resources </TopText>
 
         <ScrollView>
-          <Title>DC Central Kitchen Resources</Title>
+          <ResourceTab icon="circle" title="DC Central Kitchen Resources" />
           {this.state.DCCentralKitchenResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -82,7 +79,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <Title>Community Resources</Title>
+          <ResourceTab icon="circle" title="Community Resources" />
           {this.state.CommunityResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -90,7 +87,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <Title>Government Resources</Title>
+          <ResourceTab icon="circle" title="Government Resources" />
           {this.state.GovernmentResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -98,7 +95,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <Title>Resources for Seniors</Title>
+          <ResourceTab icon="circle" title="Resources for Seniors" />
           {this.state.ResourcesForSeniors.map(resource => (
             <ResourceCard
               key={resource.id}

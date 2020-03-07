@@ -20,7 +20,11 @@ class ResourceCard extends React.Component {
             <LinkSubhead>{this.props.resourceCard.title}</LinkSubhead>
             <ContentText>{this.props.resourceCard.description}</ContentText>
             <IconContainer>
-              <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
+              <FontAwesome5
+                name="external-link-alt"
+                size={24}
+                color={'#BDBDBD'}
+              />
             </IconContainer>
           </ContentContainer>
         </Card>
