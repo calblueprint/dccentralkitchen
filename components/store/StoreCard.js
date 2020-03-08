@@ -47,7 +47,6 @@ function StoreCard({ store, callBack, seeProduct }) {
             color={Colors.primaryGreen}
           />
           <Body color={Colors.primaryGreen}>
-            {' '}
             Earn and redeem Healthy Rewards here
           </Body>
         </InLineContainer>

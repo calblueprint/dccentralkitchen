@@ -16,7 +16,7 @@ function ProductInfo({ product }) {
     <ProductInfoContainer>
       <Title>{name}</Title>
       <ProductInfoCaptionContainer>
-        <Caption>${customerCost} each</Caption>
+        <Caption>${customerCost.toFixed(2)} each</Caption>
         <Caption>Points Earned: {points}</Caption>
       </ProductInfoCaptionContainer>
       <ProductNoticeContainer>
