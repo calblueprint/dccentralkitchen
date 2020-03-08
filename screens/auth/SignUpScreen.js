@@ -31,7 +31,7 @@ import {
   InputContainer,
   InputsContainer,
   InputNoticeContainer,
-  SignUpContainer,
+  AuthScreenContainer,
   SignupButtonContainer
 } from '../../styled/auth';
 
@@ -269,7 +269,7 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <SignUpContainer>
+      <AuthScreenContainer>
         <BigTitle>Sign Up</BigTitle>
         <InputsContainer>
           <InputContainer>
@@ -376,7 +376,7 @@ export default class SignUp extends React.Component {
           </FilledButtonContainer>
         </SignupButtonContainer>
         <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-      </SignUpContainer>
+      </AuthScreenContainer>
     );
   }
 }

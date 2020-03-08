@@ -7,7 +7,7 @@ import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
 import {
   ErrorMsg,
   TextField,
-  LoginContainer,
+  AuthScreenContainer,
   InputContainer,
   InputsContainer,
   LoginButtonContainer
@@ -141,7 +141,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <LoginContainer>
+      <AuthScreenContainer>
         <BigTitle>Log in</BigTitle>
         <InputsContainer>
           <InputContainer>
@@ -199,7 +199,7 @@ export default class Login extends React.Component {
           </ButtonContainer>
         </JustifyCenterContainer>
         <ErrorMsg>{this.state.errorMsg}</ErrorMsg>
-      </LoginContainer>
+      </AuthScreenContainer>
     );
   }
 }
