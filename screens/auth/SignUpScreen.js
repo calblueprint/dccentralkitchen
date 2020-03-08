@@ -28,8 +28,8 @@ import {
 } from '../../components/BaseComponents';
 import {
   TextField,
-  InputContainer,
-  InputsContainer,
+  TextFieldContainer,
+  FormContainer,
   InputNoticeContainer,
   AuthScreenContainer,
   AuthButtonContainer
@@ -271,8 +271,8 @@ export default class SignUp extends React.Component {
     return (
       <AuthScreenContainer>
         <BigTitle>Sign Up</BigTitle>
-        <InputsContainer>
-          <InputContainer>
+        <FormContainer>
+          <TextFieldContainer>
             <Caption
               color={
                 this.state.firstNameBool
@@ -298,8 +298,8 @@ export default class SignUp extends React.Component {
                 Note: this is how clerks will greet you!
               </Caption>
             </InputNoticeContainer>
-          </InputContainer>
-          <InputContainer>
+          </TextFieldContainer>
+          <TextFieldContainer>
             <TextField
               onBlur={() => this.onBlur(1)}
               onFocus={() => this.onFocus(1)}
@@ -312,9 +312,9 @@ export default class SignUp extends React.Component {
                   : Colors.activeText
               }
             />
-          </InputContainer>
+          </TextFieldContainer>
 
-          <InputContainer>
+          <TextFieldContainer>
             <Caption
               color={
                 this.state.phoneNumBool
@@ -337,9 +337,9 @@ export default class SignUp extends React.Component {
                   : Colors.activeText
               }
             />
-          </InputContainer>
+          </TextFieldContainer>
 
-          <InputContainer>
+          <TextFieldContainer>
             <Caption
               color={
                 this.state.passwordBool
@@ -366,8 +366,8 @@ export default class SignUp extends React.Component {
                 Must be 8-20 characters long
               </Caption>
             </InputNoticeContainer>
-          </InputContainer>
-        </InputsContainer>
+          </TextFieldContainer>
+        </FormContainer>
         <AuthButtonContainer marginTop="35px">
           <FilledButtonContainer
             width="100%"

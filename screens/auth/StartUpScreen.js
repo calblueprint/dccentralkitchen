@@ -14,8 +14,8 @@ import {
 import {
   StartUpContainer,
   StartUpTitleContainer,
-  StartUpSignInContainer,
-  StartUpLogInContainer
+  AuthButtonContainer,
+  StartUpLoginContainer
 } from '../../styled/auth';
 
 export default class Login extends React.Component {
@@ -46,19 +46,19 @@ export default class Login extends React.Component {
         <StartUpTitleContainer>
           <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
         </StartUpTitleContainer>
-        <StartUpSignInContainer>
+        <AuthButtonContainer marginTop="108px">
           <FilledButtonContainer
             width="100%"
             onPress={() => this.navigateSignup()}>
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>
-        </StartUpSignInContainer>
-        <StartUpLogInContainer>
+        </AuthButtonContainer>
+        <StartUpLoginContainer>
           <Body color={Colors.secondaryText}>Already have an account?</Body>
           <ButtonContainer onPress={() => this.navigateLogin()}>
             <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
           </ButtonContainer>
-        </StartUpLogInContainer>
+        </StartUpLoginContainer>
       </StartUpContainer>
     );
   }

@@ -8,8 +8,8 @@ import {
   ErrorMsg,
   TextField,
   AuthScreenContainer,
-  InputContainer,
-  InputsContainer,
+  TextFieldContainer,
+  FormContainer,
   AuthButtonContainer,
   ForgotPasswordButtonContainer
 } from '../../styled/auth';
@@ -144,8 +144,8 @@ export default class Login extends React.Component {
     return (
       <AuthScreenContainer>
         <BigTitle>Log in</BigTitle>
-        <InputsContainer>
-          <InputContainer>
+        <FormContainer>
+          <TextFieldContainer>
             <Caption
               color={
                 this.state.phoneNumBool
@@ -169,9 +169,9 @@ export default class Login extends React.Component {
                   : Colors.activeText
               }
             />
-          </InputContainer>
+          </TextFieldContainer>
 
-          <InputContainer>
+          <TextFieldContainer>
             <TextField
               onBlur={() => this.onBlur(1)}
               onFocus={() => this.onFocus(1)}
@@ -185,8 +185,8 @@ export default class Login extends React.Component {
                   : Colors.activeText
               }
             />
-          </InputContainer>
-        </InputsContainer>
+          </TextFieldContainer>
+        </FormContainer>
         <JustifyCenterContainer>
           <AuthButtonContainer>
             <FilledButtonContainer

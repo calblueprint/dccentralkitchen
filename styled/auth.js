@@ -13,7 +13,7 @@ export const AuthScreenContainer = styled.View`
 // Default to Login Button margin top: 104px
 export const AuthButtonContainer = styled.View`
   margin-top: ${props => props.marginTop || '104px'};
-  width: 286px;
+  width: 291px;
 `;
 
 // StartUpScreen
@@ -30,13 +30,9 @@ export const StartUpTitleContainer = styled.View`
   margin: 0 12.5%;
 `;
 
-export const StartUpSignInContainer = styled.View`
-  margin-top: 108px;
-  width: 286px;
-`;
-
-export const StartUpLogInContainer = styled.View`
-  margin: 16px 12.5%;
+export const StartUpLoginContainer = styled.View`
+  width: 291px
+  margin: 16px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -55,11 +51,11 @@ export const ErrorMsg = styled.Text`
   text-align: center;
 `;
 
-export const InputContainer = styled.View`
+export const TextFieldContainer = styled.View`
   margin-bottom: 36px;
 `;
 
-export const InputsContainer = styled.View`
+export const FormContainer = styled.View`
   margin-top: 32px;
 `;
 
