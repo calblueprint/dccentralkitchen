@@ -1,12 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, Linking } from 'react-native';
 import {
   Card,
   ContentContainer,
   ContentText,
   ContentText2,
-  StarIcon,
-  IconContainer
+  StarIcon
 } from '../../styled/rewards';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Colors from '../../assets/Colors';
