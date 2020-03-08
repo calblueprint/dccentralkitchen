@@ -49,22 +49,6 @@ export const ProductNoticeContainer = styled.View`
 
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginVertical: 20
-  },
-  item: {
-    backgroundColor: '#919191',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-    margin: 1,
-    height: Dimensions.get('window').width / 4
-  },
-  storesModal: {
-    backgroundColor: 'white',
-    opacity: 0.8
-  },
   horizontalScroll: {
     padding: '1%',
     alignItems: 'center'

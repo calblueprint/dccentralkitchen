@@ -5,10 +5,8 @@ import ProductCard from '../../components/product/ProductCard';
 import {
   ProductListHeaderContainer,
   ProductListContainer,
-  ProductListTitle,
-  styles
+  ProductListTitle
 } from '../../styled/product';
-import { Title } from '../../components/BaseComponents';
 import Colors from '../../assets/Colors';
 
 class ProductsScreen extends React.Component {
