@@ -48,7 +48,7 @@ export default class Login extends React.Component {
         </StartUpTitleContainer>
         <StartUpSignInContainer>
           <FilledButtonContainer
-            width="291px"
+            width="100%"
             onPress={() => this.navigateSignup()}>
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>

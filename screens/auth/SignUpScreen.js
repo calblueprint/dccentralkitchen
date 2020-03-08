@@ -27,7 +27,7 @@ import {
   FilledButtonContainer
 } from '../../components/BaseComponents';
 import {
-  Input,
+  TextField,
   InputContainer,
   InputsContainer,
   InputNoticeContainer,
@@ -281,10 +281,10 @@ export default class SignUp extends React.Component {
               }>
               Name
             </Caption>
-            <Input
+            <TextField
               onBlur={() => this.onBlur(0)}
               onFocus={() => this.onFocus(0)}
-              placeholder="First Name"
+              placeholder="Name"
               onChangeText={text => this.setState({ firstName: text })}
               value={this.state.firstName}
               borderColor={
@@ -300,7 +300,7 @@ export default class SignUp extends React.Component {
             </InputNoticeContainer>
           </InputContainer>
           <InputContainer>
-            <Input
+            <TextField
               onBlur={() => this.onBlur(1)}
               onFocus={() => this.onFocus(1)}
               placeholder="Last Name"
@@ -323,7 +323,7 @@ export default class SignUp extends React.Component {
               }>
               Phone Number
             </Caption>
-            <Input
+            <TextField
               onBlur={() => this.onBlur(2)}
               onFocus={() => this.onFocus(2)}
               placeholder="Phone Number"
@@ -348,7 +348,7 @@ export default class SignUp extends React.Component {
               }>
               Password
             </Caption>
-            <Input
+            <TextField
               onBlur={() => this.onBlur(3)}
               onFocus={() => this.onFocus(3)}
               placeholder="Password"
@@ -361,11 +361,16 @@ export default class SignUp extends React.Component {
                   : Colors.activeText
               }
             />
+            <InputNoticeContainer>
+              <Caption color={Colors.secondaryText}>
+                Must be 8-20 characters long
+              </Caption>
+            </InputNoticeContainer>
           </InputContainer>
         </InputsContainer>
         <SignupButtonContainer>
           <FilledButtonContainer
-            width="291px"
+            width="100%"
             onPress={() => this.handleSubmit()}>
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>
@@ -400,16 +405,16 @@ function validate(fieldName, value) {
 
 // For handling errors within the form. This is strecth to handle the
 // onBlur thing that I talked about.
-const TextField = props => (
-  <View>
-    <TextInput
-      style={props.style}
-      placeholder={props.placeholder}
-      secureTextEntry={props.secureTextEntry}
-    />
-    <TextInput value={props.error ? <Text>{props.error}</Text> : null} />
-  </View>
-);
+// const TextField = props => (
+//   <View>
+//     <TextInput
+//       style={props.style}
+//       placeholder={props.placeholder}
+//       secureTextEntry={props.secureTextEntry}
+//     />
+//     <TextInput value={props.error ? <Text>{props.error}</Text> : null} />
+//   </View>
+// );
 
 // For future use, to match for better passwords
 // TODO: @Johnathan Fix passwords check

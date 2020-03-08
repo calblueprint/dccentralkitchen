@@ -14,19 +14,16 @@ export const StartUpContainer = styled.View`
 `;
 
 export const StartUpTitleContainer = styled.View`
-  margin-left: 58px;
-  margin-right: 47px;
+  margin: 0 12.5%;
 `;
 
 export const StartUpSignInContainer = styled.View`
   margin-top: 108px;
+  width: 286px;
 `;
 
 export const StartUpLogInContainer = styled.View`
-  margin-top: 16px;
-  margin-left: 42px;
-  margin-right: 47px;
-  width: 286px
+  margin: 16px 12.5%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -60,10 +57,10 @@ export const InputsContainer = styled.View`
 `;
 
 // TODO @tommypoa Check if Text Input can take in Text component from BaseComponents
-export const Input = styled.TextInput`
+export const TextField = styled.TextInput`
   font-size: 18px;
   font-weight: 500;
-  width: 291px;
+  width: 100%;
   height: 36px;
   border-bottom-color: ${props => props.borderColor || Colors.activeText};
   border-bottom-width: 2px;

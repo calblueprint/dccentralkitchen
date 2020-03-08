@@ -6,7 +6,7 @@ import { AsyncStorage, Button } from 'react-native';
 import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
 import {
   ErrorMsg,
-  Input,
+  TextField,
   LoginContainer,
   InputContainer,
   InputsContainer,
@@ -154,10 +154,10 @@ export default class Login extends React.Component {
               {' '}
               Phone Number
             </Caption>
-            <Input
+            <TextField
               onBlur={() => this.onBlur(0)}
               onFocus={() => this.onFocus(0)}
-              placeholder="513-668-6868"
+              placeholder="Phone Number"
               keyboardType="number-pad"
               maxLength={10}
               value={this.state.phoneNumber}
@@ -171,7 +171,7 @@ export default class Login extends React.Component {
           </InputContainer>
 
           <InputContainer>
-            <Input
+            <TextField
               onBlur={() => this.onBlur(1)}
               onFocus={() => this.onFocus(1)}
               placeholder="Password"
@@ -189,9 +189,9 @@ export default class Login extends React.Component {
         <JustifyCenterContainer>
           <LoginButtonContainer>
             <FilledButtonContainer
-              width="291px"
+              width="100%"
               onPress={() => this.handleSubmit()}>
-              <ButtonLabel color="white">LOG IN</ButtonLabel>
+              <ButtonLabel color="#fff">LOG IN</ButtonLabel>
             </FilledButtonContainer>
           </LoginButtonContainer>
           <ButtonContainer>
