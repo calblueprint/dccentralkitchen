@@ -21,7 +21,7 @@ function ProductInfo({ product }) {
       </ProductInfoCaptionContainer>
       <ProductNoticeContainer>
         <Body>
-          Note: not all products listed are available at every store. Please
+          Note: Not all products listed are available at every store. Please
           call individual stores to ask which products are available.
         </Body>
       </ProductNoticeContainer>
