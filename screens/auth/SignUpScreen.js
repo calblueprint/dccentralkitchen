@@ -32,7 +32,7 @@ import {
   InputsContainer,
   InputNoticeContainer,
   AuthScreenContainer,
-  SignupButtonContainer
+  AuthButtonContainer
 } from '../../styled/auth';
 
 // I abstracted portions of the validation flow into these files
@@ -368,13 +368,13 @@ export default class SignUp extends React.Component {
             </InputNoticeContainer>
           </InputContainer>
         </InputsContainer>
-        <SignupButtonContainer>
+        <AuthButtonContainer marginTop="35px">
           <FilledButtonContainer
             width="100%"
             onPress={() => this.handleSubmit()}>
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>
-        </SignupButtonContainer>
+        </AuthButtonContainer>
         <Button title="Testing Bypass" onPress={() => this._devBypass()} />
       </AuthScreenContainer>
     );

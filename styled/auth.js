@@ -10,6 +10,12 @@ export const AuthScreenContainer = styled.View`
   background-color: #fff;
 `;
 
+// Default to Login Button margin top: 104px
+export const AuthButtonContainer = styled.View`
+  margin-top: ${props => props.marginTop || '104px'};
+  width: 286px;
+`;
+
 // StartUpScreen
 
 export const StartUpContainer = styled.View`
@@ -39,10 +45,9 @@ export const StartUpLogInContainer = styled.View`
 // LoginScreen
 
 // Margin-top value is 140 (figma) - 36 (input margin bottom) = 104px.
-export const LoginButtonContainer = styled.View`
-  margin-top: 104px;
-  margin-bottom: 13px;
-  width: 286px;
+
+export const ForgotPasswordButtonContainer = styled.View`
+  margin-top: 13px;
 `;
 
 export const ErrorMsg = styled.Text`
@@ -73,10 +78,4 @@ export const TextField = styled.TextInput`
 // TODO @tommypoa: consider adding props to margins to reduce number of containers
 export const InputNoticeContainer = styled.View`
   margin-top: 4px;
-`;
-
-// Margin-top value is 71 (figma) - 36 (input margin bottom) = 35px.
-export const SignupButtonContainer = styled.View`
-  margin-top: 35px;
-  width: 286px;
 `;

@@ -10,7 +10,8 @@ import {
   AuthScreenContainer,
   InputContainer,
   InputsContainer,
-  LoginButtonContainer
+  AuthButtonContainer,
+  ForgotPasswordButtonContainer
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 import Colors from '../../assets/Colors';
@@ -187,16 +188,18 @@ export default class Login extends React.Component {
           </InputContainer>
         </InputsContainer>
         <JustifyCenterContainer>
-          <LoginButtonContainer>
+          <AuthButtonContainer>
             <FilledButtonContainer
               width="100%"
               onPress={() => this.handleSubmit()}>
               <ButtonLabel color="#fff">LOG IN</ButtonLabel>
             </FilledButtonContainer>
-          </LoginButtonContainer>
-          <ButtonContainer>
-            <Body color={Colors.primaryGreen}>Forgot password?</Body>
-          </ButtonContainer>
+          </AuthButtonContainer>
+          <ForgotPasswordButtonContainer>
+            <ButtonContainer>
+              <Body color={Colors.primaryGreen}>Forgot password?</Body>
+            </ButtonContainer>
+          </ForgotPasswordButtonContainer>
         </JustifyCenterContainer>
         <ErrorMsg>{this.state.errorMsg}</ErrorMsg>
       </AuthScreenContainer>
