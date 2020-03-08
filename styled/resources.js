@@ -6,20 +6,20 @@ export const Card = styled.View`
   border-color: #ebebeb;
   padding: 10px;
   flex: 1;
-  flexdirection: column;
-  justifycontent: space-between;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const ContentContainer = styled.View`
   flex-direction: column;
   flex: 1;
-  justifycontent: flex-start;
+  justify-content: flex-start;
 `;
 
 export const IconContainer = styled.View`
   flex-direction: row;
   flex: 4;
-  justifycontent: flex-end;
+  justify-content: flex-end;
   align-content: center;
   align-items: center;
 `;
