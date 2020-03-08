@@ -16,7 +16,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Subtitle } from '../../styled/shared';
+import { Body } from '../../components/BaseComponents';
 import {
   SearchBar,
   StoreModal,
@@ -145,7 +145,7 @@ export default class MapScreen extends React.Component {
   renderContent = () => {
     return (
       <StoreModal>
-        <Subtitle>Showing products for</Subtitle>
+        <Body>Showing products for</Body>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -206,7 +206,7 @@ export default class MapScreen extends React.Component {
                 navigation: this.props.navigation
               })
             }>
-            <Subtitle>Search</Subtitle>
+            <Body>Search</Body>
           </SearchBar>
           {/* Display store markers */}
           {this.state.stores.map(store => (

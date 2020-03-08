@@ -13,28 +13,26 @@ function StoreCard({ store, callBack }) {
   const { name, hours, address, distance, ebt } = store;
   return (
     <View style={{ marginBottom: 10 }}>
-      <TouchableOpacity onPress={callBack}>
-        <Title color={Colors.activeText}>{name}</Title>
-        <Caption color={Colors.secondaryText}>Distance: {distance} mi </Caption>
-        <InLineContainer>
-          <MaterialCommunityIcons name="directions" size={16} />
-          <Body color={Colors.secondaryText}>{address}</Body>
-        </InLineContainer>
-        <InLineContainer>
-          <FontAwesome name="clock-o" size={12} />
-          <Body color={Colors.secondaryText}>{hours}</Body>
-        </InLineContainer>
+      <Title color={Colors.activeText}>{name}</Title>
+      <Caption color={Colors.secondaryText}>Distance: {distance} mi </Caption>
+      <InLineContainer>
+        <MaterialCommunityIcons name="directions" size={16} />
+        <Body color={Colors.secondaryText}>{address}</Body>
+      </InLineContainer>
+      <InLineContainer>
+        <FontAwesome name="clock-o" size={12} />
+        <Body color={Colors.secondaryText}>{hours}</Body>
+      </InLineContainer>
 
-        {/* Temporary EBT status; TODO @tommypoa to replace with tag */}
-        <Body color={Colors.secondaryText}>
-          EBT:{' '}
-          {ebt ? (
-            <Body color={Colors.secondaryText}>Yes</Body>
-          ) : (
-            <Body color={Colors.secondaryText}>No</Body>
-          )}
-        </Body>
-      </TouchableOpacity>
+      {/* Temporary EBT status; TODO @tommypoa to replace with tag */}
+      <Body color={Colors.secondaryText}>
+        EBT:{' '}
+        {ebt ? (
+          <Body color={Colors.secondaryText}>Yes</Body>
+        ) : (
+          <Body color={Colors.secondaryText}>No</Body>
+        )}
+      </Body>
     </View>
   );
 }

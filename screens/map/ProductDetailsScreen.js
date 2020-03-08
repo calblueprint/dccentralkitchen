@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import ProductInfo from '../../components/product/ProductInfo';
 import { ImageContainer } from '../../styled/product';
-import { Title } from '../../styled/shared';
 
 class ProductDetailsScreen extends React.Component {
   constructor(props) {
@@ -14,7 +13,6 @@ class ProductDetailsScreen extends React.Component {
     const { currentProduct, store } = this.props.navigation.state.params;
     return (
       <View>
-        <Title>Current Store: {store.name}</Title>
         <ImageContainer>
           <ProductInfo product={currentProduct} />
           <View style={{ marginTop: 40 }}>

@@ -2,9 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Title } from '../../styled/shared';
-import { TextButton } from '../BaseComponents';
+import { ButtonContainer, TextButton } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
-import Product from './Product';
+import ProductCard from './ProductCard';
 
 function filterFruit(product) {
   if (product) {
@@ -22,11 +22,6 @@ function filterVegetables(product) {
 
 class StoreProducts extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
-  storeDetailsTransition = store => {
-    this.props.navigation.navigate('StoreDetails', {
-      currentStore: store
-    });
-  };
 
   renderProducts = (filterType, productType) => {
     const { navigation, store, products } = this.props;
@@ -34,7 +29,7 @@ class StoreProducts extends React.Component {
       <View>
         <View flexDirection="row">
           <Title>{productType}</Title>
-          <Button
+          <ButtonContainer
             onPress={() =>
               navigation.navigate('Products', {
                 products: products.filter(filterType),
@@ -44,12 +39,12 @@ class StoreProducts extends React.Component {
               })
             }>
             <TextButton>See All</TextButton>
-          </Button>
+          </ButtonContainer>
         </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {products.filter(filterType).map(product => (
             // TODO See if there is a better way to pass the props over to a component
-            <Product
+            <ProductCard
               key={product.id}
               product={product}
               navigation={navigation}
@@ -65,11 +60,7 @@ class StoreProducts extends React.Component {
     const { store } = this.props;
     return (
       <View>
-        <StoreCard
-          store={store}
-          key={store.id}
-          callBack={() => this.storeDetailsTransition(store)}
-        />
+        <StoreCard store={store} key={store.id} />
         {/* Display fruits available at this store */}
         <View>{this.renderProducts(filterFruit, 'Fruit')}</View>
         <View>{this.renderProducts(filterVegetables, 'Vegetables')}</View>

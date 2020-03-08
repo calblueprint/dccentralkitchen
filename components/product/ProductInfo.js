@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Subtitle, Title } from '../../styled/shared';
 import SpecialNotice from './SpecialNotice';
+import { Caption, Title, Subhead } from '../BaseComponents';
 
 /**
  * @prop
@@ -12,10 +12,10 @@ function ProductInfo({ product }) {
   return (
     <View style={{ width: 300 }}>
       <Title>{name}</Title>
-      <Subtitle>Category: {category}</Subtitle>
+      <Subhead>Category: {category}</Subhead>
       <View style={{ flexDirection: 'row' }}>
-        <Subtitle>${customerCost} each</Subtitle>
-        <Subtitle>Points Earned: {points}</Subtitle>
+        <Caption>${customerCost} each</Caption>
+        <Caption>Points Earned: {points}</Caption>
       </View>
       <SpecialNotice />
     </View>

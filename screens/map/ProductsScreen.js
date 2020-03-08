@@ -1,9 +1,9 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Product from '../../components/product/Product';
+import ProductCard from '../../components/product/ProductCard';
 import { styles } from '../../styled/product';
-import { Title } from '../../styled/shared';
+import { Title } from '../../components/BaseComponents';
 
 class ProductsScreen extends React.Component {
   constructor(props) {
@@ -12,7 +12,9 @@ class ProductsScreen extends React.Component {
   }
 
   renderProduct = (product, navigation, store) => {
-    return <Product product={product} navigation={navigation} store={store} />;
+    return (
+      <ProductCard product={product} navigation={navigation} store={store} />
+    );
   };
 
   render() {

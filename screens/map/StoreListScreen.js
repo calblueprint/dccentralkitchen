@@ -2,7 +2,7 @@ import React from 'react';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
 import StoreCard from '../../components/store/StoreCard';
-import { Title } from '../../styled/shared';
+import { Title } from '../../components/BaseComponents';
 import { StoreModal } from '../../styled/store';
 
 class StoreListScreen extends React.Component {
