@@ -18,24 +18,6 @@ function PointsHistory({ transactions, user, updates, navigation }) {
     const recent = transactions.splice(0, 3);
     return (
       <View>
-        {/* Prompt to upload receipt */}
-        {updates ? (
-          <View style={styles.signOutContainer}>
-            <Text>New transaction noted, upload your receipt!</Text>
-            <Button
-              title="Upload Receipt"
-              onPress={() =>
-                navigation.navigate('Camera', {
-                  transactionId: transactions[0].id,
-                  customerId: user.id
-                })
-              }
-              style={styles.button}
-            />
-          </View>
-        ) : (
-          <Text />
-        )}
         {/* Points history */}
         <View>
           <ScrollView style={{ marginTop: 50 }}>

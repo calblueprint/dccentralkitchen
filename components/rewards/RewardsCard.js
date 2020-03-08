@@ -20,7 +20,7 @@ class RewardCard extends React.Component {
         </StarIcon>
         <ContentContainer>
           <ContentText>$5 reward</ContentText>
-          <ContentText2>100 points</ContentText2>
+          <ContentText2>1000 points</ContentText2>
         </ContentContainer>
       </Card>
     );

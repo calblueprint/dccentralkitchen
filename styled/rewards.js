@@ -18,14 +18,13 @@ export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
 
 export const Card = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-radius: 4px;
-  border-width: 1px;
-  border-color: grey;
+  border-radius: 9px;
   padding: 10px;
   margin: 2% 5%;
   flex-direction: row;
   flex: 1;
+  width: 40%;
+  background-color: #c9e3d9;
 `;
 
 export const StarIcon = styled.View`
@@ -36,6 +35,10 @@ export const StarIcon = styled.View`
 export const ContentContainer = styled.View`
   flex-direction: column;
   flex: 5;
+`;
+
+export const WaluigiContainer = styled.View`
+  margin: 1% 5%;
 `;
 
 export const ContentText = styled(Subhead)``;
