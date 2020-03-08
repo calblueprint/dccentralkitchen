@@ -17,7 +17,7 @@ export const AuthButtonContainer = styled.View`
 `;
 
 // StartUpScreen
-
+// TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in Login and SignUp screens)
 export const StartUpContainer = styled.View`
   display: flex;
   justify-content: center;
