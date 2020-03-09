@@ -339,6 +339,11 @@ export default class SignUp extends React.Component {
                     : Colors.activeText
                 }
               />
+              <InputNoticeContainer>
+                <Caption color={Colors.secondaryText}>
+                  Must be a valid phone number
+                </Caption>
+              </InputNoticeContainer>
             </TextFieldContainer>
 
             <TextFieldContainer>
