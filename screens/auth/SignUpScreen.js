@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import validatejs from 'validate.js';
 import {
+  signupFields,
+  fieldStateColor,
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
