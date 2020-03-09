@@ -34,6 +34,7 @@ import {
   AuthScreenContainer,
   AuthButtonContainer
 } from '../../styled/auth';
+import { ScrollView } from 'react-native-gesture-handler';
 
 // I abstracted portions of the validation flow into these files
 // but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
@@ -269,114 +270,116 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <AuthScreenContainer>
-        <BigTitle>Sign Up</BigTitle>
-        <FormContainer>
-          <TextFieldContainer>
-            <Caption
-              color={
-                this.state.firstNameBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }>
-              Name
-            </Caption>
-            <TextField
-              onBlur={() => this.onBlur(0)}
-              onFocus={() => this.onFocus(0)}
-              placeholder="Name"
-              onChangeText={text => this.setState({ firstName: text })}
-              value={this.state.firstName}
-              borderColor={
-                this.state.firstNameBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }
-            />
-            <InputNoticeContainer>
-              <Caption color={Colors.secondaryText}>
-                Note: this is how clerks will greet you!
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <AuthScreenContainer>
+          <BigTitle>Sign Up</BigTitle>
+          <FormContainer>
+            <TextFieldContainer>
+              <Caption
+                color={
+                  this.state.firstNameBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }>
+                Name
               </Caption>
-            </InputNoticeContainer>
-          </TextFieldContainer>
-          <TextFieldContainer>
-            <TextField
-              onBlur={() => this.onBlur(1)}
-              onFocus={() => this.onFocus(1)}
-              placeholder="Last Name"
-              onChangeText={text => this.setState({ lastName: text })}
-              value={this.state.lastName}
-              borderColor={
-                this.state.lastNameBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }
-            />
-          </TextFieldContainer>
+              <TextField
+                onBlur={() => this.onBlur(0)}
+                onFocus={() => this.onFocus(0)}
+                placeholder="Name"
+                onChangeText={text => this.setState({ firstName: text })}
+                value={this.state.firstName}
+                borderColor={
+                  this.state.firstNameBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }
+              />
+              <InputNoticeContainer>
+                <Caption color={Colors.secondaryText}>
+                  Note: this is how clerks will greet you!
+                </Caption>
+              </InputNoticeContainer>
+            </TextFieldContainer>
+            <TextFieldContainer>
+              <TextField
+                onBlur={() => this.onBlur(1)}
+                onFocus={() => this.onFocus(1)}
+                placeholder="Last Name"
+                onChangeText={text => this.setState({ lastName: text })}
+                value={this.state.lastName}
+                borderColor={
+                  this.state.lastNameBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }
+              />
+            </TextFieldContainer>
 
-          <TextFieldContainer>
-            <Caption
-              color={
-                this.state.phoneNumBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }>
-              Phone Number
-            </Caption>
-            <TextField
-              onBlur={() => this.onBlur(2)}
-              onFocus={() => this.onFocus(2)}
-              placeholder="Phone Number"
-              onChangeText={text => this.setState({ phoneNumber: text })}
-              value={this.state.phoneNumber}
-              keyboardType="number-pad"
-              maxLength={10}
-              borderColor={
-                this.state.phoneNumBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }
-            />
-          </TextFieldContainer>
-
-          <TextFieldContainer>
-            <Caption
-              color={
-                this.state.passwordBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }>
-              Password
-            </Caption>
-            <TextField
-              onBlur={() => this.onBlur(3)}
-              onFocus={() => this.onFocus(3)}
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={text => this.setState({ password: text })}
-              value={this.state.password}
-              borderColor={
-                this.state.passwordBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }
-            />
-            <InputNoticeContainer>
-              <Caption color={Colors.secondaryText}>
-                Must be 8-20 characters long
+            <TextFieldContainer>
+              <Caption
+                color={
+                  this.state.phoneNumBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }>
+                Phone Number
               </Caption>
-            </InputNoticeContainer>
-          </TextFieldContainer>
-        </FormContainer>
-        <AuthButtonContainer marginTop="35px">
-          <FilledButtonContainer
-            width="100%"
-            onPress={() => this.handleSubmit()}>
-            <ButtonLabel color="white">SIGN UP</ButtonLabel>
-          </FilledButtonContainer>
-        </AuthButtonContainer>
-        <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-      </AuthScreenContainer>
+              <TextField
+                onBlur={() => this.onBlur(2)}
+                onFocus={() => this.onFocus(2)}
+                placeholder="Phone Number"
+                onChangeText={text => this.setState({ phoneNumber: text })}
+                value={this.state.phoneNumber}
+                keyboardType="number-pad"
+                maxLength={10}
+                borderColor={
+                  this.state.phoneNumBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }
+              />
+            </TextFieldContainer>
+
+            <TextFieldContainer>
+              <Caption
+                color={
+                  this.state.passwordBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }>
+                Password
+              </Caption>
+              <TextField
+                onBlur={() => this.onBlur(3)}
+                onFocus={() => this.onFocus(3)}
+                placeholder="Password"
+                secureTextEntry
+                onChangeText={text => this.setState({ password: text })}
+                value={this.state.password}
+                borderColor={
+                  this.state.passwordBool
+                    ? Colors.primaryGreen
+                    : Colors.activeText
+                }
+              />
+              <InputNoticeContainer>
+                <Caption color={Colors.secondaryText}>
+                  Must be 8-20 characters long
+                </Caption>
+              </InputNoticeContainer>
+            </TextFieldContainer>
+          </FormContainer>
+          <AuthButtonContainer marginTop="35px">
+            <FilledButtonContainer
+              width="100%"
+              onPress={() => this.handleSubmit()}>
+              <ButtonLabel color="white">SIGN UP</ButtonLabel>
+            </FilledButtonContainer>
+          </AuthButtonContainer>
+          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+        </AuthScreenContainer>
+      </ScrollView>
     );
   }
 }
