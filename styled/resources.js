@@ -1,12 +1,15 @@
 import styled from 'styled-components/native';
 import { Subhead, Title, Body } from '../components/BaseComponents';
+import Colors from '../assets/Colors';
 
 export const Card = styled.View`
   border-bottom-width: 1px;
-  border-color: #ebebeb;
-  padding: 10px;
-  flex: 1;
-  flex-direction: column;
+  border-color: ${Colors.lighter};
+  margin-top: 12px;
+  margin-left: 24px;
+  padding-bottom: 12px;
+  margin-right: 24px;
+  flex-direction: row;
   justify-content: space-between;
 `;
 
@@ -17,14 +20,10 @@ export const ContentContainer = styled.View`
 `;
 
 export const IconContainer = styled.View`
-  flex-direction: row;
-  flex: 4;
-  justify-content: flex-end;
-  align-content: center;
   align-items: center;
+  justify-content: center;
+  margin: 12px;
 `;
-
-export const LinkSubhead = styled(Subhead)``;
 
 export const ContentText = styled(Body)`
   flex-direction: column;
@@ -34,8 +33,9 @@ export const ContentText = styled(Body)`
 `;
 
 export const CategoryCard = styled.View`
-  background-color: #ebebeb;
+  background-color: ${Colors.lighter};
   padding: 10px;
+  padding-left: 18px;
   flex-direction: row;
   flex: 1;
 `;
@@ -47,15 +47,23 @@ export const CategoryContainer = styled.View`
 `;
 
 export const CategoryIcon = styled.View`
-  flex: 1;
-  align-content: center;
+  display: flex;
   align-items: center;
   justify-content: center;
+  height: 40px;
+  width: 40px;
+  padding: 8px
+  border-radius: 20px;
+  background-color: ${Colors.lighterGreen};
+  
 `;
 
 export const HeadingContainer = styled.View`
   flex-direction: row;
-  flex: 4;
+  padding-left: 12px;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const HeadingText = styled(Title)`

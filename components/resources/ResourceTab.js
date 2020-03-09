@@ -7,6 +7,7 @@ import {
   HeadingContainer,
   HeadingText
 } from '../../styled/resources';
+import { Title } from '../../components/BaseComponents';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Colors from '../../assets/Colors';
 
@@ -14,17 +15,12 @@ class ResourceTab extends React.Component {
   render() {
     return (
       <CategoryCard>
-        <CategoryContainer>
-          <CategoryIcon>
-            <FontAwesome5
-              name={this.props.icon}
-              size={24}
-              color={Colors.darkerGreen}
-            />
-          </CategoryIcon>
-        </CategoryContainer>
+        <CategoryIcon>
+          <FontAwesome5 name={this.props.icon} size={20} solid color={'#fff'} />
+        </CategoryIcon>
+
         <HeadingContainer>
-          <HeadingText>{this.props.title}</HeadingText>
+          <Title>{this.props.title}</Title>
         </HeadingContainer>
       </CategoryCard>
     );

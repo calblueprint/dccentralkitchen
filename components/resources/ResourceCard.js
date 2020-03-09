@@ -7,6 +7,7 @@ import {
   LinkSubhead,
   IconContainer
 } from '../../styled/resources';
+import { Body, Subhead } from '../../components/BaseComponents';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Colors from '../../assets/Colors';
 
@@ -17,16 +18,18 @@ class ResourceCard extends React.Component {
         onPress={() => Linking.openURL(this.props.resourceCard.url)}>
         <Card>
           <ContentContainer>
-            <LinkSubhead>{this.props.resourceCard.title}</LinkSubhead>
-            <ContentText>{this.props.resourceCard.description}</ContentText>
-            <IconContainer>
-              <FontAwesome5
-                name="external-link-alt"
-                size={24}
-                color={'#BDBDBD'}
-              />
-            </IconContainer>
+            <Subhead>{this.props.resourceCard.title}</Subhead>
+            <Body color={Colors.secondaryText}>
+              {this.props.resourceCard.description}
+            </Body>
           </ContentContainer>
+          <IconContainer>
+            <FontAwesome5
+              name="external-link-alt"
+              size={24}
+              color={Colors.base}
+            />
+          </IconContainer>
         </Card>
       </TouchableOpacity>
     );

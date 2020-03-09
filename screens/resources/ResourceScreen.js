@@ -71,7 +71,7 @@ class ResourceScreen extends React.Component {
         <TopText> Resources </TopText>
 
         <ScrollView>
-          <ResourceTab icon="circle" title="DC Central Kitchen Resources" />
+          <ResourceTab icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -79,7 +79,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceTab icon="circle" title="Community Resources" />
+          <ResourceTab icon="heart" title="Community" />
           {this.state.CommunityResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -87,7 +87,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceTab icon="circle" title="Government Resources" />
+          <ResourceTab icon="balance-scale" title="Government" />
           {this.state.GovernmentResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -95,7 +95,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceTab icon="circle" title="Resources for Seniors" />
+          <ResourceTab icon="user" title="Seniors" />
           {this.state.ResourcesForSeniors.map(resource => (
             <ResourceCard
               key={resource.id}
