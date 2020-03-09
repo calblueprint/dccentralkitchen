@@ -17,7 +17,7 @@ class ProductDetailsScreen extends React.Component {
         <ProductInfo product={currentProduct} />
         <ProductInfoImageContainer>
           <Image
-            source={require('../../assets/images/robot-dev.png')}
+            source={{ uri: currentProduct.image }}
             style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
           />
         </ProductInfoImageContainer>
