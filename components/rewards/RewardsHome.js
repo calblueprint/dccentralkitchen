@@ -1,7 +1,8 @@
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Body, Overline } from '../BaseComponents';
-import { ProgressBar, Colors } from 'react-native-paper';
+import Colors from '../../assets/Colors';
+import { ProgressBar } from 'react-native-paper';
 import RewardsCard from '../../components/rewards/RewardsCard';
 import { ContentContainer, WaluigiContainer } from '../../styled/rewards';
 
@@ -39,7 +40,7 @@ function RewardsHome({ transactions, user }) {
               borderRadius: 20
             }}
             progress={(parseInt(user.points) % 1000) / 1000}
-            color={Colors.green800}
+            color={Colors.primaryGreen}
           />
           <Text style={{ fontSize: 3 }}> </Text>
           <Body>
