@@ -3,12 +3,11 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Dimensions,
   SafeAreaView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from 'react-native';
@@ -17,12 +16,12 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Body, ButtonLabel } from '../../components/BaseComponents';
+import { Subhead } from '../../components/BaseComponents';
 import {
   SearchBar,
   BottomSheetContainer,
   BottomSheetHeaderContainer,
-  StoreModalBar
+  DragBar
 } from '../../styled/store';
 import Colors from '../../assets/Colors';
 
@@ -140,14 +139,16 @@ export default class MapScreen extends React.Component {
   renderHeader = () => (
     // TODO @tommypoa Favourites functionality
     <BottomSheetHeaderContainer>
-      <StoreModalBar />
+      <DragBar />
     </BottomSheetHeaderContainer>
   );
 
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Body>Showing products for</Body>
+        <Subhead color={Colors.secondaryText}>
+          Browsing healthy products at
+        </Subhead>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -167,6 +168,7 @@ export default class MapScreen extends React.Component {
     this.setState({
       store
     });
+    this.bottomSheetRef.snapTo(0);
     await this._populateStoreProducts(store);
   }
 
@@ -196,8 +198,12 @@ export default class MapScreen extends React.Component {
                 navigation: this.props.navigation
               })
             }>
-            <FontAwesome name="search" size={12} style={{ color: '#f07723' }} />
-            <Body color={Colors.secondaryText}> Find a store</Body>
+            <FontAwesome5
+              name="search"
+              size={16}
+              color={Colors.primaryOrange}
+            />
+            <Subhead color={Colors.secondaryText}> Find a store</Subhead>
           </SearchBar>
           {/* Display store markers */}
           {this.state.stores.map(store => (
@@ -225,24 +231,26 @@ export default class MapScreen extends React.Component {
           )}
         </MapView>
         {/* Display bottom sheet. 
-            snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. 
-            500% set as a high upper boundary to prevent users from allowing sheet to reach that point */}
+            snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
         <View style={{ flex: 1, marginBottom: 180 }}>
           <BottomSheet
             initialSnap={1}
-            enabledInnerScrolling
+            enabledInnerScrolling={false}
+            enabledBottomClamp
+            overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={['500%', '25%', '10%']}
+            snapPoints={['22%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
+            ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
         <TouchableOpacity
           style={{
             position: 'absolute',
-            height: 80,
+            height: 77,
             bottom: 0,
-            backgroundColor: '#008550',
+            backgroundColor: Colors.primaryGreen,
             alignSelf: 'stretch',
             width,
             alignItems: 'center',
@@ -250,7 +258,7 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('Rewards')}>
           <View>
-            <Text style={{ color: 'white' }}> Your rewards </Text>
+            <Subhead color={'#fff'}> Your Rewards </Subhead>
           </View>
         </TouchableOpacity>
       </SafeAreaView>
