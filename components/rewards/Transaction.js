@@ -4,10 +4,9 @@ import { TouchableOpacity } from 'react-native';
 import {
   Card,
   ContentContainer,
-  IconContainer,
-  MainText,
-  Overline
+  IconContainer
 } from '../../styled/transaction';
+import { Caption, Body } from '../../components/BaseComponents';
 
 /**
  * @prop
@@ -22,10 +21,10 @@ function Transaction(props) {
           <FontAwesome5 name="check" size={32} color="green" />
         </IconContainer>
         <ContentContainer>
-          <Overline>
+          <Body>
             {date.toLocaleDateString()} @ {storeName}
-          </Overline>
-          <MainText>{points} Points Redeemed</MainText>
+          </Body>
+          <Caption>{points} Points Redeemed</Caption>
         </ContentContainer>
       </Card>
     </TouchableOpacity>
