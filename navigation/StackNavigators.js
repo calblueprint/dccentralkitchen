@@ -8,7 +8,6 @@ import ReceiptScanner from '../screens/rewards/Camera';
 import ProductDetailsScreen from '../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
-import StoreDetailsScreen from '../screens/map/StoreDetailsScreen';
 import NewsScreen from '../screens/news/NewsScreen';
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
 
@@ -20,7 +19,6 @@ const config = Platform.select({
 export const StoresStack = createStackNavigator(
   {
     Stores: MapScreen,
-    StoreDetails: StoreDetailsScreen,
     StoreList: StoreListScreen,
     Products: ProductsScreen,
     ProductDetails: ProductDetailsScreen

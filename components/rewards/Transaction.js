@@ -1,4 +1,4 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import {
@@ -19,7 +19,7 @@ function Transaction(props) {
     <TouchableOpacity>
       <Card>
         <IconContainer>
-          <FontAwesome name="check" size={32} color="green" />
+          <FontAwesome5 name="check" size={32} color="green" />
         </IconContainer>
         <ContentContainer>
           <Overline>

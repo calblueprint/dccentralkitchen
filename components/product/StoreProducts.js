@@ -1,81 +1,55 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Button, Title } from '../../styled/shared';
-import { TextButton } from '../BaseComponents';
+import {
+  ButtonContainer,
+  ButtonLabel,
+  Title,
+  Subhead
+} from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
-import Product from './Product';
+import ProductCard from './ProductCard';
+import { ProductCardContainer, styles } from '../../styled/product';
+import { SpaceBetweenRowContainer } from '../../styled/shared';
 
-function filterFruit(product) {
-  if (product) {
-    return product.category.includes('Fruit');
-  }
-  return false;
-}
-
-function filterVegetables(product) {
-  if (product) {
-    return product.category.includes('Vegetables');
-  }
-  return false;
-}
-
-class StoreProducts extends React.Component {
+function StoreProducts({ navigation, store, products }) {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
-  storeDetailsTransition = store => {
-    this.props.navigation.navigate('StoreDetails', {
-      currentStore: store
-    });
-  };
-
-  renderProducts = (filterType, productType) => {
-    const { navigation, store, products } = this.props;
-    return (
+  return (
+    <View>
+      <StoreCard store={store} key={store.id} seeProduct={false} />
       <View>
-        <View flexDirection="row">
-          <Title>{productType}</Title>
-          <Button
+        <SpaceBetweenRowContainer>
+          <Title>Products</Title>
+          <ButtonContainer
             onPress={() =>
               navigation.navigate('Products', {
-                products: products.filter(filterType),
+                products,
                 navigation,
-                productType,
                 store
               })
             }>
-            <TextButton>See All</TextButton>
-          </Button>
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {products.filter(filterType).map(product => (
+            <Subhead color="black">See all {products.length}</Subhead>
+          </ButtonContainer>
+        </SpaceBetweenRowContainer>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.horizontalScroll}>
+          {products.map(product => (
             // TODO See if there is a better way to pass the props over to a component
-            <Product
-              key={product.id}
-              product={product}
-              navigation={navigation}
-              store={store}
-            />
+            <ProductCardContainer key={product.id}>
+              <ProductCard
+                key={product.id}
+                product={product}
+                navigation={navigation}
+                store={store}
+              />
+            </ProductCardContainer>
           ))}
         </ScrollView>
       </View>
-    );
-  };
-
-  render() {
-    const { store } = this.props;
-    return (
-      <View>
-        <StoreCard
-          store={store}
-          key={store.id}
-          callBack={() => this.storeDetailsTransition(store)}
-        />
-        {/* Display fruits available at this store */}
-        <View>{this.renderProducts(filterFruit, 'Fruit')}</View>
-        <View>{this.renderProducts(filterVegetables, 'Vegetables')}</View>
-      </View>
-    );
-  }
+    </View>
+  );
 }
 
 export default StoreProducts;
