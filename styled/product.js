@@ -1,6 +1,28 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { Caption } from '../components/BaseComponents';
+import Colors from '../assets/Colors';
+import { Title } from '../components/BaseComponents';
+
+export const ProductListHeaderContainer = styled.View`
+  padding-top: 45px;
+  height: 106px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+  background-color: ${props =>
+    props.backgroundColor ? props.backgroundColor : Colors.lightest};
+`;
+
+export const ProductListContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20%;
+`;
+
+export const ProductListTitle = styled(Title)`
+  text-align: center;
+`;
 
 export const ProductCardContainer = styled.View`
   margin-right: 10px;
@@ -8,7 +30,8 @@ export const ProductCardContainer = styled.View`
 
 export const ProductInfoContainer = styled.View`
   width: 80%;
-  padding: 5%;
+  margin-top: 80px;
+  margin-left: 16px;
 `;
 
 export const ProductInfoCaptionContainer = styled.View`
@@ -18,7 +41,7 @@ export const ProductInfoCaptionContainer = styled.View`
 `;
 
 export const ProductInfoImageContainer = styled.View`
-  margin-top: 7.5%;
+  margin-top: 80px;
 `;
 
 export const ProductNoticeContainer = styled.View`
@@ -27,24 +50,10 @@ export const ProductNoticeContainer = styled.View`
 
 // TODO @tommypoa re-work styles used in ProductDetailedScreen
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginVertical: 20
-  },
-  item: {
-    backgroundColor: '#919191',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-    margin: 1,
-    height: Dimensions.get('window').width / 4
-  },
-  storesModal: {
-    backgroundColor: 'white',
-    opacity: 0.8
-  },
   horizontalScroll: {
-    padding: '1%',
+    paddingTop: 5,
+    paddingLeft: 9,
+    paddingBottom: 13,
     alignItems: 'center'
   }
 });

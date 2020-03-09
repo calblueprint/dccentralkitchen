@@ -9,7 +9,7 @@ export const TextButton = styled.Text`
   display: flex;
   align-items: center;
   text-align: center;
-  color: ${props => (props.color ? props.color : Colors.primaryGreen)};
+  color: ${props => props.color || Colors.primaryGreen};
 `;
 
 export const ButtonContainer = styled.TouchableOpacity``;
@@ -25,13 +25,13 @@ export const ButtonLabel = styled(TextButton)`
   text-align: center;
   letter-spacing: 0.01px;
   text-transform: uppercase;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
-  width: ${props => (props.width ? props.width : '344px')};
-  height: ${props => (props.height ? props.height : '40px')};
-  background: ${props => (props.color ? props.color : Colors.primaryGreen)};
+  width: ${props => props.width || '344px'};
+  height: ${props => props.height || '40px'};
+  background: ${props => props.color || Colors.primaryGreen};
   ${props =>
     props.pressed
       ? 'box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 24px 38px rgba(0, 0, 0, 0.14);'
@@ -43,28 +43,28 @@ export const Title = styled.Text`
   font-family: poppins-medium;
   font-size: 20px;
   line-height: 30px;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const Subhead = styled.Text`
   font-family: poppins-regular;
   font-size: 16px;
   line-height: 24px;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const Body = styled.Text`
   font-family: poppins-regular;
   font-size: 14px;
   line-height: 20px;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const Caption = styled.Text`
   font-family: poppins-medium;
   font-size: 12px;
   line-height: 16px;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const Overline = styled.Text`
@@ -72,12 +72,12 @@ export const Overline = styled.Text`
   font-size: 14px;
   line-height: 20px;
   text-transform: uppercase;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
 
 export const TabSelected = styled.Text`
   font-family: poppins-semibold;
   font-size: 14px;
   line-height: 20px;
-  color: ${props => (props.color ? props.color : Colors.black)};
+  color: ${props => props.color || Colors.black};
 `;
