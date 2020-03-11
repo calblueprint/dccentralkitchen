@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 /**
  * @prop
@@ -14,8 +15,8 @@ const styles = StyleSheet.create({
 
 function PointsHistory({ transactions, user, updates, navigation }) {
   // Only display if transactions have mounted
+  // TODO @kennethlien fix spacing at line 44
   if (transactions) {
-    const recent = transactions.splice(0, 3);
     return (
       <View>
         {/* Prompt to upload receipt */}
@@ -36,19 +37,11 @@ function PointsHistory({ transactions, user, updates, navigation }) {
         ) : (
           <Text />
         )}
+        {/* end receipt prompt */}
         {/* Points history */}
         <View>
           <ScrollView style={{ marginTop: 50 }}>
-            <Text style={{ textAlign: 'center' }}> Recent Transactions</Text>
-            {recent.map(transaction => (
-              <Transaction
-                key={transaction.id}
-                date={transaction.date}
-                points={transaction.points}
-                storeName={transaction.storeName}
-              />
-            ))}
-            <Text style={{ textAlign: 'center' }}> Complete History </Text>
+            <Overline>Recent TraNsAcTiOnS</Overline>
             {transactions.map(transaction => (
               <Transaction
                 key={transaction.id}
