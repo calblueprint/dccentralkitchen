@@ -1,9 +1,13 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Product from '../../components/product/Product';
-import { styles } from '../../styled/product';
-import { Title } from '../../styled/shared';
+import ProductCard from '../../components/product/ProductCard';
+import {
+  ProductListHeaderContainer,
+  ProductListContainer,
+  ProductListTitle
+} from '../../styled/product';
+import Colors from '../../assets/Colors';
 
 class ProductsScreen extends React.Component {
   constructor(props) {
@@ -11,28 +15,36 @@ class ProductsScreen extends React.Component {
     this.state = {};
   }
 
-  renderProduct = (product, navigation, store) => {
-    return <Product product={product} navigation={navigation} store={store} />;
+  renderProductList = () => {
+    const { products, store } = this.props.navigation.state.params;
+    return products.map((product, i) => {
+      return (
+        <ProductCard
+          key={i}
+          product={product}
+          navigation={this.props.navigation}
+          store={store}
+        />
+      );
+    });
   };
 
   render() {
-    const { products, productType, store } = this.props.navigation.state.params;
+    const { products, store } = this.props.navigation.state.params;
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Title>{store.name}</Title>
-        <Title>{productType}</Title>
-
-        <FlatList
-          // TODO @tommypoa refactor styles to use styled-components
-          style={styles.container}
-          keyExtractor={item => item.id}
-          numColumns={2}
-          data={products}
-          renderItem={({ item }) =>
-            this.renderProduct(item, this.props.navigation, store)
-          }
-        />
-      </ScrollView>
+      <View>
+        <ProductListHeaderContainer>
+          <ProductListTitle color={Colors.black}>{store.name}</ProductListTitle>
+        </ProductListHeaderContainer>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical={false}>
+          {/* <Title>Products ({products.length})</Title> */}
+          <ProductListContainer>
+            {this.renderProductList()}
+          </ProductListContainer>
+        </ScrollView>
+      </View>
     );
   }
 }

@@ -1,7 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Subtitle, Title } from '../../styled/shared';
-import SpecialNotice from './SpecialNotice';
+import { Body, Caption, Title } from '../BaseComponents';
+import {
+  ProductInfoContainer,
+  ProductInfoCaptionContainer,
+  ProductNoticeContainer
+} from '../../styled/product';
 
 /**
  * @prop
@@ -10,15 +13,19 @@ import SpecialNotice from './SpecialNotice';
 function ProductInfo({ product }) {
   const { name, id, category, points, customerCost } = product;
   return (
-    <View style={{ width: 300 }}>
+    <ProductInfoContainer>
       <Title>{name}</Title>
-      <Subtitle>Category: {category}</Subtitle>
-      <View style={{ flexDirection: 'row' }}>
-        <Subtitle>${customerCost} each</Subtitle>
-        <Subtitle>Points Earned: {points}</Subtitle>
-      </View>
-      <SpecialNotice />
-    </View>
+      <ProductInfoCaptionContainer>
+        <Caption>${customerCost.toFixed(2)} each</Caption>
+        <Caption>Points Earned: {points}</Caption>
+      </ProductInfoCaptionContainer>
+      <ProductNoticeContainer>
+        <Body>
+          Note: Not all products listed are available at every store. Please
+          call individual stores to ask which products are available.
+        </Body>
+      </ProductNoticeContainer>
+    </ProductInfoContainer>
   );
 }
 

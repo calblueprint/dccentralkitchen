@@ -1,10 +1,8 @@
 import React from 'react';
-import { ScrollView, Text, View } from 'react-native';
-import { Body, Overline } from '../BaseComponents';
-import Colors from '../../assets/Colors';
-import { ProgressBar } from 'react-native-paper';
-import RewardsCard from '../../components/rewards/RewardsCard';
-import { ContentContainer, WaluigiContainer } from '../../styled/rewards';
+import { View } from 'react-native';
+import { Body, Caption, Title } from '../BaseComponents';
+import { styles } from '../../styled/rewards';
+import { ProgressBar } from '../rewards/ProgressBar';
 
 /**
  * @prop

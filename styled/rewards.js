@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Subhead, Caption } from '../components/BaseComponents';
 
@@ -89,5 +89,42 @@ export const styles = StyleSheet.create({
   tabBarIndicator: {
     backgroundColor: '#fff',
     height: 2.5
+  },
+  tabBarInfoContainer: {
+    position: 'absolute',
+    bottom: 150,
+    left: 0,
+    right: 0,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3
+      },
+      android: {
+        elevation: 20
+      }
+    }),
+    alignItems: 'center',
+    backgroundColor: '#fbfbfb',
+    paddingVertical: 20
+  },
+  navigationFilename: {
+    marginTop: 5
+  },
+  getStartedContainer: {
+    alignItems: 'center',
+    marginHorizontal: 50,
+    paddingVertical: 20
+  },
+
+  progressBar: {
+    height: 20,
+    width: '100%',
+    backgroundColor: 'white',
+    borderColor: '#000',
+    borderWidth: 1,
+    borderRadius: 1
   }
 });
