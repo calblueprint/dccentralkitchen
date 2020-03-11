@@ -17,6 +17,7 @@ import {
   styles,
   TopTab
 } from '../../styled/rewards';
+import { Body, Caption, Title } from '../../components/BaseComponents';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -163,11 +164,12 @@ export default class RewardsScreen extends React.Component {
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Stores')}>
                 {/* TODO: change this to a proper icon */}
-                <Text style={{ color: 'white', fontSize: 25 }}> ⬇ </Text>
+                <Text style={{ color: 'white', fontSize: 25 }}> ▼ </Text>
               </TouchableOpacity>
-              <Text style={{ color: 'white', fontSize: 30 }}>
+
+              <Title style={{ color: 'white', fontSize: 30 }}>
                 Healthy Rewards
-              </Text>
+              </Title>
             </View>
           </TopTab>
           <TabView

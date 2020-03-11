@@ -1,9 +1,17 @@
 import React from 'react';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
+import { View } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 import StoreCard from '../../components/store/StoreCard';
-import { Title } from '../../styled/shared';
-import { StoreModal } from '../../styled/store';
+
+import {
+  StoreListContainer,
+  StoreListHeaderContainer,
+  StoreListTitle,
+  styles
+} from '../../styled/store';
+import Colors from '../../assets/Colors';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
@@ -15,6 +23,10 @@ class StoreListScreen extends React.Component {
       searchStr: '',
       filteredStores: stores
     };
+  }
+
+  componentDidMount() {
+    this.search.focus();
   }
 
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
@@ -41,24 +53,40 @@ class StoreListScreen extends React.Component {
     const { searchStr } = this.state;
 
     return (
-      <StoreModal>
-        {/* Search bar */}
-        <SearchBar
-          placeholder="Search by store name"
-          onChangeText={this.updateSearch}
-          value={searchStr}
-        />
-        <Title>Store List</Title>
-        <ScrollView>
-          {this.state.filteredStores.map(store => (
-            <StoreCard
-              key={store.id}
-              store={store}
-              callBack={() => this.storeDetailsTransition(store)}
-            />
-          ))}
-        </ScrollView>
-      </StoreModal>
+      <View>
+        <StoreListHeaderContainer>
+          <StoreListTitle>Find a store</StoreListTitle>
+          {/* Search bar */}
+          <SearchBar
+            placeholder="Search by store name"
+            onChangeText={this.updateSearch}
+            value={searchStr}
+            containerStyle={styles.container}
+            inputContainerStyle={styles.inputContainer}
+            searchIcon={
+              <FontAwesome5
+                name="search"
+                size={16}
+                color={Colors.primaryOrange}
+              />
+            }
+            inputStyle={styles.input}
+            ref={search => (this.search = search)}
+          />
+        </StoreListHeaderContainer>
+        <StoreListContainer>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {this.state.filteredStores.map(store => (
+              <StoreCard
+                key={store.id}
+                store={store}
+                callBack={() => this.storeDetailsTransition(store)}
+                seeProduct
+              />
+            ))}
+          </ScrollView>
+        </StoreListContainer>
+      </View>
     );
   }
 }
