@@ -202,12 +202,6 @@ export default class SignUp extends React.Component {
     if (!phoneNumberError && !passwordError && !nameError) {
       signUpPermission = true;
     }
-    console.log(phoneNumberError);
-    console.log(passwordError);
-    console.log(nameError);
-
-    console.log(signUpPermission);
-    console.log(this.state.signUpPermission);
 
     // Have to await this or else Airtable call may happen first
     await this.setState({
