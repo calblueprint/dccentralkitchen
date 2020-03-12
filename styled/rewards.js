@@ -1,6 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Subhead, Caption } from '../components/BaseComponents';
+import Colors from '../assets/Colors';
 
 export const Container = styled.View`
   flex: 1;
@@ -16,29 +17,42 @@ export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
   background-color: #fff;
 `;
 
-export const Card = styled.View`
+export const RewardTabContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 9px;
+  width: 159px;
+  height: 64px;
   padding: 10px;
-  margin: 2% 5%;
+  margin-right: 24px;
   flex-direction: row;
-  flex: 1;
-  width: 40%;
-  background-color: #c9e3d9;
+  background-color: ${Colors.lightestGreen};
 `;
 
 export const StarIcon = styled.View`
-  flex-direction: column;
-  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: #fff;
+  flex-direction: row;
+  align-items: center;
 `;
 
-export const ContentContainer = styled.View`
+export const RewardDescriptionContainer = styled.View`
   flex-direction: column;
-  flex: 5;
+  margin-left: 8px;
 `;
 
-export const WaluigiContainer = styled.View`
+export const ProgressBarContainer = styled.View`
   margin: 1% 5%;
+  flex-direction: column;
+`;
+
+export const RewardCardContainer = styled.View`
+  margin: 1% 5%;
+  flex-direction: row;
+  padding-bottom: 16px;
 `;
 
 export const ContentText = styled(Subhead)``;
@@ -117,14 +131,5 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
     paddingVertical: 20
-  },
-
-  progressBar: {
-    height: 20,
-    width: '100%',
-    backgroundColor: 'white',
-    borderColor: '#000',
-    borderWidth: 1,
-    borderRadius: 1
   }
 });
