@@ -62,21 +62,12 @@ export default class SignUp extends React.Component {
       phoneNumber: '',
       phoneNumberError: '',
       token: '',
-      firstNameBool: false,
-      lastNameBool: false,
-      phoneNumBool: false,
-      passwordBool: false,
-      booleans: [
-        'firstNameBool',
-        'lastNameBool',
-        'phoneNumBool',
-        'passwordBool'
-      ],
       indicators: {
         [signUpFields.NAME]: [fieldStateColors.INACTIVE],
         [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
         [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
-      }
+      },
+      signUpPermission: false
     };
   }
 
@@ -188,10 +179,7 @@ export default class SignUp extends React.Component {
     });
   }
 
-  // Handling submission. This function runs the validation functions
-  // as well as the duplicate checking. If there are no errors on the
-  // validation or duplicate side, then an Airtable record is created.
-  async handleSubmit() {
+  updateErrors = async () => {
     const phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
     const passwordError = validate('password', this.state.password);
     let nameError = '';
@@ -210,17 +198,36 @@ export default class SignUp extends React.Component {
       6,
       10
     )}`;
+    // Update sign up permission based on whether there are any errors left
+    let signUpPermission = false;
+    if (!phoneNumberError && !passwordError && !nameError) {
+      signUpPermission = true;
+    }
+    console.log(phoneNumberError);
+    console.log(passwordError);
+    console.log(nameError);
+
+    console.log(signUpPermission);
+    console.log(this.state.signUpPermission);
 
     // Have to await this or else Airtable call may happen first
     await this.setState({
       nameError,
       phoneNumberError,
-      passwordError
+      passwordError,
+      signUpPermission
     });
+    return formattedPhoneNumber;
+  };
 
+  // Handling submission. This function runs the validation functions
+  // as well as the duplicate checking. If there are no errors on the
+  // validation or duplicate side, then an Airtable record is created.
+  async handleSubmit() {
+    const formattedPhoneNumber = this.updateErrors();
     // If we don't have any bugs already with form validation,
     // we'll check for duplicates here in the Airtable.
-    if (!phoneNumberError) {
+    if (!this.state.phoneNumberError) {
       const that = this;
       await checkForDuplicateCustomer(formattedPhoneNumber).then(
         async resolvedValue => {
@@ -264,20 +271,40 @@ export default class SignUp extends React.Component {
     Keyboard.dismiss();
   }
 
+  handleErrorState(signUpField) {
+    if (
+      signUpField == signUpFields.PHONENUM &&
+      validate('phoneNumber', this.state.phoneNumber)
+    ) {
+      return fieldStateColors.ERROR;
+    } else if (
+      signUpField == signUpFields.PASSWORD &&
+      validate('password', this.state.password)
+    ) {
+      return fieldStateColors.ERROR;
+    } else if (
+      signUpField == signUpFields.NAME &&
+      !this.state.firstName.replace(/\s/g, '').length
+    ) {
+      return fieldStateColors.ERROR;
+    } else {
+      return fieldStateColors.BLURRED;
+    }
+  }
+
   onFocus(signUpField) {
     const { indicators } = this.state;
     indicators[signUpField] = fieldStateColors.FOCUSED;
     this.setState({
-      // [this.state.booleans[index]]: true,
       indicators
     });
   }
 
   onBlur(signUpField) {
     const { indicators } = this.state;
-    indicators[signUpField] = fieldStateColors.BLURRED;
+    indicators[signUpField] = this.handleErrorState(signUpField);
+    this.updateErrors();
     this.setState({
-      // [this.state.booleans[index]]: false,
       indicators
     });
   }
@@ -360,8 +387,14 @@ export default class SignUp extends React.Component {
           </FormContainer>
           <AuthButtonContainer marginTop="35px">
             <FilledButtonContainer
+              color={
+                this.state.signUpPermission
+                  ? Colors.primaryGreen
+                  : Colors.lightestGreen
+              }
               width="100%"
-              onPress={() => this.handleSubmit()}>
+              onPress={() => this.handleSubmit()}
+              disabled={!this.state.signUpPermission}>
               <ButtonLabel color="white">SIGN UP</ButtonLabel>
             </FilledButtonContainer>
           </AuthButtonContainer>

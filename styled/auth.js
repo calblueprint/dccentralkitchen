@@ -13,7 +13,7 @@ export const AuthScreenContainer = styled.View`
 // Default to Login Button margin top: 104px
 export const AuthButtonContainer = styled.View`
   margin-top: ${props => props.marginTop || '104px'};
-  width: 291px;
+  width: 100%;
 `;
 
 // StartUpScreen
@@ -23,7 +23,7 @@ export const StartUpContainer = styled.View`
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  margin-top: 241px;
+  margin: 241px 42px 0 42px;
 `;
 
 export const StartUpTitleContainer = styled.View`
