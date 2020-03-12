@@ -37,14 +37,14 @@ const MyDrawerNavigator = createDrawerNavigator({
   Stores: {
     screen: StoresStack,
     navigationOptions: () => ({
-      title: 'Stores'
+      title: 'Name'
     })
   },
+
   Rewards: {
     screen: RewardsStack,
     navigationOptions: () => ({
-      title: 'Your Profile',
-      drawerLockMode: 'locked-closed'
+      title: 'Your Profile'
     })
   },
   News: {

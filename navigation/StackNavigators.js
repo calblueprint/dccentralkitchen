@@ -27,7 +27,7 @@ export const StoresStack = createStackNavigator(
 );
 
 StoresStack.navigationOptions = {
-  drawerLabel: 'Stores'
+  drawerLabel: 'Name'
 };
 
 export const RewardsStack = createStackNavigator(
@@ -39,7 +39,7 @@ export const RewardsStack = createStackNavigator(
 );
 
 RewardsStack.navigationOptions = {
-  drawerLabel: 'Rewards'
+  drawerLabel: 'Points History'
 };
 
 export const NewsStack = createStackNavigator(
