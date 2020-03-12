@@ -151,39 +151,30 @@ export default class RewardsScreen extends React.Component {
   render() {
     return (
       <Container>
-        {/* Pull-to-refresh functionality */}
-        <ScrollViewContainer
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._onRefresh}
-            />
-          }>
-          <TopTab>
-            <View>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Stores')}>
-                {/* TODO: change this to a proper icon */}
-                <Text style={{ color: 'white', fontSize: 25 }}> ▼ </Text>
-              </TouchableOpacity>
+        <TopTab>
+          <View>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Stores')}>
+              {/* TODO: change this to a proper icon */}
+              <Text style={{ color: 'white', fontSize: 25 }}> ▼ </Text>
+            </TouchableOpacity>
 
-              <Title style={{ color: 'white', fontSize: 30 }}>
-                Healthy Rewards
-              </Title>
-            </View>
-          </TopTab>
-          <TabView
-            navigationState={this.state}
-            renderScene={this.renderScene}
-            renderTabBar={this.renderTabBar}
-            onIndexChange={index => this.setState({ index })}
-            initialLayout={{
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height
-            }}
-            style={styles.tabView}
-          />
-        </ScrollViewContainer>
+            <Title style={{ color: 'white', fontSize: 30 }}>
+              Healthy Rewards
+            </Title>
+          </View>
+        </TopTab>
+        <TabView
+          navigationState={this.state}
+          renderScene={this.renderScene}
+          renderTabBar={this.renderTabBar}
+          onIndexChange={index => this.setState({ index })}
+          initialLayout={{
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height
+          }}
+          style={styles.tabView}
+        />
       </Container>
     );
   }

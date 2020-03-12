@@ -32,9 +32,11 @@ function createSingle(N) {
 function RewardsHome({ transactions, user }) {
   return (
     <View>
-      <ScrollView style={{ marginTop: 45 }}>
+      <ScrollView>
         <ProgressBarContainer>
-          <Overline style={{ marginBottom: 15 }}>REWARD PROGRESS</Overline>
+          <Overline style={{ marginTop: 24, marginBottom: 15 }}>
+            REWARD PROGRESS
+          </Overline>
           <Title style={{ marginBottom: 15 }}>
             {parseInt(user.points) % 1000} / 1000
           </Title>
