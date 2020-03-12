@@ -12,12 +12,13 @@ import {
 } from 'react-native';
 import validatejs from 'validate.js';
 import {
-  signupFields,
-  fieldStateColor,
+  signUpFields,
+  fieldStateColors,
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
 } from '../../lib/authUtils';
+
 import Colors from '../../assets/Colors';
 
 import {
@@ -70,7 +71,12 @@ export default class SignUp extends React.Component {
         'lastNameBool',
         'phoneNumBool',
         'passwordBool'
-      ]
+      ],
+      indicators: {
+        [signUpFields.NAME]: [fieldStateColors.INACTIVE],
+        [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
+      }
     };
   }
 
@@ -258,15 +264,21 @@ export default class SignUp extends React.Component {
     Keyboard.dismiss();
   }
 
-  onFocus(index) {
+  onFocus(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = fieldStateColors.FOCUSED;
     this.setState({
-      [this.state.booleans[index]]: true
+      // [this.state.booleans[index]]: true,
+      indicators
     });
   }
 
-  onBlur(index) {
+  onBlur(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = fieldStateColors.BLURRED;
     this.setState({
-      [this.state.booleans[index]]: false
+      // [this.state.booleans[index]]: false,
+      indicators
     });
   }
 
@@ -277,25 +289,16 @@ export default class SignUp extends React.Component {
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
             <TextFieldContainer>
-              <Caption
-                color={
-                  this.state.firstNameBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }>
+              <Caption color={this.state.indicators[signUpFields.NAME]}>
                 Name
               </Caption>
               <TextField
-                onBlur={() => this.onBlur(0)}
-                onFocus={() => this.onFocus(0)}
+                onBlur={() => this.onBlur(signUpFields.NAME)}
+                onFocus={() => this.onFocus(signUpFields.NAME)}
                 placeholder="Name"
                 onChangeText={text => this.setState({ firstName: text })}
                 value={this.state.firstName}
-                borderColor={
-                  this.state.firstNameBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }
+                borderColor={this.state.indicators[signUpFields.NAME]}
               />
               <InputNoticeContainer>
                 <Caption color={Colors.secondaryText}>
@@ -305,41 +308,28 @@ export default class SignUp extends React.Component {
             </TextFieldContainer>
             <TextFieldContainer>
               <TextField
-                onBlur={() => this.onBlur(1)}
-                onFocus={() => this.onFocus(1)}
+                onBlur={() => this.onBlur(signUpFields.NAME)}
+                onFocus={() => this.onFocus(signUpFields.NAME)}
                 placeholder="Last Name"
                 onChangeText={text => this.setState({ lastName: text })}
                 value={this.state.lastName}
-                borderColor={
-                  this.state.lastNameBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }
+                borderColor={this.state.indicators[signUpFields.NAME]}
               />
             </TextFieldContainer>
 
             <TextFieldContainer>
-              <Caption
-                color={
-                  this.state.phoneNumBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }>
+              <Caption color={this.state.indicators[signUpFields.PHONENUM]}>
                 Phone Number
               </Caption>
               <TextField
-                onBlur={() => this.onBlur(2)}
-                onFocus={() => this.onFocus(2)}
+                onBlur={() => this.onBlur(signUpFields.PHONENUM)}
+                onFocus={() => this.onFocus(signUpFields.PHONENUM)}
                 placeholder="Phone Number"
                 onChangeText={text => this.setState({ phoneNumber: text })}
                 value={this.state.phoneNumber}
                 keyboardType="number-pad"
                 maxLength={10}
-                borderColor={
-                  this.state.phoneNumBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }
+                borderColor={this.state.indicators[signUpFields.PHONENUM]}
               />
               <InputNoticeContainer>
                 <Caption color={Colors.secondaryText}>
@@ -349,26 +339,17 @@ export default class SignUp extends React.Component {
             </TextFieldContainer>
 
             <TextFieldContainer>
-              <Caption
-                color={
-                  this.state.passwordBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }>
+              <Caption color={this.state.indicators[signUpFields.PASSWORD]}>
                 Password
               </Caption>
               <TextField
-                onBlur={() => this.onBlur(3)}
-                onFocus={() => this.onFocus(3)}
+                onBlur={() => this.onBlur(signUpFields.PASSWORD)}
+                onFocus={() => this.onFocus(signUpFields.PASSWORD)}
                 placeholder="Password"
                 secureTextEntry
                 onChangeText={text => this.setState({ password: text })}
                 value={this.state.password}
-                borderColor={
-                  this.state.passwordBool
-                    ? Colors.primaryGreen
-                    : Colors.activeText
-                }
+                borderColor={this.state.indicators[signUpFields.PASSWORD]}
               />
               <InputNoticeContainer>
                 <Caption color={Colors.secondaryText}>
