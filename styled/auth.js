@@ -10,12 +10,6 @@ export const AuthScreenContainer = styled.View`
   background-color: #fff;
 `;
 
-// Default to Login Button margin top: 104px
-export const AuthButtonContainer = styled.View`
-  margin-top: ${props => props.marginTop || '104px'};
-  width: 100%;
-`;
-
 // StartUpScreen
 // TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in Login and SignUp screens)
 export const StartUpContainer = styled.View`

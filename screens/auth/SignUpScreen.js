@@ -34,8 +34,7 @@ import {
   TextFieldContainer,
   FormContainer,
   InputNoticeContainer,
-  AuthScreenContainer,
-  AuthButtonContainer
+  AuthScreenContainer
 } from '../../styled/auth';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -385,19 +384,18 @@ export default class SignUp extends React.Component {
               </InputNoticeContainer>
             </TextFieldContainer>
           </FormContainer>
-          <AuthButtonContainer marginTop="35px">
-            <FilledButtonContainer
-              color={
-                this.state.signUpPermission
-                  ? Colors.primaryGreen
-                  : Colors.lightestGreen
-              }
-              width="100%"
-              onPress={() => this.handleSubmit()}
-              disabled={!this.state.signUpPermission}>
-              <ButtonLabel color="white">SIGN UP</ButtonLabel>
-            </FilledButtonContainer>
-          </AuthButtonContainer>
+          <FilledButtonContainer
+            style={{ marginTop: 35 }}
+            color={
+              this.state.signUpPermission
+                ? Colors.primaryGreen
+                : Colors.lightestGreen
+            }
+            width="100%"
+            onPress={() => this.handleSubmit()}
+            disabled={!this.state.signUpPermission}>
+            <ButtonLabel color="white">SIGN UP</ButtonLabel>
+          </FilledButtonContainer>
           <Button title="Testing Bypass" onPress={() => this._devBypass()} />
         </AuthScreenContainer>
       </ScrollView>
