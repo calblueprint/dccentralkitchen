@@ -17,7 +17,7 @@ export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
   background-color: #fff;
 `;
 
-export const RewardTabContainer = styled.View`
+export const RewardsCardContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 9px;
   width: 159px;
@@ -25,6 +25,7 @@ export const RewardTabContainer = styled.View`
   padding: 10px;
   margin-right: 24px;
   flex-direction: row;
+  margin-bottom: 12px;
   background-color: ${Colors.lightestGreen};
 `;
 
@@ -36,7 +37,6 @@ export const StarIcon = styled.View`
   border-radius: 20px;
   background-color: #fff;
   flex-direction: row;
-  align-items: center;
 `;
 
 export const RewardDescriptionContainer = styled.View`
@@ -44,15 +44,19 @@ export const RewardDescriptionContainer = styled.View`
   margin-left: 8px;
 `;
 
-export const ProgressBarContainer = styled.View`
+export const RewardsProgressContainer = styled.View`
   margin: 1% 5%;
   flex-direction: column;
 `;
 
-export const RewardCardContainer = styled.View`
+export const AvailiableRewardsContainer = styled.View`
   margin: 1% 5%;
-  flex-direction: row;
-  padding-bottom: 16px;
+  height: 300px
+  flex: 0 50%;
+  display: flex
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 `;
 
 export const ContentText = styled(Subhead)``;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  RewardTabContainer,
+  RewardsCardContainer,
   RewardDescriptionContainer,
   StarIcon
 } from '../../styled/rewards';
@@ -8,10 +8,10 @@ import { Subhead, Caption } from '../BaseComponents';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Colors from '../../assets/Colors';
 
-class RewardTab extends React.Component {
+class RewardsCard extends React.Component {
   render() {
     return (
-      <RewardTabContainer>
+      <RewardsCardContainer>
         <StarIcon>
           <FontAwesome5
             name="star"
@@ -22,11 +22,11 @@ class RewardTab extends React.Component {
         </StarIcon>
         <RewardDescriptionContainer>
           <Subhead color={Colors.darkerGreen}>$5 Reward</Subhead>
-          <Caption color={Colors.primaryGreen}>1000 points</Caption>
+          <Caption color={Colors.darkerGreen}>1000 points</Caption>
         </RewardDescriptionContainer>
-      </RewardTabContainer>
+      </RewardsCardContainer>
     );
   }
 }
 
-export default RewardTab;
+export default RewardsCard;
