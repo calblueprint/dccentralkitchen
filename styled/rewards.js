@@ -51,8 +51,6 @@ export const RewardsProgressContainer = styled.View`
 
 export const AvailiableRewardsContainer = styled.View`
   margin: 1% 5%;
-  height: 300px
-  flex: 0 50%;
   display: flex
   flex-direction: column;
   flex-wrap: wrap;
