@@ -40,7 +40,7 @@ function RewardsHome({ user }) {
             your next $5 reward
           </Body>
           <Overline style={{ marginBottom: 5 }}>
-            AVAILIBLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
+            AVAILIABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
           </Overline>
         </RewardsProgressContainer>
         <AvailiableRewardsContainer>
