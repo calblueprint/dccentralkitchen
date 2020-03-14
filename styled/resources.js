@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Subhead, Title, Body } from '../components/BaseComponents';
+import { Title, Body } from '../components/BaseComponents';
 import Colors from '../assets/Colors';
 
 export const Card = styled.View`
@@ -34,8 +34,7 @@ export const ContentText = styled(Body)`
 
 export const CategoryCard = styled.View`
   background-color: ${Colors.lighter};
-  padding: 10px;
-  padding-left: 18px;
+  padding: 10px 18px;
   flex-direction: row;
   flex: 1;
 `;

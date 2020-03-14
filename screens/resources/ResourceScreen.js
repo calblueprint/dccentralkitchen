@@ -1,6 +1,6 @@
 import React from 'react';
 import { TopText } from '../../styled/resources';
-import { TouchableOpacity, ScrollView, View, Text, Button } from 'react-native';
+import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
 import getResources from '../../lib/resourceUtils';
 import ResourceCard from '../../components/resources/ResourceCard';
 import ResourceTab from '../../components/resources/ResourceTab';

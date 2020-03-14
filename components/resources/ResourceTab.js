@@ -2,14 +2,11 @@ import React from 'react';
 
 import {
   CategoryCard,
-  CategoryContainer,
   CategoryIcon,
-  HeadingContainer,
-  HeadingText
+  HeadingContainer
 } from '../../styled/resources';
 import { Title } from '../../components/BaseComponents';
 import { FontAwesome5 } from '@expo/vector-icons';
-import Colors from '../../assets/Colors';
 
 class ResourceTab extends React.Component {
   render() {
