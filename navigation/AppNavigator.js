@@ -5,7 +5,12 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
-import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
+import {
+  NewsStack,
+  RewardsStack,
+  StoresStack,
+  ResourcesStack
+} from './StackNavigators';
 
 const AuthStack = createStackNavigator({
   SignUp: SignUpScreen,
@@ -51,6 +56,12 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: NewsStack,
     navigationOptions: () => ({
       title: 'News'
+    })
+  },
+  Resources: {
+    screen: ResourcesStack,
+    navigationOptions: () => ({
+      title: 'Resources'
     })
   }
 });
