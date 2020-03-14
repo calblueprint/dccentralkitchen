@@ -20,8 +20,8 @@ function PointsHistory({ transactions, user, updates, navigation }) {
     return (
       <View>
         <View>
-          <ScrollView style={{ marginTop: 50 }}>
-            <Overline>Recent Transactions</Overline>
+          <ScrollView>
+            <Overline style={{ marginTop: 24 }}>Recent Transactions</Overline>
             {transactions.map(transaction => (
               <Transaction
                 key={transaction.id}

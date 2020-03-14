@@ -24,10 +24,12 @@ function createList(N) {
 function RewardsHome({ user }) {
   return (
     <View>
-      <ScrollView style={{ marginTop: 24 }}>
+      <ScrollView>
         <RewardsProgressContainer>
-          <Overline style={{ marginBottom: 15 }}>REWARD PROGRESS</Overline>
-          <Title style={{ marginBottom: 15 }}>
+          <Overline style={{ marginTop: 24, marginBottom: 15 }}>
+            REWARD PROGRESS
+          </Overline>
+          <Title style={{ marginBottom: 2 }}>
             {parseInt(user.points) % 1000} / 1000
           </Title>
           <ProgressBar
@@ -39,7 +41,7 @@ function RewardsHome({ user }) {
             Earn {`${1000 - (parseInt(user.points) % 1000)}`} points to unlock
             your next $5 reward
           </Body>
-          <Overline style={{ marginBottom: 5 }}>
+          <Overline style={{ marginBottom: 8 }}>
             AVAILIABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
           </Overline>
         </RewardsProgressContainer>
