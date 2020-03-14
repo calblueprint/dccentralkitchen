@@ -10,7 +10,6 @@ import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
 import NewsScreen from '../screens/news/NewsScreen';
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
-import ResourceScreen from '../screens/resources/ResourceScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -54,10 +53,3 @@ export const NewsStack = createStackNavigator(
 NewsStack.navigationOptions = {
   drawerLabel: 'News'
 };
-
-export const ResourcesStack = createStackNavigator(
-  {
-    Resources: ResourceScreen
-  },
-  config
-);
