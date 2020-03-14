@@ -5,10 +5,10 @@ import {
   CategoryIcon,
   HeadingContainer
 } from '../../styled/resources';
-import { Title } from '../../components/BaseComponents';
+import { Title } from '../BaseComponents';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-class ResourceTab extends React.Component {
+class ResourceCategoryBar extends React.Component {
   render() {
     return (
       <CategoryCard>
@@ -24,4 +24,4 @@ class ResourceTab extends React.Component {
   }
 }
 
-export default ResourceTab;
+export default ResourceCategoryBar;

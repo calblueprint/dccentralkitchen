@@ -3,9 +3,9 @@ import { TopText } from '../../styled/resources';
 import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
 import getResources from '../../lib/resourceUtils';
 import ResourceCard from '../../components/resources/ResourceCard';
-import ResourceTab from '../../components/resources/ResourceTab';
+import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 
-class ResourceScreen extends React.Component {
+class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ class ResourceScreen extends React.Component {
         <TopText> Resources </TopText>
 
         <ScrollView>
-          <ResourceTab icon="carrot" title="DC Central Kitchen" />
+          <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -78,7 +78,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceTab icon="heart" title="Community" />
+          <ResourceCategoryBar icon="heart" title="Community" />
           {this.state.CommunityResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -86,7 +86,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceTab icon="balance-scale" title="Government" />
+          <ResourceCategoryBar icon="balance-scale" title="Government" />
           {this.state.GovernmentResources.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -94,7 +94,7 @@ class ResourceScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceTab icon="user" title="Seniors" />
+          <ResourceCategoryBar icon="user" title="Seniors" />
           {this.state.ResourcesForSeniors.map(resource => (
             <ResourceCard
               key={resource.id}
@@ -109,8 +109,8 @@ class ResourceScreen extends React.Component {
   }
 }
 
-ResourceScreen.navigationOptions = {
+ResourcesScreen.navigationOptions = {
   headerShown: false
 };
 
-export default ResourceScreen;
+export default ResourcesScreen;
