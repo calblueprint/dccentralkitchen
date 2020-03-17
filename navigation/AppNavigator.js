@@ -1,8 +1,9 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, View, TouchableOpacity, Linking } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
+import Title from '../components/BaseComponents';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import {
@@ -38,33 +39,80 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
-const MyDrawerNavigator = createDrawerNavigator({
-  Stores: {
-    screen: StoresStack,
-    navigationOptions: () => ({
-      title: 'Name'
-    })
-  },
-
-  Rewards: {
-    screen: RewardsStack,
-    navigationOptions: () => ({
-      title: 'Your Profile'
-    })
-  },
-  News: {
-    screen: NewsStack,
-    navigationOptions: () => ({
-      title: 'News'
-    })
-  },
-  Resources: {
-    screen: ResourcesStack,
-    navigationOptions: () => ({
-      title: 'Resources'
-    })
+class DrawerContent extends React.Component {
+  constructor() {
+    super();
   }
-});
+
+  _logout = async () => {
+    AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
+  render() {
+    return (
+      <View>
+        <View
+          style={{
+            backgroundColor: Colors.black,
+            height: 114,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            padding: 16
+          }}>
+          <Title style={{ color: 'white' }}>Gregory Gaby</Title>
+        </View>
+        <DrawerItems {...this.props} />
+        <View
+          style={{
+            padding: 16,
+            verticalAlign: 'bottom'
+          }}>
+          <TouchableOpacity
+            onPress={() => Linking.openURL('http://www.example.com/')}>
+            <Title>Report Issue</Title>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this._logout()}>
+            <Title>Logout</Title>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+
+const MyDrawerNavigator = createDrawerNavigator(
+  {
+    Stores: {
+      screen: StoresStack,
+      navigationOptions: () => ({
+        title: 'Stores'
+      })
+    },
+    Rewards: {
+      screen: RewardsStack,
+      navigationOptions: () => ({
+        title: 'Your Profile',
+        drawerLockMode: 'locked-closed'
+      })
+    },
+    News: {
+      screen: NewsStack,
+      navigationOptions: () => ({
+        title: 'News'
+      })
+    },
+    Resources: {
+      screen: ResourcesStack,
+      navigationOptions: () => ({
+        title: 'Resources'
+      })
+    }
+  },
+  {
+    contentComponent: DrawerContent
+  }
+);
 
 export default createAppContainer(
   createSwitchNavigator(
