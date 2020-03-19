@@ -151,14 +151,13 @@ export default class Login extends React.Component {
                   ? Colors.primaryGreen
                   : Colors.activeText
               }>
-              {' '}
               Phone Number
             </Caption>
             <TextField
               onBlur={() => this.onBlur(0)}
               onFocus={() => this.onFocus(0)}
               placeholder="Phone Number"
-              keyboardType="number-pad"
+              keyboardType="numeric"
               maxLength={10}
               value={this.state.phoneNumber}
               onChangeText={text => this.setState({ phoneNumber: text })}
@@ -171,6 +170,14 @@ export default class Login extends React.Component {
           </TextFieldContainer>
 
           <TextFieldContainer>
+            <Caption
+              color={
+                this.state.phoneNumBool
+                  ? Colors.primaryGreen
+                  : Colors.activeText
+              }>
+              Password
+            </Caption>
             <TextField
               onBlur={() => this.onBlur(1)}
               onFocus={() => this.onFocus(1)}
@@ -194,11 +201,13 @@ export default class Login extends React.Component {
             <ButtonLabel color="#fff">LOG IN</ButtonLabel>
           </FilledButtonContainer>
 
+          {/* TODO @tommypoa: Forgot password functionality
+          
           <ForgotPasswordButtonContainer>
             <ButtonContainer>
               <Body color={Colors.primaryGreen}>Forgot password?</Body>
             </ButtonContainer>
-          </ForgotPasswordButtonContainer>
+          </ForgotPasswordButtonContainer> */}
         </JustifyCenterContainer>
         <ErrorMsg>{this.state.errorMsg}</ErrorMsg>
       </AuthScreenContainer>

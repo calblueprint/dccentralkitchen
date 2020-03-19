@@ -12,12 +12,12 @@ import {
   FilledButtonContainer
 } from '../../components/BaseComponents';
 import {
-  StartUpContainer,
-  StartUpTitleContainer,
-  StartUpLoginContainer
+  WelcomeContainer,
+  WelcomeTitleContainer,
+  WelcomeLoginContainer
 } from '../../styled/auth';
 
-export default class Login extends React.Component {
+export default class Welcome extends React.Component {
   constructor(props) {
     super(props);
 
@@ -41,23 +41,23 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <StartUpContainer>
-        <StartUpTitleContainer>
+      <WelcomeContainer>
+        <WelcomeTitleContainer>
           <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
-        </StartUpTitleContainer>
+        </WelcomeTitleContainer>
         <FilledButtonContainer
           style={{ marginTop: 108 }}
           width="100%"
           onPress={() => this.navigateSignup()}>
           <ButtonLabel color="white">SIGN UP</ButtonLabel>
         </FilledButtonContainer>
-        <StartUpLoginContainer>
+        <WelcomeLoginContainer>
           <Body color={Colors.secondaryText}>Already have an account?</Body>
           <ButtonContainer onPress={() => this.navigateLogin()}>
             <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
           </ButtonContainer>
-        </StartUpLoginContainer>
-      </StartUpContainer>
+        </WelcomeLoginContainer>
+      </WelcomeContainer>
     );
   }
 }

@@ -3,13 +3,13 @@ import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import StartUpScreen from '../screens/auth/StartUpScreen';
+import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import { NewsStack, RewardsStack, StoresStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
-  StartUp: StartUpScreen,
+  Welcome: WelcomeScreen,
   Login: LoginScreen,
   SignUp: SignUpScreen
 });

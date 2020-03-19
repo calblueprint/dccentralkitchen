@@ -10,21 +10,21 @@ export const AuthScreenContainer = styled.View`
   background-color: #fff;
 `;
 
-// StartUpScreen
+// WelcomeScreen
 // TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in Login and SignUp screens)
-export const StartUpContainer = styled.View`
+export const WelcomeContainer = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  margin: 241px 42px 0 42px;
+  margin: 241px 42px;
 `;
 
-export const StartUpTitleContainer = styled.View`
+export const WelcomeTitleContainer = styled.View`
   margin: 0 12.5%;
 `;
 
-export const StartUpLoginContainer = styled.View`
+export const WelcomeLoginContainer = styled.View`
   width: 291px
   margin: 16px 0;
   display: flex;

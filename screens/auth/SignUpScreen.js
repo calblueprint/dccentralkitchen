@@ -319,9 +319,10 @@ export default class SignUp extends React.Component {
                 onChangeText={text => this.setState({ firstName: text })}
                 value={this.state.firstName}
                 borderColor={this.state.indicators[signUpFields.NAME]}
+                returnKeyType={'next'}
               />
               <InputNoticeContainer>
-                <Caption color={Colors.secondaryText}>
+                <Caption color={this.state.indicators[signUpFields.NAME]}>
                   Note: this is how clerks will greet you!
                 </Caption>
               </InputNoticeContainer>
@@ -347,12 +348,12 @@ export default class SignUp extends React.Component {
                 placeholder="Phone Number"
                 onChangeText={text => this.setState({ phoneNumber: text })}
                 value={this.state.phoneNumber}
-                keyboardType="number-pad"
+                keyboardType="numeric"
                 maxLength={10}
                 borderColor={this.state.indicators[signUpFields.PHONENUM]}
               />
               <InputNoticeContainer>
-                <Caption color={Colors.secondaryText}>
+                <Caption color={this.state.indicators[signUpFields.PHONENUM]}>
                   Must be a valid phone number
                 </Caption>
               </InputNoticeContainer>
@@ -372,7 +373,7 @@ export default class SignUp extends React.Component {
                 borderColor={this.state.indicators[signUpFields.PASSWORD]}
               />
               <InputNoticeContainer>
-                <Caption color={Colors.secondaryText}>
+                <Caption color={this.state.indicators[signUpFields.PASSWORD]}>
                   Must be 8-20 characters long
                 </Caption>
               </InputNoticeContainer>
