@@ -13,7 +13,8 @@ import { Title } from '../components/BaseComponents';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import Colors from '../assets/Colors';
-import styled from 'styled-components/native';
+import BASE from '../lib/common';
+import { getUser } from '../lib/rewardsUtils';
 import {
   NewsStack,
   RewardsStack,
@@ -50,6 +51,27 @@ class AuthLoadingScreen extends React.Component {
 export class DrawerContent extends React.Component {
   constructor() {
     super();
+    this.state = {
+      user: {
+        id: null,
+        name: null
+      }
+    };
+  }
+  async componentDidMount() {
+    const userId = await AsyncStorage.getItem('userId');
+    getUser(userId).then(userRecord => {
+      if (userRecord) {
+        const user = {
+          id: userId,
+          name: userRecord.fields.Name
+        };
+        this.setState({ user });
+        console.log(this.state.user);
+        return true;
+      }
+      return false;
+    });
   }
 
   _logout = async () => {
@@ -74,7 +96,7 @@ export class DrawerContent extends React.Component {
             alignItems: 'flex-end',
             padding: 16
           }}>
-          <Title style={{ color: 'white' }}>Gregory Gaby</Title>
+          <Title style={{ color: 'white' }}>{this.state.user.name}</Title>
         </View>
 
         <DrawerItems {...this.props} />
@@ -83,7 +105,6 @@ export class DrawerContent extends React.Component {
           style={{
             flex: 1,
             flexDirection: 'column',
-
             justifyContent: 'flex-end',
             verticalAlign: 'bottom'
           }}>
@@ -116,12 +137,6 @@ const MyDrawerNavigator = createDrawerNavigator(
       navigationOptions: () => ({
         title: 'Your Profile',
         drawerLockMode: 'locked-closed'
-      })
-    },
-    News: {
-      screen: NewsStack,
-      navigationOptions: () => ({
-        title: 'News'
       })
     },
     Resources: {
