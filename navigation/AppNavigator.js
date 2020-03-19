@@ -67,7 +67,6 @@ export class DrawerContent extends React.Component {
           name: userRecord.fields.Name
         };
         this.setState({ user });
-        console.log(this.state.user);
         return true;
       }
       return false;
