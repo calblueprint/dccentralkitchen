@@ -29,6 +29,7 @@ import {
   Caption,
   FilledButtonContainer
 } from '../../components/BaseComponents';
+import AuthTextField from '../../components/AuthTextField';
 import {
   TextField,
   TextFieldContainer,
@@ -308,76 +309,32 @@ export default class SignUp extends React.Component {
         <AuthScreenContainer>
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
-            <TextFieldContainer>
-              <Caption color={this.state.indicators[signUpFields.NAME]}>
-                Name
-              </Caption>
-              <TextField
-                onBlur={() => this.onBlur(signUpFields.NAME)}
-                onFocus={() => this.onFocus(signUpFields.NAME)}
-                placeholder="Name"
-                onChangeText={text => this.setState({ firstName: text })}
-                value={this.state.firstName}
-                borderColor={this.state.indicators[signUpFields.NAME]}
-                returnKeyType={'next'}
-              />
-              <InputNoticeContainer>
-                <Caption color={this.state.indicators[signUpFields.NAME]}>
-                  Note: this is how clerks will greet you!
-                </Caption>
-              </InputNoticeContainer>
-            </TextFieldContainer>
-            <TextFieldContainer>
-              <TextField
-                onBlur={() => this.onBlur(signUpFields.NAME)}
-                onFocus={() => this.onFocus(signUpFields.NAME)}
-                placeholder="Last Name"
-                onChangeText={text => this.setState({ lastName: text })}
-                value={this.state.lastName}
-                borderColor={this.state.indicators[signUpFields.NAME]}
-              />
-            </TextFieldContainer>
+            <AuthTextField
+              fieldType="Name"
+              color={this.state.indicators[signUpFields.NAME]}
+              value={this.state.firstName}
+              onBlurCallback={() => this.onBlur(signUpFields.NAME)}
+              onFocusCallback={() => this.onFocus(signUpFields.NAME)}
+              changeTextCallback={text => this.setState({ firstName: text })}
+            />
 
-            <TextFieldContainer>
-              <Caption color={this.state.indicators[signUpFields.PHONENUM]}>
-                Phone Number
-              </Caption>
-              <TextField
-                onBlur={() => this.onBlur(signUpFields.PHONENUM)}
-                onFocus={() => this.onFocus(signUpFields.PHONENUM)}
-                placeholder="Phone Number"
-                onChangeText={text => this.setState({ phoneNumber: text })}
-                value={this.state.phoneNumber}
-                keyboardType="numeric"
-                maxLength={10}
-                borderColor={this.state.indicators[signUpFields.PHONENUM]}
-              />
-              <InputNoticeContainer>
-                <Caption color={this.state.indicators[signUpFields.PHONENUM]}>
-                  Must be a valid phone number
-                </Caption>
-              </InputNoticeContainer>
-            </TextFieldContainer>
+            <AuthTextField
+              fieldType="Phone Number"
+              color={this.state.indicators[signUpFields.PHONENUM]}
+              value={this.state.phoneNumber}
+              onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
+              onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
+              changeTextCallback={text => this.setState({ phoneNumber: text })}
+            />
 
-            <TextFieldContainer>
-              <Caption color={this.state.indicators[signUpFields.PASSWORD]}>
-                Password
-              </Caption>
-              <TextField
-                onBlur={() => this.onBlur(signUpFields.PASSWORD)}
-                onFocus={() => this.onFocus(signUpFields.PASSWORD)}
-                placeholder="Password"
-                secureTextEntry
-                onChangeText={text => this.setState({ password: text })}
-                value={this.state.password}
-                borderColor={this.state.indicators[signUpFields.PASSWORD]}
-              />
-              <InputNoticeContainer>
-                <Caption color={this.state.indicators[signUpFields.PASSWORD]}>
-                  Must be 8-20 characters long
-                </Caption>
-              </InputNoticeContainer>
-            </TextFieldContainer>
+            <AuthTextField
+              fieldType="Password"
+              color={this.state.indicators[signUpFields.PASSWORD]}
+              value={this.state.password}
+              onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
+              onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
+              changeTextCallback={text => this.setState({ password: text })}
+            />
           </FormContainer>
           <FilledButtonContainer
             style={{ marginTop: 35 }}
