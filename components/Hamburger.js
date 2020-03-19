@@ -9,7 +9,7 @@ export default class Hamburger extends React.Component {
   }
   render() {
     return (
-      <HamburgerButton>
+      <HamburgerButton onPress={() => this.props.navigation.toggleDrawer()}>
         <FontAwesome5 name="bars" solid size={24} />
       </HamburgerButton>
     );

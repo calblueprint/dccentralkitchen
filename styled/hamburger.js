@@ -11,7 +11,7 @@ export const HamburgerButton = styled(TouchableOpacity)`
   top: 63px;
   left: 16px;
   border-radius: 23px;
-  border-width: 4;
+  border-width: 4px;
   border-color: #fff;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
   align-items: center;
