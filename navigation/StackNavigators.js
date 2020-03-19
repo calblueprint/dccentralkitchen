@@ -28,7 +28,7 @@ export const StoresStack = createStackNavigator(
 );
 
 StoresStack.navigationOptions = {
-  drawerLabel: 'Name'
+  drawerLabel: 'Stores'
 };
 
 export const RewardsStack = createStackNavigator(

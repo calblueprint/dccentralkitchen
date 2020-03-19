@@ -1,11 +1,19 @@
 import React from 'react';
-import { AsyncStorage, View, TouchableOpacity, Linking } from 'react-native';
+import {
+  AsyncStorage,
+  View,
+  TouchableOpacity,
+  Linking,
+  ScrollView
+} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import Title from '../components/BaseComponents';
+import { Title } from '../components/BaseComponents';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
+import Colors from '../assets/Colors';
+import styled from 'styled-components/native';
 import {
   NewsStack,
   RewardsStack,
@@ -39,7 +47,7 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
-class DrawerContent extends React.Component {
+export class DrawerContent extends React.Component {
   constructor() {
     super();
   }
@@ -48,9 +56,15 @@ class DrawerContent extends React.Component {
     AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
+
   render() {
     return (
-      <View>
+      <View
+        style={{
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'column'
+        }}>
         <View
           style={{
             backgroundColor: Colors.black,
@@ -62,17 +76,25 @@ class DrawerContent extends React.Component {
           }}>
           <Title style={{ color: 'white' }}>Gregory Gaby</Title>
         </View>
+
         <DrawerItems {...this.props} />
+
         <View
           style={{
-            padding: 16,
+            flex: 1,
+            flexDirection: 'column',
+
+            justifyContent: 'flex-end',
             verticalAlign: 'bottom'
           }}>
           <TouchableOpacity
+            style={{ padding: 16 }}
             onPress={() => Linking.openURL('http://www.example.com/')}>
             <Title>Report Issue</Title>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this._logout()}>
+          <TouchableOpacity
+            style={{ paddingLeft: 16, paddingBottom: 21 }}
+            onPress={() => this._logout()}>
             <Title>Logout</Title>
           </TouchableOpacity>
         </View>
@@ -109,7 +131,16 @@ const MyDrawerNavigator = createDrawerNavigator(
       })
     }
   },
+
   {
+    contentOptions: {
+      labelStyle: {
+        fontFamily: 'poppins-medium',
+        fontSize: 20
+      },
+      activeTintColor: Colors.primaryGreen
+    },
+    drawerWidth: 189,
     contentComponent: DrawerContent
   }
 );
