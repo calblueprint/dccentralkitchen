@@ -3,7 +3,12 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button } from 'react-native';
-import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
+import {
+  signUpFields,
+  fieldStateColors,
+  lookupCustomer,
+  updateCustomerPushTokens
+} from '../../lib/authUtils';
 import {
   ErrorMsg,
   TextField,
@@ -22,6 +27,7 @@ import {
   Caption,
   FilledButtonContainer
 } from '../../components/BaseComponents';
+import AuthTextField from '../../components/AuthTextField';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -32,9 +38,11 @@ export default class Login extends React.Component {
       password: '',
       errorMsg: '',
       token: null,
-      phoneNumBool: false,
-      passwordBool: false,
-      booleans: ['phoneNumBool', 'passwordBool']
+      indicators: {
+        [signUpFields.NAME]: [fieldStateColors.INACTIVE],
+        [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
+      }
     };
   }
 
@@ -127,15 +135,19 @@ export default class Login extends React.Component {
       .catch(err => console.error(err));
   }
 
-  onFocus(index) {
+  onFocus(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = fieldStateColors.FOCUSED;
     this.setState({
-      [this.state.booleans[index]]: true
+      indicators
     });
   }
 
-  onBlur(index) {
+  onBlur(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = fieldStateColors.BLURRED;
     this.setState({
-      [this.state.booleans[index]]: false
+      indicators
     });
   }
 
@@ -144,54 +156,22 @@ export default class Login extends React.Component {
       <AuthScreenContainer>
         <BigTitle>Log in</BigTitle>
         <FormContainer>
-          <TextFieldContainer>
-            <Caption
-              color={
-                this.state.phoneNumBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }>
-              Phone Number
-            </Caption>
-            <TextField
-              onBlur={() => this.onBlur(0)}
-              onFocus={() => this.onFocus(0)}
-              placeholder="Phone Number"
-              keyboardType="numeric"
-              maxLength={10}
-              value={this.state.phoneNumber}
-              onChangeText={text => this.setState({ phoneNumber: text })}
-              borderColor={
-                this.state.phoneNumBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }
-            />
-          </TextFieldContainer>
-
-          <TextFieldContainer>
-            <Caption
-              color={
-                this.state.phoneNumBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }>
-              Password
-            </Caption>
-            <TextField
-              onBlur={() => this.onBlur(1)}
-              onFocus={() => this.onFocus(1)}
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={text => this.setState({ password: text })}
-              value={this.state.password}
-              borderColor={
-                this.state.passwordBool
-                  ? Colors.primaryGreen
-                  : Colors.activeText
-              }
-            />
-          </TextFieldContainer>
+          <AuthTextField
+            fieldType="Phone Number"
+            color={this.state.indicators[signUpFields.PHONENUM]}
+            value={this.state.phoneNumber}
+            onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
+            onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
+            changeTextCallback={text => this.setState({ phoneNumber: text })}
+          />
+          <AuthTextField
+            fieldType="Password"
+            color={this.state.indicators[signUpFields.PASSWORD]}
+            value={this.state.password}
+            onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
+            onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
+            changeTextCallback={text => this.setState({ password: text })}
+          />
         </FormContainer>
         <JustifyCenterContainer>
           <FilledButtonContainer
