@@ -71,9 +71,9 @@ export const HeadingText = styled(Title)`
 
 export const TopText = styled(Title)`
   font-style: normal;
-  font-weight: 900;
+  font-weight: 500;
   text-align: center;
   color: black;
-  margin-top: 55px;
+  margin-top: 45px;
   font-size: 25px;
 `;

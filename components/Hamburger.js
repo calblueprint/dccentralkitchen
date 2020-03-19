@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Button } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { NavButton } from '../components/BaseComponents';
 import { HamburgerButton } from '../styled/hamburger';
 //TODO: ADD FONTAWESOME ICON
 export default class Hamburger extends React.Component {

@@ -15,9 +15,12 @@ import {
   Container,
   ScrollViewContainer,
   styles,
-  TopTab
+  TopTab,
+  BackButton
 } from '../../styled/rewards';
-import { Body, Caption, Title } from '../../components/BaseComponents';
+import { Title } from '../../components/BaseComponents';
+import Colors from '../../assets/Colors';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -152,13 +155,10 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
+          <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
+            <FontAwesome5 name="arrow-down" solid size={24} color="white" />
+          </BackButton>
           <View>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Stores')}>
-              {/* TODO: change this to a proper icon */}
-              <Text style={{ color: 'white', fontSize: 25 }}> ▼ </Text>
-            </TouchableOpacity>
-
             <Title style={{ color: 'white', fontSize: 30 }}>
               Healthy Rewards
             </Title>

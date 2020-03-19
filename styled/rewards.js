@@ -1,11 +1,16 @@
 import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { Subhead, Caption } from '../components/BaseComponents';
+import { Subhead, Caption, NavButton } from '../components/BaseComponents';
 import Colors from '../assets/Colors';
 
 export const Container = styled.View`
   flex: 1;
   background-color: #fff;
+`;
+
+export const BackButton = styled(NavButton)`
+  background-color: ${Colors.primaryGreen};
+  border-color: ${Colors.primaryGreen};
 `;
 
 export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
