@@ -44,7 +44,7 @@ export class DrawerContent extends React.Component {
         id: null,
         name: null
       },
-      link: 'https://airtable.com/shr64njwE5gkaB5FH'
+      link: 'http://tiny.cc/RewardsFeedback'
     };
   }
   async componentDidMount() {
