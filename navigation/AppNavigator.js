@@ -8,13 +8,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import Colors from '../assets/Colors';
 import { getUser } from '../lib/rewardsUtils';
-import { getReportIssueLink } from '../lib/resourceUtils';
-import {
-  NewsStack,
-  RewardsStack,
-  StoresStack,
-  ResourcesStack
-} from './StackNavigators';
+import { RewardsStack, StoresStack, ResourcesStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
   SignUp: SignUpScreen,
@@ -50,7 +44,7 @@ export class DrawerContent extends React.Component {
         id: null,
         name: null
       },
-      link: 'http://www.example.com/'
+      link: 'https://airtable.com/shr64njwE5gkaB5FH'
     };
   }
   async componentDidMount() {
@@ -66,8 +60,6 @@ export class DrawerContent extends React.Component {
       }
       return false;
     });
-    const reportLink = getReportIssueLink();
-    this.setState({ link: reportLink });
   }
 
   _logout = async () => {
