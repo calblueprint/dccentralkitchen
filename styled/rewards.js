@@ -76,14 +76,13 @@ export const RewardsTitle = styled.View`
 `;
 export const TopTab = styled.View`
   position: absolute;
-  height: 200px;
+  height: 190px;
   top: 0px;
-  background-color: #008550;
-  align-self: stretch;
+  background-color: ${Colors.primaryGreen};
+  flexdirection: row;
   width: 100%;
   font-size: 30px;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
 `;
 // TODO @anniero98 figure out how to pass styles to third-party components (TabView, TabBar)
 export const StyledTabView = styled.View`

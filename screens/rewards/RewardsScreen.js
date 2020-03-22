@@ -158,11 +158,16 @@ export default class RewardsScreen extends React.Component {
           <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </BackButton>
-          <View>
-            <Title style={{ color: 'white', fontSize: 30 }}>
-              Healthy Rewards
-            </Title>
-          </View>
+
+          <Title
+            style={{
+              margin: 16,
+              color: 'white',
+              fontSize: 36,
+              paddingBottom: 40
+            }}>
+            Healthy Rewards
+          </Title>
         </TopTab>
         <TabView
           navigationState={this.state}
