@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  AsyncStorage,
-  View,
-  TouchableOpacity,
-  Linking,
-  ScrollView
-} from 'react-native';
+import { AsyncStorage, View, TouchableOpacity, Linking } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -13,8 +7,8 @@ import { Title } from '../components/BaseComponents';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import Colors from '../assets/Colors';
-import BASE from '../lib/common';
 import { getUser } from '../lib/rewardsUtils';
+import { getReportIssueLink } from '../lib/resourceUtils';
 import {
   NewsStack,
   RewardsStack,
@@ -55,7 +49,8 @@ export class DrawerContent extends React.Component {
       user: {
         id: null,
         name: null
-      }
+      },
+      link: 'http://www.example.com/'
     };
   }
   async componentDidMount() {
@@ -71,6 +66,8 @@ export class DrawerContent extends React.Component {
       }
       return false;
     });
+    const reportLink = getReportIssueLink();
+    this.setState({ link: reportLink });
   }
 
   _logout = async () => {
@@ -97,9 +94,7 @@ export class DrawerContent extends React.Component {
           }}>
           <Title style={{ color: 'white' }}>{this.state.user.name}</Title>
         </View>
-
         <DrawerItems {...this.props} />
-
         <View
           style={{
             flex: 1,
@@ -109,7 +104,7 @@ export class DrawerContent extends React.Component {
           }}>
           <TouchableOpacity
             style={{ padding: 16 }}
-            onPress={() => Linking.openURL('http://www.example.com/')}>
+            onPress={() => Linking.openURL(this.state.link)}>
             <Title>Report Issue</Title>
           </TouchableOpacity>
           <TouchableOpacity
