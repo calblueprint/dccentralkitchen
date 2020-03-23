@@ -54,8 +54,7 @@ export default class SignUp extends React.Component {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      name: '',
       nameError: '',
       password: '',
       passwordError: '',
@@ -142,8 +141,7 @@ export default class SignUp extends React.Component {
 
             // Create customer with this tokenId
             createCustomer(
-              this.state.firstName,
-              this.state.lastName,
+              this.state.name,
               this.state.phoneNumber,
               this.state.password,
               tokenId
@@ -183,11 +181,11 @@ export default class SignUp extends React.Component {
     const phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
     const passwordError = validate('password', this.state.password);
     let nameError = '';
-    if (!this.state.firstName || !this.state.lastName) {
+    if (!this.state.name) {
       nameError = 'Name inputs cannot be blank.';
     }
     // In case we want to do name checking using validate.js
-    // const nameError = validate('name', this.state.firstName)
+    // const nameError = validate('name', this.state.name)
 
     let formattedPhoneNumber = this.state.phoneNumber;
     // eslint-disable-next-line prettier/prettier
@@ -243,8 +241,7 @@ export default class SignUp extends React.Component {
       await this.addCustomer()
         .then(custId => {
           this.setState({
-            firstName: '',
-            lastName: '',
+            name: '',
             password: '',
             passwordError: '',
             phoneNumber: '',
@@ -278,7 +275,7 @@ export default class SignUp extends React.Component {
       return fieldStateColors.ERROR;
     } else if (
       signUpField == signUpFields.NAME &&
-      !this.state.firstName.replace(/\s/g, '').length
+      !this.state.name.replace(/\s/g, '').length
     ) {
       return fieldStateColors.ERROR;
     } else {
@@ -316,10 +313,10 @@ export default class SignUp extends React.Component {
             <AuthTextField
               fieldType="Name"
               color={this.state.indicators[signUpFields.NAME]}
-              value={this.state.firstName}
+              value={this.state.name}
               onBlurCallback={() => this.onBlur(signUpFields.NAME)}
               onFocusCallback={() => this.onFocus(signUpFields.NAME)}
-              changeTextCallback={text => this.setState({ firstName: text })}
+              changeTextCallback={text => this.setState({ name: text })}
             />
 
             <AuthTextField

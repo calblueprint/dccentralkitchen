@@ -30,7 +30,7 @@ function AuthTextField({
         onChangeText={changeTextCallback}
         value={value}
         borderColor={color}
-        returnKeyType={'next'}
+        returnKeyType={'done'}
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
