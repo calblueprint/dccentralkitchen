@@ -3,6 +3,7 @@ import { AsyncStorage, View, TouchableOpacity, Linking } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
+import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import { Title } from '../components/BaseComponents';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
@@ -11,8 +12,9 @@ import { getUser } from '../lib/rewardsUtils';
 import { RewardsStack, StoresStack, ResourcesStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
-  SignUp: SignUpScreen,
-  Login: LoginScreen
+  Welcome: WelcomeScreen,
+  Login: LoginScreen,
+  SignUp: SignUpScreen
 });
 
 class AuthLoadingScreen extends React.Component {
@@ -27,7 +29,12 @@ class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    // Correct version
+    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    // Testing purpose
+    this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here

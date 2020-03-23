@@ -3,8 +3,24 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button } from 'react-native';
-import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
-import { ErrorMsg, Input, LoginContainer } from '../../styled/auth';
+import {
+  signUpFields,
+  fieldStateColors,
+  lookupCustomer,
+  updateCustomerPushTokens
+} from '../../lib/authUtils';
+import {
+  ErrorMsg,
+  AuthScreenContainer,
+  FormContainer
+} from '../../styled/auth';
+import { JustifyCenterContainer } from '../../styled/shared';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer
+} from '../../components/BaseComponents';
+import AuthTextField from '../../components/AuthTextField';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -14,12 +30,16 @@ export default class Login extends React.Component {
       phoneNumber: '',
       password: '',
       errorMsg: '',
-      token: null
+      token: null,
+      indicators: {
+        [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
+      }
     };
   }
 
   componentDidMount() {
-    this.registerForPushNotificationsAsync();
+    // this.registerForPushNotificationsAsync();
 
     // From SignUpScreen.js, see comment there for details
     this._notificationSubscription = Notifications.addListener(
@@ -107,25 +127,62 @@ export default class Login extends React.Component {
       .catch(err => console.error(err));
   }
 
+  onFocus(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = fieldStateColors.FOCUSED;
+    this.setState({
+      indicators
+    });
+  }
+
+  onBlur(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = fieldStateColors.BLURRED;
+    this.setState({
+      indicators
+    });
+  }
+
   render() {
     return (
-      <LoginContainer>
-        <Input
-          placeholder="Phone Number (i.e. 1234567890)"
-          keyboardType="number-pad"
-          maxLength={10}
-          value={this.state.phoneNumber}
-          onChangeText={text => this.setState({ phoneNumber: text })}
-        />
-        <Input
-          placeholder="Password"
-          secureTextEntry
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-        />
-        <Button title="Log In" onPress={() => this.handleSubmit()} />
+      <AuthScreenContainer>
+        <BigTitle>Log in</BigTitle>
+        <FormContainer>
+          <AuthTextField
+            fieldType="Phone Number"
+            color={this.state.indicators[signUpFields.PHONENUM]}
+            value={this.state.phoneNumber}
+            onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
+            onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
+            changeTextCallback={text => this.setState({ phoneNumber: text })}
+          />
+          <AuthTextField
+            fieldType="Password"
+            color={this.state.indicators[signUpFields.PASSWORD]}
+            value={this.state.password}
+            onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
+            onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
+            changeTextCallback={text => this.setState({ password: text })}
+          />
+        </FormContainer>
+        <JustifyCenterContainer>
+          <FilledButtonContainer
+            style={{ marginTop: 104 }}
+            width="100%"
+            onPress={() => this.handleSubmit()}>
+            <ButtonLabel color="#fff">Log in</ButtonLabel>
+          </FilledButtonContainer>
+
+          {/* TODO @tommypoa: Forgot password functionality
+          
+          <ForgotPasswordButtonContainer>
+            <ButtonContainer>
+              <Body color={Colors.primaryGreen}>Forgot password?</Body>
+            </ButtonContainer>
+          </ForgotPasswordButtonContainer> */}
+        </JustifyCenterContainer>
         <ErrorMsg>{this.state.errorMsg}</ErrorMsg>
-      </LoginContainer>
+      </AuthScreenContainer>
     );
   }
 }

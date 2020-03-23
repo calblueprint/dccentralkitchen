@@ -2,52 +2,52 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import {
-  AsyncStorage,
-  Button,
-  Keyboard,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import validatejs from 'validate.js';
 import {
+  signUpFields,
+  fieldStateColors,
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
 } from '../../lib/authUtils';
-import { Input, SignUpContainer } from '../../styled/auth';
 
-// I abstracted portions of the validation flow into these files
-// but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
-// so I put it all in this one file.
-// TODO: @Johnathan Abstract everything in to separate files
-// TODO: @Johnathan Refactor Airtable calls
+import Colors from '../../assets/Colors';
 
-// import { MonoText } from 'screens/signup/textfield.jsx'
-// import validation from  'screens/signup/validation'
-// import validate from  'screens/signup/validation_wrapper'
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer
+} from '../../components/BaseComponents';
+import AuthTextField from '../../components/AuthTextField';
+import { FormContainer, AuthScreenContainer } from '../../styled/auth';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      name: '',
       nameError: '',
       password: '',
       passwordError: '',
       phoneNumber: '',
       phoneNumberError: '',
-      token: ''
+      token: '',
+      indicators: {
+        [signUpFields.NAME]: [fieldStateColors.INACTIVE],
+        [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
+      },
+      signUpPermission: false
     };
   }
 
   // TODO @johnathanzhou or @anniero98
   // Notifications is jank - the `_handleNotification` function doesn't even exist. Unclear to devs what the flow should be with receiving notifications
   componentDidMount() {
-    this.registerForPushNotificationsAsync();
+    // this.registerForPushNotificationsAsync();
 
     // Handle notifications that are received or selected while the app
     // is open. If the app was closed and then opened by tapping the
@@ -115,8 +115,7 @@ export default class SignUp extends React.Component {
 
             // Create customer with this tokenId
             createCustomer(
-              this.state.firstName,
-              this.state.lastName,
+              this.state.name,
               this.state.phoneNumber,
               this.state.password,
               tokenId
@@ -152,18 +151,15 @@ export default class SignUp extends React.Component {
     });
   }
 
-  // Handling submission. This function runs the validation functions
-  // as well as the duplicate checking. If there are no errors on the
-  // validation or duplicate side, then an Airtable record is created.
-  async handleSubmit() {
+  updateErrors = async () => {
     const phoneNumberError = validate('phoneNumber', this.state.phoneNumber);
     const passwordError = validate('password', this.state.password);
     let nameError = '';
-    if (!this.state.firstName || !this.state.lastName) {
+    if (!this.state.name) {
       nameError = 'Name inputs cannot be blank.';
     }
     // In case we want to do name checking using validate.js
-    // const nameError = validate('name', this.state.firstName)
+    // const nameError = validate('name', this.state.name)
 
     let formattedPhoneNumber = this.state.phoneNumber;
     // eslint-disable-next-line prettier/prettier
@@ -174,17 +170,30 @@ export default class SignUp extends React.Component {
       6,
       10
     )}`;
+    // Update sign up permission based on whether there are any errors left
+    let signUpPermission = false;
+    if (!phoneNumberError && !passwordError && !nameError) {
+      signUpPermission = true;
+    }
 
     // Have to await this or else Airtable call may happen first
     await this.setState({
       nameError,
       phoneNumberError,
-      passwordError
+      passwordError,
+      signUpPermission
     });
+    return formattedPhoneNumber;
+  };
 
+  // Handling submission. This function runs the validation functions
+  // as well as the duplicate checking. If there are no errors on the
+  // validation or duplicate side, then an Airtable record is created.
+  async handleSubmit() {
+    const formattedPhoneNumber = this.updateErrors();
     // If we don't have any bugs already with form validation,
     // we'll check for duplicates here in the Airtable.
-    if (!phoneNumberError) {
+    if (!this.state.phoneNumberError) {
       const that = this;
       await checkForDuplicateCustomer(formattedPhoneNumber).then(
         async resolvedValue => {
@@ -206,8 +215,7 @@ export default class SignUp extends React.Component {
       await this.addCustomer()
         .then(custId => {
           this.setState({
-            firstName: '',
-            lastName: '',
+            name: '',
             password: '',
             passwordError: '',
             phoneNumber: '',
@@ -228,39 +236,96 @@ export default class SignUp extends React.Component {
     Keyboard.dismiss();
   }
 
+  handleErrorState(signUpField) {
+    if (
+      signUpField == signUpFields.PHONENUM &&
+      validate('phoneNumber', this.state.phoneNumber)
+    ) {
+      return fieldStateColors.ERROR;
+    } else if (
+      signUpField == signUpFields.PASSWORD &&
+      validate('password', this.state.password)
+    ) {
+      return fieldStateColors.ERROR;
+    } else if (
+      signUpField == signUpFields.NAME &&
+      !this.state.name.replace(/\s/g, '').length
+    ) {
+      return fieldStateColors.ERROR;
+    } else {
+      return fieldStateColors.BLURRED;
+    }
+  }
+
+  onFocus(signUpField) {
+    const { indicators } = this.state;
+    if (indicators[signUpField] == fieldStateColors.ERROR) {
+      return;
+    } else {
+      indicators[signUpField] = fieldStateColors.FOCUSED;
+      this.setState({
+        indicators
+      });
+    }
+  }
+
+  onBlur(signUpField) {
+    const { indicators } = this.state;
+    indicators[signUpField] = this.handleErrorState(signUpField);
+    this.updateErrors();
+    this.setState({
+      indicators
+    });
+  }
+
   render() {
     return (
-      <SignUpContainer>
-        <Input
-          placeholder="First Name"
-          onChangeText={text => this.setState({ firstName: text })}
-          value={this.state.firstName}
-        />
-        <Input
-          placeholder="Last Name"
-          onChangeText={text => this.setState({ lastName: text })}
-          value={this.state.lastName}
-        />
-        <Input
-          placeholder="Phone Number"
-          onChangeText={text => this.setState({ phoneNumber: text })}
-          value={this.state.phoneNumber}
-          keyboardType="number-pad"
-          maxLength={10}
-        />
-        <Input
-          placeholder="Password"
-          secureTextEntry
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-        />
-        <Button title="Sign Up" onPress={() => this.handleSubmit()} />
-        <Button
-          title="Already have an account? Log in"
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
-        <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-      </SignUpContainer>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <AuthScreenContainer>
+          <BigTitle>Sign Up</BigTitle>
+          <FormContainer>
+            <AuthTextField
+              fieldType="Name"
+              color={this.state.indicators[signUpFields.NAME]}
+              value={this.state.name}
+              onBlurCallback={() => this.onBlur(signUpFields.NAME)}
+              onFocusCallback={() => this.onFocus(signUpFields.NAME)}
+              changeTextCallback={text => this.setState({ name: text })}
+            />
+
+            <AuthTextField
+              fieldType="Phone Number"
+              color={this.state.indicators[signUpFields.PHONENUM]}
+              value={this.state.phoneNumber}
+              onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
+              onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
+              changeTextCallback={text => this.setState({ phoneNumber: text })}
+            />
+
+            <AuthTextField
+              fieldType="Password"
+              color={this.state.indicators[signUpFields.PASSWORD]}
+              value={this.state.password}
+              onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
+              onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
+              changeTextCallback={text => this.setState({ password: text })}
+            />
+          </FormContainer>
+          <FilledButtonContainer
+            style={{ marginTop: 35 }}
+            color={
+              this.state.signUpPermission
+                ? Colors.primaryGreen
+                : Colors.lightestGreen
+            }
+            width="100%"
+            onPress={() => this.handleSubmit()}
+            disabled={!this.state.signUpPermission}>
+            <ButtonLabel color="white">SIGN UP</ButtonLabel>
+          </FilledButtonContainer>
+          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+        </AuthScreenContainer>
+      </ScrollView>
     );
   }
 }
@@ -286,19 +351,6 @@ function validate(fieldName, value) {
   }
   return '';
 }
-
-// For handling errors within the form. This is strecth to handle the
-// onBlur thing that I talked about.
-const TextField = props => (
-  <View>
-    <TextInput
-      style={props.style}
-      placeholder={props.placeholder}
-      secureTextEntry={props.secureTextEntry}
-    />
-    <TextInput value={props.error ? <Text>{props.error}</Text> : null} />
-  </View>
-);
 
 // For future use, to match for better passwords
 // TODO: @Johnathan Fix passwords check
