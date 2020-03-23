@@ -1,9 +1,16 @@
 import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import { Subhead, Caption, NavButton } from '../components/BaseComponents';
+import Colors from '../assets/Colors';
 
 export const Container = styled.View`
   flex: 1;
   background-color: #fff;
+`;
+
+export const BackButton = styled(NavButton)`
+  background-color: ${Colors.primaryGreen};
+  border-color: ${Colors.primaryGreen};
 `;
 
 export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
@@ -15,6 +22,51 @@ export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
   background-color: #fff;
 `;
 
+export const RewardsCardContainer = styled.View`
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 9px;
+  width: 159px;
+  height: 64px;
+  padding: 10px;
+  margin-right: 24px;
+  flex-direction: row;
+  margin-bottom: 12px;
+  background-color: ${Colors.lightestGreen};
+`;
+
+export const StarIcon = styled.View`
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  background-color: #fff;
+  flex-direction: row;
+`;
+
+export const RewardDescriptionContainer = styled.View`
+  flex-direction: column;
+  margin-left: 8px;
+`;
+
+export const RewardsProgressContainer = styled.View`
+  margin: 1% 5%;
+  flex-direction: column;
+`;
+
+export const AvailiableRewardsContainer = styled.View`
+  margin: 1% 5%;
+  display: flex
+  width: 100%
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+`;
+
+export const ContentText = styled(Subhead)``;
+
+export const ContentText2 = styled(Caption)``;
+
 export const RewardsTitle = styled.View`
   font-size: 17px;
   font-weight: bold;
@@ -24,14 +76,13 @@ export const RewardsTitle = styled.View`
 `;
 export const TopTab = styled.View`
   position: absolute;
-  height: 200px;
+  height: 190px;
   top: 0px;
-  background-color: #008550;
-  align-self: stretch;
+  background-color: ${Colors.primaryGreen};
+  flex-direction: row;
   width: 100%;
   font-size: 30px;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
 `;
 // TODO @anniero98 figure out how to pass styles to third-party components (TabView, TabBar)
 export const StyledTabView = styled.View`
@@ -87,14 +138,5 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50,
     paddingVertical: 20
-  },
-
-  progressBar: {
-    height: 20,
-    width: '100%',
-    backgroundColor: 'white',
-    borderColor: '#000',
-    borderWidth: 1,
-    borderRadius: 1
   }
 });

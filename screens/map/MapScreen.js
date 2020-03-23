@@ -184,13 +184,13 @@ export default class MapScreen extends React.Component {
     }
     return (
       <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
-        <Hamburger navigation={this.props.navigation} />
         {/* Display Map */}
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display search bar */}
+          <Hamburger navigation={this.props.navigation} />
           <SearchBar
             onPress={() =>
               this.props.navigation.navigate('StoreList', {

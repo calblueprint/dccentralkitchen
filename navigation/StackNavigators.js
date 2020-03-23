@@ -10,6 +10,7 @@ import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
 import NewsScreen from '../screens/news/NewsScreen';
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
+import ResourcesScreen from '../screens/resources/ResourcesScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -39,7 +40,7 @@ export const RewardsStack = createStackNavigator(
 );
 
 RewardsStack.navigationOptions = {
-  drawerLabel: 'Rewards'
+  drawerLabel: 'Points History'
 };
 
 export const NewsStack = createStackNavigator(
@@ -53,3 +54,10 @@ export const NewsStack = createStackNavigator(
 NewsStack.navigationOptions = {
   drawerLabel: 'News'
 };
+
+export const ResourcesStack = createStackNavigator(
+  {
+    Resources: ResourcesScreen
+  },
+  config
+);
