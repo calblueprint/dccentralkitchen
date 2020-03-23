@@ -236,27 +236,6 @@ export default class SignUp extends React.Component {
     Keyboard.dismiss();
   }
 
-  handleErrorState(signUpField) {
-    if (
-      signUpField == signUpFields.PHONENUM &&
-      validate('phoneNumber', this.state.phoneNumber)
-    ) {
-      return fieldStateColors.ERROR;
-    } else if (
-      signUpField == signUpFields.PASSWORD &&
-      validate('password', this.state.password)
-    ) {
-      return fieldStateColors.ERROR;
-    } else if (
-      signUpField == signUpFields.NAME &&
-      !this.state.name.replace(/\s/g, '').length
-    ) {
-      return fieldStateColors.ERROR;
-    } else {
-      return fieldStateColors.BLURRED;
-    }
-  }
-
   onFocus(signUpField) {
     const { indicators } = this.state;
     if (indicators[signUpField] == fieldStateColors.ERROR) {
@@ -278,6 +257,33 @@ export default class SignUp extends React.Component {
     });
   }
 
+  // Typing can only remove errors, not trigger them
+  updateError(text, signUpField) {
+    let { nameError, passwordError, phoneNumberError } = this.state;
+    switch (signUpField) {
+      case signUpFields.NAME:
+        if (!text.replace(/\s/g, '').length) {
+          nameError = 'Not permitted';
+        } else {
+          nameError = '';
+        }
+        break;
+      case signUpFields.PASSWORD:
+        passwordError = validate('password', text);
+        break;
+      case signUpFields.PHONENUM:
+        phoneNumberError = validate('phoneNumber', text);
+        break;
+      default:
+        break;
+    }
+    this.setState({
+      nameError,
+      passwordError,
+      phoneNumberError
+    });
+  }
+
   render() {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -290,7 +296,12 @@ export default class SignUp extends React.Component {
               value={this.state.name}
               onBlurCallback={() => this.onBlur(signUpFields.NAME)}
               onFocusCallback={() => this.onFocus(signUpFields.NAME)}
-              changeTextCallback={text => this.setState({ name: text })}
+              changeTextCallback={text => {
+                this.updateError(text, signUpFields.NAME);
+                this.setState({ name: text });
+              }}
+              error={this.state.nameError}
+              errorMessage="Name cannot be blank"
             />
 
             <AuthTextField
@@ -299,7 +310,12 @@ export default class SignUp extends React.Component {
               value={this.state.phoneNumber}
               onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
               onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
-              changeTextCallback={text => this.setState({ phoneNumber: text })}
+              changeTextCallback={text => {
+                this.updateError(text, signUpFields.PHONENUM);
+                this.setState({ phoneNumber: text });
+              }}
+              error={this.state.phoneNumberError}
+              errorMessage="Must be a valid phone number"
             />
 
             <AuthTextField
@@ -308,7 +324,12 @@ export default class SignUp extends React.Component {
               value={this.state.password}
               onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
               onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
-              changeTextCallback={text => this.setState({ password: text })}
+              changeTextCallback={text => {
+                this.updateError(text, signUpFields.PASSWORD);
+                this.setState({ password: text });
+              }}
+              error={this.state.passwordError}
+              errorMessage="Must be 8-20 characters long"
             />
           </FormContainer>
           <FilledButtonContainer

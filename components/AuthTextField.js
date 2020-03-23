@@ -15,7 +15,9 @@ function AuthTextField({
   value,
   onBlurCallback,
   onFocusCallback,
-  changeTextCallback
+  changeTextCallback,
+  error,
+  errorMessage
 }) {
   return (
     <TextFieldContainer>
@@ -30,6 +32,7 @@ function AuthTextField({
         onChangeText={changeTextCallback}
         value={value}
         tintColor={Colors.primaryGreen}
+        error={error === '' ? '' : errorMessage}
         errorColor={Colors.darkerOrange}
         returnKeyType={'done'}
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
