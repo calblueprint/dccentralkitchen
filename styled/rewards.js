@@ -79,7 +79,7 @@ export const TopTab = styled.View`
   height: 190px;
   top: 0px;
   background-color: ${Colors.primaryGreen};
-  flexdirection: row;
+  flex-direction: row;
   width: 100%;
   font-size: 30px;
   align-items: flex-end;

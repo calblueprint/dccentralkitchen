@@ -13,16 +13,13 @@ export const TextButton = styled.Text`
 `;
 
 export const NavButton = styled.TouchableOpacity`
-  background-color: #fff;
   width: 40px;
   height: 40px;
   z-index: 100;
   position: absolute;
-  top: 20px;
+  top: 40px;
   left: 12px;
   border-radius: 23px;
-  border-width: 4px;
-  border-color: #fff;
   align-items: center;
   justify-content: center;
 `;
