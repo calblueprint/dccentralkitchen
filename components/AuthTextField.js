@@ -1,11 +1,8 @@
 import React from 'react';
+import { TextField } from 'react-native-materialui-textfield';
 import Colors from '../assets/Colors';
 import { fieldStateColors } from '../lib/authUtils';
-import {
-  InputNoticeContainer,
-  TextField,
-  TextFieldContainer
-} from '../styled/auth';
+import { TextFieldContainer, InputNoticeContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
 /**
@@ -22,16 +19,18 @@ function AuthTextField({
 }) {
   return (
     <TextFieldContainer>
-      <Caption color={color}>{fieldType}</Caption>
+      {/* <Caption color={color}>{fieldType}</Caption> */}
       <TextField
-        onBlur={onBlurCallback}
-        onFocus={onFocusCallback}
+        // onBlur={onBlurCallback}
+        // onFocus={onFocusCallback}
         autoCapitalize={'words'}
-        placeholder={fieldType}
         autoCorrect={false}
+        label={fieldType}
+        labelTextStyle={{ fontFamily: 'poppins-regular' }}
         onChangeText={changeTextCallback}
         value={value}
-        borderColor={color}
+        tintColor={Colors.primaryGreen}
+        errorColor={Colors.darkerOrange}
         returnKeyType={'done'}
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
