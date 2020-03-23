@@ -2,26 +2,24 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import validatejs from 'validate.js';
-import {
-  signUpFields,
-  fieldStateColors,
-  checkForDuplicateCustomer,
-  createCustomer,
-  createPushToken
-} from '../../lib/authUtils';
-
 import Colors from '../../assets/Colors';
-
+import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer
 } from '../../components/BaseComponents';
-import AuthTextField from '../../components/AuthTextField';
-import { FormContainer, AuthScreenContainer } from '../../styled/auth';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+  checkForDuplicateCustomer,
+  createCustomer,
+  createPushToken,
+  fieldStateColors,
+  signUpFields
+} from '../../lib/authUtils';
+import { AuthScreenContainer, FormContainer } from '../../styled/auth';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -323,7 +321,7 @@ export default class SignUp extends React.Component {
             disabled={!this.state.signUpPermission}>
             <ButtonLabel color="white">SIGN UP</ButtonLabel>
           </FilledButtonContainer>
-          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
         </AuthScreenContainer>
       </ScrollView>
     );
