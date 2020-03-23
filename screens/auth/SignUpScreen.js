@@ -288,10 +288,14 @@ export default class SignUp extends React.Component {
 
   onFocus(signUpField) {
     const { indicators } = this.state;
-    indicators[signUpField] = fieldStateColors.FOCUSED;
-    this.setState({
-      indicators
-    });
+    if (indicators[signUpField] == fieldStateColors.ERROR) {
+      return;
+    } else {
+      indicators[signUpField] = fieldStateColors.FOCUSED;
+      this.setState({
+        indicators
+      });
+    }
   }
 
   onBlur(signUpField) {
