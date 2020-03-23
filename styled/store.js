@@ -79,7 +79,7 @@ export const EBTStatusBar = styled.View`
   margin-left: 6px;
 `;
 
-// FlatList styles
+// SearchBar styles
 
 export const styles = StyleSheet.create({
   inputContainer: {

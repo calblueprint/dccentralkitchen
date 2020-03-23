@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import Colors from '../../assets/Colors';
 import { InLineContainer } from '../../styled/shared';
 import {
@@ -14,6 +14,7 @@ import {
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
+import { truncateStoreName } from '../../lib/mapUtils';
 
 /**
  * @prop
@@ -25,7 +26,9 @@ function StoreCard({ store, callBack, seeProduct }) {
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
         <SpaceAroundRowContainer>
-          <Title color={Colors.activeText}>{name}</Title>
+          <Title color={Colors.activeText}>
+            {truncateStoreName(name, Dimensions.get('window').width)}
+          </Title>
           {ebt && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
