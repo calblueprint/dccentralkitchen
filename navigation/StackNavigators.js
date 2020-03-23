@@ -40,7 +40,7 @@ export const RewardsStack = createStackNavigator(
 );
 
 RewardsStack.navigationOptions = {
-  drawerLabel: 'Rewards'
+  drawerLabel: 'Points History'
 };
 
 export const NewsStack = createStackNavigator(
