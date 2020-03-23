@@ -16,9 +16,9 @@ export const NavButton = styled.TouchableOpacity`
   background-color: #fff;
   width: 40px;
   height: 40px;
-  zindex: 100;
+  z-index: 100;
   position: absolute;
-  top: 40px;
+  top: 20px;
   left: 12px;
   border-radius: 23px;
   border-width: 4px;
