@@ -1,41 +1,18 @@
 module.exports = {
   env: {
-    es6: true
+    es6: true,
   },
   extends: ['eslint:recommended', 'airbnb', 'plugin:prettier/recommended'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['react-native', 'prettier'],
   rules: {
-    'no-restricted-imports': [
-      'error',
-      {
-        paths: [
-          {
-            name: 'airtable',
-            message: 'Do not use the airtable module outside of airtable.js'
-          },
-          {
-            name: './airtable',
-            message: 'Do not use airtable.js outside of request.js'
-          },
-          {
-            name: '../../lib/airtable',
-            message: 'Do not use airtable.js outside of request.js'
-          },
-          {
-            name: '../../../lib/airtable',
-            message: 'Do not use airtable.js outside of request.js'
-          }
-        ]
-      }
-    ],
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'no-use-before-define': ['error', { variables: false }],
     'no-const-assign': 'warn',
@@ -47,6 +24,6 @@ module.exports = {
     'valid-typeof': 'warn',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': ['error'],
-    'react/destructuring-assignment': ['enabled', 'never']
-  }
+    'react/destructuring-assignment': 'warn',
+  },
 };
