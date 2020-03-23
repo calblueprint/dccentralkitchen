@@ -49,7 +49,7 @@ export default class Welcome extends React.Component {
           style={{ marginTop: 108 }}
           width="100%"
           onPress={() => this.navigateSignup()}>
-          <ButtonLabel color="white">SIGN UP</ButtonLabel>
+          <ButtonLabel color="white">Sign up</ButtonLabel>
         </FilledButtonContainer>
         <WelcomeLoginContainer>
           <Body color={Colors.secondaryText}>Already have an account?</Body>

@@ -39,16 +39,6 @@ import {
 } from '../../styled/auth';
 import { ScrollView } from 'react-native-gesture-handler';
 
-// I abstracted portions of the validation flow into these files
-// but there's a weird bug "https://github.com/facebook/react-native/issues/4968"
-// so I put it all in this one file.
-// TODO: @Johnathan Abstract everything in to separate files
-// TODO: @Johnathan Refactor Airtable calls
-
-// import { MonoText } from 'screens/signup/textfield.jsx'
-// import validation from  'screens/signup/validation'
-// import validate from  'screens/signup/validation_wrapper'
-
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -73,7 +63,7 @@ export default class SignUp extends React.Component {
   // TODO @johnathanzhou or @anniero98
   // Notifications is jank - the `_handleNotification` function doesn't even exist. Unclear to devs what the flow should be with receiving notifications
   componentDidMount() {
-    this.registerForPushNotificationsAsync();
+    // this.registerForPushNotificationsAsync();
 
     // Handle notifications that are received or selected while the app
     // is open. If the app was closed and then opened by tapping the
@@ -377,19 +367,6 @@ function validate(fieldName, value) {
   }
   return '';
 }
-
-// For handling errors within the form. This is strecth to handle the
-// onBlur thing that I talked about.
-// const TextField = props => (
-//   <View>
-//     <TextInput
-//       style={props.style}
-//       placeholder={props.placeholder}
-//       secureTextEntry={props.secureTextEntry}
-//     />
-//     <TextInput value={props.error ? <Text>{props.error}</Text> : null} />
-//   </View>
-// );
 
 // For future use, to match for better passwords
 // TODO: @Johnathan Fix passwords check

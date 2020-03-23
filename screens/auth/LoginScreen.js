@@ -39,7 +39,6 @@ export default class Login extends React.Component {
       errorMsg: '',
       token: null,
       indicators: {
-        [signUpFields.NAME]: [fieldStateColors.INACTIVE],
         [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
         [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
       }
@@ -178,7 +177,7 @@ export default class Login extends React.Component {
             style={{ marginTop: 104 }}
             width="100%"
             onPress={() => this.handleSubmit()}>
-            <ButtonLabel color="#fff">LOG IN</ButtonLabel>
+            <ButtonLabel color="#fff">Log in</ButtonLabel>
           </FilledButtonContainer>
 
           {/* TODO @tommypoa: Forgot password functionality
