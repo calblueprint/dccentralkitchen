@@ -2,9 +2,9 @@ import React from 'react';
 import Colors from '../assets/Colors';
 import { fieldStateColors } from '../lib/authUtils';
 import {
-  TextFieldContainer,
   InputNoticeContainer,
-  TextField
+  TextField,
+  TextFieldContainer
 } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
@@ -26,7 +26,9 @@ function AuthTextField({
       <TextField
         onBlur={onBlurCallback}
         onFocus={onFocusCallback}
+        autoCapitalize={'words'}
         placeholder={fieldType}
+        autoCorrect={false}
         onChangeText={changeTextCallback}
         value={value}
         borderColor={color}
