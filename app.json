@@ -12,7 +12,7 @@
     "version": "1.0.0",
     "primaryColor": "#008550",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/CustomerAppIcon.png",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
