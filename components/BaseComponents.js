@@ -12,6 +12,18 @@ export const TextButton = styled.Text`
   color: ${props => props.color || Colors.primaryGreen};
 `;
 
+export const NavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  z-index: 100;
+  position: absolute;
+  top: 40px;
+  left: 12px;
+  border-radius: 23px;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ButtonContainer = styled.TouchableOpacity``;
 // TODO @tommypoa Replace top / bottom 25%
 export const ButtonLabel = styled(TextButton)`
