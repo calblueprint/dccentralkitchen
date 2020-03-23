@@ -1,23 +1,12 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import {
-  AsyncStorage,
-  Dimensions,
-  RefreshControl,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+import { Title } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
-import {
-  Container,
-  ScrollViewContainer,
-  styles,
-  TopTab
-} from '../../styled/rewards';
-import { Body, Caption, Title } from '../../components/BaseComponents';
+import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -152,17 +141,18 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
-          <View>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Stores')}>
-              {/* TODO: change this to a proper icon */}
-              <Text style={{ color: 'white', fontSize: 25 }}> ▼ </Text>
-            </TouchableOpacity>
-
-            <Title style={{ color: 'white', fontSize: 30 }}>
-              Healthy Rewards
-            </Title>
-          </View>
+          <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
+            <FontAwesome5 name="arrow-down" solid size={24} color="white" />
+          </BackButton>
+          <Title
+            style={{
+              marginLeft: '5%',
+              color: 'white',
+              fontSize: 25,
+              paddingBottom: 40
+            }}>
+            Healthy Rewards
+          </Title>
         </TopTab>
         <TabView
           navigationState={this.state}
