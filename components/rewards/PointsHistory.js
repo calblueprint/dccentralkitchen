@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 /**
@@ -21,7 +21,9 @@ function PointsHistory({ transactions, user, updates, navigation }) {
       <View>
         <View>
           <ScrollView>
-            <Overline style={{ marginTop: 24 }}>Recent Transactions</Overline>
+            <Overline style={{ marginTop: 24, marginLeft: '5%' }}>
+              Recent Transactions
+            </Overline>
             {transactions.map(transaction => (
               <Transaction
                 key={transaction.id}
