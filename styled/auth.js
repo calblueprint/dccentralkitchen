@@ -55,6 +55,7 @@ export const FormContainer = styled.View`
 
 // TODO @tommypoa Check if Text Input can take in Text component from BaseComponents
 export const TextField = styled.TextInput`
+  font-family: poppins-regular;
   font-size: 18px;
   font-weight: 500;
   width: 100%;

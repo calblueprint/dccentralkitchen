@@ -1,6 +1,6 @@
 import React from 'react';
 import Colors from '../assets/Colors';
-import { signUpFields, fieldStateColors } from '../lib/authUtils';
+import { fieldStateColors } from '../lib/authUtils';
 import {
   TextFieldContainer,
   InputNoticeContainer,

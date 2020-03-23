@@ -2,14 +2,7 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import {
-  AsyncStorage,
-  Button,
-  Keyboard,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import validatejs from 'validate.js';
 import {
   signUpFields,
@@ -23,20 +16,11 @@ import Colors from '../../assets/Colors';
 
 import {
   BigTitle,
-  Body,
   ButtonLabel,
-  ButtonContainer,
-  Caption,
   FilledButtonContainer
 } from '../../components/BaseComponents';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  TextField,
-  TextFieldContainer,
-  FormContainer,
-  InputNoticeContainer,
-  AuthScreenContainer
-} from '../../styled/auth';
+import { FormContainer, AuthScreenContainer } from '../../styled/auth';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class SignUp extends React.Component {

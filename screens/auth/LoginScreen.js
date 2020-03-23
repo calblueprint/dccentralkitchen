@@ -11,20 +11,13 @@ import {
 } from '../../lib/authUtils';
 import {
   ErrorMsg,
-  TextField,
   AuthScreenContainer,
-  TextFieldContainer,
-  FormContainer,
-  ForgotPasswordButtonContainer
+  FormContainer
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
-import Colors from '../../assets/Colors';
 import {
   BigTitle,
-  Body,
   ButtonLabel,
-  ButtonContainer,
-  Caption,
   FilledButtonContainer
 } from '../../components/BaseComponents';
 import AuthTextField from '../../components/AuthTextField';
@@ -46,7 +39,7 @@ export default class Login extends React.Component {
   }
 
   componentDidMount() {
-    this.registerForPushNotificationsAsync();
+    // this.registerForPushNotificationsAsync();
 
     // From SignUpScreen.js, see comment there for details
     this._notificationSubscription = Notifications.addListener(
