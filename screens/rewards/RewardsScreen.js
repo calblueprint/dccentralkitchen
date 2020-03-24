@@ -3,7 +3,7 @@ import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import Colors from '../../assets/Colors';
-import { Title } from '../../components/BaseComponents';
+import { BigTitle } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
@@ -146,15 +146,14 @@ export default class RewardsScreen extends React.Component {
           <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </BackButton>
-          <Title
+          <BigTitle
             style={{
               marginLeft: 16,
               color: Colors.lightest,
-              fontSize: 25,
-              paddingBottom: 50
+              fontSize: 36
             }}>
             Healthy Rewards
-          </Title>
+          </BigTitle>
         </TopTab>
         <TabView
           navigationState={this.state}

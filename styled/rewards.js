@@ -45,26 +45,26 @@ export const AvailableRewardsContainer = styled.View`
 `;
 
 export const TopTab = styled.View`
-  position: absolute;
-  height: 190px;
-  top: 0px;
   background-color: ${Colors.primaryGreen};
-  flex-direction: row;
-  width: 100%;
-  align-items: flex-end;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  padding-top: 80px;
+  flex-direction: column;
 `;
+// box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 
 export const styles = StyleSheet.create({
   tabView: {
-    flex: 1,
-    marginTop: 140
+    flex: 1
   },
   tabBar: {
     backgroundColor: Colors.primaryGreen,
-    elevation: 0,
+    elevation: 2,
     borderBottomWidth: 0,
-    height: 50
+    height: 50,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    justifyContent: 'flex-end'
   },
   tabBarLabel: {
     color: Colors.lightest,
