@@ -14,7 +14,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/CustomerAppIcon.png",
     "splash": {
-      "image": "./assets/images/Splash.jpg",
+      "image": "./assets/images/DCHC_Splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
