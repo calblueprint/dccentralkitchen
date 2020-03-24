@@ -1,12 +1,16 @@
 import styled from 'styled-components/native';
 import Colors from '../assets/Colors';
+import { NavButton } from '../components/BaseComponents';
 
 // TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
 
 // Shared Auth Containers
 
 export const AuthScreenContainer = styled.View`
-  margin: 79px 42px 0 42px;
+  display: flex
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 80px 42px 0 42px;
   background-color: #fff;
 `;
 
@@ -25,8 +29,9 @@ export const WelcomeTitleContainer = styled.View`
 `;
 
 export const WelcomeLoginContainer = styled.View`
-  width: 291px
+  width: 100%
   margin: 16px 0;
+  padding: 0 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -63,7 +68,12 @@ export const TextField = styled.TextInput`
   border-bottom-color: ${props => props.borderColor || Colors.activeText};
   border-bottom-width: 2px;
 `;
-
+export const BackButton = styled(NavButton)`
+  position: relative;
+  top: 0;
+  left: -8px;
+  margin-bottom: 8px;
+`;
 // SignUpScreen
 
 // TODO @tommypoa: consider adding props to margins to reduce number of containers
