@@ -1,9 +1,9 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Dimensions,
   SafeAreaView,
@@ -12,18 +12,17 @@ import {
   View
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import BottomSheet from 'reanimated-bottom-sheet';
+import Colors from '../../assets/Colors';
+import { Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Subhead } from '../../components/BaseComponents';
 import {
-  SearchBar,
   BottomSheetContainer,
   BottomSheetHeaderContainer,
-  DragBar
+  DragBar,
+  SearchBar
 } from '../../styled/store';
-import Colors from '../../assets/Colors';
 
 const { width } = Dimensions.get('window'); // full width
 
@@ -168,7 +167,7 @@ export default class MapScreen extends React.Component {
     this.setState({
       store
     });
-    this.bottomSheetRef.snapTo(0);
+    // this.bottomSheetRef.snapTo(0);
     await this._populateStoreProducts(store);
   }
 
@@ -232,18 +231,17 @@ export default class MapScreen extends React.Component {
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-        <View style={{ flex: 1, marginBottom: 180 }}>
-          <BottomSheet
-            initialSnap={1}
-            enabledInnerScrolling={false}
-            enabledBottomClamp
-            overdragResistanceFactor={1}
-            enabledGestureInteraction
-            snapPoints={['22%', '10%']}
-            renderHeader={this.renderHeader}
-            renderContent={this.renderContent}
-            ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
-          />
+        <View style={{ flex: 1, marginBottom: 370 }}>
+          <BottomSheetContainer>
+            <Subhead color={Colors.secondaryText}>
+              Browsing healthy products at
+            </Subhead>
+            <StoreProducts
+              navigation={this.props.navigation}
+              store={this.state.store}
+              products={this.state.storeProducts}
+            />
+          </BottomSheetContainer>
         </View>
         <TouchableOpacity
           style={{
