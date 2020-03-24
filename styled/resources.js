@@ -25,23 +25,10 @@ export const IconContainer = styled.View`
   margin: 12px;
 `;
 
-export const ContentText = styled(Body)`
-  flex-direction: column;
-  flex: 1;
-  font-weight: normal;
-  color: black;
-`;
-
 export const CategoryCard = styled.View`
   background-color: ${Colors.lighter};
   padding: 10px 18px;
   flex-direction: row;
-  flex: 1;
-`;
-
-export const CategoryContainer = styled.View`
-  flex-direction: column;
-  align-content: center;
   flex: 1;
 `;
 
@@ -65,10 +52,6 @@ export const CategoryHeadingContainer = styled.View`
   justify-content: center;
 `;
 
-export const HeadingText = styled(Title)`
-  font-weight: normal;
-`;
-
 export const ResourcesHeaderContainer = styled.View`
   padding-top: 60px;
   height: 106px;
@@ -79,12 +62,4 @@ export const ResourcesHeaderContainer = styled.View`
 export const BackButton = styled(NavButton)`
   top: -4px;
   left: 12px;
-`;
-export const TopText = styled(Title)`
-  font-style: normal;
-  font-weight: 500;
-  text-align: center;
-  color: black;
-  margin-top: 45px;
-  font-size: 25px;
 `;
