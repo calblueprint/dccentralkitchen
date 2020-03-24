@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
-import { Title, Body } from '../components/BaseComponents';
 import Colors from '../assets/Colors';
+import { NavButton } from '../components/BaseComponents';
 
-export const Card = styled.View`
+export const ResourceItemCard = styled.View`
   border-bottom-width: 1px;
   border-color: ${Colors.lighter};
   margin-top: 12px;
@@ -57,7 +57,7 @@ export const CategoryIcon = styled.View`
   
 `;
 
-export const HeadingContainer = styled.View`
+export const CategoryHeadingContainer = styled.View`
   flex-direction: row;
   padding-left: 12px;
   align-content: center;
@@ -69,6 +69,17 @@ export const HeadingText = styled(Title)`
   font-weight: normal;
 `;
 
+export const ResourcesHeaderContainer = styled.View`
+  padding-top: 60px;
+  height: 106px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  background-color: ${Colors.lightest};
+`;
+
+export const BackButton = styled(NavButton)`
+  top: -4px;
+  left: 12px;
+`;
 export const TopText = styled(Title)`
   font-style: normal;
   font-weight: 500;
