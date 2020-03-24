@@ -1,7 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { Subhead, Caption, NavButton } from '../components/BaseComponents';
 import Colors from '../assets/Colors';
+import { Caption, NavButton, Subhead } from '../components/BaseComponents';
 
 export const Container = styled.View`
   flex: 1;
@@ -32,16 +32,6 @@ export const RewardsCardContainer = styled.View`
   flex-direction: row;
   margin-bottom: 12px;
   background-color: ${Colors.lightestGreen};
-`;
-
-export const StarIcon = styled.View`
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  background-color: #fff;
-  flex-direction: row;
 `;
 
 export const RewardDescriptionContainer = styled.View`

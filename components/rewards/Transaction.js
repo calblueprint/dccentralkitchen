@@ -1,12 +1,8 @@
-import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import {
-  Card,
-  ContentContainer,
-  IconContainer
-} from '../../styled/transaction';
-import { Caption, Body } from '../../components/BaseComponents';
+import { Body, Caption } from '../../components/BaseComponents';
+import { Card, ContentContainer } from '../../styled/transaction';
+import CircleIcon from '../CircleIcon';
 
 /**
  * @prop
@@ -17,9 +13,12 @@ function Transaction(props) {
   return (
     <TouchableOpacity>
       <Card>
-        <IconContainer>
-          <FontAwesome5 name="check" size={32} color="green" />
-        </IconContainer>
+        <CircleIcon
+          icon="check"
+          iconColor={Colors.primaryGreen}
+          circleColor={Colors.lightestGreen}
+        />
+
         <ContentContainer>
           <Body>
             {date.toLocaleDateString()} @ {storeName}
