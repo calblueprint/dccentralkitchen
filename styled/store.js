@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
-import { Title, ButtonContainer } from '../components/BaseComponents';
+import styled from 'styled-components/native';
 import Colors from '../assets/Colors';
+import { ButtonContainer } from '../components/BaseComponents';
 
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};
@@ -44,12 +44,6 @@ export const StoreCardContainer = styled.View`
   margin-top: 0px;
 `;
 
-export const StoreListTitle = styled(Title)`
-  text-align: center;
-  color: #fff;
-  margin-top: 45px;
-`;
-
 export const SearchBar = styled(ButtonContainer)`
   display: flex;
   flex-direction: row;
@@ -77,6 +71,13 @@ export const EBTStatusBar = styled.View`
   border-radius: 20px;
   margin-top: 6px;
   margin-left: 6px;
+`;
+
+export const CancelButton = styled(ButtonContainer)`
+  position: absolute;
+  left: 12px;
+  height: 100%;
+  justify-content: center;
 `;
 
 // FlatList styles

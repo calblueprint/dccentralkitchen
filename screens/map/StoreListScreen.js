@@ -1,19 +1,20 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
+import { View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
-import { View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import Colors from '../../assets/Colors';
+import { ButtonLabel, Title } from '../../components/BaseComponents';
 import StoreCard from '../../components/store/StoreCard';
-
+import { RowContainer } from '../../styled/shared';
 import {
+  CancelButton,
   StoreListContainer,
   StoreListHeaderContainer,
-  StoreListTitle,
   styles
 } from '../../styled/store';
-import Colors from '../../assets/Colors';
 
-class StoreListScreen extends React.Component {
+export default class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
     const { stores, navigation } = this.props.navigation.state.params;
@@ -55,7 +56,17 @@ class StoreListScreen extends React.Component {
     return (
       <View>
         <StoreListHeaderContainer>
-          <StoreListTitle>Find a store</StoreListTitle>
+          <RowContainer
+            style={{ width: '100%', marginTop: 48 }}
+            alignItems="center"
+            justifyContent="center">
+            <CancelButton onPress={() => this.props.navigation.goBack()}>
+              <ButtonLabel color={Colors.lightest}>Cancel</ButtonLabel>
+            </CancelButton>
+            <Title color={Colors.lightest} style={{ textAlign: 'center' }}>
+              Find a store
+            </Title>
+          </RowContainer>
           {/* Search bar */}
           <SearchBar
             placeholder="Search by store name"
@@ -90,5 +101,6 @@ class StoreListScreen extends React.Component {
     );
   }
 }
-
-export default StoreListScreen;
+StoreListScreen.navigationOptions = {
+  headerShown: false
+};
