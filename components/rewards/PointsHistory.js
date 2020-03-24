@@ -11,7 +11,7 @@ function PointsHistory({ transactions, user, updates, navigation }) {
   // TODO @kennethlien fix spacing at line 44
   if (transactions) {
     return (
-      <ScrollView style={{ paddingLeft: '5%', paddingRight: '5%' }}>
+      <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
         <Overline style={{ marginTop: 24, marginBottom: 12 }}>
           Recent Transactions
         </Overline>

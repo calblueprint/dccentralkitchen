@@ -131,6 +131,7 @@ export default class RewardsScreen extends React.Component {
       <TabBar
         style={styles.tabBar}
         labelStyle={styles.tabBarLabel}
+        tabStyle={{ width: 'auto' }}
         {...props}
         indicatorStyle={styles.tabBarIndicator}
       />
@@ -146,10 +147,10 @@ export default class RewardsScreen extends React.Component {
           </BackButton>
           <Title
             style={{
-              marginLeft: '5%',
+              marginLeft: 16,
               color: 'white',
               fontSize: 25,
-              paddingBottom: 40
+              paddingBottom: 50
             }}>
             Healthy Rewards
           </Title>
