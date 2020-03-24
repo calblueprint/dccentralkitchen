@@ -25,11 +25,11 @@ function Transaction(props) {
         circleColor={Colors.lightestGreen}
       />
       <ContentContainer>
-        <Caption>
+        <Caption color={Colors.secondaryText}>
           {date.toLocaleDateString('en-US', options)} • {storeName}
         </Caption>
         <Subhead>{pointsEarned} points earned</Subhead>
-        <Caption>
+        <Caption color={Colors.secondaryText}>
           for {displayDollarValue(totalSale ? totalSale : 0)} of healthy
           products
         </Caption>
