@@ -1,27 +1,30 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import validatejs from 'validate.js';
-import {
-  signUpFields,
-  fieldStateColors,
-  checkForDuplicateCustomer,
-  createCustomer,
-  createPushToken
-} from '../../lib/authUtils';
-
 import Colors from '../../assets/Colors';
-
+import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer
 } from '../../components/BaseComponents';
-import AuthTextField from '../../components/AuthTextField';
-import { FormContainer, AuthScreenContainer } from '../../styled/auth';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+  checkForDuplicateCustomer,
+  createCustomer,
+  createPushToken,
+  fieldStateColors,
+  signUpFields
+} from '../../lib/authUtils';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer
+} from '../../styled/auth';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -282,6 +285,9 @@ export default class SignUp extends React.Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <AuthScreenContainer>
+          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
             <AuthTextField
@@ -394,4 +400,7 @@ const validation = {
     //   message: "Must contain at least one digit, one lowercase number, and special chracter"
     // }
   }
+};
+SignUp.navigationOptions = {
+  headerShown: false
 };
