@@ -1,12 +1,11 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-
 import {
   CategoryCard,
-  CategoryIcon,
-  HeadingContainer
+  CategoryHeadingContainer,
+  CategoryIcon
 } from '../../styled/resources';
 import { Title } from '../BaseComponents';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 class ResourceCategoryBar extends React.Component {
   render() {
@@ -16,9 +15,9 @@ class ResourceCategoryBar extends React.Component {
           <FontAwesome5 name={this.props.icon} size={20} solid color={'#fff'} />
         </CategoryIcon>
 
-        <HeadingContainer>
+        <CategoryHeadingContainer>
           <Title>{this.props.title}</Title>
-        </HeadingContainer>
+        </CategoryHeadingContainer>
       </CategoryCard>
     );
   }
