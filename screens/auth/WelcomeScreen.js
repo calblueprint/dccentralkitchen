@@ -1,23 +1,19 @@
-import { Notifications } from 'expo';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
 import Colors from '../../assets/Colors';
 import {
   BigTitle,
   Body,
-  ButtonLabel,
   ButtonContainer,
+  ButtonLabel,
   FilledButtonContainer
 } from '../../components/BaseComponents';
 import {
   WelcomeContainer,
-  WelcomeTitleContainer,
-  WelcomeLoginContainer
+  WelcomeLoginContainer,
+  WelcomeTitleContainer
 } from '../../styled/auth';
 
-export default class Welcome extends React.Component {
+export default class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -61,3 +57,6 @@ export default class Welcome extends React.Component {
     );
   }
 }
+WelcomeScreen.navigationOptions = {
+  headerShown: false
+};
