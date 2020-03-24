@@ -24,6 +24,17 @@ export const NavButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
+export const CircleIconContainer = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: ${props => props.color || Colors.lighterGreen};
+`;
+
 export const ButtonContainer = styled.TouchableOpacity``;
 // TODO @tommypoa Replace top / bottom 25%
 export const ButtonLabel = styled(TextButton)`
