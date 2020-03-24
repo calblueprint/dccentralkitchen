@@ -1,15 +1,18 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Colors from '../../assets/Colors';
+import { Title } from '../../components/BaseComponents';
 import ProductCard from '../../components/product/ProductCard';
 import {
-  ProductListHeaderContainer,
+  BackButton,
   ProductListContainer,
-  ProductListTitle
+  ProductListHeaderContainer
 } from '../../styled/product';
-import Colors from '../../assets/Colors';
+import { RowContainer } from '../../styled/shared';
 
-class ProductsScreen extends React.Component {
+export default class ProductsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -34,7 +37,17 @@ class ProductsScreen extends React.Component {
     return (
       <View>
         <ProductListHeaderContainer>
-          <ProductListTitle color={Colors.black}>{store.name}</ProductListTitle>
+          <RowContainer
+            style={{ width: '100%' }}
+            alignItems="center"
+            justifyContent="center">
+            <BackButton onPress={() => this.props.navigation.goBack(null)}>
+              <FontAwesome5 name="arrow-left" solid size={24} />
+            </BackButton>
+            <Title color={Colors.activeText} style={{ textAlign: 'center' }}>
+              {store.name}
+            </Title>
+          </RowContainer>
         </ProductListHeaderContainer>
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -48,5 +61,6 @@ class ProductsScreen extends React.Component {
     );
   }
 }
-
-export default ProductsScreen;
+ProductsScreen.navigationOptions = {
+  headerShown: false
+};
