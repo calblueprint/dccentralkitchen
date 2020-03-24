@@ -50,9 +50,8 @@ export default class ProductsScreen extends React.Component {
           </RowContainer>
         </ProductListHeaderContainer>
         <ScrollView
-          showsVerticalScrollIndicator={false}
-          alwaysBounceVertical={false}>
-          {/* <Title>Products ({products.length})</Title> */}
+          style={{ height: '100%', width: '100%' }}
+          showsVerticalScrollIndicator={false}>
           <ProductListContainer>
             {this.renderProductList()}
           </ProductListContainer>
