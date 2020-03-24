@@ -13,15 +13,6 @@ export const BackButton = styled(NavButton)`
   border-color: ${Colors.primaryGreen};
 `;
 
-export const ScrollViewContainer = styled.ScrollView.attrs(props => ({
-  contentContainerStyle: {
-    paddingTop: 30
-  }
-}))`
-  flex: 1;
-  background-color: #fff;
-`;
-
 export const RewardsCardContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 9px;
@@ -44,7 +35,7 @@ export const RewardsProgressContainer = styled.View`
   flex-direction: column;
 `;
 
-export const AvailiableRewardsContainer = styled.View`
+export const AvailableRewardsContainer = styled.View`
   margin: 8px 0;
   display: flex
   width: 100%
@@ -53,13 +44,6 @@ export const AvailiableRewardsContainer = styled.View`
   justify-content: flex-start;
 `;
 
-export const RewardsTitle = styled.View`
-  font-size: 17px;
-  font-weight: bold;
-  color: rgba(13, 99, 139, 0.8);
-  line-height: 24px;
-  text-align: center;
-`;
 export const TopTab = styled.View`
   position: absolute;
   height: 190px;
@@ -67,7 +51,6 @@ export const TopTab = styled.View`
   background-color: ${Colors.primaryGreen};
   flex-direction: row;
   width: 100%;
-  font-size: 30px;
   align-items: flex-end;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 `;
@@ -76,8 +59,6 @@ export const styles = StyleSheet.create({
   tabView: {
     flex: 1,
     marginTop: 140
-    // paddingLeft: 16,
-    // paddingRight: 16
   },
   tabBar: {
     backgroundColor: Colors.primaryGreen,

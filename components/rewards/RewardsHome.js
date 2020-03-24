@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../assets/Colors';
 import {
-  AvailiableRewardsContainer,
+  AvailableRewardsContainer,
   RewardsProgressContainer
 } from '../../styled/rewards';
 import { Body, Overline, Title } from '../BaseComponents';
@@ -46,14 +46,14 @@ function RewardsHome({ user }) {
           your next $5 reward
         </Body>
         <Overline style={{ marginBottom: 8 }}>
-          AVAILIABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
+          AVAILABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
         </Overline>
       </RewardsProgressContainer>
-      <AvailiableRewardsContainer>
+      <AvailableRewardsContainer>
         {createList(Math.floor(parseInt(user.points) / 1000)).map(a => (
           <RewardsCard></RewardsCard>
         ))}
-      </AvailiableRewardsContainer>
+      </AvailableRewardsContainer>
     </ScrollView>
   );
 }

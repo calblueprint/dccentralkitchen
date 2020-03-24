@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+import Colors from '../../assets/Colors';
 import { Title } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
@@ -148,7 +149,7 @@ export default class RewardsScreen extends React.Component {
           <Title
             style={{
               marginLeft: 16,
-              color: 'white',
+              color: Colors.lightest,
               fontSize: 25,
               paddingBottom: 50
             }}>
