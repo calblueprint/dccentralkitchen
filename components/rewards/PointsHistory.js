@@ -19,7 +19,7 @@ function PointsHistory({ transactions, user, updates, navigation }) {
           <Transaction
             key={transaction.id}
             date={transaction.date}
-            points={transaction.points}
+            pointsEarned={transaction.pointsEarned}
             storeName={transaction.storeName}
             subtotal={transaction.subtotal}
             totalSale={transaction.totalSale}

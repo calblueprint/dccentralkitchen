@@ -10,7 +10,7 @@ import CircleIcon from '../CircleIcon';
  * */
 
 function Transaction(props) {
-  const { date, storeName, points, subtotal, totalSale } = props;
+  const { date, storeName, pointsEarned, totalSale } = props;
   const options = {
     weekday: 'short',
     year: 'numeric',
@@ -28,7 +28,7 @@ function Transaction(props) {
         <Caption>
           {date.toLocaleDateString('en-US', options)} • {storeName}
         </Caption>
-        <Subhead>{points} points earned</Subhead>
+        <Subhead>{pointsEarned} points earned</Subhead>
         <Caption>
           for {displayDollarValue(totalSale ? totalSale : 0)} of healthy
           products
