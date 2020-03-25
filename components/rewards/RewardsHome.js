@@ -26,7 +26,7 @@ function RewardsHome({ user }) {
     <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
       <RewardsProgressContainer>
         <Overline style={{ marginTop: 24, marginBottom: 12 }}>
-          REWARD PROGRESS
+          Reward Progress
         </Overline>
         <Title style={{ marginBottom: 2 }}>
           {parseInt(user.points) % 1000} / 1000
@@ -46,7 +46,7 @@ function RewardsHome({ user }) {
           your next $5 reward
         </Body>
         <Overline style={{ marginBottom: 8 }}>
-          AVAILABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
+          Available Rewards ({Math.floor(parseInt(user.points) / 1000)})
         </Overline>
       </RewardsProgressContainer>
       <AvailableRewardsContainer>
