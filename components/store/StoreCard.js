@@ -1,16 +1,17 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { View } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
+import openMap from 'react-native-open-maps';
 import Colors from '../../assets/Colors';
-import { InLineContainer } from '../../styled/shared';
 import {
+  InLineContainer,
   SpaceAroundRowContainer,
   SpaceBetweenRowContainer
 } from '../../styled/shared';
 import {
-  StoreCardContainer,
+  DividerBar,
   EBTStatusBar,
-  DividerBar
+  StoreCardContainer
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
@@ -20,7 +21,61 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 function StoreCard({ store, callBack, seeProduct }) {
-  const { name, hours, address, distance, ebt, rewards } = store;
+  const {
+    name,
+    hours,
+    address,
+    distance,
+    ebt,
+    rewards,
+    latitude,
+    longitude
+  } = store;
+  const openMapLink = () => {
+    console.log('making');
+    // if (Platform.OS === 'ios') {
+    //   console.log('ios');
+    //   openMap({
+    //     query: name,
+    //     longitude: longitude,
+    //     latitude: latitude,
+    //     provider: 'apple'
+    //   });
+    // }
+    Alert.alert(
+      'Platform',
+      'Select one',
+      [
+        {
+          text: 'Apple',
+          onPress: () =>
+            openMap({
+              query: name,
+              longitude: longitude,
+              latitude: latitude,
+              provider: 'apple'
+            })
+        },
+        {
+          text: 'Google',
+          onPress: () =>
+            openMap({
+              query: address,
+              longitude: longitude,
+              // end: address + ', Washington, DC',
+              provider: 'google'
+            })
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
@@ -51,14 +106,29 @@ function StoreCard({ store, callBack, seeProduct }) {
           </Body>
         </InLineContainer>
       )}
-      <InLineContainer style={{ alignItems: 'center' }}>
-        <FontAwesome5
-          name="directions"
-          size={16}
-          color={Colors.secondaryText}
-        />
-        <Body color={Colors.secondaryText}> {address}</Body>
-      </InLineContainer>
+      <TouchableOpacity
+        onPress={
+          openMapLink
+          // () =>
+          // Linking.openURL(
+          // createOpenLink({
+          //   // longitude: longitude,
+          //   // latitude: latitude,
+          //   end: address + ', Washington, DC',
+          //   travelType: 'walk',
+          //   provider: 'apple'
+          // })
+          // )
+        }>
+        <InLineContainer style={{ alignItems: 'center' }}>
+          <FontAwesome5
+            name="directions"
+            size={16}
+            color={Colors.secondaryText}
+          />
+          <Body color={Colors.secondaryText}> {address}</Body>
+        </InLineContainer>
+      </TouchableOpacity>
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="clock"
