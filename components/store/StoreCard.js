@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { Alert, TouchableOpacity } from 'react-native';
+import { Alert, Clipboard, TouchableOpacity } from 'react-native';
 import openMap from 'react-native-open-maps';
 import Colors from '../../assets/Colors';
 import {
@@ -22,7 +22,10 @@ import StoreProductButton from './StoreProductButton';
 
 function StoreCard({ store, callBack, seeProduct }) {
   const { name, hours, address, distance, ebt, rewards, longitude } = store;
-
+  const writeAddressToClipboard = () => {
+    Clipboard.setString(address);
+    alert('Copied to Clipboard!');
+  };
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
@@ -66,6 +69,10 @@ function StoreCard({ store, callBack, seeProduct }) {
                     query: address,
                     longitude: longitude
                   })
+              },
+              {
+                text: 'Copy Address to Clipboard',
+                onPress: writeAddressToClipboard
               },
               {
                 text: 'Cancel',
