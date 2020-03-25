@@ -1,16 +1,13 @@
-import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
-
+import { createStackNavigator } from 'react-navigation-stack';
 import MapScreen from '../screens/map/MapScreen';
-import RewardsScreen from '../screens/rewards/RewardsScreen';
-import ReceiptScanner from '../screens/rewards/Camera';
-
 import ProductDetailsScreen from '../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
-import NewsScreen from '../screens/news/NewsScreen';
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
+import NewsScreen from '../screens/news/NewsScreen';
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -31,11 +28,26 @@ StoresStack.navigationOptions = {
   drawerLabel: 'Stores'
 };
 
+export const RootStack = createStackNavigator(
+  {
+    MainStack: {
+      screen: StoresStack
+    },
+    RewardsOverlay: {
+      screen: RewardsScreen
+    }
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal'
+  }
+);
+
 export const RewardsStack = createStackNavigator(
   {
-    RewardsHome: RewardsScreen,
-    Camera: ReceiptScanner
+    RewardsHome: RewardsScreen
   },
+  { mode: 'modal' },
   config
 );
 

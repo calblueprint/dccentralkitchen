@@ -1,15 +1,20 @@
 import React from 'react';
-import { AsyncStorage, View, TouchableOpacity, Linking } from 'react-native';
+import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import WelcomeScreen from '../screens/auth/WelcomeScreen';
+import Colors from '../assets/Colors';
 import { Title } from '../components/BaseComponents';
+import { getUser } from '../lib/rewardsUtils';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
-import Colors from '../assets/Colors';
-import { getUser } from '../lib/rewardsUtils';
-import { RewardsStack, StoresStack, ResourcesStack } from './StackNavigators';
+import WelcomeScreen from '../screens/auth/WelcomeScreen';
+import {
+  ResourcesStack,
+  RewardsStack,
+  RootStack,
+  StoresStack
+} from './StackNavigators';
 
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
@@ -119,6 +124,13 @@ export class DrawerContent extends React.Component {
 
 const MyDrawerNavigator = createDrawerNavigator(
   {
+    Root: {
+      screen: RootStack,
+      navigationOptions: () => ({
+        title: 'Root',
+        drawerLabel: () => null
+      })
+    },
     Stores: {
       screen: StoresStack,
       navigationOptions: () => ({
@@ -128,7 +140,7 @@ const MyDrawerNavigator = createDrawerNavigator(
     Rewards: {
       screen: RewardsStack,
       navigationOptions: () => ({
-        title: 'Your Profile',
+        title: 'Points History',
         drawerLockMode: 'locked-closed'
       })
     },
