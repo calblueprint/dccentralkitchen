@@ -43,18 +43,6 @@ export const RootStack = createStackNavigator(
   }
 );
 
-export const RewardsStack = createStackNavigator(
-  {
-    RewardsHome: RewardsScreen
-  },
-  { mode: 'modal' },
-  config
-);
-
-RewardsStack.navigationOptions = {
-  drawerLabel: 'Points History'
-};
-
 export const NewsStack = createStackNavigator(
   {
     News: NewsScreen,

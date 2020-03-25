@@ -9,12 +9,8 @@ import { getUser } from '../lib/rewardsUtils';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';
-import {
-  ResourcesStack,
-  RewardsStack,
-  RootStack,
-  StoresStack
-} from './StackNavigators';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
+import { ResourcesStack, RootStack, StoresStack } from './StackNavigators';
 
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
@@ -138,7 +134,7 @@ const MyDrawerNavigator = createDrawerNavigator(
       })
     },
     Rewards: {
-      screen: RewardsStack,
+      screen: props => <RewardsScreen {...props} tab={1} />,
       navigationOptions: () => ({
         title: 'Points History',
         drawerLockMode: 'locked-closed'

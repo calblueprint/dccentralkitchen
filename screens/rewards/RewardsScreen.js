@@ -17,6 +17,7 @@ const routes = [
 export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
+    const tab = this.props.tab || 0;
     this.state = {
       user: {
         id: null,
@@ -26,7 +27,7 @@ export default class RewardsScreen extends React.Component {
       transactions: [],
       refreshing: false,
       updates: false,
-      index: 0,
+      index: tab,
       routes
     };
   }

@@ -1,9 +1,9 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Dimensions,
   SafeAreaView,
@@ -13,17 +13,17 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Colors from '../../assets/Colors';
+import { Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Subhead } from '../../components/BaseComponents';
 import {
-  SearchBar,
   BottomSheetContainer,
   BottomSheetHeaderContainer,
-  DragBar
+  DragBar,
+  SearchBar
 } from '../../styled/store';
-import Colors from '../../assets/Colors';
 
 const { width } = Dimensions.get('window'); // full width
 
@@ -256,7 +256,7 @@ export default class MapScreen extends React.Component {
             alignItems: 'center',
             justifyContent: 'center'
           }}
-          onPress={() => this.props.navigation.navigate('Rewards')}>
+          onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
             <Subhead color={'#fff'}> Your Rewards </Subhead>
           </View>
