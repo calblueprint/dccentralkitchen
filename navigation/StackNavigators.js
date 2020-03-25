@@ -1,21 +1,36 @@
-import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
-
+import { createStackNavigator } from 'react-navigation-stack';
+// Auth
+import LoginScreen from '../screens/auth/LoginScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
+import WelcomeScreen from '../screens/auth/WelcomeScreen';
+// Map
 import MapScreen from '../screens/map/MapScreen';
-import RewardsScreen from '../screens/rewards/RewardsScreen';
-import ReceiptScanner from '../screens/rewards/Camera';
-
 import ProductDetailsScreen from '../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
-import NewsScreen from '../screens/news/NewsScreen';
+// News
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
+import NewsScreen from '../screens/news/NewsScreen';
+// Resources
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
+// Rewards
+import ReceiptScanner from '../screens/rewards/Camera';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {}
 });
+
+export const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    Login: LoginScreen,
+    SignUp: SignUpScreen
+  },
+  config
+);
 
 export const StoresStack = createStackNavigator(
   {
