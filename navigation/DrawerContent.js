@@ -3,33 +3,26 @@ import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import { DrawerItems } from 'react-navigation-drawer';
 import Colors from '../assets/Colors';
 import { Title } from '../components/BaseComponents';
-import { getUser } from '../lib/rewardsUtils';
+import { getCustomersById } from '../lib/airtable/request';
 
 class DrawerContent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      user: {
-        id: null,
-        name: null
-      },
-      link: 'http://tiny.cc/RewardsFeedback'
+      customer: null,
+      link: 'http://tiny.cc/RewardsFeedback',
+      isLoading: true
     };
   }
 
   async componentDidMount() {
-    const userId = await AsyncStorage.getItem('userId');
-    getUser(userId).then(userRecord => {
-      if (userRecord) {
-        const user = {
-          id: userId,
-          name: userRecord.fields.Name
-        };
-        this.setState({ user });
-        return true;
-      }
-      return false;
-    });
+    try {
+      const customerId = await AsyncStorage.getItem('userId');
+      const customer = await getCustomersById(customerId);
+      this.setState({ customer, isLoading: false });
+    } catch (err) {
+      console.error('[DrawerContent] Airtable:', err);
+    }
   }
 
   _logout = async () => {
@@ -38,6 +31,9 @@ class DrawerContent extends React.Component {
   };
 
   render() {
+    if (this.state.isLoading) {
+      return null;
+    }
     return (
       <View
         style={{
@@ -54,7 +50,7 @@ class DrawerContent extends React.Component {
             alignItems: 'flex-end',
             padding: 16
           }}>
-          <Title style={{ color: 'white' }}>{this.state.user.name}</Title>
+          <Title style={{ color: 'white' }}>{this.state.customer.name}</Title>
         </View>
         <DrawerItems {...this.props} />
         <View
