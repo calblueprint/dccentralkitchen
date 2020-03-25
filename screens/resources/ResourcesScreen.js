@@ -1,17 +1,16 @@
-import React from 'react';
-import { TopText } from '../../styled/resources';
-import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
-import getResources from '../../lib/resourceUtils';
-import ResourceCard from '../../components/resources/ResourceCard';
-import { Title, NavButton } from '../../components/BaseComponents';
-import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 import { FontAwesome5 } from '@expo/vector-icons';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+import { NavButton } from '../../components/BaseComponents';
+import ResourceCard from '../../components/resources/ResourceCard';
+import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
+import { getAllResources } from '../../lib/airtable/request';
+import { TopText } from '../../styled/resources';
 
 class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      resources: [],
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
@@ -20,26 +19,29 @@ class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
-    getResources().then(resources => {
-      (DCCentralKitchenResources = resources.filter(
+    try {
+      const resources = await getAllResources();
+      const DCCentralKitchenResources = resources.filter(
         resource => resource.category == 'DC Central Kitchen Resources'
-      )),
-        (CommunityResources = resources.filter(
-          resource => resource.category == 'Community Resources'
-        )),
-        (GovernmentResources = resources.filter(
-          resource => resource.category == 'Government Resources'
-        )),
-        (ResourcesForSeniors = resources.filter(
-          resource => resource.category == 'Resources for Seniors'
-        )),
-        this.setState({
-          DCCentralKitchenResources,
-          CommunityResources,
-          GovernmentResources,
-          ResourcesForSeniors
-        });
-    });
+      );
+      const CommunityResources = resources.filter(
+        resource => resource.category == 'Community Resources'
+      );
+      const GovernmentResources = resources.filter(
+        resource => resource.category == 'Government Resources'
+      );
+      const ResourcesForSeniors = resources.filter(
+        resource => resource.category == 'Resources for Seniors'
+      );
+      this.setState({
+        DCCentralKitchenResources,
+        CommunityResources,
+        GovernmentResources,
+        ResourcesForSeniors
+      });
+    } catch (err) {
+      console.error('[ResourcesScreen] Airtable: ', err);
+    }
   }
 
   render() {
@@ -85,7 +87,7 @@ class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <View style={{ paddingBottom: 100 }}></View>
+          <View style={{ paddingBottom: 100 }} />
         </ScrollView>
       </View>
     );
