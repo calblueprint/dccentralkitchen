@@ -144,7 +144,7 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
-          <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </BackButton>
           <BigTitle
