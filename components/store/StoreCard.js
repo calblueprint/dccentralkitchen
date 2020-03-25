@@ -21,60 +21,7 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 function StoreCard({ store, callBack, seeProduct }) {
-  const {
-    name,
-    hours,
-    address,
-    distance,
-    ebt,
-    rewards,
-    latitude,
-    longitude
-  } = store;
-  const openMapLink = () => {
-    console.log('making');
-    // if (Platform.OS === 'ios') {
-    //   console.log('ios');
-    //   openMap({
-    //     query: name,
-    //     longitude: longitude,
-    //     latitude: latitude,
-    //     provider: 'apple'
-    //   });
-    // }
-    Alert.alert(
-      'Platform',
-      'Select one',
-      [
-        {
-          text: 'Apple',
-          onPress: () =>
-            openMap({
-              query: name,
-              longitude: longitude,
-              latitude: latitude,
-              provider: 'apple'
-            })
-        },
-        {
-          text: 'Google',
-          onPress: () =>
-            openMap({
-              query: address,
-              longitude: longitude,
-              // end: address + ', Washington, DC',
-              provider: 'google'
-            })
-        },
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-        }
-      ],
-      { cancelable: false }
-    );
-  };
+  const { name, hours, address, distance, ebt, rewards, longitude } = store;
 
   return (
     <StoreCardContainer>
@@ -107,18 +54,27 @@ function StoreCard({ store, callBack, seeProduct }) {
         </InLineContainer>
       )}
       <TouchableOpacity
-        onPress={
-          openMapLink
-          // () =>
-          // Linking.openURL(
-          // createOpenLink({
-          //   // longitude: longitude,
-          //   // latitude: latitude,
-          //   end: address + ', Washington, DC',
-          //   travelType: 'walk',
-          //   provider: 'apple'
-          // })
-          // )
+        onPress={() =>
+          Alert.alert(
+            name,
+            address,
+            [
+              {
+                text: 'Get Directions',
+                onPress: () =>
+                  openMap({
+                    query: address,
+                    longitude: longitude
+                  })
+              },
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+              }
+            ],
+            { cancelable: false }
+          )
         }>
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
