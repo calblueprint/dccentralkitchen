@@ -15,8 +15,16 @@
     "generate-schema": "generate-airtable-schema"
   },
   "airtable-schema-generator": {
-    "input": "lib/airtable",
-    "output": "lib/airtable"
+    "output": "lib/airtable",
+    "mode": "auto-headless",
+    "envFileName": ".env.development",
+    "schemaMeta": {
+      "Customers": {
+          "lookupFields": [
+              "Phone Number"
+          ]
+      }
+  }
   },
   "eslintConfig": {
     "extends": "universe/native"
