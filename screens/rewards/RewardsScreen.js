@@ -5,7 +5,8 @@ import { TabBar, TabView } from 'react-native-tab-view';
 import { Title } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
-import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
+import { getCustomersById } from '../../lib/airtable/request';
+import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
 
 const routes = [
@@ -17,115 +18,38 @@ export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        id: null,
-        points: null,
-        name: null
-      },
+      customer: null,
       transactions: [],
-      refreshing: false,
-      updates: false,
       index: 0,
-      routes
+      routes,
+      isLoading: true
     };
   }
 
-  // Load user record & transactions
+  // Load customer record & transactions
   async componentDidMount() {
-    const userId = await AsyncStorage.getItem('userId');
-    getUser(userId)
-      .then(userRecord => {
-        if (userRecord) {
-          const user = {
-            id: userId,
-            points: userRecord.fields.Points,
-            name: userRecord.fields.Name
-          };
-          this.setState({ user });
-          return true;
-        }
-        console.error('User data is undefined or empty.');
-        return false;
-      })
-      .then(exists => {
-        if (exists) {
-          // Get transactions
-          getCustomerTransactions(userId).then(transactions => {
-            this.setState({ latestTransaction: transactions[0], transactions });
-          });
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
+    const customerId = await AsyncStorage.getItem('userId');
+    const customer = await getCustomersById(customerId);
 
-  // This is what runs when you pull to refresh - (what runs in componentDidMount plus some modifications)
-  // It updates the current transactions & user points,
-  // sets 'update' to true if the latest transaction is new
-  // or if the latest transaction does not have a receipt attached
-  // which prompts on the History page
-  _onRefresh = async () => {
-    this.setState({ refreshing: true });
-    const userId = await AsyncStorage.getItem('userId');
-    getUser(userId)
-      .then(userRecord => {
-        if (userRecord) {
-          const user = {
-            id: userId,
-            points: userRecord.fields.Points,
-            name: userRecord.fields.Name
-          };
-          this.setState({ user });
-          return true;
-        }
-        console.error('User data is undefined or empty.');
-        return false;
-      })
-      .then(exists => {
-        if (exists) {
-          getCustomerTransactions(this.state.user.id).then(transactions => {
-            if (this.state.latestTransaction !== transactions[0]) {
-              this.setState({
-                latestTransaction: transactions[0],
-                transactions
-              });
-            }
-            if (this.state.latestTransaction.receipts == null) {
-              this.setState({ updates: true });
-            }
-            this.setState({ refreshing: false });
-          });
-        }
-      })
-      .catch(err => console.error(err));
-  };
+    const transactions = await getCustomerTransactions(customerId);
+    this.setState({
+      customer,
+      transactions,
+      isLoading: false
+    });
+  }
 
   renderScene = ({ route }) => {
     switch (route.key) {
       case 'home':
-        return (
-          <RewardsHome
-            user={this.state.user}
-            transactions={this.state.transactions}
-          />
-        );
+        return <RewardsHome customer={this.state.customer} />;
       case 'history':
-        return (
-          <PointsHistory
-            user={this.state.user}
-            transactions={this.state.transactions}
-            updates={this.state.updates}
-            navigation={this.props.navigation}
-          />
-        );
+        return <PointsHistory transactions={this.state.transactions} />;
       default:
         return null;
     }
   };
 
-  // TODO refactor to use style-components; jank af right now
-  // TODO use Poppins for the font
   renderTabBar = props => {
     return (
       <TabBar
@@ -138,6 +62,10 @@ export default class RewardsScreen extends React.Component {
   };
 
   render() {
+    if (this.state.isLoading) {
+      return null;
+    }
+
     return (
       <Container>
         <TopTab>

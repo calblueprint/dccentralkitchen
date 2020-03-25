@@ -1,53 +1,53 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
-import { Body, Overline, Title } from '../BaseComponents';
-import {
-  RewardsProgressContainer,
-  AvailiableRewardsContainer
-} from '../../styled/rewards';
+import { ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
-import RewardsCard from './RewardsCard';
 import Colors from '../../assets/Colors';
+import {
+  AvailiableRewardsContainer,
+  RewardsProgressContainer
+} from '../../styled/rewards';
+import { Body, Overline, Title } from '../BaseComponents';
+import RewardsCard from './RewardsCard';
 
 /**
  * @prop
  * */
 
-function createList(N) {
-  let list = [];
-  for (var i = 1; i <= N; i++) {
+function createList(n) {
+  const list = [];
+  for (let i = 1; i <= n; i += 1) {
     list.push(i);
   }
   return list;
 }
 
-function RewardsHome({ user }) {
+function RewardsHome({ customer }) {
   return (
     <View>
       <ScrollView>
         <RewardsProgressContainer>
           <Overline style={{ marginTop: 24, marginBottom: 15 }}>
-            REWARD PROGRESS
+            Reward Progress
           </Overline>
           <Title style={{ marginBottom: 2 }}>
-            {parseInt(user.points) % 1000} / 1000
+            {parseInt(customer.points) % 1000} / 1000
           </Title>
           <ProgressBar
             style={{ height: 20, borderRadius: 20, marginBottom: 15 }}
-            progress={(parseInt(user.points) % 1000) / 1000}
+            progress={(parseInt(customer.points) % 1000) / 1000}
             color={Colors.primaryGreen}
           />
           <Body style={{ marginBottom: 28 }}>
-            Earn {`${1000 - (parseInt(user.points) % 1000)}`} points to unlock
-            your next $5 reward
+            Earn {`${1000 - (parseInt(customer.points) % 1000)}`} points to
+            unlock your next $5 reward
           </Body>
           <Overline style={{ marginBottom: 8 }}>
-            AVAILIABLE REWARDS ({Math.floor(parseInt(user.points) / 1000)})
+            Available Rewards ({Math.floor(parseInt(customer.points) / 1000)})
           </Overline>
         </RewardsProgressContainer>
         <AvailiableRewardsContainer>
-          {createList(Math.floor(parseInt(user.points) / 1000)).map(a => (
-            <RewardsCard></RewardsCard>
+          {createList(Math.floor(parseInt(customer.points) / 1000)).map(i => (
+            <RewardsCard key={i} />
           ))}
         </AvailiableRewardsContainer>
       </ScrollView>
