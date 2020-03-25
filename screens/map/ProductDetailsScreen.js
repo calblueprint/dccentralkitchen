@@ -17,7 +17,7 @@ class ProductDetailsScreen extends React.Component {
         <ProductInfo product={currentProduct} />
         <ProductInfoImageContainer>
           <Image
-            source={{ uri: currentProduct.image }}
+            source={{ uri: currentProduct.imageUrl }}
             style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
           />
         </ProductInfoImageContainer>

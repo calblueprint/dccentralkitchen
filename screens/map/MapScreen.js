@@ -1,9 +1,9 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { FontAwesome5 } from '@expo/vector-icons';
 import {
   Dimensions,
   SafeAreaView,
@@ -13,17 +13,17 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
+import Colors from '../../assets/Colors';
+import { Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { Subhead } from '../../components/BaseComponents';
 import {
-  SearchBar,
   BottomSheetContainer,
   BottomSheetHeaderContainer,
-  DragBar
+  DragBar,
+  SearchBar
 } from '../../styled/store';
-import Colors from '../../assets/Colors';
 
 const { width } = Dimensions.get('window'); // full width
 
@@ -59,6 +59,7 @@ export default class MapScreen extends React.Component {
     this._populateInitialStoresProducts();
   }
 
+  // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.navigation.state.params.currentStore;
     this.changeCurrentStore(store);
@@ -91,12 +92,16 @@ export default class MapScreen extends React.Component {
 
   // The state is initially populated with stores by calling the Airtable API to get all store records
   _populateInitialStoresProducts = async () => {
-    getStoreData()
-      .then(async stores => {
-        // If stores exist, we should order them by distance to our current location.
-        await this._orderStoresByDistance(stores);
-      })
-      .catch(err => console.error(err));
+    try {
+      const stores = await getStoreData();
+      // Sets list of stores in state, populates initial products
+      await this._orderStoresByDistance(stores);
+    } catch (err) {
+      console.error(
+        '[MapScreen] (_populateInitialStoresProducts) Airtable:',
+        err
+      );
+    }
   };
 
   _populateStoreProducts = async store => {
@@ -106,7 +111,7 @@ export default class MapScreen extends React.Component {
         this.setState({ storeProducts: products });
       }
     } catch (err) {
-      console.error(err);
+      console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
     }
   };
 
@@ -133,7 +138,7 @@ export default class MapScreen extends React.Component {
 
     // Once we choose the closest store, we must populate store products here
     // Better to perform API calls at top level, and then pass data as props.
-    await this._populateStoreProducts(stores[0]);
+    await this._populateStoreProducts(sortedStores[0]);
   };
 
   renderHeader = () => (
@@ -213,8 +218,8 @@ export default class MapScreen extends React.Component {
                 latitude: store.latitude,
                 longitude: store.longitude
               }}
-              title={store.name}
-              description={store.name}
+              title={store.storeName}
+              description={store.storeName}
               onPress={() => this.changeCurrentStore(store)}
             />
           ))}
@@ -258,7 +263,7 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('Rewards')}>
           <View>
-            <Subhead color={'#fff'}> Your Rewards </Subhead>
+            <Subhead color="#fff"> Your Rewards </Subhead>
           </View>
         </TouchableOpacity>
       </SafeAreaView>

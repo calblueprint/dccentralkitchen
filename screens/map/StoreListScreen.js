@@ -1,17 +1,11 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
+import { View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
-import { View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
-import StoreCard from '../../components/store/StoreCard';
-
-import {
-  StoreListContainer,
-  StoreListHeaderContainer,
-  StoreListTitle,
-  styles
-} from '../../styled/store';
 import Colors from '../../assets/Colors';
+import StoreCard from '../../components/store/StoreCard';
+import { StoreListContainer, StoreListHeaderContainer, StoreListTitle, styles } from '../../styled/store';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
@@ -45,7 +39,7 @@ class StoreListScreen extends React.Component {
 
   filterStore(searchStr) {
     return store => {
-      return store.name.toLowerCase().includes(searchStr.toLowerCase());
+      return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
     };
   }
 
@@ -63,13 +57,13 @@ class StoreListScreen extends React.Component {
             value={searchStr}
             containerStyle={styles.container}
             inputContainerStyle={styles.inputContainer}
-            searchIcon={
+            searchIcon={(
               <FontAwesome5
                 name="search"
                 size={16}
                 color={Colors.primaryOrange}
               />
-            }
+            )}
             inputStyle={styles.input}
             ref={search => (this.search = search)}
           />
