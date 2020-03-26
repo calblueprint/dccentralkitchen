@@ -6,7 +6,6 @@ import { AsyncStorage, Button, Keyboard } from 'react-native';
 import validatejs from 'validate.js';
 import {
   signUpFields,
-  fieldStateColors,
   checkForDuplicateCustomer,
   createCustomer,
   createPushToken
@@ -35,11 +34,6 @@ export default class SignUp extends React.Component {
       phoneNumber: '',
       phoneNumberError: '',
       token: '',
-      indicators: {
-        [signUpFields.NAME]: [fieldStateColors.INACTIVE],
-        [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
-        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
-      },
       signUpPermission: false
     };
   }
@@ -236,30 +230,18 @@ export default class SignUp extends React.Component {
     Keyboard.dismiss();
   }
 
-  onFocus(signUpField) {
-    const { indicators } = this.state;
-    if (indicators[signUpField] == fieldStateColors.ERROR) {
-      return;
-    } else {
-      indicators[signUpField] = fieldStateColors.FOCUSED;
-      this.setState({
-        indicators
-      });
-    }
-  }
-
-  onBlur(signUpField) {
-    const { indicators } = this.state;
-    indicators[signUpField] = this.handleErrorState(signUpField);
-    this.updateErrors();
-    this.setState({
-      indicators
-    });
+  onBlur(text, signUpField) {
+    this.updateError(text, signUpField);
   }
 
   // Typing can only remove errors, not trigger them
   updateError(text, signUpField) {
-    let { nameError, passwordError, phoneNumberError } = this.state;
+    let {
+      nameError,
+      passwordError,
+      phoneNumberError,
+      signUpPermission
+    } = this.state;
     switch (signUpField) {
       case signUpFields.NAME:
         if (!text.replace(/\s/g, '').length) {
@@ -277,10 +259,16 @@ export default class SignUp extends React.Component {
       default:
         break;
     }
+    if (!nameError && !passwordError && !phoneNumberError) {
+      signUpPermission = true;
+    } else {
+      signUpPermission = false;
+    }
     this.setState({
       nameError,
       passwordError,
-      phoneNumberError
+      phoneNumberError,
+      signUpPermission
     });
   }
 
@@ -292,12 +280,14 @@ export default class SignUp extends React.Component {
           <FormContainer>
             <AuthTextField
               fieldType="Name"
-              color={this.state.indicators[signUpFields.NAME]}
               value={this.state.name}
-              onBlurCallback={() => this.onBlur(signUpFields.NAME)}
-              onFocusCallback={() => this.onFocus(signUpFields.NAME)}
+              onBlurCallback={value =>
+                this.updateError(value, signUpFields.NAME)
+              }
               changeTextCallback={text => {
-                this.updateError(text, signUpFields.NAME);
+                if (this.state.nameError) {
+                  this.updateError(text, signUpFields.NAME);
+                }
                 this.setState({ name: text });
               }}
               error={this.state.nameError}
@@ -306,12 +296,14 @@ export default class SignUp extends React.Component {
 
             <AuthTextField
               fieldType="Phone Number"
-              color={this.state.indicators[signUpFields.PHONENUM]}
               value={this.state.phoneNumber}
-              onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
-              onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
+              onBlurCallback={value =>
+                this.updateError(value, signUpFields.PHONENUM)
+              }
               changeTextCallback={text => {
-                this.updateError(text, signUpFields.PHONENUM);
+                if (this.state.phoneNumberError) {
+                  this.updateError(text, signUpFields.PHONENUM);
+                }
                 this.setState({ phoneNumber: text });
               }}
               error={this.state.phoneNumberError}
@@ -320,12 +312,14 @@ export default class SignUp extends React.Component {
 
             <AuthTextField
               fieldType="Password"
-              color={this.state.indicators[signUpFields.PASSWORD]}
               value={this.state.password}
-              onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
-              onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
+              onBlurCallback={value =>
+                this.updateError(value, signUpFields.PASSWORD)
+              }
               changeTextCallback={text => {
-                this.updateError(text, signUpFields.PASSWORD);
+                if (this.state.passwordError) {
+                  this.updateError(text, signUpFields.PASSWORD);
+                }
                 this.setState({ password: text });
               }}
               error={this.state.passwordError}
@@ -392,12 +386,11 @@ const validation = {
     length: {
       is: 10,
       message: '^Please enter a valid phone number.'
+    },
+    // To check for only numbers
+    numericality: {
+      onlyInteger: true
     }
-    // To check for only numbers in the future
-    // format: {
-    //   pattern: "/^\d+$/",
-    //   message: "Phone number cannot contain nondigits."
-    // }
   },
 
   password: {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { TextField } from 'react-native-materialui-textfield';
 import Colors from '../assets/Colors';
-import { fieldStateColors } from '../lib/authUtils';
-import { TextFieldContainer, InputNoticeContainer } from '../styled/auth';
+import { TextFieldContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
 /**
@@ -11,26 +10,23 @@ import { Caption } from './BaseComponents';
 
 function AuthTextField({
   fieldType,
-  color,
   value,
   onBlurCallback,
-  onFocusCallback,
   changeTextCallback,
   error,
   errorMessage
 }) {
   return (
     <TextFieldContainer>
-      {/* <Caption color={color}>{fieldType}</Caption> */}
       <TextField
-        // onBlur={onBlurCallback}
-        // onFocus={onFocusCallback}
+        onBlur={onBlurCallback ? () => onBlurCallback(value) : null}
         autoCapitalize={'words'}
         autoCorrect={false}
         label={fieldType}
         labelTextStyle={{ fontFamily: 'poppins-regular' }}
         onChangeText={changeTextCallback}
         value={value}
+        baseColor={Colors.activeText}
         tintColor={Colors.primaryGreen}
         error={error === '' ? '' : errorMessage}
         errorColor={Colors.darkerOrange}
@@ -39,19 +35,11 @@ function AuthTextField({
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
       />
-      <InputNoticeContainer>
-        {fieldType === 'Name' && (
-          <Caption color={Colors.secondaryText}>
-            Note: this is how clerks will greet you!
-          </Caption>
-        )}
-        {color === fieldStateColors.ERROR && fieldType === 'Phone Number' && (
-          <Caption color={color}>Must be a valid phone number</Caption>
-        )}
-        {color === fieldStateColors.ERROR && fieldType === 'Password' && (
-          <Caption color={color}>Must be 8-20 characters long</Caption>
-        )}
-      </InputNoticeContainer>
+      {fieldType === 'Name' && (
+        <Caption color={Colors.activeText}>
+          Note: this is how clerks will greet you!
+        </Caption>
+      )}
     </TextFieldContainer>
   );
 }

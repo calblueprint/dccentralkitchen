@@ -2,19 +2,16 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button } from 'react-native';
-import {
-  signUpFields,
-  fieldStateColors,
-  lookupCustomer,
-  updateCustomerPushTokens
-} from '../../lib/authUtils';
+import { AsyncStorage } from 'react-native';
+import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
 import {
   ErrorMsg,
   AuthScreenContainer,
   FormContainer
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
+import Colors from '../../assets/Colors';
+
 import {
   BigTitle,
   ButtonLabel,
@@ -31,10 +28,7 @@ export default class Login extends React.Component {
       password: '',
       errorMsg: '',
       token: null,
-      indicators: {
-        [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
-        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
-      }
+      loginPermission: false
     };
   }
 
@@ -77,6 +71,17 @@ export default class Login extends React.Component {
       alert('Must use physical device for Push Notifications');
     }
   };
+
+  handleLoginPermission() {
+    let loginPermission;
+    const { phoneNumber, password } = this.state;
+    if (phoneNumber.length == 10 && password.length >= 8) {
+      loginPermission = true;
+    } else {
+      loginPermission = false;
+    }
+    this.setState({ loginPermission });
+  }
 
   // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
   // the user is found.
@@ -127,22 +132,6 @@ export default class Login extends React.Component {
       .catch(err => console.error(err));
   }
 
-  onFocus(signUpField) {
-    const { indicators } = this.state;
-    indicators[signUpField] = fieldStateColors.FOCUSED;
-    this.setState({
-      indicators
-    });
-  }
-
-  onBlur(signUpField) {
-    const { indicators } = this.state;
-    indicators[signUpField] = fieldStateColors.BLURRED;
-    this.setState({
-      indicators
-    });
-  }
-
   render() {
     return (
       <AuthScreenContainer>
@@ -150,26 +139,34 @@ export default class Login extends React.Component {
         <FormContainer>
           <AuthTextField
             fieldType="Phone Number"
-            color={this.state.indicators[signUpFields.PHONENUM]}
             value={this.state.phoneNumber}
-            onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
-            onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
-            changeTextCallback={text => this.setState({ phoneNumber: text })}
+            changeTextCallback={text => {
+              this.handleLoginPermission();
+              this.setState({ phoneNumber: text });
+            }}
+            onBlurCallback={() => this.handleLoginPermission()}
           />
           <AuthTextField
             fieldType="Password"
-            color={this.state.indicators[signUpFields.PASSWORD]}
             value={this.state.password}
-            onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
-            onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
-            changeTextCallback={text => this.setState({ password: text })}
+            changeTextCallback={text => {
+              this.handleLoginPermission();
+              this.setState({ password: text });
+            }}
+            onBlurCallback={() => this.handleLoginPermission()}
           />
         </FormContainer>
         <JustifyCenterContainer>
           <FilledButtonContainer
             style={{ marginTop: 104 }}
+            color={
+              this.state.loginPermission
+                ? Colors.primaryGreen
+                : Colors.lightestGreen
+            }
             width="100%"
-            onPress={() => this.handleSubmit()}>
+            onPress={() => this.handleSubmit()}
+            disabled={!this.state.loginPermission}>
             <ButtonLabel color="#fff">Log in</ButtonLabel>
           </FilledButtonContainer>
 
