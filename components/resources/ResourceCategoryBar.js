@@ -8,12 +8,12 @@ class ResourceCategoryBar extends React.Component {
   render() {
     return (
       <CategoryCard>
+        <CircleIcon
+          icon={this.props.icon}
+          iconColor={Colors.lightest}
+          circleColor={Colors.lighterGreen}
+        />
         <CategoryHeadingContainer>
-          <CircleIcon
-            icon={this.props.icon}
-            iconColor={Colors.lightest}
-            circleColor={Colors.lighterGreen}
-          />
           <Title>{this.props.title}</Title>
         </CategoryHeadingContainer>
       </CategoryCard>

@@ -1,13 +1,14 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import Colors from '../../assets/Colors';
-import { Title } from '../../components/BaseComponents';
+import {
+  NavButton,
+  NavHeaderContainer,
+  NavTitle
+} from '../../components/BaseComponents';
 import ResourceCard from '../../components/resources/ResourceCard';
 import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 import getResources from '../../lib/resourceUtils';
-import { BackButton, ResourcesHeaderContainer } from '../../styled/resources';
-import { RowContainer } from '../../styled/shared';
 
 class ResourcesScreen extends React.Component {
   constructor(props) {
@@ -47,19 +48,12 @@ class ResourcesScreen extends React.Component {
   render() {
     return (
       <View>
-        <ResourcesHeaderContainer>
-          <RowContainer
-            style={{ width: '100%' }}
-            alignItems="center"
-            justifyContent="center">
-            <BackButton onPress={() => this.props.navigation.goBack(null)}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <Title color={Colors.activeText} style={{ textAlign: 'center' }}>
-              Resources
-            </Title>
-          </RowContainer>
-        </ResourcesHeaderContainer>
+        <NavHeaderContainer withMargin>
+          <NavButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </NavButton>
+          <NavTitle>Resources</NavTitle>
+        </NavHeaderContainer>
         <ScrollView>
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
@@ -93,7 +87,7 @@ class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <View style={{ paddingBottom: 100 }}></View>
+          <View style={{ paddingBottom: 150 }}></View>
         </ScrollView>
       </View>
     );
