@@ -4,17 +4,11 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import {
-  Dimensions,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { Dimensions, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Colors from '../../assets/Colors';
-import { Subhead } from '../../components/BaseComponents';
+import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
@@ -25,7 +19,7 @@ import {
   SearchBar
 } from '../../styled/store';
 
-const { width } = Dimensions.get('window'); // full width
+const { width, height } = Dimensions.get('window'); // full width
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -183,28 +177,33 @@ export default class MapScreen extends React.Component {
       return <View />;
     }
     return (
-      <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
+      <View style={{ height: height }}>
         {/* Display Map */}
         <MapView
           style={{ flex: 100 }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display search bar */}
-          <Hamburger navigation={this.props.navigation} />
-          <SearchBar
-            onPress={() =>
-              this.props.navigation.navigate('StoreList', {
-                stores: this.state.stores,
-                navigation: this.props.navigation
-              })
-            }>
-            <FontAwesome5
-              name="search"
-              size={16}
-              color={Colors.primaryOrange}
-            />
-            <Subhead color={Colors.secondaryText}> Find a store</Subhead>
-          </SearchBar>
+          <NavHeaderContainer backgroundColor={'rgba(0,0,0,0)'}>
+            <Hamburger navigation={this.props.navigation} />
+            <SearchBar
+              style={{ flex: 1 }}
+              onPress={() =>
+                this.props.navigation.navigate('StoreList', {
+                  stores: this.state.stores,
+                  navigation: this.props.navigation
+                })
+              }>
+              <FontAwesome5
+                name="search"
+                size={16}
+                color={Colors.primaryOrange}
+              />
+              <Subhead color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+                Find a store
+              </Subhead>
+            </SearchBar>
+          </NavHeaderContainer>
           {/* Display store markers */}
           {this.state.stores.map(store => (
             <Marker
@@ -261,7 +260,7 @@ export default class MapScreen extends React.Component {
             <Subhead color={'#fff'}> Your Rewards </Subhead>
           </View>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     );
   }
 }

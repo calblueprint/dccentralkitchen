@@ -45,11 +45,13 @@ export const StoreCardContainer = styled.View`
 `;
 
 export const SearchBar = styled(ButtonContainer)`
+  padding-top: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin: 20px 20%;
+  margin-right: 92px;
+  margin-left: 52px;
   padding-left: 12px;
   height: 40px;
   border-radius: 20px;
