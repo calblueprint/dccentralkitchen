@@ -12,6 +12,7 @@ import {
   View
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import BottomSheet from 'reanimated-bottom-sheet';
 import Colors from '../../assets/Colors';
 import { Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
@@ -167,7 +168,7 @@ export default class MapScreen extends React.Component {
     this.setState({
       store
     });
-    // this.bottomSheetRef.snapTo(0);
+    this.bottomSheetRef.snapTo(0);
     await this._populateStoreProducts(store);
   }
 
@@ -231,17 +232,18 @@ export default class MapScreen extends React.Component {
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-        <View style={{ flex: 1, marginBottom: 370 }}>
-          <BottomSheetContainer>
-            <Subhead color={Colors.secondaryText}>
-              Browsing healthy products at
-            </Subhead>
-            <StoreProducts
-              navigation={this.props.navigation}
-              store={this.state.store}
-              products={this.state.storeProducts}
-            />
-          </BottomSheetContainer>
+        <View style={{ flex: 1, marginBottom: 180 }}>
+          <BottomSheet
+            initialSnap={1}
+            enabledInnerScrolling={false}
+            enabledBottomClamp
+            overdragResistanceFactor={1}
+            enabledGestureInteraction
+            snapPoints={['22%', '10%']}
+            renderHeader={this.renderHeader}
+            renderContent={this.renderContent}
+            ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
+          />
         </View>
         <TouchableOpacity
           style={{
@@ -254,7 +256,7 @@ export default class MapScreen extends React.Component {
             alignItems: 'center',
             justifyContent: 'center'
           }}
-          onPress={() => this.props.navigation.navigate('Rewards')}>
+          onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
             <Subhead color={'#fff'}> Your Rewards </Subhead>
           </View>
