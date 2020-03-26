@@ -1,21 +1,20 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { Dimensions, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import Colors from '../../assets/Colors';
-import { InLineContainer } from '../../styled/shared';
+import { getMaxWidth } from '../../lib/mapUtils';
 import {
-  SpaceAroundRowContainer,
+  InLineContainer,
+  RowContainer,
   SpaceBetweenRowContainer
 } from '../../styled/shared';
 import {
-  StoreCardContainer,
+  DividerBar,
   EBTStatusBar,
-  DividerBar
+  StoreCardContainer
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
-import { truncateStoreName } from '../../lib/mapUtils';
-
 /**
  * @prop
  * */
@@ -25,9 +24,20 @@ function StoreCard({ store, callBack, seeProduct }) {
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
-        <SpaceAroundRowContainer>
-          <Title color={Colors.activeText}>
-            {truncateStoreName(name, Dimensions.get('window').width)}
+        <RowContainer>
+          <Title
+            color={Colors.activeText}
+            style={{
+              maxWidth: getMaxWidth(
+                Dimensions.get('window').width,
+                ebt,
+                seeProduct
+              )
+            }}
+            numberOfLines={1}
+            adjustsFontSizeToFit={!seeProduct}
+            ellipsizeMode="tail">
+            {name}
           </Title>
           {ebt && (
             <EBTStatusBar>
@@ -35,7 +45,7 @@ function StoreCard({ store, callBack, seeProduct }) {
               <Caption color={Colors.darkerGreen}> EBT</Caption>
             </EBTStatusBar>
           )}
-        </SpaceAroundRowContainer>
+        </RowContainer>
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
