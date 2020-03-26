@@ -48,7 +48,7 @@ class ResourcesScreen extends React.Component {
   render() {
     return (
       <View>
-        <NavHeaderContainer withMargin>
+        <NavHeaderContainer>
           <NavButton onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>
