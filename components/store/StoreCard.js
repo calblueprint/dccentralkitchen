@@ -77,7 +77,6 @@ function StoreCard({ store, callBack, seeProduct }) {
               },
               {
                 text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel'
               }
             ],
