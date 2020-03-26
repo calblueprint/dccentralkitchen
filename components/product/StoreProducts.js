@@ -43,6 +43,7 @@ function StoreProducts({ navigation, store, products }) {
                 product={product}
                 navigation={navigation}
                 store={store}
+                displayPoints={false}
               />
             </ProductCardContainer>
           ))}
