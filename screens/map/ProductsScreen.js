@@ -34,7 +34,7 @@ export default class ProductsScreen extends React.Component {
     const { products, store } = this.props.navigation.state.params;
     return (
       <View>
-        <NavHeaderContainer>
+        <NavHeaderContainer withMargin>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>

@@ -122,7 +122,7 @@ export const NavHeaderContainer = styled.View`
   padding-bottom: 4px;
   min-height: 106px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: 16px;
+  margin-bottom: ${props => (props.withMargin ? '16px' : '0px')};
   background-color: ${props =>
     props.backgroundColor ? props.backgroundColor : Colors.lightest};
 `;
