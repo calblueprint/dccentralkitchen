@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import Colors from '../assets/Colors';
-import { NavButton } from '../components/BaseComponents';
 
 export const ResourceItemCard = styled.View`
   border-bottom-width: 1px;
@@ -50,16 +49,4 @@ export const CategoryHeadingContainer = styled.View`
   align-content: center;
   align-items: center;
   justify-content: center;
-`;
-
-export const ResourcesHeaderContainer = styled.View`
-  padding-top: 60px;
-  height: 106px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  background-color: ${Colors.lightest};
-`;
-
-export const BackButton = styled(NavButton)`
-  top: -4px;
-  left: 12px;
 `;

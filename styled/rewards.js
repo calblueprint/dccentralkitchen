@@ -1,16 +1,10 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../assets/Colors';
-import { NavButton } from '../components/BaseComponents';
 
 export const Container = styled.View`
   flex: 1;
   background-color: #fff;
-`;
-
-export const BackButton = styled(NavButton)`
-  background-color: ${Colors.primaryGreen};
-  border-color: ${Colors.primaryGreen};
 `;
 
 export const RewardsCardContainer = styled.View`

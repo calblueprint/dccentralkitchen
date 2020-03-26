@@ -33,12 +33,6 @@ export const StoreListContainer = styled.View`
   padding: 0 4% 4% 4%;
 `;
 
-export const StoreListHeaderContainer = styled.View`
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  background-color: ${Colors.primaryOrange};
-  margin-bottom: 16px;
-`;
-
 export const StoreCardContainer = styled.View`
   margin-bottom: 10px;
   margin-top: 0px;
