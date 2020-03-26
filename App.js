@@ -4,7 +4,25 @@ import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import * as Sentry from '@sentry/browser';
 import AppNavigator from './navigation/AppNavigator';
+
+Sentry.init({
+  dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/517257',
+  enableInExpoDevelopment: true,
+  debug: true,
+});
+
+// from https://forum.sentry.io/t/set-release-after-init/6759/2
+setTimeout(async () => {
+  Sentry.configureScope((scope) => {
+    scope.addEventProcessor((event) => {
+      event.release = 'newRelease';
+      return event;
+    });
+  });
+  await Sentry.captureMessage('test message of codesandbox.io');
+}, 1000);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -30,7 +48,7 @@ async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([
       require('./assets/images/robot-dev.png'),
-      require('./assets/images/robot-prod.png')
+      require('./assets/images/robot-prod.png'),
     ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar
@@ -41,8 +59,8 @@ async function loadResourcesAsync() {
       // Used across application
       'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
       'poppins-semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-      'poppins-medium': require('./assets/fonts/Poppins-Medium.ttf')
-    })
+      'poppins-medium': require('./assets/fonts/Poppins-Medium.ttf'),
+    }),
   ]);
 }
 
@@ -59,6 +77,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 });

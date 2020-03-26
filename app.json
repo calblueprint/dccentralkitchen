@@ -29,7 +29,23 @@
     "android": {
       "package": "com.blueprint.dc",
       "googleServicesFile": "./google-services.json",
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
-    }
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "calblueprint",
+            "project": "dccentralkitchen",
+            "authToken": "7156d22756444307981c94cf70ef094a61783b1959344a29866c55aeb29cfbb1"
+          }
+        }
+      ]
+    },
+    "description": ""
   }
 }
