@@ -2,7 +2,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { Title } from '../../components/BaseComponents';
+import Colors from '../../assets/Colors';
+import { BigTitle } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
@@ -16,6 +17,7 @@ const routes = [
 export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
+    const tab = this.props.tab || 0;
     this.state = {
       user: {
         id: null,
@@ -25,7 +27,7 @@ export default class RewardsScreen extends React.Component {
       transactions: [],
       refreshing: false,
       updates: false,
-      index: 0,
+      index: tab,
       routes
     };
   }
@@ -131,6 +133,7 @@ export default class RewardsScreen extends React.Component {
       <TabBar
         style={styles.tabBar}
         labelStyle={styles.tabBarLabel}
+        tabStyle={{ width: 'auto' }}
         {...props}
         indicatorStyle={styles.tabBarIndicator}
       />
@@ -141,18 +144,17 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
-          <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </BackButton>
-          <Title
+          <BigTitle
             style={{
-              marginLeft: '5%',
-              color: 'white',
-              fontSize: 25,
-              paddingBottom: 40
+              marginLeft: 16,
+              color: Colors.lightest,
+              fontSize: 36
             }}>
             Healthy Rewards
-          </Title>
+          </BigTitle>
         </TopTab>
         <TabView
           navigationState={this.state}

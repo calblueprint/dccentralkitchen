@@ -1,38 +1,31 @@
 import React from 'react';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 /**
  * @prop
  * */
 
-const styles = StyleSheet.create({
-  signOutButton: {
-    fontSize: 20,
-    paddingVertical: 15
-  }
-});
-
 function PointsHistory({ transactions, user, updates, navigation }) {
   // Only display if transactions have mounted
   // TODO @kennethlien fix spacing at line 44
   if (transactions) {
     return (
-      <View>
-        <View>
-          <ScrollView>
-            <Overline style={{ marginTop: 24 }}>Recent Transactions</Overline>
-            {transactions.map(transaction => (
-              <Transaction
-                key={transaction.id}
-                date={transaction.date}
-                points={transaction.points}
-                storeName={transaction.storeName}
-              />
-            ))}
-          </ScrollView>
-        </View>
-      </View>
+      <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
+        <Overline style={{ marginTop: 24, marginBottom: 12 }}>
+          Recent Transactions
+        </Overline>
+        {transactions.map(transaction => (
+          <Transaction
+            key={transaction.id}
+            date={transaction.date}
+            pointsEarned={transaction.pointsEarned}
+            storeName={transaction.storeName}
+            subtotal={transaction.subtotal}
+            totalSale={transaction.totalSale}
+          />
+        ))}
+      </ScrollView>
     );
   }
   // else return
