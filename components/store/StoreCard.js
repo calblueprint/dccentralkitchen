@@ -21,7 +21,7 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 function StoreCard({ store, callBack, seeProduct }) {
-  const { name, hours, address, distance, ebt, rewards, longitude } = store;
+  const { name, hours, address, distance, ebt, rewards } = store;
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
     alert('Copied to Clipboard!');
@@ -66,9 +66,8 @@ function StoreCard({ store, callBack, seeProduct }) {
                 text: 'Get Directions',
                 onPress: () =>
                   openMap({
-                    query: address,
-                    travelType: 'walk',
-                    longitude: longitude
+                    query: name + ' ' + address + ', Washington, DC',
+                    travelType: 'walk'
                   })
               },
               {
