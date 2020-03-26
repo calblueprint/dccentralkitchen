@@ -29,13 +29,8 @@ export const BottomSheetContainer = styled.View`
   padding: 4%;
 `;
 
-export const StoreListContainer = styled.View`
-  padding: 0 4% 4% 4%;
-`;
-
 export const StoreCardContainer = styled.View`
-  margin-bottom: 10px;
-  margin-top: 0px;
+  margin: 0 16px 10px 16px;
 `;
 
 export const SearchBar = styled(ButtonContainer)`
@@ -76,7 +71,7 @@ export const CancelButton = styled(ButtonContainer)`
   justify-content: center;
 `;
 
-// FlatList styles
+// Search bar styles
 
 export const styles = StyleSheet.create({
   inputContainer: {

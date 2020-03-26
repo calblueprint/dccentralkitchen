@@ -1,17 +1,28 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { View } from 'react-native';
+import {
+  FlatList,
+  Keyboard,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
-import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../../assets/Colors';
 import {
+  Body,
   ButtonLabel,
   NavHeaderContainer,
   Title
 } from '../../components/BaseComponents';
 import StoreCard from '../../components/store/StoreCard';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
-import { CancelButton, StoreListContainer, styles } from '../../styled/store';
+import { CancelButton, styles } from '../../styled/store';
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 
 export default class StoreListScreen extends React.Component {
   constructor(props) {
@@ -71,13 +82,16 @@ export default class StoreListScreen extends React.Component {
                 Find a store
               </Title>
             </RowContainer>
-            {/* Search bar */}
             <SearchBar
+              autoCapitalize="words"
+              autoCorrect={false}
               placeholder="Search by store name"
               onChangeText={this.updateSearch}
               value={searchStr}
               containerStyle={styles.container}
               inputContainerStyle={styles.inputContainer}
+              selectionColor={Colors.primaryOrange}
+              returnKeyType="search"
               searchIcon={
                 <FontAwesome5
                   name="search"
@@ -90,18 +104,34 @@ export default class StoreListScreen extends React.Component {
             />
           </ColumnContainer>
         </NavHeaderContainer>
-        <StoreListContainer>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {this.state.filteredStores.map(store => (
-              <StoreCard
-                key={store.id}
-                store={store}
-                callBack={() => this.storeDetailsTransition(store)}
-                seeProduct
-              />
-            ))}
-          </ScrollView>
-        </StoreListContainer>
+        <FlatList
+          data={this.state.filteredStores}
+          renderItem={({ item }) => (
+            <StoreCard
+              key={item.id}
+              store={item}
+              callBack={() => this.storeDetailsTransition(item)}
+              seeProduct
+            />
+          )}
+          keyExtractor={item => item.id}
+          // 16px top margin from heading
+          ListHeaderComponent={<View style={{ height: 16 }} />}
+          //400 bottom margin to make sure all search results show with the keyboard activated.
+          ListFooterComponent={<View style={{ height: 420 }} />}
+          ListEmptyComponent={
+            <View
+              style={{
+                alignItems: 'center',
+                marginTop: 100
+              }}>
+              <FontAwesome5 name="store" size={64} color={Colors.base} />
+              <Body color={Colors.secondaryText}>
+                No stores matched your search.
+              </Body>
+            </View>
+          }
+        />
       </View>
     );
   }
