@@ -1,8 +1,16 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import Colors from '../../assets/Colors';
-import { InLineContainer, SpaceAroundRowContainer, SpaceBetweenRowContainer } from '../../styled/shared';
-import { DividerBar, EBTStatusBar, StoreCardContainer } from '../../styled/store';
+import {
+  InLineContainer,
+  SpaceAroundRowContainer,
+  SpaceBetweenRowContainer
+} from '../../styled/shared';
+import {
+  DividerBar,
+  EBTStatusBar,
+  StoreCardContainer
+} from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
@@ -11,7 +19,14 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 function StoreCard({ store, callBack, seeProduct }) {
-  const { storeName, storeHours, address, distance, snapOrEbtAccepted, rewardsAccepted } = store;
+  const {
+    storeName,
+    storeHours,
+    address,
+    distance,
+    snapOrEbtAccepted,
+    rewardsAccepted
+  } = store;
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
@@ -31,16 +46,32 @@ function StoreCard({ store, callBack, seeProduct }) {
       </Caption>
       {rewardsAccepted && (
         <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5 name="star" solid size={16} color={Colors.primaryGreen} />
-          <Body color={Colors.primaryGreen}>Earn and redeem Healthy Rewards here</Body>
+          <FontAwesome5
+            name="star"
+            solid
+            size={16}
+            color={Colors.primaryGreen}
+          />
+          <Body color={Colors.primaryGreen}>
+            Earn and redeem Healthy Rewards here
+          </Body>
         </InLineContainer>
       )}
       <InLineContainer style={{ alignItems: 'center' }}>
-        <FontAwesome5 name="directions" size={16} color={Colors.secondaryText} />
+        <FontAwesome5
+          name="directions"
+          size={16}
+          color={Colors.secondaryText}
+        />
         <Body color={Colors.secondaryText}> {address}</Body>
       </InLineContainer>
       <InLineContainer style={{ alignItems: 'center' }}>
-        <FontAwesome5 name="clock" solid size={16} color={Colors.secondaryText} />
+        <FontAwesome5
+          name="clock"
+          solid
+          size={16}
+          color={Colors.secondaryText}
+        />
         <Body color={Colors.secondaryText}> {storeHours}</Body>
       </InLineContainer>
       <DividerBar />
