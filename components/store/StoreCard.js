@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { Alert, Clipboard, TouchableOpacity } from 'react-native';
-import openMap from 'react-native-open-maps';
+import { showLocation } from 'react-native-map-link';
 import Colors from '../../assets/Colors';
 import {
   InLineContainer,
@@ -21,40 +21,21 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 export default function StoreCard({ store, callBack, seeProduct }) {
-  const { name, hours, address, distance, ebt, rewards } = store;
+  const { name, hours, address, distance, ebt, rewards, lat, long } = store;
 
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
-    alert('Copied to Clipboard!');
+    Alert.alert('Copied to Clipboard!', address);
   };
 
   const openDirections = () => {
-    openMap({
-      query: name + ' ' + address + ', Washington, DC',
-      travelType: 'walk'
+    showLocation({
+      latitude: lat,
+      longitude: long,
+      title: name,
+      googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
+      alwaysIncludeGoogle: true
     });
-  };
-
-  const openAddressLink = () => {
-    Alert.alert(
-      name,
-      address,
-      [
-        {
-          text: 'Get Directions',
-          onPress: openDirections
-        },
-        {
-          text: 'Copy Address to Clipboard',
-          onPress: writeAddressToClipboard
-        },
-        {
-          text: 'Cancel',
-          style: 'cancel'
-        }
-      ],
-      { cancelable: false }
-    );
   };
 
   return (
@@ -87,7 +68,9 @@ export default function StoreCard({ store, callBack, seeProduct }) {
           </Body>
         </InLineContainer>
       )}
-      <TouchableOpacity onPress={openAddressLink}>
+      <TouchableOpacity
+        onPress={openDirections}
+        onLongPress={writeAddressToClipboard}>
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
             name="directions"
