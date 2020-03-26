@@ -29,12 +29,12 @@ function ProductCard({ product, store, navigation, displayPoints }) {
         )}
         <RowContainer>
           <Caption color={Colors.secondaryText}>
-            ${product.customerCost.toFixed(2)}
+            ${product.customerCost.toFixed(2)} ea
           </Caption>
           {displayPoints && (
             <Caption color={Colors.secondaryText}>
               {' '}
-              | {product.points} pts
+              • {product.points} pts
             </Caption>
           )}
         </RowContainer>
