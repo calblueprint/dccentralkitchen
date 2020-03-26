@@ -67,6 +67,7 @@ function StoreCard({ store, callBack, seeProduct }) {
                 onPress: () =>
                   openMap({
                     query: address,
+                    travelType: 'walk',
                     longitude: longitude
                   })
               },
