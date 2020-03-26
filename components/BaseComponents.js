@@ -12,17 +12,6 @@ export const TextButton = styled.Text`
   color: ${props => props.color || Colors.primaryGreen};
 `;
 
-export const NavButton = styled.TouchableOpacity`
-  width: 40px;
-  height: 40px;
-  z-index: 100;
-  top: 0px;
-  left: 12px;
-  border-radius: 23px;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const CircleIconContainer = styled.View`
   display: flex;
   align-items: center;
@@ -111,6 +100,17 @@ export const TabSelected = styled.Text`
   font-size: 14px;
   line-height: 20px;
   color: ${props => props.color || Colors.black};
+`;
+
+export const NavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  z-index: 100;
+  top: 0px;
+  left: 12px;
+  border-radius: 23px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const NavHeaderContainer = styled.View`
