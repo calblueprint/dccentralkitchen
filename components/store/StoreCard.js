@@ -20,12 +20,43 @@ import StoreProductButton from './StoreProductButton';
  * @prop
  * */
 
-function StoreCard({ store, callBack, seeProduct }) {
+export default function StoreCard({ store, callBack, seeProduct }) {
   const { name, hours, address, distance, ebt, rewards } = store;
+
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
     alert('Copied to Clipboard!');
   };
+
+  const openDirections = () => {
+    openMap({
+      query: name + ' ' + address + ', Washington, DC',
+      travelType: 'walk'
+    });
+  };
+
+  const openAddressLink = () => {
+    Alert.alert(
+      name,
+      address,
+      [
+        {
+          text: 'Get Directions',
+          onPress: openDirections
+        },
+        {
+          text: 'Copy Address to Clipboard',
+          onPress: writeAddressToClipboard
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
@@ -56,32 +87,7 @@ function StoreCard({ store, callBack, seeProduct }) {
           </Body>
         </InLineContainer>
       )}
-      <TouchableOpacity
-        onPress={() =>
-          Alert.alert(
-            name,
-            address,
-            [
-              {
-                text: 'Get Directions',
-                onPress: () =>
-                  openMap({
-                    query: name + ' ' + address + ', Washington, DC',
-                    travelType: 'walk'
-                  })
-              },
-              {
-                text: 'Copy Address to Clipboard',
-                onPress: writeAddressToClipboard
-              },
-              {
-                text: 'Cancel',
-                style: 'cancel'
-              }
-            ],
-            { cancelable: false }
-          )
-        }>
+      <TouchableOpacity onPress={openAddressLink}>
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
             name="directions"
@@ -104,5 +110,3 @@ function StoreCard({ store, callBack, seeProduct }) {
     </StoreCardContainer>
   );
 }
-
-export default StoreCard;
