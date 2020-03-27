@@ -4,7 +4,7 @@ import { ProgressBar } from 'react-native-paper';
 import Colors from '../../assets/Colors';
 import {
   AvailableRewardsContainer,
-  RewardsProgressContainer
+  RewardsProgressContainer,
 } from '../../styled/rewards';
 import { Body, Overline, Title } from '../BaseComponents';
 import RewardsCard from './RewardsCard';
@@ -36,7 +36,7 @@ function RewardsHome({ user }) {
             height: 20,
             width: '100%',
             borderRadius: 20,
-            marginBottom: 15
+            marginBottom: 15,
           }}
           progress={(parseInt(user.points) % 1000) / 1000}
           color={Colors.primaryGreen}

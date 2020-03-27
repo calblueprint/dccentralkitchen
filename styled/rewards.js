@@ -53,7 +53,7 @@ export const TopTab = styled.View`
 
 export const styles = StyleSheet.create({
   tabView: {
-    flex: 1
+    flex: 1,
   },
   tabBar: {
     backgroundColor: Colors.primaryGreen,
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   tabBarLabel: {
     color: Colors.lightest,
@@ -72,11 +72,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'poppins-medium',
     paddingLeft: 4,
-    paddingRight: 4
+    paddingRight: 4,
   },
   tabBarIndicator: {
     backgroundColor: Colors.lightest,
     height: 2,
-    borderRadius: 10
-  }
+    borderRadius: 10,
+  },
 });

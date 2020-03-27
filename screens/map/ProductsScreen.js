@@ -5,7 +5,7 @@ import ProductCard from '../../components/product/ProductCard';
 import {
   ProductListHeaderContainer,
   ProductListContainer,
-  ProductListTitle
+  ProductListTitle,
 } from '../../styled/product';
 import Colors from '../../assets/Colors';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Colors from '../../assets/Colors';
 import {
   RewardDescriptionContainer,
-  RewardsCardContainer
+  RewardsCardContainer,
 } from '../../styled/rewards';
 import { Caption, Subhead } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';

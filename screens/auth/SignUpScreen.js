@@ -9,7 +9,7 @@ import {
   fieldStateColors,
   checkForDuplicateCustomer,
   createCustomer,
-  createPushToken
+  createPushToken,
 } from '../../lib/authUtils';
 
 import Colors from '../../assets/Colors';
@@ -17,7 +17,7 @@ import Colors from '../../assets/Colors';
 import {
   BigTitle,
   ButtonLabel,
-  FilledButtonContainer
+  FilledButtonContainer,
 } from '../../components/BaseComponents';
 import AuthTextField from '../../components/AuthTextField';
 import { FormContainer, AuthScreenContainer } from '../../styled/auth';
@@ -38,9 +38,9 @@ export default class SignUp extends React.Component {
       indicators: {
         [signUpFields.NAME]: [fieldStateColors.INACTIVE],
         [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
-        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE],
       },
-      signUpPermission: false
+      signUpPermission: false,
     };
   }
 
@@ -181,7 +181,7 @@ export default class SignUp extends React.Component {
       nameError,
       phoneNumberError,
       passwordError,
-      signUpPermission
+      signUpPermission,
     });
     return formattedPhoneNumber;
   };
@@ -200,7 +200,7 @@ export default class SignUp extends React.Component {
           if (resolvedValue) {
             // Again, must await this
             await that.setState({
-              phoneNumberError: 'Phone number in use already.'
+              phoneNumberError: 'Phone number in use already.',
             });
           }
         }
@@ -221,7 +221,7 @@ export default class SignUp extends React.Component {
             phoneNumber: '',
             phoneNumberError: '',
             token: '',
-            id: custId
+            id: custId,
           });
         })
         .catch(err => {
@@ -264,7 +264,7 @@ export default class SignUp extends React.Component {
     } else {
       indicators[signUpField] = fieldStateColors.FOCUSED;
       this.setState({
-        indicators
+        indicators,
       });
     }
   }
@@ -274,7 +274,7 @@ export default class SignUp extends React.Component {
     indicators[signUpField] = this.handleErrorState(signUpField);
     this.updateErrors();
     this.setState({
-      indicators
+      indicators,
     });
   }
 
@@ -360,18 +360,18 @@ const pattern = '((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[W]).{6,20})';
 const validation = {
   name: {
     presence: {
-      message: 'Name inputs cannot be blank.'
-    }
+      message: 'Name inputs cannot be blank.',
+    },
   },
   phoneNumber: {
     // This verifies that it's not blank.
     presence: {
-      message: "^Phone number can't be blank."
+      message: "^Phone number can't be blank.",
     },
     length: {
       is: 10,
-      message: '^Please enter a valid phone number.'
-    }
+      message: '^Please enter a valid phone number.',
+    },
     // To check for only numbers in the future
     // format: {
     //   pattern: "/^\d+$/",
@@ -381,17 +381,17 @@ const validation = {
 
   password: {
     presence: {
-      message: '^Password cannot be blank.'
+      message: '^Password cannot be blank.',
     },
     length: {
       minimum: 8,
-      message: '^Your password must be at least 8 characters.'
-    }
+      message: '^Your password must be at least 8 characters.',
+    },
     // For future use for better password checking
     // format: {
     //   pattern: "[a-z0-9]+",
     //   flags: "i",
     //   message: "Must contain at least one digit, one lowercase number, and special chracter"
     // }
-  }
+  },
 };

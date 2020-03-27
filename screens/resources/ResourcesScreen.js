@@ -15,7 +15,7 @@ class ResourcesScreen extends React.Component {
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
-      ResourcesForSeniors: []
+      ResourcesForSeniors: [],
     };
   }
 
@@ -37,7 +37,7 @@ class ResourcesScreen extends React.Component {
           DCCentralKitchenResources,
           CommunityResources,
           GovernmentResources,
-          ResourcesForSeniors
+          ResourcesForSeniors,
         });
     });
   }
@@ -93,7 +93,7 @@ class ResourcesScreen extends React.Component {
 }
 
 ResourcesScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };
 
 export default ResourcesScreen;
