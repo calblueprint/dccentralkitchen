@@ -140,7 +140,9 @@ export default class MapScreen extends React.Component {
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Subhead color={Colors.secondaryText}>
+        <Subhead
+          style={{ margin: 16, marginBottom: 0 }}
+          color={Colors.secondaryText}>
           Browsing healthy products at
         </Subhead>
         <StoreProducts
@@ -238,7 +240,7 @@ export default class MapScreen extends React.Component {
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={['22%', '10%']}
+            snapPoints={['30%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}

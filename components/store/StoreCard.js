@@ -9,9 +9,10 @@ import {
 import {
   DividerBar,
   EBTStatusBar,
-  StoreCardContainer
+  StoreCardContainer,
+  StoreDetailText
 } from '../../styled/store';
-import { Body, Caption, Title } from '../BaseComponents';
+import { Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
@@ -21,7 +22,7 @@ import StoreProductButton from './StoreProductButton';
 function StoreCard({ store, callBack, seeProduct }) {
   const { name, hours, address, distance, ebt, rewards } = store;
   return (
-    <StoreCardContainer includeMargins={seeProduct}>
+    <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
         <SpaceAroundRowContainer>
           <Title color={Colors.activeText}>{name}</Title>
@@ -37,26 +38,26 @@ function StoreCard({ store, callBack, seeProduct }) {
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
         {distance} miles away
       </Caption>
-      {rewards && (
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="star"
-            solid
-            size={16}
-            color={Colors.primaryGreen}
-          />
-          <Body color={Colors.primaryGreen}>
-            Earn and redeem Healthy Rewards here
-          </Body>
-        </InLineContainer>
-      )}
+      <InLineContainer style={{ alignItems: 'center' }}>
+        <FontAwesome5
+          name="star"
+          solid
+          size={16}
+          color={rewards ? Colors.primaryGreen : Colors.secondaryText}
+        />
+        <StoreDetailText color={rewards}>
+          {rewards
+            ? 'Earn and redeem Healthy Rewards here'
+            : 'Healthy Rewards not accepted'}
+        </StoreDetailText>
+      </InLineContainer>
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="directions"
           size={16}
           color={Colors.secondaryText}
         />
-        <Body color={Colors.secondaryText}> {address}</Body>
+        <StoreDetailText>{address}</StoreDetailText>
       </InLineContainer>
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
@@ -65,7 +66,7 @@ function StoreCard({ store, callBack, seeProduct }) {
           size={16}
           color={Colors.secondaryText}
         />
-        <Body color={Colors.secondaryText}> {hours}</Body>
+        <StoreDetailText>{hours}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>

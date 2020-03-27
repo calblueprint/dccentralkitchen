@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../assets/Colors';
-import { ButtonContainer } from '../components/BaseComponents';
+import { Body, ButtonContainer } from '../components/BaseComponents';
 
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};
@@ -26,7 +26,7 @@ export const BottomSheetHeaderContainer = styled.View`
 export const BottomSheetContainer = styled.View`
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  padding: 16px;
+  padding-bottom: 100px;
 `;
 
 export const StoreCardContainer = styled.View`
@@ -63,6 +63,12 @@ export const EBTStatusBar = styled.View`
   border-radius: 20px;
   margin-top: 6px;
   margin-left: 6px;
+`;
+
+export const StoreDetailText = styled(Body)`
+  margin-left: 4px;
+  color: ${props =>
+    props.greenText ? Colors.primaryGreen : Colors.secondaryText};
 `;
 
 export const CancelButton = styled(ButtonContainer)`
