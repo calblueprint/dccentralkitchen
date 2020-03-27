@@ -1,11 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import {
-  FlatList,
-  Keyboard,
-  TouchableWithoutFeedback,
-  View
-} from 'react-native';
+import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import Colors from '../../assets/Colors';
 import {
@@ -17,12 +12,6 @@ import {
 import StoreCard from '../../components/store/StoreCard';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, styles } from '../../styled/store';
-
-const DismissKeyboard = ({ children }) => (
-  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-    {children}
-  </TouchableWithoutFeedback>
-);
 
 export default class StoreListScreen extends React.Component {
   constructor(props) {
