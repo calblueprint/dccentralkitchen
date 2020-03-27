@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import {
   AvailableRewardsContainer,
   RewardsProgressContainer,

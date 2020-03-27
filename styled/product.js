@@ -1,7 +1,7 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
 import { Title } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const ProductListHeaderContainer = styled.View`
   padding-top: 45px;

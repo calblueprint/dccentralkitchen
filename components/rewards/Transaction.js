@@ -1,5 +1,5 @@
 import React from 'react';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import { displayDollarValue } from '../../lib/rewardsUtils';
 import { Card, ContentContainer } from '../../styled/transaction';
 import { Caption, Subhead } from '../BaseComponents';

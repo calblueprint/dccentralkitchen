@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
 import { Body, Title } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const Card = styled.View`
   border-bottom-width: 1px;

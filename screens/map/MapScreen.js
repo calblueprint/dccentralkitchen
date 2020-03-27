@@ -13,10 +13,10 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import Colors from '../../assets/Colors';
 import { Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import Colors from '../../constants/Colors';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,

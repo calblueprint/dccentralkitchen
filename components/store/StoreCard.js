@@ -1,16 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { View } from 'react-native';
-import Colors from '../../assets/Colors';
-import { InLineContainer } from '../../styled/shared';
+import Colors from '../../constants/Colors';
 import {
+  InLineContainer,
   SpaceAroundRowContainer,
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import {
-  StoreCardContainer,
-  EBTStatusBar,
   DividerBar,
+  EBTStatusBar,
+  StoreCardContainer,
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';

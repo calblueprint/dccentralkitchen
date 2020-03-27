@@ -1,9 +1,9 @@
-import React from 'react';
-import { TouchableOpacity, Linking } from 'react-native';
-import { Card, ContentContainer, IconContainer } from '../../styled/resources';
-import { Body, Subhead } from '../../components/BaseComponents';
 import { FontAwesome5 } from '@expo/vector-icons';
-import Colors from '../../assets/Colors';
+import React from 'react';
+import { Linking, TouchableOpacity } from 'react-native';
+import { Body, Subhead } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
+import { Card, ContentContainer, IconContainer } from '../../styled/resources';
 
 class ResourceCard extends React.Component {
   render() {

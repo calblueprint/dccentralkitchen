@@ -1,5 +1,5 @@
 import React from 'react';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import {
   RewardDescriptionContainer,
   RewardsCardContainer,

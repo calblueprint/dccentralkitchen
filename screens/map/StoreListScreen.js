@@ -1,17 +1,16 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
+import { View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
-import { View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import StoreCard from '../../components/store/StoreCard';
-
+import Colors from '../../constants/Colors';
 import {
   StoreListContainer,
   StoreListHeaderContainer,
   StoreListTitle,
   styles,
 } from '../../styled/store';
-import Colors from '../../assets/Colors';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
