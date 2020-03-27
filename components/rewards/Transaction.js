@@ -1,7 +1,7 @@
 import React from 'react';
 import Colors from '../../assets/Colors';
 import { displayDollarValue } from '../../lib/rewardsUtils';
-import { Card, ContentContainer } from '../../styled/transaction';
+import { ContentContainer, TransactionCard } from '../../styled/transaction';
 import { Caption, Subhead } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
@@ -18,7 +18,7 @@ function Transaction(props) {
     day: 'numeric'
   };
   return (
-    <Card>
+    <TransactionCard>
       <CircleIcon
         icon="check"
         iconColor={Colors.primaryGreen}
@@ -34,7 +34,7 @@ function Transaction(props) {
           products
         </Caption>
       </ContentContainer>
-    </Card>
+    </TransactionCard>
   );
 }
 

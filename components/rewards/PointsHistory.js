@@ -1,6 +1,8 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView, View } from 'react-native';
-import { Overline } from '../BaseComponents';
+import { FlatList, View } from 'react-native';
+import Colors from '../../assets/Colors';
+import { Body, Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 /**
  * @prop
@@ -9,27 +11,40 @@ import Transaction from './Transaction';
 function PointsHistory({ transactions, user, updates, navigation }) {
   // Only display if transactions have mounted
   // TODO @kennethlien fix spacing at line 44
-  if (transactions) {
-    return (
-      <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
-        <Overline style={{ marginTop: 24, marginBottom: 12 }}>
-          Recent Transactions
-        </Overline>
-        {transactions.map(transaction => (
+  return (
+    <View style={{ marginTop: 12 }}>
+      <FlatList
+        initialNumToRender={10}
+        data={transactions}
+        renderItem={({ item }) => (
           <Transaction
-            key={transaction.id}
-            date={transaction.date}
-            pointsEarned={transaction.pointsEarned}
-            storeName={transaction.storeName}
-            subtotal={transaction.subtotal}
-            totalSale={transaction.totalSale}
+            key={item.id}
+            date={item.date}
+            pointsEarned={item.pointsEarned}
+            storeName={item.storeName}
+            subtotal={item.subtotal}
+            totalSale={item.totalSale}
           />
-        ))}
-      </ScrollView>
-    );
-  }
-  // else return
-  return <View />;
+        )}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={
+          <Overline style={{ marginTop: 24, marginLeft: 16, marginBottom: 12 }}>
+            Recent Transactions
+          </Overline>
+        }
+        ListEmptyComponent={
+          <View
+            style={{
+              alignItems: 'center',
+              marginTop: 20
+            }}>
+            <FontAwesome5 name="store" size={64} color={Colors.base} />
+            <Body color={Colors.secondaryText}>No history to show.</Body>
+          </View>
+        }
+      />
+    </View>
+  );
 }
 
 export default React.memo(PointsHistory);
