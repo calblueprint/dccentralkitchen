@@ -4,7 +4,7 @@ import { fieldStateColors } from '../lib/authUtils';
 import {
   InputNoticeContainer,
   TextField,
-  TextFieldContainer
+  TextFieldContainer,
 } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
@@ -18,7 +18,7 @@ function AuthTextField({
   value,
   onBlurCallback,
   onFocusCallback,
-  changeTextCallback
+  changeTextCallback,
 }) {
   return (
     <TextFieldContainer>

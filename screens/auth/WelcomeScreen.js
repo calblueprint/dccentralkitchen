@@ -9,12 +9,12 @@ import {
   Body,
   ButtonLabel,
   ButtonContainer,
-  FilledButtonContainer
+  FilledButtonContainer,
 } from '../../components/BaseComponents';
 import {
   WelcomeContainer,
   WelcomeTitleContainer,
-  WelcomeLoginContainer
+  WelcomeLoginContainer,
 } from '../../styled/auth';
 
 export default class Welcome extends React.Component {
@@ -25,7 +25,7 @@ export default class Welcome extends React.Component {
       phoneNumber: '',
       password: '',
       errorMsg: '',
-      token: null
+      token: null,
     };
   }
 

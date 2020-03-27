@@ -5,12 +5,12 @@ import Colors from '../../assets/Colors';
 import { InLineContainer } from '../../styled/shared';
 import {
   SpaceAroundRowContainer,
-  SpaceBetweenRowContainer
+  SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import {
   StoreCardContainer,
   EBTStatusBar,
-  DividerBar
+  DividerBar,
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
