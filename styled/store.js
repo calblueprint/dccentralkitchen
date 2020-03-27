@@ -26,11 +26,12 @@ export const BottomSheetHeaderContainer = styled.View`
 export const BottomSheetContainer = styled.View`
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  padding: 4%;
+  padding: 16px;
 `;
 
 export const StoreCardContainer = styled.View`
-  margin: 0 16px 10px 16px;
+  margin: ${props =>
+    props.includeMargins ? '0 16px 10px 16px' : '0 0 10px 0'};
 `;
 
 export const SearchBar = styled(ButtonContainer)`

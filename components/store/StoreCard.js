@@ -1,16 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { View } from 'react-native';
 import Colors from '../../assets/Colors';
-import { InLineContainer } from '../../styled/shared';
 import {
+  InLineContainer,
   SpaceAroundRowContainer,
   SpaceBetweenRowContainer
 } from '../../styled/shared';
 import {
-  StoreCardContainer,
+  DividerBar,
   EBTStatusBar,
-  DividerBar
+  StoreCardContainer
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
@@ -22,7 +21,7 @@ import StoreProductButton from './StoreProductButton';
 function StoreCard({ store, callBack, seeProduct }) {
   const { name, hours, address, distance, ebt, rewards } = store;
   return (
-    <StoreCardContainer>
+    <StoreCardContainer includeMargins={seeProduct}>
       <SpaceBetweenRowContainer>
         <SpaceAroundRowContainer>
           <Title color={Colors.activeText}>{name}</Title>
