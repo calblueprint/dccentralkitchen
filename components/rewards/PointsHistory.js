@@ -36,10 +36,17 @@ function PointsHistory({ transactions, user, updates, navigation }) {
           <View
             style={{
               alignItems: 'center',
-              marginTop: 20
+              marginTop: 20,
+              paddingLeft: 32,
+              paddingRight: 32
             }}>
             <FontAwesome5 name="store" size={64} color={Colors.base} />
-            <Body color={Colors.secondaryText}>No history to show.</Body>
+            <Body color={Colors.secondaryText}>No history to show.{'\n'}</Body>
+            <Body color={Colors.secondaryText} style={{ textAlign: 'center' }}>
+              {
+                'Find participating Healthy Rewards stores to start earning and spending points!'
+              }
+            </Body>
           </View>
         }
       />
