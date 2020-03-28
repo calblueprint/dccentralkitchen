@@ -8,7 +8,7 @@ import * as Sentry from '@sentry/browser';
 import AppNavigator from './navigation/AppNavigator';
 
 Sentry.init({
-  dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/517257',
+  dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
   enableInExpoDevelopment: true,
   debug: true,
 });
@@ -21,8 +21,11 @@ setTimeout(async () => {
       return event;
     });
   });
-  await Sentry.captureMessage('test message of codesandbox.io');
+  await Sentry.captureMessage('Something Broke');
 }, 1000);
+
+// turn this on in production
+// Sentry.setRelease(Constants.manifest.revisionId);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
