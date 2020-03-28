@@ -54,9 +54,7 @@ export default class StoreListScreen extends React.Component {
 
     return (
       <View>
-        <NavHeaderContainer
-          style={{ flexDirection: 'column' }}
-          backgroundColor={Colors.primaryOrange}>
+        <NavHeaderContainer vertical backgroundColor={Colors.primaryOrange}>
           <ColumnContainer style={{ width: '100%' }}>
             <RowContainer
               style={{

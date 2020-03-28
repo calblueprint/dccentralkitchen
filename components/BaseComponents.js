@@ -116,14 +116,19 @@ export const TabSelected = styled.Text`
   color: ${props => props.color || Colors.black};
 `;
 
-export function NavHeaderContainer({ backgroundColor, withMargin, children }) {
+export function NavHeaderContainer({
+  backgroundColor,
+  withMargin,
+  children,
+  vertical
+}) {
   const topInset = useSafeArea().top;
   return (
     <View
       style={{
         display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: vertical ? 'column' : 'row',
+        alignItems: vertical ? 'flex-start' : 'center',
         justifyContent: 'center',
         paddingTop: 16 + topInset,
         paddingBottom: 4,
@@ -142,7 +147,8 @@ export function NavHeaderContainer({ backgroundColor, withMargin, children }) {
 
 export const NavTitle = styled(Title)`
   flex: 1;
-  margin-right: 52px;
+  margin-left: 8px;
+  margin-right: 50px;
   flex-wrap: wrap;
   text-align: center;
   color: ${props => (props.color ? props.color : Colors.activeText)};

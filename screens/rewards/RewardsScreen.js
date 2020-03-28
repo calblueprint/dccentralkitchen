@@ -3,11 +3,15 @@ import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import Colors from '../../assets/Colors';
-import { BigTitle, NavButton } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  NavButton,
+  NavHeaderContainer
+} from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
-import { Container, styles, TopTab } from '../../styled/rewards';
+import { Container, styles } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -143,7 +147,7 @@ export default class RewardsScreen extends React.Component {
   render() {
     return (
       <Container>
-        <TopTab>
+        <NavHeaderContainer vertical backgroundColor={Colors.primaryGreen}>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </NavButton>
@@ -155,7 +159,7 @@ export default class RewardsScreen extends React.Component {
             }}>
             Healthy Rewards
           </BigTitle>
-        </TopTab>
+        </NavHeaderContainer>
         <TabView
           navigationState={this.state}
           renderScene={this.renderScene}
