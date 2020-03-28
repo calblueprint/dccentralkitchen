@@ -4,13 +4,14 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { Dimensions, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Colors from '../../assets/Colors';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -18,8 +19,6 @@ import {
   DragBar,
   SearchBar
 } from '../../styled/store';
-
-const { width, height } = Dimensions.get('window'); // full width
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -179,33 +178,42 @@ export default class MapScreen extends React.Component {
       return <View />;
     }
     return (
-      <View style={{ height: height }}>
+      <View style={StyleSheet.absoluteFillObject}>
+        <NavHeaderContainer
+          backgroundColor={'rgba(0,0,0,0)'}
+          style={{
+            zIndex: 1
+          }}>
+          <Hamburger navigation={this.props.navigation} />
+          <SearchBar
+            style={{ flex: 1 }}
+            onPress={() =>
+              this.props.navigation.navigate('StoreList', {
+                stores: this.state.stores,
+                navigation: this.props.navigation
+              })
+            }>
+            <FontAwesome5
+              name="search"
+              size={16}
+              color={Colors.primaryOrange}
+            />
+            <Subhead color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+              Find a store
+            </Subhead>
+          </SearchBar>
+        </NavHeaderContainer>
         {/* Display Map */}
         <MapView
-          style={{ flex: 100 }}
+          style={{
+            marginTop: -130,
+            flex: 100,
+            overflow: 'visible',
+            zIndex: -1
+          }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display search bar */}
-          <NavHeaderContainer backgroundColor={'rgba(0,0,0,0)'}>
-            <Hamburger navigation={this.props.navigation} />
-            <SearchBar
-              style={{ flex: 1 }}
-              onPress={() =>
-                this.props.navigation.navigate('StoreList', {
-                  stores: this.state.stores,
-                  navigation: this.props.navigation
-                })
-              }>
-              <FontAwesome5
-                name="search"
-                size={16}
-                color={Colors.primaryOrange}
-              />
-              <Subhead color={Colors.secondaryText} style={{ marginLeft: 8 }}>
-                Find a store
-              </Subhead>
-            </SearchBar>
-          </NavHeaderContainer>
           {/* Display store markers */}
           {this.state.stores.map(store => (
             <Marker
@@ -233,7 +241,7 @@ export default class MapScreen extends React.Component {
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-        <View style={{ flex: 1, marginBottom: 180 }}>
+        <View style={{ flex: 1, marginBottom: 240 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling={false}
@@ -249,13 +257,14 @@ export default class MapScreen extends React.Component {
         <TouchableOpacity
           style={{
             position: 'absolute',
-            height: 77,
+            height: 70,
             bottom: 0,
             backgroundColor: Colors.primaryGreen,
             alignSelf: 'stretch',
-            width,
+            width: Window.width,
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            zIndex: 100
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
