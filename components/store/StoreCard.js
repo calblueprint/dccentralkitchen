@@ -45,7 +45,7 @@ function StoreCard({ store, callBack, seeProduct }) {
           size={16}
           color={rewards ? Colors.primaryGreen : Colors.secondaryText}
         />
-        <StoreDetailText color={rewards}>
+        <StoreDetailText greenText={rewards}>
           {rewards
             ? 'Earn and redeem Healthy Rewards here'
             : 'Healthy Rewards not accepted'}
