@@ -25,7 +25,8 @@ import {
   SearchBar
 } from '../../styled/store';
 
-const { width } = Dimensions.get('window'); // full width
+const { width, height } = Dimensions.get('window'); // full width
+const maxSnapPoint = (((377 - 180) / (height - 180)) * 100).toString(); // 377 as height of BottomSheet (380 works better), 180 as marginBottom of BottomSheet
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -42,6 +43,7 @@ const initialRegion = {
 export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       // TODO don't need this error message rly
       locationErrorMsg: null,
@@ -239,7 +241,7 @@ export default class MapScreen extends React.Component {
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={['22%', '10%']}
+            snapPoints={[maxSnapPoint, '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
