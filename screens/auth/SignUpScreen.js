@@ -318,7 +318,7 @@ export default class SignUp extends React.Component {
             />
           </FormContainer>
           <FilledButtonContainer
-            style={{ marginTop: 35 }}
+            style={{ alignSelf: 'flex-end' }}
             color={
               this.state.signUpPermission
                 ? Colors.primaryGreen
