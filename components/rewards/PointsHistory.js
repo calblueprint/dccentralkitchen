@@ -12,8 +12,13 @@ function PointsHistory({ transactions, user, updates, navigation }) {
   // Only display if transactions have mounted
   // TODO @kennethlien fix spacing at line 44
   return (
-    <View style={{ marginTop: 12 }}>
+    <View>
       <FlatList
+        ListHeaderComponent={
+          <Overline style={{ marginTop: 24, marginLeft: 16, marginBottom: 12 }}>
+            Recent Transactions
+          </Overline>
+        }
         initialNumToRender={10}
         data={transactions}
         renderItem={({ item }) => (
@@ -27,11 +32,6 @@ function PointsHistory({ transactions, user, updates, navigation }) {
           />
         )}
         keyExtractor={item => item.id}
-        ListHeaderComponent={
-          <Overline style={{ marginTop: 24, marginLeft: 16, marginBottom: 12 }}>
-            Recent Transactions
-          </Overline>
-        }
         ListEmptyComponent={
           <View
             style={{
