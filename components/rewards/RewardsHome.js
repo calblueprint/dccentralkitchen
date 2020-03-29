@@ -1,5 +1,6 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../assets/Colors';
 import {
@@ -14,8 +15,8 @@ import RewardsCard from './RewardsCard';
  * */
 
 function createList(N) {
-  let list = [];
-  for (var i = 1; i <= N; i++) {
+  const list = [];
+  for (let i = 1; i <= N; i++) {
     list.push(i);
   }
   return list;
@@ -43,16 +44,43 @@ function RewardsHome({ user }) {
         />
         <Body style={{ marginBottom: 28 }}>
           Earn {`${1000 - (parseInt(user.points) % 1000)}`} points to unlock
-          your next $5 reward
+          your next $5 reward.
         </Body>
         <Overline style={{ marginBottom: 8 }}>
           Available Rewards ({Math.floor(parseInt(user.points) / 1000)})
         </Overline>
       </RewardsProgressContainer>
       <AvailableRewardsContainer>
-        {createList(Math.floor(parseInt(user.points) / 1000)).map(a => (
-          <RewardsCard></RewardsCard>
-        ))}
+        <FlatList
+          data={createList(Math.floor(parseInt(user.points) / 1000))}
+          renderItem={() => <RewardsCard />}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          ListEmptyComponent={
+            <View
+              style={{
+                alignItems: 'center',
+                marginTop: 20,
+                paddingLeft: 32,
+                paddingRight: 32
+              }}>
+              <FontAwesome5
+                name="star"
+                size={64}
+                solid
+                color={Colors.base}
+                style={{ marginBottom: 12 }}
+              />
+              <Body color={Colors.secondaryText}>No available rewards.</Body>
+              <Body
+                color={Colors.secondaryText}
+                style={{ textAlign: 'center' }}>
+                Buy healthy produce at participating stores to earn points and
+                unlock rewards!
+              </Body>
+            </View>
+          }
+        />
       </AvailableRewardsContainer>
     </ScrollView>
   );

@@ -104,7 +104,7 @@ export default class StoreListScreen extends React.Component {
           keyExtractor={item => item.id}
           // 16px top margin from heading
           ListHeaderComponent={<View style={{ height: 16 }} />}
-          //400 bottom margin to make sure all search results show with the keyboard activated.
+          // 400 bottom margin to make sure all search results show with the keyboard activated.
           ListFooterComponent={<View style={{ height: 420 }} />}
           ListEmptyComponent={
             <View
@@ -112,7 +112,12 @@ export default class StoreListScreen extends React.Component {
                 alignItems: 'center',
                 marginTop: 100
               }}>
-              <FontAwesome5 name="store" size={64} color={Colors.base} />
+              <FontAwesome5
+                name="store"
+                size={64}
+                color={Colors.base}
+                style={{ marginBottom: 12 }}
+              />
               <Body color={Colors.secondaryText}>
                 No stores matched your search.
               </Body>
