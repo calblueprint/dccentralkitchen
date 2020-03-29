@@ -2,6 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { ButtonContainer, Body, Caption } from '../BaseComponents';
 import { RowContainer, ColumnContainer } from '../../styled/shared';
+import { displayDollarValue } from '../../lib/common';
 import Colors from '../../assets/Colors';
 
 /**
@@ -29,7 +30,7 @@ function ProductCard({ product, store, navigation, displayPoints }) {
         )}
         <RowContainer>
           <Caption color={Colors.secondaryText}>
-            ${product.customerCost.toFixed(2)} ea
+            {displayDollarValue(product.customerCost)} ea
           </Caption>
           {displayPoints && (
             <Caption color={Colors.secondaryText}>
