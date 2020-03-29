@@ -66,6 +66,7 @@
     "react-native-elements": "^1.2.6",
     "react-native-gesture-handler": "~1.3.0",
     "react-native-global-props": "^1.1.5",
+    "react-native-map-link": "^2.7.5",
     "react-native-maps": "~0.25.0",
     "react-native-paper": "^3.6.0",
     "react-native-phone-input": "^0.2.4",

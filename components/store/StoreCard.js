@@ -1,16 +1,17 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { View } from 'react-native';
+import { Alert, Clipboard, TouchableOpacity } from 'react-native';
+import { showLocation } from 'react-native-map-link';
 import Colors from '../../assets/Colors';
-import { InLineContainer } from '../../styled/shared';
 import {
+  InLineContainer,
   SpaceAroundRowContainer,
   SpaceBetweenRowContainer
 } from '../../styled/shared';
 import {
-  StoreCardContainer,
+  DividerBar,
   EBTStatusBar,
-  DividerBar
+  StoreCardContainer
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
@@ -19,8 +20,24 @@ import StoreProductButton from './StoreProductButton';
  * @prop
  * */
 
-function StoreCard({ store, callBack, seeProduct }) {
-  const { name, hours, address, distance, ebt, rewards } = store;
+export default function StoreCard({ store, callBack, seeProduct }) {
+  const { name, hours, address, distance, ebt, rewards, lat, long } = store;
+
+  const writeAddressToClipboard = () => {
+    Clipboard.setString(address);
+    Alert.alert('Copied to Clipboard!', address);
+  };
+
+  const openDirections = () => {
+    showLocation({
+      latitude: lat,
+      longitude: long,
+      title: name,
+      googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
+      alwaysIncludeGoogle: true
+    });
+  };
+
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
@@ -51,14 +68,18 @@ function StoreCard({ store, callBack, seeProduct }) {
           </Body>
         </InLineContainer>
       )}
-      <InLineContainer style={{ alignItems: 'center' }}>
-        <FontAwesome5
-          name="directions"
-          size={16}
-          color={Colors.secondaryText}
-        />
-        <Body color={Colors.secondaryText}> {address}</Body>
-      </InLineContainer>
+      <TouchableOpacity
+        onPress={openDirections}
+        onLongPress={writeAddressToClipboard}>
+        <InLineContainer style={{ alignItems: 'center' }}>
+          <FontAwesome5
+            name="directions"
+            size={16}
+            color={Colors.secondaryText}
+          />
+          <Body color={Colors.secondaryText}> {address}</Body>
+        </InLineContainer>
+      </TouchableOpacity>
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="clock"
@@ -72,5 +93,3 @@ function StoreCard({ store, callBack, seeProduct }) {
     </StoreCardContainer>
   );
 }
-
-export default StoreCard;
