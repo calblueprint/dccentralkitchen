@@ -13,6 +13,29 @@ module.exports = {
   },
   plugins: ['react-native', 'prettier'],
   rules: {
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'airtable',
+            message: 'Do not use the airtable module outside of airtable.js',
+          },
+          {
+            name: './airtable',
+            message: 'Do not use airtable.js outside of request.js',
+          },
+          {
+            name: '../../lib/airtable',
+            message: 'Do not use airtable.js outside of request.js',
+          },
+          {
+            name: '../../../lib/airtable',
+            message: 'Do not use airtable.js outside of request.js',
+          },
+        ],
+      },
+    ],  
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'no-use-before-define': ['error', { variables: false }],
     'no-const-assign': 'warn',
