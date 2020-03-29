@@ -16,7 +16,7 @@ function ProductCard({ product, store, navigation, displayPoints }) {
       onPress={() =>
         navigation.navigate('ProductDetails', {
           currentProduct: product,
-          store
+          store,
         })
       }>
       <ColumnContainer>

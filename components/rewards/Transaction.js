@@ -15,7 +15,7 @@ function Transaction(props) {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   };
   return (
     <Card>

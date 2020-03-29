@@ -3,7 +3,7 @@ import { Body, Caption, Title } from '../BaseComponents';
 import {
   ProductInfoContainer,
   ProductInfoCaptionContainer,
-  ProductNoticeContainer
+  ProductNoticeContainer,
 } from '../../styled/product';
 
 /**
