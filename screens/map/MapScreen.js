@@ -180,6 +180,7 @@ export default class MapScreen extends React.Component {
     return (
       <View style={StyleSheet.absoluteFillObject}>
         <NavHeaderContainer
+          noShadow
           backgroundColor="rgba(0,0,0,0)"
           style={{
             zIndex: 1,

@@ -121,6 +121,7 @@ export function NavHeaderContainer({
   withMargin,
   children,
   vertical,
+  noShadow,
 }) {
   const topInset = useSafeArea().top;
   return (
@@ -135,7 +136,7 @@ export function NavHeaderContainer({
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
         backgroundColor: backgroundColor || Colors.lightest,
-        shadowColor: '#000',
+        shadowColor: noShadow ? 'rgba(0,0,0,0)' : '#000',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
