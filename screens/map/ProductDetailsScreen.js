@@ -9,7 +9,7 @@ import {
 import ProductInfo from '../../components/product/ProductInfo';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
 
-class ProductDetailsScreen extends React.Component {
+export default class ProductDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -40,9 +40,3 @@ class ProductDetailsScreen extends React.Component {
     );
   }
 }
-
-export default ProductDetailsScreen;
-
-ProductDetailsScreen.navigationOptions = {
-  headerShown: false,
-};
