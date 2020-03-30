@@ -26,7 +26,7 @@ function Transaction(props) {
       />
       <ContentContainer>
         <Caption color={Colors.secondaryText}>
-          {date.toLocaleDateString('en-US', options)} •{storeName}
+          {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
         </Caption>
         <Subhead>{pointsEarned} points earned</Subhead>
         <Caption color={Colors.secondaryText}>
