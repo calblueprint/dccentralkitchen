@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ProductInfoCaptionContainer,
@@ -33,7 +32,7 @@ function ProductInfo({ product }) {
   );
 }
 
-ProductCard.propTypes = {
+ProductInfo.propTypes = {
   product: PropTypes.object.isRequired,
 };
 

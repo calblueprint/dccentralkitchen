@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -29,8 +30,9 @@ function ProductCard({ product, store, navigation, displayPoints }) {
         )}
         <RowContainer>
           <Caption color={Colors.secondaryText}>
-            {displayDollarValue(product.customerCost)} ea
+            {`${displayDollarValue(product.customerCost)} ea`}
           </Caption>
+
           {displayPoints && (
             <Caption color={Colors.secondaryText}>
               {' '}
@@ -42,5 +44,12 @@ function ProductCard({ product, store, navigation, displayPoints }) {
     </ButtonContainer>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  displayPoints: PropTypes.bool.isRequired,
+};
 
 export default ProductCard;

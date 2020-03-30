@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 
@@ -12,3 +13,12 @@ export default function TabBarIcon(props) {
     />
   );
 }
+
+RewardsHome.propTypes = {
+  name: PropTypes.string.isRequired,
+  focused: PropTypes.bool,
+};
+
+RewardsHome.defaultProps = {
+  focused: false,
+};

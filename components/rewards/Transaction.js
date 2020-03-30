@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import { displayDollarValue } from '../../lib/common';
@@ -26,15 +27,22 @@ function Transaction(props) {
       />
       <ContentContainer>
         <Caption color={Colors.secondaryText}>
-          {date.toLocaleDateString('en-US', options)} •{storeName}
+          {`${date.toLocaleDateString('en-US', options)} •${storeName}`}
         </Caption>
-        <Subhead>{pointsEarned} points earned</Subhead>
+        <Subhead>{`${pointsEarned} points earned`}</Subhead>
         <Caption color={Colors.secondaryText}>
-          for {displayDollarValue(totalSale || 0)} of healthy products
+          {`for ${displayDollarValue(totalSale || 0)} of healthy products`}
         </Caption>
       </ContentContainer>
     </Card>
   );
 }
+
+Transaction.propTypes = {
+  date: PropTypes.object.isRequired,
+  storeName: PropTypes.string.isRequired,
+  pointsEarned: PropTypes.number.isRequired,
+  totalSale: PropTypes.number.isRequired,
+};
 
 export default Transaction;

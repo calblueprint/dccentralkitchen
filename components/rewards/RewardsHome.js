@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
@@ -14,8 +15,8 @@ import RewardsCard from './RewardsCard';
  * */
 
 function createList(N) {
-  let list = [];
-  for (var i = 1; i <= N; i++) {
+  const list = [];
+  for (let i = 1; i <= N; i++) {
     list.push(i);
   }
   return list;
@@ -51,11 +52,15 @@ function RewardsHome({ user }) {
       </RewardsProgressContainer>
       <AvailableRewardsContainer>
         {createList(Math.floor(parseInt(user.points) / 1000)).map(a => (
-          <RewardsCard></RewardsCard>
+          <RewardsCard />
         ))}
       </AvailableRewardsContainer>
     </ScrollView>
   );
 }
+
+RewardsHome.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default React.memo(RewardsHome);
