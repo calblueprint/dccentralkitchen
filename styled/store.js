@@ -26,11 +26,11 @@ export const BottomSheetHeaderContainer = styled.View`
 export const BottomSheetContainer = styled.View`
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  padding: 4%;
+  padding: 16px;
 `;
 
 export const StoreListContainer = styled.View`
-  padding: 0 4% 4% 4%;
+  padding: 0 16px 16px 16px;
 `;
 
 export const StoreListHeaderContainer = styled.View`
@@ -79,7 +79,7 @@ export const EBTStatusBar = styled.View`
   margin-left: 6px;
 `;
 
-// FlatList styles
+// SearchBar styles
 
 export const styles = StyleSheet.create({
   inputContainer: {

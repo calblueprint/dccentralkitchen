@@ -1,11 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { Alert, Clipboard, TouchableOpacity } from 'react-native';
+import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 import Colors from '../../constants/Colors';
+import { getMaxWidth } from '../../lib/mapUtils';
 import {
   InLineContainer,
-  SpaceAroundRowContainer,
+  RowContainer,
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import {
@@ -41,15 +42,27 @@ export default function StoreCard({ store, callBack, seeProduct }) {
   return (
     <StoreCardContainer>
       <SpaceBetweenRowContainer>
-        <SpaceAroundRowContainer>
-          <Title color={Colors.activeText}>{name}</Title>
+        <RowContainer>
+          <Title
+            color={Colors.activeText}
+            style={{
+              maxWidth: getMaxWidth(
+                Dimensions.get('window').width,
+                ebt,
+                seeProduct
+              ),
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail">
+            {name}
+          </Title>
           {ebt && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
               <Caption color={Colors.darkerGreen}> EBT</Caption>
             </EBTStatusBar>
           )}
-        </SpaceAroundRowContainer>
+        </RowContainer>
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
