@@ -52,6 +52,3 @@ export default class ProductsScreen extends React.Component {
     );
   }
 }
-ProductsScreen.navigationOptions = {
-  headerShown: false,
-};

@@ -275,7 +275,3 @@ export default class MapScreen extends React.Component {
     );
   }
 }
-
-MapScreen.navigationOptions = {
-  headerShown: false,
-};

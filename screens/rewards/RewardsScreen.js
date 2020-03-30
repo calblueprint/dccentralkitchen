@@ -175,7 +175,3 @@ export default class RewardsScreen extends React.Component {
     );
   }
 }
-
-RewardsScreen.navigationOptions = {
-  headerShown: false,
-};

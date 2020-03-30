@@ -1,5 +1,11 @@
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import {
+  AsyncStorage,
+  Linking,
+  Platform,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -12,11 +18,21 @@ import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 import { ResourcesStack, RootStack, StoresStack } from './StackNavigators';
 
-const AuthStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-  Login: LoginScreen,
-  SignUp: SignUpScreen,
+const config = Platform.select({
+  web: { headerMode: 'screen' },
+  default: {
+    headerMode: 'none',
+  },
 });
+
+const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    Login: LoginScreen,
+    SignUp: SignUpScreen,
+  },
+  config
+);
 
 class AuthLoadingScreen extends React.Component {
   constructor() {

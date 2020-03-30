@@ -128,6 +128,3 @@ export default class StoreListScreen extends React.Component {
     );
   }
 }
-StoreListScreen.navigationOptions = {
-  headerShown: false,
-};

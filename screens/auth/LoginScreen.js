@@ -191,6 +191,3 @@ export default class Login extends React.Component {
     );
   }
 }
-Login.navigationOptions = {
-  headerShown: false,
-};

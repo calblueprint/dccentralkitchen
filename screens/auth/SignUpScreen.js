@@ -400,6 +400,3 @@ const validation = {
     // }
   },
 };
-SignUp.navigationOptions = {
-  headerShown: false,
-};
