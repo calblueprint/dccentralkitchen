@@ -16,12 +16,7 @@ import {
   createPushTokens,
   getCustomersByPhoneNumber,
 } from '../../lib/airtable/request';
-import {
-  fieldStateColors,
-  formatPhoneNumber,
-  signUpFields,
-  validate,
-} from '../../lib/authUtils';
+import { formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
 import { AuthScreenContainer, FormContainer } from '../../styled/auth';
 
 export default class SignUpScreen extends React.Component {
@@ -34,18 +29,12 @@ export default class SignUpScreen extends React.Component {
         [signUpFields.PHONENUM]: '',
         [signUpFields.PASSWORD]: '',
       },
-
       errors: {
         [signUpFields.NAME]: 'placeholder',
         [signUpFields.PHONENUM]: 'placeholder',
         [signUpFields.PASSWORD]: 'placeholder',
-        // Duplicate phone number - not being used currently
+        // Duplicate phone number error - currently not being displayed
         submit: '',
-      },
-      indicators: {
-        [signUpFields.NAME]: fieldStateColors.INACTIVE,
-        [signUpFields.PHONENUM]: fieldStateColors.INACTIVE,
-        [signUpFields.PASSWORD]: fieldStateColors.INACTIVE,
       },
       token: '',
       signUpPermission: false,
@@ -59,6 +48,7 @@ export default class SignUpScreen extends React.Component {
     // this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
+  // TODO will be deprecated with react-navigation v5
   _clearState = () => {
     this.setState({
       values: {
@@ -67,14 +57,9 @@ export default class SignUpScreen extends React.Component {
         [signUpFields.PASSWORD]: '',
       },
       errors: {
-        [signUpFields.NAME]: 'placeholder',
-        [signUpFields.PHONENUM]: 'placeholder',
-        [signUpFields.PASSWORD]: 'placeholder',
-      },
-      indicators: {
-        [signUpFields.NAME]: fieldStateColors.INACTIVE,
-        [signUpFields.PHONENUM]: fieldStateColors.INACTIVE,
-        [signUpFields.PASSWORD]: fieldStateColors.INACTIVE,
+        [signUpFields.NAME]: '',
+        [signUpFields.PHONENUM]: '',
+        [signUpFields.PASSWORD]: '',
       },
       token: '',
       signUpPermission: false,
@@ -192,7 +177,7 @@ export default class SignUpScreen extends React.Component {
     Keyboard.dismiss();
   };
 
-  handleErrorState = async signUpField => {
+  updateError = async signUpField => {
     let error = false;
     let errorMsg = '';
     const fieldValue = this.state.values[signUpField];
@@ -213,51 +198,30 @@ export default class SignUpScreen extends React.Component {
       default:
         console.log('Not reached');
     }
-    if (error) {
-      this.setState(prevState => ({
-        errors: { ...prevState.errors, [signUpField]: errorMsg },
-      }));
-      return fieldStateColors.ERROR;
-    }
-    return fieldStateColors.BLURRED;
-  };
 
-  onFocus = async signUpField => {
-    const { indicators } = this.state;
-    if (indicators[signUpField] !== fieldStateColors.ERROR) {
-      await this.setState(prevState => ({
-        indicators: {
-          ...prevState.indicators,
-          [signUpField]: fieldStateColors.FOCUSED,
-        },
-      }));
-    }
+    await this.setState(prevState => ({
+      errors: { ...prevState.errors, [signUpField]: errorMsg },
+    }));
+    await this.updatePermission();
+
+    return error;
   };
 
   // onBlur callback is required in case customer taps on field, does nothing, and taps out
   onBlur = async signUpField => {
-    const updatedIndicator = await this.handleErrorState(signUpField);
-    this.setState(prevState => ({
-      indicators: { ...prevState.indicators, [signUpField]: updatedIndicator },
-    }));
-    await this.updatePermission();
+    await this.updateError(signUpField);
   };
 
-  onTextChange = async (signUpField, text) => {
+  // onTextChange does a check before updating errors
+  // It can only remove errors, not trigger them
+  onTextChange = async (text, signUpField) => {
+    // Set updated value before error-checkingg
     await this.setState(prevState => ({
       values: { ...prevState.values, [signUpField]: text },
     }));
-    // Set updated value before error-checking
-    const updatedIndicator = await this.handleErrorState(signUpField);
-    const errorFound = updatedIndicator === fieldStateColors.ERROR;
-    this.setState(prevState => ({
-      indicators: { ...prevState.indicators, [signUpField]: updatedIndicator },
-      errors: {
-        ...prevState.errors,
-        [signUpField]: errorFound ? prevState.errors[signUpField] : '',
-      },
-    }));
-    await this.updatePermission();
+
+    // Only update error if there is currently an error
+    if (this.state.errors[signUpField]) await this.updateError(signUpField);
   };
 
   render() {
@@ -268,38 +232,32 @@ export default class SignUpScreen extends React.Component {
           <FormContainer>
             <AuthTextField
               fieldType="Name"
-              errorMsg={this.state.errors[signUpFields.NAME]}
-              color={this.state.indicators[signUpFields.NAME]}
               value={this.state.values[signUpFields.NAME]}
-              onBlurCallback={() => this.onBlur(signUpFields.NAME)}
-              onFocusCallback={() => this.onFocus(signUpFields.NAME)}
-              changeTextCallback={text =>
-                this.onTextChange(signUpFields.NAME, text)
-              }
+              onBlurCallback={value => this.updateError(signUpFields.NAME)}
+              changeTextCallback={text => {
+                this.onTextChange(signUpFields.NAME);
+              }}
+              error={this.state.errors[signUpFields.NAME]}
             />
 
             <AuthTextField
               fieldType="Phone Number"
-              errorMsg={this.state.errors[signUpFields.PHONENUM]}
-              color={this.state.indicators[signUpFields.PHONENUM]}
               value={this.state.values[signUpFields.PHONENUM]}
-              onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
-              onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
-              changeTextCallback={text =>
-                this.onTextChange(signUpFields.PHONENUM, text)
-              }
+              onBlurCallback={() => this.updateError(signUpFields.PHONENUM)}
+              changeTextCallback={text => {
+                this.onTextChange(text, signUpFields.PHONENUM);
+              }}
+              error={this.state.errors[signUpFields.PHONENUM]}
             />
 
             <AuthTextField
               fieldType="Password"
-              errorMsg={this.state.errors[signUpFields.PASSWORD]}
-              color={this.state.indicators[signUpFields.PASSWORD]}
               value={this.state.values[signUpFields.PASSWORD]}
-              onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
-              onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
-              changeTextCallback={text =>
-                this.onTextChange(signUpFields.PASSWORD, text)
-              }
+              onBlurCallback={value => this.updateError(signUpFields.PASSWORD)}
+              changeTextCallback={text => {
+                this.onTextChange(text, signUpFields.PASSWORD);
+              }}
+              error={this.state.errors[signUpFields.PASSWORD]}
             />
           </FormContainer>
           <FilledButtonContainer

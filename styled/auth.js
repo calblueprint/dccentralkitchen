@@ -63,10 +63,3 @@ export const TextField = styled.TextInput`
   border-bottom-color: ${props => props.borderColor || Colors.activeText};
   border-bottom-width: 2px;
 `;
-
-// SignUpScreen
-
-// TODO @tommypoa: consider adding props to margins to reduce number of containers
-export const InputNoticeContainer = styled.View`
-  margin-top: 4px;
-`;
