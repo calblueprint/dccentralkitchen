@@ -1,13 +1,13 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import ProductCard from '../../components/product/ProductCard';
+import Colors from '../../constants/Colors';
 import {
-  ProductListHeaderContainer,
   ProductListContainer,
-  ProductListTitle
+  ProductListHeaderContainer,
+  ProductListTitle,
 } from '../../styled/product';
-import Colors from '../../assets/Colors';
 
 class ProductsScreen extends React.Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class ProductsScreen extends React.Component {
           product={product}
           navigation={this.props.navigation}
           store={store}
+          displayPoints
         />
       );
     });

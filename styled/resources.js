@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import { Title, Body } from '../components/BaseComponents';
-import Colors from '../assets/Colors';
+import { Body, Title } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const Card = styled.View`
   border-bottom-width: 1px;
@@ -45,18 +45,6 @@ export const CategoryContainer = styled.View`
   flex: 1;
 `;
 
-export const CategoryIcon = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  padding: 8px
-  border-radius: 20px;
-  background-color: ${Colors.lighterGreen};
-  
-`;
-
 export const HeadingContainer = styled.View`
   flex-direction: row;
   padding-left: 12px;
@@ -71,9 +59,9 @@ export const HeadingText = styled(Title)`
 
 export const TopText = styled(Title)`
   font-style: normal;
-  font-weight: 900;
+  font-weight: 500;
   text-align: center;
   color: black;
-  margin-top: 55px;
+  margin-top: 45px;
   font-size: 25px;
 `;

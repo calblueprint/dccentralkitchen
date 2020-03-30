@@ -1,17 +1,16 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
+import { View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
-import { View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
 import StoreCard from '../../components/store/StoreCard';
-
+import Colors from '../../constants/Colors';
 import {
   StoreListContainer,
   StoreListHeaderContainer,
   StoreListTitle,
-  styles
+  styles,
 } from '../../styled/store';
-import Colors from '../../assets/Colors';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class StoreListScreen extends React.Component {
       allStores: stores,
       navigation,
       searchStr: '',
-      filteredStores: stores
+      filteredStores: stores,
     };
   }
 
@@ -32,14 +31,14 @@ class StoreListScreen extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   storeDetailsTransition = store => {
     this.state.navigation.navigate('Stores', {
-      currentStore: store
+      currentStore: store,
     });
   };
 
   updateSearch = searchStr => {
     this.setState({
       searchStr,
-      filteredStores: this.state.allStores.filter(this.filterStore(searchStr))
+      filteredStores: this.state.allStores.filter(this.filterStore(searchStr)),
     });
   };
 

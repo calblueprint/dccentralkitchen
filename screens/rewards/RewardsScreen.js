@@ -1,43 +1,34 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import {
-  AsyncStorage,
-  Dimensions,
-  RefreshControl,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
+import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+import { BigTitle } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
+import Colors from '../../constants/Colors';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
-import {
-  Container,
-  ScrollViewContainer,
-  styles,
-  TopTab
-} from '../../styled/rewards';
-import { Body, Caption, Title } from '../../components/BaseComponents';
+import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
-  { key: 'history', title: 'Points History' }
+  { key: 'history', title: 'Points History' },
 ];
 
 export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
+    const tab = this.props.tab || 0;
     this.state = {
       user: {
         id: null,
         points: null,
-        name: null
+        name: null,
       },
       transactions: [],
       refreshing: false,
       updates: false,
-      index: 0,
-      routes
+      index: tab,
+      routes,
     };
   }
 
@@ -50,7 +41,7 @@ export default class RewardsScreen extends React.Component {
           const user = {
             id: userId,
             points: userRecord.fields.Points,
-            name: userRecord.fields.Name
+            name: userRecord.fields.Name,
           };
           this.setState({ user });
           return true;
@@ -85,7 +76,7 @@ export default class RewardsScreen extends React.Component {
           const user = {
             id: userId,
             points: userRecord.fields.Points,
-            name: userRecord.fields.Name
+            name: userRecord.fields.Name,
           };
           this.setState({ user });
           return true;
@@ -99,7 +90,7 @@ export default class RewardsScreen extends React.Component {
             if (this.state.latestTransaction !== transactions[0]) {
               this.setState({
                 latestTransaction: transactions[0],
-                transactions
+                transactions,
               });
             }
             if (this.state.latestTransaction.receipts == null) {
@@ -142,6 +133,7 @@ export default class RewardsScreen extends React.Component {
       <TabBar
         style={styles.tabBar}
         labelStyle={styles.tabBarLabel}
+        tabStyle={{ width: 'auto' }}
         {...props}
         indicatorStyle={styles.tabBarIndicator}
       />
@@ -152,17 +144,17 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
-          <View>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Stores')}>
-              {/* TODO: change this to a proper icon */}
-              <Text style={{ color: 'white', fontSize: 25 }}> ▼ </Text>
-            </TouchableOpacity>
-
-            <Title style={{ color: 'white', fontSize: 30 }}>
-              Healthy Rewards
-            </Title>
-          </View>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-down" solid size={24} color="white" />
+          </BackButton>
+          <BigTitle
+            style={{
+              marginLeft: 16,
+              color: Colors.lightest,
+              fontSize: 36,
+            }}>
+            Healthy Rewards
+          </BigTitle>
         </TopTab>
         <TabView
           navigationState={this.state}
@@ -171,7 +163,7 @@ export default class RewardsScreen extends React.Component {
           onIndexChange={index => this.setState({ index })}
           initialLayout={{
             width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height
+            height: Dimensions.get('window').height,
           }}
           style={styles.tabView}
         />
@@ -181,5 +173,5 @@ export default class RewardsScreen extends React.Component {
 }
 
 RewardsScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

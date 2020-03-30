@@ -3,7 +3,9 @@ import { TopText } from '../../styled/resources';
 import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
 import getResources from '../../lib/resourceUtils';
 import ResourceCard from '../../components/resources/ResourceCard';
+import { Title, NavButton } from '../../components/BaseComponents';
 import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 class ResourcesScreen extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class ResourcesScreen extends React.Component {
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
-      ResourcesForSeniors: []
+      ResourcesForSeniors: [],
     };
   }
 
@@ -35,7 +37,7 @@ class ResourcesScreen extends React.Component {
           DCCentralKitchenResources,
           CommunityResources,
           GovernmentResources,
-          ResourcesForSeniors
+          ResourcesForSeniors,
         });
     });
   }
@@ -43,32 +45,13 @@ class ResourcesScreen extends React.Component {
   render() {
     return (
       <View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'white',
-            width: 50,
-            height: 50,
-            zIndex: 100,
-            position: 'absolute', // comment out this line to see the menu toggle
-            top: 50,
-            left: 15,
-            borderRadius: 23,
-            borderColor: '#ffffff',
-            borderWidth: 4,
-            shadowOpacity: 0.25,
-            shadowRadius: 5,
-            shadowColor: 'black',
-            shadowOffset: { height: 3, width: 4 }
-          }}>
-          <Button
-            color="black"
-            title="X"
-            onPress={() => this.props.navigation.goBack(null)}
-          />
-        </TouchableOpacity>
+        <NavButton onPress={() => this.props.navigation.goBack(null)}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
+        </NavButton>
 
-        <TopText> Resources </TopText>
-
+        <View style={{ height: 106 }}>
+          <TopText>Resources</TopText>
+        </View>
         <ScrollView>
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
@@ -110,7 +93,7 @@ class ResourcesScreen extends React.Component {
 }
 
 ResourcesScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };
 
 export default ResourcesScreen;

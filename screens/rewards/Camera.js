@@ -13,7 +13,7 @@ export default class ReceiptScanner extends React.Component {
       dataURI: [],
       uploadStatus: '',
       customerId: '',
-      transactionId: ''
+      transactionId: '',
     };
   }
 
@@ -27,7 +27,7 @@ export default class ReceiptScanner extends React.Component {
     this.setState({
       hasCameraPermission: status === 'granted',
       customerId: userId,
-      transactionId
+      transactionId,
     });
   }
 
@@ -40,7 +40,7 @@ export default class ReceiptScanner extends React.Component {
         this.camera.pausePreview();
         const base64 = `data:image/jpeg;base64,${photo.base64}`;
         this.setState({
-          uploadStatus: 'Uploading...'
+          uploadStatus: 'Uploading...',
         });
         this._uploadImage(base64);
       });
@@ -54,14 +54,14 @@ export default class ReceiptScanner extends React.Component {
     const apiUrl = 'https://api.cloudinary.com/v1_1/dxecwnkxx/image/upload';
     const data = {
       file: imageBinary,
-      upload_preset: IMG_KEY
+      upload_preset: IMG_KEY,
     };
     fetch(apiUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
       .then(data => {
         return data.json();
@@ -81,11 +81,11 @@ export default class ReceiptScanner extends React.Component {
                 Customer: [this.state.customerId],
                 Attachments: [
                   {
-                    url: postUrl
-                  }
-                ]
-              }
-            }
+                    url: postUrl,
+                  },
+                ],
+              },
+            },
           ],
           { typecast: true }
         );
@@ -95,7 +95,7 @@ export default class ReceiptScanner extends React.Component {
       })
       .then(() => {
         this.setState({
-          uploadStatus: 'Upload Completed'
+          uploadStatus: 'Upload Completed',
         });
       })
       .catch(err => {
@@ -128,20 +128,20 @@ export default class ReceiptScanner extends React.Component {
             style={{
               flex: 1,
               backgroundColor: 'transparent',
-              flexDirection: 'row'
+              flexDirection: 'row',
             }}>
             <TouchableOpacity
               style={{
                 flex: 0.1,
                 alignSelf: 'flex-end',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
               onPress={() => {
                 this.setState({
                   type:
                     this.state.type === Camera.Constants.Type.back
                       ? Camera.Constants.Type.front
-                      : Camera.Constants.Type.back
+                      : Camera.Constants.Type.back,
                 });
               }}>
               <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
@@ -163,7 +163,7 @@ export default class ReceiptScanner extends React.Component {
               style={{
                 flex: 0.8,
                 alignSelf: 'flex-end',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
               onPress={() => this.snap()}>
               <Text style={{ fontSize: 40, color: 'white' }}> ⍜ </Text>
