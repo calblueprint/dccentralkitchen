@@ -31,18 +31,6 @@ export const CategoryCard = styled.View`
   flex: 1;
 `;
 
-export const CategoryIcon = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  padding: 8px
-  border-radius: 20px;
-  background-color: ${Colors.lighterGreen};
-  
-`;
-
 export const CategoryHeadingContainer = styled.View`
   flex-direction: row;
   padding-left: 12px;

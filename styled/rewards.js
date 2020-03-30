@@ -2,11 +2,6 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
-export const Container = styled.View`
-  flex: 1;
-  background-color: #fff;
-`;
-
 export const RewardsCardContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 9px;

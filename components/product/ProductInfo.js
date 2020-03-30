@@ -1,10 +1,7 @@
 import React from 'react';
+import { ProductInfoContainer } from '../../styled/product';
+import { SpaceBetweenRowContainer } from '../../styled/shared';
 import { Body, Caption, Title } from '../BaseComponents';
-import {
-  ProductInfoContainer,
-  ProductInfoCaptionContainer,
-  ProductNoticeContainer,
-} from '../../styled/product';
 
 /**
  * @prop
@@ -15,16 +12,14 @@ function ProductInfo({ product }) {
   return (
     <ProductInfoContainer>
       <Title>{name}</Title>
-      <ProductInfoCaptionContainer>
+      <SpaceBetweenRowContainer style={{ marginTop: 8, paddingBottom: 16 }}>
         <Caption>${customerCost.toFixed(2)} each</Caption>
-        <Caption>Points Earned: {points}</Caption>
-      </ProductInfoCaptionContainer>
-      <ProductNoticeContainer>
-        <Body>
-          Note: Not all products listed are available at every store. Please
-          call individual stores to ask which products are available.
-        </Body>
-      </ProductNoticeContainer>
+        <Caption>{`Points Earned: ${points}`}</Caption>
+      </SpaceBetweenRowContainer>
+      <Body>
+        Note: Not all products listed are available at every store. Please call
+        individual stores to ask which products are available.
+      </Body>
     </ProductInfoContainer>
   );
 }
