@@ -1,14 +1,25 @@
 import React from 'react';
 import Colors from '../assets/Colors';
 import { fieldStateColors } from '../lib/authUtils';
-import { InputNoticeContainer, TextField, TextFieldContainer } from '../styled/auth';
+import {
+  InputNoticeContainer,
+  TextField,
+  TextFieldContainer,
+} from '../styled/auth';
 import { Caption } from './BaseComponents';
 
 /**
  * @prop
  * */
 
-function AuthTextField({ fieldType, errorMsg, color, value, onBlurCallback, onFocusCallback, changeTextCallback }) {
+function AuthTextField({
+  fieldType,
+  color,
+  value,
+  onBlurCallback,
+  onFocusCallback,
+  changeTextCallback,
+}) {
   return (
     <TextFieldContainer>
       <Caption color={color}>{fieldType}</Caption>
@@ -29,9 +40,13 @@ function AuthTextField({ fieldType, errorMsg, color, value, onBlurCallback, onFo
       <InputNoticeContainer>
         {/* Name */}
         {color !== fieldStateColors.ERROR && fieldType === 'Name' && (
-          <Caption color={Colors.secondaryText}>Note: this is how clerks will greet you!</Caption>
+          <Caption color={Colors.secondaryText}>
+            Note: this is how clerks will greet you!
+          </Caption>
         )}
-        {color === fieldStateColors.ERROR && <Caption color={color}>{errorMsg}</Caption>}
+        {color === fieldStateColors.ERROR && (
+          <Caption color={color}>{errorMsg}</Caption>
+        )}
         {/* {color === fieldStateColors.ERROR && fieldType === 'Password' && (
           <Caption color={color}>Must be 8-20 characters long</Caption>
         )} */}

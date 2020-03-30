@@ -4,12 +4,12 @@ import Colors from '../../assets/Colors';
 import {
   InLineContainer,
   SpaceAroundRowContainer,
-  SpaceBetweenRowContainer
+  SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import {
   DividerBar,
   EBTStatusBar,
-  StoreCardContainer
+  StoreCardContainer,
 } from '../../styled/store';
 import { Body, Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
@@ -25,7 +25,7 @@ function StoreCard({ store, callBack, seeProduct }) {
     address,
     distance,
     snapOrEbtAccepted,
-    rewardsAccepted
+    rewardsAccepted,
   } = store;
   return (
     <StoreCardContainer>
@@ -42,7 +42,7 @@ function StoreCard({ store, callBack, seeProduct }) {
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
-        {distance} miles away
+        {`${distance} miles away`}
       </Caption>
       {rewardsAccepted && (
         <InLineContainer style={{ alignItems: 'center' }}>

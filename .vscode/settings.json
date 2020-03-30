@@ -1,4 +1,25 @@
 {
-  "workbench.iconTheme": "eq-material-theme-icons-light",
-  "workbench.colorTheme": "Solarized Dark"
+  "files.associations": {
+    "*.js": "javascriptreact"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.enable": true,
+  "eslint.options": {
+    "extensions": [".js", ".jsx"]
+  },
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
+  },
+  "javascript.suggest.completeFunctionCalls": true,
+  "javascript.implicitProjectConfig.checkJs": true
 }

@@ -5,7 +5,12 @@ import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-c
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../../assets/Colors';
 import StoreCard from '../../components/store/StoreCard';
-import { StoreListContainer, StoreListHeaderContainer, StoreListTitle, styles } from '../../styled/store';
+import {
+  StoreListContainer,
+  StoreListHeaderContainer,
+  StoreListTitle,
+  styles,
+} from '../../styled/store';
 
 class StoreListScreen extends React.Component {
   constructor(props) {
@@ -15,7 +20,7 @@ class StoreListScreen extends React.Component {
       allStores: stores,
       navigation,
       searchStr: '',
-      filteredStores: stores
+      filteredStores: stores,
     };
   }
 
@@ -26,14 +31,14 @@ class StoreListScreen extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   storeDetailsTransition = store => {
     this.state.navigation.navigate('Stores', {
-      currentStore: store
+      currentStore: store,
     });
   };
 
   updateSearch = searchStr => {
     this.setState({
       searchStr,
-      filteredStores: this.state.allStores.filter(this.filterStore(searchStr))
+      filteredStores: this.state.allStores.filter(this.filterStore(searchStr)),
     });
   };
 
@@ -57,13 +62,13 @@ class StoreListScreen extends React.Component {
             value={searchStr}
             containerStyle={styles.container}
             inputContainerStyle={styles.inputContainer}
-            searchIcon={(
+            searchIcon={
               <FontAwesome5
                 name="search"
                 size={16}
                 color={Colors.primaryOrange}
               />
-            )}
+            }
             inputStyle={styles.input}
             ref={search => (this.search = search)}
           />

@@ -2,7 +2,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { Title } from '../../components/BaseComponents';
+import Colors from '../../assets/Colors';
+import { BigTitle } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import { getCustomersById } from '../../lib/airtable/request';
@@ -11,18 +12,19 @@ import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
-  { key: 'history', title: 'Points History' }
+  { key: 'history', title: 'Points History' },
 ];
 
 export default class RewardsScreen extends React.Component {
   constructor(props) {
     super(props);
+    const tab = this.props.tab || 0;
     this.state = {
       customer: null,
       transactions: [],
-      index: 0,
+      index: tab,
       routes,
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -35,7 +37,7 @@ export default class RewardsScreen extends React.Component {
     this.setState({
       customer,
       transactions,
-      isLoading: false
+      isLoading: false,
     });
   }
 
@@ -55,6 +57,7 @@ export default class RewardsScreen extends React.Component {
       <TabBar
         style={styles.tabBar}
         labelStyle={styles.tabBarLabel}
+        tabStyle={{ width: 'auto' }}
         {...props}
         indicatorStyle={styles.tabBarIndicator}
       />
@@ -69,18 +72,17 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
-          <BackButton onPress={() => this.props.navigation.navigate('Stores')}>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </BackButton>
-          <Title
+          <BigTitle
             style={{
-              marginLeft: '5%',
-              color: 'white',
-              fontSize: 25,
-              paddingBottom: 40
+              marginLeft: 16,
+              color: Colors.lightest,
+              fontSize: 36,
             }}>
             Healthy Rewards
-          </Title>
+          </BigTitle>
         </TopTab>
         <TabView
           navigationState={this.state}
@@ -89,7 +91,7 @@ export default class RewardsScreen extends React.Component {
           onIndexChange={index => this.setState({ index })}
           initialLayout={{
             width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height
+            height: Dimensions.get('window').height,
           }}
           style={styles.tabView}
         />
@@ -99,5 +101,5 @@ export default class RewardsScreen extends React.Component {
 }
 
 RewardsScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

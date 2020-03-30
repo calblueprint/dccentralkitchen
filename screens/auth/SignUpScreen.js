@@ -6,12 +6,25 @@ import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from '../../assets/Colors';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
-import { createCustomers, createPushTokens, getCustomersByPhoneNumber } from '../../lib/airtable/request';
-import { fieldStateColors, formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer,
+} from '../../components/BaseComponents';
+import {
+  createCustomers,
+  createPushTokens,
+  getCustomersByPhoneNumber,
+} from '../../lib/airtable/request';
+import {
+  fieldStateColors,
+  formatPhoneNumber,
+  signUpFields,
+  validate,
+} from '../../lib/authUtils';
 import { AuthScreenContainer, FormContainer } from '../../styled/auth';
 
-export default class SignUp extends React.Component {
+export default class SignUpScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +32,7 @@ export default class SignUp extends React.Component {
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: ''
+        [signUpFields.PASSWORD]: '',
       },
 
       errors: {
@@ -27,15 +40,15 @@ export default class SignUp extends React.Component {
         [signUpFields.PHONENUM]: 'placeholder',
         [signUpFields.PASSWORD]: 'placeholder',
         // Duplicate phone number - not being used currently
-        submit: ''
+        submit: '',
       },
       indicators: {
         [signUpFields.NAME]: fieldStateColors.INACTIVE,
         [signUpFields.PHONENUM]: fieldStateColors.INACTIVE,
-        [signUpFields.PASSWORD]: fieldStateColors.INACTIVE
+        [signUpFields.PASSWORD]: fieldStateColors.INACTIVE,
       },
       token: '',
-      signUpPermission: false
+      signUpPermission: false,
     };
   }
 
@@ -51,20 +64,20 @@ export default class SignUp extends React.Component {
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: ''
+        [signUpFields.PASSWORD]: '',
       },
       errors: {
         [signUpFields.NAME]: 'placeholder',
         [signUpFields.PHONENUM]: 'placeholder',
-        [signUpFields.PASSWORD]: 'placeholder'
+        [signUpFields.PASSWORD]: 'placeholder',
       },
       indicators: {
         [signUpFields.NAME]: fieldStateColors.INACTIVE,
         [signUpFields.PHONENUM]: fieldStateColors.INACTIVE,
-        [signUpFields.PASSWORD]: fieldStateColors.INACTIVE
+        [signUpFields.PASSWORD]: fieldStateColors.INACTIVE,
       },
       token: '',
-      signUpPermission: false
+      signUpPermission: false,
     });
   };
 
@@ -85,10 +98,14 @@ export default class SignUp extends React.Component {
 
   registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
-      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
       let finalStatus = existingStatus;
       if (existingStatus !== 'granted') {
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
@@ -106,10 +123,12 @@ export default class SignUp extends React.Component {
   updatePermission = async () => {
     const { errors } = this.state;
     const signUpPermission =
-      !errors[signUpFields.NAME] && !errors[signUpFields.PHONENUM] && !errors[signUpFields.PASSWORD];
+      !errors[signUpFields.NAME] &&
+      !errors[signUpFields.PHONENUM] &&
+      !errors[signUpFields.PASSWORD];
 
     this.setState({
-      signUpPermission
+      signUpPermission,
     });
 
     return signUpPermission;
@@ -123,7 +142,13 @@ export default class SignUp extends React.Component {
     const password = values[signUpFields.PASSWORD];
     try {
       const pushTokenId = await createPushTokens({ token });
-      const customerId = await createCustomers({ name, phoneNumber, password, points: 0, pushTokenIds: [pushTokenId] });
+      const customerId = await createCustomers({
+        name,
+        phoneNumber,
+        password,
+        points: 0,
+        pushTokenIds: [pushTokenId],
+      });
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
@@ -137,12 +162,19 @@ export default class SignUp extends React.Component {
     if (signUpPermission) {
       try {
         // Check for duplicates first
-        const formattedPhoneNumber = formatPhoneNumber(this.state.values[signUpFields.PHONENUM]);
-        const duplicateCustomers = await getCustomersByPhoneNumber(formattedPhoneNumber);
+        const formattedPhoneNumber = formatPhoneNumber(
+          this.state.values[signUpFields.PHONENUM]
+        );
+        const duplicateCustomers = await getCustomersByPhoneNumber(
+          formattedPhoneNumber
+        );
         if (duplicateCustomers.length !== 0) {
           console.log('Duplicate customer');
           await this.setState(prevState => ({
-            errors: { ...prevState.errors, submit: 'Phone number already in use.' }
+            errors: {
+              ...prevState.errors,
+              submit: 'Phone number already in use.',
+            },
           }));
           return;
         }
@@ -183,7 +215,7 @@ export default class SignUp extends React.Component {
     }
     if (error) {
       this.setState(prevState => ({
-        errors: { ...prevState.errors, [signUpField]: errorMsg }
+        errors: { ...prevState.errors, [signUpField]: errorMsg },
       }));
       return fieldStateColors.ERROR;
     }
@@ -194,7 +226,10 @@ export default class SignUp extends React.Component {
     const { indicators } = this.state;
     if (indicators[signUpField] !== fieldStateColors.ERROR) {
       await this.setState(prevState => ({
-        indicators: { ...prevState.indicators, [signUpField]: fieldStateColors.FOCUSED }
+        indicators: {
+          ...prevState.indicators,
+          [signUpField]: fieldStateColors.FOCUSED,
+        },
       }));
     }
   };
@@ -203,21 +238,24 @@ export default class SignUp extends React.Component {
   onBlur = async signUpField => {
     const updatedIndicator = await this.handleErrorState(signUpField);
     this.setState(prevState => ({
-      indicators: { ...prevState.indicators, [signUpField]: updatedIndicator }
+      indicators: { ...prevState.indicators, [signUpField]: updatedIndicator },
     }));
     await this.updatePermission();
   };
 
   onTextChange = async (signUpField, text) => {
     await this.setState(prevState => ({
-      values: { ...prevState.values, [signUpField]: text }
+      values: { ...prevState.values, [signUpField]: text },
     }));
     // Set updated value before error-checking
     const updatedIndicator = await this.handleErrorState(signUpField);
     const errorFound = updatedIndicator === fieldStateColors.ERROR;
     this.setState(prevState => ({
       indicators: { ...prevState.indicators, [signUpField]: updatedIndicator },
-      errors: { ...prevState.errors, [signUpField]: errorFound ? prevState.errors[signUpField] : '' }
+      errors: {
+        ...prevState.errors,
+        [signUpField]: errorFound ? prevState.errors[signUpField] : '',
+      },
     }));
     await this.updatePermission();
   };
@@ -235,7 +273,9 @@ export default class SignUp extends React.Component {
               value={this.state.values[signUpFields.NAME]}
               onBlurCallback={() => this.onBlur(signUpFields.NAME)}
               onFocusCallback={() => this.onFocus(signUpFields.NAME)}
-              changeTextCallback={text => this.onTextChange(signUpFields.NAME, text)}
+              changeTextCallback={text =>
+                this.onTextChange(signUpFields.NAME, text)
+              }
             />
 
             <AuthTextField
@@ -245,7 +285,9 @@ export default class SignUp extends React.Component {
               value={this.state.values[signUpFields.PHONENUM]}
               onBlurCallback={() => this.onBlur(signUpFields.PHONENUM)}
               onFocusCallback={() => this.onFocus(signUpFields.PHONENUM)}
-              changeTextCallback={text => this.onTextChange(signUpFields.PHONENUM, text)}
+              changeTextCallback={text =>
+                this.onTextChange(signUpFields.PHONENUM, text)
+              }
             />
 
             <AuthTextField
@@ -255,12 +297,18 @@ export default class SignUp extends React.Component {
               value={this.state.values[signUpFields.PASSWORD]}
               onBlurCallback={() => this.onBlur(signUpFields.PASSWORD)}
               onFocusCallback={() => this.onFocus(signUpFields.PASSWORD)}
-              changeTextCallback={text => this.onTextChange(signUpFields.PASSWORD, text)}
+              changeTextCallback={text =>
+                this.onTextChange(signUpFields.PASSWORD, text)
+              }
             />
           </FormContainer>
           <FilledButtonContainer
             style={{ marginTop: 35 }}
-            color={this.state.signUpPermission ? Colors.primaryGreen : Colors.lightestGreen}
+            color={
+              this.state.signUpPermission
+                ? Colors.primaryGreen
+                : Colors.lightestGreen
+            }
             width="100%"
             onPress={() => this.handleSubmit()}
             disabled={!this.state.signUpPermission}>

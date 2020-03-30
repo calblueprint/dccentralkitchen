@@ -1,10 +1,11 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../assets/Colors';
+import { rewardPointValue } from '../../constants/Rewards';
 import {
-  AvailiableRewardsContainer,
-  RewardsProgressContainer
+  AvailableRewardsContainer,
+  RewardsProgressContainer,
 } from '../../styled/rewards';
 import { Body, Overline, Title } from '../BaseComponents';
 import RewardsCard from './RewardsCard';
@@ -23,40 +24,40 @@ function createList(n) {
 
 function RewardsHome({ customer }) {
   const rewardsAvailable = parseInt(customer.points, 10) / rewardPointValue;
-  const pointsToNext = parseInt(customer.points) % rewardPointValue;
+  const pointsToNext = parseInt(customer.points, 10) % rewardPointValue;
   return (
-    <View>
-      <ScrollView>
-        <RewardsProgressContainer>
-          <Overline style={{ marginTop: 24, marginBottom: 15 }}>
-            Reward Progress
-          </Overline>
-          <Title
-            style={{
-              marginBottom: 2
-            }}>
-            {`${pointsToNext} / ${rewardPointValue}`}
-          </Title>
-          <ProgressBar
-            style={{ height: 20, borderRadius: 20, marginBottom: 15 }}
-            progress={pointsToNext / rewardPointValue}
-            color={Colors.primaryGreen}
-          />
-          <Body style={{ marginBottom: 28 }}>
-            Earn {`${rewardPointValue - pointsToNext}`} points to unlock your
-            next $5 reward
-          </Body>
-          <Overline style={{ marginBottom: 8 }}>
-            Available Rewards ({Math.floor(rewardsAvailable)}
-          </Overline>
-        </RewardsProgressContainer>
-        <AvailiableRewardsContainer>
-          {createList(Math.floor(rewardsAvailable)).map(i => (
-            <RewardsCard key={i} />
-          ))}
-        </AvailiableRewardsContainer>
-      </ScrollView>
-    </View>
+    <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
+      <RewardsProgressContainer>
+        <Overline style={{ marginTop: 24, marginBottom: 12 }}>
+          Reward Progress
+        </Overline>
+        <Title style={{ marginBottom: 2 }}>
+          {`${pointsToNext} / ${rewardPointValue}`}
+        </Title>
+        <ProgressBar
+          style={{
+            height: 20,
+            width: '100%',
+            borderRadius: 20,
+            marginBottom: 15,
+          }}
+          progress={pointsToNext / rewardPointValue}
+          color={Colors.primaryGreen}
+        />
+        <Body style={{ marginBottom: 28 }}>
+          {`Earn ${rewardPointValue - pointsToNext} points to unlock your next
+          $5 reward`}
+        </Body>
+        <Overline style={{ marginBottom: 8 }}>
+          {`Available Rewards ${Math.floor(rewardsAvailable)}`}
+        </Overline>
+      </RewardsProgressContainer>
+      <AvailableRewardsContainer>
+        {createList(Math.floor(rewardsAvailable)).map(i => (
+          <RewardsCard key={i} />
+        ))}
+      </AvailableRewardsContainer>
+    </ScrollView>
   );
 }
 

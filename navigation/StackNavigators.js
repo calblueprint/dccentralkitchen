@@ -14,20 +14,18 @@ import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
 import NewsScreen from '../screens/news/NewsScreen';
 // Resources
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
-// Rewards
-import ReceiptScanner from '../screens/rewards/Camera';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {}
+  default: {},
 });
 
 export const AuthStack = createStackNavigator(
   {
     Welcome: WelcomeScreen,
     Login: LoginScreen,
-    SignUp: SignUpScreen
+    SignUp: SignUpScreen,
   },
   config
 );
@@ -37,42 +35,45 @@ export const StoresStack = createStackNavigator(
     Stores: MapScreen,
     StoreList: StoreListScreen,
     Products: ProductsScreen,
-    ProductDetails: ProductDetailsScreen
+    ProductDetails: ProductDetailsScreen,
   },
   config
 );
 
 StoresStack.navigationOptions = {
-  drawerLabel: 'Stores'
+  drawerLabel: 'Stores',
 };
 
-export const RewardsStack = createStackNavigator(
+export const RootStack = createStackNavigator(
   {
-    RewardsHome: RewardsScreen,
-    Camera: ReceiptScanner
+    MainStack: {
+      screen: StoresStack,
+    },
+    RewardsOverlay: {
+      screen: RewardsScreen,
+    },
   },
-  config
+  {
+    headerMode: 'none',
+    mode: 'modal',
+  }
 );
-
-RewardsStack.navigationOptions = {
-  drawerLabel: 'Points History'
-};
 
 export const NewsStack = createStackNavigator(
   {
     News: NewsScreen,
-    NewsDetails: NewsDetailsScreen
+    NewsDetails: NewsDetailsScreen,
   },
   config
 );
 
 NewsStack.navigationOptions = {
-  drawerLabel: 'News'
+  drawerLabel: 'News',
 };
 
 export const ResourcesStack = createStackNavigator(
   {
-    Resources: ResourcesScreen
+    Resources: ResourcesScreen,
   },
   config
 );

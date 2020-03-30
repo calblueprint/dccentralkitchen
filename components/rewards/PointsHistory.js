@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 
@@ -8,24 +8,22 @@ import Transaction from './Transaction';
  * */
 
 function PointsHistory({ transactions }) {
-  // TODO @kennethlien fix spacing at line 44
-
   return (
-    <View>
-      <View>
-        <ScrollView>
-          <Overline style={{ marginTop: 24 }}>Recent Transactions</Overline>
-          {transactions.map(transaction => (
-            <Transaction
-              key={transaction.id}
-              date={transaction.date}
-              points={transaction.points}
-              storeName={transaction.storeName}
-            />
-          ))}
-        </ScrollView>
-      </View>
-    </View>
+    <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
+      <Overline style={{ marginTop: 24, marginBottom: 12 }}>
+        Recent Transactions
+      </Overline>
+      {transactions.map(transaction => (
+        <Transaction
+          key={transaction.id}
+          date={transaction.date}
+          pointsEarned={transaction.pointsEarned}
+          storeName={transaction.storeName}
+          subtotal={transaction.subtotal}
+          totalSale={transaction.totalSale}
+        />
+      ))}
+    </ScrollView>
   );
 }
 

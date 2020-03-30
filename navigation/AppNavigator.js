@@ -3,12 +3,13 @@ import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Colors from '../assets/Colors';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
 import DrawerContent from './DrawerContent';
 import {
   AuthStack,
   ResourcesStack,
-  RewardsStack,
-  StoresStack
+  RootStack,
+  StoresStack,
 } from './StackNavigators';
 
 class AuthLoadingScreen extends React.Component {
@@ -39,37 +40,44 @@ class AuthLoadingScreen extends React.Component {
 
 const MyDrawerNavigator = createDrawerNavigator(
   {
+    Root: {
+      screen: RootStack,
+      navigationOptions: () => ({
+        title: 'Root',
+        drawerLabel: () => null,
+      }),
+    },
     Stores: {
       screen: StoresStack,
       navigationOptions: () => ({
-        title: 'Stores'
-      })
+        title: 'Stores',
+      }),
     },
     Rewards: {
-      screen: RewardsStack,
+      screen: props => <RewardsScreen {...props} tab={1} />,
       navigationOptions: () => ({
-        title: 'Your Profile',
-        drawerLockMode: 'locked-closed'
-      })
+        title: 'Points History',
+        drawerLockMode: 'locked-closed',
+      }),
     },
     Resources: {
       screen: ResourcesStack,
       navigationOptions: () => ({
-        title: 'Resources'
-      })
-    }
+        title: 'Resources',
+      }),
+    },
   },
 
   {
     contentOptions: {
       labelStyle: {
         fontFamily: 'poppins-medium',
-        fontSize: 20
+        fontSize: 20,
       },
-      activeTintColor: Colors.primaryGreen
+      activeTintColor: Colors.primaryGreen,
     },
     drawerWidth: 189,
-    contentComponent: DrawerContent
+    contentComponent: DrawerContent,
   }
 );
 
@@ -80,12 +88,12 @@ export default createAppContainer(
     {
       AuthLoading: AuthLoadingScreen,
       App: {
-        screen: MyDrawerNavigator
+        screen: MyDrawerNavigator,
       },
-      Auth: AuthStack
+      Auth: AuthStack,
     },
     {
-      initialRouteName: 'AuthLoading'
+      initialRouteName: 'AuthLoading',
     }
   )
 );
