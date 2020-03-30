@@ -5,7 +5,7 @@ import {
   ButtonContainer,
   ButtonLabel,
   Title,
-  Subhead
+  Subhead,
 } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
@@ -25,7 +25,7 @@ function StoreProducts({ navigation, store, products }) {
               navigation.navigate('Products', {
                 products,
                 navigation,
-                store
+                store,
               })
             }>
             <Subhead color="black">See all {products.length}</Subhead>
@@ -43,6 +43,7 @@ function StoreProducts({ navigation, store, products }) {
                 product={product}
                 navigation={navigation}
                 store={store}
+                displayPoints={false}
               />
             </ProductCardContainer>
           ))}

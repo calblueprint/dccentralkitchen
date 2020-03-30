@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import {
   NavButton,
   NavHeaderContainer,
-  NavTitle
+  NavTitle,
 } from '../../components/BaseComponents';
 import ResourceCard from '../../components/resources/ResourceCard';
 import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
@@ -18,7 +18,7 @@ class ResourcesScreen extends React.Component {
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
-      ResourcesForSeniors: []
+      ResourcesForSeniors: [],
     };
   }
 
@@ -40,7 +40,7 @@ class ResourcesScreen extends React.Component {
           DCCentralKitchenResources,
           CommunityResources,
           GovernmentResources,
-          ResourcesForSeniors
+          ResourcesForSeniors,
         });
     });
   }
@@ -95,7 +95,7 @@ class ResourcesScreen extends React.Component {
 }
 
 ResourcesScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };
 
 export default ResourcesScreen;

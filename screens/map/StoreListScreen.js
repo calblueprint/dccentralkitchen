@@ -3,13 +3,13 @@ import React from 'react';
 import { View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
 import { ScrollView } from 'react-native-gesture-handler';
-import Colors from '../../assets/Colors';
 import {
   ButtonLabel,
   NavHeaderContainer,
-  Title
+  Title,
 } from '../../components/BaseComponents';
 import StoreCard from '../../components/store/StoreCard';
+import Colors from '../../constants/Colors';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, StoreListContainer, styles } from '../../styled/store';
 
@@ -21,7 +21,7 @@ export default class StoreListScreen extends React.Component {
       allStores: stores,
       navigation,
       searchStr: '',
-      filteredStores: stores
+      filteredStores: stores,
     };
   }
 
@@ -32,14 +32,14 @@ export default class StoreListScreen extends React.Component {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   storeDetailsTransition = store => {
     this.state.navigation.navigate('Stores', {
-      currentStore: store
+      currentStore: store,
     });
   };
 
   updateSearch = searchStr => {
     this.setState({
       searchStr,
-      filteredStores: this.state.allStores.filter(this.filterStore(searchStr))
+      filteredStores: this.state.allStores.filter(this.filterStore(searchStr)),
     });
   };
 
@@ -62,7 +62,7 @@ export default class StoreListScreen extends React.Component {
               style={{
                 width: '100%',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}>
               <CancelButton onPress={() => this.props.navigation.goBack()}>
                 <ButtonLabel color={Colors.lightest}>Cancel</ButtonLabel>
@@ -107,5 +107,5 @@ export default class StoreListScreen extends React.Component {
   }
 }
 StoreListScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

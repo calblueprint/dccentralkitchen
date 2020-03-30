@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
 import { ButtonContainer } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};
@@ -26,11 +26,11 @@ export const BottomSheetHeaderContainer = styled.View`
 export const BottomSheetContainer = styled.View`
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  padding: 4%;
+  padding: 16px;
 `;
 
 export const StoreListContainer = styled.View`
-  padding: 0 4% 4% 4%;
+  padding: 0 16px 16px 16px;
 `;
 
 export const StoreCardContainer = styled.View`
@@ -76,18 +76,18 @@ export const CancelButton = styled(ButtonContainer)`
   justify-content: center;
 `;
 
-// FlatList styles
+// SearchBar styles
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   container: {
     backgroundColor: 'rgba(255,0,0,0)',
     borderBottomColor: 'transparent',
-    borderTopColor: 'transparent'
+    borderTopColor: 'transparent',
   },
   input: {
-    fontFamily: 'poppins-regular'
-  }
+    fontFamily: 'poppins-regular',
+  },
 });

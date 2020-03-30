@@ -1,10 +1,10 @@
 import React from 'react';
-import Colors from '../assets/Colors';
+import Colors from '../constants/Colors';
 import { fieldStateColors } from '../lib/authUtils';
 import {
   InputNoticeContainer,
   TextField,
-  TextFieldContainer
+  TextFieldContainer,
 } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
@@ -18,7 +18,7 @@ function AuthTextField({
   value,
   onBlurCallback,
   onFocusCallback,
-  changeTextCallback
+  changeTextCallback,
 }) {
   return (
     <TextFieldContainer>
