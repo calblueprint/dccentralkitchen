@@ -58,8 +58,8 @@ export const styles = StyleSheet.create({
     textTransform: 'capitalize',
     fontSize: 16,
     fontFamily: 'poppins-medium',
-    paddingLeft: 4,
-    paddingRight: 4,
+    paddingLeft: 6,
+    paddingRight: 6,
   },
   tabBarIndicator: {
     backgroundColor: Colors.lightest,

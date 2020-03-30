@@ -153,7 +153,7 @@ export default class RewardsScreen extends React.Component {
           </NavButton>
           <BigTitle
             style={{
-              marginLeft: 16,
+              marginLeft: 18,
               color: Colors.lightest,
               fontSize: 36,
             }}>
