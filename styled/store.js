@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
-import { Title, ButtonContainer } from '../components/BaseComponents';
-import Colors from '../assets/Colors';
+import styled from 'styled-components/native';
+import { ButtonContainer, Title } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};

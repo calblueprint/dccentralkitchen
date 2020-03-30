@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { Alert, Clipboard, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import {
   InLineContainer,
   SpaceAroundRowContainer,
@@ -34,7 +34,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
       longitude: long,
       title: name,
       googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
-      alwaysIncludeGoogle: true
+      alwaysIncludeGoogle: true,
     });
   };
 

@@ -3,25 +3,23 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import validatejs from 'validate.js';
-import {
-  signUpFields,
-  fieldStateColors,
-  checkForDuplicateCustomer,
-  createCustomer,
-  createPushToken,
-} from '../../lib/authUtils';
-
-import Colors from '../../assets/Colors';
-
+import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
-import AuthTextField from '../../components/AuthTextField';
-import { FormContainer, AuthScreenContainer } from '../../styled/auth';
-import { ScrollView } from 'react-native-gesture-handler';
+import Colors from '../../constants/Colors';
+import {
+  checkForDuplicateCustomer,
+  createCustomer,
+  createPushToken,
+  fieldStateColors,
+  signUpFields,
+} from '../../lib/authUtils';
+import { AuthScreenContainer, FormContainer } from '../../styled/auth';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -242,25 +240,25 @@ export default class SignUp extends React.Component {
       validate('phoneNumber', this.state.phoneNumber)
     ) {
       return fieldStateColors.ERROR;
-    } else if (
+    }
+    if (
       signUpField == signUpFields.PASSWORD &&
       validate('password', this.state.password)
     ) {
       return fieldStateColors.ERROR;
-    } else if (
+    }
+    if (
       signUpField == signUpFields.NAME &&
       !this.state.name.replace(/\s/g, '').length
     ) {
       return fieldStateColors.ERROR;
-    } else {
-      return fieldStateColors.BLURRED;
     }
+    return fieldStateColors.BLURRED;
   }
 
   onFocus(signUpField) {
     const { indicators } = this.state;
     if (indicators[signUpField] == fieldStateColors.ERROR) {
-      return;
     } else {
       indicators[signUpField] = fieldStateColors.FOCUSED;
       this.setState({

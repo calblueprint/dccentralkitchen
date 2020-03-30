@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
+import Colors from '../constants/Colors';
 
 // TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
 

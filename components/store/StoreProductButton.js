@@ -1,6 +1,6 @@
 import React from 'react';
-import { FilledButtonContainer, ButtonLabel } from '../BaseComponents';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
+import { ButtonLabel, FilledButtonContainer } from '../BaseComponents';
 
 /**
  * @prop

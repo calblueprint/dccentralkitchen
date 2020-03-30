@@ -2,10 +2,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import Colors from '../../assets/Colors';
 import { BigTitle } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
+import Colors from '../../constants/Colors';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
 import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
 
