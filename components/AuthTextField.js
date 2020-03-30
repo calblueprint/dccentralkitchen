@@ -34,7 +34,7 @@ function AuthTextField({
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
       />
-      {fieldType === 'Name' && (
+      {fieldType === 'Name' && !error && (
         <Caption color={Colors.activeText}>
           Note: this is how clerks will greet you!
         </Caption>

@@ -30,9 +30,9 @@ export default class SignUpScreen extends React.Component {
         [signUpFields.PASSWORD]: '',
       },
       errors: {
-        [signUpFields.NAME]: 'placeholder',
-        [signUpFields.PHONENUM]: 'placeholder',
-        [signUpFields.PASSWORD]: 'placeholder',
+        [signUpFields.NAME]: '',
+        [signUpFields.PHONENUM]: '',
+        [signUpFields.PASSWORD]: '',
         // Duplicate phone number error - currently not being displayed
         submit: '',
       },
@@ -106,11 +106,20 @@ export default class SignUpScreen extends React.Component {
 
   // Update sign up permission based on whether there are any errors left
   updatePermission = async () => {
-    const { errors } = this.state;
-    const signUpPermission =
+    const { errors, values } = this.state;
+
+    // Initially, button should be disabled
+    // Until all fields have been (at least) filled out
+    const fieldsFilled =
+      values[signUpFields.NAME] &&
+      values[signUpFields.PHONENUM] &&
+      values[signUpFields.PASSWORD];
+    const noErrors =
       !errors[signUpFields.NAME] &&
       !errors[signUpFields.PHONENUM] &&
       !errors[signUpFields.PASSWORD];
+
+    const signUpPermission = fieldsFilled && noErrors;
 
     this.setState({
       signUpPermission,
@@ -143,7 +152,7 @@ export default class SignUpScreen extends React.Component {
   // Handle form submission. Validate fields first, then check duplicates.
   // If there are no errors, add customer to Airtable.
   handleSubmit = async () => {
-    const signUpPermission = await this.updatePermission();
+    const { signUpPermission } = this.state;
     if (signUpPermission) {
       try {
         // Check for duplicates first
@@ -233,9 +242,9 @@ export default class SignUpScreen extends React.Component {
             <AuthTextField
               fieldType="Name"
               value={this.state.values[signUpFields.NAME]}
-              onBlurCallback={value => this.updateError(signUpFields.NAME)}
+              onBlurCallback={() => this.updateError(signUpFields.NAME)}
               changeTextCallback={text => {
-                this.onTextChange(signUpFields.NAME);
+                this.onTextChange(text, signUpFields.NAME);
               }}
               error={this.state.errors[signUpFields.NAME]}
             />
@@ -253,7 +262,7 @@ export default class SignUpScreen extends React.Component {
             <AuthTextField
               fieldType="Password"
               value={this.state.values[signUpFields.PASSWORD]}
-              onBlurCallback={value => this.updateError(signUpFields.PASSWORD)}
+              onBlurCallback={() => this.updateError(signUpFields.PASSWORD)}
               changeTextCallback={text => {
                 this.onTextChange(text, signUpFields.PASSWORD);
               }}
