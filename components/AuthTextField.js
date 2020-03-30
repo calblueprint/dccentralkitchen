@@ -26,13 +26,13 @@ function AuthTextField({
       <TextField
         onBlur={onBlurCallback}
         onFocus={onFocusCallback}
-        autoCapitalize={'words'}
+        autoCapitalize="words"
         placeholder={fieldType}
         autoCorrect={false}
         onChangeText={changeTextCallback}
         value={value}
         borderColor={color}
-        returnKeyType={'done'}
+        returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}

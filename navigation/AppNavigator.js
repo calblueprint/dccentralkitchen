@@ -1,5 +1,11 @@
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import {
+  AsyncStorage,
+  Linking,
+  Platform,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -12,11 +18,21 @@ import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 import { ResourcesStack, RootStack, StoresStack } from './StackNavigators';
 
-const AuthStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-  Login: LoginScreen,
-  SignUp: SignUpScreen,
+const config = Platform.select({
+  web: { headerMode: 'screen' },
+  default: {
+    headerMode: 'none',
+  },
 });
+
+const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    Login: LoginScreen,
+    SignUp: SignUpScreen,
+  },
+  config
+);
 
 class AuthLoadingScreen extends React.Component {
   constructor() {
@@ -32,10 +48,10 @@ class AuthLoadingScreen extends React.Component {
     // screen will be unmounted and thrown away.
 
     // Correct version
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Testing purpose
-    this.props.navigation.navigate('Auth');
+    // Auth testing purpose
+    // this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here
@@ -55,6 +71,7 @@ export class DrawerContent extends React.Component {
       link: 'http://tiny.cc/RewardsFeedback',
     };
   }
+
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     getUser(userId).then(userRecord => {

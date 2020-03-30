@@ -10,7 +10,7 @@ import ResourceCard from '../../components/resources/ResourceCard';
 import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 import getResources from '../../lib/resourceUtils';
 
-class ResourcesScreen extends React.Component {
+export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,15 +87,9 @@ class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <View style={{ paddingBottom: 150 }}></View>
+          <View style={{ paddingBottom: 150 }} />
         </ScrollView>
       </View>
     );
   }
 }
-
-ResourcesScreen.navigationOptions = {
-  headerShown: false,
-};
-
-export default ResourcesScreen;
