@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
+import Colors from '../constants/Colors';
 
 export const TextButton = styled.Text`
   font-family: poppins-regular;
@@ -13,17 +13,6 @@ export const TextButton = styled.Text`
   align-items: center;
   text-align: center;
   color: ${props => props.color || Colors.primaryGreen};
-`;
-
-export const NavButton = styled.TouchableOpacity`
-  width: 40px;
-  height: 40px;
-  z-index: 100;
-  top: 0px;
-  left: 12px;
-  border-radius: 23px;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const CircleIconContainer = styled.View`
@@ -116,11 +105,22 @@ export const TabSelected = styled.Text`
   color: ${props => props.color || Colors.black};
 `;
 
+export const NavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  z-index: 100;
+  top: 0px;
+  left: 12px;
+  border-radius: 23px;
+  align-items: center;
+  justify-content: center;
+`;
+
 export function NavHeaderContainer({
   backgroundColor,
   withMargin,
   children,
-  vertical
+  vertical,
 }) {
   const topInset = useSafeArea().top;
   return (
@@ -138,7 +138,7 @@ export function NavHeaderContainer({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
-        shadowRadius: 3
+        shadowRadius: 3,
       }}>
       {children}
     </View>

@@ -3,14 +3,9 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { AsyncStorage, Button, Keyboard, ScrollView } from 'react-native';
 import validatejs from 'validate.js';
-import AuthTextField, {
-  AuthScreenContainer,
-  BackButton,
-  FormContainer,
-} from '../../components/AuthTextField';
+import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
@@ -24,6 +19,11 @@ import {
   fieldStateColors,
   signUpFields,
 } from '../../lib/authUtils';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -399,9 +399,6 @@ const validation = {
     //   message: "Must contain at least one digit, one lowercase number, and special chracter"
     // }
   },
-};
-SignUp.navigationOptions = {
-  headerShown: false,
 };
 SignUp.navigationOptions = {
   headerShown: false,

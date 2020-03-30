@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import { getMaxWidth } from '../../lib/mapUtils';
 import {
   InLineContainer,

@@ -68,6 +68,7 @@ export const TextField = styled.TextInput`
   border-bottom-color: ${props => props.borderColor || Colors.activeText};
   border-bottom-width: 2px;
 `;
+
 export const BackButton = styled(NavButton)`
   position: relative;
   top: 0;

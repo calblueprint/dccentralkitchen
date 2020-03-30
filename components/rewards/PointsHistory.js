@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import { Body, Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 /**
@@ -38,7 +38,7 @@ function PointsHistory({ transactions, user, updates, navigation }) {
               alignItems: 'center',
               marginTop: 20,
               paddingLeft: 32,
-              paddingRight: 32
+              paddingRight: 32,
             }}>
             <FontAwesome5
               name="store"
