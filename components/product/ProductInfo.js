@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { Body, Caption, Title } from '../BaseComponents';
 import {
-  ProductInfoContainer,
   ProductInfoCaptionContainer,
+  ProductInfoContainer,
   ProductNoticeContainer,
 } from '../../styled/product';
+import { Body, Caption, Title } from '../BaseComponents';
 
 /**
  * @prop
@@ -16,8 +17,11 @@ function ProductInfo({ product }) {
     <ProductInfoContainer>
       <Title>{name}</Title>
       <ProductInfoCaptionContainer>
-        <Caption>${customerCost.toFixed(2)} each</Caption>
-        <Caption>Points Earned: {points}</Caption>
+        <Caption>${customerCost.toFixed(2)} each </Caption>
+        <Caption>
+          Points Earned:
+          {points}
+        </Caption>
       </ProductInfoCaptionContainer>
       <ProductNoticeContainer>
         <Body>
@@ -28,5 +32,9 @@ function ProductInfo({ product }) {
     </ProductInfoContainer>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.object.isRequired,
+};
 
 export default ProductInfo;

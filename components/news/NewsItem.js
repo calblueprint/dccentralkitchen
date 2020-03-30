@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-prop-types */
+import PropTypes from 'prop-types';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import {
@@ -40,5 +42,10 @@ class NewsItem extends React.Component {
     );
   }
 }
+
+NewsItem.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  newsItem: PropTypes.object.isRequired,
+};
 
 export default NewsItem;

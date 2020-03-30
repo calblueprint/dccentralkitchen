@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Overline } from '../BaseComponents';
@@ -31,5 +32,12 @@ function PointsHistory({ transactions, user, updates, navigation }) {
   // else return
   return <View />;
 }
+
+PointsHistory.propTypes = {
+  transactions: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  updates: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
 
 export default React.memo(PointsHistory);

@@ -1,16 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  ButtonContainer,
-  ButtonLabel,
-  Title,
-  Subhead,
-} from '../BaseComponents';
-import StoreCard from '../store/StoreCard';
-import ProductCard from './ProductCard';
 import { ProductCardContainer, styles } from '../../styled/product';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
+import { ButtonContainer, Subhead, Title } from '../BaseComponents';
+import StoreCard from '../store/StoreCard';
+import ProductCard from './ProductCard';
 
 function StoreProducts({ navigation, store, products }) {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
@@ -28,7 +24,10 @@ function StoreProducts({ navigation, store, products }) {
                 store,
               })
             }>
-            <Subhead color="black">See all {products.length}</Subhead>
+            <Subhead color="black">
+              See all
+              {products.length}
+            </Subhead>
           </ButtonContainer>
         </SpaceBetweenRowContainer>
         <ScrollView
@@ -52,5 +51,10 @@ function StoreProducts({ navigation, store, products }) {
     </View>
   );
 }
+StoreProducts.propTypes = {
+  products: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+};
 
 export default StoreProducts;
