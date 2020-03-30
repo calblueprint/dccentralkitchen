@@ -1,6 +1,6 @@
 import React from 'react';
 import Colors from '../../assets/Colors';
-import { displayDollarValue } from '../../lib/rewardsUtils';
+import { displayDollarValue } from '../../lib/common';
 import { ContentContainer, TransactionCard } from '../../styled/transaction';
 import { Caption, Subhead } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
@@ -15,7 +15,7 @@ function Transaction(props) {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   };
   return (
     <TransactionCard>
@@ -26,12 +26,11 @@ function Transaction(props) {
       />
       <ContentContainer>
         <Caption color={Colors.secondaryText}>
-          {date.toLocaleDateString('en-US', options)} • {storeName}
+          {date.toLocaleDateString('en-US', options)} •{storeName}
         </Caption>
         <Subhead>{pointsEarned} points earned</Subhead>
         <Caption color={Colors.secondaryText}>
-          for {displayDollarValue(totalSale ? totalSale : 0)} of healthy
-          products
+          for {displayDollarValue(totalSale || 0)} of healthy products
         </Caption>
       </ContentContainer>
     </TransactionCard>

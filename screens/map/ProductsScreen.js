@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {
   NavButton,
   NavHeaderContainer,
-  NavTitle
+  NavTitle,
 } from '../../components/BaseComponents';
 import ProductCard from '../../components/product/ProductCard';
 import { ProductListContainer } from '../../styled/product';
@@ -25,6 +25,7 @@ export default class ProductsScreen extends React.Component {
           product={product}
           navigation={this.props.navigation}
           store={store}
+          displayPoints
         />
       );
     });
@@ -52,5 +53,5 @@ export default class ProductsScreen extends React.Component {
   }
 }
 ProductsScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

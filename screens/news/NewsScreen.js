@@ -9,7 +9,7 @@ class NewsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newsItems: []
+      newsItems: [],
     };
   }
 
@@ -43,7 +43,7 @@ class NewsScreen extends React.Component {
 }
 
 NewsScreen.navigationOptions = {
-  header: null
+  header: null,
 };
 
 export default NewsScreen;

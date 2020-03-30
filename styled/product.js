@@ -39,6 +39,6 @@ export const styles = StyleSheet.create({
     paddingTop: 5,
     paddingLeft: 9,
     paddingBottom: 13,
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

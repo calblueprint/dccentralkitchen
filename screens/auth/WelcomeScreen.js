@@ -1,16 +1,16 @@
 import React from 'react';
-import Colors from '../../assets/Colors';
 import {
   BigTitle,
   Body,
   ButtonContainer,
   ButtonLabel,
-  FilledButtonContainer
+  FilledButtonContainer,
 } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
 import {
   WelcomeContainer,
   WelcomeLoginContainer,
-  WelcomeTitleContainer
+  WelcomeTitleContainer,
 } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
@@ -21,7 +21,7 @@ export default class WelcomeScreen extends React.Component {
       phoneNumber: '',
       password: '',
       errorMsg: '',
-      token: null
+      token: null,
     };
   }
 
@@ -58,5 +58,5 @@ export default class WelcomeScreen extends React.Component {
   }
 }
 WelcomeScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

@@ -8,19 +8,19 @@ import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
-  FilledButtonContainer
+  FilledButtonContainer,
 } from '../../components/BaseComponents';
 import {
   fieldStateColors,
   lookupCustomer,
   signUpFields,
-  updateCustomerPushTokens
+  updateCustomerPushTokens,
 } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
   BackButton,
   ErrorMsg,
-  FormContainer
+  FormContainer,
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
@@ -35,8 +35,8 @@ export default class Login extends React.Component {
       token: null,
       indicators: {
         [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
-        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
-      }
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE],
+      },
     };
   }
 
@@ -107,7 +107,7 @@ export default class Login extends React.Component {
         this.setState({
           errorMsg: 'Incorrect phone number or password. Please try again.',
           phoneNumber: '',
-          password: ''
+          password: '',
         });
         return null;
       })
@@ -133,7 +133,7 @@ export default class Login extends React.Component {
     const { indicators } = this.state;
     indicators[signUpField] = fieldStateColors.FOCUSED;
     this.setState({
-      indicators
+      indicators,
     });
   }
 
@@ -141,7 +141,7 @@ export default class Login extends React.Component {
     const { indicators } = this.state;
     indicators[signUpField] = fieldStateColors.BLURRED;
     this.setState({
-      indicators
+      indicators,
     });
   }
 
@@ -192,5 +192,5 @@ export default class Login extends React.Component {
   }
 }
 Login.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

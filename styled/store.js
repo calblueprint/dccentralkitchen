@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
 import { Body, ButtonContainer } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};
@@ -82,14 +82,14 @@ export const CancelButton = styled(ButtonContainer)`
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   container: {
     backgroundColor: 'rgba(255,0,0,0)',
     borderBottomColor: 'transparent',
-    borderTopColor: 'transparent'
+    borderTopColor: 'transparent',
   },
   input: {
-    fontFamily: 'poppins-regular'
-  }
+    fontFamily: 'poppins-regular',
+  },
 });

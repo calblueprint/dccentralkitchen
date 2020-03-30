@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Subhead, Title } from '../BaseComponents';
@@ -21,7 +21,7 @@ function StoreProducts({ navigation, store, products }) {
               navigation.navigate('Products', {
                 products,
                 navigation,
-                store
+                store,
               })
             }>
             {products.length > 0 && (
@@ -45,7 +45,7 @@ function StoreProducts({ navigation, store, products }) {
             <View
               style={{
                 alignItems: 'center',
-                width: Window.width - 32
+                width: Window.width - 32,
               }}>
               <FontAwesome5
                 name="shopping-basket"

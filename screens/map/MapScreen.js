@@ -7,29 +7,29 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import Colors from '../../assets/Colors';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
   BottomSheetHeaderContainer,
   DragBar,
-  SearchBar
+  SearchBar,
 } from '../../styled/store';
 
 const deltas = {
   latitudeDelta: 0.01,
-  longitudeDelta: 0.01
+  longitudeDelta: 0.01,
 };
 
 const initialRegion = {
   latitude: 38.905548,
   longitude: -77.036623,
   latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421
+  longitudeDelta: 0.0421,
 };
 
 export default class MapScreen extends React.Component {
@@ -42,7 +42,7 @@ export default class MapScreen extends React.Component {
       region: initialRegion,
       stores: null,
       store: null,
-      storeProducts: null
+      storeProducts: null,
     };
   }
 
@@ -58,7 +58,7 @@ export default class MapScreen extends React.Component {
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
-      ...deltas
+      ...deltas,
     };
     this.setState({ region });
   }
@@ -69,14 +69,14 @@ export default class MapScreen extends React.Component {
     // Error message not checked anywhere
     if (status !== 'granted') {
       this.setState({
-        locationErrorMsg: 'Permission to access location was denied'
+        locationErrorMsg: 'Permission to access location was denied',
       });
     } else {
       const location = await Location.getCurrentPositionAsync({});
       const region = {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        ...deltas
+        ...deltas,
       };
       this.setState({ locationErrorMsg: null, location, region });
     }
@@ -161,7 +161,7 @@ export default class MapScreen extends React.Component {
   // we make this an async function and call this._populateStoreProducts
   async changeCurrentStore(store) {
     this.setState({
-      store
+      store,
     });
     this.bottomSheetRef.snapTo(0);
     await this._populateStoreProducts(store);
@@ -180,9 +180,9 @@ export default class MapScreen extends React.Component {
     return (
       <View style={StyleSheet.absoluteFillObject}>
         <NavHeaderContainer
-          backgroundColor={'rgba(0,0,0,0)'}
+          backgroundColor="rgba(0,0,0,0)"
           style={{
-            zIndex: 1
+            zIndex: 1,
           }}>
           <Hamburger navigation={this.props.navigation} />
           <SearchBar
@@ -190,7 +190,7 @@ export default class MapScreen extends React.Component {
             onPress={() =>
               this.props.navigation.navigate('StoreList', {
                 stores: this.state.stores,
-                navigation: this.props.navigation
+                navigation: this.props.navigation,
               })
             }>
             <FontAwesome5
@@ -209,7 +209,7 @@ export default class MapScreen extends React.Component {
             marginTop: -130,
             flex: 100,
             overflow: 'visible',
-            zIndex: -1
+            zIndex: -1,
           }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
@@ -220,7 +220,7 @@ export default class MapScreen extends React.Component {
               key={store.id}
               coordinate={{
                 latitude: store.latitude,
-                longitude: store.longitude
+                longitude: store.longitude,
               }}
               title={store.name}
               description={store.name}
@@ -264,11 +264,10 @@ export default class MapScreen extends React.Component {
             width: Window.width,
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 100
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
-            <Subhead color={'#fff'}> Your Rewards </Subhead>
+            <Subhead color="#fff"> Your Rewards </Subhead>
           </View>
         </TouchableOpacity>
       </View>
@@ -277,5 +276,5 @@ export default class MapScreen extends React.Component {
 }
 
 MapScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };

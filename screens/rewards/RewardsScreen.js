@@ -2,20 +2,20 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import Colors from '../../assets/Colors';
 import {
   BigTitle,
   NavButton,
-  NavHeaderContainer
+  NavHeaderContainer,
 } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
+import Colors from '../../constants/Colors';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
 import { Container, styles } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
-  { key: 'history', title: 'Points History' }
+  { key: 'history', title: 'Points History' },
 ];
 
 export default class RewardsScreen extends React.Component {
@@ -26,13 +26,13 @@ export default class RewardsScreen extends React.Component {
       user: {
         id: null,
         points: null,
-        name: null
+        name: null,
       },
       transactions: [],
       refreshing: false,
       updates: false,
       index: tab,
-      routes
+      routes,
     };
   }
 
@@ -45,7 +45,7 @@ export default class RewardsScreen extends React.Component {
           const user = {
             id: userId,
             points: userRecord.fields.Points,
-            name: userRecord.fields.Name
+            name: userRecord.fields.Name,
           };
           this.setState({ user });
           return true;
@@ -80,7 +80,7 @@ export default class RewardsScreen extends React.Component {
           const user = {
             id: userId,
             points: userRecord.fields.Points,
-            name: userRecord.fields.Name
+            name: userRecord.fields.Name,
           };
           this.setState({ user });
           return true;
@@ -94,7 +94,7 @@ export default class RewardsScreen extends React.Component {
             if (this.state.latestTransaction !== transactions[0]) {
               this.setState({
                 latestTransaction: transactions[0],
-                transactions
+                transactions,
               });
             }
             if (this.state.latestTransaction.receipts == null) {
@@ -155,7 +155,7 @@ export default class RewardsScreen extends React.Component {
             style={{
               marginLeft: 16,
               color: Colors.lightest,
-              fontSize: 36
+              fontSize: 36,
             }}>
             Healthy Rewards
           </BigTitle>
@@ -167,7 +167,7 @@ export default class RewardsScreen extends React.Component {
           onIndexChange={index => this.setState({ index })}
           initialLayout={{
             width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height
+            height: Dimensions.get('window').height,
           }}
           style={styles.tabView}
         />
@@ -177,5 +177,5 @@ export default class RewardsScreen extends React.Component {
 }
 
 RewardsScreen.navigationOptions = {
-  headerShown: false
+  headerShown: false,
 };
