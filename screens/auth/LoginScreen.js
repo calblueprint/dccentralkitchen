@@ -2,25 +2,25 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button } from 'react-native';
-import {
-  signUpFields,
-  fieldStateColors,
-  lookupCustomer,
-  updateCustomerPushTokens,
-} from '../../lib/authUtils';
-import {
-  ErrorMsg,
-  AuthScreenContainer,
-  FormContainer,
-} from '../../styled/auth';
-import { JustifyCenterContainer } from '../../styled/shared';
+import { AsyncStorage } from 'react-native';
+import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
-import AuthTextField from '../../components/AuthTextField';
+import {
+  fieldStateColors,
+  lookupCustomer,
+  signUpFields,
+  updateCustomerPushTokens,
+} from '../../lib/authUtils';
+import {
+  AuthScreenContainer,
+  ErrorMsg,
+  FormContainer,
+} from '../../styled/auth';
+import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -146,7 +146,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <AuthScreenContainer>
-        <BigTitle>Log in</BigTitle>
+        <BigTitle>Log In</BigTitle>
         <FormContainer>
           <AuthTextField
             fieldType="Phone Number"
