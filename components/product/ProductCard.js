@@ -1,10 +1,9 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { ButtonContainer, Body, Caption } from '../BaseComponents';
-import { RowContainer, ColumnContainer } from '../../styled/shared';
+import Colors from '../../constants/Colors';
 import { displayDollarValue } from '../../lib/common';
-import Colors from '../../assets/Colors';
-
+import { ColumnContainer, RowContainer } from '../../styled/shared';
+import { Body, ButtonContainer, Caption } from '../BaseComponents';
 /**
  * @prop
  * */
