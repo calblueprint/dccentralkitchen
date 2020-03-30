@@ -53,7 +53,6 @@ export default function StoreCard({ store, callBack, seeProduct }) {
               ),
             }}
             numberOfLines={1}
-            adjustsFontSizeToFit={!seeProduct}
             ellipsizeMode="tail">
             {name}
           </Title>
