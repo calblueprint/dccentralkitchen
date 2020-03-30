@@ -240,25 +240,25 @@ export default class SignUp extends React.Component {
       validate('phoneNumber', this.state.phoneNumber)
     ) {
       return fieldStateColors.ERROR;
-    } else if (
+    }
+    if (
       signUpField == signUpFields.PASSWORD &&
       validate('password', this.state.password)
     ) {
       return fieldStateColors.ERROR;
-    } else if (
+    }
+    if (
       signUpField == signUpFields.NAME &&
       !this.state.name.replace(/\s/g, '').length
     ) {
       return fieldStateColors.ERROR;
-    } else {
-      return fieldStateColors.BLURRED;
     }
+    return fieldStateColors.BLURRED;
   }
 
   onFocus(signUpField) {
     const { indicators } = this.state;
     if (indicators[signUpField] == fieldStateColors.ERROR) {
-      return;
     } else {
       indicators[signUpField] = fieldStateColors.FOCUSED;
       this.setState({

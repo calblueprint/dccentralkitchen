@@ -24,6 +24,7 @@ class ProductsScreen extends React.Component {
           product={product}
           navigation={this.props.navigation}
           store={store}
+          displayPoints
         />
       );
     });

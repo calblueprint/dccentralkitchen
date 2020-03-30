@@ -239,7 +239,7 @@ export default class MapScreen extends React.Component {
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={['22%', '10%']}
+            snapPoints={['25%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}

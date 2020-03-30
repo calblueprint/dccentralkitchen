@@ -1,14 +1,16 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { ButtonContainer, Body } from '../BaseComponents';
-import { ColumnContainer } from '../../styled/shared';
+import { ButtonContainer, Body, Caption } from '../BaseComponents';
+import { RowContainer, ColumnContainer } from '../../styled/shared';
+import { displayDollarValue } from '../../lib/common';
+import Colors from '../../assets/Colors';
 
 /**
  * @prop
  * */
 
 // TODO @tommypoa to use styled-components // Create Stylesheet for react native elements
-function ProductCard({ product, store, navigation }) {
+function ProductCard({ product, store, navigation, displayPoints }) {
   return (
     <ButtonContainer
       onPress={() =>
@@ -23,6 +25,20 @@ function ProductCard({ product, store, navigation }) {
           style={{ height: 86, width: 86, borderRadius: 12 }}
         />
         <Body>{product.name}</Body>
+        {product.detail && (
+          <Caption color={Colors.secondaryText}>{product.detail}</Caption>
+        )}
+        <RowContainer>
+          <Caption color={Colors.secondaryText}>
+            {displayDollarValue(product.customerCost)} ea
+          </Caption>
+          {displayPoints && (
+            <Caption color={Colors.secondaryText}>
+              {' '}
+              • {product.points} pts
+            </Caption>
+          )}
+        </RowContainer>
       </ColumnContainer>
     </ButtonContainer>
   );
