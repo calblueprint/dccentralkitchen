@@ -32,10 +32,10 @@ class AuthLoadingScreen extends React.Component {
     // screen will be unmounted and thrown away.
 
     // Correct version
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Testing purpose
-    this.props.navigation.navigate('Auth');
+    // Auth testing purpose
+    // this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here
@@ -55,6 +55,7 @@ export class DrawerContent extends React.Component {
       link: 'http://tiny.cc/RewardsFeedback',
     };
   }
+
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     getUser(userId).then(userRecord => {
