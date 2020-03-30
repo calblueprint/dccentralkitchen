@@ -2,12 +2,12 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { BigTitle } from '../../components/BaseComponents';
+import { BigTitle, NavButton } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
 import { getCustomerTransactions, getUser } from '../../lib/rewardsUtils';
-import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
+import { Container, styles, TopTab } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -144,9 +144,9 @@ export default class RewardsScreen extends React.Component {
     return (
       <Container>
         <TopTab>
-          <BackButton onPress={() => this.props.navigation.goBack()}>
+          <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
-          </BackButton>
+          </NavButton>
           <BigTitle
             style={{
               marginLeft: 16,

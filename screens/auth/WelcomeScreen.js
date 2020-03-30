@@ -13,7 +13,7 @@ import {
   WelcomeTitleContainer,
 } from '../../styled/auth';
 
-export default class Welcome extends React.Component {
+export default class WelcomeScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -57,3 +57,6 @@ export default class Welcome extends React.Component {
     );
   }
 }
+WelcomeScreen.navigationOptions = {
+  headerShown: false,
+};

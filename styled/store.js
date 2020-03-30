@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { ButtonContainer, Title } from '../components/BaseComponents';
+import { ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
 export const DragBar = styled.View`
@@ -33,29 +33,19 @@ export const StoreListContainer = styled.View`
   padding: 0 16px 16px 16px;
 `;
 
-export const StoreListHeaderContainer = styled.View`
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  background-color: ${Colors.primaryOrange};
-  margin-bottom: 16px;
-`;
-
 export const StoreCardContainer = styled.View`
   margin-bottom: 10px;
   margin-top: 0px;
 `;
 
-export const StoreListTitle = styled(Title)`
-  text-align: center;
-  color: #fff;
-  margin-top: 45px;
-`;
-
 export const SearchBar = styled(ButtonContainer)`
+  padding-top: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin: 20px 20%;
+  margin-right: 92px;
+  margin-left: 52px;
   padding-left: 12px;
   height: 40px;
   border-radius: 20px;
@@ -77,6 +67,13 @@ export const EBTStatusBar = styled.View`
   border-radius: 20px;
   margin-top: 6px;
   margin-left: 6px;
+`;
+
+export const CancelButton = styled(ButtonContainer)`
+  position: absolute;
+  left: 12px;
+  height: 100%;
+  justify-content: center;
 `;
 
 // SearchBar styles

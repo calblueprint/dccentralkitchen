@@ -1,3 +1,4 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -19,7 +20,11 @@ import {
   fieldStateColors,
   signUpFields,
 } from '../../lib/authUtils';
-import { AuthScreenContainer, FormContainer } from '../../styled/auth';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -280,6 +285,9 @@ export default class SignUp extends React.Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <AuthScreenContainer>
+          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
             <AuthTextField
@@ -392,4 +400,7 @@ const validation = {
     //   message: "Must contain at least one digit, one lowercase number, and special chracter"
     // }
   },
+};
+SignUp.navigationOptions = {
+  headerShown: false,
 };
