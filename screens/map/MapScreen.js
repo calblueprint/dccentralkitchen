@@ -46,10 +46,10 @@ export default class MapScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
-    this._findCurrentLocationAsync();
-    this._populateInitialStoresProducts();
+    await this._findCurrentLocationAsync();
+    await this._populateInitialStoresProducts();
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
@@ -89,6 +89,9 @@ export default class MapScreen extends React.Component {
       const stores = await getStoreData();
       // Sets list of stores in state, populates initial products
       await this._orderStoresByDistance(stores);
+      // Once we choose the closest store, we must populate its store products
+      // Better to perform API calls at top level, and then pass data as props.
+      await this._populateStoreProducts(this.state.store);
     } catch (err) {
       console.error(
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',
@@ -128,10 +131,6 @@ export default class MapScreen extends React.Component {
       return a.distance - b.distance;
     });
     this.setState({ stores: sortedStores, store: sortedStores[0] });
-
-    // Once we choose the closest store, we must populate store products here
-    // Better to perform API calls at top level, and then pass data as props.
-    await this._populateStoreProducts(sortedStores[0]);
   };
 
   renderHeader = () => (
