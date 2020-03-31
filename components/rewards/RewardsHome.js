@@ -46,8 +46,8 @@ function RewardsHome({ customer }) {
           color={Colors.primaryGreen}
         />
         <Body style={{ marginBottom: 28 }}>
-          {`Earn ${rewardPointValue - pointsToNext} points to unlock your next
-          $5 reward`}
+          {`Earn ${rewardPointValue -
+            pointsToNext} points to unlock your next $5 reward`}
         </Body>
         <Overline style={{ marginBottom: 8 }}>
           {`Available Rewards ${Math.floor(rewardsAvailable)}`}
