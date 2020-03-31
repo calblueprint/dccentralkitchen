@@ -1,6 +1,8 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { Overline } from '../BaseComponents';
+import { FlatList, View } from 'react-native';
+import Colors from '../../constants/Colors';
+import { Body, Overline } from '../BaseComponents';
 import Transaction from './Transaction';
 
 /**
@@ -9,21 +11,48 @@ import Transaction from './Transaction';
 
 function PointsHistory({ transactions }) {
   return (
-    <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
-      <Overline style={{ marginTop: 24, marginBottom: 12 }}>
-        Recent Transactions
-      </Overline>
-      {transactions.map(transaction => (
-        <Transaction
-          key={transaction.id}
-          date={transaction.date}
-          pointsEarned={transaction.pointsEarned}
-          storeName={transaction.storeName}
-          subtotal={transaction.subtotal}
-          totalSale={transaction.totalSale}
-        />
-      ))}
-    </ScrollView>
+    <View>
+      <FlatList
+        ListHeaderComponent={
+          <Overline style={{ marginTop: 24, marginLeft: 16, marginBottom: 12 }}>
+            Recent Transactions
+          </Overline>
+        }
+        initialNumToRender={10}
+        data={transactions}
+        renderItem={({ item }) => (
+          <Transaction
+            key={item.id}
+            date={item.date}
+            pointsEarned={item.pointsEarned}
+            storeName={item.storeName}
+            subtotal={item.subtotal}
+            totalSale={item.totalSale}
+          />
+        )}
+        keyExtractor={item => item.id}
+        ListEmptyComponent={
+          <View
+            style={{
+              alignItems: 'center',
+              marginTop: 20,
+              paddingLeft: 32,
+              paddingRight: 32,
+            }}>
+            <FontAwesome5
+              name="store"
+              size={64}
+              color={Colors.base}
+              style={{ marginBottom: 12 }}
+            />
+            <Body color={Colors.secondaryText}>No history to show.</Body>
+            <Body color={Colors.secondaryText} style={{ textAlign: 'center' }}>
+              Find Healthy Rewards stores to earn points and unlock rewards!
+            </Body>
+          </View>
+        }
+      />
+    </View>
   );
 }
 

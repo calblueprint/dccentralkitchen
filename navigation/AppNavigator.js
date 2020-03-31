@@ -2,7 +2,7 @@ import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import Colors from '../assets/Colors';
+import Colors from '../constants/Colors';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 import DrawerContent from './DrawerContent';
 import {
@@ -26,10 +26,10 @@ class AuthLoadingScreen extends React.Component {
     // screen will be unmounted and thrown away.
 
     // Correct version
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Testing purpose
-    this.props.navigation.navigate('Auth');
+    // Auth testing purpose
+    // this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here

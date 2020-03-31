@@ -1,6 +1,6 @@
 import React from 'react';
-import Colors from '../../assets/Colors';
-import { CategoryCard, HeadingContainer } from '../../styled/resources';
+import Colors from '../../constants/Colors';
+import { CategoryCard, CategoryHeadingContainer } from '../../styled/resources';
 import { Title } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
@@ -13,9 +13,9 @@ class ResourceCategoryBar extends React.Component {
           iconColor={Colors.lightest}
           circleColor={Colors.lighterGreen}
         />
-        <HeadingContainer>
+        <CategoryHeadingContainer>
           <Title>{this.props.title}</Title>
-        </HeadingContainer>
+        </CategoryHeadingContainer>
       </CategoryCard>
     );
   }

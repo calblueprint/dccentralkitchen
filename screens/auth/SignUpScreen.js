@@ -1,23 +1,28 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Colors from '../../assets/Colors';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
 import {
   createCustomers,
   createPushTokens,
   getCustomersByPhoneNumber,
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
-import { AuthScreenContainer, FormContainer } from '../../styled/auth';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -82,7 +87,7 @@ export default class SignUpScreen extends React.Component {
   };
 
   registerForPushNotificationsAsync = async () => {
-    if (Constants.isDevice) {
+    if (Constants.isDescvice) {
       const { status: existingStatus } = await Permissions.getAsync(
         Permissions.NOTIFICATIONS
       );
@@ -237,6 +242,9 @@ export default class SignUpScreen extends React.Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <AuthScreenContainer>
+          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
             <AuthTextField
@@ -270,7 +278,7 @@ export default class SignUpScreen extends React.Component {
             />
           </FormContainer>
           <FilledButtonContainer
-            style={{ marginTop: 35 }}
+            style={{ alignSelf: 'flex-end' }}
             color={
               this.state.signUpPermission
                 ? Colors.primaryGreen

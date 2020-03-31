@@ -1,7 +1,8 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import { rewardPointValue } from '../../constants/Rewards';
 import {
   AvailableRewardsContainer,
@@ -53,9 +54,36 @@ function RewardsHome({ customer }) {
         </Overline>
       </RewardsProgressContainer>
       <AvailableRewardsContainer>
-        {createList(Math.floor(rewardsAvailable)).map(i => (
-          <RewardsCard key={i} />
-        ))}
+        <FlatList
+          data={createList(Math.floor(rewardsAvailable))}
+          renderItem={() => <RewardsCard />}
+          keyExtractor={(item, index) => index.toString()}
+          numColumns={2}
+          ListEmptyComponent={
+            <View
+              style={{
+                alignItems: 'center',
+                marginTop: 20,
+                paddingLeft: 32,
+                paddingRight: 32,
+              }}>
+              <FontAwesome5
+                name="star"
+                size={64}
+                solid
+                color={Colors.base}
+                style={{ marginBottom: 12 }}
+              />
+              <Body color={Colors.secondaryText}>No available rewards.</Body>
+              <Body
+                color={Colors.secondaryText}
+                style={{ textAlign: 'center' }}>
+                Buy healthy produce at participating stores to earn points and
+                unlock rewards!
+              </Body>
+            </View>
+          }
+        />
       </AvailableRewardsContainer>
     </ScrollView>
   );

@@ -1,18 +1,20 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import Colors from '../../assets/Colors';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
 import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
+  BackButton,
   ErrorMsg,
   FormContainer,
 } from '../../styled/auth';
@@ -44,7 +46,6 @@ export default class Login extends React.Component {
   // to be the user ID and then navigates to homescreen.
   _asyncSignIn = async userId => {
     await AsyncStorage.setItem('userId', userId);
-    console.log(userId);
     this.props.navigation.navigate('App');
   };
 
@@ -74,7 +75,7 @@ export default class Login extends React.Component {
   handleLoginPermission() {
     let loginPermission;
     const { phoneNumber, password } = this.state;
-    if (phoneNumber.length == 10 && password.length >= 8) {
+    if (phoneNumber.length === 10 && password.length >= 8) {
       loginPermission = true;
     } else {
       loginPermission = false;
@@ -134,6 +135,9 @@ export default class Login extends React.Component {
   render() {
     return (
       <AuthScreenContainer>
+        <BackButton onPress={() => this.props.navigation.goBack(null)}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
+        </BackButton>
         <BigTitle>Log in</BigTitle>
         <FormContainer>
           <AuthTextField
@@ -144,6 +148,7 @@ export default class Login extends React.Component {
               this.setState({ phoneNumber: text });
             }}
             onBlurCallback={() => this.handleLoginPermission()}
+            error=""
           />
           <AuthTextField
             fieldType="Password"
@@ -153,6 +158,7 @@ export default class Login extends React.Component {
               this.setState({ password: text });
             }}
             onBlurCallback={() => this.handleLoginPermission()}
+            error=""
           />
         </FormContainer>
         <JustifyCenterContainer>
@@ -166,7 +172,7 @@ export default class Login extends React.Component {
             width="100%"
             onPress={() => this.handleSubmit()}
             disabled={!this.state.loginPermission}>
-            <ButtonLabel color="#fff">Log in</ButtonLabel>
+            <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 
           {/* TODO @tommypoa: Forgot password functionality

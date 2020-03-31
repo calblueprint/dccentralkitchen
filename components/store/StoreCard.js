@@ -1,24 +1,28 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import Colors from '../../assets/Colors';
+import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
+import { showLocation } from 'react-native-map-link';
+import Colors from '../../constants/Colors';
+import { getMaxWidth } from '../../lib/mapUtils';
 import {
   InLineContainer,
-  SpaceAroundRowContainer,
+  RowContainer,
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import {
   DividerBar,
   EBTStatusBar,
   StoreCardContainer,
+  StoreDetailText,
 } from '../../styled/store';
-import { Body, Caption, Title } from '../BaseComponents';
+import { Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
  * @prop
  * */
 
-function StoreCard({ store, callBack, seeProduct }) {
+export default function StoreCard({ store, callBack, seeProduct }) {
   const {
     storeName,
     storeHours,
@@ -26,45 +30,79 @@ function StoreCard({ store, callBack, seeProduct }) {
     distance,
     snapOrEbtAccepted,
     rewardsAccepted,
+    latitude,
+    longitude,
   } = store;
+
+  const writeAddressToClipboard = () => {
+    Clipboard.setString(address);
+    Alert.alert('Copied to Clipboard!', address);
+  };
+
+  const openDirections = () => {
+    showLocation({
+      latitude,
+      longitude,
+      title: storeName,
+      googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
+      alwaysIncludeGoogle: true,
+    });
+  };
+
   return (
-    <StoreCardContainer>
+    <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
-        <SpaceAroundRowContainer>
-          <Title color={Colors.activeText}>{storeName}</Title>
+        <RowContainer>
+          <Title
+            color={Colors.activeText}
+            style={{
+              maxWidth: getMaxWidth(
+                Dimensions.get('window').width,
+                snapOrEbtAccepted,
+                seeProduct
+              ),
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail">
+            {storeName}
+          </Title>
           {snapOrEbtAccepted && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
               <Caption color={Colors.darkerGreen}> EBT</Caption>
             </EBTStatusBar>
           )}
-        </SpaceAroundRowContainer>
+        </RowContainer>
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
         {`${distance} miles away`}
       </Caption>
-      {rewardsAccepted && (
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="star"
-            solid
-            size={16}
-            color={Colors.primaryGreen}
-          />
-          <Body color={Colors.primaryGreen}>
-            Earn and redeem Healthy Rewards here
-          </Body>
-        </InLineContainer>
-      )}
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
-          name="directions"
+          name="star"
+          solid
           size={16}
-          color={Colors.secondaryText}
+          color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
         />
-        <Body color={Colors.secondaryText}> {address}</Body>
+        <StoreDetailText greenText={rewardsAccepted}>
+          {rewardsAccepted
+            ? 'Earn and redeem Healthy Rewards here'
+            : 'Healthy Rewards not accepted'}
+        </StoreDetailText>
       </InLineContainer>
+      <TouchableOpacity
+        onPress={openDirections}
+        onLongPress={writeAddressToClipboard}>
+        <InLineContainer style={{ alignItems: 'center' }}>
+          <FontAwesome5
+            name="directions"
+            size={16}
+            color={Colors.secondaryText}
+          />
+          <StoreDetailText>{address}</StoreDetailText>
+        </InLineContainer>
+      </TouchableOpacity>
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="clock"
@@ -72,11 +110,9 @@ function StoreCard({ store, callBack, seeProduct }) {
           size={16}
           color={Colors.secondaryText}
         />
-        <Body color={Colors.secondaryText}> {storeHours}</Body>
+        <StoreDetailText>{storeHours}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>
   );
 }
-
-export default StoreCard;

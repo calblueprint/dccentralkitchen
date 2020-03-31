@@ -1,8 +1,8 @@
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import { DrawerItems } from 'react-navigation-drawer';
-import Colors from '../assets/Colors';
 import { Title } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
 
 class DrawerContent extends React.Component {
@@ -11,7 +11,7 @@ class DrawerContent extends React.Component {
     this.state = {
       customer: null,
       link: 'http://tiny.cc/RewardsFeedback',
-      isLoading: true
+      isLoading: true,
     };
   }
 
@@ -39,7 +39,7 @@ class DrawerContent extends React.Component {
         style={{
           display: 'flex',
           flex: 1,
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}>
         <View
           style={{
@@ -48,7 +48,7 @@ class DrawerContent extends React.Component {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-end',
-            padding: 16
+            padding: 16,
           }}>
           <Title style={{ color: 'white' }}>{this.state.customer.name}</Title>
         </View>
@@ -58,7 +58,7 @@ class DrawerContent extends React.Component {
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            verticalAlign: 'bottom'
+            verticalAlign: 'bottom',
           }}>
           <TouchableOpacity
             style={{ padding: 16 }}

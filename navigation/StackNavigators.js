@@ -18,7 +18,9 @@ import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {},
+  default: {
+    headerMode: 'none',
+  },
 });
 
 export const AuthStack = createStackNavigator(

@@ -1,36 +1,19 @@
-import { Notifications } from 'expo';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
-import Colors from '../../assets/Colors';
 import {
   BigTitle,
   Body,
-  ButtonLabel,
   ButtonContainer,
+  ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
 import {
   WelcomeContainer,
-  WelcomeTitleContainer,
   WelcomeLoginContainer,
+  WelcomeTitleContainer,
 } from '../../styled/auth';
 
-export default class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      phoneNumber: '',
-      password: '',
-      errorMsg: '',
-      token: null,
-    };
-  }
-
-  componentDidMount() {}
-
+export default class WelcomeScreen extends React.Component {
   navigateLogin() {
     this.props.navigation.navigate('Login');
   }

@@ -1,16 +1,10 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Colors from '../assets/Colors';
-import { NavButton } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const Container = styled.View`
   flex: 1;
   background-color: #fff;
-`;
-
-export const BackButton = styled(NavButton)`
-  background-color: ${Colors.primaryGreen};
-  border-color: ${Colors.primaryGreen};
 `;
 
 export const RewardsCardContainer = styled.View`
@@ -19,7 +13,7 @@ export const RewardsCardContainer = styled.View`
   width: 159px;
   height: 64px;
   padding: 10px;
-  margin-right: 24px;
+  margin-right: 12px;
   flex-direction: row;
   margin-bottom: 12px;
   background-color: ${Colors.lightestGreen};
@@ -44,13 +38,6 @@ export const AvailableRewardsContainer = styled.View`
   justify-content: flex-start;
 `;
 
-export const TopTab = styled.View`
-  background-color: ${Colors.primaryGreen};
-  padding-top: 80px;
-  flex-direction: column;
-`;
-// box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-
 export const styles = StyleSheet.create({
   tabView: {
     flex: 1,
@@ -71,8 +58,8 @@ export const styles = StyleSheet.create({
     textTransform: 'capitalize',
     fontSize: 16,
     fontFamily: 'poppins-medium',
-    paddingLeft: 4,
-    paddingRight: 4,
+    paddingLeft: 6,
+    paddingRight: 6,
   },
   tabBarIndicator: {
     backgroundColor: Colors.lightest,

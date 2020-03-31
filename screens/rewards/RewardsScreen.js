@@ -2,13 +2,17 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, Dimensions } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import Colors from '../../assets/Colors';
-import { BigTitle } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  NavButton,
+  NavHeaderContainer,
+} from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
+import Colors from '../../constants/Colors';
 import { getCustomersById } from '../../lib/airtable/request';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
-import { BackButton, Container, styles, TopTab } from '../../styled/rewards';
+import { Container, styles } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -71,19 +75,19 @@ export default class RewardsScreen extends React.Component {
 
     return (
       <Container>
-        <TopTab>
-          <BackButton onPress={() => this.props.navigation.goBack()}>
+        <NavHeaderContainer vertical backgroundColor={Colors.primaryGreen}>
+          <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
-          </BackButton>
+          </NavButton>
           <BigTitle
             style={{
-              marginLeft: 16,
+              marginLeft: 18,
               color: Colors.lightest,
               fontSize: 36,
             }}>
             Healthy Rewards
           </BigTitle>
-        </TopTab>
+        </NavHeaderContainer>
         <TabView
           navigationState={this.state}
           renderScene={this.renderScene}
@@ -99,7 +103,3 @@ export default class RewardsScreen extends React.Component {
     );
   }
 }
-
-RewardsScreen.navigationOptions = {
-  headerShown: false,
-};

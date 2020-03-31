@@ -1,13 +1,16 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { NavButton } from '../../components/BaseComponents';
+import {
+  NavButton,
+  NavHeaderContainer,
+  NavTitle,
+} from '../../components/BaseComponents';
 import ResourceCard from '../../components/resources/ResourceCard';
 import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 import { getAllResources } from '../../lib/airtable/request';
-import { TopText } from '../../styled/resources';
 
-class ResourcesScreen extends React.Component {
+export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,13 +50,12 @@ class ResourcesScreen extends React.Component {
   render() {
     return (
       <View>
-        <NavButton onPress={() => this.props.navigation.goBack(null)}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </NavButton>
-
-        <View style={{ height: 106 }}>
-          <TopText>Resources</TopText>
-        </View>
+        <NavHeaderContainer>
+          <NavButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </NavButton>
+          <NavTitle>Resources</NavTitle>
+        </NavHeaderContainer>
         <ScrollView>
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
@@ -87,15 +89,9 @@ class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <View style={{ paddingBottom: 100 }} />
+          <View style={{ paddingBottom: 150 }} />
         </ScrollView>
       </View>
     );
   }
 }
-
-ResourcesScreen.navigationOptions = {
-  headerShown: false,
-};
-
-export default ResourcesScreen;

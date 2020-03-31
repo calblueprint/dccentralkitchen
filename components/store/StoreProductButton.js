@@ -1,5 +1,5 @@
 import React from 'react';
-import Colors from '../../assets/Colors';
+import Colors from '../../constants/Colors';
 import { ButtonLabel, FilledButtonContainer } from '../BaseComponents';
 
 /**
@@ -12,7 +12,8 @@ function StoreProductButton({ callBack }) {
       width="130px"
       height="35px"
       color={Colors.primaryOrange}
-      onPress={callBack}>
+      onPress={callBack}
+      style={{ borderRadius: 10 }}>
       <ButtonLabel color={Colors.lightest}>See Products</ButtonLabel>
     </FilledButtonContainer>
   );

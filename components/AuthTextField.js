@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from 'react-native-materialui-textfield';
-import Colors from '../assets/Colors';
+import Colors from '../constants/Colors';
 import { TextFieldContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
