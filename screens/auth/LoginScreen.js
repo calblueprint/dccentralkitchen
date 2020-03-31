@@ -11,7 +11,11 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { lookupCustomer, updateCustomerPushTokens } from '../../lib/authUtils';
+import { getAllCustomers } from '../../lib/airtable/request';
+import {
+  formatPhoneNumber,
+  updateCustomerPushTokens,
+} from '../../lib/authUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -20,7 +24,7 @@ import {
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
-export default class Login extends React.Component {
+export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -35,16 +39,15 @@ export default class Login extends React.Component {
 
   componentDidMount() {
     // this.registerForPushNotificationsAsync();
-
     // From SignUpScreen.js, see comment there for details
-    this._notificationSubscription = Notifications.addListener(
-      this._handleNotification
-    );
+    // this._notificationSubscription = Notifications.addListener(
+    //   this._handleNotification
+    // );
   }
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncSignIn = async userId => {
+  _asyncLogin = async userId => {
     await AsyncStorage.setItem('userId', userId);
     this.props.navigation.navigate('App');
   };
@@ -72,7 +75,7 @@ export default class Login extends React.Component {
     }
   };
 
-  handleLoginPermission() {
+  handleLoginPermission = () => {
     let loginPermission;
     const { phoneNumber, password } = this.state;
     if (phoneNumber.length === 10 && password.length >= 8) {
@@ -81,56 +84,40 @@ export default class Login extends React.Component {
       loginPermission = false;
     }
     this.setState({ loginPermission });
-  }
+  };
 
   // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
   // the user is found.
-  handleSubmit() {
-    let formattedPhoneNumber = this.state.phoneNumber;
-    formattedPhoneNumber = formattedPhoneNumber.replace('[^0-9]', '');
-    formattedPhoneNumber = `(${formattedPhoneNumber.slice(
-      0,
-      3
-    )}) ${formattedPhoneNumber.slice(3, 6)}-${formattedPhoneNumber.slice(
-      6,
-      10
-    )}`;
+  handleSubmit = async () => {
+    const { password, phoneNumber, token } = this.state;
 
-    lookupCustomer(formattedPhoneNumber, this.state.password)
-      .then(customerInfo => {
-        if (customerInfo) {
-          console.log(
-            'Customer lookup successful. Customer Record ID:',
-            customerInfo.custId
-          );
-          this.setState({ errorMsg: '' });
-          return customerInfo;
-        }
-        // If no records exist, resolves with null; set error message
+    const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+    try {
+      const customer = await getAllCustomers(
+        `AND({Phone Number} = '${formattedPhoneNumber}', {Password} = '${password}')`
+      );
+      // Handle errors
+      if (customer) {
+        console.log(
+          'Customer lookup successful. Customer Record ID:',
+          customerInfo.custId
+        );
+        // If customer exists, we should update their push tokens
+        await updateCustomerPushTokens(customer, token);
+        // Log in
+        await this._asyncLogin(customer.id);
+        // this.setState({ errorMsg: '' });
+      } else {
         this.setState({
           errorMsg: 'Incorrect phone number or password. Please try again.',
           phoneNumber: '',
           password: '',
         });
-        return null;
-      })
-      .then(customerInfo => {
-        if (customerInfo) {
-          updateCustomerPushTokens(customerInfo, this.state.token)
-            .then(customerId => {
-              if (customerId) {
-                this._asyncSignIn(customerId);
-              }
-              // Otherwise, lookup failed
-              return null;
-            })
-            .catch(err => console.error(err));
-        }
-        // Otherwise, lookup failed
-        return null;
-      })
-      .catch(err => console.error(err));
-  }
+      }
+    } catch (err) {
+      console.error('[LoginScreen] Airtable:', err);
+    }
+  };
 
   render() {
     return (
