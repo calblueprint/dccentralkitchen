@@ -236,6 +236,7 @@ export default class SignUpScreen extends React.Component {
 
     // Only update error if there is currently an error
     if (this.state.errors[signUpField]) await this.updateError(signUpField);
+    await this.updatePermission();
   };
 
   render() {
