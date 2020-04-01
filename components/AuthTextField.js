@@ -14,6 +14,7 @@ function AuthTextField({
   onBlurCallback,
   changeTextCallback,
   error,
+  numErrorLines = 1,
 }) {
   return (
     <TextFieldContainer>
@@ -28,7 +29,8 @@ function AuthTextField({
         baseColor={Colors.activeText}
         tintColor={Colors.primaryGreen}
         error={error}
-        errorColor={Colors.darkerOrange}
+        errorColor={Colors.error}
+        helpersNumberOfLines={numErrorLines}
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}

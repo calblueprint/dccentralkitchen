@@ -278,7 +278,7 @@ export default class SignUpScreen extends React.Component {
             />
           </FormContainer>
           <FilledButtonContainer
-            style={{ alignSelf: 'flex-end' }}
+            style={{ marginTop: 24, alignSelf: 'flex-end' }}
             color={
               this.state.signUpPermission
                 ? Colors.primaryGreen

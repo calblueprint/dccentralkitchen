@@ -1,14 +1,12 @@
 import styled from 'styled-components/native';
 import { NavButton } from '../components/BaseComponents';
-import Colors from '../constants/Colors';
+import { ColumnContainer } from './shared';
 
 // TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
 
 // Shared Auth Containers
 
-export const AuthScreenContainer = styled.View`
-  display: flex
-  flex-direction: column;
+export const AuthScreenContainer = styled(ColumnContainer)`
   justify-content: space-between;
   margin: 50px 42px 0 42px;
   background-color: #fff;
@@ -45,28 +43,17 @@ export const ForgotPasswordButtonContainer = styled.View`
   margin-top: 13px;
 `;
 
-export const ErrorMsg = styled.Text`
-  font-size: 14px;
-  text-align: center;
-`;
-
+// Used in AuthTextField
+// Hardcoded 80px to avoid having the animations when errors show for LoginScreen
 export const TextFieldContainer = styled.View`
   margin-bottom: 24px;
+  height: 80px;
 `;
 
-export const FormContainer = styled.View`
-  margin-top: 16px;
-`;
-
-// TODO @tommypoa Check if Text Input can take in Text component from BaseComponents
-export const TextField = styled.TextInput`
-  font-family: poppins-regular;
-  font-size: 18px;
-  font-weight: 500;
-  width: 100%;
-  height: 36px;
-  border-bottom-color: ${props => props.borderColor || Colors.activeText};
-  border-bottom-width: 2px;
+export const FormContainer = styled(ColumnContainer)`
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 20px;
 `;
 
 export const BackButton = styled(NavButton)`
