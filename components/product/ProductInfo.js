@@ -1,23 +1,23 @@
 import React from 'react';
-import { Body, Caption, Title } from '../BaseComponents';
 import {
-  ProductInfoContainer,
   ProductInfoCaptionContainer,
+  ProductInfoContainer,
   ProductNoticeContainer,
 } from '../../styled/product';
+import { Body, Caption, Title } from '../BaseComponents';
 
 /**
  * @prop
  * */
 
 function ProductInfo({ product }) {
-  const { name, id, category, points, customerCost } = product;
+  const { name, points, customerCost } = product;
   return (
     <ProductInfoContainer>
       <Title>{name}</Title>
       <ProductInfoCaptionContainer>
         <Caption>${customerCost.toFixed(2)} each</Caption>
-        <Caption>Points Earned: {points}</Caption>
+        <Caption>{`Points Earned: ${points}`}</Caption>
       </ProductInfoCaptionContainer>
       <ProductNoticeContainer>
         <Body>

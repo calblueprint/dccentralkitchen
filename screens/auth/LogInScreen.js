@@ -33,7 +33,7 @@ export default class LogInScreen extends React.Component {
       password: '',
       error: '',
       token: null,
-      logInPermission: false,
+      // logInPermission: false,
     };
   }
 
@@ -75,17 +75,6 @@ export default class LogInScreen extends React.Component {
     }
   };
 
-  handleLogInPermission = () => {
-    let logInPermission;
-    const { phoneNumber, password } = this.state;
-    if (phoneNumber.length === 10 && password.length >= 8) {
-      logInPermission = true;
-    } else {
-      logInPermission = false;
-    }
-    this.setState({ logInPermission });
-  };
-
   // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
   // the user is found.
   handleSubmit = async () => {
@@ -122,6 +111,12 @@ export default class LogInScreen extends React.Component {
   };
 
   render() {
+    const { phoneNumber, password } = this.state;
+    const logInPermission =
+      phoneNumber.length === 10 &&
+      password.length >= 8 &&
+      this.state.error === '';
+
     return (
       <AuthScreenContainer>
         <BackButton onPress={() => this.props.navigation.goBack(null)}>
@@ -133,25 +128,19 @@ export default class LogInScreen extends React.Component {
             fieldType="Phone Number"
             value={this.state.phoneNumber}
             changeTextCallback={async text => {
-              await this.setState({ phoneNumber: text, error: '' });
-              await this.handleLogInPermission();
+              this.setState({ phoneNumber: text, error: '' });
             }}
-            onBlurCallback={() => this.handleLogInPermission()}
             // Display error indicator ('no text') only when login fails
             error={this.state.error ? ' ' : ''}
-            numErrorLines={0}
           />
           <AuthTextField
             fieldType="Password"
             value={this.state.password}
             changeTextCallback={async text => {
-              await this.setState({ password: text, error: '' });
-              await this.handleLogInPermission();
+              this.setState({ password: text, error: '' });
             }}
-            onBlurCallback={() => this.handleLogInPermission()}
             // Display error indicator ('no text') only when login fails
             error={this.state.error ? ' ' : ''}
-            numErrorLines={0}
           />
           <Caption
             style={{ alignSelf: 'center', fontSize: 14 }}
@@ -163,13 +152,11 @@ export default class LogInScreen extends React.Component {
           <FilledButtonContainer
             style={{ marginTop: 104 }}
             color={
-              !this.state.logInPermission || this.state.error !== ''
-                ? Colors.lightestGreen
-                : Colors.primaryGreen
+              !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!this.state.logInPermission || this.state.error !== ''}>
+            disabled={!logInPermission}>
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 

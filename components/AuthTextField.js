@@ -11,10 +11,9 @@ import { Caption } from './BaseComponents';
 function AuthTextField({
   fieldType,
   value,
-  onBlurCallback,
   changeTextCallback,
   error,
-  numErrorLines = 1,
+  onBlurCallback = null,
 }) {
   return (
     <TextFieldContainer>
@@ -30,7 +29,6 @@ function AuthTextField({
         tintColor={Colors.primaryGreen}
         error={error}
         errorColor={Colors.error}
-        helpersNumberOfLines={numErrorLines}
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
