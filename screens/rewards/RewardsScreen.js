@@ -33,12 +33,15 @@ export default class RewardsScreen extends React.Component {
       updates: false,
       index: tab,
       routes,
+      isGuest: false,
     };
   }
 
   // Load user record & transactions
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
+    const isGuest = userId === 'recxEGfvExP4Dv8nr';
+    this.setState({ isGuest });
     getUser(userId)
       .then(userRecord => {
         if (userRecord) {
@@ -114,6 +117,7 @@ export default class RewardsScreen extends React.Component {
           <RewardsHome
             user={this.state.user}
             transactions={this.state.transactions}
+            isGuest={this.state.isGuest}
           />
         );
       case 'history':
@@ -123,6 +127,7 @@ export default class RewardsScreen extends React.Component {
             transactions={this.state.transactions}
             updates={this.state.updates}
             navigation={this.props.navigation}
+            isGuest={this.state.isGuest}
           />
         );
       default:

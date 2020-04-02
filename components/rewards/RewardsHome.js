@@ -22,7 +22,12 @@ function createList(N) {
   return list;
 }
 
-function RewardsHome({ user }) {
+function RewardsHome({ user, isGuest }) {
+  let phrase =
+    'Buy healthy produce at participating stores to earn points and unlock rewards!';
+  if (isGuest) {
+    phrase = 'Sign up for account to start earning points and rewards today!';
+  }
   return (
     <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
       <RewardsProgressContainer>

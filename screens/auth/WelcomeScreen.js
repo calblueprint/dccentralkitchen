@@ -1,4 +1,5 @@
 import React from 'react';
+import { AsyncStorage } from 'react-native';
 import {
   BigTitle,
   Body,
@@ -35,6 +36,13 @@ export default class WelcomeScreen extends React.Component {
     this.props.navigation.navigate('SignUp');
   }
 
+  // Signs into Guest account, phone number ########## on Airtable
+  guestLogin = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('userId', 'recxEGfvExP4Dv8nr');
+    this.props.navigation.navigate('App');
+  };
+
   render() {
     return (
       <WelcomeContainer>
@@ -51,6 +59,14 @@ export default class WelcomeScreen extends React.Component {
           <Body color={Colors.secondaryText}>Already have an account?</Body>
           <ButtonContainer onPress={() => this.navigateLogin()}>
             <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
+          </ButtonContainer>
+        </WelcomeLoginContainer>
+        <WelcomeLoginContainer>
+          <Body color={Colors.secondaryText}>Filler Text</Body>
+          <ButtonContainer onPress={() => this.guestLogin()}>
+            <ButtonLabel color={Colors.primaryGreen}>
+              Continue as Guest
+            </ButtonLabel>
           </ButtonContainer>
         </WelcomeLoginContainer>
       </WelcomeContainer>

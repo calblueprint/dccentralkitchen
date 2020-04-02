@@ -8,9 +8,13 @@ import Transaction from './Transaction';
  * @prop
  * */
 
-function PointsHistory({ transactions, user, updates, navigation }) {
+function PointsHistory({ transactions, user, updates, navigation, isGuest }) {
   // Only display if transactions have mounted
   // TODO @kennethlien fix spacing at line 44
+  let phrase = 'Find Healthy Rewards stores to earn points and unlock rewards!';
+  if (isGuest) {
+    phrase = 'Sign up for account to start earning points and rewards today!';
+  }
   return (
     <View>
       <FlatList
@@ -48,7 +52,7 @@ function PointsHistory({ transactions, user, updates, navigation }) {
             />
             <Body color={Colors.secondaryText}>No history to show.</Body>
             <Body color={Colors.secondaryText} style={{ textAlign: 'center' }}>
-              Find Healthy Rewards stores to earn points and unlock rewards!
+              {phrase}}
             </Body>
           </View>
         }
