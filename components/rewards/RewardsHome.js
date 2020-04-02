@@ -3,7 +3,7 @@ import React from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
-import { rewardPointValue } from '../../constants/Rewards';
+import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import {
   AvailableRewardsContainer,
   RewardsProgressContainer,
@@ -47,10 +47,10 @@ function RewardsHome({ customer }) {
         />
         <Body style={{ marginBottom: 28 }}>
           {`Earn ${rewardPointValue -
-            pointsToNext} points to unlock your next $5 reward`}
+            pointsToNext} points to unlock your next $${rewardDollarValue} reward`}
         </Body>
         <Overline style={{ marginBottom: 8 }}>
-          {`Available Rewards ${Math.floor(rewardsAvailable)}`}
+          {`Available Rewards (${Math.floor(rewardsAvailable)})`}
         </Overline>
       </RewardsProgressContainer>
       <AvailableRewardsContainer>
