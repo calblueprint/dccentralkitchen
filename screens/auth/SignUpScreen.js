@@ -87,7 +87,7 @@ export default class SignUpScreen extends React.Component {
   };
 
   registerForPushNotificationsAsync = async () => {
-    if (Constants.isDescvice) {
+    if (Constants.isDevice) {
       const { status: existingStatus } = await Permissions.getAsync(
         Permissions.NOTIFICATIONS
       );
