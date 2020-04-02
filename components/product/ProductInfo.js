@@ -1,4 +1,5 @@
 import React from 'react';
+import { displayDollarValue } from '../../lib/common';
 import { ProductInfoContainer } from '../../styled/product';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
 import { Body, Caption, Title } from '../BaseComponents';
@@ -13,7 +14,7 @@ function ProductInfo({ product }) {
     <ProductInfoContainer>
       <Title>{name}</Title>
       <SpaceBetweenRowContainer style={{ marginTop: 8, paddingBottom: 16 }}>
-        <Caption>${customerCost.toFixed(2)} each</Caption>
+        <Caption>{displayDollarValue(customerCost)} each</Caption>
         <Caption>{`Points Earned: ${points}`}</Caption>
       </SpaceBetweenRowContainer>
       <Body>
