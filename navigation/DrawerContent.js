@@ -68,7 +68,7 @@ class DrawerContent extends React.Component {
           <TouchableOpacity
             style={{ paddingLeft: 16, paddingBottom: 21 }}
             onPress={() => this._logout()}>
-            <Title>Logout</Title>
+            <Title>Log Out</Title>
           </TouchableOpacity>
         </View>
       </View>

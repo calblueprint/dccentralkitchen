@@ -13,7 +13,7 @@ export const AuthScreenContainer = styled(ColumnContainer)`
 `;
 
 // WelcomeScreen
-// TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in Login and SignUp screens)
+// TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
 export const WelcomeContainer = styled.View`
   display: flex;
   justify-content: center;
@@ -26,7 +26,7 @@ export const WelcomeTitleContainer = styled.View`
   margin: 0 12.5%;
 `;
 
-export const WelcomeLoginContainer = styled.View`
+export const WelcomeLogInContainer = styled.View`
   width: 100%
   margin: 16px 0;
   padding: 0 20px;
@@ -35,7 +35,7 @@ export const WelcomeLoginContainer = styled.View`
   justify-content: space-between;
 `;
 
-// LoginScreen
+// LogInScreen
 
 // Margin-top value is 140 (figma) - 36 (input margin bottom) = 104px.
 

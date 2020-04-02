@@ -33,7 +33,7 @@ export default class LogInScreen extends React.Component {
       password: '',
       error: '',
       token: null,
-      loginPermission: false,
+      logInPermission: false,
     };
   }
 
@@ -47,7 +47,7 @@ export default class LogInScreen extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncLogin = async userId => {
+  _asyncLogIn = async userId => {
     await AsyncStorage.setItem('userId', userId);
     this.props.navigation.navigate('App');
   };
@@ -75,15 +75,15 @@ export default class LogInScreen extends React.Component {
     }
   };
 
-  handleLoginPermission = () => {
-    let loginPermission;
+  handleLogInPermission = () => {
+    let logInPermission;
     const { phoneNumber, password } = this.state;
     if (phoneNumber.length === 10 && password.length >= 8) {
-      loginPermission = true;
+      logInPermission = true;
     } else {
-      loginPermission = false;
+      logInPermission = false;
     }
-    this.setState({ loginPermission });
+    this.setState({ logInPermission });
   };
 
   // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
@@ -103,7 +103,7 @@ export default class LogInScreen extends React.Component {
         // If customer exists, we should update their push tokens
         await updateCustomerPushTokens(customer, token);
         // Log in
-        await this._asyncLogin(customer.id);
+        await this._asyncLogIn(customer.id);
       } else if (customers.length > 1) {
         // In case of database malformation, may return more than one record
         // TODO this message is a design edge case
@@ -134,9 +134,9 @@ export default class LogInScreen extends React.Component {
             value={this.state.phoneNumber}
             changeTextCallback={async text => {
               await this.setState({ phoneNumber: text, error: '' });
-              await this.handleLoginPermission();
+              await this.handleLogInPermission();
             }}
-            onBlurCallback={() => this.handleLoginPermission()}
+            onBlurCallback={() => this.handleLogInPermission()}
             // Display error indicator ('no text') only when login fails
             error={this.state.error ? ' ' : ''}
             numErrorLines={0}
@@ -146,9 +146,9 @@ export default class LogInScreen extends React.Component {
             value={this.state.password}
             changeTextCallback={async text => {
               await this.setState({ password: text, error: '' });
-              await this.handleLoginPermission();
+              await this.handleLogInPermission();
             }}
-            onBlurCallback={() => this.handleLoginPermission()}
+            onBlurCallback={() => this.handleLogInPermission()}
             // Display error indicator ('no text') only when login fails
             error={this.state.error ? ' ' : ''}
             numErrorLines={0}
@@ -163,13 +163,13 @@ export default class LogInScreen extends React.Component {
           <FilledButtonContainer
             style={{ marginTop: 104 }}
             color={
-              !this.state.loginPermission || this.state.error !== ''
+              !this.state.logInPermission || this.state.error !== ''
                 ? Colors.lightestGreen
                 : Colors.primaryGreen
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!this.state.loginPermission || this.state.error !== ''}>
+            disabled={!this.state.logInPermission || this.state.error !== ''}>
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 

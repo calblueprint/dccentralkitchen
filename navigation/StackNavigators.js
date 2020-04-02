@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 // Auth
-import LoginScreen from '../screens/auth/LoginScreen';
+import LogInScreen from '../screens/auth/LogInScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';
 // Map
@@ -26,7 +26,7 @@ const config = Platform.select({
 export const AuthStack = createStackNavigator(
   {
     Welcome: WelcomeScreen,
-    Login: LoginScreen,
+    LogIn: LogInScreen,
     SignUp: SignUpScreen,
   },
   config
