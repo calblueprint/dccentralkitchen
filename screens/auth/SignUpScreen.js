@@ -75,7 +75,7 @@ export default class SignUpScreen extends React.Component {
   // Configures to use David Ro's test account
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recomWMtzSUQCcIvr');
+    await AsyncStorage.setItem('userId', 'recimV9zs2StWB2Mj');
     this.props.navigation.navigate('App');
   };
 
