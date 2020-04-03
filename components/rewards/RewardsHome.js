@@ -80,8 +80,7 @@ function RewardsHome({ user, isGuest }) {
               <Body
                 color={Colors.secondaryText}
                 style={{ textAlign: 'center' }}>
-                Buy healthy produce at participating stores to earn points and
-                unlock rewards!
+                {phrase}
               </Body>
             </View>
           }
