@@ -17,7 +17,7 @@ export default class ProductsScreen extends React.Component {
   }
 
   renderProductList = () => {
-    const { products, store } = this.props.navigation.state.params;
+    const { products, store } = this.props.route.params;
     return products.map((product, i) => {
       return (
         <ProductCard
@@ -32,7 +32,7 @@ export default class ProductsScreen extends React.Component {
   };
 
   render() {
-    const { products, store } = this.props.navigation.state.params;
+    const { products, store } = this.props.route.params;
     return (
       <View>
         <NavHeaderContainer withMargin>

@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { AsyncStorage, Linking, Platform, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import { DrawerItems } from 'react-navigation-drawer';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -14,13 +14,6 @@ import RewardsScreen from '../screens/rewards/RewardsScreen';
 import MyResourcesStack from './stack_navigators/ResourcesStack';
 import MyRootStack from './stack_navigators/RootStack';
 import MyStoresStack from './stack_navigators/StoresStack';
-
-export const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {
-    headerMode: 'none',
-  },
-});
 
 const AuthStack = createStackNavigator();
 
@@ -65,9 +58,9 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 
-export class DrawerContent extends React.Component {
-  constructor() {
-    super();
+class DrawerContent extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       user: {
         id: null,
@@ -142,18 +135,27 @@ export class DrawerContent extends React.Component {
 
 const Drawer = createDrawerNavigator();
 
+// drawerContentOptions={{
+//   labelStyle: {
+//     fontFamily: 'poppins-medium',
+//     fontSize: 20,
+//   },
+//   activeTintColor: Colors.primaryGreen,
+// }}
+// drawerStyle={{ width: 189 }}
+// drawerContent={DrawerContent}
+
 function MyDrawerNavigator() {
   return (
     <Drawer.Navigator
-      contentOptions={{
+      drawerStyle={{ width: 189 }}
+      drawerContentOptions={{
         labelStyle: {
           fontFamily: 'poppins-medium',
           fontSize: 20,
         },
         activeTintColor: Colors.primaryGreen,
-      }}
-      drawerWidth={189}
-      contentComponent={DrawerContent}>
+      }}>
       <Drawer.Screen
         name="Root"
         component={MyRootStack}
