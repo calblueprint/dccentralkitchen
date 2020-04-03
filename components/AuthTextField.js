@@ -1,10 +1,10 @@
 import React from 'react';
-import Colors from '../assets/Colors';
+import Colors from '../constants/Colors';
 import { fieldStateColors } from '../lib/authUtils';
 import {
   InputNoticeContainer,
   TextField,
-  TextFieldContainer
+  TextFieldContainer,
 } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
@@ -18,7 +18,7 @@ function AuthTextField({
   value,
   onBlurCallback,
   onFocusCallback,
-  changeTextCallback
+  changeTextCallback,
 }) {
   return (
     <TextFieldContainer>
@@ -26,13 +26,13 @@ function AuthTextField({
       <TextField
         onBlur={onBlurCallback}
         onFocus={onFocusCallback}
-        autoCapitalize={'words'}
+        autoCapitalize="words"
         placeholder={fieldType}
         autoCorrect={false}
         onChangeText={changeTextCallback}
         value={value}
         borderColor={color}
-        returnKeyType={'done'}
+        returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}

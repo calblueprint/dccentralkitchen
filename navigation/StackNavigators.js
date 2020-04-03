@@ -11,7 +11,9 @@ import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {}
+  default: {
+    headerMode: 'none',
+  },
 });
 
 export const StoresStack = createStackNavigator(
@@ -19,45 +21,45 @@ export const StoresStack = createStackNavigator(
     Stores: MapScreen,
     StoreList: StoreListScreen,
     Products: ProductsScreen,
-    ProductDetails: ProductDetailsScreen
+    ProductDetails: ProductDetailsScreen,
   },
   config
 );
 
 StoresStack.navigationOptions = {
-  drawerLabel: 'Stores'
+  drawerLabel: 'Stores',
 };
 
 export const RootStack = createStackNavigator(
   {
     MainStack: {
-      screen: StoresStack
+      screen: StoresStack,
     },
     RewardsOverlay: {
-      screen: RewardsScreen
-    }
+      screen: RewardsScreen,
+    },
   },
   {
     headerMode: 'none',
-    mode: 'modal'
+    mode: 'modal',
   }
 );
 
 export const NewsStack = createStackNavigator(
   {
     News: NewsScreen,
-    NewsDetails: NewsDetailsScreen
+    NewsDetails: NewsDetailsScreen,
   },
   config
 );
 
 NewsStack.navigationOptions = {
-  drawerLabel: 'News'
+  drawerLabel: 'News',
 };
 
 export const ResourcesStack = createStackNavigator(
   {
-    Resources: ResourcesScreen
+    Resources: ResourcesScreen,
   },
   config
 );

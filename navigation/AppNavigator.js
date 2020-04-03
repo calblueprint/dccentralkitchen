@@ -1,10 +1,16 @@
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import {
+  AsyncStorage,
+  Linking,
+  Platform,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import Colors from '../assets/Colors';
 import { Title } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 import { getUser } from '../lib/rewardsUtils';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
@@ -12,11 +18,21 @@ import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 import { ResourcesStack, RootStack, StoresStack } from './StackNavigators';
 
-const AuthStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-  Login: LoginScreen,
-  SignUp: SignUpScreen
+const config = Platform.select({
+  web: { headerMode: 'screen' },
+  default: {
+    headerMode: 'none',
+  },
 });
+
+const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    Login: LoginScreen,
+    SignUp: SignUpScreen,
+  },
+  config
+);
 
 class AuthLoadingScreen extends React.Component {
   constructor() {
@@ -32,10 +48,10 @@ class AuthLoadingScreen extends React.Component {
     // screen will be unmounted and thrown away.
 
     // Correct version
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Testing purpose
-    this.props.navigation.navigate('Auth');
+    // Auth testing purpose
+    // this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here
@@ -50,18 +66,19 @@ export class DrawerContent extends React.Component {
     this.state = {
       user: {
         id: null,
-        name: null
+        name: null,
       },
-      link: 'http://tiny.cc/RewardsFeedback'
+      link: 'http://tiny.cc/RewardsFeedback',
     };
   }
+
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     getUser(userId).then(userRecord => {
       if (userRecord) {
         const user = {
           id: userId,
-          name: userRecord.fields.Name
+          name: userRecord.fields.Name,
         };
         this.setState({ user });
         return true;
@@ -81,7 +98,7 @@ export class DrawerContent extends React.Component {
         style={{
           display: 'flex',
           flex: 1,
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}>
         <View
           style={{
@@ -90,7 +107,7 @@ export class DrawerContent extends React.Component {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-end',
-            padding: 16
+            padding: 16,
           }}>
           <Title style={{ color: 'white' }}>{this.state.user.name}</Title>
         </View>
@@ -100,7 +117,7 @@ export class DrawerContent extends React.Component {
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            verticalAlign: 'bottom'
+            verticalAlign: 'bottom',
           }}>
           <TouchableOpacity
             style={{ padding: 16 }}
@@ -124,40 +141,40 @@ const MyDrawerNavigator = createDrawerNavigator(
       screen: RootStack,
       navigationOptions: () => ({
         title: 'Root',
-        drawerLabel: () => null
-      })
+        drawerLabel: () => null,
+      }),
     },
     Stores: {
       screen: StoresStack,
       navigationOptions: () => ({
-        title: 'Stores'
-      })
+        title: 'Stores',
+      }),
     },
     Rewards: {
       screen: props => <RewardsScreen {...props} tab={1} />,
       navigationOptions: () => ({
         title: 'Points History',
-        drawerLockMode: 'locked-closed'
-      })
+        drawerLockMode: 'locked-closed',
+      }),
     },
     Resources: {
       screen: ResourcesStack,
       navigationOptions: () => ({
-        title: 'Resources'
-      })
-    }
+        title: 'Resources',
+      }),
+    },
   },
 
   {
     contentOptions: {
       labelStyle: {
         fontFamily: 'poppins-medium',
-        fontSize: 20
+        fontSize: 20,
       },
-      activeTintColor: Colors.primaryGreen
+      activeTintColor: Colors.primaryGreen,
     },
     drawerWidth: 189,
-    contentComponent: DrawerContent
+    contentComponent: DrawerContent,
   }
 );
 
@@ -168,12 +185,12 @@ export default createAppContainer(
     {
       AuthLoading: AuthLoadingScreen,
       App: {
-        screen: MyDrawerNavigator
+        screen: MyDrawerNavigator,
       },
-      Auth: AuthStack
+      Auth: AuthStack,
     },
     {
-      initialRouteName: 'AuthLoading'
+      initialRouteName: 'AuthLoading',
     }
   )
 );

@@ -1,15 +1,16 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import ProductCard from '../../components/product/ProductCard';
 import {
-  ProductListHeaderContainer,
-  ProductListContainer,
-  ProductListTitle
-} from '../../styled/product';
-import Colors from '../../assets/Colors';
+  NavButton,
+  NavHeaderContainer,
+  NavTitle,
+} from '../../components/BaseComponents';
+import ProductCard from '../../components/product/ProductCard';
+import { ProductListContainer } from '../../styled/product';
 
-class ProductsScreen extends React.Component {
+export default class ProductsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -24,6 +25,7 @@ class ProductsScreen extends React.Component {
           product={product}
           navigation={this.props.navigation}
           store={store}
+          displayPoints
         />
       );
     });
@@ -33,13 +35,15 @@ class ProductsScreen extends React.Component {
     const { products, store } = this.props.navigation.state.params;
     return (
       <View>
-        <ProductListHeaderContainer>
-          <ProductListTitle color={Colors.black}>{store.name}</ProductListTitle>
-        </ProductListHeaderContainer>
+        <NavHeaderContainer withMargin>
+          <NavButton onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </NavButton>
+          <NavTitle>{store.name}</NavTitle>
+        </NavHeaderContainer>
         <ScrollView
-          showsVerticalScrollIndicator={false}
-          alwaysBounceVertical={false}>
-          {/* <Title>Products ({products.length})</Title> */}
+          style={{ height: '100%', width: '100%' }}
+          showsVerticalScrollIndicator={false}>
           <ProductListContainer>
             {this.renderProductList()}
           </ProductListContainer>
@@ -48,5 +52,3 @@ class ProductsScreen extends React.Component {
     );
   }
 }
-
-export default ProductsScreen;

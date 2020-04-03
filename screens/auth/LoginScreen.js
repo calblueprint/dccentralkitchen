@@ -1,26 +1,28 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button } from 'react-native';
-import {
-  signUpFields,
-  fieldStateColors,
-  lookupCustomer,
-  updateCustomerPushTokens
-} from '../../lib/authUtils';
-import {
-  ErrorMsg,
-  AuthScreenContainer,
-  FormContainer
-} from '../../styled/auth';
-import { JustifyCenterContainer } from '../../styled/shared';
+import { AsyncStorage } from 'react-native';
+import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
-  FilledButtonContainer
+  FilledButtonContainer,
 } from '../../components/BaseComponents';
-import AuthTextField from '../../components/AuthTextField';
+import {
+  fieldStateColors,
+  lookupCustomer,
+  signUpFields,
+  updateCustomerPushTokens,
+} from '../../lib/authUtils';
+import {
+  AuthScreenContainer,
+  BackButton,
+  ErrorMsg,
+  FormContainer,
+} from '../../styled/auth';
+import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -33,8 +35,8 @@ export default class Login extends React.Component {
       token: null,
       indicators: {
         [signUpFields.PHONENUM]: [fieldStateColors.INACTIVE],
-        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE]
-      }
+        [signUpFields.PASSWORD]: [fieldStateColors.INACTIVE],
+      },
     };
   }
 
@@ -105,7 +107,7 @@ export default class Login extends React.Component {
         this.setState({
           errorMsg: 'Incorrect phone number or password. Please try again.',
           phoneNumber: '',
-          password: ''
+          password: '',
         });
         return null;
       })
@@ -131,7 +133,7 @@ export default class Login extends React.Component {
     const { indicators } = this.state;
     indicators[signUpField] = fieldStateColors.FOCUSED;
     this.setState({
-      indicators
+      indicators,
     });
   }
 
@@ -139,13 +141,16 @@ export default class Login extends React.Component {
     const { indicators } = this.state;
     indicators[signUpField] = fieldStateColors.BLURRED;
     this.setState({
-      indicators
+      indicators,
     });
   }
 
   render() {
     return (
       <AuthScreenContainer>
+        <BackButton onPress={() => this.props.navigation.goBack(null)}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
+        </BackButton>
         <BigTitle>Log in</BigTitle>
         <FormContainer>
           <AuthTextField
@@ -167,7 +172,7 @@ export default class Login extends React.Component {
         </FormContainer>
         <JustifyCenterContainer>
           <FilledButtonContainer
-            style={{ marginTop: 104 }}
+            style={{ alignSelf: 'flex-end' }}
             width="100%"
             onPress={() => this.handleSubmit()}>
             <ButtonLabel color="#fff">Log in</ButtonLabel>

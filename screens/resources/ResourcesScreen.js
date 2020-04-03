@@ -1,13 +1,16 @@
-import React from 'react';
-import { TopText } from '../../styled/resources';
-import { TouchableOpacity, ScrollView, View, Button } from 'react-native';
-import getResources from '../../lib/resourceUtils';
-import ResourceCard from '../../components/resources/ResourceCard';
-import { Title, NavButton } from '../../components/BaseComponents';
-import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 import { FontAwesome5 } from '@expo/vector-icons';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+import {
+  NavButton,
+  NavHeaderContainer,
+  NavTitle,
+} from '../../components/BaseComponents';
+import ResourceCard from '../../components/resources/ResourceCard';
+import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
+import getResources from '../../lib/resourceUtils';
 
-class ResourcesScreen extends React.Component {
+export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +18,7 @@ class ResourcesScreen extends React.Component {
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
-      ResourcesForSeniors: []
+      ResourcesForSeniors: [],
     };
   }
 
@@ -37,7 +40,7 @@ class ResourcesScreen extends React.Component {
           DCCentralKitchenResources,
           CommunityResources,
           GovernmentResources,
-          ResourcesForSeniors
+          ResourcesForSeniors,
         });
     });
   }
@@ -45,13 +48,12 @@ class ResourcesScreen extends React.Component {
   render() {
     return (
       <View>
-        <NavButton onPress={() => this.props.navigation.goBack(null)}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </NavButton>
-
-        <View style={{ height: 106 }}>
-          <TopText>Resources</TopText>
-        </View>
+        <NavHeaderContainer>
+          <NavButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </NavButton>
+          <NavTitle>Resources</NavTitle>
+        </NavHeaderContainer>
         <ScrollView>
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
@@ -85,15 +87,9 @@ class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <View style={{ paddingBottom: 100 }}></View>
+          <View style={{ paddingBottom: 150 }} />
         </ScrollView>
       </View>
     );
   }
 }
-
-ResourcesScreen.navigationOptions = {
-  headerShown: false
-};
-
-export default ResourcesScreen;
