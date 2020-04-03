@@ -32,6 +32,8 @@ const initialRegion = {
   longitudeDelta: 0.0421,
 };
 
+const defaultStoreId = 'recQmf64hlp9CyBas';
+
 export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +56,7 @@ export default class MapScreen extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const store = nextProps.navigation.state.params.currentStore;
-    this.changeCurrentStore(store);
+    this.changeCurrentStore(store, false);
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
@@ -123,10 +125,18 @@ export default class MapScreen extends React.Component {
       return a.distance - b.distance;
     });
     this.setState({ stores: sortedStores, store: sortedStores[0] });
-
+    if (sortedStores[0].distance > 100) {
+      await this.changeCurrentStore(
+        stores.find(store => {
+          return store.id === defaultStoreId;
+        }),
+        true
+      );
+    } else {
+      await this._populateStoreProducts(sortedStores[0]);
+    }
     // Once we choose the closest store, we must populate store products here
     // Better to perform API calls at top level, and then pass data as props.
-    await this._populateStoreProducts(stores[0]);
   };
 
   renderHeader = () => (
@@ -159,11 +169,13 @@ export default class MapScreen extends React.Component {
 
   // Since we must now also populate the current store products at the top level,
   // we make this an async function and call this._populateStoreProducts
-  async changeCurrentStore(store) {
+  async changeCurrentStore(store, initial) {
     this.setState({
       store,
     });
-    this.bottomSheetRef.snapTo(0);
+    if (!initial) {
+      this.bottomSheetRef.snapTo(0);
+    }
     await this._populateStoreProducts(store);
   }
 
@@ -225,7 +237,7 @@ export default class MapScreen extends React.Component {
               }}
               title={store.name}
               description={store.name}
-              onPress={() => this.changeCurrentStore(store)}
+              onPress={() => this.changeCurrentStore(store, false)}
             />
           ))}
           {/* If current location found, show current location marker */}
