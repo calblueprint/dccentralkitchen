@@ -32,7 +32,7 @@ export default class ProductDetailsScreen extends React.Component {
           }}>
           <ProductInfo style={{ flexShrink: 2 }} product={currentProduct} />
           <Image
-            source={{ uri: currentProduct.image }}
+            source={{ uri: currentProduct.imageUrl }}
             style={{ width: 80, height: 80 }}
           />
         </SpaceBetweenRowContainer>

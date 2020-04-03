@@ -4,13 +4,12 @@ import { FlatList, View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { Body, Overline } from '../BaseComponents';
 import Transaction from './Transaction';
+
 /**
  * @prop
  * */
 
-function PointsHistory({ transactions, user, updates, navigation }) {
-  // Only display if transactions have mounted
-  // TODO @kennethlien fix spacing at line 44
+function PointsHistory({ transactions }) {
   return (
     <View>
       <FlatList
