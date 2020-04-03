@@ -23,6 +23,8 @@ function AuthTextField({
         autoCorrect={false}
         label={fieldType}
         labelTextStyle={{ fontFamily: 'poppins-regular' }}
+        lineWidth={1.75}
+        activeLineWidth={1.75}
         onChangeText={changeTextCallback}
         value={value}
         baseColor={Colors.activeText}
