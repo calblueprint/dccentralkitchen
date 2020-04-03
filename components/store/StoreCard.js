@@ -23,7 +23,16 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 export default function StoreCard({ store, callBack, seeProduct }) {
-  const { name, hours, address, distance, ebt, rewards, lat, long } = store;
+  const {
+    storeName,
+    storeHours,
+    address,
+    distance,
+    snapOrEbtAccepted,
+    rewardsAccepted,
+    latitude,
+    longitude,
+  } = store;
 
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
@@ -32,9 +41,9 @@ export default function StoreCard({ store, callBack, seeProduct }) {
 
   const openDirections = () => {
     showLocation({
-      latitude: lat,
-      longitude: long,
-      title: name,
+      latitude,
+      longitude,
+      title: storeName,
       googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
       alwaysIncludeGoogle: true,
     });
@@ -49,15 +58,15 @@ export default function StoreCard({ store, callBack, seeProduct }) {
             style={{
               maxWidth: getMaxWidth(
                 Dimensions.get('window').width,
-                ebt,
+                snapOrEbtAccepted,
                 seeProduct
               ),
             }}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {name}
+            {storeName}
           </Title>
-          {ebt && (
+          {snapOrEbtAccepted && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
               <Caption color={Colors.darkerGreen}> EBT</Caption>
@@ -67,17 +76,17 @@ export default function StoreCard({ store, callBack, seeProduct }) {
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
-        {distance} miles away
+        {`${distance} miles away`}
       </Caption>
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="star"
           solid
           size={16}
-          color={rewards ? Colors.primaryGreen : Colors.secondaryText}
+          color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
         />
-        <StoreDetailText greenText={rewards}>
-          {rewards
+        <StoreDetailText greenText={rewardsAccepted}>
+          {rewardsAccepted
             ? 'Earn and redeem Healthy Rewards here'
             : 'Healthy Rewards not accepted'}
         </StoreDetailText>
@@ -101,7 +110,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
           size={16}
           color={Colors.secondaryText}
         />
-        <StoreDetailText>{hours}</StoreDetailText>
+        <StoreDetailText>{storeHours}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>
