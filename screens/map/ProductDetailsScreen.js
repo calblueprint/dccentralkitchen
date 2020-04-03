@@ -1,10 +1,15 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
+import {
+  NavButton,
+  NavHeaderContainer,
+  NavTitle,
+} from '../../components/BaseComponents';
 import ProductInfo from '../../components/product/ProductInfo';
-import { ProductInfoImageContainer } from '../../styled/product';
-import { RowContainer } from '../../styled/shared';
+import { SpaceBetweenRowContainer } from '../../styled/shared';
 
-class ProductDetailsScreen extends React.Component {
+export default class ProductDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -13,17 +18,25 @@ class ProductDetailsScreen extends React.Component {
   render() {
     const { currentProduct, store } = this.props.navigation.state.params;
     return (
-      <RowContainer>
-        <ProductInfo product={currentProduct} />
-        <ProductInfoImageContainer>
+      <View>
+        <NavHeaderContainer withMargin backgroundColor="rgba(0,0,0,0)" noShadow>
+          <NavButton onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="times" solid size={24} />
+          </NavButton>
+          <NavTitle />
+        </NavHeaderContainer>
+        <SpaceBetweenRowContainer
+          style={{
+            marginLeft: 20,
+            marginRight: 8,
+          }}>
+          <ProductInfo style={{ flexShrink: 2 }} product={currentProduct} />
           <Image
             source={{ uri: currentProduct.imageUrl }}
-            style={{ width: 80, height: 80, borderRadius: 80 / 2 }}
+            style={{ width: 80, height: 80 }}
           />
-        </ProductInfoImageContainer>
-      </RowContainer>
+        </SpaceBetweenRowContainer>
+      </View>
     );
   }
 }
-
-export default ProductDetailsScreen;

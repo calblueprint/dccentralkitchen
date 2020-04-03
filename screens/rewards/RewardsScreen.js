@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { AsyncStorage, Dimensions } from 'react-native';
+import { AsyncStorage, Dimensions, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import {
   BigTitle,
@@ -12,7 +12,7 @@ import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
 import { getCustomersById } from '../../lib/airtable/request';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
-import { Container, styles } from '../../styled/rewards';
+import { styles } from '../../styled/rewards';
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -74,7 +74,7 @@ export default class RewardsScreen extends React.Component {
     }
 
     return (
-      <Container>
+      <View style={{ flex: 1 }}>
         <NavHeaderContainer vertical backgroundColor={Colors.primaryGreen}>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
@@ -99,7 +99,7 @@ export default class RewardsScreen extends React.Component {
           }}
           style={styles.tabView}
         />
-      </Container>
+      </View>
     );
   }
 }
