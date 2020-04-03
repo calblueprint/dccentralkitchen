@@ -4,10 +4,11 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
+import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import Colors from '../../constants/Colors';
@@ -71,6 +72,10 @@ export default class MapScreen extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     // Error message not checked anywhere
     if (status !== 'granted') {
+      Alert.alert(
+        'Location Error',
+        'We are unable to get your location. Enable your location services for this app and try again when your network refreshes.'
+      );
       this.setState({
         locationErrorMsg: 'Permission to access location was denied',
       });
@@ -200,6 +205,7 @@ export default class MapScreen extends React.Component {
             zIndex: 1,
           }}>
           <Hamburger navigation={this.props.navigation} />
+          {/* Display search bar */}
           <SearchBar
             style={{ flex: 1 }}
             onPress={() =>
@@ -219,6 +225,7 @@ export default class MapScreen extends React.Component {
             </Subhead>
           </SearchBar>
         </NavHeaderContainer>
+        <CenterLocation callBack={() => this._findCurrentLocationAsync()} />
         {/* Display Map */}
         <MapView
           style={{
@@ -229,7 +236,6 @@ export default class MapScreen extends React.Component {
           }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
-          {/* Display search bar */}
           {/* Display store markers */}
           {this.state.stores.map(store => (
             <Marker
