@@ -1,13 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Platform } from 'react-native';
 import NewsDetailsScreen from '../../screens/news/NewsDetailsScreen';
 import NewsScreen from '../../screens/news/NewsScreen';
-
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
+import config from '../AppNavigator';
 
 const NewsStack = createStackNavigator();
 

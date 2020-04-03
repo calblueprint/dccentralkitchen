@@ -57,6 +57,3 @@ export default class WelcomeScreen extends React.Component {
     );
   }
 }
-WelcomeScreen.navigationOptions = {
-  headerShown: false,
-};

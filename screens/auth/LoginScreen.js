@@ -172,7 +172,7 @@ export default class Login extends React.Component {
         </FormContainer>
         <JustifyCenterContainer>
           <FilledButtonContainer
-            style={{ marginTop: 104 }}
+            style={{ alignSelf: 'flex-end' }}
             width="100%"
             onPress={() => this.handleSubmit()}>
             <ButtonLabel color="#fff">Log in</ButtonLabel>
@@ -191,6 +191,3 @@ export default class Login extends React.Component {
     );
   }
 }
-Login.navigationOptions = {
-  headerShown: false,
-};

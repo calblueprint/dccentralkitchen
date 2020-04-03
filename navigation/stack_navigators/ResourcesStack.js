@@ -1,12 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Platform } from 'react-native';
 import ResourcesScreen from '../../screens/resources/ResourcesScreen';
-
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
+import config from '../AppNavigator';
 
 const ResourcesStack = createStackNavigator();
 

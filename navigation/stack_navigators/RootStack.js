@@ -1,13 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Platform } from 'react-native';
 import RewardsScreen from '../../screens/rewards/RewardsScreen';
+import config from '../AppNavigator';
 import MyStoresStack from './StoresStack';
-
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
 
 const RootStack = createStackNavigator();
 

@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, Linking, Platform, TouchableOpacity, View } from 'react-native';
 import { DrawerItems } from 'react-navigation-drawer';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -14,6 +14,13 @@ import RewardsScreen from '../screens/rewards/RewardsScreen';
 import MyResourcesStack from './stack_navigators/ResourcesStack';
 import MyRootStack from './stack_navigators/RootStack';
 import MyStoresStack from './stack_navigators/StoresStack';
+
+export const config = Platform.select({
+  web: { headerMode: 'screen' },
+  default: {
+    headerMode: 'none',
+  },
+});
 
 const AuthStack = createStackNavigator();
 
@@ -46,10 +53,10 @@ class AuthLoadingScreen extends React.Component {
     // screen will be unmounted and thrown away.
 
     // Correct version
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Testing purpose
-    this.props.navigation.navigate('Auth');
+    // Auth testing purpose
+    // this.props.navigation.navigate('Auth');
   };
 
   // Render any loading content that you like here

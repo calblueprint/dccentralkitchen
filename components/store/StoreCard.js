@@ -13,8 +13,9 @@ import {
   DividerBar,
   EBTStatusBar,
   StoreCardContainer,
+  StoreDetailText,
 } from '../../styled/store';
-import { Body, Caption, Title } from '../BaseComponents';
+import { Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
@@ -40,7 +41,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
   };
 
   return (
-    <StoreCardContainer>
+    <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
         <RowContainer>
           <Title
@@ -68,19 +69,19 @@ export default function StoreCard({ store, callBack, seeProduct }) {
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
         {distance} miles away
       </Caption>
-      {rewards && (
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="star"
-            solid
-            size={16}
-            color={Colors.primaryGreen}
-          />
-          <Body color={Colors.primaryGreen}>
-            Earn and redeem Healthy Rewards here
-          </Body>
-        </InLineContainer>
-      )}
+      <InLineContainer style={{ alignItems: 'center' }}>
+        <FontAwesome5
+          name="star"
+          solid
+          size={16}
+          color={rewards ? Colors.primaryGreen : Colors.secondaryText}
+        />
+        <StoreDetailText greenText={rewards}>
+          {rewards
+            ? 'Earn and redeem Healthy Rewards here'
+            : 'Healthy Rewards not accepted'}
+        </StoreDetailText>
+      </InLineContainer>
       <TouchableOpacity
         onPress={openDirections}
         onLongPress={writeAddressToClipboard}>
@@ -90,7 +91,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
             size={16}
             color={Colors.secondaryText}
           />
-          <Body color={Colors.secondaryText}> {address}</Body>
+          <StoreDetailText>{address}</StoreDetailText>
         </InLineContainer>
       </TouchableOpacity>
       <InLineContainer style={{ alignItems: 'center' }}>
@@ -100,7 +101,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
           size={16}
           color={Colors.secondaryText}
         />
-        <Body color={Colors.secondaryText}> {hours}</Body>
+        <StoreDetailText>{hours}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>

@@ -10,7 +10,7 @@ export const AuthScreenContainer = styled.View`
   display: flex
   flex-direction: column;
   justify-content: space-between;
-  margin: 80px 42px 0 42px;
+  margin: 50px 42px 0 42px;
   background-color: ${Colors.lightest};
 `;
 
@@ -51,11 +51,11 @@ export const ErrorMsg = styled.Text`
 `;
 
 export const TextFieldContainer = styled.View`
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 `;
 
 export const FormContainer = styled.View`
-  margin-top: 32px;
+  margin-top: 16px;
 `;
 
 // TODO @tommypoa Check if Text Input can take in Text component from BaseComponents
@@ -68,6 +68,7 @@ export const TextField = styled.TextInput`
   border-bottom-color: ${props => props.borderColor || Colors.activeText};
   border-bottom-width: 2px;
 `;
+
 export const BackButton = styled(NavButton)`
   position: relative;
   top: 0;

@@ -3,8 +3,7 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { AsyncStorage, Button, Keyboard, ScrollView } from 'react-native';
 import validatejs from 'validate.js';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -318,7 +317,7 @@ export default class SignUp extends React.Component {
             />
           </FormContainer>
           <FilledButtonContainer
-            style={{ marginTop: 35 }}
+            style={{ alignSelf: 'flex-end' }}
             color={
               this.state.signUpPermission
                 ? Colors.primaryGreen
@@ -400,7 +399,4 @@ const validation = {
     //   message: "Must contain at least one digit, one lowercase number, and special chracter"
     // }
   },
-};
-SignUp.navigationOptions = {
-  headerShown: false,
 };

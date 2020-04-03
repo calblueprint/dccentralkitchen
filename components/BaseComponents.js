@@ -1,3 +1,6 @@
+import React from 'react';
+import { View } from 'react-native';
+import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
@@ -113,23 +116,40 @@ export const NavButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const NavHeaderContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding-top: 60px;
-  padding-bottom: 4px;
-  min-height: 106px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: ${props => (props.withMargin ? '16px' : '0px')};
-  background-color: ${props =>
-    props.backgroundColor ? props.backgroundColor : Colors.lightest};
-`;
+export function NavHeaderContainer({
+  backgroundColor,
+  withMargin,
+  children,
+  vertical,
+  noShadow,
+}) {
+  const topInset = useSafeArea().top;
+  return (
+    <View
+      style={{
+        display: 'flex',
+        flexDirection: vertical ? 'column' : 'row',
+        alignItems: vertical ? 'flex-start' : 'center',
+        justifyContent: 'center',
+        paddingTop: 16 + topInset,
+        paddingBottom: 4,
+        minHeight: 62 + topInset,
+        marginBottom: withMargin ? 16 : 0,
+        backgroundColor: backgroundColor || Colors.lightest,
+        shadowColor: noShadow ? 'rgba(0,0,0,0)' : '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      }}>
+      {children}
+    </View>
+  );
+}
 
 export const NavTitle = styled(Title)`
   flex: 1;
-  margin-right: 52px;
+  margin-left: 8px;
+  margin-right: 50px;
   flex-wrap: wrap;
   text-align: center;
   color: ${props => (props.color ? props.color : Colors.activeText)};

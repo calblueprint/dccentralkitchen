@@ -1,15 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Platform } from 'react-native';
 import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
 import StoreListScreen from '../../screens/map/StoreListScreen';
-
-const config = Platform.select({
-  web: { headerMode: 'screen' },
-  default: {},
-});
+import config from '../AppNavigator';
 
 const StoresStack = createStackNavigator();
 
