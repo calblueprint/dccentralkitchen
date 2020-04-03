@@ -6,7 +6,6 @@ import Colors from '../constants/Colors';
 
 export const TextButton = styled.Text`
   font-family: poppins-regular;
-  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
   display: flex;

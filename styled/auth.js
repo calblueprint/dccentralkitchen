@@ -62,7 +62,6 @@ export const FormContainer = styled.View`
 export const TextField = styled.TextInput`
   font-family: poppins-regular;
   font-size: 18px;
-  font-weight: 500;
   width: 100%;
   height: 36px;
   border-bottom-color: ${props => props.borderColor || Colors.activeText};
