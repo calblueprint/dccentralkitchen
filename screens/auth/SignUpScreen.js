@@ -145,18 +145,13 @@ export default class SignUpScreen extends React.Component {
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
-        this.setState(
-          prevState => ({
-            errors: {
-              ...prevState.errors,
-              submit: 'Phone number already in use.',
-            },
-            processing: false,
-          }),
-          () => {
-            console.log(this.state);
-          }
-        );
+        this.setState(prevState => ({
+          errors: {
+            ...prevState.errors,
+            [signUpFields.PHONENUM]: 'Phone number already in use.',
+          },
+          processing: false,
+        }));
         return;
       }
       // Otherwise, add customer to Airtable
