@@ -11,7 +11,7 @@ export const AuthScreenContainer = styled.View`
   flex-direction: column;
   justify-content: space-between;
   margin: 80px 42px 0 42px;
-  background-color: #fff;
+  background-color: ${Colors.lightest};
 `;
 
 // WelcomeScreen
@@ -20,7 +20,7 @@ export const WelcomeContainer = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: ${Colors.lightest};
   margin: 241px 42px;
 `;
 

@@ -1,0 +1,29 @@
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { Platform } from 'react-native';
+import MapScreen from '../../screens/map/MapScreen';
+import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
+import ProductsScreen from '../../screens/map/ProductsScreen';
+import StoreListScreen from '../../screens/map/StoreListScreen';
+
+const config = Platform.select({
+  web: { headerMode: 'screen' },
+  default: {},
+});
+
+const StoresStack = createStackNavigator();
+
+export default function MyStoresStack() {
+  return (
+    <StoresStack.Navigator
+      screenOptions={{ drawerLabel: 'Stores', headerShown: false, config }}>
+      <StoresStack.Screen name="Stores" component={MapScreen} />
+      <StoresStack.Screen name="StoreList" component={StoreListScreen} />
+      <StoresStack.Screen name="Products" component={ProductsScreen} />
+      <StoresStack.Screen
+        name="ProductDetails"
+        component={ProductDetailsScreen}
+      />
+    </StoresStack.Navigator>
+  );
+}

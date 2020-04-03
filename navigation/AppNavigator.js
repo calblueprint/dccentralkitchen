@@ -1,8 +1,9 @@
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
-import { createStackNavigator } from 'react-navigation-stack';
+import { DrawerItems } from 'react-navigation-drawer';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getUser } from '../lib/rewardsUtils';
@@ -10,14 +11,27 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
-import { ResourcesStack, RootStack, StoresStack } from './StackNavigators';
+import MyResourcesStack from './stack_navigators/ResourcesStack';
+import MyRootStack from './stack_navigators/RootStack';
+import MyStoresStack from './stack_navigators/StoresStack';
 
-const AuthStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-  Login: LoginScreen,
-  SignUp: SignUpScreen,
-});
+const AuthStack = createStackNavigator();
 
+function MyAuthStack() {
+  return (
+    <AuthStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: Colors.lightest },
+      }}>
+      <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
+      <AuthStack.Screen name="SignUp" component={SignUpScreen} />
+      <AuthStack.Screen name="Login" component={LoginScreen} />
+    </AuthStack.Navigator>
+  );
+}
+
+// TODO: combine with AuthLoading?
 class AuthLoadingScreen extends React.Component {
   constructor() {
     super();
@@ -55,6 +69,7 @@ export class DrawerContent extends React.Component {
       link: 'http://tiny.cc/RewardsFeedback',
     };
   }
+
   async componentDidMount() {
     const userId = await AsyncStorage.getItem('userId');
     getUser(userId).then(userRecord => {
@@ -118,62 +133,59 @@ export class DrawerContent extends React.Component {
   }
 }
 
-const MyDrawerNavigator = createDrawerNavigator(
-  {
-    Root: {
-      screen: RootStack,
-      navigationOptions: () => ({
-        title: 'Root',
-        drawerLabel: () => null,
-      }),
-    },
-    Stores: {
-      screen: StoresStack,
-      navigationOptions: () => ({
-        title: 'Stores',
-      }),
-    },
-    Rewards: {
-      screen: props => <RewardsScreen {...props} tab={1} />,
-      navigationOptions: () => ({
-        title: 'Points History',
-        drawerLockMode: 'locked-closed',
-      }),
-    },
-    Resources: {
-      screen: ResourcesStack,
-      navigationOptions: () => ({
-        title: 'Resources',
-      }),
-    },
-  },
+const Drawer = createDrawerNavigator();
 
-  {
-    contentOptions: {
-      labelStyle: {
-        fontFamily: 'poppins-medium',
-        fontSize: 20,
-      },
-      activeTintColor: Colors.primaryGreen,
-    },
-    drawerWidth: 189,
-    contentComponent: DrawerContent,
-  }
-);
+function MyDrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      contentOptions={{
+        labelStyle: {
+          fontFamily: 'poppins-medium',
+          fontSize: 20,
+        },
+        activeTintColor: Colors.primaryGreen,
+      }}
+      drawerWidth={189}
+      contentComponent={DrawerContent}>
+      <Drawer.Screen
+        name="Root"
+        component={MyRootStack}
+        options={{ title: 'Root', drawerLabel: () => null }}
+      />
+      <Drawer.Screen
+        name="Stores"
+        component={MyStoresStack}
+        options={{ title: 'Stores' }}
+      />
+      <Drawer.Screen
+        name="Rewards"
+        options={{ title: 'Your Profile', drawerLockMode: 'locked-closed' }}>
+        {props => <RewardsScreen {...props} tab={1} />}
+      </Drawer.Screen>
+      <Drawer.Screen
+        name="Resources"
+        component={MyResourcesStack}
+        options={{ title: 'Resources' }}
+      />
+    </Drawer.Navigator>
+  );
+}
 
-export default createAppContainer(
-  createSwitchNavigator(
-    // You could add another route here for authentication.
-    // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    {
-      AuthLoading: AuthLoadingScreen,
-      App: {
-        screen: MyDrawerNavigator,
-      },
-      Auth: AuthStack,
-    },
-    {
-      initialRouteName: 'AuthLoading',
-    }
-  )
-);
+const AppStack = createStackNavigator();
+
+export default function createAppContainer() {
+  return (
+    <NavigationContainer>
+      <AppStack.Navigator
+        initialRouteName="AuthLoading"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: Colors.lightest },
+        }}>
+        <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
+        <AppStack.Screen name="App" component={MyDrawerNavigator} />
+        <AppStack.Screen name="Auth" component={MyAuthStack} />
+      </AppStack.Navigator>
+    </NavigationContainer>
+  );
+}

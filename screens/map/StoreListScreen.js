@@ -16,7 +16,7 @@ import { CancelButton, StoreListContainer, styles } from '../../styled/store';
 export default class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
-    const { stores, navigation } = this.props.navigation.state.params;
+    const { navigation, stores } = this.props.route.params;
     this.state = {
       allStores: stores,
       navigation,
