@@ -45,6 +45,7 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
+      defaultStore: false,
     };
   }
 
@@ -125,13 +126,14 @@ export default class MapScreen extends React.Component {
       return a.distance - b.distance;
     });
     this.setState({ stores: sortedStores, store: sortedStores[0] });
-    if (sortedStores[0].distance > 100) {
+    if (this.state.locationErrorMsg || sortedStores[0].distance > 100) {
       await this.changeCurrentStore(
         stores.find(store => {
           return store.id === defaultStoreId;
         }),
         true
       );
+      this.setState({ defaultStore: true });
     } else {
       await this._populateStoreProducts(sortedStores[0]);
     }
@@ -204,6 +206,7 @@ export default class MapScreen extends React.Component {
               this.props.navigation.navigate('StoreList', {
                 stores: this.state.stores,
                 navigation: this.props.navigation,
+                defaultStore: this.state.defaultStore,
               })
             }>
             <FontAwesome5

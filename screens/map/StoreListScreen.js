@@ -16,12 +16,17 @@ import { CancelButton, styles } from '../../styled/store';
 export default class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
-    const { stores, navigation } = this.props.navigation.state.params;
+    const {
+      stores,
+      navigation,
+      defaultStore,
+    } = this.props.navigation.state.params;
     this.state = {
       allStores: stores,
       navigation,
       searchStr: '',
       filteredStores: stores,
+      defaultStore,
     };
   }
 
@@ -99,6 +104,7 @@ export default class StoreListScreen extends React.Component {
               store={item}
               callBack={() => this.storeDetailsTransition(item)}
               seeProduct
+              seeDistance={!this.state.defaultStore}
             />
           )}
           keyExtractor={item => item.id}
