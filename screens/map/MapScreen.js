@@ -4,19 +4,14 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import {
-  Dimensions,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { Subhead } from '../../components/BaseComponents';
+import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -25,8 +20,14 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const { width, height } = Dimensions.get('window'); // full width
-const maxSnapPoint = (((377 - 180) / (height - 180)) * 100).toString(); // 377 as height of BottomSheet (380 works better), 180 as marginBottom of BottomSheet
+// 448: height of BottomSheet from bottom
+// 240: bottomMargin of BottomSheet
+// 0.75: px to pt converter
+const maxSnapPoint = (
+  ((448 - 240) / (Window.height - 240)) *
+  0.75 *
+  100
+).toString();
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -148,7 +149,9 @@ export default class MapScreen extends React.Component {
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Subhead color={Colors.secondaryText}>
+        <Subhead
+          style={{ margin: 16, marginBottom: 0 }}
+          color={Colors.secondaryText}>
           Browsing healthy products at
         </Subhead>
         <StoreProducts
@@ -185,15 +188,16 @@ export default class MapScreen extends React.Component {
       return <View />;
     }
     return (
-      <SafeAreaView style={{ ...StyleSheet.absoluteFillObject }}>
-        {/* Display Map */}
-        <MapView
-          style={{ flex: 100 }}
-          region={this.state.region}
-          onRegionChangeComplete={this.onRegionChangeComplete}>
-          {/* Display search bar */}
+      <View style={StyleSheet.absoluteFillObject}>
+        <NavHeaderContainer
+          noShadow
+          backgroundColor="rgba(0,0,0,0)"
+          style={{
+            zIndex: 1,
+          }}>
           <Hamburger navigation={this.props.navigation} />
           <SearchBar
+            style={{ flex: 1 }}
             onPress={() =>
               this.props.navigation.navigate('StoreList', {
                 stores: this.state.stores,
@@ -205,8 +209,22 @@ export default class MapScreen extends React.Component {
               size={16}
               color={Colors.primaryOrange}
             />
-            <Subhead color={Colors.secondaryText}> Find a store</Subhead>
+            <Subhead color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+              Find a store
+            </Subhead>
           </SearchBar>
+        </NavHeaderContainer>
+        {/* Display Map */}
+        <MapView
+          style={{
+            marginTop: -130,
+            flex: 100,
+            overflow: 'visible',
+            zIndex: -1,
+          }}
+          region={this.state.region}
+          onRegionChangeComplete={this.onRegionChangeComplete}>
+          {/* Display search bar */}
           {/* Display store markers */}
           {this.state.stores.map(store => (
             <Marker
@@ -234,14 +252,14 @@ export default class MapScreen extends React.Component {
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-        <View style={{ flex: 1, marginBottom: 180 }}>
+        <View style={{ flex: 1, marginBottom: 240 }}>
           <BottomSheet
-            initialSnap={1}
+            initialSnap={0}
             enabledInnerScrolling={false}
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={[maxSnapPoint, '10%']}
+            snapPoints={[maxSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
@@ -250,11 +268,11 @@ export default class MapScreen extends React.Component {
         <TouchableOpacity
           style={{
             position: 'absolute',
-            height: 77,
+            height: 70,
             bottom: 0,
             backgroundColor: Colors.primaryGreen,
             alignSelf: 'stretch',
-            width,
+            width: Window.width,
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -263,7 +281,7 @@ export default class MapScreen extends React.Component {
             <Subhead color="#fff"> Your Rewards </Subhead>
           </View>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     );
   }
 }
