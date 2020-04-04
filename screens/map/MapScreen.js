@@ -269,6 +269,7 @@ export default class MapScreen extends React.Component {
             width: Window.width,
             alignItems: 'center',
             justifyContent: 'center',
+            zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
