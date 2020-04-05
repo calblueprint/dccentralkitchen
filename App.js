@@ -4,7 +4,7 @@ import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from 'sentry-expo';
 import AppNavigator from './navigation/AppNavigator';
 
 Sentry.init({
@@ -14,6 +14,7 @@ Sentry.init({
 });
 
 // from https://forum.sentry.io/t/set-release-after-init/6759/2
+// may be able to turn this code block off in production
 setTimeout(async () => {
   Sentry.configureScope((scope) => {
     scope.addEventProcessor((event) => {

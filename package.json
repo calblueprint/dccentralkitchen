@@ -82,6 +82,7 @@
     "react-navigation-tabs": "^2.7.0",
     "react-phone-number-input": "^2.3.24",
     "reanimated-bottom-sheet": "^1.0.0-alpha.15",
+    "sentry-expo": "^2.0.3",
     "styled-components": "^5.0.1",
     "validate.js": "^0.13.1"
   },
