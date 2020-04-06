@@ -3,6 +3,7 @@ import React from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import {
   AvailableRewardsContainer,
   RewardsProgressContainer,
@@ -14,15 +15,17 @@ import RewardsCard from './RewardsCard';
  * @prop
  * */
 
-function createList(N) {
+function createList(n) {
   const list = [];
-  for (let i = 1; i <= N; i++) {
+  for (let i = 1; i <= n; i += 1) {
     list.push(i);
   }
   return list;
 }
 
-function RewardsHome({ user }) {
+function RewardsHome({ customer }) {
+  const rewardsAvailable = parseInt(customer.points, 10) / rewardPointValue;
+  const pointsToNext = parseInt(customer.points, 10) % rewardPointValue;
   return (
     <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
       <RewardsProgressContainer>
@@ -30,7 +33,7 @@ function RewardsHome({ user }) {
           Reward Progress
         </Overline>
         <Title style={{ marginBottom: 2 }}>
-          {parseInt(user.points) % 1000} / 1000
+          {`${pointsToNext} / ${rewardPointValue}`}
         </Title>
         <ProgressBar
           style={{
@@ -39,20 +42,20 @@ function RewardsHome({ user }) {
             borderRadius: 20,
             marginBottom: 15,
           }}
-          progress={(parseInt(user.points) % 1000) / 1000}
+          progress={pointsToNext / rewardPointValue}
           color={Colors.primaryGreen}
         />
         <Body style={{ marginBottom: 28 }}>
-          Earn {`${1000 - (parseInt(user.points) % 1000)}`} points to unlock
-          your next $5 reward.
+          {`Earn ${rewardPointValue -
+            pointsToNext} points to unlock your next $${rewardDollarValue} reward`}
         </Body>
         <Overline style={{ marginBottom: 8 }}>
-          Available Rewards ({Math.floor(parseInt(user.points) / 1000)})
+          {`Available Rewards (${Math.floor(rewardsAvailable)})`}
         </Overline>
       </RewardsProgressContainer>
       <AvailableRewardsContainer>
         <FlatList
-          data={createList(Math.floor(parseInt(user.points) / 1000))}
+          data={createList(Math.floor(rewardsAvailable))}
           renderItem={() => <RewardsCard />}
           keyExtractor={(item, index) => index.toString()}
           numColumns={2}
