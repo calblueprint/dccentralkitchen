@@ -20,14 +20,8 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-// 448: height of BottomSheet from bottom
-// 240: bottomMargin of BottomSheet
-// 0.75: px to pt converter
-const maxSnapPoint = (
-  ((448 - 240) / (Window.height - 240)) *
-  0.75 *
-  100
-).toString();
+const minSnapPoint = 300;
+const maxSnapPoint = 460;
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -252,14 +246,14 @@ export default class MapScreen extends React.Component {
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-        <View style={{ flex: 1, marginBottom: 240 }}>
+        <View style={{ flex: 1, marginBottom: 20 }}>
           <BottomSheet
-            initialSnap={0}
+            initialSnap={1}
             enabledInnerScrolling={false}
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={[maxSnapPoint]}
+            snapPoints={[maxSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}

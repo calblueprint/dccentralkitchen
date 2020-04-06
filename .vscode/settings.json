@@ -17,8 +17,8 @@
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.fixAll.eslint": true
+    "source.organizeImports": false,
+    "source.fixAll.eslint": false
   },
   "javascript.suggest.completeFunctionCalls": true,
   "javascript.implicitProjectConfig.checkJs": true
