@@ -28,8 +28,7 @@ export const WelcomeTitleContainer = styled.View`
 
 export const WelcomeLogInContainer = styled.View`
   width: 100%
-  margin: 16px 0;
-  padding: 0 20px;
+  margin-top: 16px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
