@@ -1,12 +1,15 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
-import { DrawerItems } from 'react-navigation-drawer';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getUser } from '../lib/rewardsUtils';
+import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';
@@ -29,33 +32,6 @@ function MyAuthStack() {
       <AuthStack.Screen name="Login" component={LoginScreen} />
     </AuthStack.Navigator>
   );
-}
-
-// TODO: combine with AuthLoading?
-class AuthLoadingScreen extends React.Component {
-  constructor() {
-    super();
-    this._bootstrapAsync();
-  }
-
-  // Fetch the token from storage then navigate to our appropriate place
-  _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userId');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-
-    // Correct version
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-
-    // Auth testing purpose
-    // this.props.navigation.navigate('Auth');
-  };
-
-  // Render any loading content that you like here
-  render() {
-    return null;
-  }
 }
 
 class DrawerContent extends React.Component {
@@ -107,9 +83,15 @@ class DrawerContent extends React.Component {
             alignItems: 'flex-end',
             padding: 16,
           }}>
-          <Title style={{ color: 'white' }}>{this.state.user.name}</Title>
+          <Title
+            style={{ color: 'white' }}
+            onPress={(): void => {
+              this.props.navigation.navigate('Stores');
+            }}>
+            {this.state.user.name}
+          </Title>
         </View>
-        <DrawerItems {...this.props} />
+        <DrawerItemList {...this.props} />
         <View
           style={{
             flex: 1,
@@ -148,6 +130,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawerNavigator() {
   return (
     <Drawer.Navigator
+      drawerContent={props => <DrawerContent {...props} />}
       drawerStyle={{ width: 189 }}
       drawerContentOptions={{
         labelStyle: {
@@ -156,10 +139,14 @@ function MyDrawerNavigator() {
         },
         activeTintColor: Colors.primaryGreen,
       }}>
+      {/* Temporarily removing this and moving RewardsOverlay to  */}
       <Drawer.Screen
         name="Root"
         component={MyRootStack}
-        options={{ title: 'Root', drawerLabel: () => null }}
+        options={{
+          title: 'Root',
+          drawerLabel: () => null,
+        }}
       />
       <Drawer.Screen
         name="Stores"
