@@ -13,7 +13,7 @@ const config = Platform.select({
 
 const ResourcesStack = createStackNavigator();
 
-export default function MyResourcesStack() {
+export default function ResourcesStackNavigator() {
   return (
     <ResourcesStack.Navigator
       screenOptions={{

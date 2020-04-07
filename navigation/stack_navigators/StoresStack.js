@@ -1,4 +1,7 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -6,6 +9,7 @@ import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
 import StoreListScreen from '../../screens/map/StoreListScreen';
+import RewardsScreen from '../../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -16,10 +20,11 @@ const config = Platform.select({
 
 const StoresStack = createStackNavigator();
 
-export default function MyStoresStack() {
+export default function StoresStackNavigator() {
   return (
     <StoresStack.Navigator
       screenOptions={{
+        cardOverlayEnabled: true,
         drawerLabel: 'Stores',
         headerShown: false,
         cardStyle: { backgroundColor: Colors.lightest },
@@ -31,6 +36,13 @@ export default function MyStoresStack() {
       <StoresStack.Screen
         name="ProductDetails"
         component={ProductDetailsScreen}
+      />
+      <StoresStack.Screen
+        name="RewardsOverlay"
+        component={RewardsScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+        }}
       />
     </StoresStack.Navigator>
   );

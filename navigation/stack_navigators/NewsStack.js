@@ -14,7 +14,7 @@ const config = Platform.select({
 
 const NewsStack = createStackNavigator();
 
-export default function MyNewsStack() {
+export default function NewsStackNavigator() {
   return (
     <NewsStack.Navigator
       screenOptions={{

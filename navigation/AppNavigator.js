@@ -14,13 +14,12 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 import WelcomeScreen from '../screens/auth/WelcomeScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
-import MyResourcesStack from './stack_navigators/ResourcesStack';
-import MyRootStack from './stack_navigators/RootStack';
-import MyStoresStack from './stack_navigators/StoresStack';
+import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
+import StoresStackNavigator from './stack_navigators/StoresStack';
 
 const AuthStack = createStackNavigator();
 
-function MyAuthStack() {
+function AuthStackNavigator() {
   return (
     <AuthStack.Navigator
       screenOptions={{
@@ -83,13 +82,7 @@ class DrawerContent extends React.Component {
             alignItems: 'flex-end',
             padding: 16,
           }}>
-          <Title
-            style={{ color: 'white' }}
-            onPress={(): void => {
-              this.props.navigation.navigate('Stores');
-            }}>
-            {this.state.user.name}
-          </Title>
+          <Title style={{ color: 'white' }}>{this.state.user.name}</Title>
         </View>
         <DrawerItemList {...this.props} />
         <View
@@ -117,17 +110,7 @@ class DrawerContent extends React.Component {
 
 const Drawer = createDrawerNavigator();
 
-// drawerContentOptions={{
-//   labelStyle: {
-//     fontFamily: 'poppins-medium',
-//     fontSize: 20,
-//   },
-//   activeTintColor: Colors.primaryGreen,
-// }}
-// drawerStyle={{ width: 189 }}
-// drawerContent={DrawerContent}
-
-function MyDrawerNavigator() {
+function DrawerNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={props => <DrawerContent {...props} />}
@@ -139,18 +122,9 @@ function MyDrawerNavigator() {
         },
         activeTintColor: Colors.primaryGreen,
       }}>
-      {/* Temporarily removing this and moving RewardsOverlay to  */}
-      <Drawer.Screen
-        name="Root"
-        component={MyRootStack}
-        options={{
-          title: 'Root',
-          drawerLabel: () => null,
-        }}
-      />
       <Drawer.Screen
         name="Stores"
-        component={MyStoresStack}
+        component={StoresStackNavigator}
         options={{ title: 'Stores' }}
       />
       <Drawer.Screen
@@ -160,7 +134,7 @@ function MyDrawerNavigator() {
       </Drawer.Screen>
       <Drawer.Screen
         name="Resources"
-        component={MyResourcesStack}
+        component={ResourcesStackNavigator}
         options={{ title: 'Resources' }}
       />
     </Drawer.Navigator>
@@ -179,8 +153,8 @@ export default function createAppContainer() {
           cardStyle: { backgroundColor: Colors.lightest },
         }}>
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
-        <AppStack.Screen name="App" component={MyDrawerNavigator} />
-        <AppStack.Screen name="Auth" component={MyAuthStack} />
+        <AppStack.Screen name="App" component={DrawerNavigator} />
+        <AppStack.Screen name="Auth" component={AuthStackNavigator} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
