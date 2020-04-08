@@ -22,7 +22,12 @@ import StoreProductButton from './StoreProductButton';
  * @prop
  * */
 
-export default function StoreCard({ store, callBack, seeProduct }) {
+export default function StoreCard({
+  store,
+  callBack,
+  seeProduct,
+  seeDistance,
+}) {
   const {
     storeName,
     storeHours,
@@ -75,9 +80,12 @@ export default function StoreCard({ store, callBack, seeProduct }) {
         </RowContainer>
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
-      <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
-        {`${distance} miles away`}
-      </Caption>
+      {seeDistance && (
+        <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
+          {`${distance} miles away`}
+        </Caption>
+      )}
+
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="star"
