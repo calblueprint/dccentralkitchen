@@ -1,38 +1,21 @@
-import { Notifications } from 'expo';
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Text, TextInput, View } from 'react-native';
-import Colors from '../../assets/Colors';
 import {
   BigTitle,
   Body,
-  ButtonLabel,
   ButtonContainer,
-  FilledButtonContainer
+  ButtonLabel,
+  FilledButtonContainer,
 } from '../../components/BaseComponents';
+import Colors from '../../constants/Colors';
 import {
   WelcomeContainer,
+  WelcomeLogInContainer,
   WelcomeTitleContainer,
-  WelcomeLoginContainer
 } from '../../styled/auth';
 
-export default class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      phoneNumber: '',
-      password: '',
-      errorMsg: '',
-      token: null
-    };
-  }
-
-  componentDidMount() {}
-
-  navigateLogin() {
-    this.props.navigation.navigate('Login');
+export default class WelcomeScreen extends React.Component {
+  navigateLogIn() {
+    this.props.navigation.navigate('LogIn');
   }
 
   navigateSignup() {
@@ -51,12 +34,12 @@ export default class Welcome extends React.Component {
           onPress={() => this.navigateSignup()}>
           <ButtonLabel color="white">Sign up</ButtonLabel>
         </FilledButtonContainer>
-        <WelcomeLoginContainer>
+        <WelcomeLogInContainer>
           <Body color={Colors.secondaryText}>Already have an account?</Body>
-          <ButtonContainer onPress={() => this.navigateLogin()}>
-            <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
+          <ButtonContainer onPress={() => this.navigateLogIn()}>
+            <ButtonLabel color={Colors.primaryGreen}>Log In</ButtonLabel>
           </ButtonContainer>
-        </WelcomeLoginContainer>
+        </WelcomeLogInContainer>
       </WelcomeContainer>
     );
   }

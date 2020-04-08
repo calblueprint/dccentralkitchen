@@ -1,41 +1,23 @@
 import styled from 'styled-components/native';
-import { PoppinsText } from './shared';
+import Colors from '../constants/Colors';
 
-export const Card = styled.View`
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  border-style: solid;
-  border-radius: 4px;
+export const TransactionCard = styled.View`
   border-width: 1px;
-  border-color: grey;
-  padding: 20px;
-  margin: 2% 5%;
+  border-radius: 4px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.14);
+  border-color: ${Colors.lighter};
+  background-color: ${Colors.lightest};
+  margin: 8px 16px;
+  padding: 16px 8px;
   flex-direction: row;
-`;
-
-export const IconContainer = styled.View`
-  flex: 1;
-  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const ContentContainer = styled.View`
-  flex: 4;
   flex-direction: column;
-`;
-
-export const MainText = styled(PoppinsText)`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  color: rgba(0, 0, 0, 0.8);
-`;
-
-export const Overline = styled(PoppinsText)`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  color: #999999;
+  margin-left: 12px;
+  flex: 1;
+  justify-content: flex-start;
 `;

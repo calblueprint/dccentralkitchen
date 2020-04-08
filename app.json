@@ -23,7 +23,14 @@
       "buildNumber": "1.0.1",
       "supportsTablet": true,
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available."
+        "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
+        "LSApplicationQueriesSchemes": [
+          "comgooglemaps",
+          "citymapper",
+          "uber",
+          "lyft",
+          "waze"
+        ]
       }
     },
     "android": {

@@ -1,63 +1,81 @@
-import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
-
+import { createStackNavigator } from 'react-navigation-stack';
+// Auth
+import LogInScreen from '../screens/auth/LogInScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
+import WelcomeScreen from '../screens/auth/WelcomeScreen';
+// Map
 import MapScreen from '../screens/map/MapScreen';
-import RewardsScreen from '../screens/rewards/RewardsScreen';
-import ReceiptScanner from '../screens/rewards/Camera';
-
 import ProductDetailsScreen from '../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
-import NewsScreen from '../screens/news/NewsScreen';
+// News
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
+import NewsScreen from '../screens/news/NewsScreen';
+// Resources
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {}
+  default: {
+    headerMode: 'none',
+  },
 });
+
+export const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    LogIn: LogInScreen,
+    SignUp: SignUpScreen,
+  },
+  config
+);
 
 export const StoresStack = createStackNavigator(
   {
     Stores: MapScreen,
     StoreList: StoreListScreen,
     Products: ProductsScreen,
-    ProductDetails: ProductDetailsScreen
+    ProductDetails: ProductDetailsScreen,
   },
   config
 );
 
 StoresStack.navigationOptions = {
-  drawerLabel: 'Stores'
+  drawerLabel: 'Stores',
 };
 
-export const RewardsStack = createStackNavigator(
+export const RootStack = createStackNavigator(
   {
-    RewardsHome: RewardsScreen,
-    Camera: ReceiptScanner
+    MainStack: {
+      screen: StoresStack,
+    },
+    RewardsOverlay: {
+      screen: RewardsScreen,
+    },
   },
-  config
+  {
+    headerMode: 'none',
+    mode: 'modal',
+  }
 );
-
-RewardsStack.navigationOptions = {
-  drawerLabel: 'Points History'
-};
 
 export const NewsStack = createStackNavigator(
   {
     News: NewsScreen,
-    NewsDetails: NewsDetailsScreen
+    NewsDetails: NewsDetailsScreen,
   },
   config
 );
 
 NewsStack.navigationOptions = {
-  drawerLabel: 'News'
+  drawerLabel: 'News',
 };
 
 export const ResourcesStack = createStackNavigator(
   {
-    Resources: ResourcesScreen
+    Resources: ResourcesScreen,
   },
   config
 );

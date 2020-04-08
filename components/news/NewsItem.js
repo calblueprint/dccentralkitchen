@@ -5,7 +5,7 @@ import {
   ContentContainer,
   ContentText,
   DateContainer,
-  DateText
+  DateText,
 } from '../../styled/news';
 
 class NewsItem extends React.Component {
@@ -24,12 +24,12 @@ class NewsItem extends React.Component {
       <TouchableOpacity
         onPress={() =>
           this.props.navigation.navigate('NewsDetails', {
-            currentNewsItem: this.props.newsItem
+            currentNewsItem: this.props.newsItem,
           })
         }>
         <Card>
           <DateContainer>
-            <DateText>{this.props.newsItem.date.toDateString()}</DateText>
+            <DateText>{this.props.newsItem.postDate.toDateString()}</DateText>
           </DateContainer>
           <ContentContainer>
             <DateText>{this.props.newsItem.title}</DateText>

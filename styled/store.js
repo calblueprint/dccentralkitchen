@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
-import { Title, ButtonContainer } from '../components/BaseComponents';
-import Colors from '../assets/Colors';
+import styled from 'styled-components/native';
+import { Body, ButtonContainer } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};
@@ -26,36 +26,22 @@ export const BottomSheetHeaderContainer = styled.View`
 export const BottomSheetContainer = styled.View`
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
   background-color: #fff;
-  padding: 4%;
-`;
-
-export const StoreListContainer = styled.View`
-  padding: 0 4% 4% 4%;
-`;
-
-export const StoreListHeaderContainer = styled.View`
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  background-color: ${Colors.primaryOrange};
-  margin-bottom: 16px;
+  padding-bottom: 100px;
 `;
 
 export const StoreCardContainer = styled.View`
-  margin-bottom: 10px;
-  margin-top: 0px;
-`;
-
-export const StoreListTitle = styled(Title)`
-  text-align: center;
-  color: #fff;
-  margin-top: 45px;
+  margin: ${props =>
+    props.includeMargins ? '0 16px 10px 16px' : '0 0 10px 0'};
 `;
 
 export const SearchBar = styled(ButtonContainer)`
+  padding-top: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin: 20px 20%;
+  margin-right: 92px;
+  margin-left: 52px;
   padding-left: 12px;
   height: 40px;
   border-radius: 20px;
@@ -79,18 +65,31 @@ export const EBTStatusBar = styled.View`
   margin-left: 6px;
 `;
 
-// FlatList styles
+export const StoreDetailText = styled(Body)`
+  margin-left: 4px;
+  color: ${props =>
+    props.greenText ? Colors.primaryGreen : Colors.secondaryText};
+`;
+
+export const CancelButton = styled(ButtonContainer)`
+  position: absolute;
+  left: 12px;
+  height: 100%;
+  justify-content: center;
+`;
+
+// Search bar styles
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   container: {
     backgroundColor: 'rgba(255,0,0,0)',
     borderBottomColor: 'transparent',
-    borderTopColor: 'transparent'
+    borderTopColor: 'transparent',
   },
   input: {
-    fontFamily: 'poppins-regular'
-  }
+    fontFamily: 'poppins-regular',
+  },
 });

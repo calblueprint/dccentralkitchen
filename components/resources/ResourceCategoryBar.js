@@ -1,24 +1,21 @@
 import React from 'react';
-
-import {
-  CategoryCard,
-  CategoryIcon,
-  HeadingContainer
-} from '../../styled/resources';
+import Colors from '../../constants/Colors';
+import { CategoryCard, CategoryHeadingContainer } from '../../styled/resources';
 import { Title } from '../BaseComponents';
-import { FontAwesome5 } from '@expo/vector-icons';
+import CircleIcon from '../CircleIcon';
 
 class ResourceCategoryBar extends React.Component {
   render() {
     return (
       <CategoryCard>
-        <CategoryIcon>
-          <FontAwesome5 name={this.props.icon} size={20} solid color={'#fff'} />
-        </CategoryIcon>
-
-        <HeadingContainer>
+        <CircleIcon
+          icon={this.props.icon}
+          iconColor={Colors.lightest}
+          circleColor={Colors.lighterGreen}
+        />
+        <CategoryHeadingContainer>
           <Title>{this.props.title}</Title>
-        </HeadingContainer>
+        </CategoryHeadingContainer>
       </CategoryCard>
     );
   }

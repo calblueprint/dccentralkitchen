@@ -2,21 +2,24 @@ import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import Hamburger from '../../components/Hamburger';
 import NewsItem from '../../components/news/NewsItem';
-import getNewsItems from '../../lib/newsUtils';
+import { getNewsItems } from '../../lib/newsUtils';
 import { TopText } from '../../styled/news';
 
 class NewsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newsItems: []
+      newsItems: [],
     };
   }
 
   async componentDidMount() {
-    getNewsItems().then(newsItems => {
+    try {
+      const newsItems = await getNewsItems();
       this.setState({ newsItems });
-    });
+    } catch (err) {
+      console.error('[NewsScreen] Airtable:', err);
+    }
   }
 
   render() {
@@ -43,7 +46,7 @@ class NewsScreen extends React.Component {
 }
 
 NewsScreen.navigationOptions = {
-  header: null
+  header: null,
 };
 
 export default NewsScreen;
