@@ -1,11 +1,7 @@
 import React from 'react';
+import { TextField } from 'react-native-materialui-textfield';
 import Colors from '../constants/Colors';
-import { fieldStateColors } from '../lib/authUtils';
-import {
-  InputNoticeContainer,
-  TextField,
-  TextFieldContainer,
-} from '../styled/auth';
+import { TextFieldContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
 /**
@@ -14,42 +10,37 @@ import { Caption } from './BaseComponents';
 
 function AuthTextField({
   fieldType,
-  color,
   value,
-  onBlurCallback,
-  onFocusCallback,
   changeTextCallback,
+  error,
+  onBlurCallback = null,
 }) {
   return (
     <TextFieldContainer>
-      <Caption color={color}>{fieldType}</Caption>
       <TextField
-        onBlur={onBlurCallback}
-        onFocus={onFocusCallback}
-        autoCapitalize={'words'}
-        placeholder={fieldType}
+        onBlur={onBlurCallback ? () => onBlurCallback(value) : null}
+        autoCapitalize="words"
         autoCorrect={false}
+        label={fieldType}
+        labelTextStyle={{ fontFamily: 'poppins-regular' }}
+        lineWidth={1.75}
+        activeLineWidth={1.75}
         onChangeText={changeTextCallback}
         value={value}
-        borderColor={color}
-        returnKeyType={'done'}
+        baseColor={Colors.activeText}
+        tintColor={Colors.primaryGreen}
+        error={error}
+        errorColor={Colors.error}
+        returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
       />
-      <InputNoticeContainer>
-        {fieldType === 'Name' && (
-          <Caption color={Colors.secondaryText}>
-            Note: this is how clerks will greet you!
-          </Caption>
-        )}
-        {color === fieldStateColors.ERROR && fieldType === 'Phone Number' && (
-          <Caption color={color}>Must be a valid phone number</Caption>
-        )}
-        {color === fieldStateColors.ERROR && fieldType === 'Password' && (
-          <Caption color={color}>Must be 8-20 characters long</Caption>
-        )}
-      </InputNoticeContainer>
+      {fieldType === 'Name' && !error && (
+        <Caption color={Colors.activeText}>
+          Note: this is how clerks will greet you!
+        </Caption>
+      )}
     </TextFieldContainer>
   );
 }

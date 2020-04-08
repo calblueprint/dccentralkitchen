@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import { displayDollarValue } from '../../lib/common';
-import { Card, ContentContainer } from '../../styled/transaction';
+import { ContentContainer, TransactionCard } from '../../styled/transaction';
 import { Caption, Subhead } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
@@ -19,7 +19,7 @@ function Transaction(props) {
     day: 'numeric',
   };
   return (
-    <Card>
+    <TransactionCard>
       <CircleIcon
         icon="check"
         iconColor={Colors.primaryGreen}
@@ -27,14 +27,14 @@ function Transaction(props) {
       />
       <ContentContainer>
         <Caption color={Colors.secondaryText}>
-          {`${date.toLocaleDateString('en-US', options)} •${storeName}`}
+          {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
         </Caption>
         <Subhead>{`${pointsEarned} points earned`}</Subhead>
         <Caption color={Colors.secondaryText}>
           {`for ${displayDollarValue(totalSale || 0)} of healthy products`}
         </Caption>
       </ContentContainer>
-    </Card>
+    </TransactionCard>
   );
 }
 

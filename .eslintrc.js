@@ -47,7 +47,6 @@ module.exports = {
     'valid-typeof': 'warn',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': ['error'],
-    'react/forbid-prop-types': ['on', { forbid: ['any'] }],
-    'react/destructuring-assignment': ['enabled', 'never'],
+    'react/destructuring-assignment': 'off',
   },
 };

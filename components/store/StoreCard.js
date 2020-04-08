@@ -1,20 +1,22 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, Clipboard, TouchableOpacity } from 'react-native';
+import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 import Colors from '../../constants/Colors';
+import { getMaxWidth } from '../../lib/mapUtils';
 import {
   InLineContainer,
-  SpaceAroundRowContainer,
+  RowContainer,
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import {
   DividerBar,
   EBTStatusBar,
   StoreCardContainer,
+  StoreDetailText,
 } from '../../styled/store';
-import { Body, Caption, Title } from '../BaseComponents';
+import { Caption, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
@@ -22,7 +24,16 @@ import StoreProductButton from './StoreProductButton';
  * */
 
 export default function StoreCard({ store, callBack, seeProduct }) {
-  const { name, hours, address, distance, ebt, rewards, lat, long } = store;
+  const {
+    storeName,
+    storeHours,
+    address,
+    distance,
+    snapOrEbtAccepted,
+    rewardsAccepted,
+    latitude,
+    longitude,
+  } = store;
 
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
@@ -31,44 +42,56 @@ export default function StoreCard({ store, callBack, seeProduct }) {
 
   const openDirections = () => {
     showLocation({
-      latitude: lat,
-      longitude: long,
-      title: name,
+      latitude,
+      longitude,
+      title: storeName,
       googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
       alwaysIncludeGoogle: true,
     });
   };
 
   return (
-    <StoreCardContainer>
+    <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
-        <SpaceAroundRowContainer>
-          <Title color={Colors.activeText}>{name}</Title>
-          {ebt && (
+        <RowContainer>
+          <Title
+            color={Colors.activeText}
+            style={{
+              maxWidth: getMaxWidth(
+                Dimensions.get('window').width,
+                snapOrEbtAccepted,
+                seeProduct
+              ),
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail">
+            {storeName}
+          </Title>
+          {snapOrEbtAccepted && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
               <Caption color={Colors.darkerGreen}> EBT</Caption>
             </EBTStatusBar>
           )}
-        </SpaceAroundRowContainer>
+        </RowContainer>
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
       <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
-        {distance} miles away
+        {`${distance} miles away`}
       </Caption>
-      {rewards && (
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="star"
-            solid
-            size={16}
-            color={Colors.primaryGreen}
-          />
-          <Body color={Colors.primaryGreen}>
-            Earn and redeem Healthy Rewards here
-          </Body>
-        </InLineContainer>
-      )}
+      <InLineContainer style={{ alignItems: 'center' }}>
+        <FontAwesome5
+          name="star"
+          solid
+          size={16}
+          color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
+        />
+        <StoreDetailText greenText={rewardsAccepted}>
+          {rewardsAccepted
+            ? 'Earn and redeem Healthy Rewards here'
+            : 'Healthy Rewards not accepted'}
+        </StoreDetailText>
+      </InLineContainer>
       <TouchableOpacity
         onPress={openDirections}
         onLongPress={writeAddressToClipboard}>
@@ -78,7 +101,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
             size={16}
             color={Colors.secondaryText}
           />
-          <Body color={Colors.secondaryText}> {address}</Body>
+          <StoreDetailText>{address}</StoreDetailText>
         </InLineContainer>
       </TouchableOpacity>
       <InLineContainer style={{ alignItems: 'center' }}>
@@ -88,7 +111,7 @@ export default function StoreCard({ store, callBack, seeProduct }) {
           size={16}
           color={Colors.secondaryText}
         />
-        <Body color={Colors.secondaryText}> {hours}</Body>
+        <StoreDetailText>{storeHours}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>

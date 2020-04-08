@@ -1,8 +1,7 @@
 import styled from 'styled-components/native';
-import { Body, Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
-export const Card = styled.View`
+export const ResourceItemCard = styled.View`
   border-bottom-width: 1px;
   border-color: ${Colors.lighter};
   margin-top: 12px;
@@ -25,13 +24,6 @@ export const IconContainer = styled.View`
   margin: 12px;
 `;
 
-export const ContentText = styled(Body)`
-  flex-direction: column;
-  flex: 1;
-  font-weight: normal;
-  color: black;
-`;
-
 export const CategoryCard = styled.View`
   background-color: ${Colors.lighter};
   padding: 10px 18px;
@@ -39,29 +31,10 @@ export const CategoryCard = styled.View`
   flex: 1;
 `;
 
-export const CategoryContainer = styled.View`
-  flex-direction: column;
-  align-content: center;
-  flex: 1;
-`;
-
-export const HeadingContainer = styled.View`
+export const CategoryHeadingContainer = styled.View`
   flex-direction: row;
   padding-left: 12px;
   align-content: center;
   align-items: center;
   justify-content: center;
-`;
-
-export const HeadingText = styled(Title)`
-  font-weight: normal;
-`;
-
-export const TopText = styled(Title)`
-  font-style: normal;
-  font-weight: 500;
-  text-align: center;
-  color: black;
-  margin-top: 45px;
-  font-size: 25px;
 `;

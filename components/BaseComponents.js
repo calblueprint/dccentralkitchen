@@ -1,3 +1,6 @@
+import React from 'react';
+import { View } from 'react-native';
+import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
@@ -10,18 +13,6 @@ export const TextButton = styled.Text`
   align-items: center;
   text-align: center;
   color: ${props => props.color || Colors.primaryGreen};
-`;
-
-export const NavButton = styled.TouchableOpacity`
-  width: 40px;
-  height: 40px;
-  z-index: 100;
-  position: absolute;
-  top: 40px;
-  left: 12px;
-  border-radius: 23px;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const CircleIconContainer = styled.View`
@@ -112,4 +103,54 @@ export const TabSelected = styled.Text`
   font-size: 14px;
   line-height: 20px;
   color: ${props => props.color || Colors.black};
+`;
+
+export const NavButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  z-index: 100;
+  top: 0px;
+  left: 12px;
+  border-radius: 23px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export function NavHeaderContainer({
+  backgroundColor,
+  withMargin,
+  children,
+  vertical,
+  noShadow,
+}) {
+  const topInset = useSafeArea().top;
+  return (
+    <View
+      style={{
+        display: 'flex',
+        flexDirection: vertical ? 'column' : 'row',
+        alignItems: vertical ? 'flex-start' : 'center',
+        justifyContent: 'center',
+        paddingTop: 16 + topInset,
+        paddingBottom: 4,
+        minHeight: 62 + topInset,
+        marginBottom: withMargin ? 16 : 0,
+        backgroundColor: backgroundColor || Colors.lightest,
+        shadowColor: noShadow ? 'rgba(0,0,0,0)' : '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      }}>
+      {children}
+    </View>
+  );
+}
+
+export const NavTitle = styled(Title)`
+  flex: 1;
+  margin-left: 8px;
+  margin-right: 50px;
+  flex-wrap: wrap;
+  text-align: center;
+  color: ${props => (props.color ? props.color : Colors.activeText)};
 `;

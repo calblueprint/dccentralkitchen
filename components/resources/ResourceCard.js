@@ -2,7 +2,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
-import { Card, ContentContainer, IconContainer } from '../../styled/resources';
+import {
+  ContentContainer,
+  IconContainer,
+  ResourceItemCard,
+} from '../../styled/resources';
 import { Body, Subhead } from '../BaseComponents';
 
 class ResourceCard extends React.Component {
@@ -10,7 +14,7 @@ class ResourceCard extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => Linking.openURL(this.props.resourceCard.url)}>
-        <Card>
+        <ResourceItemCard>
           <ContentContainer>
             <Subhead>{this.props.resourceCard.title}</Subhead>
             <Body color={Colors.secondaryText}>
@@ -24,7 +28,7 @@ class ResourceCard extends React.Component {
               color={Colors.base}
             />
           </IconContainer>
-        </Card>
+        </ResourceItemCard>
       </TouchableOpacity>
     );
   }

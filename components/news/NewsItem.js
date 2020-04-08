@@ -31,7 +31,7 @@ class NewsItem extends React.Component {
         }>
         <Card>
           <DateContainer>
-            <DateText>{this.props.newsItem.date.toDateString()}</DateText>
+            <DateText>{this.props.newsItem.postDate.toDateString()}</DateText>
           </DateContainer>
           <ContentContainer>
             <DateText>{this.props.newsItem.title}</DateText>

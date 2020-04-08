@@ -1,18 +1,36 @@
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
+// Auth
+import LogInScreen from '../screens/auth/LogInScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
+import WelcomeScreen from '../screens/auth/WelcomeScreen';
+// Map
 import MapScreen from '../screens/map/MapScreen';
 import ProductDetailsScreen from '../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../screens/map/ProductsScreen';
 import StoreListScreen from '../screens/map/StoreListScreen';
+// News
 import NewsDetailsScreen from '../screens/news/NewsDetailsScreen';
 import NewsScreen from '../screens/news/NewsScreen';
+// Resources
 import ResourcesScreen from '../screens/resources/ResourcesScreen';
 import RewardsScreen from '../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {},
+  default: {
+    headerMode: 'none',
+  },
 });
+
+export const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    LogIn: LogInScreen,
+    SignUp: SignUpScreen,
+  },
+  config
+);
 
 export const StoresStack = createStackNavigator(
   {

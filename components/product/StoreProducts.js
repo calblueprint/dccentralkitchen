@@ -1,10 +1,11 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { ProductCardContainer, styles } from '../../styled/product';
+import { FlatList, View } from 'react-native';
+import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
-import { ButtonContainer, Subhead, Title } from '../BaseComponents';
+import { Body, ButtonContainer, Subhead, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
@@ -14,7 +15,7 @@ function StoreProducts({ navigation, store, products }) {
     <View>
       <StoreCard store={store} key={store.id} seeProduct={false} />
       <View>
-        <SpaceBetweenRowContainer>
+        <SpaceBetweenRowContainer margin={(0, 16)}>
           <Title>Products</Title>
           <ButtonContainer
             onPress={() =>
@@ -24,29 +25,42 @@ function StoreProducts({ navigation, store, products }) {
                 store,
               })
             }>
-            <Subhead color="black">
-              See all
-              {products.length}
-            </Subhead>
+            {products.length > 0 && (
+              <Subhead color="black">{`See all ${products.length}`}</Subhead>
+            )}
           </ButtonContainer>
         </SpaceBetweenRowContainer>
-        <ScrollView
+        <FlatList
           horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.horizontalScroll}>
-          {products.map(product => (
-            // TODO See if there is a better way to pass the props over to a component
-            <ProductCardContainer key={product.id}>
-              <ProductCard
-                key={product.id}
-                product={product}
-                navigation={navigation}
-                store={store}
-                displayPoints={false}
+          data={products}
+          renderItem={({ item }) => (
+            <ProductCard
+              key={item.id}
+              product={item}
+              navigation={navigation}
+              store={store}
+            />
+          )}
+          keyExtractor={item => item.id}
+          ListEmptyComponent={
+            <View
+              style={{
+                alignItems: 'center',
+                width: Window.width - 32,
+              }}>
+              <FontAwesome5
+                name="shopping-basket"
+                size={64}
+                color={Colors.base}
+                style={{ marginBottom: 12 }}
               />
-            </ProductCardContainer>
-          ))}
-        </ScrollView>
+              <Body color={Colors.secondaryText}>
+                No products to show...check back later!
+              </Body>
+            </View>
+          }
+          ListHeaderComponent={<View style={{ width: 16 }} />}
+        />
       </View>
     </View>
   );
