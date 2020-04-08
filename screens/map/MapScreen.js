@@ -33,7 +33,7 @@ const initialRegion = {
   longitudeDelta: 0.0421,
 };
 
-const defaultStoreId = 'recQmf64hlp9CyBas';
+const defaultStoreId = 'recKmetaavnMWXVrk';
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -51,14 +51,14 @@ export default class MapScreen extends React.Component {
 
   async componentDidMount() {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
-    await this._findCurrentLocationAsync();
+    await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.navigation.state.params.currentStore;
-    this.changeCurrentStore(store, false);
+    this.changeCurrentStore(store);
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
@@ -68,7 +68,7 @@ export default class MapScreen extends React.Component {
   }
 
   // Asks for permission if necessary, then gets current location
-  _findCurrentLocationAsync = async () => {
+  _findCurrentLocation = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     // Error message not checked anywhere
     if (status !== 'granted') {
@@ -119,7 +119,7 @@ export default class MapScreen extends React.Component {
   };
 
   // Calculate distances and sort by closest to location
-  // _findCurrentLocationAsync populates this.state.region with the correct lat/lon
+  // _findCurrentLocation populates this.state.region with the correct lat/lon
   // Since it's initially set to a default value, we use that instead of this.state.location
   _orderStoresByDistance = async stores => {
     const sortedStores = [];
@@ -137,18 +137,20 @@ export default class MapScreen extends React.Component {
     sortedStores.sort(function compare(a, b) {
       return a.distance - b.distance;
     });
-    this.setState({ stores: sortedStores, store: sortedStores[0] });
-    if (this.state.locationErrorMsg || sortedStores[0].distance > 100) {
-      await this.changeCurrentStore(
-        stores.find(store => {
-          return store.id === defaultStoreId;
-        }),
-        true
-      );
-      this.setState({ defaultStore: true });
-    }
-    // Once we choose the closest store, we must populate store products here
-    // Better to perform API calls at top level, and then pass data as props.
+
+    const defaultStore = stores.find(store => {
+      return store.id === defaultStoreId;
+    });
+
+    this.setState(prevState => ({
+      stores: sortedStores,
+      store:
+        prevState.locationErrorMsg || sortedStores[0].distance > 100
+          ? defaultStore
+          : sortedStores[0],
+      defaultStore:
+        prevState.locationErrorMsg || sortedStores[0].distance > 100,
+    }));
   };
 
   renderHeader = () => (
@@ -179,16 +181,18 @@ export default class MapScreen extends React.Component {
     this.setState({ region });
   };
 
-  // Since we must now also populate the current store products at the top level,
-  // we make this an async function and call this._populateStoreProducts
-  async changeCurrentStore(store, initial) {
-    this.setState({
-      store,
-    });
-    if (!initial) {
-      this.bottomSheetRef.snapTo(0);
-    }
-    await this._populateStoreProducts(store);
+  // Update current store and its products
+  // Only called after initial store has been set
+  changeCurrentStore(store) {
+    this.setState(
+      {
+        store,
+      },
+      async () => {
+        this.bottomSheetRef.snapTo(0);
+        await this._populateStoreProducts(store);
+      }
+    );
   }
 
   render() {
@@ -230,7 +234,12 @@ export default class MapScreen extends React.Component {
             </Subhead>
           </SearchBar>
         </NavHeaderContainer>
-        <CenterLocation callBack={() => this._findCurrentLocationAsync()} />
+        <CenterLocation
+          callBack={async () => {
+            await this._findCurrentLocation();
+            await this._orderStoresByDistance(this.state.stores);
+          }}
+        />
         {/* Display Map */}
         <MapView
           style={{
@@ -251,7 +260,7 @@ export default class MapScreen extends React.Component {
               }}
               title={store.storeName}
               description={store.storeName}
-              onPress={() => this.changeCurrentStore(store, false)}
+              onPress={() => this.changeCurrentStore(store)}
             />
           ))}
           {/* If current location found, show current location marker */}
