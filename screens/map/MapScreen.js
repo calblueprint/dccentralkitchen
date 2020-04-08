@@ -4,10 +4,11 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
+import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
 import Colors from '../../constants/Colors';
@@ -36,31 +37,33 @@ const initialRegion = {
   longitudeDelta: 0.0421,
 };
 
+const defaultStoreId = 'recKmetaavnMWXVrk';
+
 export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // TODO don't need this error message rly
       locationErrorMsg: null,
       location: null,
       region: initialRegion,
       stores: null,
       store: null,
       storeProducts: null,
+      showDefaultStore: false,
     };
   }
 
   async componentDidMount() {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
-    await this._findCurrentLocationAsync();
+    await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.navigation.state.params.currentStore;
-    this.changeCurrentStore(store);
+    this.changeCurrentStore(store, (resetSheet = true));
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
@@ -70,10 +73,14 @@ export default class MapScreen extends React.Component {
   }
 
   // Asks for permission if necessary, then gets current location
-  _findCurrentLocationAsync = async () => {
+  _findCurrentLocation = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     // Error message not checked anywhere
     if (status !== 'granted') {
+      Alert.alert(
+        'Location Error',
+        'We are unable to get your location. Enable your location services for this app and try again when your network refreshes.'
+      );
       this.setState({
         locationErrorMsg: 'Permission to access location was denied',
       });
@@ -84,7 +91,13 @@ export default class MapScreen extends React.Component {
         longitude: location.coords.longitude,
         ...deltas,
       };
-      this.setState({ locationErrorMsg: null, location, region });
+      // Don't re-animate if we're using the default store
+      if (this._map && !this.state.showDefaultStore) {
+        this._map.animateToRegion(region, 1000);
+        this.setState({ locationErrorMsg: null, location });
+      } else {
+        this.setState({ locationErrorMsg: null, location, region });
+      }
     }
   };
 
@@ -117,7 +130,7 @@ export default class MapScreen extends React.Component {
   };
 
   // Calculate distances and sort by closest to location
-  // _findCurrentLocationAsync populates this.state.region with the correct lat/lon
+  // _findCurrentLocation populates this.state.region with the correct lat/lon
   // Since it's initially set to a default value, we use that instead of this.state.location
   _orderStoresByDistance = async stores => {
     const sortedStores = [];
@@ -135,7 +148,31 @@ export default class MapScreen extends React.Component {
     sortedStores.sort(function compare(a, b) {
       return a.distance - b.distance;
     });
-    this.setState({ stores: sortedStores, store: sortedStores[0] });
+
+    const defaultStore = stores.find(store => {
+      return store.id === defaultStoreId;
+    });
+
+    const region = {
+      latitude: defaultStore.latitude,
+      longitude: defaultStore.longitude,
+      ...deltas,
+    };
+
+    // Condition for showDefaultStore requires prevState, so a little messy
+    this.setState(prevState => ({
+      stores: sortedStores,
+      store:
+        prevState.locationErrorMsg || sortedStores[0].distance > 100
+          ? defaultStore
+          : sortedStores[0],
+      showDefaultStore:
+        prevState.locationErrorMsg || sortedStores[0].distance > 100,
+      region:
+        prevState.locationErrorMsg || sortedStores[0].distance > 100
+          ? region
+          : prevState.region,
+    }));
   };
 
   renderHeader = () => (
@@ -157,6 +194,7 @@ export default class MapScreen extends React.Component {
           navigation={this.props.navigation}
           store={this.state.store}
           products={this.state.storeProducts}
+          showDefaultStore={this.state.showDefaultStore}
         />
       </BottomSheetContainer>
     );
@@ -166,14 +204,21 @@ export default class MapScreen extends React.Component {
     this.setState({ region });
   };
 
-  // Since we must now also populate the current store products at the top level,
-  // we make this an async function and call this._populateStoreProducts
-  async changeCurrentStore(store) {
-    this.setState({
-      store,
-    });
-    this.bottomSheetRef.snapTo(0);
-    await this._populateStoreProducts(store);
+  // Update current store and its products
+  // Only called after initial store has been set
+  // Only expand the bottom sheet to display products if navigated from 'See Products' button on StoreList
+  changeCurrentStore(store, resetSheet = false) {
+    this.setState(
+      {
+        store,
+      },
+      async () => {
+        if (resetSheet) {
+          this.bottomSheetRef.snapTo(0);
+        }
+        await this._populateStoreProducts(store);
+      }
+    );
   }
 
   render() {
@@ -195,12 +240,14 @@ export default class MapScreen extends React.Component {
             zIndex: 1,
           }}>
           <Hamburger navigation={this.props.navigation} />
+          {/* Display search bar */}
           <SearchBar
             style={{ flex: 1 }}
             onPress={() =>
               this.props.navigation.navigate('StoreList', {
                 stores: this.state.stores,
                 navigation: this.props.navigation,
+                showDefaultStore: this.state.showDefaultStore,
               })
             }>
             <FontAwesome5
@@ -213,6 +260,12 @@ export default class MapScreen extends React.Component {
             </Subhead>
           </SearchBar>
         </NavHeaderContainer>
+        <CenterLocation
+          callBack={async () => {
+            await this._findCurrentLocation();
+            await this._orderStoresByDistance(this.state.stores);
+          }}
+        />
         {/* Display Map */}
         <MapView
           style={{
@@ -221,9 +274,11 @@ export default class MapScreen extends React.Component {
             overflow: 'visible',
             zIndex: -1,
           }}
+          ref={mapView => {
+            this._map = mapView;
+          }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
-          {/* Display search bar */}
           {/* Display store markers */}
           {this.state.stores.map(store => (
             <Marker
