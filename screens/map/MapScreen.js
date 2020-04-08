@@ -86,7 +86,8 @@ export default class MapScreen extends React.Component {
         longitude: location.coords.longitude,
         ...deltas,
       };
-      if (this._map) {
+      // Don't re-animate if we're using the default store
+      if (this._map && !this.state.showDefaultStore) {
         this._map.animateToRegion(region, 1000);
         this.setState({ locationErrorMsg: null, location });
       } else {
