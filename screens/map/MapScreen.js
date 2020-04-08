@@ -20,7 +20,7 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const minSnapPoint = 300;
+const minSnapPoint = 325;
 const maxSnapPoint = 460;
 
 const deltas = {
