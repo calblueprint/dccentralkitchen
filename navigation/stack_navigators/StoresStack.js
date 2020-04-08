@@ -27,6 +27,7 @@ export default function StoresStackNavigator() {
       screenOptions={{
         cardOverlayEnabled: true,
         drawerLabel: 'Stores',
+        gestureEnabled: true,
         headerShown: false,
         cardStyle: { backgroundColor: Colors.lightest },
         config,

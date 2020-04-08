@@ -19,8 +19,9 @@ function DrawerNavigator() {
       drawerContentOptions={{
         labelStyle: {
           fontFamily: 'poppins-medium',
+          fontWeight: 'normal',
           fontSize: 20,
-          color: Colors.black,
+          color: Colors.activeText,
         },
         activeTintColor: Colors.primaryGreen,
         itemStyle: { marginVertical: 0, marginHorizontal: 0, borderRadius: 0 },
