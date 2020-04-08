@@ -4,14 +4,16 @@ import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import RewardsFooter from '../../components/rewards/RewardsFooter';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { getCustomersById } from '../../lib/airtable/request';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -43,6 +45,8 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
+      customer: null,
+      isGuest: false,
     };
   }
 
@@ -50,6 +54,13 @@ export default class MapScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     await this._findCurrentLocationAsync();
     await this._populateInitialStoresProducts();
+    const customerId = await AsyncStorage.getItem('userId');
+    const customer = await getCustomersById(customerId);
+    const isGuest = customerId === 'recLKK7cZHboMPEB8';
+    this.setState({
+      customer,
+      isGuest,
+    });
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
@@ -271,9 +282,11 @@ export default class MapScreen extends React.Component {
             justifyContent: 'center',
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
-          <View>
-            <Subhead color="#fff"> Your Rewards </Subhead>
-          </View>
+          <RewardsFooter
+            wdth={Window.width}
+            customer={this.state.customer}
+            isGuest={this.state.isGuest}
+          />
         </TouchableOpacity>
       </View>
     );

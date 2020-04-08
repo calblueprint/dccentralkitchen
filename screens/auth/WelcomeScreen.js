@@ -2,17 +2,12 @@ import React from 'react';
 import { AsyncStorage } from 'react-native';
 import {
   BigTitle,
-  Body,
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import {
-  WelcomeContainer,
-  WelcomeLogInContainer,
-  WelcomeTitleContainer,
-} from '../../styled/auth';
+import { WelcomeContainer, WelcomeTitleContainer } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
   navigateLogIn() {
@@ -41,20 +36,23 @@ export default class WelcomeScreen extends React.Component {
           onPress={() => this.navigateSignup()}>
           <ButtonLabel color="white">Sign up</ButtonLabel>
         </FilledButtonContainer>
-        <WelcomeLogInContainer>
-          <Body color={Colors.secondaryText}>Already have an account?</Body>
-          <ButtonContainer onPress={() => this.navigateLogIn()}>
-            <ButtonLabel color={Colors.primaryGreen}>Log In</ButtonLabel>
-          </ButtonContainer>
-        </WelcomeLogInContainer>
-        <WelcomeLogInContainer>
-          <Body color={Colors.secondaryText}>No account yet?</Body>
-          <ButtonContainer onPress={() => this.guestLogin()}>
-            <ButtonLabel color={Colors.primaryGreen}>
-              Continue as Guest
-            </ButtonLabel>
-          </ButtonContainer>
-        </WelcomeLogInContainer>
+        <FilledButtonContainer
+          style={{ marginTop: 12 }}
+          color={Colors.lighterGreen}
+          width="100%"
+          onPress={() => this.navigateLogIn()}>
+          <ButtonLabel color="white">Log In</ButtonLabel>
+        </FilledButtonContainer>
+
+        <ButtonContainer
+          style={{ marginTop: 12, textTransform: 'capitalize' }}
+          onPress={() => this.guestLogin()}>
+          <ButtonLabel
+            style={{ textTransform: 'capitalize' }}
+            color={Colors.primaryGreen}>
+            Continue without an account
+          </ButtonLabel>
+        </ButtonContainer>
       </WelcomeContainer>
     );
   }

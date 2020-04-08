@@ -1,6 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { AsyncStorage, Dimensions, Image, View } from 'react-native';
+import {
+  AsyncStorage,
+  Dimensions,
+  Image,
+  ScrollView,
+  View,
+} from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import {
   BigTitle,
@@ -32,6 +38,7 @@ export default class RewardsScreen extends React.Component {
       routes,
       isLoading: true,
       isGuest: false,
+      imgWidth: 0,
     };
   }
 
@@ -41,11 +48,14 @@ export default class RewardsScreen extends React.Component {
     const customer = await getCustomersById(customerId);
     const isGuest = customerId === 'recLKK7cZHboMPEB8';
     const transactions = await getCustomerTransactions(customerId);
+    const dimensions = Dimensions.get('window');
+    const imgWidth = Math.round(dimensions.width * 0.8);
     this.setState({
       customer,
       transactions,
       isGuest,
       isLoading: false,
+      imgWidth,
     });
   }
 
@@ -95,25 +105,30 @@ export default class RewardsScreen extends React.Component {
                 color: Colors.lightest,
                 fontSize: 36,
               }}>
-              How it Works
+              Healthy Rewards
             </BigTitle>
           </NavHeaderContainer>
-          <Image
-            source={require('../../assets/images/guest.jpeg')}
-            style={{
-              width: 343,
-              height: 537,
-              display: 'flex',
-              alignContent: 'center',
-            }}
-          />
-          <FilledButtonContainer
-            style={{ marginTop: 24, alignSelf: 'center' }}
-            color={Colors.primaryGreen}
-            width="267px"
-            onPress={() => this._logout()}>
-            <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
-          </FilledButtonContainer>
+          <ScrollView>
+            <Image
+              source={require('../../assets/images/guest.jpeg')}
+              style={{
+                marginTop: 12,
+                width: this.state.imgWidth,
+                height: 537,
+                display: 'flex',
+                alignSelf: 'center',
+              }}
+            />
+            <FilledButtonContainer
+              style={{ marginTop: 24, alignSelf: 'center' }}
+              color={Colors.primaryGreen}
+              width="267px"
+              onPress={() => this._logout()}>
+              <ButtonLabel color={Colors.lightest}>
+                Sign Up For Rewards
+              </ButtonLabel>
+            </FilledButtonContainer>
+          </ScrollView>
         </View>
       );
     }

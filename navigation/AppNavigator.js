@@ -56,7 +56,7 @@ const MyDrawerNavigator = createDrawerNavigator(
     Rewards: {
       screen: props => <RewardsScreen {...props} tab={1} />,
       navigationOptions: () => ({
-        title: 'Points History',
+        title: 'Rewards',
         drawerLockMode: 'locked-closed',
       }),
     },
