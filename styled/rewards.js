@@ -24,6 +24,22 @@ export const RewardsProgressContainer = styled.View`
   flex-direction: column;
 `;
 
+export const GuestCardContainer = styled.View`
+  padding: 10px;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const GuestIconContainer = styled.View`
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+export const GuestDescriptionContainer = styled.View`
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
 export const AvailableRewardsContainer = styled.View`
   margin: 8px 0;
   display: flex

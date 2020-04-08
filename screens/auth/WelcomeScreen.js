@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image } from 'react-native';
+import { AsyncStorage, Image } from 'react-native';
 import {
   Body,
   ButtonContainer,
@@ -18,6 +18,12 @@ export default class WelcomeScreen extends React.Component {
   navigateSignup() {
     this.props.navigation.navigate('SignUp');
   }
+
+  guestLogin = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('userId', 'recLKK7cZHboMPEB8');
+    this.props.navigation.navigate('App');
+  };
 
   render() {
     return (
@@ -40,6 +46,14 @@ export default class WelcomeScreen extends React.Component {
           <Body color={Colors.secondaryText}>Already have an account?</Body>
           <ButtonContainer onPress={() => this.navigateLogIn()}>
             <ButtonLabel color={Colors.primaryGreen}>Log In</ButtonLabel>
+          </ButtonContainer>
+        </WelcomeLogInContainer>
+        <WelcomeLogInContainer>
+          <Body color={Colors.secondaryText}>No account yet?</Body>
+          <ButtonContainer onPress={() => this.guestLogin()}>
+            <ButtonLabel color={Colors.primaryGreen}>
+              Continue as Guest
+            </ButtonLabel>
           </ButtonContainer>
         </WelcomeLogInContainer>
       </WelcomeContainer>
