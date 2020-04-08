@@ -1,6 +1,6 @@
+import { DrawerItemList } from '@react-navigation/drawer';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
-import { DrawerItems } from 'react-navigation-drawer';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
@@ -57,7 +57,7 @@ class DrawerContent extends React.Component {
           }}>
           <Title style={{ color: 'white' }}>{this.state.customer.name}</Title>
         </View>
-        <DrawerItems {...this.props} />
+        <DrawerItemList {...this.props} />
         <View
           style={{
             flex: 1,

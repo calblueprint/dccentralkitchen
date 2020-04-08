@@ -14,12 +14,7 @@ import StoreProducts from '../../components/product/StoreProducts';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import {
-  BottomSheetContainer,
-  BottomSheetHeaderContainer,
-  DragBar,
-  SearchBar,
-} from '../../styled/store';
+import { BottomSheetContainer, BottomSheetHeaderContainer, DragBar, SearchBar } from '../../styled/store';
 
 const minSnapPoint = 160;
 const midSnapPoint = 325;
@@ -62,7 +57,7 @@ export default class MapScreen extends React.Component {
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
-    const store = nextProps.navigation.state.params.currentStore;
+    const store = nextProps.route.params.currentStore;
     this.changeCurrentStore(store, (resetSheet = true));
     const region = {
       latitude: store.latitude,

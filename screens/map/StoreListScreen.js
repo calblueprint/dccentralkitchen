@@ -16,11 +16,7 @@ import { CancelButton, styles } from '../../styled/store';
 export default class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      stores,
-      navigation,
-      showDefaultStore,
-    } = this.props.navigation.state.params;
+    const { stores, navigation, showDefaultStore } = this.props.route.params;
     this.state = {
       allStores: stores,
       navigation,
@@ -34,6 +30,7 @@ export default class StoreListScreen extends React.Component {
     this.search.focus();
   }
 
+  // TODO: fix warning involving using a callback function to look up current store.
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   storeDetailsTransition = store => {
     this.state.navigation.navigate('Stores', {
