@@ -4,6 +4,7 @@ import Colors from '../../constants/Colors';
 import { displayDollarValue } from '../../lib/common';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Caption } from '../BaseComponents';
+
 /**
  * @prop
  * */
@@ -20,7 +21,7 @@ function ProductCard({ product, store, navigation, displayPoints }) {
       }>
       <ColumnContainer>
         <Image
-          source={{ uri: product.image }}
+          source={{ uri: product.imageUrl }}
           style={{ height: 86, width: 86, borderRadius: 12 }}
         />
         <Body>{product.name}</Body>
@@ -29,7 +30,7 @@ function ProductCard({ product, store, navigation, displayPoints }) {
         )}
         <RowContainer>
           <Caption color={Colors.secondaryText}>
-            {displayDollarValue(product.customerCost)} ea
+            {`${displayDollarValue(product.customerCost)} ea`}
           </Caption>
           {displayPoints && (
             <Caption color={Colors.secondaryText}>

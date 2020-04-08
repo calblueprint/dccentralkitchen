@@ -43,11 +43,11 @@ export default class StoreListScreen extends React.Component {
     });
   };
 
-  filterStore(searchStr) {
+  filterStore = searchStr => {
     return store => {
-      return store.name.toLowerCase().includes(searchStr.toLowerCase());
+      return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
     };
-  }
+  };
 
   render() {
     const { searchStr } = this.state;
