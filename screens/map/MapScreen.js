@@ -45,7 +45,7 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
-      defaultStore: false,
+      showDefaultStore: false,
     };
   }
 
@@ -86,7 +86,12 @@ export default class MapScreen extends React.Component {
         longitude: location.coords.longitude,
         ...deltas,
       };
-      this.setState({ locationErrorMsg: null, location, region });
+      if (this._map) {
+        this._map.animateToRegion(region, 1000);
+        this.setState({ locationErrorMsg: null, location });
+      } else {
+        this.setState({ locationErrorMsg: null, location, region });
+      }
     }
   };
 
@@ -142,14 +147,25 @@ export default class MapScreen extends React.Component {
       return store.id === defaultStoreId;
     });
 
+    const region = {
+      latitude: defaultStore.latitude,
+      longitude: defaultStore.longitude,
+      ...deltas,
+    };
+
+    // Condition for showDefaultStore requires prevState, so a little messy
     this.setState(prevState => ({
       stores: sortedStores,
       store:
         prevState.locationErrorMsg || sortedStores[0].distance > 100
           ? defaultStore
           : sortedStores[0],
-      defaultStore:
+      showDefaultStore:
         prevState.locationErrorMsg || sortedStores[0].distance > 100,
+      region:
+        prevState.locationErrorMsg || sortedStores[0].distance > 100
+          ? region
+          : prevState.region,
     }));
   };
 
@@ -172,6 +188,7 @@ export default class MapScreen extends React.Component {
           navigation={this.props.navigation}
           store={this.state.store}
           products={this.state.storeProducts}
+          showDefaultStore={this.state.showDefaultStore}
         />
       </BottomSheetContainer>
     );
@@ -221,7 +238,7 @@ export default class MapScreen extends React.Component {
               this.props.navigation.navigate('StoreList', {
                 stores: this.state.stores,
                 navigation: this.props.navigation,
-                defaultStore: this.state.defaultStore,
+                showDefaultStore: this.state.showDefaultStore,
               })
             }>
             <FontAwesome5
@@ -247,6 +264,9 @@ export default class MapScreen extends React.Component {
             flex: 100,
             overflow: 'visible',
             zIndex: -1,
+          }}
+          ref={mapView => {
+            this._map = mapView;
           }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>

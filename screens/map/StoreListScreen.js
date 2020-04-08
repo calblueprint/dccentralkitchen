@@ -19,14 +19,14 @@ export default class StoreListScreen extends React.Component {
     const {
       stores,
       navigation,
-      defaultStore,
+      showDefaultStore,
     } = this.props.navigation.state.params;
     this.state = {
       allStores: stores,
       navigation,
       searchStr: '',
       filteredStores: stores,
-      defaultStore,
+      showDefaultStore,
     };
   }
 
@@ -104,7 +104,7 @@ export default class StoreListScreen extends React.Component {
               store={item}
               callBack={() => this.storeDetailsTransition(item)}
               seeProduct
-              seeDistance={!this.state.defaultStore}
+              seeDistance={!this.state.showDefaultStore}
             />
           )}
           keyExtractor={item => item.id}
