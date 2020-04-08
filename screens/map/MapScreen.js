@@ -20,7 +20,8 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const minSnapPoint = 325;
+const minSnapPoint = 160;
+const midSnapPoint = 325;
 const maxSnapPoint = 460;
 
 const deltas = {
@@ -257,7 +258,7 @@ export default class MapScreen extends React.Component {
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledGestureInteraction
-            snapPoints={[maxSnapPoint, minSnapPoint]}
+            snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
@@ -283,7 +284,3 @@ export default class MapScreen extends React.Component {
     );
   }
 }
-
-MapScreen.navigationOptions = {
-  headerShown: false,
-};
