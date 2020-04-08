@@ -136,7 +136,6 @@ export function NavHeaderContainer({
         marginBottom: withMargin ? 16 : 0,
         backgroundColor: backgroundColor || Colors.lightest,
         shadowColor: noShadow ? 'transparent' : '#000',
-
         elevation: noShadow ? 0 : 7,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,

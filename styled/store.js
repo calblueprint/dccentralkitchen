@@ -86,7 +86,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-    backgroundColor: 'rgba(255,0,0,0)',
+    backgroundColor: 'transparent',
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
   },
