@@ -58,7 +58,7 @@ export default class MapScreen extends React.Component {
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.navigation.state.params.currentStore;
-    this.changeCurrentStore(store);
+    this.changeCurrentStore(store, (resetSheet = true));
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
@@ -201,13 +201,16 @@ export default class MapScreen extends React.Component {
 
   // Update current store and its products
   // Only called after initial store has been set
-  changeCurrentStore(store) {
+  // Only expand the bottom sheet to display products if navigated from 'See Products' button on StoreList
+  changeCurrentStore(store, resetSheet = false) {
     this.setState(
       {
         store,
       },
       async () => {
-        this.bottomSheetRef.snapTo(0);
+        if (resetSheet) {
+          this.bottomSheetRef.snapTo(0);
+        }
         await this._populateStoreProducts(store);
       }
     );
