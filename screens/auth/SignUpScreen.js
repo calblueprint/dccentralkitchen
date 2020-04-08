@@ -3,25 +3,25 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
-  FilledButtonContainer,
+  FilledButtonContainer
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import {
   createCustomers,
   createPushTokens,
-  getCustomersByPhoneNumber,
+  getCustomersByPhoneNumber
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
   BackButton,
-  FormContainer,
+  FormContainer
 } from '../../styled/auth';
 
 export default class SignUpScreen extends React.Component {
@@ -32,17 +32,17 @@ export default class SignUpScreen extends React.Component {
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
+        [signUpFields.PASSWORD]: ''
       },
       errors: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
         [signUpFields.PASSWORD]: '',
         // Duplicate phone number error - currently not being displayed
-        submit: '',
+        submit: ''
       },
       token: '',
-      processing: false,
+      processing: false
     };
   }
 
@@ -59,15 +59,15 @@ export default class SignUpScreen extends React.Component {
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
+        [signUpFields.PASSWORD]: ''
       },
       errors: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
+        [signUpFields.PASSWORD]: ''
       },
       token: '',
-      processing: false,
+      processing: false
       // signUpPermission: false,
     });
   };
@@ -123,7 +123,7 @@ export default class SignUpScreen extends React.Component {
         phoneNumber,
         password,
         points: 0,
-        pushTokenIds: [pushTokenId],
+        pushTokenIds: [pushTokenId]
       });
       return customerId;
     } catch (err) {
@@ -148,9 +148,9 @@ export default class SignUpScreen extends React.Component {
         this.setState(prevState => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.PHONENUM]: 'Phone number already in use.',
+            [signUpFields.PHONENUM]: 'Phone number already in use.'
           },
-          processing: false,
+          processing: false
         }));
         return;
       }
@@ -190,7 +190,7 @@ export default class SignUpScreen extends React.Component {
 
     this.setState(prevState => ({
       errors: { ...prevState.errors, [signUpField]: errorMsg },
-      values: { ...prevState.values, [signUpField]: text },
+      values: { ...prevState.values, [signUpField]: text }
     }));
 
     return error;
@@ -213,7 +213,7 @@ export default class SignUpScreen extends React.Component {
       await this.updateError(text, signUpField);
     } else {
       this.setState(prevState => ({
-        values: { ...prevState.values, [signUpField]: text },
+        values: { ...prevState.values, [signUpField]: text }
       }));
     }
   };
@@ -288,7 +288,7 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
         </AuthScreenContainer>
       </ScrollView>
     );
