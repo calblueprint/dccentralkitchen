@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
@@ -31,6 +32,7 @@ function StoreProducts({ navigation, store, products }) {
         </SpaceBetweenRowContainer>
         <FlatList
           horizontal
+          showsHorizontalScrollIndicator={false}
           data={products}
           renderItem={({ item }) => (
             <ProductCard

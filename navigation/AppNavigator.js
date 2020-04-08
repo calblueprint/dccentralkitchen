@@ -72,6 +72,7 @@ const MyDrawerNavigator = createDrawerNavigator(
     contentOptions: {
       labelStyle: {
         fontFamily: 'poppins-medium',
+        fontWeight: 'normal',
         fontSize: 20,
       },
       activeTintColor: Colors.primaryGreen,

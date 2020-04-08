@@ -6,7 +6,6 @@ import Colors from '../constants/Colors';
 
 export const TextButton = styled.Text`
   font-family: poppins-regular;
-  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
   display: flex;
@@ -136,7 +135,8 @@ export function NavHeaderContainer({
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
         backgroundColor: backgroundColor || Colors.lightest,
-        shadowColor: noShadow ? 'rgba(0,0,0,0)' : '#000',
+        shadowColor: noShadow ? 'transparent' : '#000',
+        elevation: noShadow ? 0 : 7,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 3,

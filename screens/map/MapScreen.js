@@ -190,7 +190,7 @@ export default class MapScreen extends React.Component {
       <View style={StyleSheet.absoluteFillObject}>
         <NavHeaderContainer
           noShadow
-          backgroundColor="rgba(0,0,0,0)"
+          backgroundColor="transparent"
           style={{
             zIndex: 1,
           }}>
@@ -257,7 +257,7 @@ export default class MapScreen extends React.Component {
             enabledInnerScrolling={false}
             enabledBottomClamp
             overdragResistanceFactor={1}
-            enabledGestureInteraction
+            enabledContentTapInteraction={false}
             snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
@@ -274,6 +274,7 @@ export default class MapScreen extends React.Component {
             width: Window.width,
             alignItems: 'center',
             justifyContent: 'center',
+            zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
