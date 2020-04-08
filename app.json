@@ -3,7 +3,6 @@
     "name": "DC Central Kitchen",
     "slug": "frontend",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
@@ -38,7 +37,10 @@
     "android": {
       "package": "com.blueprint.dc",
       "googleServicesFile": "./google-services.json",
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     }
   }
 }
