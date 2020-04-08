@@ -3,7 +3,7 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -288,7 +288,7 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
         </AuthScreenContainer>
       </ScrollView>
     );

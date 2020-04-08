@@ -29,12 +29,15 @@ function AuthTextField({
         value={value}
         baseColor={Colors.activeText}
         tintColor={Colors.primaryGreen}
+        style={{ fontFamily: 'poppins-regular' }}
         error={error}
         errorColor={Colors.error}
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
+        labelPadding={6}
+        inputContainerPadding={4}
       />
       {fieldType === 'Name' && !error && (
         <Caption color={Colors.activeText}>
