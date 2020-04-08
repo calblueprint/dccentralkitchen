@@ -252,7 +252,7 @@ export default class MapScreen extends React.Component {
             enabledInnerScrolling={false}
             enabledBottomClamp
             overdragResistanceFactor={1}
-            enabledGestureInteraction
+            enabledContentTapInteraction={false}
             snapPoints={['30%', '10%']}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
