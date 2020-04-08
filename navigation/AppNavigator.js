@@ -45,7 +45,52 @@ function DrawerNavigator() {
   );
 }
 
+<<<<<<< HEAD
 const AppStack = createStackNavigator();
+=======
+const MyDrawerNavigator = createDrawerNavigator(
+  {
+    Root: {
+      screen: RootStack,
+      navigationOptions: () => ({
+        title: 'Root',
+        drawerLabel: () => null,
+      }),
+    },
+    Stores: {
+      screen: StoresStack,
+      navigationOptions: () => ({
+        title: 'Stores',
+      }),
+    },
+    Rewards: {
+      screen: props => <RewardsScreen {...props} tab={1} />,
+      navigationOptions: () => ({
+        title: 'Rewards',
+        drawerLockMode: 'locked-closed',
+      }),
+    },
+    Resources: {
+      screen: ResourcesStack,
+      navigationOptions: () => ({
+        title: 'Resources',
+      }),
+    },
+  },
+
+  {
+    contentOptions: {
+      labelStyle: {
+        fontFamily: 'poppins-medium',
+        fontSize: 20,
+      },
+      activeTintColor: Colors.primaryGreen,
+    },
+    drawerWidth: 189,
+    contentComponent: DrawerContent,
+  }
+);
+>>>>>>> restyled, added footer
 
 export default function createAppContainer() {
   return (

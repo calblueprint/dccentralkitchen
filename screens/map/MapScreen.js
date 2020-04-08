@@ -5,16 +5,25 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
+<<<<<<< HEAD
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+=======
+import { AsyncStorage, StyleSheet, TouchableOpacity, View } from 'react-native';
+>>>>>>> restyled, added footer
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+<<<<<<< HEAD
 import StoreMarker from '../../components/store/StoreMarker';
+=======
+import RewardsFooter from '../../components/rewards/RewardsFooter';
+>>>>>>> restyled, added footer
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { getCustomersById } from '../../lib/airtable/request';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -52,7 +61,12 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
+<<<<<<< HEAD
       showDefaultStore: false,
+=======
+      customer: null,
+      isGuest: false,
+>>>>>>> restyled, added footer
     };
   }
 
@@ -60,6 +74,13 @@ export default class MapScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
+    const customerId = await AsyncStorage.getItem('userId');
+    const customer = await getCustomersById(customerId);
+    const isGuest = customerId === 'recLKK7cZHboMPEB8';
+    this.setState({
+      customer,
+      isGuest,
+    });
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
@@ -346,9 +367,11 @@ export default class MapScreen extends React.Component {
             zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
-          <View>
-            <Subhead color="#fff"> Your Rewards </Subhead>
-          </View>
+          <RewardsFooter
+            wdth={Window.width}
+            customer={this.state.customer}
+            isGuest={this.state.isGuest}
+          />
         </TouchableOpacity>
       </View>
     );
