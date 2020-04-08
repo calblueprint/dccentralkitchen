@@ -32,7 +32,7 @@ export default class ProductsScreen extends React.Component {
   };
 
   render() {
-    const { store } = this.props.navigation.state.params;
+    const { store } = this.props.route.params;
     return (
       <View>
         <NavHeaderContainer withMargin>

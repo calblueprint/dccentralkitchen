@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
-import RewardsScreen from '../screens/rewards/RewardsScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
@@ -21,19 +20,21 @@ function DrawerNavigator() {
         labelStyle: {
           fontFamily: 'poppins-medium',
           fontSize: 20,
+          color: Colors.black,
         },
         activeTintColor: Colors.primaryGreen,
+        itemStyle: { marginVertical: 0, marginHorizontal: 0, borderRadius: 0 },
       }}>
       <Drawer.Screen
         name="Stores"
         component={StoresStackNavigator}
         options={{ title: 'Stores' }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Rewards"
         options={{ title: 'Points History', drawerLockMode: 'locked-closed' }}>
         {props => <RewardsScreen {...props} tab={1} />}
-      </Drawer.Screen>
+      </Drawer.Screen> */}
       <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}
@@ -55,7 +56,11 @@ export default function createAppContainer() {
           cardStyle: { backgroundColor: Colors.lightest },
         }}>
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
-        <AppStack.Screen name="App" component={DrawerNavigator} />
+        <AppStack.Screen
+          name="App"
+          component={DrawerNavigator}
+          options={{ animationEnabled: false }}
+        />
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
       </AppStack.Navigator>
     </NavigationContainer>
