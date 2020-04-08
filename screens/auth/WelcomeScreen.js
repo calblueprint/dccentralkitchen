@@ -9,26 +9,13 @@ import {
 import Colors from '../../constants/Colors';
 import {
   WelcomeContainer,
-  WelcomeLoginContainer,
+  WelcomeLogInContainer,
   WelcomeTitleContainer,
 } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      phoneNumber: '',
-      password: '',
-      errorMsg: '',
-      token: null,
-    };
-  }
-
-  componentDidMount() {}
-
-  navigateLogin() {
-    this.props.navigation.navigate('Login');
+  navigateLogIn() {
+    this.props.navigation.navigate('LogIn');
   }
 
   navigateSignup() {
@@ -47,12 +34,12 @@ export default class WelcomeScreen extends React.Component {
           onPress={() => this.navigateSignup()}>
           <ButtonLabel color="white">Sign up</ButtonLabel>
         </FilledButtonContainer>
-        <WelcomeLoginContainer>
+        <WelcomeLogInContainer>
           <Body color={Colors.secondaryText}>Already have an account?</Body>
-          <ButtonContainer onPress={() => this.navigateLogin()}>
-            <ButtonLabel color={Colors.primaryGreen}>Log in</ButtonLabel>
+          <ButtonContainer onPress={() => this.navigateLogIn()}>
+            <ButtonLabel color={Colors.primaryGreen}>Log In</ButtonLabel>
           </ButtonContainer>
-        </WelcomeLoginContainer>
+        </WelcomeLogInContainer>
       </WelcomeContainer>
     );
   }
