@@ -21,6 +21,10 @@ import {
   SearchBar,
 } from '../../styled/store';
 
+const minSnapPoint = 160;
+const midSnapPoint = 325;
+const maxSnapPoint = 460;
+
 const deltas = {
   latitudeDelta: 0.01,
   longitudeDelta: 0.01,
@@ -38,6 +42,7 @@ const defaultStoreId = 'recKmetaavnMWXVrk';
 export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       locationErrorMsg: null,
       location: null,
@@ -230,7 +235,7 @@ export default class MapScreen extends React.Component {
       <View style={StyleSheet.absoluteFillObject}>
         <NavHeaderContainer
           noShadow
-          backgroundColor="rgba(0,0,0,0)"
+          backgroundColor="transparent"
           style={{
             zIndex: 1,
           }}>
@@ -301,14 +306,14 @@ export default class MapScreen extends React.Component {
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
-        <View style={{ flex: 1, marginBottom: 240 }}>
+        <View style={{ flex: 1, marginBottom: 20 }}>
           <BottomSheet
             initialSnap={1}
             enabledInnerScrolling={false}
             enabledBottomClamp
             overdragResistanceFactor={1}
-            enabledGestureInteraction
-            snapPoints={['30%', '10%']}
+            enabledContentTapInteraction={false}
+            snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
@@ -324,6 +329,7 @@ export default class MapScreen extends React.Component {
             width: Window.width,
             alignItems: 'center',
             justifyContent: 'center',
+            zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>

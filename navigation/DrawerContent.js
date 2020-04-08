@@ -18,7 +18,12 @@ class DrawerContent extends React.Component {
   async componentDidMount() {
     try {
       const customerId = await AsyncStorage.getItem('userId');
-      const customer = await getCustomersById(customerId);
+      let customer = null;
+      if (customerId != null) {
+        customer = await getCustomersById(customerId);
+      } else {
+        customer = { name: 'Guest' };
+      }
       this.setState({ customer, isLoading: false });
     } catch (err) {
       console.error('[DrawerContent] Airtable:', err);
