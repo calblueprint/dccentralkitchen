@@ -1,18 +1,12 @@
 .expo/*
 node_modules/**/*
 
-# Deprecated env files
+# Deprecated env file
 environment.js
-.airtable-schema-generator.env
-
-# Ignore schemaRaw.json (only used for manual mode)
-schemaRaw.json
-
 # env files
 .env.development
 .env.production
-
-
+.airtable-schema-generator.env
 package-lock.json
 *.DS_Store
 

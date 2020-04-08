@@ -8,12 +8,13 @@ import {
 } from '../../components/BaseComponents';
 import ResourceCard from '../../components/resources/ResourceCard';
 import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
-import { getAllResources } from '../../lib/airtable/request';
+import getResources from '../../lib/resourceUtils';
 
 export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      resources: [],
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
@@ -22,29 +23,26 @@ export default class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
-    try {
-      const resources = await getAllResources();
-      const DCCentralKitchenResources = resources.filter(
+    getResources().then(resources => {
+      (DCCentralKitchenResources = resources.filter(
         resource => resource.category == 'DC Central Kitchen Resources'
-      );
-      const CommunityResources = resources.filter(
-        resource => resource.category == 'Community Resources'
-      );
-      const GovernmentResources = resources.filter(
-        resource => resource.category == 'Government Resources'
-      );
-      const ResourcesForSeniors = resources.filter(
-        resource => resource.category == 'Resources for Seniors'
-      );
-      this.setState({
-        DCCentralKitchenResources,
-        CommunityResources,
-        GovernmentResources,
-        ResourcesForSeniors,
-      });
-    } catch (err) {
-      console.error('[ResourcesScreen] Airtable: ', err);
-    }
+      )),
+        (CommunityResources = resources.filter(
+          resource => resource.category == 'Community Resources'
+        )),
+        (GovernmentResources = resources.filter(
+          resource => resource.category == 'Government Resources'
+        )),
+        (ResourcesForSeniors = resources.filter(
+          resource => resource.category == 'Resources for Seniors'
+        )),
+        this.setState({
+          DCCentralKitchenResources,
+          CommunityResources,
+          GovernmentResources,
+          ResourcesForSeniors,
+        });
+    });
   }
 
   render() {

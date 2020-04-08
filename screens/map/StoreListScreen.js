@@ -19,14 +19,14 @@ export default class StoreListScreen extends React.Component {
     const {
       stores,
       navigation,
-      showDefaultStore,
+      defaultStore,
     } = this.props.navigation.state.params;
     this.state = {
       allStores: stores,
       navigation,
       searchStr: '',
       filteredStores: stores,
-      showDefaultStore,
+      defaultStore,
     };
   }
 
@@ -48,11 +48,11 @@ export default class StoreListScreen extends React.Component {
     });
   };
 
-  filterStore = searchStr => {
+  filterStore(searchStr) {
     return store => {
-      return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
+      return store.name.toLowerCase().includes(searchStr.toLowerCase());
     };
-  };
+  }
 
   render() {
     const { searchStr } = this.state;
@@ -104,7 +104,7 @@ export default class StoreListScreen extends React.Component {
               store={item}
               callBack={() => this.storeDetailsTransition(item)}
               seeProduct
-              seeDistance={!this.state.showDefaultStore}
+              seeDistance={!this.state.defaultStore}
             />
           )}
           keyExtractor={item => item.id}

@@ -28,16 +28,7 @@ export default function StoreCard({
   seeProduct,
   seeDistance,
 }) {
-  const {
-    storeName,
-    storeHours,
-    address,
-    distance,
-    snapOrEbtAccepted,
-    rewardsAccepted,
-    latitude,
-    longitude,
-  } = store;
+  const { name, hours, address, distance, ebt, rewards, lat, long } = store;
 
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
@@ -46,9 +37,9 @@ export default function StoreCard({
 
   const openDirections = () => {
     showLocation({
-      latitude,
-      longitude,
-      title: storeName,
+      latitude: lat,
+      longitude: long,
+      title: name,
       googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
       alwaysIncludeGoogle: true,
     });
@@ -63,15 +54,15 @@ export default function StoreCard({
             style={{
               maxWidth: getMaxWidth(
                 Dimensions.get('window').width,
-                snapOrEbtAccepted,
+                ebt,
                 seeProduct
               ),
             }}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {storeName}
+            {name}
           </Title>
-          {snapOrEbtAccepted && (
+          {ebt && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
               <Caption color={Colors.darkerGreen}> EBT</Caption>
@@ -91,10 +82,10 @@ export default function StoreCard({
           name="star"
           solid
           size={16}
-          color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
+          color={rewards ? Colors.primaryGreen : Colors.secondaryText}
         />
-        <StoreDetailText greenText={rewardsAccepted}>
-          {rewardsAccepted
+        <StoreDetailText greenText={rewards}>
+          {rewards
             ? 'Earn and redeem Healthy Rewards here'
             : 'Healthy Rewards not accepted'}
         </StoreDetailText>
@@ -118,7 +109,7 @@ export default function StoreCard({
           size={16}
           color={Colors.secondaryText}
         />
-        <StoreDetailText>{storeHours}</StoreDetailText>
+        <StoreDetailText>{hours}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>

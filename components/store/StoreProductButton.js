@@ -7,6 +7,7 @@ import { ButtonLabel, FilledButtonContainer } from '../BaseComponents';
  * */
 
 function StoreProductButton({ callBack }) {
+  //   const { name, hours, address, distance, ebt } = store;
   return (
     <FilledButtonContainer
       width="130px"
@@ -14,7 +15,7 @@ function StoreProductButton({ callBack }) {
       color={Colors.primaryOrange}
       onPress={callBack}
       style={{ borderRadius: 10 }}>
-      <ButtonLabel color={Colors.lightest}>See Products</ButtonLabel>
+      <ButtonLabel color="#fff">See Products</ButtonLabel>
     </FilledButtonContainer>
   );
 }

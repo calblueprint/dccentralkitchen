@@ -13,7 +13,6 @@ const Colors = {
   activeText: 'rgba(0, 0, 0, 0.8)',
   secondaryText: '#999999',
   // Other
-  error: '#CB4D4D',
   base: '#BDBDBD',
   light: '#DEDEDE',
   lighter: '#EBEBEB',

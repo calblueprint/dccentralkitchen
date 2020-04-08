@@ -16,16 +16,8 @@
     "generate-schema": "generate-airtable-schema"
   },
   "airtable-schema-generator": {
-    "output": "lib/airtable",
-    "mode": "auto-headless",
-    "envFileName": ".env.development",
-    "schemaMeta": {
-      "Customers": {
-        "lookupFields": [
-          "Phone Number"
-        ]
-      }
-    }
+    "input": "lib/airtable",
+    "output": "lib/airtable"
   },
   "eslintConfig": {
     "extends": "universe/native"
@@ -77,7 +69,6 @@
     "react-native-global-props": "^1.1.5",
     "react-native-map-link": "^2.7.5",
     "react-native-maps": "~0.25.0",
-    "react-native-materialui-textfield": "^0.13.2",
     "react-native-paper": "^3.6.0",
     "react-native-phone-input": "^0.2.4",
     "react-native-reanimated": "~1.2.0",
@@ -96,7 +87,7 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "airtable-schema-generator": "^1.3.3",
+    "airtable-schema-generator": "^1.2.5",
     "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.0.0",
     "eslint": "^5.16.0",

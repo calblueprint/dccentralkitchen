@@ -10,7 +10,7 @@ function NewsDetailsScreen(props) {
       <ContentText>{currentNewsItem.description}</ContentText>
       <ContentText>
         Posted on:&nbsp;
-        {currentNewsItem.postDate.toLocaleDateString()}
+        {currentNewsItem.date.toLocaleDateString()}
       </ContentText>
     </View>
   );

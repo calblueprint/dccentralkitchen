@@ -1,6 +1,5 @@
 import React from 'react';
 import Colors from '../../constants/Colors';
-import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import {
   RewardDescriptionContainer,
   RewardsCardContainer,
@@ -18,12 +17,8 @@ class RewardsCard extends React.Component {
           circleColor={Colors.lightest}
         />
         <RewardDescriptionContainer>
-          <Subhead color={Colors.darkerGreen}>
-            {`$${rewardDollarValue} Reward`}
-          </Subhead>
-          <Caption color={Colors.darkerGreen}>
-            {`${rewardPointValue} points`}
-          </Caption>
+          <Subhead color={Colors.darkerGreen}>$5 Reward</Subhead>
+          <Caption color={Colors.darkerGreen}>1000 points</Caption>
         </RewardDescriptionContainer>
       </RewardsCardContainer>
     );

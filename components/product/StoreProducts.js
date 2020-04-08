@@ -8,16 +8,11 @@ import { Body, ButtonContainer, Subhead, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
-function StoreProducts({ navigation, store, products, showDefaultStore }) {
+function StoreProducts({ navigation, store, products }) {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   return (
     <View>
-      <StoreCard
-        store={store}
-        key={store.id}
-        seeProduct={false}
-        seeDistance={!showDefaultStore}
-      />
+      <StoreCard store={store} key={store.id} seeProduct={false} />
       <View>
         <SpaceBetweenRowContainer margin={(0, 16)}>
           <Title>Products</Title>

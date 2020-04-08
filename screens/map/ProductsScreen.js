@@ -32,14 +32,14 @@ export default class ProductsScreen extends React.Component {
   };
 
   render() {
-    const { store } = this.props.navigation.state.params;
+    const { products, store } = this.props.navigation.state.params;
     return (
       <View>
         <NavHeaderContainer withMargin>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>
-          <NavTitle>{store.storeName}</NavTitle>
+          <NavTitle>{store.name}</NavTitle>
         </NavHeaderContainer>
         <ScrollView
           style={{ height: '100%', width: '100%' }}

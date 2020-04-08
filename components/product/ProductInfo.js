@@ -9,7 +9,7 @@ import { Body, Caption, Title } from '../BaseComponents';
  * */
 
 function ProductInfo({ product }) {
-  const { name, points, customerCost } = product;
+  const { name, id, category, points, customerCost } = product;
   return (
     <ProductInfoContainer>
       <Title>{name}</Title>

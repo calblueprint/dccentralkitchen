@@ -1,0 +1,1328 @@
+{
+    "tblFjqslig6CAMNR9": {
+      "id": "tblFjqslig6CAMNR9",
+      "name": "Customers",
+      "columns": [
+        {
+          "id": "fldfr5bRHz2NsNTKm",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldSMZKoTpRKjoMyA} & ': ' & {column_value_fld9pYci2JQ0YZIAP} & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldSMZKoTpRKjoMyA",
+                "fld9pYci2JQ0YZIAP"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:86"
+        },
+        {
+          "id": "fldnRoqVKFeE2vzrg",
+          "name": "First Name",
+          "type": "multilineText",
+          "typeOptions": null,
+          "$$hashKey": "object:87"
+        },
+        {
+          "id": "fldV89xGbwTgqpBfZ",
+          "name": "Last Name",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:88"
+        },
+        {
+          "id": "fldUynpyZEX4qfoHI",
+          "name": "Zipcode",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:89"
+        },
+        {
+          "id": "fld9pYci2JQ0YZIAP",
+          "name": "Phone Number",
+          "type": "phone",
+          "typeOptions": null,
+          "$$hashKey": "object:90"
+        },
+        {
+          "id": "fld9EYcpFxSHkY9mn",
+          "name": "Password",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:91"
+        },
+        {
+          "id": "fldSzDOesWU3at3Vq",
+          "name": "Points",
+          "type": "number",
+          "typeOptions": {
+            "format": "integer",
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:92"
+        },
+        {
+          "id": "fldHh1PNTTXZmSNQt",
+          "name": "Unlocked Rewards",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "column_value_fldSzDOesWU3at3Vq / 500",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldSzDOesWU3at3Vq"
+              ]
+            },
+            "resultType": "number"
+          },
+          "$$hashKey": "object:93"
+        },
+        {
+          "id": "fldMnZmFYd3znYXac",
+          "name": "Transactions",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblqhxusdQjIyddi5",
+            "symmetricColumnId": "fldiOjXjNhLeqKVAS",
+            "relationship": "many"
+          },
+          "foreignTable": "tblqhxusdQjIyddi5",
+          "$$hashKey": "object:94"
+        },
+        {
+          "id": "fldMZYzBSaxl3Ht33",
+          "name": "Receipts",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblDb5Sro2qV1JAuz",
+            "symmetricColumnId": "fldqpi4itmHTmbtEM",
+            "relationship": "many"
+          },
+          "foreignTable": "tblDb5Sro2qV1JAuz",
+          "$$hashKey": "object:95"
+        },
+        {
+          "id": "fldo4bNgsuQrfjxCA",
+          "name": "Push Tokens",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tbljEezc1u6X0wqxd",
+            "symmetricColumnId": "fld9CtO0aYSLbdeXi",
+            "relationship": "many"
+          },
+          "foreignTable": "tbljEezc1u6X0wqxd",
+          "$$hashKey": "object:96"
+        },
+        {
+          "id": "fldSMZKoTpRKjoMyA",
+          "name": "Name",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldnRoqVKFeE2vzrg} & \" \" & {column_value_fldV89xGbwTgqpBfZ}",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldnRoqVKFeE2vzrg",
+                "fldV89xGbwTgqpBfZ"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:97"
+        },
+        {
+          "id": "fldySEvyeTOTHNUO8",
+          "name": "Redeemed Rewards",
+          "type": "number",
+          "typeOptions": {
+            "format": "integer",
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:98"
+        },
+        {
+          "id": "fldjJOABSvSXArDGH",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:99"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viwT3Rn6dkbTM4pvG",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "customers",
+      "$$hashKey": "object:3",
+      "numRecordsToList": 3
+    },
+    "tbljEezc1u6X0wqxd": {
+      "id": "tbljEezc1u6X0wqxd",
+      "name": "Push Tokens",
+      "columns": [
+        {
+          "id": "fldC6rw2qM1oNGFaf",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "'Token: ' & LEFT(RIGHT({column_value_fldugeZksIHKb7Y6P}, LEN({column_value_fldugeZksIHKb7Y6P}) - FIND(\"[\", {column_value_fldugeZksIHKb7Y6P})), LEN({column_value_fldugeZksIHKb7Y6P}) - FIND(\"[\", {column_value_fldugeZksIHKb7Y6P}) - 1) & ' - ' & {column_value_fldp0LSd9Euib57uR} & ' ' & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldugeZksIHKb7Y6P",
+                "fldp0LSd9Euib57uR"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:272"
+        },
+        {
+          "id": "fldiCf6A0E8YYDyGc",
+          "name": "Created Date",
+          "type": "formula",
+          "typeOptions": {
+            "dateFormat": "ISO",
+            "isDateTime": true,
+            "timeFormat": "24hour",
+            "timeZone": "client",
+            "displayType": "createdTime",
+            "formulaTextParsed": "CREATED_TIME()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "date"
+          },
+          "$$hashKey": "object:273"
+        },
+        {
+          "id": "fld9CtO0aYSLbdeXi",
+          "name": "Customer",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "many",
+            "foreignTableId": "tblFjqslig6CAMNR9",
+            "symmetricColumnId": "fldo4bNgsuQrfjxCA"
+          },
+          "foreignTable": "tblFjqslig6CAMNR9",
+          "$$hashKey": "object:274"
+        },
+        {
+          "id": "fldp0LSd9Euib57uR",
+          "name": "Customer Name",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fld9CtO0aYSLbdeXi",
+            "foreignTableRollupColumnId": "fldSMZKoTpRKjoMyA",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fld9CtO0aYSLbdeXi",
+                "fldSMZKoTpRKjoMyA"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Customers",
+          "foreignTableRollupColumnName": "Name",
+          "$$hashKey": "object:275"
+        },
+        {
+          "id": "fldugeZksIHKb7Y6P",
+          "name": "Token",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:276"
+        },
+        {
+          "id": "fldw4e4MvdhyTDJe7",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:277"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viwQZX6bvQpEARTfU",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "push%20tokens",
+      "$$hashKey": "object:4",
+      "numRecordsToList": 3
+    },
+    "tbll0b8tyCevgGSk0": {
+      "id": "tbll0b8tyCevgGSk0",
+      "name": "Clerks",
+      "columns": [
+        {
+          "id": "fldPKwlzW1FEQcXLT",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldztcmrfbvdjLhAi} & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldztcmrfbvdjLhAi"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:380"
+        },
+        {
+          "id": "fldBx8NOMb8NmRp7j",
+          "name": "First Name",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:381"
+        },
+        {
+          "id": "flderd5UqpxVS8t1V",
+          "name": "Last Name",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:382"
+        },
+        {
+          "id": "fldIg4neghQ37ZBe1",
+          "name": "Password",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:383"
+        },
+        {
+          "id": "fldfhIat6nFU8N9po",
+          "name": "Transactions",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblqhxusdQjIyddi5",
+            "symmetricColumnId": "fldjZVXpGywxnr54O",
+            "relationship": "many"
+          },
+          "foreignTable": "tblqhxusdQjIyddi5",
+          "$$hashKey": "object:384"
+        },
+        {
+          "id": "fldOlO1ongfNyQr6f",
+          "name": "Store",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "one",
+            "foreignTableId": "tblRfu3fBhQpUiUlV",
+            "symmetricColumnId": "fldhRCYqqusFR2hBM"
+          },
+          "foreignTable": "tblRfu3fBhQpUiUlV",
+          "$$hashKey": "object:385"
+        },
+        {
+          "id": "fldztcmrfbvdjLhAi",
+          "name": "Clerk Name",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:386"
+        },
+        {
+          "id": "fldAmmTQJ0qGJdEEz",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:387"
+        },
+        {
+          "id": "fldZIsxcviRPeJdSB",
+          "name": "Store Name",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldOlO1ongfNyQr6f",
+            "foreignTableRollupColumnId": "fldOGtrT7K4nK1s9R",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldOlO1ongfNyQr6f",
+                "fldOGtrT7K4nK1s9R"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Stores",
+          "foreignTableRollupColumnName": "Store Name",
+          "$$hashKey": "object:388"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viwZilEUzIIGd6rkh",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "clerks",
+      "$$hashKey": "object:5",
+      "numRecordsToList": 3
+    },
+    "tblqhxusdQjIyddi5": {
+      "id": "tblqhxusdQjIyddi5",
+      "name": "Transactions",
+      "columns": [
+        {
+          "id": "fldpP7LO78SYtNS9q",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldJ4uWJQXHdmD6pq} & ' @ ' & {column_value_fldXyTc14Jrvpxmj5} & ' ' & RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldJ4uWJQXHdmD6pq",
+                "fldXyTc14Jrvpxmj5"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:509"
+        },
+        {
+          "id": "fldvoVbx0a9PouVUp",
+          "name": "Customer Phone Number",
+          "type": "phone",
+          "typeOptions": null,
+          "$$hashKey": "object:510"
+        },
+        {
+          "id": "fldkzTsNrOvnSYUA0",
+          "name": "Store",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "one",
+            "foreignTableId": "tblRfu3fBhQpUiUlV",
+            "symmetricColumnId": "fldmVXlun5zmOk3ja"
+          },
+          "foreignTable": "tblRfu3fBhQpUiUlV",
+          "$$hashKey": "object:511"
+        },
+        {
+          "id": "fldf4jfSaFH0f4xXM",
+          "name": "Products Purchased",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "many",
+            "foreignTableId": "tblpywEfySG9Mqd5N",
+            "symmetricColumnId": "fldEwWIcq4VZxB4MM"
+          },
+          "foreignTable": "tblpywEfySG9Mqd5N",
+          "$$hashKey": "object:512"
+        },
+        {
+          "id": "fldiOjXjNhLeqKVAS",
+          "name": "Customer",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "many",
+            "foreignTableId": "tblFjqslig6CAMNR9",
+            "symmetricColumnId": "fldMnZmFYd3znYXac"
+          },
+          "foreignTable": "tblFjqslig6CAMNR9",
+          "$$hashKey": "object:513"
+        },
+        {
+          "id": "fld3ftifAPGDigjkk",
+          "name": "Receipts",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblDb5Sro2qV1JAuz",
+            "symmetricColumnId": "fld1IGW0EkaxJvjoE",
+            "relationship": "many"
+          },
+          "foreignTable": "tblDb5Sro2qV1JAuz",
+          "$$hashKey": "object:514"
+        },
+        {
+          "id": "fld1ppzgfWJRGTBAP",
+          "name": "Date",
+          "type": "formula",
+          "typeOptions": {
+            "isDateTime": true,
+            "dateFormat": "Local",
+            "displayType": "createdTime",
+            "timeZone": "client",
+            "timeFormat": "24hour",
+            "formulaTextParsed": "CREATED_TIME()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "date"
+          },
+          "$$hashKey": "object:515"
+        },
+        {
+          "id": "fldzrtcGpZThQMLMS",
+          "name": "Points Rewarded",
+          "type": "number",
+          "typeOptions": {
+            "format": "integer",
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:516"
+        },
+        {
+          "id": "fldjZVXpGywxnr54O",
+          "name": "Clerk",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "one",
+            "foreignTableId": "tbll0b8tyCevgGSk0",
+            "symmetricColumnId": "fldfhIat6nFU8N9po"
+          },
+          "foreignTable": "tbll0b8tyCevgGSk0",
+          "$$hashKey": "object:517"
+        },
+        {
+          "id": "fldJ4uWJQXHdmD6pq",
+          "name": "Customer Name",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldiOjXjNhLeqKVAS",
+            "foreignTableRollupColumnId": "fldSMZKoTpRKjoMyA",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldiOjXjNhLeqKVAS",
+                "fldSMZKoTpRKjoMyA"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Customers",
+          "foreignTableRollupColumnName": "Name",
+          "$$hashKey": "object:518"
+        },
+        {
+          "id": "fld8byhws7WgjTW5Q",
+          "name": "Line Items",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldf4jfSaFH0f4xXM",
+            "foreignTableRollupColumnId": "fldHOLxO57BZ0HFeX",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldf4jfSaFH0f4xXM",
+                "fldHOLxO57BZ0HFeX"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Line Items",
+          "foreignTableRollupColumnName": "Product Name",
+          "$$hashKey": "object:519"
+        },
+        {
+          "id": "fldXyTc14Jrvpxmj5",
+          "name": "Store Name",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldkzTsNrOvnSYUA0",
+            "foreignTableRollupColumnId": "fldwwQI1hS80qk39Y",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldkzTsNrOvnSYUA0",
+                "fldwwQI1hS80qk39Y"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Stores",
+          "foreignTableRollupColumnName": "Primary Key",
+          "$$hashKey": "object:520"
+        },
+        {
+          "id": "fldORc4zoU1dtUvIn",
+          "name": "transaction_id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:521"
+        },
+        {
+          "id": "fldrUpfW5HoToPuf9",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:522"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viwb1P3YRa7nYgQX6",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "transactions",
+      "$$hashKey": "object:6",
+      "numRecordsToList": 3
+    },
+    "tblpywEfySG9Mqd5N": {
+      "id": "tblpywEfySG9Mqd5N",
+      "name": "Line Items",
+      "columns": [
+        {
+          "id": "fld28T83u4DaovHmw",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldHOLxO57BZ0HFeX} & ' (' & {column_value_fldzOYAu2Ao6BUquG} & '): ' & {column_value_fldEwWIcq4VZxB4MM}",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldHOLxO57BZ0HFeX",
+                "fldzOYAu2Ao6BUquG",
+                "fldEwWIcq4VZxB4MM"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:687"
+        },
+        {
+          "id": "fldwKAvbUMszVA6Qo",
+          "name": "Product",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "one",
+            "foreignTableId": "tblA9bNyK9bEXwbj5",
+            "symmetricColumnId": "fldlK1atTE46O7GCW"
+          },
+          "foreignTable": "tblA9bNyK9bEXwbj5",
+          "$$hashKey": "object:688"
+        },
+        {
+          "id": "fldzOYAu2Ao6BUquG",
+          "name": "Quantity",
+          "type": "number",
+          "typeOptions": {
+            "format": "integer",
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:689"
+        },
+        {
+          "id": "fldpHfXeiHMsuzM2o",
+          "name": "Total price",
+          "type": "formula",
+          "typeOptions": {
+            "format": "currency",
+            "precision": 2,
+            "symbol": "$",
+            "formulaTextParsed": "{column_value_fldd7yUSfsgO369nc} * {column_value_fldzOYAu2Ao6BUquG}",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldd7yUSfsgO369nc",
+                "fldzOYAu2Ao6BUquG"
+              ]
+            },
+            "resultType": "number"
+          },
+          "$$hashKey": "object:690"
+        },
+        {
+          "id": "fldd7yUSfsgO369nc",
+          "name": "Product price",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldwKAvbUMszVA6Qo",
+            "foreignTableRollupColumnId": "fld3NqZeBSrbSZkjH",
+            "format": "currency",
+            "precision": 2,
+            "symbol": "$",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldwKAvbUMszVA6Qo",
+                "fld3NqZeBSrbSZkjH"
+              ]
+            },
+            "resultType": "number"
+          },
+          "foreignTableName": "Products",
+          "foreignTableRollupColumnName": "Customer Cost",
+          "$$hashKey": "object:691"
+        },
+        {
+          "id": "fldEwWIcq4VZxB4MM",
+          "name": "Transaction",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblqhxusdQjIyddi5",
+            "symmetricColumnId": "fldf4jfSaFH0f4xXM",
+            "relationship": "many"
+          },
+          "foreignTable": "tblqhxusdQjIyddi5",
+          "$$hashKey": "object:692"
+        },
+        {
+          "id": "fldHOLxO57BZ0HFeX",
+          "name": "Product Name",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldwKAvbUMszVA6Qo",
+            "foreignTableRollupColumnId": "fldLEt4uLpGkLQS8i",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldwKAvbUMszVA6Qo",
+                "fldLEt4uLpGkLQS8i"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Products",
+          "foreignTableRollupColumnName": "Name",
+          "$$hashKey": "object:693"
+        },
+        {
+          "id": "fldUCrryhrJr91zAR",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:694"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viw0UpN08Y0QKeA9e",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "line%20items",
+      "$$hashKey": "object:7",
+      "numRecordsToList": 3
+    },
+    "tblRfu3fBhQpUiUlV": {
+      "id": "tblRfu3fBhQpUiUlV",
+      "name": "Stores",
+      "columns": [
+        {
+          "id": "fldwwQI1hS80qk39Y",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldOGtrT7K4nK1s9R} & ' @ ' & {column_value_fldTnFWO2d26lHPFR}",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldOGtrT7K4nK1s9R",
+                "fldTnFWO2d26lHPFR"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:811"
+        },
+        {
+          "id": "fldEQ9x8Ef5P4PE7E",
+          "name": "Ward",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:812"
+        },
+        {
+          "id": "fldTnFWO2d26lHPFR",
+          "name": "Address",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:813"
+        },
+        {
+          "id": "fldCzUeymZKs7nL5D",
+          "name": "Store Hours",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:814"
+        },
+        {
+          "id": "fld6t3Juedk03dB72",
+          "name": "SNAP or EBT Accepted",
+          "type": "checkbox",
+          "typeOptions": {
+            "color": "green",
+            "icon": "check"
+          },
+          "$$hashKey": "object:815"
+        },
+        {
+          "id": "fldtZ9JTuz3cVBqUq",
+          "name": "Coupon Program Partner",
+          "type": "checkbox",
+          "typeOptions": {
+            "color": "green",
+            "icon": "check"
+          },
+          "$$hashKey": "object:816"
+        },
+        {
+          "id": "fldmVXlun5zmOk3ja",
+          "name": "Transactions",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblqhxusdQjIyddi5",
+            "symmetricColumnId": "fldkzTsNrOvnSYUA0",
+            "relationship": "many"
+          },
+          "foreignTable": "tblqhxusdQjIyddi5",
+          "$$hashKey": "object:817"
+        },
+        {
+          "id": "fldpoqWSqOwVBt0b0",
+          "name": "Latitude",
+          "type": "number",
+          "typeOptions": {
+            "format": "decimal",
+            "precision": 6,
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:818"
+        },
+        {
+          "id": "fldhmSbZuA0dwgGZL",
+          "name": "Longitude",
+          "type": "number",
+          "typeOptions": {
+            "format": "decimal",
+            "precision": 6,
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:819"
+        },
+        {
+          "id": "fldTqWWQdpG1vKdAR",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:820"
+        },
+        {
+          "id": "fldhRCYqqusFR2hBM",
+          "name": "Clerks",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tbll0b8tyCevgGSk0",
+            "symmetricColumnId": "fldOlO1ongfNyQr6f",
+            "relationship": "many"
+          },
+          "foreignTable": "tbll0b8tyCevgGSk0",
+          "$$hashKey": "object:821"
+        },
+        {
+          "id": "fldyOWJx75QpxaBAf",
+          "name": "Products",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "many",
+            "foreignTableId": "tblA9bNyK9bEXwbj5",
+            "symmetricColumnId": "fld0jaPCkhJ51Y8F0"
+          },
+          "foreignTable": "tblA9bNyK9bEXwbj5",
+          "$$hashKey": "object:822"
+        },
+        {
+          "id": "fldOGtrT7K4nK1s9R",
+          "name": "Store Name",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:823"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viw68dujd3AsjEGHl",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "stores",
+      "$$hashKey": "object:8",
+      "numRecordsToList": 3
+    },
+    "tblA9bNyK9bEXwbj5": {
+      "id": "tblA9bNyK9bEXwbj5",
+      "name": "Products",
+      "columns": [
+        {
+          "id": "fldGKpjMiplFMEJEq",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldLEt4uLpGkLQS8i} & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldLEt4uLpGkLQS8i"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:976"
+        },
+        {
+          "id": "fldKZCR8Go3dblXin",
+          "name": "Category",
+          "type": "multiSelect",
+          "typeOptions": {
+            "choiceOrder": [
+              "selsjwqP8GeIUk8Mb",
+              "seli6L2szK7CN0B5F",
+              "selUorZqnIEO0D8pC",
+              "selBHmzWYKTttHCY0"
+            ],
+            "choices": {
+              "selsjwqP8GeIUk8Mb": {
+                "id": "selsjwqP8GeIUk8Mb",
+                "name": "Cut Fruit & Packaged Products",
+                "color": "red"
+              },
+              "seli6L2szK7CN0B5F": {
+                "id": "seli6L2szK7CN0B5F",
+                "name": "Fruit",
+                "color": "green"
+              },
+              "selUorZqnIEO0D8pC": {
+                "id": "selUorZqnIEO0D8pC",
+                "name": "Vegetables",
+                "color": "teal"
+              },
+              "selBHmzWYKTttHCY0": {
+                "id": "selBHmzWYKTttHCY0",
+                "name": "Frozen & Dried",
+                "color": "purple"
+              }
+            },
+            "disableColors": false
+          },
+          "$$hashKey": "object:977"
+        },
+        {
+          "id": "fld3NqZeBSrbSZkjH",
+          "name": "Customer Cost",
+          "type": "number",
+          "typeOptions": {
+            "format": "decimal",
+            "precision": 2,
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:978"
+        },
+        {
+          "id": "fldSPlL0ttNOiq4fc",
+          "name": "Points",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "IF({column_value_fldhLs3c3IsNowztR}, {column_value_fld3NqZeBSrbSZkjH} * 100 * {column_value_fldhLs3c3IsNowztR}, {column_value_fld3NqZeBSrbSZkjH} * 100)",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldhLs3c3IsNowztR",
+                "fld3NqZeBSrbSZkjH"
+              ]
+            },
+            "resultType": "number"
+          },
+          "$$hashKey": "object:979"
+        },
+        {
+          "id": "fldhLs3c3IsNowztR",
+          "name": "Multiplier",
+          "type": "number",
+          "typeOptions": {
+            "format": "integer",
+            "negative": false,
+            "validatorName": "positive"
+          },
+          "$$hashKey": "object:980"
+        },
+        {
+          "id": "fldqlCvPpKePufZPi",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:981"
+        },
+        {
+          "id": "fldlK1atTE46O7GCW",
+          "name": "Line Items",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblpywEfySG9Mqd5N",
+            "symmetricColumnId": "fldwKAvbUMszVA6Qo",
+            "relationship": "many"
+          },
+          "foreignTable": "tblpywEfySG9Mqd5N",
+          "$$hashKey": "object:982"
+        },
+        {
+          "id": "fldLEt4uLpGkLQS8i",
+          "name": "Name",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:983"
+        },
+        {
+          "id": "fld0jaPCkhJ51Y8F0",
+          "name": "Stores",
+          "type": "foreignKey",
+          "typeOptions": {
+            "foreignTableId": "tblRfu3fBhQpUiUlV",
+            "symmetricColumnId": "fldyOWJx75QpxaBAf",
+            "relationship": "many"
+          },
+          "foreignTable": "tblRfu3fBhQpUiUlV",
+          "$$hashKey": "object:984"
+        },
+        {
+          "id": "flduYfnJGy2RJT92p",
+          "name": "Image",
+          "type": "multipleAttachment",
+          "typeOptions": null,
+          "$$hashKey": "object:985"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viwV51m43oJyZS2fN",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "products",
+      "$$hashKey": "object:9",
+      "numRecordsToList": 3
+    },
+    "tbldkXl83HU731E00": {
+      "id": "tbldkXl83HU731E00",
+      "name": "News",
+      "columns": [
+        {
+          "id": "flda9BulN6CFCDXP7",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fldqLaND8MIZJ7ce4} & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldqLaND8MIZJ7ce4"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:1116"
+        },
+        {
+          "id": "fldxPR6t5RyKScJMO",
+          "name": "Created",
+          "type": "formula",
+          "typeOptions": {
+            "isDateTime": true,
+            "dateFormat": "Local",
+            "displayType": "createdTime",
+            "timeZone": "client",
+            "formulaTextParsed": "CREATED_TIME()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "date"
+          },
+          "$$hashKey": "object:1117"
+        },
+        {
+          "id": "fldVn8N0XlXsLXVnm",
+          "name": "Description",
+          "type": "multilineText",
+          "typeOptions": null,
+          "$$hashKey": "object:1118"
+        },
+        {
+          "id": "fldzoJsC5TXe1Rpvx",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:1119"
+        },
+        {
+          "id": "fldgsU7yErNNoNlYP",
+          "name": "Post Date",
+          "type": "date",
+          "typeOptions": {
+            "isDateTime": false,
+            "dateFormat": "Local"
+          },
+          "$$hashKey": "object:1120"
+        },
+        {
+          "id": "fldqLaND8MIZJ7ce4",
+          "name": "Title",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1121"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viwk7DI5444kHela1",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "news",
+      "$$hashKey": "object:10",
+      "numRecordsToList": 3
+    },
+    "tblDb5Sro2qV1JAuz": {
+      "id": "tblDb5Sro2qV1JAuz",
+      "name": "Receipts",
+      "columns": [
+        {
+          "id": "fldHGOdYMxutlEsV9",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "\"Receipt - \" & {column_value_fldO5vWAboRn3GgGF} & \" @ \" & {column_value_fldakiVOh6UUmOfTQ} & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldO5vWAboRn3GgGF",
+                "fldakiVOh6UUmOfTQ"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:1225"
+        },
+        {
+          "id": "fld1IGW0EkaxJvjoE",
+          "name": "Transaction",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "one",
+            "foreignTableId": "tblqhxusdQjIyddi5",
+            "symmetricColumnId": "fld3ftifAPGDigjkk"
+          },
+          "foreignTable": "tblqhxusdQjIyddi5",
+          "$$hashKey": "object:1226"
+        },
+        {
+          "id": "fldoQJFu1MvIwV97L",
+          "name": "Attachments",
+          "type": "multipleAttachment",
+          "typeOptions": null,
+          "$$hashKey": "object:1227"
+        },
+        {
+          "id": "fldakiVOh6UUmOfTQ",
+          "name": "Time",
+          "type": "date",
+          "typeOptions": {
+            "isDateTime": true,
+            "dateFormat": "Local",
+            "timeFormat": "12hour",
+            "timeZone": "client"
+          },
+          "$$hashKey": "object:1228"
+        },
+        {
+          "id": "fldqpi4itmHTmbtEM",
+          "name": "Customer",
+          "type": "foreignKey",
+          "typeOptions": {
+            "relationship": "one",
+            "foreignTableId": "tblFjqslig6CAMNR9",
+            "symmetricColumnId": "fldMZYzBSaxl3Ht33"
+          },
+          "foreignTable": "tblFjqslig6CAMNR9",
+          "$$hashKey": "object:1229"
+        },
+        {
+          "id": "fldO5vWAboRn3GgGF",
+          "name": "Customer Name",
+          "type": "lookup",
+          "typeOptions": {
+            "relationColumnId": "fldqpi4itmHTmbtEM",
+            "foreignTableRollupColumnId": "fldSMZKoTpRKjoMyA",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fldqpi4itmHTmbtEM",
+                "fldSMZKoTpRKjoMyA"
+              ]
+            },
+            "resultType": "text"
+          },
+          "foreignTableName": "Customers",
+          "foreignTableRollupColumnName": "Name",
+          "$$hashKey": "object:1230"
+        },
+        {
+          "id": "fldriswVb8VVMSunM",
+          "name": "id",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:1231"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viw9PyDECg0vugnjZ",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "receipts",
+      "$$hashKey": "object:11",
+      "numRecordsToList": 3
+    },
+    "tbl3BR6ZlM7nLHZbd": {
+      "id": "tbl3BR6ZlM7nLHZbd",
+      "name": "Recipes",
+      "columns": [
+        {
+          "id": "fldTPaL54oez5VpCt",
+          "name": "Primary Key",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "{column_value_fld7x0DMp2IcW1GOP} & ' (' & RECORD_ID() & ')'",
+            "dependencies": {
+              "referencedColumnIdsForValue": [
+                "fld7x0DMp2IcW1GOP"
+              ]
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:1337"
+        },
+        {
+          "id": "fldTJ9IEM3a0bQODH",
+          "name": "Servings",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1338"
+        },
+        {
+          "id": "fldYNFZxS9cjSJ8pD",
+          "name": "Prep Time (minutes)",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1339"
+        },
+        {
+          "id": "fldIk0fIjaW1dAy4M",
+          "name": "Cook Time (minutes)",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1340"
+        },
+        {
+          "id": "fld608kBtxQBIS3pY",
+          "name": "Ingredients",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1341"
+        },
+        {
+          "id": "fldB63FqY4K4cUZys",
+          "name": "Instructions",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1342"
+        },
+        {
+          "id": "fld7x0DMp2IcW1GOP",
+          "name": "Title",
+          "type": "text",
+          "typeOptions": null,
+          "$$hashKey": "object:1343"
+        },
+        {
+          "id": "fldJgfA7eT0vNWRd5",
+          "name": "Field 8",
+          "type": "formula",
+          "typeOptions": {
+            "formulaTextParsed": "RECORD_ID()",
+            "dependencies": {
+              "referencedColumnIdsForValue": []
+            },
+            "resultType": "text"
+          },
+          "$$hashKey": "object:1344"
+        }
+      ],
+      "primaryColumnName": "Primary Key",
+      "defaultView": {
+        "id": "viw1qGDbYGe3OF0qM",
+        "name": "Grid view"
+      },
+      "isEmptyDueToFilter": false,
+      "isEmpty": false,
+      "nameForUrl": "recipes",
+      "$$hashKey": "object:12",
+      "numRecordsToList": 3
+    }
+  }
