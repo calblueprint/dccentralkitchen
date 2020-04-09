@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Dimensions, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
@@ -103,3 +104,8 @@ export default class RewardsScreen extends React.Component {
     );
   }
 }
+
+RewardsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  tab: PropTypes.any.isRequired,
+};

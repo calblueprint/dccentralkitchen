@@ -66,7 +66,7 @@ function StoreProducts({ navigation, store, products }) {
   );
 }
 StoreProducts.propTypes = {
-  products: PropTypes.object.isRequired,
+  products: PropTypes.array.isRequired,
   store: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -97,3 +98,7 @@ export default createAppContainer(
     }
   )
 );
+
+AuthLoadingScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

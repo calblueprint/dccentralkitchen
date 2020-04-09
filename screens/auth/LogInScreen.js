@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
@@ -172,3 +173,7 @@ export default class LogInScreen extends React.Component {
     );
   }
 }
+
+LogInScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

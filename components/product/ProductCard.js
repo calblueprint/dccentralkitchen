@@ -50,7 +50,11 @@ ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
-  displayPoints: PropTypes.bool.isRequired,
+  displayPoints: PropTypes.bool,
+};
+
+ProductCard.defaultProps = {
+  displayPoints: false,
 };
 
 export default ProductCard;

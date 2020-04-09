@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -33,5 +34,9 @@ class ResourceCard extends React.Component {
     );
   }
 }
+
+ResourceCard.propTypes = {
+  resourceCard: PropTypes.object.isRequired,
+};
 
 export default ResourceCard;

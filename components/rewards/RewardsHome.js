@@ -91,7 +91,8 @@ function RewardsHome({ customer }) {
 }
 
 RewardsHome.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  customer: PropTypes.object.isRequired,
 };
 
 export default React.memo(RewardsHome);

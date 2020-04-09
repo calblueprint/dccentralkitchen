@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { HamburgerButton } from '../styled/hamburger';
 
@@ -15,3 +16,7 @@ export default class Hamburger extends React.Component {
     );
   }
 }
+
+Hamburger.propTypes = {
+  navigation: PropTypes.any.isRequired,
+};

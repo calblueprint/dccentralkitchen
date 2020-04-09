@@ -40,9 +40,9 @@ function Transaction(props) {
 
 Transaction.propTypes = {
   date: PropTypes.object.isRequired,
-  storeName: PropTypes.string.isRequired,
-  pointsEarned: PropTypes.number.isRequired,
-  totalSale: PropTypes.number.isRequired,
+  storeName: PropTypes.array,
+  pointsEarned: PropTypes.number,
+  totalSale: PropTypes.number,
 };
 
 export default Transaction;

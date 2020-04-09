@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { CircleIconContainer } from './BaseComponents';
 
@@ -17,3 +18,9 @@ export default class CircleIcon extends React.Component {
     );
   }
 }
+
+CircleIcon.propTypes = {
+  circleColor: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  iconColor: PropTypes.string.isRequired,
+};

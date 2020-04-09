@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import { CategoryCard, CategoryHeadingContainer } from '../../styled/resources';
@@ -20,5 +21,10 @@ class ResourceCategoryBar extends React.Component {
     );
   }
 }
+
+ResourceCategoryBar.propTypes = {
+  icon: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 export default ResourceCategoryBar;

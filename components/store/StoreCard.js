@@ -119,7 +119,12 @@ export default function StoreCard({ store, callBack, seeProduct }) {
 }
 
 StoreCard.propTypes = {
-  store: PropTypes.object.isRequired,
-  callBack: PropTypes.func.isRequired,
+  store: PropTypes.object,
+  callBack: PropTypes.func,
   seeProduct: PropTypes.bool.isRequired,
+};
+
+StoreCard.defaultProps = {
+  store: null,
+  callBack: null,
 };

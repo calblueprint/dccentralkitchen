@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -52,3 +53,7 @@ export default class ProductsScreen extends React.Component {
     );
   }
 }
+
+ProductsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
