@@ -39,7 +39,6 @@ export default class RewardsScreen extends React.Component {
       routes,
       isLoading: true,
       isGuest: false,
-      imgWidth: 0,
     };
   }
 
@@ -49,14 +48,11 @@ export default class RewardsScreen extends React.Component {
     const customer = await getCustomersById(customerId);
     const isGuest = customerId === 'recLKK7cZHboMPEB8';
     const transactions = await getCustomerTransactions(customerId);
-    const dimensions = Dimensions.get('window');
-    const imgWidth = Math.round(dimensions.width * 0.8);
     this.setState({
       customer,
       transactions,
       isGuest,
       isLoading: false,
-      imgWidth,
     });
   }
 
@@ -114,8 +110,7 @@ export default class RewardsScreen extends React.Component {
               source={require('../../assets/images/guest.jpeg')}
               style={{
                 marginTop: 12,
-                width: this.state.imgWidth,
-                height: 537,
+                width: '80%',
                 display: 'flex',
                 alignSelf: 'center',
               }}

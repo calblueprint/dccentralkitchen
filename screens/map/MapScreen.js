@@ -368,7 +368,6 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <RewardsFooter
-            wdth={Window.width}
             customer={this.state.customer}
             isGuest={this.state.isGuest}
           />
