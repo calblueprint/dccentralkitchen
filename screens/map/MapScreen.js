@@ -14,7 +14,12 @@ import StoreProducts from '../../components/product/StoreProducts';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { BottomSheetContainer, BottomSheetHeaderContainer, DragBar, SearchBar } from '../../styled/store';
+import {
+  BottomSheetContainer,
+  BottomSheetHeaderContainer,
+  DragBar,
+  SearchBar,
+} from '../../styled/store';
 
 const minSnapPoint = 160;
 const midSnapPoint = 325;
@@ -264,7 +269,7 @@ export default class MapScreen extends React.Component {
         {/* Display Map */}
         <MapView
           style={{
-            marginTop: -130,
+            marginTop: -170,
             flex: 100,
             overflow: 'visible',
             zIndex: -1,
