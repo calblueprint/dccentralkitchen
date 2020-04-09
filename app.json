@@ -3,12 +3,10 @@
     "name": "Healthy Corners Rewards",
     "slug": "healthy-corners-rewards",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
-    "version": "1.0.0",
+    "sdkVersion": "37.0.0",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.1",
+    "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/CustomerAppIcon.png",
     "splash": {
@@ -38,10 +36,7 @@
     "android": {
       "package": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./google-services.json",
-      "permissions": [
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"
-      ]
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
     }
   }
 }
