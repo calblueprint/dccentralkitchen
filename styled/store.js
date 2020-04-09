@@ -40,8 +40,8 @@ export const SearchBar = styled(ButtonContainer)`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-right: 92px;
-  margin-left: 52px;
+  margin-right: 82px;
+  margin-left: 42px;
   padding-left: 12px;
   height: 40px;
   border-radius: 20px;
