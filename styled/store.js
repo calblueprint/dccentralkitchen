@@ -3,6 +3,19 @@ import styled from 'styled-components/native';
 import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
+export const MarkerContainer = styled.View`
+  width: 150px
+  display: flex
+  align-items: center
+`;
+export const MarkerStoreName = styled.Text`
+  font-family: poppins-semibold;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center
+  color: ${Colors.black};
+`;
+
 export const DragBar = styled.View`
   background-color: ${Colors.secondaryText};
   height: 4px;
