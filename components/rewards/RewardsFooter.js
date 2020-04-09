@@ -26,7 +26,7 @@ function RewardsFooter({ customer, isGuest }) {
           <FontAwesome5 name="star" solid size={16} color={Colors.lightest} />
           <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
             {isGuest
-              ? 'Learn about healthy rewards >'
+              ? 'Learn about Healthy Rewards >'
               : `${customer.points} points`}
           </Subhead>
         </View>
