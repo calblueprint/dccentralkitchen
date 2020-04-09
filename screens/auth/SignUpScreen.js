@@ -16,8 +16,9 @@ import {
   createCustomers,
   createPushTokens,
   getCustomersByPhoneNumber,
+  validate,
 } from '../../lib/airtable/request';
-import { formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
+import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -117,14 +118,18 @@ export default class SignUpScreen extends React.Component {
     const phoneNumber = values[signUpFields.PHONENUM];
     const password = values[signUpFields.PASSWORD];
     try {
-      const pushTokenId = await createPushTokens({ token });
+      let pushTokenId = null;
+      if (token) {
+        pushTokenId = await createPushTokens({ token });
+      }
       const customerId = await createCustomers({
         name,
         phoneNumber,
         password,
         points: 0,
-        pushTokenIds: [pushTokenId],
+        pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
+
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
