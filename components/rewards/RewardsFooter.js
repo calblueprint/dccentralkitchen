@@ -9,23 +9,15 @@ import { Subhead } from '../BaseComponents';
  * */
 
 function RewardsFooter({ customer, isGuest }) {
-  // const points = parseInt(customer.points);
-  let string1 = '';
-  let string2 = 'Your next reward >';
-  if (customer) {
-    string1 = `${customer.points} points`;
-    if (isGuest) {
-      string1 = 'Learn about healthy rewards >';
-      string2 = '';
-    }
-    return (
-      <View
-        style={{
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          padding: 16,
-        }}>
+  return (
+    <View
+      style={{
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 16,
+      }}>
+      {customer && (
         <View
           style={{
             flexDirection: 'row',
@@ -33,14 +25,17 @@ function RewardsFooter({ customer, isGuest }) {
           }}>
           <FontAwesome5 name="star" solid size={16} color={Colors.lightest} />
           <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
-            {string1}
+            {isGuest
+              ? 'Learn about healthy rewards >'
+              : `${customer.points} points`}
           </Subhead>
         </View>
-        <Subhead color={Colors.lightest}>{string2}</Subhead>
-      </View>
-    );
-  }
-  return null;
+      )}
+      {!isGuest && (
+        <Subhead color={Colors.lightest}>Your next reward ></Subhead>
+      )}
+    </View>
+  );
 }
 
 RewardsFooter.propTypes = {

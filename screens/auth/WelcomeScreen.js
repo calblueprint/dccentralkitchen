@@ -59,7 +59,7 @@ export default class WelcomeScreen extends React.Component {
         </FilledButtonContainer>
 
         <ButtonContainer
-          style={{ marginTop: 12, textTransform: 'capitalize' }}
+          style={{ marginTop: 12 }}
           onPress={() => this.guestLogin()}>
           <ButtonLabel
             style={{ textTransform: 'none' }}
