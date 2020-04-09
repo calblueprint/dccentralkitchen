@@ -16,7 +16,6 @@ import {
   createCustomers,
   createPushTokens,
   getCustomersByPhoneNumber,
-  validate,
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import {
@@ -24,6 +23,7 @@ import {
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import validate from './validation';
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
