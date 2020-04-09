@@ -5,7 +5,29 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as Sentry from 'sentry-expo';
 import AppNavigator from './navigation/AppNavigator';
+
+Sentry.init({
+  dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
+  enableInExpoDevelopment: true,
+  debug: true,
+});
+
+// from https://forum.sentry.io/t/set-release-after-init/6759/2
+// may be able to turn this code block off in production
+setTimeout(async () => {
+  Sentry.configureScope((scope) => {
+    scope.addEventProcessor((event) => {
+      event.release = 'newRelease';
+      return event;
+    });
+  });
+  await Sentry.captureMessage('Something Broke');
+}, 1000);
+
+// turn this on in production
+// Sentry.setRelease(Constants.manifest.revisionId);
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
