@@ -5,6 +5,7 @@ import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -158,6 +159,13 @@ export default class SignUpScreen extends React.Component {
       const customerId = await this.addCustomer();
       this._clearState();
       await this._asyncSignUp(customerId);
+      // register this user in the Sentry logger
+      Sentry.configureScope((scope) => {
+        scope.setUser({
+          id: customerId,
+          phoneNumber: formattedPhoneNumber,
+        });
+      });
     } catch (err) {
       console.error('[SignUpScreen] (handleSubmit) Airtable:', err);
     }

@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -92,6 +93,13 @@ export default class LogInScreen extends React.Component {
         await updateCustomerPushTokens(customer, token);
         // Log in
         await this._asyncLogIn(customer.id);
+        // register this user in the Sentry logger
+        Sentry.configureScope(scope => {
+          scope.setUser({
+            id: customer.id,
+            phoneNumber: formattedPhoneNumber,
+          });
+        });
       } else if (customers.length > 1) {
         // In case of database malformation, may return more than one record
         // TODO this message is a design edge case
