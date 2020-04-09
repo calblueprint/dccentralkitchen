@@ -31,7 +31,7 @@ function RewardsFooter({ customer, isGuest }) {
           </Subhead>
         </View>
       )}
-      {!isGuest && (
+      {customer && !isGuest && (
         <Subhead color={Colors.lightest}>Your next reward ></Subhead>
       )}
     </View>
