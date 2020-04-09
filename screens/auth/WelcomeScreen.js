@@ -48,7 +48,7 @@ export default class WelcomeScreen extends React.Component {
           style={{ marginTop: 12, textTransform: 'capitalize' }}
           onPress={() => this.guestLogin()}>
           <ButtonLabel
-            style={{ textTransform: 'capitalize' }}
+            style={{ textTransform: 'none' }}
             color={Colors.primaryGreen}>
             Continue without an account
           </ButtonLabel>
