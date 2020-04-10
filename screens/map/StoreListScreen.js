@@ -16,11 +16,7 @@ import { CancelButton, styles } from '../../styled/store';
 export default class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      stores,
-      navigation,
-      showDefaultStore,
-    } = this.props.navigation.state.params;
+    const { stores, navigation, showDefaultStore } = this.props.route.params;
     this.state = {
       allStores: stores,
       navigation,
@@ -34,6 +30,7 @@ export default class StoreListScreen extends React.Component {
     this.search.focus();
   }
 
+  // TODO: fix warning involving using a callback function to look up current store.
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   storeDetailsTransition = store => {
     this.state.navigation.navigate('Stores', {
@@ -110,7 +107,7 @@ export default class StoreListScreen extends React.Component {
           keyExtractor={item => item.id}
           // 16px top margin from heading
           ListHeaderComponent={<View style={{ height: 16 }} />}
-          // 400 bottom margin to make sure all search results show with the keyboard activated.
+          // 420 bottom margin to make sure all search results show with the keyboard activated.
           ListFooterComponent={<View style={{ height: 420 }} />}
           ListEmptyComponent={
             <View

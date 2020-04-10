@@ -62,7 +62,7 @@ export default class MapScreen extends React.Component {
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
-    const store = nextProps.navigation.state.params.currentStore;
+    const store = nextProps.route.params.currentStore;
     this.changeCurrentStore(store, (resetSheet = true));
     const region = {
       latitude: store.latitude,
@@ -269,7 +269,7 @@ export default class MapScreen extends React.Component {
         {/* Display Map */}
         <MapView
           style={{
-            marginTop: -130,
+            marginTop: -170,
             flex: 100,
             overflow: 'visible',
             zIndex: -1,
