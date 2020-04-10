@@ -15,6 +15,7 @@ export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      CovidResources: [],
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
@@ -25,6 +26,9 @@ export default class ResourcesScreen extends React.Component {
   async componentDidMount() {
     try {
       const resources = await getAllResources();
+      const CovidResources = resources.filter(
+        resource => resource.category == 'COVID-19 (Coronavirus)'
+      );
       const DCCentralKitchenResources = resources.filter(
         resource => resource.category === 'DC Central Kitchen Resources'
       );
@@ -38,6 +42,7 @@ export default class ResourcesScreen extends React.Component {
         resource => resource.category === 'Resources for Seniors'
       );
       this.setState({
+        CovidResources,
         DCCentralKitchenResources,
         CommunityResources,
         GovernmentResources,
@@ -58,6 +63,17 @@ export default class ResourcesScreen extends React.Component {
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
+          <ResourceCategoryBar
+            icon="clinic-medical"
+            title="COVID-19 (Coronavirus)"
+          />
+          {this.state.CovidResources.map(resource => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
             <ResourceCard

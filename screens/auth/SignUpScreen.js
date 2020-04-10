@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -18,12 +18,13 @@ import {
   createPushTokens,
   getCustomersByPhoneNumber,
 } from '../../lib/airtable/request';
-import { formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
+import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import validate from './validation';
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -118,14 +119,18 @@ export default class SignUpScreen extends React.Component {
     const phoneNumber = values[signUpFields.PHONENUM];
     const password = values[signUpFields.PASSWORD];
     try {
-      const pushTokenId = await createPushTokens({ token });
+      let pushTokenId = null;
+      if (token) {
+        pushTokenId = await createPushTokens({ token });
+      }
       const customerId = await createCustomers({
         name,
         phoneNumber,
         password,
         points: 0,
-        pushTokenIds: [pushTokenId],
+        pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
+
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
@@ -289,7 +294,7 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
         </AuthScreenContainer>
       </ScrollView>
     );

@@ -40,13 +40,14 @@ export const SearchBar = styled(ButtonContainer)`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-right: 92px;
-  margin-left: 52px;
+  margin-right: 82px;
+  margin-left: 42px;
   padding-left: 12px;
   height: 40px;
   border-radius: 20px;
   background-color: white;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  elevation: 12;
 `;
 
 export const EBTStatusBar = styled.View`
@@ -85,7 +86,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-    backgroundColor: 'rgba(255,0,0,0)',
+    backgroundColor: 'transparent',
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent',
   },

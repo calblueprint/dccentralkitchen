@@ -1,7 +1,8 @@
+import { DrawerItemList } from '@react-navigation/drawer';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
-import { DrawerItems } from 'react-navigation-drawer';
+
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
@@ -19,7 +20,12 @@ class DrawerContent extends React.Component {
   async componentDidMount() {
     try {
       const customerId = await AsyncStorage.getItem('userId');
-      const customer = await getCustomersById(customerId);
+      let customer = null;
+      if (customerId != null) {
+        customer = await getCustomersById(customerId);
+      } else {
+        customer = { name: 'Guest' };
+      }
       this.setState({ customer, isLoading: false });
     } catch (err) {
       console.error('[DrawerContent] Airtable:', err);
@@ -53,7 +59,7 @@ class DrawerContent extends React.Component {
           }}>
           <Title style={{ color: 'white' }}>{this.state.customer.name}</Title>
         </View>
-        <DrawerItems {...this.props} />
+        <DrawerItemList {...this.props} />
         <View
           style={{
             flex: 1,

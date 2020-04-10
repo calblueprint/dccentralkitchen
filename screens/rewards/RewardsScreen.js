@@ -76,7 +76,10 @@ export default class RewardsScreen extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <NavHeaderContainer vertical backgroundColor={Colors.primaryGreen}>
+        <NavHeaderContainer
+          vertical
+          noShadow
+          backgroundColor={Colors.primaryGreen}>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </NavButton>

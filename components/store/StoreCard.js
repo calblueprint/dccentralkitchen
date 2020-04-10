@@ -16,14 +16,19 @@ import {
   StoreCardContainer,
   StoreDetailText,
 } from '../../styled/store';
-import { Caption, Title } from '../BaseComponents';
+import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
  * @prop
  * */
 
-export default function StoreCard({ store, callBack, seeProduct }) {
+export default function StoreCard({
+  store,
+  callBack,
+  seeProduct,
+  seeDistance,
+}) {
   const {
     storeName,
     storeHours,
@@ -54,19 +59,34 @@ export default function StoreCard({ store, callBack, seeProduct }) {
     <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
         <RowContainer>
-          <Title
-            color={Colors.activeText}
-            style={{
-              maxWidth: getMaxWidth(
-                Dimensions.get('window').width,
-                snapOrEbtAccepted,
-                seeProduct
-              ),
-            }}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-            {storeName}
-          </Title>
+          {seeProduct ? (
+            <Subhead
+              style={{
+                marginTop: 2,
+                maxWidth: getMaxWidth(
+                  Dimensions.get('window').width,
+                  snapOrEbtAccepted,
+                  seeProduct
+                ),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Subhead>
+          ) : (
+            <Title
+              style={{
+                maxWidth: getMaxWidth(
+                  Dimensions.get('window').width,
+                  snapOrEbtAccepted,
+                  seeProduct
+                ),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Title>
+          )}
           {snapOrEbtAccepted && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
@@ -76,9 +96,12 @@ export default function StoreCard({ store, callBack, seeProduct }) {
         </RowContainer>
         {seeProduct && <StoreProductButton callBack={callBack} />}
       </SpaceBetweenRowContainer>
-      <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
-        {`${distance} miles away`}
-      </Caption>
+      {seeDistance && (
+        <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
+          {`${distance} miles away`}
+        </Caption>
+      )}
+
       <InLineContainer style={{ alignItems: 'center' }}>
         <FontAwesome5
           name="star"

@@ -34,7 +34,6 @@ export default class LogInScreen extends React.Component {
       password: '',
       error: '',
       token: null,
-      // logInPermission: false,
     };
   }
 

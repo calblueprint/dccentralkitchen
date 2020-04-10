@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: Colors.primaryGreen,
-    elevation: 2,
+    elevation: 7,
     borderBottomWidth: 0,
     height: 50,
     shadowColor: '#000',

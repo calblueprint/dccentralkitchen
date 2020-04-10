@@ -17,10 +17,10 @@ export default class ProductDetailsScreen extends React.Component {
   }
 
   render() {
-    const { currentProduct, store } = this.props.navigation.state.params;
+    const { currentProduct } = this.props.route.params;
     return (
       <View>
-        <NavHeaderContainer withMargin backgroundColor="rgba(0,0,0,0)" noShadow>
+        <NavHeaderContainer withMargin backgroundColor="transparent" noShadow>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="times" solid size={24} />
           </NavButton>

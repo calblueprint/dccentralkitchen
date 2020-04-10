@@ -1,104 +1,69 @@
-import PropTypes from 'prop-types';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer';
 import Colors from '../constants/Colors';
-import RewardsScreen from '../screens/rewards/RewardsScreen';
+import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import DrawerContent from './DrawerContent';
-import {
-  AuthStack,
-  ResourcesStack,
-  RootStack,
-  StoresStack,
-} from './StackNavigators';
+import AuthStackNavigator from './stack_navigators/AuthStack';
+import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
+import StoresStackNavigator from './stack_navigators/StoresStack';
 
-class AuthLoadingScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this._bootstrapAsync();
-  }
+const Drawer = createDrawerNavigator();
 
-  // Fetch the token from storage then navigate to our appropriate place
-  _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userId');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-
-    // Correct version
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-
-    // Auth testing purpose
-    // this.props.navigation.navigate('Auth');
-  };
-
-  // Render any loading content that you like here
-  render() {
-    return null;
-  }
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      drawerContent={props => <DrawerContent {...props} />}
+      drawerStyle={{ width: 189 }}
+      drawerContentOptions={{
+        labelStyle: {
+          fontFamily: 'poppins-medium',
+          fontWeight: 'normal',
+          fontSize: 20,
+          color: Colors.activeText,
+        },
+        activeTintColor: Colors.primaryGreen,
+        itemStyle: { marginVertical: 0, marginHorizontal: 0, borderRadius: 0 },
+      }}>
+      <Drawer.Screen
+        name="Stores"
+        component={StoresStackNavigator}
+        options={{ title: 'Stores' }}
+      />
+      {/* <Drawer.Screen
+        name="Rewards"
+        options={{ title: 'Points History', drawerLockMode: 'locked-closed' }}>
+        {props => <RewardsScreen {...props} tab={1} />}
+      </Drawer.Screen> */}
+      <Drawer.Screen
+        name="Resources"
+        component={ResourcesStackNavigator}
+        options={{ title: 'Resources' }}
+      />
+    </Drawer.Navigator>
+  );
 }
 
-const MyDrawerNavigator = createDrawerNavigator(
-  {
-    Root: {
-      screen: RootStack,
-      navigationOptions: () => ({
-        title: 'Root',
-        drawerLabel: () => null,
-      }),
-    },
-    Stores: {
-      screen: StoresStack,
-      navigationOptions: () => ({
-        title: 'Stores',
-      }),
-    },
-    Rewards: {
-      screen: props => <RewardsScreen {...props} tab={1} />,
-      navigationOptions: () => ({
-        title: 'Points History',
-        drawerLockMode: 'locked-closed',
-      }),
-    },
-    Resources: {
-      screen: ResourcesStack,
-      navigationOptions: () => ({
-        title: 'Resources',
-      }),
-    },
-  },
+const AppStack = createStackNavigator();
 
-  {
-    contentOptions: {
-      labelStyle: {
-        fontFamily: 'poppins-medium',
-        fontSize: 20,
-      },
-      activeTintColor: Colors.primaryGreen,
-    },
-    drawerWidth: 189,
-    contentComponent: DrawerContent,
-  }
-);
-
-export default createAppContainer(
-  createSwitchNavigator(
-    // You could add another route here for authentication.
-    // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    {
-      AuthLoading: AuthLoadingScreen,
-      App: {
-        screen: MyDrawerNavigator,
-      },
-      Auth: AuthStack,
-    },
-    {
-      initialRouteName: 'AuthLoading',
-    }
-  )
-);
-
-AuthLoadingScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
-};
+export default function createAppContainer() {
+  return (
+    <NavigationContainer>
+      <AppStack.Navigator
+        initialRouteName="AuthLoading"
+        screenOptions={{
+          headerShown: false,
+          cardStyle: { backgroundColor: Colors.lightest },
+        }}>
+        <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
+        <AppStack.Screen
+          name="App"
+          component={DrawerNavigator}
+          options={{ animationEnabled: false }}
+        />
+        <AppStack.Screen name="Auth" component={AuthStackNavigator} />
+      </AppStack.Navigator>
+    </NavigationContainer>
+  );
+}

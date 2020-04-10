@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { ContentText, DateText } from '../../styled/news';
 
 function NewsDetailsScreen(props) {
-  const { currentNewsItem } = props.navigation.state.params;
+  const { currentNewsItem } = props.route.params;
   return (
     <View>
       <DateText>{currentNewsItem.title}</DateText>
