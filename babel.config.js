@@ -8,21 +8,21 @@ module.exports = function(api) {
           [
             'inline-dotenv',
             {
-              path: '.env.production'
-            }
-          ]
-        ]
+              path: '.env.production',
+            },
+          ],
+        ],
       },
       development: {
         plugins: [
           [
             'inline-dotenv',
             {
-              path: '.env.development'
-            }
-          ]
-        ]
-      }
-    }
+              path: '.env.development',
+            },
+          ],
+        ],
+      },
+    },
   };
 };
