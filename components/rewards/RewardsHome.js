@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, Image, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
@@ -85,6 +85,16 @@ function RewardsHome({ customer }) {
           }
         />
       </AvailableRewardsContainer>
+      <View style={{ maxHeight: 600, marginTop: 12 }}>
+        <Image
+          source={require('../../assets/images/HowItWorks.png')}
+          style={{
+            maxWidth: '100%',
+            resizeMode: 'contain',
+            maxHeight: 600,
+          }}
+        />
+      </View>
     </ScrollView>
   );
 }
