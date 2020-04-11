@@ -3,7 +3,7 @@
     "name": "Healthy Corners Rewards",
     "slug": "healthy-corners-rewards",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "37.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.1",
     "primaryColor": "#008550",
