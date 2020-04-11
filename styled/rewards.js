@@ -8,9 +8,9 @@ export const RewardsCardContainer = styled.View`
   width: 159px;
   height: 64px;
   padding: 10px;
-  margin-right: 12px;
+  margin: 6px 12px 6px 4px;
+
   flex-direction: row;
-  margin-bottom: 12px;
   background-color: ${Colors.lightestGreen};
 `;
 

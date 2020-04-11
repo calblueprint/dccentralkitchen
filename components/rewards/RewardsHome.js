@@ -3,6 +3,7 @@ import React from 'react';
 import { FlatList, Image, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import {
   AvailableRewardsContainer,
@@ -58,7 +59,7 @@ function RewardsHome({ customer }) {
           data={createList(Math.floor(rewardsAvailable))}
           renderItem={() => <RewardsCard />}
           keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
+          numColumns={Window.width > 370 ? 2 : 1}
           ListEmptyComponent={
             <View
               style={{
