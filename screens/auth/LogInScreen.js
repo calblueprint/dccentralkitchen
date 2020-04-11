@@ -23,6 +23,7 @@ import {
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import { logErrorToSentry } from '../../lib/logUtils';
 import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class LogInScreen extends React.Component {
@@ -113,7 +114,11 @@ export default class LogInScreen extends React.Component {
         error,
       });
     } catch (err) {
-      console.error('[LogInScreen] Airtable:', err);
+      logErrorToSentry({
+        screen: 'loginScreen',
+        action: 'handleSubmit',
+        error: err,
+      });
     }
   };
 
