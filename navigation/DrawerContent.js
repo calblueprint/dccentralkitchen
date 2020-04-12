@@ -41,6 +41,7 @@ class DrawerContent extends React.Component {
 
   _logout = async () => {
     AsyncStorage.clear();
+    Sentry.configureScope(scope => scope.clear());
     this.props.navigation.navigate('Auth');
   };
 
