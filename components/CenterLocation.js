@@ -3,22 +3,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { HamburgerButton } from '../styled/hamburger';
 
-export default class CenterLocation extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <HamburgerButton
-        onPress={() => this.props.callBack()}
-        style={{ marginRight: 24 }}>
-        <FontAwesome5 name="location-arrow" solid size={20} color="blue" />
-      </HamburgerButton>
-    );
-  }
+function CenterLocation(props) {
+  const { callBack } = props.callBack;
+  return (
+    <HamburgerButton onPress={() => callBack()} style={{ marginRight: 24 }}>
+      <FontAwesome5 name="location-arrow" solid size={20} color="blue" />
+    </HamburgerButton>
+  );
 }
 
 CenterLocation.propTypes = {
   callBack: PropTypes.func.isRequired,
 };
+
+export default CenterLocation;
