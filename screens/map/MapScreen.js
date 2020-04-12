@@ -219,7 +219,6 @@ export default class MapScreen extends React.Component {
       longitude: store.longitude,
       ...deltas,
     };
-    this._map.animateToRegion(region, 1000);
     this.setState(
       {
         store,
@@ -229,6 +228,7 @@ export default class MapScreen extends React.Component {
           this.bottomSheetRef.snapTo(0);
         }
         await this._populateStoreProducts(store);
+        await this._map.animateToRegion(region, 1000);
       }
     );
   }
