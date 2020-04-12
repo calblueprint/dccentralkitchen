@@ -15,7 +15,7 @@ import {
   StoreCardContainer,
   StoreDetailText,
 } from '../../styled/store';
-import { Caption, Title } from '../BaseComponents';
+import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
@@ -58,19 +58,34 @@ export default function StoreCard({
     <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
         <RowContainer>
-          <Title
-            color={Colors.activeText}
-            style={{
-              maxWidth: getMaxWidth(
-                Dimensions.get('window').width,
-                snapOrEbtAccepted,
-                seeProduct
-              ),
-            }}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-            {storeName}
-          </Title>
+          {seeProduct ? (
+            <Subhead
+              style={{
+                marginTop: 2,
+                maxWidth: getMaxWidth(
+                  Dimensions.get('window').width,
+                  snapOrEbtAccepted,
+                  seeProduct
+                ),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Subhead>
+          ) : (
+            <Title
+              style={{
+                maxWidth: getMaxWidth(
+                  Dimensions.get('window').width,
+                  snapOrEbtAccepted,
+                  seeProduct
+                ),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Title>
+          )}
           {snapOrEbtAccepted && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
