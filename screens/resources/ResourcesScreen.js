@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import {
@@ -23,6 +24,13 @@ export default class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
+    Analytics.setUnavailabilityLogging(false);
+    Analytics.logEvent('Resources', {
+      name: 'resources',
+      screen: 'resourceslist',
+      purpose: 'Opens the internal settings',
+    });
+    Analytics.setCurrentScreen('ResourcesScreen');
     try {
       const resources = await getAllResources();
       const CovidResources = resources.filter(
