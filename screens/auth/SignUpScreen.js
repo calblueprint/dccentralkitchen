@@ -86,6 +86,7 @@ export default class SignUpScreen extends React.Component {
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignUp = async customerId => {
     await AsyncStorage.setItem('userId', customerId);
+    Sentry.captureMessage('Sign Up Successful');
     this.props.navigation.navigate('App');
   };
 

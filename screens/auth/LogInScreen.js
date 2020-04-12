@@ -50,6 +50,7 @@ export default class LogInScreen extends React.Component {
   // to be the user ID and then navigates to homescreen.
   _asyncLogIn = async userId => {
     await AsyncStorage.setItem('userId', userId);
+    Sentry.captureMessage('Log In Successful');
     this.props.navigation.navigate('App');
   };
 
@@ -114,7 +115,7 @@ export default class LogInScreen extends React.Component {
       }
       if (error !== '') {
         logAuthErrorToSentry({
-          screen: 'loginScreen',
+          screen: 'LogInScreen',
           action: 'handleSubmit',
           attemptedPhone: formattedPhoneNumber,
           attemptedPass: password,
