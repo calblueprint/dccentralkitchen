@@ -6,24 +6,12 @@ import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  BigTitle,
-  ButtonLabel,
-  Caption,
-  FilledButtonContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonLabel, Caption, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getAllCustomers } from '../../lib/airtable/request';
-import {
-  formatPhoneNumber,
-  updateCustomerPushTokens,
-} from '../../lib/authUtils';
-import {
-  AuthScreenContainer,
-  BackButton,
-  FormContainer,
-} from '../../styled/auth';
+import { formatPhoneNumber, updateCustomerPushTokens } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
+import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class LogInScreen extends React.Component {
@@ -110,15 +98,18 @@ export default class LogInScreen extends React.Component {
         // No customer found
         error = 'Phone number or password is incorrect.';
       }
+
+      logErrorToSentry({
+        screen: 'loginScreen',
+        action: 'handleSubmit',
+        error,
+      });
+
       this.setState({
         error,
       });
     } catch (err) {
-      logErrorToSentry({
-        screen: 'loginScreen',
-        action: 'handleSubmit',
-        error: err,
-      });
+      console.error('[LogInScreen] Airtable:', err);
     }
   };
 
