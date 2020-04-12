@@ -13,6 +13,7 @@ Sentry.init({
   enableInExpoDevelopment: true,
   release: 'v1.1.0',
   debug: true,
+  environment: 'development',
 });
 
 export default function App(props) {
