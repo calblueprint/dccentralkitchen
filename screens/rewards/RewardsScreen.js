@@ -110,5 +110,9 @@ export default class RewardsScreen extends React.Component {
 
 RewardsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  tab: PropTypes.any.isRequired,
+  tab: PropTypes.any,
+};
+
+RewardsScreen.defaultProps = {
+  tab: null,
 };

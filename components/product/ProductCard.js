@@ -36,8 +36,7 @@ function ProductCard({ product, store, navigation, displayPoints }) {
 
           {displayPoints && (
             <Caption color={Colors.secondaryText}>
-              {' '}
-              • {product.points} pts
+              {`${' '} • ${product.points} pts`}
             </Caption>
           )}
         </RowContainer>

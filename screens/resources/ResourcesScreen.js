@@ -27,7 +27,7 @@ export default class ResourcesScreen extends React.Component {
     try {
       const resources = await getAllResources();
       const CovidResources = resources.filter(
-        resource => resource.category == 'COVID-19 (Coronavirus)'
+        resource => resource.category === 'COVID-19 (Coronavirus)'
       );
       const DCCentralKitchenResources = resources.filter(
         resource => resource.category === 'DC Central Kitchen Resources'

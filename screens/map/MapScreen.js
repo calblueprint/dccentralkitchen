@@ -344,4 +344,5 @@ export default class MapScreen extends React.Component {
 
 MapScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

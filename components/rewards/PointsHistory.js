@@ -59,9 +59,6 @@ function PointsHistory({ transactions }) {
 
 PointsHistory.propTypes = {
   transactions: PropTypes.array.isRequired,
-  user: PropTypes.object,
-  updates: PropTypes.object,
-  navigation: PropTypes.object,
 };
 
 export default React.memo(PointsHistory);

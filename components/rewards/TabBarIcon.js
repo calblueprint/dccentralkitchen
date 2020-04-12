@@ -14,11 +14,11 @@ export default function TabBarIcon(props) {
   );
 }
 
-RewardsHome.propTypes = {
+TabBarIcon.propTypes = {
   name: PropTypes.string.isRequired,
   focused: PropTypes.bool,
 };
 
-RewardsHome.defaultProps = {
+TabBarIcon.defaultProps = {
   focused: false,
 };

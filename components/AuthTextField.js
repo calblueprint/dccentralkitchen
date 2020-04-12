@@ -53,8 +53,13 @@ AuthTextField.propTypes = {
   fieldType: PropTypes.string.isRequired,
   value: PropTypes.any.isRequired,
   changeTextCallback: PropTypes.any.isRequired,
-  error: PropTypes.any.isRequired,
-  onBlurCallback: PropTypes.any.isRequired,
+  error: PropTypes.any,
+  onBlurCallback: PropTypes.any,
+};
+
+AuthTextField.defaultProps = {
+  error: null,
+  onBlurCallback: null,
 };
 
 export default AuthTextField;

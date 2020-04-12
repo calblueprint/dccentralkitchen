@@ -145,6 +145,7 @@ StoreCard.propTypes = {
   store: PropTypes.object,
   callBack: PropTypes.func,
   seeProduct: PropTypes.bool.isRequired,
+  seeDistance: PropTypes.bool.isRequired,
 };
 
 StoreCard.defaultProps = {

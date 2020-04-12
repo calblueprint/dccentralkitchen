@@ -91,7 +91,6 @@ function RewardsHome({ customer }) {
 }
 
 RewardsHome.propTypes = {
-  user: PropTypes.object,
   customer: PropTypes.object.isRequired,
 };
 

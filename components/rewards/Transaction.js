@@ -45,4 +45,10 @@ Transaction.propTypes = {
   totalSale: PropTypes.number,
 };
 
+Transaction.defaultProps = {
+  storeName: null,
+  pointsEarned: 0,
+  totalSale: 0,
+};
+
 export default Transaction;

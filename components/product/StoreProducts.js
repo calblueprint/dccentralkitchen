@@ -76,6 +76,7 @@ StoreProducts.propTypes = {
   products: PropTypes.array.isRequired,
   store: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
+  showDefaultStore: PropTypes.bool.isRequired,
 };
 
 export default StoreProducts;

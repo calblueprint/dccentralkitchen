@@ -135,4 +135,5 @@ export default class StoreListScreen extends React.Component {
 
 StoreListScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

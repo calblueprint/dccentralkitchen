@@ -44,4 +44,5 @@ export default class ProductDetailsScreen extends React.Component {
 
 ProductDetailsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

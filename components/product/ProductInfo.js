@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { displayDollarValue } from '../../lib/common';
 import { ProductInfoContainer } from '../../styled/product';
@@ -14,7 +15,7 @@ function ProductInfo({ product }) {
     <ProductInfoContainer>
       <Title>{name}</Title>
       <SpaceBetweenRowContainer style={{ marginTop: 8, paddingBottom: 16 }}>
-        <Caption>{displayDollarValue(customerCost)} each</Caption>
+        <Caption>{`${displayDollarValue(customerCost)} each`}</Caption>
         <Caption>{`Points Earned: ${points}`}</Caption>
       </SpaceBetweenRowContainer>
       <Body>
@@ -24,3 +25,9 @@ function ProductInfo({ product }) {
     </ProductInfoContainer>
   );
 }
+
+ProductInfo.propTypes = {
+  product: PropTypes.object.isRequired,
+};
+
+export default ProductInfo;

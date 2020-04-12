@@ -18,7 +18,7 @@ function NewsDetailsScreen(props) {
 }
 
 NewsDetailsScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default NewsDetailsScreen;
