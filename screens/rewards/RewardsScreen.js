@@ -106,17 +106,24 @@ export default class RewardsScreen extends React.Component {
             </BigTitle>
           </NavHeaderContainer>
           <ScrollView>
-            <Image
-              source={require('../../assets/images/guest.jpeg')}
+            <View
               style={{
+                marginRight: 16,
+                marginLeft: 16,
+                maxHeight: 600,
                 marginTop: 12,
-                width: '80%',
-                display: 'flex',
-                alignSelf: 'center',
-              }}
-            />
+              }}>
+              <Image
+                source={require('../../assets/images/HowItWorks.png')}
+                style={{
+                  width: '100%',
+                  maxHeight: 600,
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
             <FilledButtonContainer
-              style={{ marginTop: 24, alignSelf: 'center' }}
+              style={{ marginBottom: 24, alignSelf: 'center' }}
               color={Colors.primaryGreen}
               width="267px"
               onPress={() => this._logout()}>
