@@ -7,11 +7,7 @@ import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  BigTitle,
-  ButtonLabel,
-  FilledButtonContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import {
   createCustomers,
@@ -163,14 +159,14 @@ export default class SignUpScreen extends React.Component {
       // Otherwise, add customer to Airtable
       const customerId = await this.addCustomer();
       this._clearState();
-      await this._asyncSignUp(customerId);
       // register this user in the Sentry logger
-      Sentry.configureScope((scope) => {
+      Sentry.configureScope(scope => {
         scope.setUser({
           id: customerId,
           phoneNumber: formattedPhoneNumber,
         });
       });
+      await this._asyncSignUp(customerId);
     } catch (err) {
       console.error('[SignUpScreen] (handleSubmit) Airtable:', err);
     }

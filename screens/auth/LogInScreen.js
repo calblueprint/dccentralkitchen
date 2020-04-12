@@ -78,10 +78,6 @@ export default class LogInScreen extends React.Component {
       // Returns empty array if no customer is found
       if (customers.length === 1) {
         const customer = customers[0];
-        // If customer exists, we should update their push tokens
-        await updateCustomerPushTokens(customer, token);
-        // Log in
-        await this._asyncLogIn(customer.id);
         // register this user in the Sentry logger
         Sentry.configureScope(scope => {
           scope.setUser({
@@ -89,6 +85,10 @@ export default class LogInScreen extends React.Component {
             phoneNumber: formattedPhoneNumber,
           });
         });
+        // If customer exists, we should update their push tokens
+        await updateCustomerPushTokens(customer, token);
+        // Log in
+        await this._asyncLogIn(customer.id);
       } else if (customers.length > 1) {
         // In case of database malformation, may return more than one record
         // TODO this message is a design edge case
@@ -147,7 +147,8 @@ export default class LogInScreen extends React.Component {
           />
           <Caption
             style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}>
+            color={Colors.error}
+          >
             {this.state.error}
           </Caption>
         </FormContainer>
@@ -159,7 +160,8 @@ export default class LogInScreen extends React.Component {
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}>
+            disabled={!logInPermission}
+          >
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 
