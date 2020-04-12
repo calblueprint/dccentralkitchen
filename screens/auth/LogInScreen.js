@@ -6,12 +6,24 @@ import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonLabel, Caption, FilledButtonContainer } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonLabel,
+  Caption,
+  FilledButtonContainer,
+} from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getAllCustomers } from '../../lib/airtable/request';
-import { formatPhoneNumber, updateCustomerPushTokens } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
-import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
+import {
+  formatPhoneNumber,
+  updateCustomerPushTokens,
+} from '../../lib/authUtils';
+import { logAuthErrorToSentry } from '../../lib/logUtils';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class LogInScreen extends React.Component {
@@ -80,9 +92,11 @@ export default class LogInScreen extends React.Component {
         const customer = customers[0];
         // register this user in the Sentry logger
         Sentry.configureScope(scope => {
+          scope.setExtra('setUserScreen', 'LogInScreen');
           scope.setUser({
             id: customer.id,
             phoneNumber: formattedPhoneNumber,
+            username: customer.name,
           });
         });
         // If customer exists, we should update their push tokens
@@ -98,12 +112,15 @@ export default class LogInScreen extends React.Component {
         // No customer found
         error = 'Phone number or password is incorrect.';
       }
-
-      logErrorToSentry({
-        screen: 'loginScreen',
-        action: 'handleSubmit',
-        error,
-      });
+      if (error !== '') {
+        logAuthErrorToSentry({
+          screen: 'loginScreen',
+          action: 'handleSubmit',
+          attemptedPhone: formattedPhoneNumber,
+          attemptedPass: password,
+          error,
+        });
+      }
 
       this.setState({
         error,
@@ -147,8 +164,7 @@ export default class LogInScreen extends React.Component {
           />
           <Caption
             style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}
-          >
+            color={Colors.error}>
             {this.state.error}
           </Caption>
         </FormContainer>
@@ -160,8 +176,7 @@ export default class LogInScreen extends React.Component {
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}
-          >
+            disabled={!logInPermission}>
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 
