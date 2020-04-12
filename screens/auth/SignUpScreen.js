@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
+import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import React from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
@@ -84,6 +85,7 @@ export default class SignUpScreen extends React.Component {
   // Sign up function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignUp = async customerId => {
+    await Analytics.setUserId(customerId);
     await AsyncStorage.setItem('userId', customerId);
     this.props.navigation.navigate('App');
   };
