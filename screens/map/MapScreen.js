@@ -357,10 +357,9 @@ export default class MapScreen extends React.Component {
             zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
-          <RewardsFooter
-            customer={this.state.customer}
-            isGuest={this.state.isGuest}
-          />
+          <View>
+            <Subhead color="#fff"> Healthy Rewards </Subhead>
+          </View>
         </TouchableOpacity>
       </View>
     );
