@@ -1,18 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Image } from 'react-native';
 import {
-  BigTitle,
   Body,
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import {
-  WelcomeContainer,
-  WelcomeLogInContainer,
-  WelcomeTitleContainer,
-} from '../../styled/auth';
+import { WelcomeContainer, WelcomeLogInContainer } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
   navigateLogIn() {
@@ -26,9 +22,14 @@ export default class WelcomeScreen extends React.Component {
   render() {
     return (
       <WelcomeContainer>
-        <WelcomeTitleContainer>
-          <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
-        </WelcomeTitleContainer>
+        <Image
+          source={require('../../assets/images/hc_start.png')}
+          style={{
+            maxWidth: '100%',
+            resizeMode: 'contain',
+            maxHeight: 400,
+          }}
+        />
         <FilledButtonContainer
           style={{ marginTop: 108 }}
           width="100%"
