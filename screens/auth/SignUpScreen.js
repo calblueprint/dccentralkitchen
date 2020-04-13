@@ -131,8 +131,7 @@ export default class SignUpScreen extends React.Component {
         points: 0,
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
-      Sentry.configureScope(scope => {
-        scope.setExtra('setUserScreen', 'SignUpScreen');
+      Sentry.withScope(scope => {
         scope.setUser({
           id: customerId,
           username: name,

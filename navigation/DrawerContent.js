@@ -26,7 +26,6 @@ class DrawerContent extends React.Component {
         customer = { name: 'Guest' };
       }
       Sentry.configureScope(scope => {
-        scope.setExtra('setUserScreen', 'DrawerContent');
         scope.setUser({
           id: customerId,
           username: customer.name,
