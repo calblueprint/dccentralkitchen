@@ -52,6 +52,8 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
+      customer: null,
+      isGuest: false,
       showDefaultStore: false,
     };
   }
