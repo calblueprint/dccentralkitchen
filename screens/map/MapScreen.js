@@ -5,22 +5,14 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-<<<<<<< HEAD
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
-=======
-import { AsyncStorage, StyleSheet, TouchableOpacity, View } from 'react-native';
->>>>>>> restyled, added footer
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
-<<<<<<< HEAD
 import StoreMarker from '../../components/store/StoreMarker';
-=======
-import RewardsFooter from '../../components/rewards/RewardsFooter';
->>>>>>> restyled, added footer
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
@@ -60,12 +52,7 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
-<<<<<<< HEAD
       showDefaultStore: false,
-=======
-      customer: null,
-      isGuest: false,
->>>>>>> restyled, added footer
     };
   }
 

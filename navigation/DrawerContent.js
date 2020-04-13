@@ -1,8 +1,9 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import { default as React, default as React } from 'react';
+import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';

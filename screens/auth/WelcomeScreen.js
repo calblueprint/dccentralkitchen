@@ -2,23 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Image } from 'react-native';
 import {
-<<<<<<< HEAD
-  Body,
-=======
-  BigTitle,
->>>>>>> restyled, added footer
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-<<<<<<< HEAD
-import { WelcomeContainer, WelcomeLogInContainer } from '../../styled/auth';
-=======
-import { WelcomeContainer, WelcomeTitleContainer } from '../../styled/auth';
->>>>>>> restyled, added footer
+import { WelcomeContainer } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
+  guestLogin = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('userId', 'recLKK7cZHboMPEB8');
+    this.props.navigation.navigate('App');
+  };
+
   navigateLogIn() {
     this.props.navigation.navigate('LogIn');
   }
@@ -26,12 +23,6 @@ export default class WelcomeScreen extends React.Component {
   navigateSignup() {
     this.props.navigation.navigate('SignUp');
   }
-
-  guestLogin = async () => {
-    // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recLKK7cZHboMPEB8');
-    this.props.navigation.navigate('App');
-  };
 
   render() {
     return (
