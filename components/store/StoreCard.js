@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
@@ -139,3 +140,15 @@ export default function StoreCard({
     </StoreCardContainer>
   );
 }
+
+StoreCard.propTypes = {
+  store: PropTypes.object,
+  callBack: PropTypes.func,
+  seeProduct: PropTypes.bool.isRequired,
+  seeDistance: PropTypes.bool.isRequired,
+};
+
+StoreCard.defaultProps = {
+  store: null,
+  callBack: null,
+};
