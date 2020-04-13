@@ -38,6 +38,14 @@
       "googleServicesFile": "./google-services.json",
       "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
       "versionCode": 2
-    }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
+    },
+    "description": ""
   }
 }

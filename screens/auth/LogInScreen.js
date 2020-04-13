@@ -5,6 +5,7 @@ import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -18,6 +19,7 @@ import {
   formatPhoneNumber,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
+import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -77,12 +79,13 @@ export default class LogInScreen extends React.Component {
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
     try {
       let error = '';
+      let customer = null;
       const customers = await getAllCustomers(
         `AND({Phone Number} = '${formattedPhoneNumber}', {Password} = '${password}')`
       );
       // Returns empty array if no customer is found
       if (customers.length === 1) {
-        const customer = customers[0];
+        customer = customers[0];
         // If customer exists, we should update their push tokens
         await updateCustomerPushTokens(customer, token);
         // Log in
@@ -96,11 +99,39 @@ export default class LogInScreen extends React.Component {
         // No customer found
         error = 'Phone number or password is incorrect.';
       }
+
+      if (error !== '') {
+        logAuthErrorToSentry({
+          screen: 'LogInScreen',
+          action: 'handleSubmit',
+          attemptedPhone: formattedPhoneNumber,
+          attemptedPass: password,
+          error,
+        });
+      } else {
+        // if login works, register the user
+        Sentry.configureScope(scope => {
+          scope.setUser({
+            id: customer.id,
+            phoneNumber: formattedPhoneNumber,
+            username: customer.name,
+          });
+          Sentry.captureMessage('Log In Successful');
+        });
+      }
+
       this.setState({
         error,
       });
     } catch (err) {
       console.error('[LogInScreen] Airtable:', err);
+      logAuthErrorToSentry({
+        screen: 'loginScreen',
+        action: 'handleSubmit',
+        attemptedPhone: formattedPhoneNumber,
+        attemptedPass: password,
+        error: err,
+      });
     }
   };
 
@@ -155,7 +186,7 @@ export default class LogInScreen extends React.Component {
           </FilledButtonContainer>
 
           {/* TODO @tommypoa: Forgot password functionality
-          
+
           <ForgotPasswordButtonContainer>
             <ButtonContainer>
               <Body color={Colors.primaryGreen}>Forgot password?</Body>
