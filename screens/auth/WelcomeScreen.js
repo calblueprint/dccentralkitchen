@@ -1,36 +1,40 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Image } from 'react-native';
 import {
-  BigTitle,
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { WelcomeContainer, WelcomeTitleContainer } from '../../styled/auth';
+import { WelcomeContainer } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
-  navigateLogIn() {
-    this.props.navigation.navigate('LogIn');
-  }
-
-  navigateSignup() {
-    this.props.navigation.navigate('SignUp');
-  }
-
   guestLogin = async () => {
     // Doesn't enforce any resolution for this async call
     await AsyncStorage.setItem('userId', 'recLKK7cZHboMPEB8');
     this.props.navigation.navigate('App');
   };
 
+  navigateSignup() {
+    this.props.navigation.navigate('SignUp');
+  }
+
+  navigateLogIn() {
+    this.props.navigation.navigate('LogIn');
+  }
+
   render() {
     return (
       <WelcomeContainer>
-        <WelcomeTitleContainer>
-          <BigTitle align="center">Welcome to Healthy Corners!</BigTitle>
-        </WelcomeTitleContainer>
+        <Image
+          source={require('../../assets/images/hc_start.png')}
+          style={{
+            maxWidth: '100%',
+            resizeMode: 'contain',
+            maxHeight: 400,
+          }}
+        />
         <FilledButtonContainer
           style={{ marginTop: 108 }}
           width="100%"
