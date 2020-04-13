@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import {
@@ -63,3 +64,8 @@ export default class ProductsScreen extends React.Component {
     );
   }
 }
+
+ProductsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};

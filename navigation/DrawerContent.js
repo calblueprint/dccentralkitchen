@@ -1,6 +1,8 @@
 import { DrawerItemList } from '@react-navigation/drawer';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
@@ -82,3 +84,7 @@ class DrawerContent extends React.Component {
 }
 
 export default DrawerContent;
+
+DrawerContent.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

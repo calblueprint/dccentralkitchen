@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   BigTitle,
@@ -44,3 +45,7 @@ export default class WelcomeScreen extends React.Component {
     );
   }
 }
+
+WelcomeScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

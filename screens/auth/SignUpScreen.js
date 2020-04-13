@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -299,3 +300,7 @@ export default class SignUpScreen extends React.Component {
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
