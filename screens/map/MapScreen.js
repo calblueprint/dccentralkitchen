@@ -38,7 +38,7 @@ const initialRegion = {
   longitudeDelta: 0.0421,
 };
 
-const defaultStoreId = 'recKmetaavnMWXVrk';
+const defaultStoreId = 'recQmf64hlp9CyBas';
 
 export default class MapScreen extends React.Component {
   constructor(props) {
