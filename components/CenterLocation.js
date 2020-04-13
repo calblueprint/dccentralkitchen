@@ -5,10 +5,9 @@ import Colors from '../constants/Colors';
 import { HamburgerButton } from '../styled/hamburger';
 
 function CenterLocation(props) {
-  const { callBack } = props.callBack;
   return (
     <HamburgerButton
-      onPress={() => callBack()}
+      onPress={() => props.callBack()}
       style={{ marginRight: 24, marginTop: 2 }}>
       <FontAwesome5
         name="location-arrow"
