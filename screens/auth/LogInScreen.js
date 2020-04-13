@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
@@ -38,13 +39,7 @@ export default class LogInScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // this.registerForPushNotificationsAsync();
-    // From SignUpScreen.js, see comment there for details
-    // this._notificationSubscription = Notifications.addListener(
-    //   this._handleNotification
-    // );
-  }
+  componentDidMount() {}
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
@@ -196,3 +191,7 @@ export default class LogInScreen extends React.Component {
     );
   }
 }
+
+LogInScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

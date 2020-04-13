@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
@@ -40,3 +41,8 @@ export default class ProductDetailsScreen extends React.Component {
     );
   }
 }
+
+ProductDetailsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};
