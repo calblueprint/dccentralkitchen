@@ -1,4 +1,5 @@
 import { DrawerItemList } from '@react-navigation/drawer';
+import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import { Title } from '../components/BaseComponents';
@@ -24,6 +25,11 @@ class DrawerContent extends React.Component {
       } else {
         customer = { name: 'Guest' };
       }
+      Analytics.logEvent('drawer_load', {
+        name: 'Drawer Load',
+        screen: 'DrawerContent',
+      });
+      await Analytics.setUserId(customerId);
       this.setState({ customer, isLoading: false });
     } catch (err) {
       console.error('[DrawerContent] Airtable:', err);

@@ -25,10 +25,9 @@ export default class ResourcesScreen extends React.Component {
 
   async componentDidMount() {
     Analytics.setUnavailabilityLogging(false);
-    Analytics.logEvent('Resources', {
+    Analytics.logEvent('open_resources', {
       name: 'resources',
-      screen: 'resourceslist',
-      purpose: 'Opens the internal settings',
+      screen: 'ResourcesScreen',
     });
     Analytics.setCurrentScreen('ResourcesScreen');
     try {

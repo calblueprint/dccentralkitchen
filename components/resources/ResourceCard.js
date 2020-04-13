@@ -12,7 +12,7 @@ import { Body, Subhead } from '../BaseComponents';
 
 class ResourceCard extends React.Component {
   cardPressed() {
-    Analytics.logEvent('Resources Link Pressed', {
+    Analytics.logEvent('resources_ext_link', {
       name: this.props.resourceCard.title,
       screen: 'Resources',
       purpose: 'Opens external link',
