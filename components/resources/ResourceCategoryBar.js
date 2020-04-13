@@ -5,21 +5,19 @@ import { CategoryCard, CategoryHeadingContainer } from '../../styled/resources';
 import { Title } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
-class ResourceCategoryBar extends React.Component {
-  render() {
-    return (
-      <CategoryCard>
-        <CircleIcon
-          icon={this.props.icon}
-          iconColor={Colors.lightest}
-          circleColor={Colors.lighterGreen}
-        />
-        <CategoryHeadingContainer>
-          <Title>{this.props.title}</Title>
-        </CategoryHeadingContainer>
-      </CategoryCard>
-    );
-  }
+function ResourceCategoryBar({ icon, title }) {
+  return (
+    <CategoryCard>
+      <CircleIcon
+        icon={icon}
+        iconColor={Colors.lightest}
+        circleColor={Colors.lighterGreen}
+      />
+      <CategoryHeadingContainer>
+        <Title>{title}</Title>
+      </CategoryHeadingContainer>
+    </CategoryCard>
+  );
 }
 
 ResourceCategoryBar.propTypes = {

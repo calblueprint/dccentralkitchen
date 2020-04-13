@@ -6,11 +6,6 @@ import { displayDollarValue } from '../../lib/common';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Caption } from '../BaseComponents';
 
-/**
- * @prop
- * */
-
-// TODO @tommypoa to use styled-components // Create Stylesheet for react native elements
 function ProductCard({ product, store, navigation, displayPoints }) {
   return (
     <ButtonContainer
