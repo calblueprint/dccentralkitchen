@@ -88,7 +88,7 @@ function DrawerContent(props) {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-end',
-          padding: 16,
+          padding: 8,
         }}>
         <Title style={{ color: 'white' }}>{customer.name}</Title>
       </View>
