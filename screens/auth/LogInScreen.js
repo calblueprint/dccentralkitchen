@@ -129,6 +129,13 @@ export default class LogInScreen extends React.Component {
       });
     } catch (err) {
       console.error('[LogInScreen] Airtable:', err);
+      logAuthErrorToSentry({
+        screen: 'loginScreen',
+        action: 'handleSubmit',
+        attemptedPhone: formattedPhoneNumber,
+        attemptedPass: password,
+        error: err,
+      });
     }
   };
 
