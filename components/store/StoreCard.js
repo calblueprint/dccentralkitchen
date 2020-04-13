@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
@@ -15,7 +16,7 @@ import {
   StoreCardContainer,
   StoreDetailText,
 } from '../../styled/store';
-import { Caption, Title } from '../BaseComponents';
+import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
 /**
@@ -58,19 +59,34 @@ export default function StoreCard({
     <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
         <RowContainer>
-          <Title
-            color={Colors.activeText}
-            style={{
-              maxWidth: getMaxWidth(
-                Dimensions.get('window').width,
-                snapOrEbtAccepted,
-                seeProduct
-              ),
-            }}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-            {storeName}
-          </Title>
+          {seeProduct ? (
+            <Subhead
+              style={{
+                marginTop: 2,
+                maxWidth: getMaxWidth(
+                  Dimensions.get('window').width,
+                  snapOrEbtAccepted,
+                  seeProduct
+                ),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Subhead>
+          ) : (
+            <Title
+              style={{
+                maxWidth: getMaxWidth(
+                  Dimensions.get('window').width,
+                  snapOrEbtAccepted,
+                  seeProduct
+                ),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Title>
+          )}
           {snapOrEbtAccepted && (
             <EBTStatusBar>
               <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
@@ -124,3 +140,15 @@ export default function StoreCard({
     </StoreCardContainer>
   );
 }
+
+StoreCard.propTypes = {
+  store: PropTypes.object,
+  callBack: PropTypes.func,
+  seeProduct: PropTypes.bool.isRequired,
+  seeDistance: PropTypes.bool.isRequired,
+};
+
+StoreCard.defaultProps = {
+  store: null,
+  callBack: null,
+};

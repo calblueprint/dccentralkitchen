@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -281,7 +282,7 @@ export default class MapScreen extends React.Component {
         {/* Display Map */}
         <MapView
           style={{
-            marginTop: -130,
+            marginTop: -170,
             flex: 100,
             overflow: 'visible',
             zIndex: -1,
@@ -353,3 +354,8 @@ export default class MapScreen extends React.Component {
     );
   }
 }
+
+MapScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};

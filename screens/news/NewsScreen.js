@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import Hamburger from '../../components/Hamburger';
@@ -47,6 +48,10 @@ class NewsScreen extends React.Component {
 
 NewsScreen.navigationOptions = {
   header: null,
+};
+
+NewsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 };
 
 export default NewsScreen;

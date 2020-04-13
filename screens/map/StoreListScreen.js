@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
@@ -107,7 +108,7 @@ export default class StoreListScreen extends React.Component {
           keyExtractor={item => item.id}
           // 16px top margin from heading
           ListHeaderComponent={<View style={{ height: 16 }} />}
-          // 400 bottom margin to make sure all search results show with the keyboard activated.
+          // 420 bottom margin to make sure all search results show with the keyboard activated.
           ListFooterComponent={<View style={{ height: 420 }} />}
           ListEmptyComponent={
             <View
@@ -131,3 +132,8 @@ export default class StoreListScreen extends React.Component {
     );
   }
 }
+
+StoreListScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};

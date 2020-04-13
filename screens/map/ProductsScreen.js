@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { FlatList, View } from 'react-native';
 import {
   NavButton,
   NavHeaderContainer,
@@ -32,7 +32,7 @@ export default class ProductsScreen extends React.Component {
   };
 
   render() {
-    const { store } = this.props.route.params;
+    const { products, store } = this.props.route.params;
     return (
       <View>
         <NavHeaderContainer withMargin>
@@ -41,14 +41,31 @@ export default class ProductsScreen extends React.Component {
           </NavButton>
           <NavTitle>{store.storeName}</NavTitle>
         </NavHeaderContainer>
-        <ScrollView
-          style={{ height: '100%', width: '100%' }}
-          showsVerticalScrollIndicator={false}>
-          <ProductListContainer>
-            {this.renderProductList()}
-          </ProductListContainer>
-        </ScrollView>
+        <ProductListContainer>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            columnWrapperStyle={{ flex: 1, justifyContent: 'space-between' }}
+            numColumns={2}
+            data={products}
+            renderItem={({ item }) => (
+              <ProductCard
+                key={item.id}
+                product={item}
+                navigation={this.props.navigation}
+                store={store}
+                displayPoints
+              />
+            )}
+            keyExtractor={item => item.id}
+            ListFooterComponent={<View style={{ height: 270 }} />}
+          />
+        </ProductListContainer>
       </View>
     );
   }
 }
+
+ProductsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};
