@@ -76,9 +76,6 @@ export default function createAppContainer() {
       onStateChange={state => {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = getActiveRouteName(state);
-        console.log(
-          `NAVSTATECHANGE:${previousRouteName} to ${currentRouteName}`
-        );
         if (previousRouteName !== currentRouteName) {
           Analytics.setCurrentScreen(currentRouteName);
         }
