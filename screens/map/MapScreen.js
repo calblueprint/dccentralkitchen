@@ -347,7 +347,7 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
-            <Subhead color="#fff"> Your Rewards </Subhead>
+            <Subhead color="#fff"> Healthy Rewards </Subhead>
           </View>
         </TouchableOpacity>
       </View>
