@@ -5,13 +5,12 @@ import { MarkerContainer, MarkerStoreName } from '../../styled/store';
 function StoreMarker({ storeName, focused }) {
   return (
     <MarkerContainer>
-      {focused && (
+      {focused ? (
         <Image source={require('../../assets/images/Marker_Focused.png')} />
-      )}
-      {!focused && (
+      ) : (
         <Image source={require('../../assets/images/Marker_Resting.png')} />
       )}
-      <MarkerStoreName>{storeName}</MarkerStoreName>
+      <MarkerStoreName focused={focused}>{storeName}</MarkerStoreName>
     </MarkerContainer>
   );
 }
