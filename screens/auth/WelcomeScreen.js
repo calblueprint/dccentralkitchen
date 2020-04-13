@@ -16,12 +16,12 @@ export default class WelcomeScreen extends React.Component {
     this.props.navigation.navigate('App');
   };
 
-  navigateLogIn() {
-    this.props.navigation.navigate('LogIn');
-  }
-
   navigateSignup() {
     this.props.navigation.navigate('SignUp');
+  }
+
+  navigateLogIn() {
+    this.props.navigation.navigate('LogIn');
   }
 
   render() {
