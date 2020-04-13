@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 
@@ -18,8 +19,9 @@ export default class AuthLoadingScreen extends React.Component {
     // Correct version
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Auth testing purpose
+    // Auth/App testing purpose
     // this.props.navigation.navigate('Auth');
+    // this.props.navigation.navigate('App');
   };
 
   // Render any loading content that you like here
@@ -27,3 +29,7 @@ export default class AuthLoadingScreen extends React.Component {
     return null;
   }
 }
+
+AuthLoadingScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

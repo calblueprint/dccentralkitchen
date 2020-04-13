@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import {
@@ -46,3 +47,7 @@ export default class WelcomeScreen extends React.Component {
     );
   }
 }
+
+WelcomeScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

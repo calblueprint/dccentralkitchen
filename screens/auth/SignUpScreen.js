@@ -2,9 +2,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -18,6 +20,7 @@ import {
   getCustomersByPhoneNumber,
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
+import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -130,6 +133,15 @@ export default class SignUpScreen extends React.Component {
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 
+      // if signup works, register the user
+      Sentry.configureScope(scope => {
+        scope.setUser({
+          id: customerId,
+          username: name,
+          phoneNumber,
+        });
+        Sentry.captureMessage('Sign Up Successful');
+      });
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
@@ -150,10 +162,18 @@ export default class SignUpScreen extends React.Component {
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
+        const errorMsg = 'Phone number already in use.';
+        logAuthErrorToSentry({
+          screen: 'SignUpScreen',
+          action: 'handleSubmit',
+          attemptedPhone: formattedPhoneNumber,
+          attemptedPass: null,
+          error: errorMsg,
+        });
         this.setState(prevState => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.PHONENUM]: 'Phone number already in use.',
+            [signUpFields.PHONENUM]: errorMsg,
           },
           processing: false,
         }));
@@ -162,9 +182,17 @@ export default class SignUpScreen extends React.Component {
       // Otherwise, add customer to Airtable
       const customerId = await this.addCustomer();
       this._clearState();
+      // register this user in the Sentry logger
       await this._asyncSignUp(customerId);
     } catch (err) {
       console.error('[SignUpScreen] (handleSubmit) Airtable:', err);
+      logAuthErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'handleSubmit',
+        attemptedPhone: null,
+        attemptedPass: null,
+        error: err,
+      });
     }
     Keyboard.dismiss();
   };
@@ -299,3 +327,7 @@ export default class SignUpScreen extends React.Component {
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

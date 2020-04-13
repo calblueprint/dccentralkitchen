@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
@@ -145,6 +146,22 @@ export function NavHeaderContainer({
     </View>
   );
 }
+
+NavHeaderContainer.propTypes = {
+  backgroundColor: PropTypes.string,
+  withMargin: PropTypes.bool,
+  children: PropTypes.any,
+  vertical: PropTypes.bool,
+  noShadow: PropTypes.bool,
+};
+
+NavHeaderContainer.defaultProps = {
+  backgroundColor: null,
+  children: null,
+  vertical: null,
+  withMargin: null,
+  noShadow: null,
+};
 
 export const NavTitle = styled(Title)`
   flex: 1;
