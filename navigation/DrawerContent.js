@@ -1,16 +1,11 @@
 import { DrawerItemList } from '@react-navigation/drawer';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import React from 'react';
+import { default as React, default as React } from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
-<<<<<<< HEAD
-=======
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
->>>>>>> drawer content
 
 function DrawerContent(props) {
   const [customer, setCustomer] = React.useState(null);
@@ -32,6 +27,13 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
+            Sentry.configureScope(scope => {
+              scope.setUser({
+                id: customerId,
+                username: cust.name,
+                phoneNumber: cust.phoneNumber,
+              });
+            });
             setCustomer(cust);
             setIsLoading(false);
           }
@@ -51,6 +53,11 @@ function DrawerContent(props) {
   if (isLoading) {
     return null;
   }
+  const logout = async () => {
+    AsyncStorage.clear();
+    Sentry.configureScope(scope => scope.clear());
+    navigation.navigate('Auth');
+  };
 
   return (
     <View
