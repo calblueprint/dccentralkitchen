@@ -7,6 +7,7 @@ import * as Sentry from 'sentry-expo';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
+import { logErrorToSentry } from '../lib/logUtils';
 
 function DrawerContent(props) {
   const [customer, setCustomer] = React.useState(null);
@@ -45,6 +46,11 @@ function DrawerContent(props) {
           }
         } catch (err) {
           console.error('[DrawerContent] Airtable:', err);
+          logErrorToSentry({
+            screen: 'DrawerContent',
+            action: 'componentDidMount',
+            error: err,
+          });
         }
       };
 
@@ -62,8 +68,6 @@ function DrawerContent(props) {
   const logout = async () => {
     AsyncStorage.clear();
     Sentry.configureScope(scope => scope.clear());
-    // navigation.navigate('DrawerClose');
-    // navigation.navigate('Auth');
     setTimeout(function() {
       navigation.navigate('Auth');
     }, 500);
@@ -103,9 +107,7 @@ function DrawerContent(props) {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ paddingLeft: 16, paddingBottom: 21 }}
-          onPress={() => {
-            AsyncStorage.clear().then(navigation.navigate('Auth'));
-          }}>
+          onPress={() => logout()}>
           <Title>Log Out</Title>
         </TouchableOpacity>
       </View>
