@@ -15,7 +15,6 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { getCustomersById } from '../../lib/airtable/request';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -61,13 +60,6 @@ export default class MapScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
-    const customerId = await AsyncStorage.getItem('userId');
-    const customer = await getCustomersById(customerId);
-    const isGuest = customerId === 'recLKK7cZHboMPEB8';
-    this.setState({
-      customer,
-      isGuest,
-    });
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
@@ -354,10 +346,9 @@ export default class MapScreen extends React.Component {
             zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
-          <RewardsFooter
-            customer={this.state.customer}
-            isGuest={this.state.isGuest}
-          />
+          <View>
+            <Subhead color="#fff"> Your Rewards </Subhead>
+          </View>
         </TouchableOpacity>
       </View>
     );

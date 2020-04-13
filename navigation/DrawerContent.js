@@ -32,8 +32,8 @@ function DrawerContent(props) {
             Sentry.configureScope(scope => {
               scope.setUser({
                 id: customerId,
-                username: customer.name,
-                phoneNumber: customer.phoneNumber,
+                username: cust.name,
+                phoneNumber: cust.phoneNumber,
               });
             });
             setCustomer(cust);
@@ -63,7 +63,7 @@ function DrawerContent(props) {
   const logout = async () => {
     AsyncStorage.clear();
     Sentry.configureScope(scope => scope.clear());
-    this.props.navigation.navigate('Auth');
+    navigation.navigate('Auth');
   };
 
   return (
@@ -82,9 +82,9 @@ function DrawerContent(props) {
           alignItems: 'flex-end',
           padding: 16,
         }}>
-        <Title style={{ color: 'white' }}>{this.state.customer.name}</Title>
+        <Title style={{ color: 'white' }}>{customer.name}</Title>
       </View>
-      <DrawerItemList {...this.props} />
+      <DrawerItemList {...props} />
       <View
         style={{
           flex: 1,
@@ -94,7 +94,7 @@ function DrawerContent(props) {
         }}>
         <TouchableOpacity
           style={{ padding: 16 }}
-          onPress={() => Linking.openURL(this.state.link)}>
+          onPress={() => Linking.openURL(link)}>
           <Title>Report Issue</Title>
         </TouchableOpacity>
         <TouchableOpacity
