@@ -12,6 +12,7 @@ import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
@@ -209,6 +210,16 @@ export default class MapScreen extends React.Component {
   // Only called after initial store has been set
   // Only expand the bottom sheet to display products if navigated from 'See Products' button on StoreList
   changeCurrentStore(store, resetSheet = false) {
+    // Set store focus status
+    this.state.store.focused = false;
+    store.focused = true;
+
+    // Animate to new store region
+    const region = {
+      latitude: store.latitude,
+      longitude: store.longitude,
+      ...deltas,
+    };
     this.setState(
       {
         store,
@@ -218,6 +229,7 @@ export default class MapScreen extends React.Component {
           this.bottomSheetRef.snapTo(0);
         }
         await this._populateStoreProducts(store);
+        await this._map.animateToRegion(region, 1000);
       }
     );
   }
@@ -288,10 +300,12 @@ export default class MapScreen extends React.Component {
                 latitude: store.latitude,
                 longitude: store.longitude,
               }}
-              title={store.storeName}
-              description={store.storeName}
-              onPress={() => this.changeCurrentStore(store)}
-            />
+              onPress={() => this.changeCurrentStore(store)}>
+              <StoreMarker
+                storeName={store.storeName}
+                focused={store.focused}
+              />
+            </Marker>
           ))}
           {/* If current location found, show current location marker */}
           {this.state.location && (
@@ -300,8 +314,7 @@ export default class MapScreen extends React.Component {
                 .toString()
                 .concat(coords.longitude.toString())}
               coordinate={coords}
-              title="Your Location"
-              pinColor="#166e00"
+              image={require('../../assets/images/Current_Location.png')}
             />
           )}
         </MapView>
