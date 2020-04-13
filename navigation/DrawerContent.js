@@ -34,6 +34,11 @@ function DrawerContent(props) {
                 phoneNumber: cust.phoneNumber,
               });
             });
+            if (cust.name === 'Guest') {
+              Sentry.captureMessage('Guest Login Successful');
+            } else {
+              Sentry.captureMessage('Returning User');
+            }
             setCustomer(cust);
             setIsLoading(false);
           }
