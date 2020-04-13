@@ -45,7 +45,6 @@ export default class LogInScreen extends React.Component {
   // to be the user ID and then navigates to homescreen.
   _asyncLogIn = async userId => {
     await AsyncStorage.setItem('userId', userId);
-    Sentry.captureMessage('Log In Successful');
     this.props.navigation.navigate('App');
   };
 
@@ -117,6 +116,7 @@ export default class LogInScreen extends React.Component {
             phoneNumber: formattedPhoneNumber,
             username: customer.name,
           });
+          Sentry.captureMessage('Log In Successful');
         });
       }
 
@@ -169,8 +169,7 @@ export default class LogInScreen extends React.Component {
           />
           <Caption
             style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}
-          >
+            color={Colors.error}>
             {this.state.error}
           </Caption>
         </FormContainer>
@@ -182,13 +181,12 @@ export default class LogInScreen extends React.Component {
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}
-          >
+            disabled={!logInPermission}>
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 
           {/* TODO @tommypoa: Forgot password functionality
-          
+
           <ForgotPasswordButtonContainer>
             <ButtonContainer>
               <Body color={Colors.primaryGreen}>Forgot password?</Body>

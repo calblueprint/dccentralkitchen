@@ -20,12 +20,12 @@ import {
   getCustomersByPhoneNumber,
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
+import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
 import validate from './validation';
 
 export default class SignUpScreen extends React.Component {
@@ -88,7 +88,6 @@ export default class SignUpScreen extends React.Component {
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignUp = async customerId => {
     await AsyncStorage.setItem('userId', customerId);
-    Sentry.captureMessage('Sign Up Successful');
     this.props.navigation.navigate('App');
   };
 
@@ -134,13 +133,14 @@ export default class SignUpScreen extends React.Component {
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 
-      // if login works, register the user
+      // if signup works, register the user
       Sentry.configureScope(scope => {
         scope.setUser({
           id: customerId,
           username: name,
           phoneNumber,
         });
+        Sentry.captureMessage('Sign Up Successful');
       });
       return customerId;
     } catch (err) {
@@ -318,8 +318,7 @@ export default class SignUpScreen extends React.Component {
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!signUpPermission}
-          >
+            disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
           {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
