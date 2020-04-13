@@ -56,7 +56,12 @@ function DrawerContent(props) {
   const logout = async () => {
     AsyncStorage.clear();
     Sentry.configureScope(scope => scope.clear());
-    navigation.navigate('Auth');
+    // navigation.navigate('DrawerClose');
+    // navigation.navigate('Auth');
+    setTimeout(function() {
+      navigation.navigate('Auth');
+    }, 500);
+    props.navigation.closeDrawer();
   };
 
   return (
