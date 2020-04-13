@@ -6,9 +6,15 @@ function StoreMarker({ storeName, focused }) {
   return (
     <MarkerContainer>
       {focused ? (
-        <Image source={require('../../assets/images/Marker_Focused.png')} />
+        <Image
+          style={{ width: 64, height: 64 }}
+          source={require('../../assets/images/Marker_Focused.png')}
+        />
       ) : (
-        <Image source={require('../../assets/images/Marker_Resting.png')} />
+        <Image
+          style={{ width: 32, height: 32 }}
+          source={require('../../assets/images/Marker_Resting.png')}
+        />
       )}
       <MarkerStoreName focused={focused}>{storeName}</MarkerStoreName>
     </MarkerContainer>

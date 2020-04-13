@@ -18,8 +18,9 @@ export default class AuthLoadingScreen extends React.Component {
     // Correct version
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
 
-    // Auth testing purpose
+    // Auth/App testing purpose
     // this.props.navigation.navigate('Auth');
+    // this.props.navigation.navigate('App');
   };
 
   // Render any loading content that you like here
