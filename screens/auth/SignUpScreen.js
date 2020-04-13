@@ -24,6 +24,7 @@ import {
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import { logAuthErrorToSentry } from '../../lib/logUtils';
 import validate from './validation';
 
 export default class SignUpScreen extends React.Component {
@@ -160,10 +161,18 @@ export default class SignUpScreen extends React.Component {
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
+        const errorMsg = 'Phone number already in use.';
+        logAuthErrorToSentry({
+          screen: 'SignUpScreen',
+          action: 'handleSubmit',
+          attemptedPhone: formattedPhoneNumber,
+          attemptedPass: null,
+          error: errorMsg,
+        });
         this.setState(prevState => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.PHONENUM]: 'Phone number already in use.',
+            [signUpFields.PHONENUM]: errorMsg,
           },
           processing: false,
         }));
@@ -176,6 +185,13 @@ export default class SignUpScreen extends React.Component {
       await this._asyncSignUp(customerId);
     } catch (err) {
       console.error('[SignUpScreen] (handleSubmit) Airtable:', err);
+      logAuthErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'handleSubmit',
+        attemptedPhone: null,
+        attemptedPass: null,
+        error: err,
+      });
     }
     Keyboard.dismiss();
   };
@@ -301,7 +317,8 @@ export default class SignUpScreen extends React.Component {
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!signUpPermission}>
+            disabled={!signUpPermission}
+          >
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
           {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
