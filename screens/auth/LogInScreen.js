@@ -84,21 +84,13 @@ export default class LogInScreen extends React.Component {
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
     try {
       let error = '';
+      let customer = null;
       const customers = await getAllCustomers(
         `AND({Phone Number} = '${formattedPhoneNumber}', {Password} = '${password}')`
       );
       // Returns empty array if no customer is found
       if (customers.length === 1) {
-        const customer = customers[0];
-        // register this user in the Sentry logger
-        Sentry.configureScope(scope => {
-          scope.setExtra('setUserScreen', 'LogInScreen');
-          scope.setUser({
-            id: customer.id,
-            phoneNumber: formattedPhoneNumber,
-            username: customer.name,
-          });
-        });
+        customer = customers[0];
         // If customer exists, we should update their push tokens
         await updateCustomerPushTokens(customer, token);
         // Log in
@@ -112,6 +104,7 @@ export default class LogInScreen extends React.Component {
         // No customer found
         error = 'Phone number or password is incorrect.';
       }
+
       if (error !== '') {
         logAuthErrorToSentry({
           screen: 'LogInScreen',
@@ -119,6 +112,15 @@ export default class LogInScreen extends React.Component {
           attemptedPhone: formattedPhoneNumber,
           attemptedPass: password,
           error,
+        });
+      } else {
+        // if login works, register the user
+        Sentry.configureScope(scope => {
+          scope.setUser({
+            id: customer.id,
+            phoneNumber: formattedPhoneNumber,
+            username: customer.name,
+          });
         });
       }
 
@@ -164,7 +166,8 @@ export default class LogInScreen extends React.Component {
           />
           <Caption
             style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}>
+            color={Colors.error}
+          >
             {this.state.error}
           </Caption>
         </FormContainer>
@@ -176,7 +179,8 @@ export default class LogInScreen extends React.Component {
             }
             width="100%"
             onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}>
+            disabled={!logInPermission}
+          >
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 
