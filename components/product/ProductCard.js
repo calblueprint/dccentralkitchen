@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -5,11 +6,6 @@ import { displayDollarValue } from '../../lib/common';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Caption } from '../BaseComponents';
 
-/**
- * @prop
- * */
-
-// TODO @tommypoa to use styled-components // Create Stylesheet for react native elements
 function ProductCard({ product, store, navigation, displayPoints }) {
   return (
     <ButtonContainer
@@ -32,10 +28,10 @@ function ProductCard({ product, store, navigation, displayPoints }) {
           <Caption color={Colors.secondaryText}>
             {`${displayDollarValue(product.customerCost)} ea`}
           </Caption>
+
           {displayPoints && (
             <Caption color={Colors.secondaryText}>
-              {' '}
-              • {product.points} pts
+              {`${' '} • ${product.points} pts`}
             </Caption>
           )}
         </RowContainer>
@@ -43,5 +39,16 @@ function ProductCard({ product, store, navigation, displayPoints }) {
     </ButtonContainer>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  displayPoints: PropTypes.bool,
+};
+
+ProductCard.defaultProps = {
+  displayPoints: false,
+};
 
 export default ProductCard;

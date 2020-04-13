@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { TextField } from 'react-native-materialui-textfield';
 import Colors from '../constants/Colors';
@@ -29,12 +30,15 @@ function AuthTextField({
         value={value}
         baseColor={Colors.activeText}
         tintColor={Colors.primaryGreen}
+        style={{ fontFamily: 'poppins-regular' }}
         error={error}
         errorColor={Colors.error}
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
+        labelPadding={6}
+        inputContainerPadding={4}
       />
       {fieldType === 'Name' && !error && (
         <Caption color={Colors.activeText}>
@@ -44,5 +48,18 @@ function AuthTextField({
     </TextFieldContainer>
   );
 }
+
+AuthTextField.propTypes = {
+  fieldType: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired,
+  changeTextCallback: PropTypes.any.isRequired,
+  error: PropTypes.any,
+  onBlurCallback: PropTypes.any,
+};
+
+AuthTextField.defaultProps = {
+  error: null,
+  onBlurCallback: null,
+};
 
 export default AuthTextField;

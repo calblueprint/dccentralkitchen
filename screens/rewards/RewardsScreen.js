@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   AsyncStorage,
@@ -137,7 +138,10 @@ export default class RewardsScreen extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <NavHeaderContainer vertical backgroundColor={Colors.primaryGreen}>
+        <NavHeaderContainer
+          vertical
+          noShadow
+          backgroundColor={Colors.primaryGreen}>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
           </NavButton>
@@ -165,3 +169,12 @@ export default class RewardsScreen extends React.Component {
     );
   }
 }
+
+RewardsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  tab: PropTypes.any,
+};
+
+RewardsScreen.defaultProps = {
+  tab: null,
+};

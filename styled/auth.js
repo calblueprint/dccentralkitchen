@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { NavButton } from '../components/BaseComponents';
+import Colors from '../constants/Colors';
 import { ColumnContainer } from './shared';
 
 // TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
@@ -9,7 +10,7 @@ import { ColumnContainer } from './shared';
 export const AuthScreenContainer = styled(ColumnContainer)`
   justify-content: space-between;
   margin: 50px 42px 0 42px;
-  background-color: #fff;
+  background-color: ${Colors.lightest};
 `;
 
 // WelcomeScreen
@@ -18,7 +19,7 @@ export const WelcomeContainer = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: ${Colors.lightest};
   margin: 241px 42px;
 `;
 
