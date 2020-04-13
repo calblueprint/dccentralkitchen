@@ -22,7 +22,6 @@ export default class WelcomeScreen extends React.Component {
   render() {
     return (
       <WelcomeContainer>
-        {/* <WelcomeTitleContainer> */}
         <Image
           source={require('../../assets/images/hc_start.png')}
           style={{
