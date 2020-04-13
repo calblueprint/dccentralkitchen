@@ -5,6 +5,7 @@ import * as Sentry from 'sentry-expo';
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
+import { logErrorToSentry } from '../lib/logUtils';
 
 class DrawerContent extends React.Component {
   constructor(props) {
@@ -35,6 +36,11 @@ class DrawerContent extends React.Component {
       this.setState({ customer, isLoading: false });
     } catch (err) {
       console.error('[DrawerContent] Airtable:', err);
+      logErrorToSentry({
+        screen: 'DrawerContent',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
