@@ -1,10 +1,13 @@
+/* eslint-disable */
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
+import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as Permissions from 'expo-permissions';
+import * as firebase from 'firebase/app';
 import React from 'react';
-import { AsyncStorage, Keyboard } from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -25,6 +28,8 @@ import {
   FormContainer,
 } from '../../styled/auth';
 import validate from './validation';
+
+firebase.initializeApp();
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -78,8 +83,11 @@ export default class SignUpScreen extends React.Component {
   // Configures to use David Ro's test account
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recimV9zs2StWB2Mj');
-    this.props.navigation.navigate('App');
+    const phone = new firebase.auth.PhoneAuthProvider();
+    const verificationId = await phone.verifyPhoneNumber('+6692254117', null);
+
+    // await AsyncStorage.setItem('userId', 'recimV9zs2StWB2Mj');
+    // this.props.navigation.navigate('App');
   };
 
   // Sign up function. It sets the user token in local storage
@@ -141,6 +149,7 @@ export default class SignUpScreen extends React.Component {
   // Handle form submission. Validate fields first, then check duplicates.
   // If there are no errors, add customer to Airtable.
   handleSubmit = async () => {
+    console.log('yes!');
     try {
       this.setState({ processing: true });
       // Check for duplicates first
@@ -161,6 +170,15 @@ export default class SignUpScreen extends React.Component {
         }));
         return;
       }
+      console.log('reached');
+
+      const phoneProvider = new firebase.auth.PhoneAuthProvider();
+      console.log('hello!');
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        phoneNumber,
+        null
+      );
+
       // Otherwise, add customer to Airtable
       const customerId = await this.addCustomer();
       this._clearState();
@@ -247,6 +265,11 @@ export default class SignUpScreen extends React.Component {
           <BackButton onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
+          <FirebaseAuthApplicationVerifier />
+          <FirebaseRecaptchaVerifierModal
+            ref={ref => (this.recaptchaVerifier = ref)}
+            firebaseConfig={firebase.app().options}
+          />
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
             <AuthTextField
@@ -295,7 +318,7 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
+          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
         </AuthScreenContainer>
       </ScrollView>
     );

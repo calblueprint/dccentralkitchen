@@ -18,6 +18,8 @@ class DrawerContent extends React.Component {
 
   async componentDidMount() {
     try {
+      AsyncStorage.clear();
+      await AsyncStorage.setItem('userId', 'recimV9zs2StWB2Mj');
       const customerId = await AsyncStorage.getItem('userId');
       let customer = null;
       if (customerId != null) {
