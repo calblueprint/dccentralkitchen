@@ -37,13 +37,7 @@ export default class LogInScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // this.registerForPushNotificationsAsync();
-    // From SignUpScreen.js, see comment there for details
-    // this._notificationSubscription = Notifications.addListener(
-    //   this._handleNotification
-    // );
-  }
+  componentDidMount() {}
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
