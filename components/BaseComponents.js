@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
@@ -6,7 +7,6 @@ import Colors from '../constants/Colors';
 
 export const TextButton = styled.Text`
   font-family: poppins-regular;
-  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
   display: flex;
@@ -136,7 +136,8 @@ export function NavHeaderContainer({
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
         backgroundColor: backgroundColor || Colors.lightest,
-        shadowColor: noShadow ? 'rgba(0,0,0,0)' : '#000',
+        shadowColor: noShadow ? 'transparent' : '#000',
+        elevation: noShadow ? 0 : 7,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
@@ -145,6 +146,22 @@ export function NavHeaderContainer({
     </View>
   );
 }
+
+NavHeaderContainer.propTypes = {
+  backgroundColor: PropTypes.string,
+  withMargin: PropTypes.bool,
+  children: PropTypes.any,
+  vertical: PropTypes.bool,
+  noShadow: PropTypes.bool,
+};
+
+NavHeaderContainer.defaultProps = {
+  backgroundColor: null,
+  children: null,
+  vertical: null,
+  withMargin: null,
+  noShadow: null,
+};
 
 export const NavTitle = styled(Title)`
   flex: 1;

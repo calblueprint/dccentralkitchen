@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { ContentText, DateText } from '../../styled/news';
 
 function NewsDetailsScreen(props) {
-  const { currentNewsItem } = props.navigation.state.params;
+  const { currentNewsItem } = props.route.params;
   return (
     <View>
       <DateText>{currentNewsItem.title}</DateText>
@@ -15,5 +16,9 @@ function NewsDetailsScreen(props) {
     </View>
   );
 }
+
+NewsDetailsScreen.propTypes = {
+  route: PropTypes.object.isRequired,
+};
 
 export default NewsDetailsScreen;

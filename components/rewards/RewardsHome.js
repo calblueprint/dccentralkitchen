@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
@@ -88,5 +89,9 @@ function RewardsHome({ customer }) {
     </ScrollView>
   );
 }
+
+RewardsHome.propTypes = {
+  customer: PropTypes.object.isRequired,
+};
 
 export default React.memo(RewardsHome);

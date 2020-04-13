@@ -2,9 +2,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -17,12 +19,14 @@ import {
   createPushTokens,
   getCustomersByPhoneNumber,
 } from '../../lib/airtable/request';
-import { formatPhoneNumber, signUpFields, validate } from '../../lib/authUtils';
+import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
+import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import validate from './validation';
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -117,13 +121,26 @@ export default class SignUpScreen extends React.Component {
     const phoneNumber = values[signUpFields.PHONENUM];
     const password = values[signUpFields.PASSWORD];
     try {
-      const pushTokenId = await createPushTokens({ token });
+      let pushTokenId = null;
+      if (token) {
+        pushTokenId = await createPushTokens({ token });
+      }
       const customerId = await createCustomers({
         name,
         phoneNumber,
         password,
         points: 0,
-        pushTokenIds: [pushTokenId],
+        pushTokenIds: pushTokenId ? [pushTokenId] : null,
+      });
+
+      // if signup works, register the user
+      Sentry.configureScope(scope => {
+        scope.setUser({
+          id: customerId,
+          username: name,
+          phoneNumber,
+        });
+        Sentry.captureMessage('Sign Up Successful');
       });
       return customerId;
     } catch (err) {
@@ -145,10 +162,18 @@ export default class SignUpScreen extends React.Component {
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
+        const errorMsg = 'Phone number already in use.';
+        logAuthErrorToSentry({
+          screen: 'SignUpScreen',
+          action: 'handleSubmit',
+          attemptedPhone: formattedPhoneNumber,
+          attemptedPass: null,
+          error: errorMsg,
+        });
         this.setState(prevState => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.PHONENUM]: 'Phone number already in use.',
+            [signUpFields.PHONENUM]: errorMsg,
           },
           processing: false,
         }));
@@ -157,9 +182,17 @@ export default class SignUpScreen extends React.Component {
       // Otherwise, add customer to Airtable
       const customerId = await this.addCustomer();
       this._clearState();
+      // register this user in the Sentry logger
       await this._asyncSignUp(customerId);
     } catch (err) {
       console.error('[SignUpScreen] (handleSubmit) Airtable:', err);
+      logAuthErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'handleSubmit',
+        attemptedPhone: null,
+        attemptedPass: null,
+        error: err,
+      });
     }
     Keyboard.dismiss();
   };
@@ -288,9 +321,13 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
         </AuthScreenContainer>
       </ScrollView>
     );
   }
 }
+
+SignUpScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

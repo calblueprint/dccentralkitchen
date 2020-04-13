@@ -27,7 +27,6 @@ export const SpaceAroundRowContainer = styled.View`
 
 export const ScrollCategory = styled.Text`
   font-size: 14px;
-  font-weight: normal;
 `;
 
 export const PoppinsText = styled.Text`

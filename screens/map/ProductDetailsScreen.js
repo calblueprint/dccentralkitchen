@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
@@ -16,10 +17,10 @@ export default class ProductDetailsScreen extends React.Component {
   }
 
   render() {
-    const { currentProduct, store } = this.props.navigation.state.params;
+    const { currentProduct } = this.props.route.params;
     return (
       <View>
-        <NavHeaderContainer withMargin backgroundColor="rgba(0,0,0,0)" noShadow>
+        <NavHeaderContainer withMargin backgroundColor="transparent" noShadow>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="times" solid size={24} />
           </NavButton>
@@ -40,3 +41,8 @@ export default class ProductDetailsScreen extends React.Component {
     );
   }
 }
+
+ProductDetailsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};

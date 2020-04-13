@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import {
@@ -14,6 +15,7 @@ export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      CovidResources: [],
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
@@ -24,19 +26,23 @@ export default class ResourcesScreen extends React.Component {
   async componentDidMount() {
     try {
       const resources = await getAllResources();
+      const CovidResources = resources.filter(
+        resource => resource.category === 'COVID-19 (Coronavirus)'
+      );
       const DCCentralKitchenResources = resources.filter(
-        resource => resource.category == 'DC Central Kitchen Resources'
+        resource => resource.category === 'DC Central Kitchen Resources'
       );
       const CommunityResources = resources.filter(
-        resource => resource.category == 'Community Resources'
+        resource => resource.category === 'Community Resources'
       );
       const GovernmentResources = resources.filter(
-        resource => resource.category == 'Government Resources'
+        resource => resource.category === 'Government Resources'
       );
       const ResourcesForSeniors = resources.filter(
-        resource => resource.category == 'Resources for Seniors'
+        resource => resource.category === 'Resources for Seniors'
       );
       this.setState({
+        CovidResources,
         DCCentralKitchenResources,
         CommunityResources,
         GovernmentResources,
@@ -57,6 +63,17 @@ export default class ResourcesScreen extends React.Component {
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
+          <ResourceCategoryBar
+            icon="clinic-medical"
+            title="COVID-19 (Coronavirus)"
+          />
+          {this.state.CovidResources.map(resource => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map(resource => (
             <ResourceCard
@@ -95,3 +112,7 @@ export default class ResourcesScreen extends React.Component {
     );
   }
 }
+
+ResourcesScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

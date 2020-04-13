@@ -1,17 +1,18 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { HamburgerButton } from '../styled/hamburger';
 
-export default class Hamburger extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <HamburgerButton onPress={() => this.props.navigation.toggleDrawer()}>
-        <FontAwesome5 name="bars" solid size={24} />
-      </HamburgerButton>
-    );
-  }
+function Hamburger({ navigation }) {
+  return (
+    <HamburgerButton onPress={() => navigation.toggleDrawer()}>
+      <FontAwesome5 name="bars" solid size={24} />
+    </HamburgerButton>
+  );
 }
+
+Hamburger.propTypes = {
+  navigation: PropTypes.any.isRequired,
+};
+
+export default Hamburger;

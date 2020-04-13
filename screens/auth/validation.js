@@ -1,22 +1,47 @@
-// TODO: @Johnathan get this as well as other signup files to work.
+import validatejs from 'validate.js';
+
+// For future use, to match for better passwords
+// TODO: @Johnathan Fix passwords check
+const pattern = '((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[W]).{6,20})';
+
+// This is to create constraints for the validatejs library
 const validation = {
-  phonenumber: {
+  name: {
     presence: {
-      message: '^Please enter an email address',
+      message: '^Name cannot be blank.',
     },
-    phoneNumber: {
-      message: '^Please enter a valid email address',
+  },
+  phoneNumber: {
+    // This verifies that it's not blank.
+    presence: {
+      message: '^Phone number cannot be blank.',
     },
+    length: {
+      is: 10,
+      message: '^Must be a valid phone number',
+    },
+    // To check for only numbers in the future
+    // format: {
+    //   pattern: '/^d+$/',
+    //   message: 'Phone number cannot contain non-numeric characters.'
+    // }
   },
 
   password: {
     presence: {
-      message: '^Please enter a password',
+      message: '^Password cannot be blank.',
     },
     length: {
       minimum: 8,
-      message: '^Your password must be at least 8 characters',
+      maximum: 20,
+      message: '^Must be 8-20 characters long',
     },
+    // For future use for better password checking
+    // format: {
+    //   pattern: "[a-z0-9]+",
+    //   flags: "i",
+    //   message: "Must contain at least one digit, one lowercase number, and special chracter"
+    // }
   },
 };
 
@@ -39,24 +64,8 @@ function validate(fieldName, value) {
     // Return only the field error message if there are multiple
     return result[fieldName][0];
   }
-  return '';
+  // Otherwise, return null
+  return null;
 }
-
-// For handling errors within the form. This is strecth to handle the
-// onBlur thing that I talked about.
-const TextField = props => (
-  <View>
-    <TextInput
-      style={props.style}
-      placeholder={props.placeholder}
-      secureTextEntry={props.secureTextEntry}
-    />
-    <TextInput value={props.error ? <Text>{props.error}</Text> : null} />
-  </View>
-);
-
-// For future use, to match for better passwords
-// TODO: @Johnathan Fix passwords check
-const pattern = '((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[W]).{6,20})';
 
 export default validate;
