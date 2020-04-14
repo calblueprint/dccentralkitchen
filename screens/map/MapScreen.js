@@ -12,7 +12,6 @@ import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
-import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
@@ -66,7 +65,7 @@ export default class MapScreen extends React.Component {
     await this._populateInitialStoresProducts();
     const customerId = await AsyncStorage.getItem('userId');
     const customer = await getCustomersById(customerId);
-    const isGuest = customerId === 'recLKK7cZHboMPEB8';
+    const isGuest = customerId === 'recxEGfvExP4Dv8nr';
     this.setState({
       customer,
       isGuest,
