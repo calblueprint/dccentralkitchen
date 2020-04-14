@@ -1,4 +1,5 @@
 import { DrawerItemList } from '@react-navigation/drawer';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
@@ -8,93 +9,110 @@ import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
 import { logErrorToSentry } from '../lib/logUtils';
 
-class DrawerContent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      customer: null,
-      link: 'http://tiny.cc/RewardsFeedback',
-      isLoading: true,
-    };
-  }
+function DrawerContent(props) {
+  const [customer, setCustomer] = React.useState(null);
+  const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
+  const [isLoading, setIsLoading] = React.useState(true);
+  const navigation = useNavigation();
 
-  async componentDidMount() {
-    try {
-      const customerId = await AsyncStorage.getItem('userId');
-      let customer = null;
-      if (customerId != null) {
-        customer = await getCustomersById(customerId);
-      } else {
-        customer = { name: 'Guest' };
-      }
-      Sentry.configureScope(scope => {
-        scope.setUser({
-          id: customerId,
-          username: customer.name,
-          phoneNumber: customer.phoneNumber,
-        });
-      });
-      this.setState({ customer, isLoading: false });
-    } catch (err) {
-      console.error('[DrawerContent] Airtable:', err);
-      logErrorToSentry({
-        screen: 'DrawerContent',
-        action: 'componentDidMount',
-        error: err,
-      });
-    }
-  }
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
 
-  _logout = async () => {
+      const fetchUser = async () => {
+        try {
+          const customerId = await AsyncStorage.getItem('userId');
+          let cust = null;
+          if (customerId != null) {
+            cust = await getCustomersById(customerId);
+          } else {
+            cust = { name: 'Guest' };
+          }
+          if (isActive) {
+            Sentry.configureScope(scope => {
+              scope.setUser({
+                id: customerId,
+                username: cust.name,
+                phoneNumber: cust.phoneNumber,
+              });
+            });
+            if (cust.name === 'Guest') {
+              Sentry.captureMessage('Guest Login Successful');
+            } else {
+              Sentry.captureMessage('Returning User');
+            }
+            setCustomer(cust);
+            setIsLoading(false);
+          }
+        } catch (err) {
+          console.error('[DrawerContent] Airtable:', err);
+          logErrorToSentry({
+            screen: 'DrawerContent',
+            action: 'componentDidMount',
+            error: err,
+          });
+        }
+      };
+
+      fetchUser();
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
+
+  if (isLoading) {
+    return null;
+  }
+  const logout = async () => {
     AsyncStorage.clear();
     Sentry.configureScope(scope => scope.clear());
-    this.props.navigation.navigate('Auth');
+    setTimeout(function() {
+      navigation.navigate('Auth');
+    }, 500);
+    props.navigation.closeDrawer();
   };
 
-  render() {
-    if (this.state.isLoading) {
-      return null;
-    }
-    return (
+  return (
+    <View
+      style={{
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column',
+      }}>
       <View
         style={{
+          backgroundColor: Colors.black,
+          height: 114,
           display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+          padding: 8,
+        }}>
+        <Title style={{ color: 'white' }}>{customer.name}</Title>
+      </View>
+      <DrawerItemList {...props} />
+      <View
+        style={{
           flex: 1,
           flexDirection: 'column',
+          justifyContent: 'flex-end',
+          verticalAlign: 'bottom',
         }}>
-        <View
-          style={{
-            backgroundColor: Colors.black,
-            height: 114,
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            padding: 16,
-          }}>
-          <Title style={{ color: 'white' }}>{this.state.customer.name}</Title>
-        </View>
-        <DrawerItemList {...this.props} />
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            verticalAlign: 'bottom',
-          }}>
-          <TouchableOpacity
-            style={{ padding: 16 }}
-            onPress={() => Linking.openURL(this.state.link)}>
-            <Title>Report Issue</Title>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ paddingLeft: 16, paddingBottom: 21 }}
-            onPress={() => this._logout()}>
-            <Title>Log Out</Title>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={{ padding: 16 }}
+          onPress={() => Linking.openURL(link)}>
+          <Title>Report Issue</Title>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ paddingLeft: 16, paddingBottom: 21 }}
+          onPress={() => logout()}>
+          <Title>Log Out</Title>
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 export default DrawerContent;

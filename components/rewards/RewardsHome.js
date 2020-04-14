@@ -1,9 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, Image, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import {
   AvailableRewardsContainer,
@@ -59,7 +60,7 @@ function RewardsHome({ customer }) {
           data={createList(Math.floor(rewardsAvailable))}
           renderItem={() => <RewardsCard />}
           keyExtractor={(item, index) => index.toString()}
-          numColumns={2}
+          numColumns={Window.width > 370 ? 2 : 1}
           ListEmptyComponent={
             <View
               style={{
@@ -86,6 +87,16 @@ function RewardsHome({ customer }) {
           }
         />
       </AvailableRewardsContainer>
+      <View style={{ maxHeight: 600, marginTop: 12 }}>
+        <Image
+          source={require('../../assets/images/HowItWorks.png')}
+          style={{
+            maxWidth: '100%',
+            resizeMode: 'contain',
+            maxHeight: 600,
+          }}
+        />
+      </View>
     </ScrollView>
   );
 }

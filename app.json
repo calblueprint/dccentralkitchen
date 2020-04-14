@@ -8,9 +8,9 @@
     "version": "1.1.0",
     "primaryColor": "#008550",
     "orientation": "portrait",
-    "icon": "./assets/images/CustomerAppIcon.png",
+    "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/images/DCHC_Splash.png",
+      "image": "./assets/images/hc_splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
