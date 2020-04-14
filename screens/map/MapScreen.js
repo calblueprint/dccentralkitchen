@@ -75,7 +75,8 @@ export default class MapScreen extends React.Component {
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
-    this.changeCurrentStore(store, (resetSheet = true));
+    const resetSheet = true;
+    this.changeCurrentStore(store, resetSheet);
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,

@@ -55,6 +55,7 @@ export default function createAppContainer() {
         screenOptions={{
           headerShown: false,
           cardStyle: { backgroundColor: Colors.lightest },
+          gestureEnabled: false,
         }}>
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
         <AppStack.Screen
