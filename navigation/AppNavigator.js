@@ -29,7 +29,7 @@ function DrawerNavigator() {
       <Drawer.Screen
         name="Stores"
         component={StoresStackNavigator}
-        options={{ title: 'Stores' }}
+        options={{ title: 'Stores', swipeEnabled: false }}
       />
       {/* <Drawer.Screen
         name="Rewards"
@@ -39,7 +39,7 @@ function DrawerNavigator() {
       <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}
-        options={{ title: 'Resources' }}
+        options={{ title: 'Resources', swipeEnabled: false }}
       />
     </Drawer.Navigator>
   );
