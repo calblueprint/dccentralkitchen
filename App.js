@@ -13,9 +13,8 @@ Sentry.init({
   enableInExpoDevelopment: false,
   release: 'v1.1.0',
   debug: false,
-  environment: 'staging',
+  environment: process.env.NODE_ENV,
 });
-console.log(process.env.AIRTABLE_API_KEY);
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
