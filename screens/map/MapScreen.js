@@ -62,7 +62,7 @@ export default class MapScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
-    const customerId = await AsyncStorage.getItem('userId');
+    const customerId = await AsyncStorage.getItem('customerId');
     const customer = await getCustomersById(customerId);
     const isGuest = customerId === RecordIds.guestCustomerId;
     this.setState({

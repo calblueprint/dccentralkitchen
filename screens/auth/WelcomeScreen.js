@@ -12,7 +12,7 @@ import { WelcomeContainer } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
   guestLogin = async () => {
-    await AsyncStorage.setItem('userId', RecordIds.guestCustomerId);
+    await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
     this.props.navigation.navigate('App');
   };
 

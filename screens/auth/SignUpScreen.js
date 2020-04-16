@@ -88,7 +88,7 @@ export default class SignUpScreen extends React.Component {
   // Sign up function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignUp = async customerId => {
-    await AsyncStorage.setItem('userId', customerId);
+    await AsyncStorage.setItem('customerId', customerId);
     this.props.navigation.navigate('App');
   };
 
