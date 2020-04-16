@@ -13,6 +13,15 @@ export const AuthScreenContainer = styled(ColumnContainer)`
   background-color: ${Colors.lightest};
 `;
 
+// OnboardingScreen
+// TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
+export const OnboardingContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  background-color: ${Colors.lightest};
+  margin: 200px 40px 75px 40px;
+`;
+
 // WelcomeScreen
 // TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
 export const WelcomeContainer = styled.View`
