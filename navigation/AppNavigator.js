@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
+import RewardsScreen from '../screens/rewards/RewardsScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
@@ -31,11 +32,11 @@ function DrawerNavigator() {
         component={StoresStackNavigator}
         options={{ title: 'Stores' }}
       />
-      {/* <Drawer.Screen
+      <Drawer.Screen
         name="Rewards"
         options={{ title: 'Points History', drawerLockMode: 'locked-closed' }}>
         {props => <RewardsScreen {...props} tab={1} />}
-      </Drawer.Screen> */}
+      </Drawer.Screen>
       <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}

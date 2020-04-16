@@ -21,6 +21,7 @@ export default class AuthLoadingScreen extends React.Component {
 
     // Auth/App testing purpose
     // this.props.navigation.navigate('Auth');
+    // await AsyncStorage.setItem('userId', 'recTSlhgMXVkpoRyv');
     // this.props.navigation.navigate('App');
   };
 
