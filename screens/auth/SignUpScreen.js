@@ -14,6 +14,7 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import RecordIds from '../../constants/RecordIds';
 import {
   createCustomers,
   createPushTokens,
@@ -80,7 +81,7 @@ export default class SignUpScreen extends React.Component {
   // Configures to use David Ro's test account
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recimV9zs2StWB2Mj');
+    await AsyncStorage.setItem('customerId', RecordIds.customerId);
     this.props.navigation.navigate('App');
   };
 
