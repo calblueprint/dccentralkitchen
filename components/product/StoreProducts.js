@@ -62,7 +62,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>
-                No products to show...check back later!
+                No recent deliveries...check back later!
               </Body>
             </View>
           }
