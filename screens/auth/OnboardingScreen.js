@@ -24,6 +24,7 @@ export default class OnboardingScreen extends React.Component {
     super(props);
 
     this.state = {
+      loading: true,
       pageIndex: 0,
     };
   }
@@ -72,7 +73,16 @@ export default class OnboardingScreen extends React.Component {
     );
   }
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 10);
+  }
+
   render() {
+    if (this.state.loading) {
+      return null;
+    }
     return (
       <OnboardingContainer>
         {/* Display sliding content */}
