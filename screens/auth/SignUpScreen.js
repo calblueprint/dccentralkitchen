@@ -5,6 +5,7 @@ import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as Permissions from 'expo-permissions';
+import * as firebase from 'firebase';
 import React from 'react';
 import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -29,11 +30,14 @@ import {
 } from '../../styled/auth';
 import validate from './validation';
 
+firebase.initializeApp(firebaseConfig);
+
 export default class SignUpScreen extends React.Component {
   constructor(props) {
     super(props);
-
+    const recaptchaVerifier = React.createRef();
     this.state = {
+      ref: recaptchaVerifier,
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
@@ -58,22 +62,13 @@ export default class SignUpScreen extends React.Component {
     // this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
-  verify() {
-    var phoneNumber = getPhoneNumberFromUserInput();
-    var appVerifier = window.recaptchaVerifier;
-    firebase
-      .auth()
-      .signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then(function(confirmationResult) {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        window.confirmationResult = confirmationResult;
-      })
-      .catch(function(error) {
-        // Error; SMS not sent
-        // ...
-      });
-  }
+  verify = async () => {
+    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const verificationId = await phoneProvider.verifyPhoneNumber(
+      '+6692254117',
+      this.ref
+    );
+  };
 
   // TODO will be deprecated with react-navigation v5
   _clearState = () => {
@@ -320,7 +315,27 @@ export default class SignUpScreen extends React.Component {
           </FilledButtonContainer>
           <Button title="Testing Bypass" onPress={() => this._devBypass()} />
         </AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal firebaseConfig={firebaseConfig} />
+        <FirebaseRecaptchaVerifierModal
+          ref={this.state.ref}
+          firebaseConfig={firebaseConfig}
+        />
+        <Button
+          title="Send Verification Code"
+          onPress={async () => {
+            // The FirebaseRecaptchaVerifierModal ref implements the
+            // FirebaseAuthApplicationVerifier interface and can be
+            // passed directly to `verifyPhoneNumber`.
+            try {
+              const phoneProvider = new firebase.auth.PhoneAuthProvider();
+              const verificationId = await phoneProvider.verifyPhoneNumber(
+                '+6692254117',
+                this.state.ref.current
+              );
+            } catch (err) {
+              console.log(err);
+            }
+          }}
+        />
       </ScrollView>
     );
   }
