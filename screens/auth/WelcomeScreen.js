@@ -12,7 +12,7 @@ import { WelcomeContainer } from '../../styled/auth';
 export default class WelcomeScreen extends React.Component {
   guestLogin = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recxEGfvExP4Dv8nr');
+    await AsyncStorage.setItem('userId', 'recLKK7cZHboMPEB8');
     this.props.navigation.navigate('App');
   };
 
