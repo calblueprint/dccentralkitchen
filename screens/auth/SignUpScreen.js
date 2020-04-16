@@ -5,7 +5,6 @@ import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as Permissions from 'expo-permissions';
-import * as firebase from 'firebase/app';
 import React from 'react';
 import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -16,6 +15,7 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import { firebaseConfig } from '../../firebase';
 import {
   createCustomers,
   createPushTokens,
@@ -28,8 +28,6 @@ import {
   FormContainer,
 } from '../../styled/auth';
 import validate from './validation';
-
-firebase.initializeApp();
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -60,6 +58,23 @@ export default class SignUpScreen extends React.Component {
     // this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
+  verify() {
+    var phoneNumber = getPhoneNumberFromUserInput();
+    var appVerifier = window.recaptchaVerifier;
+    firebase
+      .auth()
+      .signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then(function(confirmationResult) {
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+      })
+      .catch(function(error) {
+        // Error; SMS not sent
+        // ...
+      });
+  }
+
   // TODO will be deprecated with react-navigation v5
   _clearState = () => {
     this.setState({
@@ -83,9 +98,6 @@ export default class SignUpScreen extends React.Component {
   // Configures to use David Ro's test account
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    const phone = new firebase.auth.PhoneAuthProvider();
-    const verificationId = await phone.verifyPhoneNumber('+6692254117', null);
-
     // await AsyncStorage.setItem('userId', 'recimV9zs2StWB2Mj');
     // this.props.navigation.navigate('App');
   };
@@ -171,13 +183,6 @@ export default class SignUpScreen extends React.Component {
         return;
       }
       console.log('reached');
-
-      const phoneProvider = new firebase.auth.PhoneAuthProvider();
-      console.log('hello!');
-      const verificationId = await phoneProvider.verifyPhoneNumber(
-        phoneNumber,
-        null
-      );
 
       // Otherwise, add customer to Airtable
       const customerId = await this.addCustomer();
@@ -265,11 +270,6 @@ export default class SignUpScreen extends React.Component {
           <BackButton onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
-          <FirebaseAuthApplicationVerifier />
-          <FirebaseRecaptchaVerifierModal
-            ref={ref => (this.recaptchaVerifier = ref)}
-            firebaseConfig={firebase.app().options}
-          />
           <BigTitle>Sign Up</BigTitle>
           <FormContainer>
             <AuthTextField
@@ -320,6 +320,7 @@ export default class SignUpScreen extends React.Component {
           </FilledButtonContainer>
           <Button title="Testing Bypass" onPress={() => this._devBypass()} />
         </AuthScreenContainer>
+        <FirebaseRecaptchaVerifierModal firebaseConfig={firebaseConfig} />
       </ScrollView>
     );
   }
