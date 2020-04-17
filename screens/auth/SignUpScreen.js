@@ -7,7 +7,7 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Button, Keyboard, TextInput } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -38,6 +38,8 @@ export default class SignUpScreen extends React.Component {
     const recaptchaVerifier = React.createRef();
     this.state = {
       ref: recaptchaVerifier,
+      verificationId: null,
+      verificationCode: null,
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
@@ -65,9 +67,10 @@ export default class SignUpScreen extends React.Component {
   verify = async () => {
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     const verificationId = await phoneProvider.verifyPhoneNumber(
-      '+6692254117',
-      this.ref
+      '+16692254117',
+      this.state.ref.current
     );
+    this.setState({ verificationId });
   };
 
   // TODO will be deprecated with react-navigation v5
@@ -261,6 +264,10 @@ export default class SignUpScreen extends React.Component {
 
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
+        <FirebaseRecaptchaVerifierModal
+          ref={this.state.ref}
+          firebaseConfig={firebaseConfig}
+        />
         <AuthScreenContainer>
           <BackButton onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
@@ -315,10 +322,7 @@ export default class SignUpScreen extends React.Component {
           </FilledButtonContainer>
           <Button title="Testing Bypass" onPress={() => this._devBypass()} />
         </AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
-          ref={this.state.ref}
-          firebaseConfig={firebaseConfig}
-        />
+
         <Button
           title="Send Verification Code"
           onPress={async () => {
@@ -327,14 +331,16 @@ export default class SignUpScreen extends React.Component {
             // passed directly to `verifyPhoneNumber`.
             try {
               const phoneProvider = new firebase.auth.PhoneAuthProvider();
-              const verificationId = await phoneProvider.verifyPhoneNumber(
-                '+6692254117',
-                this.state.ref.current
-              );
+              this.verify();
             } catch (err) {
               console.log(err);
             }
           }}
+        />
+        <TextInput
+          style={{ marginVertical: 10, fontSize: 17 }}
+          placeholder="123456"
+          onChangeText={text => onChangeText(text)}
         />
       </ScrollView>
     );
