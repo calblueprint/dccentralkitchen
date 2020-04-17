@@ -11,7 +11,6 @@ import {
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
-// import console = require('console');
 import { computeStoreOpen } from '../../lib/mapUtils';
 import { InLineContainer } from '../../styled/shared';
 
