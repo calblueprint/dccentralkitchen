@@ -11,8 +11,9 @@ import {
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
-import { InLineContainer } from '../../styled/shared';
 // import console = require('console');
+import { computeStoreOpen } from '../../lib/mapUtils';
+import { InLineContainer } from '../../styled/shared';
 
 export default class StoreScreen extends React.Component {
   constructor(props) {
@@ -23,7 +24,6 @@ export default class StoreScreen extends React.Component {
   render() {
     const { store } = this.props.route.params;
     const today = new Date();
-    console.log(today.getDay());
     return (
       <View>
         <NavHeaderContainer withMargin>
@@ -44,7 +44,9 @@ export default class StoreScreen extends React.Component {
           <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>
             <FontAwesome5 name="phone" solid size={24} color={Colors.black} />
             <Body style={{ marginLeft: 12 }}>
-              {formatPhoneNumber(store.phoneNumber)}
+              {store.phoneNumber
+                ? formatPhoneNumber(store.phoneNumber)
+                : 'Phone number unavailable'}
             </Body>
           </InLineContainer>
           {/* Store Hours */}
@@ -56,7 +58,12 @@ export default class StoreScreen extends React.Component {
               color={Colors.black}
               style={{ marginRight: 12 }}
             />
-            <StoreHours hours={store.storeHours} />
+            <View style={{ display: 'flex', flexDirection: 'column' }}>
+              <Body style={{ marginBottom: 4 }}>
+                {computeStoreOpen(store.storeHours)}
+              </Body>
+              <StoreHours hours={store.storeHours} />
+            </View>
           </InLineContainer>
           {/* Accepted Programs */}
           <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>

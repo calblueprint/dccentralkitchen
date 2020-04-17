@@ -4,7 +4,7 @@ import React from 'react';
 import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 import Colors from '../../constants/Colors';
-import { getMaxWidth } from '../../lib/mapUtils';
+import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
 import {
   InLineContainer,
   RowContainer,
@@ -134,7 +134,7 @@ export default function StoreCard({
           size={16}
           color={Colors.secondaryText}
         />
-        <StoreDetailText>Hours</StoreDetailText>
+        <StoreDetailText>{computeStoreOpen(store.storeHours)}</StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>
