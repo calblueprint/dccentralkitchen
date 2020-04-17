@@ -29,12 +29,12 @@ export default function StoreHours(hours) {
       <View style={{ display: 'flex' }}>
         {/* Days of the week */}
         <View>
-          {dictHours.map(day => (
+          {daysOfTheWeek.values().map(day => (
             <StoreDetailText>{day}</StoreDetailText>
           ))}
         </View>
         <View>
-          {dictHours.map(day => (
+          {daysOfTheWeek.values().map(day => (
             <StoreDetailText>{dictHours[day]}</StoreDetailText>
           ))}
         </View>
@@ -43,16 +43,17 @@ export default function StoreHours(hours) {
   };
 
   const parseHours = () => {
-    // hours = "Open 24/7"
+    // Case: hours = "Open 24/7"
     if (hours == 'Open 24/7') {
       return open247;
     }
 
     const hoursStrSplit = hours.split(' ');
 
-    // hours are daily if there are only two strings
+    // Case: Hours are daily if there are only two strings
     // e.g. 8am-7pm Daily, 7am-Midnight Daily
 
+    // We expect hoursPerDayDict to look like {'Sunday': '9am-9pm', 'Monday: '7am-12am', ...}
     const hoursPerDayDict = {};
 
     if (hoursStrSplit.length == 2 && hoursStrSplit.includes('Daily')) {
@@ -64,23 +65,50 @@ export default function StoreHours(hours) {
       });
     }
 
-    // specific hours per day
+    // Case: There exist different hours on certain days
     // e.g. 9am-8pm Tu-Sat, 9am-7pm Sun, Closed Mon
     else if (hoursStrSplit.length > 2) {
-      // interval = 9am-8pm Tu-Sat
-      const hoursCommaSplit = hours.split(', ');
-      for (let interval in hoursCommaSplit) {
-        const hourAndDays = interval.split(' ');
-        const hour = hourAndDays[0];
+      // e.g. timeAndDayPairs = ['9am-8pm Tu-Sat', '9am-7pm Sun', ...]
+      const timeAndDayPairs = hours.split(', ');
 
-        // e.g. ['Mon'] or ['Tu', 'Sat']
-        const days = hourAndDays[1].split('-');
-        // e.g. Sun or Mon
-        for (let day in days) {
-          hoursPerDayDict[day] = hour;
+      timeAndDayPairs.map(timeAndDayPair => {
+        // e.g. timeAndDaySplit = ['9am-8pm', 'Tu-Sat']
+        const timeAndDaySplit = timeAndDayPair.split(' ');
+        // e.g. 9am-8pm
+        const time = timeAndDaySplit[0];
+        // e.g. [Tu, Sat] or [Mon]
+        const days = timeAndDaySplit[1].split('-');
+
+        // Case: Time corresponds to one day
+        if (days.length == 1) {
+          hoursPerDayDict[days[0]] = time;
+        } else if (days.length == 2) {
+          const firstDay = days[0];
+          const lastDay = days[1];
+
+          // ['Sun', 'Mon', 'Tues', ...]
+          const daysOfTheWeekAbbrev = Object.keys(daysOfTheWeek);
+          const daysOfTheWeekNames = Object.values(daysOfTheWeek);
+          const indexFirstDay = daysOfTheWeekAbbrev.indexOf(firstDay);
+          const indexLastDay = daysOfTheWeekAbbrev.indexOf(lastDay);
+
+          const numDaysInInterval = indexLastDay - indexFirstDay;
+          // Case: Interval is Sun-Thurs, 0-4
+          // Case: Interval is Thurs-Sun, 4-0
+          [...Array(numDaysInInterval).keys()].map(i => {
+            const dayIndex = (indexFirstDay + i) % 7;
+            hoursPerDayDict[daysOfTheWeekNames[dayIndex]] = time;
+          });
+        } else {
+          // Shouldn't ever have a case with more than two days in an interval.
+          console.error(
+            '[StoreHours] parseHours: Incorrect store hours formatting in Airtable.'
+          );
         }
-      }
+      });
+      return hoursList(hoursPerDayDict);
     }
-    return hoursList(hoursPerDayDict);
   };
+
+  return parseHours();
 }
