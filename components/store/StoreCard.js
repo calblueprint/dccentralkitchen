@@ -17,6 +17,7 @@ import {
   StoreDetailText,
 } from '../../styled/store';
 import { Caption, Subhead, Title } from '../BaseComponents';
+import StoreHours from './StoreHours';
 import StoreProductButton from './StoreProductButton';
 
 /**
@@ -134,7 +135,7 @@ export default function StoreCard({
           size={16}
           color={Colors.secondaryText}
         />
-        <StoreDetailText>{storeHours}</StoreDetailText>
+        <StoreHours hours={storeHours} />
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>

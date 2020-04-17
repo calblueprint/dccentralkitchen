@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -7,7 +8,7 @@ import { StoreDetailText } from '../../styled/store';
  * @prop
  * */
 
-export default function StoreHours(hours) {
+export default function StoreHours({ hours }) {
   // e.g. hours = "8:30am-8:30pm Mon-Sat"
 
   const daysOfTheWeek = {
@@ -20,21 +21,20 @@ export default function StoreHours(hours) {
     Sat: 'Saturday',
   };
 
-  const open247 = (
-    <StoreDetailText color={Colors.primaryGreen}>Open 24/7</StoreDetailText>
-  );
+  const daysOfTheWeekAbbrev = Object.keys(daysOfTheWeek);
+  const daysOfTheWeekFull = Object.values(daysOfTheWeek);
 
   const hoursList = dictHours => {
     return (
-      <View style={{ display: 'flex' }}>
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
         {/* Days of the week */}
-        <View>
-          {daysOfTheWeek.values().map(day => (
+        <View style={{ width: '50%' }}>
+          {daysOfTheWeekFull.map((day, _) => (
             <StoreDetailText>{day}</StoreDetailText>
           ))}
         </View>
-        <View>
-          {daysOfTheWeek.values().map(day => (
+        <View style={{ width: '50%' }}>
+          {daysOfTheWeekFull.map((day, _) => (
             <StoreDetailText>{dictHours[day]}</StoreDetailText>
           ))}
         </View>
@@ -44,8 +44,14 @@ export default function StoreHours(hours) {
 
   const parseHours = () => {
     // Case: hours = "Open 24/7"
-    if (hours == 'Open 24/7') {
-      return open247;
+    if (hours === 'Open 24/7') {
+      return (
+        <StoreDetailText color={Colors.primaryGreen}>{hours}</StoreDetailText>
+      );
+    }
+
+    if (hours === 'Store hours unavailable') {
+      return <StoreDetailText>{hours}</StoreDetailText>;
     }
 
     const hoursStrSplit = hours.split(' ');
@@ -56,11 +62,10 @@ export default function StoreHours(hours) {
     // We expect hoursPerDayDict to look like {'Sunday': '9am-9pm', 'Monday: '7am-12am', ...}
     const hoursPerDayDict = {};
 
-    if (hoursStrSplit.length == 2 && hoursStrSplit.includes('Daily')) {
+    if (hoursStrSplit.length === 2 && hoursStrSplit.includes('Daily')) {
       const time = hoursStrSplit[0];
 
-      daysOfTheWeek.map(abbrev => {
-        const day = daysOfTheWeek[abbrev];
+      daysOfTheWeekFull.map((day, _) => {
         hoursPerDayDict[day] = time;
       });
     }
@@ -71,7 +76,7 @@ export default function StoreHours(hours) {
       // e.g. timeAndDayPairs = ['9am-8pm Tu-Sat', '9am-7pm Sun', ...]
       const timeAndDayPairs = hours.split(', ');
 
-      timeAndDayPairs.map(timeAndDayPair => {
+      timeAndDayPairs.map((timeAndDayPair, _) => {
         // e.g. timeAndDaySplit = ['9am-8pm', 'Tu-Sat']
         const timeAndDaySplit = timeAndDayPair.split(' ');
         // e.g. 9am-8pm
@@ -80,24 +85,29 @@ export default function StoreHours(hours) {
         const days = timeAndDaySplit[1].split('-');
 
         // Case: Time corresponds to one day
-        if (days.length == 1) {
-          hoursPerDayDict[days[0]] = time;
-        } else if (days.length == 2) {
+        if (days.length === 1) {
+          hoursPerDayDict[daysOfTheWeek[days[0]]] = time;
+        } else if (days.length === 2) {
           const firstDay = days[0];
           const lastDay = days[1];
 
           // ['Sun', 'Mon', 'Tues', ...]
-          const daysOfTheWeekAbbrev = Object.keys(daysOfTheWeek);
-          const daysOfTheWeekNames = Object.values(daysOfTheWeek);
           const indexFirstDay = daysOfTheWeekAbbrev.indexOf(firstDay);
           const indexLastDay = daysOfTheWeekAbbrev.indexOf(lastDay);
 
-          const numDaysInInterval = indexLastDay - indexFirstDay;
-          // Case: Interval is Sun-Thurs, 0-4
-          // Case: Interval is Thurs-Sun, 4-0
-          [...Array(numDaysInInterval).keys()].map(i => {
+          let numDaysInInterval;
+
+          if (indexLastDay > indexFirstDay) {
+            // Case: Interval is Sun-Thurs, 0-4
+            numDaysInInterval = indexLastDay - indexFirstDay + 1;
+          } else {
+            // Case: Interval is Thurs-Sun, 4-0
+            numDaysInInterval = indexLastDay - indexFirstDay + 8;
+          }
+
+          [...Array(numDaysInInterval).keys()].map((i, _) => {
             const dayIndex = (indexFirstDay + i) % 7;
-            hoursPerDayDict[daysOfTheWeekNames[dayIndex]] = time;
+            hoursPerDayDict[daysOfTheWeekFull[dayIndex]] = time;
           });
         } else {
           // Shouldn't ever have a case with more than two days in an interval.
@@ -106,9 +116,24 @@ export default function StoreHours(hours) {
           );
         }
       });
+    }
+
+    // TODO: Should we console log an unforeseen error parsing but not completely
+    // error out the app, or should we just console.error
+
+    if (Object.keys(hoursPerDayDict).length > 0) {
       return hoursList(hoursPerDayDict);
     }
+    console.log(
+      '[Storehours] parseHours: Issue parsing store hours. Hours were: ',
+      hours
+    );
+    return <StoreDetailText>Store hours unavailable</StoreDetailText>;
   };
 
   return parseHours();
 }
+
+StoreHours.propTypes = {
+  hours: PropTypes.string,
+};
