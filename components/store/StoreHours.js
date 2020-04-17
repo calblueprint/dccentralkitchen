@@ -54,12 +54,8 @@ export default function StoreHours({ hours }) {
 
   const parseHours = () => {
     // Case: hours = "Open 24/7"
-    if (hours === 'Open 24/7') {
-      return <Body color={Colors.primaryGreen}>{hours}</Body>;
-    }
-
-    if (hours === 'Store hours unavailable') {
-      return <Body>{hours}</Body>;
+    if (hours === 'Open 24/7' || hours === 'Store hours unavailable') {
+      return null;
     }
 
     const hoursPerDayDict = constructHoursDict(hours);

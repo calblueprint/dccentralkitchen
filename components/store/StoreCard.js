@@ -55,6 +55,8 @@ export default function StoreCard({
     });
   };
 
+  const storeOpenStatus = computeStoreOpen(store.storeHours);
+
   return (
     <StoreCardContainer includeMargins>
       <SpaceBetweenRowContainer>
@@ -134,7 +136,12 @@ export default function StoreCard({
           size={16}
           color={Colors.secondaryText}
         />
-        <StoreDetailText>{computeStoreOpen(store.storeHours)}</StoreDetailText>
+        <StoreDetailText
+          color={
+            storeOpenStatus === 'Open 24/7' ? Colors.primaryGreen : Colors.black
+          }>
+          {storeOpenStatus}
+        </StoreDetailText>
       </InLineContainer>
       <DividerBar />
     </StoreCardContainer>

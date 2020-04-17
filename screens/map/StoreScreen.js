@@ -23,7 +23,7 @@ export default class StoreScreen extends React.Component {
 
   render() {
     const { store } = this.props.route.params;
-    const today = new Date();
+    const storeOpenStatus = computeStoreOpen(store.storeHours);
     return (
       <View>
         <NavHeaderContainer withMargin>
@@ -59,8 +59,14 @@ export default class StoreScreen extends React.Component {
               style={{ marginRight: 12 }}
             />
             <View style={{ display: 'flex', flexDirection: 'column' }}>
-              <Body style={{ marginBottom: 4 }}>
-                {computeStoreOpen(store.storeHours)}
+              <Body
+                color={
+                  storeOpenStatus === 'Open 24/7'
+                    ? Colors.primaryGreen
+                    : Colors.black
+                }
+                style={{ marginBottom: 4 }}>
+                {storeOpenStatus}
               </Body>
               <StoreHours hours={store.storeHours} />
             </View>
