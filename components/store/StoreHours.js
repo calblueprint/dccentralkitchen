@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
-import { StoreDetailText } from '../../styled/store';
+import { Body, TabSelected } from '../BaseComponents';
 
 /**
  * @prop
@@ -24,19 +24,29 @@ export default function StoreHours({ hours }) {
   const daysOfTheWeekAbbrev = Object.keys(daysOfTheWeek);
   const daysOfTheWeekFull = Object.values(daysOfTheWeek);
 
+  const today = new Date();
+  const todaysDayIndex = today.getDay();
+  const todaysDay = daysOfTheWeekFull[todaysDayIndex];
+
   const hoursList = dictHours => {
     return (
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {/* Days of the week */}
         <View style={{ width: '50%' }}>
-          {daysOfTheWeekFull.map((day, _) => (
-            <StoreDetailText>{day}</StoreDetailText>
-          ))}
+          {daysOfTheWeekFull.map((day, _) => {
+            if (day === todaysDay) {
+              return <TabSelected>{day}</TabSelected>;
+            }
+            return <Body color={Colors.secondaryText}>{day}</Body>;
+          })}
         </View>
         <View style={{ width: '50%' }}>
-          {daysOfTheWeekFull.map((day, _) => (
-            <StoreDetailText>{dictHours[day]}</StoreDetailText>
-          ))}
+          {daysOfTheWeekFull.map((day, _) => {
+            if (day == todaysDay) {
+              return <TabSelected>{dictHours[day]}</TabSelected>;
+            }
+            return <Body color={Colors.secondaryText}>{dictHours[day]}</Body>;
+          })}
         </View>
       </View>
     );
@@ -45,13 +55,11 @@ export default function StoreHours({ hours }) {
   const parseHours = () => {
     // Case: hours = "Open 24/7"
     if (hours === 'Open 24/7') {
-      return (
-        <StoreDetailText color={Colors.primaryGreen}>{hours}</StoreDetailText>
-      );
+      return <Body color={Colors.primaryGreen}>{hours}</Body>;
     }
 
     if (hours === 'Store hours unavailable') {
-      return <StoreDetailText>{hours}</StoreDetailText>;
+      return <Body>{hours}</Body>;
     }
 
     const hoursStrSplit = hours.split(' ');
@@ -128,7 +136,7 @@ export default function StoreHours({ hours }) {
       '[Storehours] parseHours: Issue parsing store hours. Hours were: ',
       hours
     );
-    return <StoreDetailText>Store hours unavailable</StoreDetailText>;
+    return <Body>Store hours unavailable</Body>;
   };
 
   return parseHours();
