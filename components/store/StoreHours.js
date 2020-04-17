@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
+import { daysOfTheWeekFull } from '../../constants/DaysOfTheWeek';
 import { constructHoursDict } from '../../lib/mapUtils';
 import { Body, TabSelected } from '../BaseComponents';
 
@@ -12,18 +13,6 @@ import { Body, TabSelected } from '../BaseComponents';
 export default function StoreHours({ hours }) {
   // e.g. hours = "8:30am-8:30pm Mon-Sat"
 
-  const daysOfTheWeek = {
-    Sun: 'Sunday',
-    Mon: 'Monday',
-    Tu: 'Tuesday',
-    Wed: 'Wednesday',
-    Thurs: 'Thursday',
-    Fri: 'Friday',
-    Sat: 'Saturday',
-  };
-
-  const daysOfTheWeekFull = Object.values(daysOfTheWeek);
-
   const today = new Date();
   const todaysDayIndex = today.getDay();
   const todaysDay = daysOfTheWeekFull[todaysDayIndex];
@@ -32,7 +21,7 @@ export default function StoreHours({ hours }) {
     return (
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {/* Days of the week */}
-        <View style={{ width: '50%' }}>
+        <View style={{ width: '40%' }}>
           {daysOfTheWeekFull.map((day, _) => {
             if (day === todaysDay) {
               return <TabSelected>{day}</TabSelected>;
@@ -40,9 +29,9 @@ export default function StoreHours({ hours }) {
             return <Body color={Colors.secondaryText}>{day}</Body>;
           })}
         </View>
-        <View style={{ width: '50%' }}>
+        <View style={{ width: '60%' }}>
           {daysOfTheWeekFull.map((day, _) => {
-            if (day == todaysDay) {
+            if (day === todaysDay) {
               return <TabSelected>{dictHours[day]}</TabSelected>;
             }
             return <Body color={Colors.secondaryText}>{dictHours[day]}</Body>;
@@ -60,7 +49,7 @@ export default function StoreHours({ hours }) {
 
     const hoursPerDayDict = constructHoursDict(hours);
 
-    if (Object.keys(hoursPerDayDict).length > 0) {
+    if (hoursPerDayDict && Object.keys(hoursPerDayDict).length > 0) {
       return hoursList(hoursPerDayDict);
     }
     console.log(

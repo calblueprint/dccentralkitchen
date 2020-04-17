@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 import {
   Body,
   NavButton,
@@ -15,7 +15,7 @@ import { formatPhoneNumber } from '../../lib/authUtils';
 import { computeStoreOpen } from '../../lib/mapUtils';
 import { InLineContainer } from '../../styled/shared';
 
-export default class StoreScreen extends React.Component {
+export default class StoreDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -25,7 +25,7 @@ export default class StoreScreen extends React.Component {
     const { store } = this.props.route.params;
     const storeOpenStatus = computeStoreOpen(store.storeHours);
     return (
-      <View>
+      <ScrollView>
         <NavHeaderContainer withMargin>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
@@ -36,13 +36,22 @@ export default class StoreScreen extends React.Component {
           {/* Directions */}
           <TouchableOpacity style={{ paddingBottom: 32 }}>
             <InLineContainer style={{ alignItems: 'center' }}>
-              <FontAwesome5 name="directions" size={24} color={Colors.black} />
+              <FontAwesome5
+                name="directions"
+                size={24}
+                color={Colors.activeText}
+              />
               <Body style={{ marginLeft: 12 }}>{store.address}</Body>
             </InLineContainer>
           </TouchableOpacity>
           {/* Phone Number */}
           <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>
-            <FontAwesome5 name="phone" solid size={24} color={Colors.black} />
+            <FontAwesome5
+              name="phone"
+              solid
+              size={24}
+              color={Colors.activeText}
+            />
             <Body style={{ marginLeft: 12 }}>
               {store.phoneNumber
                 ? formatPhoneNumber(store.phoneNumber)
@@ -55,15 +64,15 @@ export default class StoreScreen extends React.Component {
               name="clock"
               solid
               size={24}
-              color={Colors.black}
+              color={Colors.activeText}
               style={{ marginRight: 12 }}
             />
             <View style={{ display: 'flex', flexDirection: 'column' }}>
               <Body
                 color={
-                  storeOpenStatus === 'Open 24/7'
+                  storeOpenStatus.includes('Open')
                     ? Colors.primaryGreen
-                    : Colors.black
+                    : Colors.activeText
                 }
                 style={{ marginBottom: 4 }}>
                 {storeOpenStatus}
@@ -73,16 +82,21 @@ export default class StoreScreen extends React.Component {
           </InLineContainer>
           {/* Accepted Programs */}
           <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>
-            <FontAwesome5 name="star" solid size={24} color={Colors.black} />
+            <FontAwesome5
+              name="star"
+              solid
+              size={24}
+              color={Colors.activeText}
+            />
             <Body style={{ marginLeft: 12 }}>Accepted Programs</Body>
           </InLineContainer>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
 
-StoreScreen.propTypes = {
+StoreDetailsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.object.isRequired,
 };

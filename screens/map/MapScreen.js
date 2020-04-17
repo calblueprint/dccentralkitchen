@@ -17,7 +17,12 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { getCustomersById } from '../../lib/airtable/request';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { BottomSheetHeaderContainer, DragBar, SearchBar } from '../../styled/store';
+import {
+  BottomSheetContainer,
+  BottomSheetHeaderContainer,
+  DragBar,
+  SearchBar,
+} from '../../styled/store';
 
 const minSnapPoint = 160;
 const midSnapPoint = 325;
@@ -191,13 +196,7 @@ export default class MapScreen extends React.Component {
 
   renderContent = () => {
     return (
-      <TouchableOpacity
-        style={{ backgroundColor: Colors.lightest, paddingBottom: 100 }}
-        onPress={() =>
-          this.props.navigation.navigate('StoreScreen', {
-            store: this.state.store,
-          })
-        }>
+      <BottomSheetContainer>
         <Subhead
           style={{ margin: 16, marginBottom: 0 }}
           color={Colors.secondaryText}>
@@ -209,7 +208,7 @@ export default class MapScreen extends React.Component {
           products={this.state.storeProducts}
           showDefaultStore={this.state.showDefaultStore}
         />
-      </TouchableOpacity>
+      </BottomSheetContainer>
     );
   };
 

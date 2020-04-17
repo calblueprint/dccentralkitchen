@@ -1,7 +1,14 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  Alert,
+  Clipboard,
+  Dimensions,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
 import { showLocation } from 'react-native-map-link';
 import Colors from '../../constants/Colors';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
@@ -40,6 +47,8 @@ export default function StoreCard({
     longitude,
   } = store;
 
+  const navigation = useNavigation();
+
   const writeAddressToClipboard = () => {
     Clipboard.setString(address);
     Alert.alert('Copied to Clipboard!', address);
@@ -58,93 +67,105 @@ export default function StoreCard({
   const storeOpenStatus = computeStoreOpen(store.storeHours);
 
   return (
-    <StoreCardContainer includeMargins>
-      <SpaceBetweenRowContainer>
-        <RowContainer>
-          {seeProduct ? (
-            <Subhead
-              style={{
-                marginTop: 2,
-                maxWidth: getMaxWidth(
-                  Dimensions.get('window').width,
-                  snapOrEbtAccepted,
-                  seeProduct
-                ),
-              }}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {storeName}
-            </Subhead>
-          ) : (
-            <Title
-              style={{
-                maxWidth: getMaxWidth(
-                  Dimensions.get('window').width,
-                  snapOrEbtAccepted,
-                  seeProduct
-                ),
-              }}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {storeName}
-            </Title>
-          )}
-          {snapOrEbtAccepted && (
-            <EBTStatusBar>
-              <FontAwesome5 name="check" size={10} color={Colors.darkerGreen} />
-              <Caption color={Colors.darkerGreen}> EBT</Caption>
-            </EBTStatusBar>
-          )}
-        </RowContainer>
-        {seeProduct && <StoreProductButton callBack={callBack} />}
-      </SpaceBetweenRowContainer>
-      {seeDistance && (
-        <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
-          {`${distance} miles away`}
-        </Caption>
-      )}
+    <TouchableHighlight
+      onPress={() =>
+        navigation.navigate('StoreDetailsScreen', {
+          store,
+        })
+      }>
+      <StoreCardContainer includeMargins>
+        <SpaceBetweenRowContainer>
+          <RowContainer>
+            {seeProduct ? (
+              <Subhead
+                style={{
+                  marginTop: 2,
+                  maxWidth: getMaxWidth(
+                    Dimensions.get('window').width,
+                    snapOrEbtAccepted,
+                    seeProduct
+                  ),
+                }}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {storeName}
+              </Subhead>
+            ) : (
+              <Title
+                style={{
+                  maxWidth: getMaxWidth(
+                    Dimensions.get('window').width,
+                    snapOrEbtAccepted,
+                    seeProduct
+                  ),
+                }}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {storeName}
+              </Title>
+            )}
+            {snapOrEbtAccepted && (
+              <EBTStatusBar>
+                <FontAwesome5
+                  name="check"
+                  size={10}
+                  color={Colors.darkerGreen}
+                />
+                <Caption color={Colors.darkerGreen}> EBT</Caption>
+              </EBTStatusBar>
+            )}
+          </RowContainer>
+          {seeProduct && <StoreProductButton callBack={callBack} />}
+        </SpaceBetweenRowContainer>
+        {seeDistance && (
+          <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
+            {`${distance} miles away`}
+          </Caption>
+        )}
 
-      <InLineContainer style={{ alignItems: 'center' }}>
-        <FontAwesome5
-          name="star"
-          solid
-          size={16}
-          color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
-        />
-        <StoreDetailText greenText={rewardsAccepted}>
-          {rewardsAccepted
-            ? 'Earn and redeem Healthy Rewards here'
-            : 'Healthy Rewards not accepted'}
-        </StoreDetailText>
-      </InLineContainer>
-      <TouchableOpacity
-        onPress={openDirections}
-        onLongPress={writeAddressToClipboard}>
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
-            name="directions"
+            name="star"
+            solid
+            size={16}
+            color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
+          />
+          <StoreDetailText greenText={rewardsAccepted}>
+            {rewardsAccepted
+              ? 'Earn and redeem Healthy Rewards here'
+              : 'Healthy Rewards not accepted'}
+          </StoreDetailText>
+        </InLineContainer>
+        <TouchableOpacity
+          onPress={openDirections}
+          onLongPress={writeAddressToClipboard}>
+          <InLineContainer style={{ alignItems: 'center' }}>
+            <FontAwesome5
+              name="directions"
+              size={16}
+              color={Colors.secondaryText}
+            />
+            <StoreDetailText>{address}</StoreDetailText>
+          </InLineContainer>
+        </TouchableOpacity>
+        <InLineContainer style={{ alignItems: 'center' }}>
+          <FontAwesome5
+            name="clock"
+            solid
             size={16}
             color={Colors.secondaryText}
           />
-          <StoreDetailText>{address}</StoreDetailText>
+          {storeOpenStatus.includes('Open') ? (
+            <StoreDetailText greenText={storeOpenStatus}>
+              {storeOpenStatus}
+            </StoreDetailText>
+          ) : (
+            <StoreDetailText>{storeOpenStatus}</StoreDetailText>
+          )}
         </InLineContainer>
-      </TouchableOpacity>
-      <InLineContainer style={{ alignItems: 'center' }}>
-        <FontAwesome5
-          name="clock"
-          solid
-          size={16}
-          color={Colors.secondaryText}
-        />
-        <StoreDetailText
-          color={
-            storeOpenStatus === 'Open 24/7' ? Colors.primaryGreen : Colors.black
-          }>
-          {storeOpenStatus}
-        </StoreDetailText>
-      </InLineContainer>
-      <DividerBar />
-    </StoreCardContainer>
+        <DividerBar />
+      </StoreCardContainer>
+    </TouchableHighlight>
   );
 }
 
