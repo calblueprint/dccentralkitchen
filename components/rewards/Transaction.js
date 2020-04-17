@@ -28,6 +28,26 @@ function Transaction(props) {
   };
   return (
     <View>
+      {/* Display rewards unlocked */}
+      {[...Array(rewardsUnlocked).keys()].map(() => (
+        <TransactionCard>
+          <CircleIcon
+            icon="star"
+            iconColor={Colors.primaryGreen}
+            circleColor={Colors.lightestGreen}
+          />
+          <ContentContainer>
+            <Caption color={Colors.secondaryText}>
+              {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
+            </Caption>
+            <Subhead>{`$5 reward unlocked`}</Subhead>
+            <Caption color={Colors.secondaryText}>
+              {`for 500 earned points`}
+            </Caption>
+          </ContentContainer>
+        </TransactionCard>
+      ))}
+
       {/* Display points earned */}
       <TransactionCard>
         <CircleIcon
@@ -59,26 +79,6 @@ function Transaction(props) {
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
             <Subhead>{`$5 reward redeemed`}</Subhead>
-          </ContentContainer>
-        </TransactionCard>
-      ))}
-
-      {/* Display rewards unlocked */}
-      {[...Array(rewardsUnlocked).keys()].map(() => (
-        <TransactionCard>
-          <CircleIcon
-            icon="star"
-            iconColor={Colors.primaryGreen}
-            circleColor={Colors.lightestGreen}
-          />
-          <ContentContainer>
-            <Caption color={Colors.secondaryText}>
-              {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
-            </Caption>
-            <Subhead>{`$5 reward unlocked`}</Subhead>
-            <Caption color={Colors.secondaryText}>
-              {`for 500 earned points`}
-            </Caption>
           </ContentContainer>
         </TransactionCard>
       ))}
