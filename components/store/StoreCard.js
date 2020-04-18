@@ -7,16 +7,8 @@ import { showLocation } from 'react-native-map-link';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
-import {
-  InLineContainer,
-  RowContainer,
-  SpaceBetweenRowContainer,
-} from '../../styled/shared';
-import {
-  DividerBar,
-  StoreCardContainer,
-  StoreDetailText,
-} from '../../styled/store';
+import { InLineContainer, RowContainer, SpaceBetweenRowContainer } from '../../styled/shared';
+import { DividerBar, StoreCardContainer, StoreDetailText, styles } from '../../styled/store';
 import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
@@ -101,102 +93,68 @@ export default function StoreCard({
                 {storeName}
               </Title>
             )}
-            {/* {snapOrEbtAccepted && (
-              <EBTStatusBar>
-                <FontAwesome5
-                  name="check"
-                  size={10}
-                  color={Colors.darkerGreen}
-                />
-                <Caption color={Colors.darkerGreen}> EBT</Caption>
-              </EBTStatusBar>
-            )} */}
           </RowContainer>
           {seeProduct && <StoreProductButton callBack={callBack} />}
         </SpaceBetweenRowContainer>
         {/* Accepted Program Tags */}
-        <InLineContainer style={{ flexWrap: 'wrap' }}>
+        <InLineContainer style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
           {snapOrEbtAccepted && (
             <Chip
-              settings={{
-                icon: (
-                  <FontAwesome5
-                    name="credit-card"
-                    size={24}
-                    color={Colors.darkerGreen}
-                  />
-                ),
-              }}
-              style={{
-                backgroundColor: Colors.lightestGreen,
-                color: Colors.darkerGreen,
-                marginRight: 6,
-                marginTop: 6,
-                marginBottom: 6,
-              }}>
+              icon={() => (
+                <FontAwesome5
+                  name="credit-card"
+                  size={13}
+                  color={Colors.darkerGreen}
+                />
+              )}
+              style={styles.chip}>
               EBT
             </Chip>
           )}
           {wic && (
             <Chip
-              icon={
+              icon={() => (
                 <FontAwesome5
                   name="heart"
-                  size={24}
+                  size={13}
                   color={Colors.darkerGreen}
                 />
-              }
-              style={{
-                backgroundColor: Colors.lightestGreen,
-                color: Colors.darkerGreen,
-                marginRight: 6,
-                marginTop: 6,
-                marginBottom: 6,
-              }}>
+              )}
+              style={styles.chip}>
               WIC
             </Chip>
           )}
           {couponProgramPartner && (
             <Chip
-              icon={
+              icon={() => (
                 <FontAwesome5
                   name="carrot"
-                  size={24}
+                  size={13}
                   color={Colors.darkerGreen}
                 />
-              }
-              style={{
-                backgroundColor: Colors.lightestGreen,
-                color: Colors.darkerGreen,
-                marginRight: 6,
-                marginTop: 6,
-                marginBottom: 6,
-              }}>
+              )}
+              style={styles.chip}>
               Snap Match
             </Chip>
           )}
           {rewardsAccepted && (
             <Chip
-              icon={
+              icon={() => (
                 <FontAwesome5
                   name="star"
-                  size={24}
+                  size={13}
                   color={Colors.darkerGreen}
                 />
-              }
-              style={{
-                backgroundColor: Colors.lightestGreen,
-                color: Colors.darkerGreen,
-                marginRight: 6,
-                marginTop: 6,
-                marginBottom: 6,
-              }}>
+              )}
+              style={styles.chip}>
               Healthy Rewards
             </Chip>
           )}
         </InLineContainer>
         {seeDistance && (
-          <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
+          <Caption
+            style={{ marginBottom: 4, marginTop: 6 }}
+            color={Colors.secondaryText}>
             {`${distance} miles away`}
           </Caption>
         )}

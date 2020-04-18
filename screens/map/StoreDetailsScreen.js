@@ -2,8 +2,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { Chip } from 'react-native-paper';
 import {
   Body,
+  Caption,
   NavButton,
   NavHeaderContainer,
   NavTitle,
@@ -12,6 +14,7 @@ import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
 import { InLineContainer } from '../../styled/shared';
+import { styles } from '../../styled/store';
 
 export default class StoreDetailsScreen extends React.Component {
   constructor(props) {
@@ -21,13 +24,26 @@ export default class StoreDetailsScreen extends React.Component {
 
   render() {
     const { store, storeOpenStatus } = this.props.route.params;
+    const {
+      storeName,
+      storeHours,
+      address,
+      distance,
+      ward,
+      phoneNumber,
+      snapOrEbtAccepted,
+      couponProgramPartner,
+      wic,
+      rewardsAccepted,
+    } = store;
+
     return (
       <View>
         <NavHeaderContainer withMargin>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>
-          <NavTitle>{store.storeName}</NavTitle>
+          <NavTitle>{storeName}</NavTitle>
         </NavHeaderContainer>
         <ScrollView style={{ marginLeft: 16, marginTop: 30 }}>
           {/* Directions */}
@@ -38,7 +54,21 @@ export default class StoreDetailsScreen extends React.Component {
                 size={24}
                 color={Colors.activeText}
               />
-              <Body style={{ marginLeft: 12 }}>{store.address}</Body>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  paddingLeft: 12,
+                  paddingRight: 50,
+                  flexWrap: 'wrap',
+                }}>
+                <Body>{address}</Body>
+                <Body>Ward {ward}</Body>
+                <View style={{ flex: 1 }}>
+                  <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
+                    {distance} miles away · distance may vary by transportation
+                  </Caption>
+                </View>
+              </View>
             </InLineContainer>
           </TouchableOpacity>
           {/* Phone Number */}
@@ -50,8 +80,8 @@ export default class StoreDetailsScreen extends React.Component {
               color={Colors.activeText}
             />
             <Body style={{ marginLeft: 12 }}>
-              {store.phoneNumber
-                ? formatPhoneNumber(store.phoneNumber)
+              {phoneNumber
+                ? formatPhoneNumber(phoneNumber)
                 : 'Phone number unavailable'}
             </Body>
           </InLineContainer>
@@ -74,19 +104,119 @@ export default class StoreDetailsScreen extends React.Component {
                 style={{ marginBottom: 4 }}>
                 {storeOpenStatus}
               </Body>
-              <StoreHours hours={store.storeHours} />
+              <StoreHours hours={storeHours} />
             </View>
           </InLineContainer>
           {/* Accepted Programs */}
-          <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>
-            <FontAwesome5
-              name="star"
-              solid
-              size={24}
-              color={Colors.activeText}
-            />
-            <Body style={{ marginLeft: 12 }}>Accepted Programs</Body>
-          </InLineContainer>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: 'wrap',
+            }}>
+            <InLineContainer
+              style={{ alignItems: 'center', paddingBottom: 32 }}>
+              <FontAwesome5
+                name="star"
+                solid
+                size={24}
+                color={Colors.activeText}
+              />
+              <Body style={{ marginLeft: 12 }}>Accepted Programs</Body>
+            </InLineContainer>
+            {/* Chips */}
+            <View style={{ flexDirection: 'row' }}>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                  width: '40%',
+                }}>
+                {snapOrEbtAccepted && (
+                  <Chip
+                    icon={() => (
+                      <FontAwesome5
+                        name="credit-card"
+                        size={13}
+                        color={Colors.darkerGreen}
+                      />
+                    )}
+                    style={styles.chip}>
+                    EBT
+                  </Chip>
+                )}
+                {wic && (
+                  <Chip
+                    icon={() => (
+                      <FontAwesome5
+                        name="heart"
+                        size={13}
+                        color={Colors.darkerGreen}
+                      />
+                    )}
+                    style={styles.chip}>
+                    WIC
+                  </Chip>
+                )}
+                {couponProgramPartner && (
+                  <Chip
+                    icon={() => (
+                      <FontAwesome5
+                        name="carrot"
+                        size={13}
+                        color={Colors.darkerGreen}
+                      />
+                    )}
+                    style={styles.chip}>
+                    Snap Match
+                  </Chip>
+                )}
+
+                {rewardsAccepted && (
+                  <Chip
+                    icon={() => (
+                      <FontAwesome5
+                        name="star"
+                        size={13}
+                        color={Colors.darkerGreen}
+                      />
+                    )}
+                    style={styles.chip}>
+                    Healthy Rewards
+                  </Chip>
+                )}
+              </View>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  maxWidth: '60%',
+                }}>
+                {snapOrEbtAccepted && (
+                  <View style={styles.chipDesc}>
+                    <Body>Accepts SNAP/EBT</Body>
+                  </View>
+                )}
+                {wic && (
+                  <View style={styles.chipDesc}>
+                    <Body>WIC approved</Body>
+                  </View>
+                )}
+                {couponProgramPartner && (
+                  <View style={styles.chipDesc}>
+                    <Body>Participates in SNAP Matching</Body>
+                  </View>
+                )}
+                {rewardsAccepted && (
+                  <View style={styles.chipDesc}>
+                    <Body>Participates in Healthy Rewards</Body>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
         </ScrollView>
       </View>
     );
