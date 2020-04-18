@@ -44,6 +44,11 @@ function AuthTextField({
           Note: this is how clerks will greet you!
         </Caption>
       )}
+      {fieldType === 'Verification' && !error && (
+        <Caption color={Colors.activeText}>
+          A code has been sent to your phone number.
+        </Caption>
+      )}
     </TextFieldContainer>
   );
 }

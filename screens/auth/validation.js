@@ -27,6 +27,22 @@ const validation = {
     // }
   },
 
+  code: {
+    // This verifies that it's not blank.
+    presence: {
+      message: '^Code cannot be blank.',
+    },
+    length: {
+      is: 6,
+      message: '^Must be six digits!',
+    },
+    // To check for only numbers in the future
+    // format: {
+    //   pattern: '/^d+$/',
+    //   message: 'Phone number cannot contain non-numeric characters.'
+    // }
+  },
+
   password: {
     presence: {
       message: '^Password cannot be blank.',
