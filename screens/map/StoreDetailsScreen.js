@@ -191,8 +191,6 @@ export default class StoreDetailsScreen extends React.Component {
                 style={{
                   flexDirection: 'column',
                   flexWrap: 'wrap',
-                  justifyContent: 'center',
-                  maxWidth: '60%',
                 }}>
                 {snapOrEbtAccepted && (
                   <View style={styles.chipDesc}>
