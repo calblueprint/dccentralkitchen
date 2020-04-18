@@ -117,7 +117,6 @@ export const styles = StyleSheet.create({
   },
   chipDesc: {
     flex: 1,
-    height: 18,
     paddingBottom: 10,
     justifyContent: 'center',
   },
