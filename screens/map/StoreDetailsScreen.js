@@ -13,7 +13,11 @@ import {
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
-import { InLineContainer } from '../../styled/shared';
+import {
+  ColumnContainer,
+  InLineContainer,
+  RowContainer,
+} from '../../styled/shared';
 import { styles } from '../../styled/store';
 
 export default class StoreDetailsScreen extends React.Component {
@@ -108,113 +112,126 @@ export default class StoreDetailsScreen extends React.Component {
             </View>
           </InLineContainer>
           {/* Accepted Programs */}
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flexWrap: 'wrap',
-            }}>
-            <InLineContainer
-              style={{ alignItems: 'center', paddingBottom: 32 }}>
-              <FontAwesome5
-                name="star"
-                solid
-                size={24}
-                color={Colors.activeText}
-              />
-              <Body style={{ marginLeft: 12 }}>Accepted Programs</Body>
-            </InLineContainer>
-            {/* Chips */}
-            <View style={{ flexDirection: 'row' }}>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'space-evenly',
-                  width: '40%',
-                }}>
-                {snapOrEbtAccepted && (
-                  <Chip
-                    icon={() => (
-                      <FontAwesome5
-                        name="credit-card"
-                        size={13}
-                        color={Colors.darkerGreen}
-                      />
-                    )}
-                    style={styles.chip}>
-                    EBT
-                  </Chip>
-                )}
-                {wic && (
-                  <Chip
-                    icon={() => (
-                      <FontAwesome5
-                        name="heart"
-                        size={13}
-                        color={Colors.darkerGreen}
-                      />
-                    )}
-                    style={styles.chip}>
-                    WIC
-                  </Chip>
-                )}
-                {couponProgramPartner && (
-                  <Chip
-                    icon={() => (
-                      <FontAwesome5
-                        name="carrot"
-                        size={13}
-                        color={Colors.darkerGreen}
-                      />
-                    )}
-                    style={styles.chip}>
-                    Snap Match
-                  </Chip>
-                )}
+          <InLineContainer style={{ paddingBottom: 32 }}>
+            <FontAwesome5
+              name="star"
+              solid
+              size={24}
+              color={Colors.activeText}
+              style={{ marginRight: 12 }}
+            />
+            <ColumnContainer style={{ width: '100%' }}>
+              <Body style={{ marginBottom: 8 }}>Accepted Programs</Body>
+              {/* Chips */}
+              <RowContainer>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-evenly',
+                    width: '40%',
+                  }}>
+                  {snapOrEbtAccepted && (
+                    <Chip
+                      icon={() => (
+                        <FontAwesome5
+                          name="credit-card"
+                          size={10}
+                          color={Colors.darkerGreen}
+                          style={{ marginTop: -10 }}
+                        />
+                      )}
+                      textStyle={styles.chipText}
+                      style={styles.chip}>
+                      <Caption color={Colors.darkerGreen}>EBT</Caption>
+                    </Chip>
+                  )}
+                  {wic && (
+                    <Chip
+                      icon={() => (
+                        <FontAwesome5
+                          name="heart"
+                          size={10}
+                          color={Colors.darkerGreen}
+                          style={{ marginTop: -10 }}
+                        />
+                      )}
+                      textStyle={styles.chipText}
+                      style={styles.chip}>
+                      <Caption color={Colors.darkerGreen}>WIC</Caption>
+                    </Chip>
+                  )}
+                  {couponProgramPartner && (
+                    <Chip
+                      icon={() => (
+                        <FontAwesome5
+                          name="carrot"
+                          size={10}
+                          color={Colors.darkerGreen}
+                          style={{ marginTop: -10 }}
+                        />
+                      )}
+                      textStyle={styles.chipText}
+                      style={styles.chip}>
+                      <Caption color={Colors.darkerGreen}>Snap Match</Caption>
+                    </Chip>
+                  )}
 
-                {rewardsAccepted && (
-                  <Chip
-                    icon={() => (
-                      <FontAwesome5
-                        name="star"
-                        size={13}
-                        color={Colors.darkerGreen}
-                      />
-                    )}
-                    style={styles.chip}>
-                    Healthy Rewards
-                  </Chip>
-                )}
-              </View>
-              <View
-                style={{
-                  flexDirection: 'column',
-                  flexWrap: 'wrap',
-                }}>
-                {snapOrEbtAccepted && (
-                  <View style={styles.chipDesc}>
-                    <Body>Accepts SNAP/EBT</Body>
-                  </View>
-                )}
-                {wic && (
-                  <View style={styles.chipDesc}>
-                    <Body>WIC approved</Body>
-                  </View>
-                )}
-                {couponProgramPartner && (
-                  <View style={styles.chipDesc}>
-                    <Body>Participates in SNAP Matching</Body>
-                  </View>
-                )}
-                {rewardsAccepted && (
-                  <View style={styles.chipDesc}>
-                    <Body>Participates in Healthy Rewards</Body>
-                  </View>
-                )}
-              </View>
-            </View>
-          </View>
+                  {rewardsAccepted && (
+                    <Chip
+                      icon={() => (
+                        <FontAwesome5
+                          name="star"
+                          solid
+                          size={10}
+                          color={Colors.darkerGreen}
+                          style={{ marginTop: -10 }}
+                        />
+                      )}
+                      textStyle={styles.chipText}
+                      style={styles.chip}>
+                      <Caption color={Colors.darkerGreen}>
+                        Healthy Rewards
+                      </Caption>
+                    </Chip>
+                  )}
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
+                    maxWidth: '60%',
+                  }}>
+                  {snapOrEbtAccepted && (
+                    <View style={styles.chipDesc}>
+                      <Body>Accepts SNAP/EBT</Body>
+                    </View>
+                  )}
+                  {wic && (
+                    <View style={styles.chipDesc}>
+                      <Body numberOfLines={1} ellipsizeMode="tail">
+                        WIC approved
+                      </Body>
+                    </View>
+                  )}
+                  {couponProgramPartner && (
+                    <View style={styles.chipDesc}>
+                      <Body numberOfLines={1} ellipsizeMode="tail">
+                        Accepts SNAP Matching
+                      </Body>
+                    </View>
+                  )}
+                  {rewardsAccepted && (
+                    <View style={styles.chipDesc}>
+                      <Body numberOfLines={1} ellipsizeMode="tail">
+                        Accepts Healthy Rewards
+                      </Body>
+                    </View>
+                  )}
+                </View>
+              </RowContainer>
+            </ColumnContainer>
+          </InLineContainer>
         </ScrollView>
       </View>
     );

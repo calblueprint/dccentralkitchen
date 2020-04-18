@@ -111,13 +111,16 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.lightestGreen,
     color: Colors.darkerGreen,
     marginRight: 6,
-    marginBottom: 3,
-    height: 32,
+    marginBottom: 10,
+    height: 18,
   },
   chipDesc: {
     flex: 1,
-    height: 32,
-    marginBottom: 3,
+    height: 18,
+    paddingBottom: 10,
     justifyContent: 'center',
+  },
+  chipText: {
+    marginTop: 1,
   },
 });

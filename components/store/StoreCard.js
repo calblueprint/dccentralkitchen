@@ -7,8 +7,17 @@ import { showLocation } from 'react-native-map-link';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
-import { InLineContainer, RowContainer, SpaceBetweenRowContainer } from '../../styled/shared';
-import { DividerBar, StoreCardContainer, StoreDetailText, styles } from '../../styled/store';
+import {
+  InLineContainer,
+  RowContainer,
+  SpaceBetweenRowContainer,
+} from '../../styled/shared';
+import {
+  DividerBar,
+  StoreCardContainer,
+  StoreDetailText,
+  styles,
+} from '../../styled/store';
 import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
@@ -97,18 +106,21 @@ export default function StoreCard({
           {seeProduct && <StoreProductButton callBack={callBack} />}
         </SpaceBetweenRowContainer>
         {/* Accepted Program Tags */}
-        <InLineContainer style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
+        <InLineContainer
+          style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
           {snapOrEbtAccepted && (
             <Chip
               icon={() => (
                 <FontAwesome5
                   name="credit-card"
-                  size={13}
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -10 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              EBT
+              <Caption color={Colors.darkerGreen}>EBT</Caption>
             </Chip>
           )}
           {wic && (
@@ -116,12 +128,15 @@ export default function StoreCard({
               icon={() => (
                 <FontAwesome5
                   name="heart"
-                  size={13}
+                  solid
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -10 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              WIC
+              <Caption color={Colors.darkerGreen}>WIC</Caption>
             </Chip>
           )}
           {couponProgramPartner && (
@@ -129,12 +144,14 @@ export default function StoreCard({
               icon={() => (
                 <FontAwesome5
                   name="carrot"
-                  size={13}
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -10 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              SNAP Match
+              <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
             </Chip>
           )}
           {rewardsAccepted && (
@@ -142,12 +159,15 @@ export default function StoreCard({
               icon={() => (
                 <FontAwesome5
                   name="star"
-                  size={13}
+                  solid
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -10 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              Healthy Rewards
+              <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
             </Chip>
           )}
         </InLineContainer>
