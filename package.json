@@ -115,10 +115,5 @@
     "prettier": "^1.18.2",
     "yarnhook": "^0.4.3"
   },
-  "private": true,
-  "rnpm": {
-    "assets": [
-      "./assets/fonts/"
-    ]
-  }
+  "private": true
 }
