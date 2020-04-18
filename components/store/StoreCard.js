@@ -134,7 +134,7 @@ export default function StoreCard({
                 />
               )}
               style={styles.chip}>
-              Snap Match
+              SNAP Match
             </Chip>
           )}
           {rewardsAccepted && (
