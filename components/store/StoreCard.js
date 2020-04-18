@@ -23,13 +23,13 @@ import {
   StoreDetailText,
   styles,
 } from '../../styled/store';
-import { Caption, Title } from '../BaseComponents';
+import { Caption, Subhead, Title } from '../BaseComponents';
 
 /**
  * @prop
  * */
 
-export default function StoreCard({ store, seeDistance }) {
+export default function StoreCard({ store, storeList, seeDistance }) {
   const {
     storeName,
     storeHours,
@@ -50,6 +50,7 @@ export default function StoreCard({ store, seeDistance }) {
 
   return (
     <TouchableOpacity
+      disabled={!storeList}
       onPress={() =>
         navigation.navigate('Stores', {
           currentStore: store,
@@ -58,14 +59,25 @@ export default function StoreCard({ store, seeDistance }) {
       <StoreCardContainer includeMargins>
         <SpaceBetweenRowContainer>
           <RowContainer>
-            <Title
-              style={{
-                maxWidth: getMaxWidth(Dimensions.get('window').width),
-              }}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {storeName}
-            </Title>
+            {storeList ? (
+              <Subhead
+                style={{
+                  maxWidth: getMaxWidth(Dimensions.get('window').width),
+                }}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {storeName}
+              </Subhead>
+            ) : (
+              <Title
+                style={{
+                  maxWidth: getMaxWidth(Dimensions.get('window').width),
+                }}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {storeName}
+              </Title>
+            )}
           </RowContainer>
           <TouchableOpacity
             onPress={() =>
@@ -149,6 +161,7 @@ export default function StoreCard({ store, seeDistance }) {
           </Caption>
         )}
         <TouchableOpacity
+          disabled={storeList}
           onPress={() => openDirections(latitude, longitude, storeName)}
           onLongPress={() => writeToClipboard(address)}>
           <InLineContainer style={{ alignItems: 'center' }}>
@@ -197,10 +210,12 @@ export default function StoreCard({ store, seeDistance }) {
 StoreCard.propTypes = {
   store: PropTypes.object,
   callBack: PropTypes.func,
+  storeList: PropTypes.bool,
   seeDistance: PropTypes.bool.isRequired,
 };
 
 StoreCard.defaultProps = {
   store: null,
   callBack: null,
+  storeList: false,
 };
