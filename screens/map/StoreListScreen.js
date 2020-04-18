@@ -101,7 +101,6 @@ export default class StoreListScreen extends React.Component {
               key={item.id}
               store={item}
               callBack={() => this.storeDetailsTransition(item)}
-              seeProduct
               seeDistance={!this.state.showDefaultStore}
             />
           )}

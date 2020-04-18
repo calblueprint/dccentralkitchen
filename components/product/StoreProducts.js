@@ -17,7 +17,6 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
       <StoreCard
         store={store}
         key={store.id}
-        seeProduct={false}
         seeDistance={!showDefaultStore}
       />
       <View>

@@ -181,6 +181,7 @@ export default class StoreDetailsScreen extends React.Component {
                     icon={() => (
                       <FontAwesome5
                         name="heart"
+                        solid
                         size={13}
                         color={Colors.darkerGreen}
                       />

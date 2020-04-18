@@ -23,19 +23,13 @@ import {
   StoreDetailText,
   styles,
 } from '../../styled/store';
-import { Caption, Subhead, Title } from '../BaseComponents';
-import StoreProductButton from './StoreProductButton';
+import { Caption, Title } from '../BaseComponents';
 
 /**
  * @prop
  * */
 
-export default function StoreCard({
-  store,
-  callBack,
-  seeProduct,
-  seeDistance,
-}) {
+export default function StoreCard({ store, seeDistance }) {
   const {
     storeName,
     storeHours,
@@ -57,44 +51,37 @@ export default function StoreCard({
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('StoreDetailsScreen', {
-          store,
-          storeOpenStatus,
+        navigation.navigate('Stores', {
+          currentStore: store,
         })
       }>
       <StoreCardContainer includeMargins>
         <SpaceBetweenRowContainer>
           <RowContainer>
-            {seeProduct ? (
-              <Subhead
-                style={{
-                  marginTop: 2,
-                  maxWidth: getMaxWidth(
-                    Dimensions.get('window').width,
-                    snapOrEbtAccepted,
-                    seeProduct
-                  ),
-                }}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {storeName}
-              </Subhead>
-            ) : (
-              <Title
-                style={{
-                  maxWidth: getMaxWidth(
-                    Dimensions.get('window').width,
-                    snapOrEbtAccepted,
-                    seeProduct
-                  ),
-                }}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {storeName}
-              </Title>
-            )}
+            <Title
+              style={{
+                maxWidth: getMaxWidth(Dimensions.get('window').width),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Title>
           </RowContainer>
-          {seeProduct && <StoreProductButton callBack={callBack} />}
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('StoreDetailsScreen', {
+                store,
+                storeOpenStatus,
+              })
+            }
+            style={{ paddingLeft: 10, paddingBottom: 10 }}>
+            <FontAwesome5
+              name="info-circle"
+              solid
+              size={30}
+              color={Colors.primaryOrange}
+            />
+          </TouchableOpacity>
         </SpaceBetweenRowContainer>
         {/* Accepted Program Tags */}
         <InLineContainer
@@ -117,6 +104,7 @@ export default function StoreCard({
               icon={() => (
                 <FontAwesome5
                   name="heart"
+                  solid
                   size={13}
                   color={Colors.darkerGreen}
                 />
@@ -143,6 +131,7 @@ export default function StoreCard({
               icon={() => (
                 <FontAwesome5
                   name="star"
+                  solid
                   size={13}
                   color={Colors.darkerGreen}
                 />
@@ -208,7 +197,6 @@ export default function StoreCard({
 StoreCard.propTypes = {
   store: PropTypes.object,
   callBack: PropTypes.func,
-  seeProduct: PropTypes.bool.isRequired,
   seeDistance: PropTypes.bool.isRequired,
 };
 
