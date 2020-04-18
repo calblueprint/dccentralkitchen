@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
+import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
 import {
@@ -13,7 +14,6 @@ import {
 } from '../../styled/shared';
 import {
   DividerBar,
-  EBTStatusBar,
   StoreCardContainer,
   StoreDetailText,
 } from '../../styled/store';
@@ -36,6 +36,8 @@ export default function StoreCard({
     address,
     distance,
     snapOrEbtAccepted,
+    couponProgramPartner,
+    wic,
     rewardsAccepted,
     latitude,
     longitude,
@@ -99,7 +101,7 @@ export default function StoreCard({
                 {storeName}
               </Title>
             )}
-            {snapOrEbtAccepted && (
+            {/* {snapOrEbtAccepted && (
               <EBTStatusBar>
                 <FontAwesome5
                   name="check"
@@ -108,10 +110,91 @@ export default function StoreCard({
                 />
                 <Caption color={Colors.darkerGreen}> EBT</Caption>
               </EBTStatusBar>
-            )}
+            )} */}
           </RowContainer>
           {seeProduct && <StoreProductButton callBack={callBack} />}
         </SpaceBetweenRowContainer>
+        {/* Accepted Program Tags */}
+        <InLineContainer style={{ flexWrap: 'wrap' }}>
+          {snapOrEbtAccepted && (
+            <Chip
+              settings={{
+                icon: (
+                  <FontAwesome5
+                    name="credit-card"
+                    size={24}
+                    color={Colors.darkerGreen}
+                  />
+                ),
+              }}
+              style={{
+                backgroundColor: Colors.lightestGreen,
+                color: Colors.darkerGreen,
+                marginRight: 6,
+                marginTop: 6,
+                marginBottom: 6,
+              }}>
+              EBT
+            </Chip>
+          )}
+          {wic && (
+            <Chip
+              icon={
+                <FontAwesome5
+                  name="heart"
+                  size={24}
+                  color={Colors.darkerGreen}
+                />
+              }
+              style={{
+                backgroundColor: Colors.lightestGreen,
+                color: Colors.darkerGreen,
+                marginRight: 6,
+                marginTop: 6,
+                marginBottom: 6,
+              }}>
+              WIC
+            </Chip>
+          )}
+          {couponProgramPartner && (
+            <Chip
+              icon={
+                <FontAwesome5
+                  name="carrot"
+                  size={24}
+                  color={Colors.darkerGreen}
+                />
+              }
+              style={{
+                backgroundColor: Colors.lightestGreen,
+                color: Colors.darkerGreen,
+                marginRight: 6,
+                marginTop: 6,
+                marginBottom: 6,
+              }}>
+              Snap Match
+            </Chip>
+          )}
+          {rewardsAccepted && (
+            <Chip
+              icon={
+                <FontAwesome5
+                  name="star"
+                  size={24}
+                  color={Colors.darkerGreen}
+                />
+              }
+              style={{
+                backgroundColor: Colors.lightestGreen,
+                color: Colors.darkerGreen,
+                marginRight: 6,
+                marginTop: 6,
+                marginBottom: 6,
+              }}>
+              Healthy Rewards
+            </Chip>
+          )}
+        </InLineContainer>
         {seeDistance && (
           <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
             {`${distance} miles away`}
