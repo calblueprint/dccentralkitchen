@@ -109,7 +109,7 @@ export default class StoreDetailsScreen extends React.Component {
                   color={Colors.activeText}
                 />
                 <Body style={{ marginLeft: 12 }}>
-                  formatPhoneNumber(phoneNumber)
+                  {formatPhoneNumber(phoneNumber)}
                 </Body>
               </InLineContainer>
             </TouchableOpacity>
