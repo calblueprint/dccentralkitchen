@@ -93,7 +93,7 @@ export const CancelButton = styled(ButtonContainer)`
   justify-content: center;
 `;
 
-// Search bar styles
+// Search bar + chip styles
 
 export const styles = StyleSheet.create({
   inputContainer: {
@@ -106,5 +106,21 @@ export const styles = StyleSheet.create({
   },
   input: {
     fontFamily: 'poppins-regular',
+  },
+  chip: {
+    backgroundColor: Colors.lightestGreen,
+    color: Colors.darkerGreen,
+    marginRight: 6,
+    marginBottom: 10,
+    height: 18,
+  },
+  chipDesc: {
+    flex: 1,
+    height: 18,
+    paddingBottom: 10,
+    justifyContent: 'center',
+  },
+  chipText: {
+    marginTop: 1,
   },
 });

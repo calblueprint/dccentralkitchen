@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
+import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
 import {
@@ -13,9 +14,9 @@ import {
 } from '../../styled/shared';
 import {
   DividerBar,
-  EBTStatusBar,
   StoreCardContainer,
   StoreDetailText,
+  styles,
 } from '../../styled/store';
 import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
@@ -36,6 +37,8 @@ export default function StoreCard({
     address,
     distance,
     snapOrEbtAccepted,
+    couponProgramPartner,
+    wic,
     rewardsAccepted,
     latitude,
     longitude,
@@ -99,38 +102,82 @@ export default function StoreCard({
                 {storeName}
               </Title>
             )}
-            {snapOrEbtAccepted && (
-              <EBTStatusBar>
-                <FontAwesome5
-                  name="check"
-                  size={10}
-                  color={Colors.darkerGreen}
-                />
-                <Caption color={Colors.darkerGreen}> EBT</Caption>
-              </EBTStatusBar>
-            )}
           </RowContainer>
           {seeProduct && <StoreProductButton callBack={callBack} />}
         </SpaceBetweenRowContainer>
+        {/* Accepted Program Tags */}
+        <InLineContainer
+          style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
+          {snapOrEbtAccepted && (
+            <Chip
+              icon={() => (
+                <FontAwesome5
+                  name="credit-card"
+                  size={10}
+                  color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
+                />
+              )}
+              textStyle={styles.chipText}
+              style={styles.chip}>
+              <Caption color={Colors.darkerGreen}>EBT</Caption>
+            </Chip>
+          )}
+          {wic && (
+            <Chip
+              icon={() => (
+                <FontAwesome5
+                  name="heart"
+                  solid
+                  size={10}
+                  color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
+                />
+              )}
+              textStyle={styles.chipText}
+              style={styles.chip}>
+              <Caption color={Colors.darkerGreen}>WIC</Caption>
+            </Chip>
+          )}
+          {couponProgramPartner && (
+            <Chip
+              icon={() => (
+                <FontAwesome5
+                  name="carrot"
+                  size={10}
+                  color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
+                />
+              )}
+              textStyle={styles.chipText}
+              style={styles.chip}>
+              <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
+            </Chip>
+          )}
+          {rewardsAccepted && (
+            <Chip
+              icon={() => (
+                <FontAwesome5
+                  name="star"
+                  solid
+                  size={10}
+                  color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
+                />
+              )}
+              textStyle={styles.chipText}
+              style={styles.chip}>
+              <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
+            </Chip>
+          )}
+        </InLineContainer>
         {seeDistance && (
-          <Caption style={{ marginBottom: 4 }} color={Colors.secondaryText}>
+          <Caption
+            style={{ marginBottom: 4, marginTop: 6 }}
+            color={Colors.secondaryText}>
             {`${distance} miles away`}
           </Caption>
         )}
-
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="star"
-            solid
-            size={16}
-            color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
-          />
-          <StoreDetailText greenText={rewardsAccepted}>
-            {rewardsAccepted
-              ? 'Earn and redeem Healthy Rewards here'
-              : 'Healthy Rewards not accepted'}
-          </StoreDetailText>
-        </InLineContainer>
         <TouchableOpacity
           onPress={openDirections}
           onLongPress={writeAddressToClipboard}>
