@@ -1,7 +1,4 @@
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from '@react-navigation/stack';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
@@ -9,6 +6,7 @@ import Colors from '../../constants/Colors';
 import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
+import StoreDetailsScreen from '../../screens/map/StoreDetailsScreen';
 import StoreListScreen from '../../screens/map/StoreListScreen';
 import RewardsScreen from '../../screens/rewards/RewardsScreen';
 
@@ -49,6 +47,10 @@ export default function StoresStackNavigator() {
             vertical: 162 + useSafeArea().top,
           },
         }}
+      />
+      <StoresStack.Screen
+        name="StoreDetailsScreen"
+        component={StoreDetailsScreen}
       />
     </StoresStack.Navigator>
   );
