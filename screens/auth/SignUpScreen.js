@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
@@ -12,26 +11,14 @@ import { AsyncStorage, Keyboard, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  BigTitle,
-  ButtonLabel,
-  FilledButtonContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { firebaseConfig } from '../../firebase';
-import {
-  createCustomers,
-  createPushTokens,
-  getCustomersByPhoneNumber,
-} from '../../lib/airtable/request';
+import { createCustomers, createPushTokens, getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import {
-  AuthScreenContainer,
-  BackButton,
-  FormContainer,
-} from '../../styled/auth';
+import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
 import validate from './validation';
 
 firebase.initializeApp(firebaseConfig);
