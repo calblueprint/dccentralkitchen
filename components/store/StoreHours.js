@@ -32,9 +32,17 @@ export default function StoreHours({ hours }) {
         <View style={{ width: '60%' }}>
           {daysOfTheWeekFull.map((day, _) => {
             if (day === todaysDay) {
-              return <TabSelected>{dictHours[day]}</TabSelected>;
+              return (
+                <TabSelected>
+                  {dictHours[day].replace('12am', 'Midnight')}
+                </TabSelected>
+              );
             }
-            return <Body color={Colors.secondaryText}>{dictHours[day]}</Body>;
+            return (
+              <Body color={Colors.secondaryText}>
+                {dictHours[day].replace('12am', 'Midnight')}
+              </Body>
+            );
           })}
         </View>
       </View>
