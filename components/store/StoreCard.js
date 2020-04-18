@@ -58,7 +58,12 @@ export default function StoreCard({
     });
   };
 
-  const storeOpenStatus = computeStoreOpen(store.storeHours);
+  const storeOpenStatus = computeStoreOpen(storeHours);
+
+  // const [storeOpenStatus, setStoreOpenStatus] = useState();
+  // useEffect(() => {
+  //   setStoreOpenStatus(computeStoreOpen(storeHours));
+  // });
 
   return (
     <TouchableOpacity
@@ -150,7 +155,7 @@ export default function StoreCard({
             size={16}
             color={Colors.secondaryText}
           />
-          {storeOpenStatus.includes('Open') ? (
+          {storeOpenStatus && storeOpenStatus.includes('Open') ? (
             <StoreDetailText greenText={storeOpenStatus}>
               {storeOpenStatus}
             </StoreDetailText>
