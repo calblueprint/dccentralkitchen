@@ -5,18 +5,16 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
-import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { getCustomersById } from '../../lib/airtable/request';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -54,8 +52,6 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
-      customer: null,
-      isGuest: false,
       showDefaultStore: false,
     };
   }
@@ -64,19 +60,13 @@ export default class MapScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
-    const customerId = await AsyncStorage.getItem('userId');
-    const customer = await getCustomersById(customerId);
-    const isGuest = customerId === 'recLKK7cZHboMPEB8';
-    this.setState({
-      customer,
-      isGuest,
-    });
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
-    this.changeCurrentStore(store, (resetSheet = true));
+    const resetSheet = true;
+    this.changeCurrentStore(store, resetSheet);
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,

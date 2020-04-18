@@ -10,12 +10,11 @@ import AppNavigator from './navigation/AppNavigator';
 
 Sentry.init({
   dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
-  enableInExpoDevelopment: true,
+  enableInExpoDevelopment: false,
   release: 'v1.1.0',
-  debug: true,
-  environment: 'development',
+  debug: false,
+  environment: process.env.NODE_ENV,
 });
-
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
