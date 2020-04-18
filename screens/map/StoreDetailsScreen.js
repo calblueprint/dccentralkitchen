@@ -1,16 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { Chip } from 'react-native-paper';
-import {
-  Body,
-  Caption,
-  NavButton,
-  NavHeaderContainer,
-  NavTitle,
-  TabSelected,
-} from '../../components/BaseComponents';
+import { Body, Caption, NavButton, NavHeaderContainer, NavTitle, TabSelected } from '../../components/BaseComponents';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
