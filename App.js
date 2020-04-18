@@ -14,7 +14,7 @@ Sentry.init({
   enableInExpoDevelopment: false,
   release: 'v1.1.0',
   debug: false,
-  environment: (Constants.manifest.releaseChannel || 'dev',
+  environment: Constants.manifest.releaseChannel || 'dev',
 });
 
 export default function App(props) {
