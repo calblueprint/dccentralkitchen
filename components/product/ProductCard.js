@@ -6,7 +6,13 @@ import { displayDollarValue } from '../../lib/common';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { Body, ButtonContainer, Caption } from '../BaseComponents';
 
-function ProductCard({ product, store, navigation, displayPoints }) {
+function ProductCard({
+  product,
+  store,
+  navigation,
+  displayPoints,
+  productsScreen,
+}) {
   return (
     <ButtonContainer
       onPress={() =>
@@ -16,10 +22,17 @@ function ProductCard({ product, store, navigation, displayPoints }) {
         })
       }>
       <ColumnContainer>
-        <Image
-          source={{ uri: product.imageUrl }}
-          style={{ height: 86, width: 86, borderRadius: 12 }}
-        />
+        {productsScreen ? (
+          <Image
+            source={{ uri: product.imageUrl }}
+            style={{ height: 86, width: 151, borderRadius: 12 }}
+          />
+        ) : (
+          <Image
+            source={{ uri: product.imageUrl }}
+            style={{ height: 86, width: 86, borderRadius: 12 }}
+          />
+        )}
         <Body>{product.name}</Body>
         {product.detail && (
           <Caption color={Colors.secondaryText}>{product.detail}</Caption>
@@ -45,10 +58,12 @@ ProductCard.propTypes = {
   store: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
   displayPoints: PropTypes.bool,
+  productsScreen: PropTypes.bool,
 };
 
 ProductCard.defaultProps = {
   displayPoints: false,
+  productsScreen: false,
 };
 
 export default ProductCard;
