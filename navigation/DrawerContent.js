@@ -1,5 +1,6 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
@@ -29,6 +30,11 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
+            Analytics.setUserId(customerId);
+            Analytics.setUserProperties({
+              name: cust.name,
+              phoneNumber: cust.phoneNumber,
+            });
             Sentry.configureScope(scope => {
               scope.setUser({
                 id: customerId,
@@ -38,8 +44,16 @@ function DrawerContent(props) {
             });
             if (cust.name === 'Guest') {
               Sentry.captureMessage('Guest Login Successful');
+              Analytics.logEvent('drawer_load', {
+                name: 'Guest Login Successful',
+                screen: 'DrawerContent',
+              });
             } else {
               Sentry.captureMessage('Returning User');
+              Analytics.logEvent('drawer_load', {
+                name: 'Returning User',
+                screen: 'DrawerContent',
+              });
             }
             setCustomer(cust);
             setIsLoading(false);

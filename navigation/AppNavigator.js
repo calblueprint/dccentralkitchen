@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
@@ -10,6 +11,17 @@ import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
 import StoresStackNavigator from './stack_navigators/StoresStack';
 
 const Drawer = createDrawerNavigator();
+
+const getActiveRouteName = state => {
+  const route = state.routes[state.index];
+
+  if (route.state) {
+    // Dive into nested navigators
+    return getActiveRouteName(route.state);
+  }
+
+  return route.name;
+};
 
 function DrawerNavigator() {
   return (
@@ -48,8 +60,27 @@ function DrawerNavigator() {
 const AppStack = createStackNavigator();
 
 export default function createAppContainer() {
+  const routeNameRef = React.useRef();
+  const navigationRef = React.useRef();
+
+  React.useEffect(() => {
+    const state = navigationRef.current.getRootState();
+
+    // Save the initial route name
+    routeNameRef.current = getActiveRouteName(state);
+  }, []);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onStateChange={state => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = getActiveRouteName(state);
+        if (previousRouteName !== currentRouteName) {
+          Analytics.setCurrentScreen(currentRouteName);
+        }
+        routeNameRef.current = currentRouteName;
+      }}>
       <AppStack.Navigator
         initialRouteName="AuthLoading"
         screenOptions={{

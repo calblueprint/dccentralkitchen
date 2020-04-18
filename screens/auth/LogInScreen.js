@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
+import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -110,6 +111,11 @@ export default class LogInScreen extends React.Component {
         });
       } else {
         // if login works, register the user
+        Analytics.setUserId(customer.id);
+        Analytics.setUserProperties({
+          name: customer.name,
+          phoneNumber: phoneNumber,
+        });
         Sentry.configureScope(scope => {
           scope.setUser({
             id: customer.id,

@@ -103,12 +103,14 @@ export default function StoreCard({ store, storeList, seeDistance }) {
               icon={() => (
                 <FontAwesome5
                   name="credit-card"
-                  size={13}
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              EBT
+              <Caption color={Colors.darkerGreen}>EBT</Caption>
             </Chip>
           )}
           {wic && (
@@ -117,12 +119,14 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                 <FontAwesome5
                   name="heart"
                   solid
-                  size={13}
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              WIC
+              <Caption color={Colors.darkerGreen}>WIC</Caption>
             </Chip>
           )}
           {couponProgramPartner && (
@@ -130,12 +134,14 @@ export default function StoreCard({ store, storeList, seeDistance }) {
               icon={() => (
                 <FontAwesome5
                   name="carrot"
-                  size={13}
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              SNAP Match
+              <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
             </Chip>
           )}
           {rewardsAccepted && (
@@ -144,12 +150,14 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                 <FontAwesome5
                   name="star"
                   solid
-                  size={13}
+                  size={10}
                   color={Colors.darkerGreen}
+                  style={{ marginTop: -12 }}
                 />
               )}
+              textStyle={styles.chipText}
               style={styles.chip}>
-              Healthy Rewards
+              <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
             </Chip>
           )}
         </InLineContainer>
