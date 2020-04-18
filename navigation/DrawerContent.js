@@ -31,10 +31,10 @@ function DrawerContent(props) {
           }
           if (isActive) {
             Analytics.setUserId(customerId);
-            Analytics.setUserProperty(
-              ('name': cust.name),
-              ('phoneNumber': cust.phoneNumber)
-            );
+            Analytics.setUserProperties({
+              name: cust.name,
+              phoneNumber: cust.phoneNumber,
+            });
             Sentry.configureScope(scope => {
               scope.setUser({
                 id: customerId,

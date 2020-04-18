@@ -112,10 +112,10 @@ export default class LogInScreen extends React.Component {
       } else {
         // if login works, register the user
         Analytics.setUserId(customer.id);
-        Analytics.setUserProperty(
-          ('name': customer.name),
-          ('phoneNumber': formattedPhoneNumber)
-        );
+        Analytics.setUserProperties({
+          name: customer.name,
+          phoneNumber: phoneNumber,
+        });
         Sentry.configureScope(scope => {
           scope.setUser({
             id: customer.id,

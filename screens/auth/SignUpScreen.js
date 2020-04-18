@@ -138,7 +138,10 @@ export default class SignUpScreen extends React.Component {
       // if signup works, register the user
 
       Analytics.setUserId(customerId);
-      Analytics.setUserProperty(('name': name), ('phoneNumber': phoneNumber));
+      Analytics.setUserProperties({
+        name: name,
+        phoneNumber: phoneNumber,
+      });
       Sentry.configureScope(scope => {
         scope.setUser({
           id: customerId,
