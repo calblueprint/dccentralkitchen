@@ -22,14 +22,14 @@ export default class StoreDetailsScreen extends React.Component {
   render() {
     const { store, storeOpenStatus } = this.props.route.params;
     return (
-      <ScrollView>
+      <View>
         <NavHeaderContainer withMargin>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>
           <NavTitle>{store.storeName}</NavTitle>
         </NavHeaderContainer>
-        <View style={{ marginLeft: 16, marginTop: 30 }}>
+        <ScrollView style={{ marginLeft: 16, marginTop: 30 }}>
           {/* Directions */}
           <TouchableOpacity style={{ paddingBottom: 32 }}>
             <InLineContainer style={{ alignItems: 'center' }}>
@@ -87,8 +87,8 @@ export default class StoreDetailsScreen extends React.Component {
             />
             <Body style={{ marginLeft: 12 }}>Accepted Programs</Body>
           </InLineContainer>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
