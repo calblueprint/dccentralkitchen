@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -10,37 +11,36 @@ import {
 } from '../../styled/resources';
 import { Body, Subhead } from '../BaseComponents';
 
-class ResourceCard extends React.Component {
-  cardPressed() {
-    Analytics.logEvent('resources_ext_link', {
-      name: this.props.resourceCard.title,
-      screen: 'Resources',
-      purpose: 'Opens external link',
-    });
-    Linking.openURL(this.props.resourceCard.url);
-  }
-
-  render() {
-    return (
-      <TouchableOpacity onPress={() => this.cardPressed()}>
-        <ResourceItemCard>
-          <ContentContainer>
-            <Subhead>{this.props.resourceCard.title}</Subhead>
-            <Body color={Colors.secondaryText}>
-              {this.props.resourceCard.description}
-            </Body>
-          </ContentContainer>
-          <IconContainer>
-            <FontAwesome5
-              name="external-link-alt"
-              size={24}
-              color={Colors.base}
-            />
-          </IconContainer>
-        </ResourceItemCard>
-      </TouchableOpacity>
-    );
-  }
+function cardPressed(resource) {
+  Analytics.logEvent('resources_ext_link', {
+    name: resource.title,
+    screen: 'Resources',
+    purpose: 'Opens external link',
+  });
+  Linking.openURL(resource.url);
 }
+function ResourceCard({ resourceCard }) {
+  return (
+    <TouchableOpacity onPress={() => cardPressed(resourceCard)}>
+      <ResourceItemCard>
+        <ContentContainer>
+          <Subhead>{resourceCard.title}</Subhead>
+          <Body color={Colors.secondaryText}>{resourceCard.description}</Body>
+        </ContentContainer>
+        <IconContainer>
+          <FontAwesome5
+            name="external-link-alt"
+            size={24}
+            color={Colors.base}
+          />
+        </IconContainer>
+      </ResourceItemCard>
+    </TouchableOpacity>
+  );
+}
+
+ResourceCard.propTypes = {
+  resourceCard: PropTypes.object.isRequired,
+};
 
 export default ResourceCard;

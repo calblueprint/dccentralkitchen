@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -61,7 +62,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>
-                No products to show...check back later!
+                No recent deliveries...check back later!
               </Body>
             </View>
           }
@@ -71,5 +72,11 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
     </View>
   );
 }
+StoreProducts.propTypes = {
+  products: PropTypes.array.isRequired,
+  store: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+  showDefaultStore: PropTypes.bool.isRequired,
+};
 
 export default StoreProducts;

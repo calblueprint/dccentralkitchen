@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { ContentText, DateText } from '../../styled/news';
@@ -15,5 +16,9 @@ function NewsDetailsScreen(props) {
     </View>
   );
 }
+
+NewsDetailsScreen.propTypes = {
+  route: PropTypes.object.isRequired,
+};
 
 export default NewsDetailsScreen;

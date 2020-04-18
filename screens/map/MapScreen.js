@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -11,8 +12,10 @@ import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import RecordIds from '../../constants/RecordIds';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -36,8 +39,6 @@ const initialRegion = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
-
-const defaultStoreId = 'recKmetaavnMWXVrk';
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -63,7 +64,8 @@ export default class MapScreen extends React.Component {
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
-    this.changeCurrentStore(store, (resetSheet = true));
+    const resetSheet = true;
+    this.changeCurrentStore(store, resetSheet);
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
@@ -150,7 +152,7 @@ export default class MapScreen extends React.Component {
     });
 
     const defaultStore = stores.find(store => {
-      return store.id === defaultStoreId;
+      return store.id === RecordIds.defaultStoreId;
     });
 
     const region = {
@@ -208,6 +210,16 @@ export default class MapScreen extends React.Component {
   // Only called after initial store has been set
   // Only expand the bottom sheet to display products if navigated from 'See Products' button on StoreList
   changeCurrentStore(store, resetSheet = false) {
+    // Set store focus status
+    this.state.store.focused = false;
+    store.focused = true;
+
+    // Animate to new store region
+    const region = {
+      latitude: store.latitude,
+      longitude: store.longitude,
+      ...deltas,
+    };
     this.setState(
       {
         store,
@@ -217,6 +229,7 @@ export default class MapScreen extends React.Component {
           this.bottomSheetRef.snapTo(0);
         }
         await this._populateStoreProducts(store);
+        await this._map.animateToRegion(region, 1000);
       }
     );
   }
@@ -287,10 +300,12 @@ export default class MapScreen extends React.Component {
                 latitude: store.latitude,
                 longitude: store.longitude,
               }}
-              title={store.storeName}
-              description={store.storeName}
-              onPress={() => this.changeCurrentStore(store)}
-            />
+              onPress={() => this.changeCurrentStore(store)}>
+              <StoreMarker
+                storeName={store.storeName}
+                focused={store.focused}
+              />
+            </Marker>
           ))}
           {/* If current location found, show current location marker */}
           {this.state.location && (
@@ -299,8 +314,7 @@ export default class MapScreen extends React.Component {
                 .toString()
                 .concat(coords.longitude.toString())}
               coordinate={coords}
-              title="Your Location"
-              pinColor="#166e00"
+              image={require('../../assets/images/Current_Location.png')}
             />
           )}
         </MapView>
@@ -333,10 +347,15 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <View>
-            <Subhead color="#fff"> Your Rewards </Subhead>
+            <Subhead color="#fff"> Healthy Rewards </Subhead>
           </View>
         </TouchableOpacity>
       </View>
     );
   }
 }
+
+MapScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+};

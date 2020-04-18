@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -55,5 +56,9 @@ function PointsHistory({ transactions }) {
     </View>
   );
 }
+
+PointsHistory.propTypes = {
+  transactions: PropTypes.array.isRequired,
+};
 
 export default React.memo(PointsHistory);
