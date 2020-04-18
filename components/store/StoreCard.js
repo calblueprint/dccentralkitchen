@@ -23,7 +23,7 @@ import {
   StoreDetailText,
   styles,
 } from '../../styled/store';
-import { Caption, Subhead, Title } from '../BaseComponents';
+import { Caption, Title } from '../BaseComponents';
 
 /**
  * @prop
@@ -59,25 +59,14 @@ export default function StoreCard({ store, storeList, seeDistance }) {
       <StoreCardContainer includeMargins>
         <SpaceBetweenRowContainer>
           <RowContainer>
-            {storeList ? (
-              <Subhead
-                style={{
-                  maxWidth: getMaxWidth(Dimensions.get('window').width),
-                }}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {storeName}
-              </Subhead>
-            ) : (
-              <Title
-                style={{
-                  maxWidth: getMaxWidth(Dimensions.get('window').width),
-                }}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {storeName}
-              </Title>
-            )}
+            <Title
+              style={{
+                maxWidth: getMaxWidth(Dimensions.get('window').width),
+              }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {storeName}
+            </Title>
           </RowContainer>
           <TouchableOpacity
             onPress={() =>
@@ -86,7 +75,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                 storeOpenStatus,
               })
             }
-            style={{ paddingLeft: 10, paddingBottom: 10 }}>
+            style={{ paddingLeft: 10 }}>
             <FontAwesome5
               name="info-circle"
               solid
@@ -96,71 +85,80 @@ export default function StoreCard({ store, storeList, seeDistance }) {
           </TouchableOpacity>
         </SpaceBetweenRowContainer>
         {/* Accepted Program Tags */}
-        <InLineContainer
-          style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
-          {snapOrEbtAccepted && (
-            <Chip
-              icon={() => (
-                <FontAwesome5
-                  name="credit-card"
-                  size={10}
-                  color={Colors.darkerGreen}
-                  style={{ marginTop: -12 }}
-                />
-              )}
-              textStyle={styles.chipText}
-              style={styles.chip}>
-              <Caption color={Colors.darkerGreen}>EBT</Caption>
-            </Chip>
-          )}
-          {wic && (
-            <Chip
-              icon={() => (
-                <FontAwesome5
-                  name="heart"
-                  solid
-                  size={10}
-                  color={Colors.darkerGreen}
-                  style={{ marginTop: -12 }}
-                />
-              )}
-              textStyle={styles.chipText}
-              style={styles.chip}>
-              <Caption color={Colors.darkerGreen}>WIC</Caption>
-            </Chip>
-          )}
-          {couponProgramPartner && (
-            <Chip
-              icon={() => (
-                <FontAwesome5
-                  name="carrot"
-                  size={10}
-                  color={Colors.darkerGreen}
-                  style={{ marginTop: -12 }}
-                />
-              )}
-              textStyle={styles.chipText}
-              style={styles.chip}>
-              <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
-            </Chip>
-          )}
-          {rewardsAccepted && (
-            <Chip
-              icon={() => (
-                <FontAwesome5
-                  name="star"
-                  solid
-                  size={10}
-                  color={Colors.darkerGreen}
-                  style={{ marginTop: -12 }}
-                />
-              )}
-              textStyle={styles.chipText}
-              style={styles.chip}>
-              <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
-            </Chip>
-          )}
-        </InLineContainer>
+        {(snapOrEbtAccepted ||
+          wic ||
+          couponProgramPartner ||
+          rewardsAccepted) && (
+          <InLineContainer
+            style={{
+              flexWrap: 'wrap',
+              marginTop: 6,
+              marginBottom: 6,
+            }}>
+            {snapOrEbtAccepted && (
+              <Chip
+                icon={() => (
+                  <FontAwesome5
+                    name="credit-card"
+                    size={10}
+                    color={Colors.darkerGreen}
+                    style={{ marginTop: -12 }}
+                  />
+                )}
+                textStyle={styles.chipText}
+                style={styles.chip}>
+                <Caption color={Colors.darkerGreen}>EBT</Caption>
+              </Chip>
+            )}
+            {wic && (
+              <Chip
+                icon={() => (
+                  <FontAwesome5
+                    name="heart"
+                    solid
+                    size={10}
+                    color={Colors.darkerGreen}
+                    style={{ marginTop: -12 }}
+                  />
+                )}
+                textStyle={styles.chipText}
+                style={styles.chip}>
+                <Caption color={Colors.darkerGreen}>WIC</Caption>
+              </Chip>
+            )}
+            {couponProgramPartner && (
+              <Chip
+                icon={() => (
+                  <FontAwesome5
+                    name="carrot"
+                    size={10}
+                    color={Colors.darkerGreen}
+                    style={{ marginTop: -12 }}
+                  />
+                )}
+                textStyle={styles.chipText}
+                style={styles.chip}>
+                <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
+              </Chip>
+            )}
+            {rewardsAccepted && (
+              <Chip
+                icon={() => (
+                  <FontAwesome5
+                    name="star"
+                    solid
+                    size={10}
+                    color={Colors.darkerGreen}
+                    style={{ marginTop: -12 }}
+                  />
+                )}
+                textStyle={styles.chipText}
+                style={styles.chip}>
+                <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
+              </Chip>
+            )}
+          </InLineContainer>
+        )}
         {seeDistance && (
           <Caption
             style={{ marginBottom: 4, marginTop: 6 }}
