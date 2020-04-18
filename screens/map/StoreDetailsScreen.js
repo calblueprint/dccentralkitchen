@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
@@ -9,10 +10,12 @@ import {
   NavButton,
   NavHeaderContainer,
   NavTitle,
+  TabSelected,
 } from '../../components/BaseComponents';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
+import { openDirections, writeToClipboard } from '../../lib/mapUtils';
 import {
   ColumnContainer,
   InLineContainer,
@@ -39,6 +42,8 @@ export default class StoreDetailsScreen extends React.Component {
       couponProgramPartner,
       wic,
       rewardsAccepted,
+      latitude,
+      longitude,
     } = store;
 
     return (
@@ -51,8 +56,8 @@ export default class StoreDetailsScreen extends React.Component {
         </NavHeaderContainer>
         <ScrollView style={{ marginLeft: 16, marginTop: 30 }}>
           {/* Directions */}
-          <TouchableOpacity style={{ paddingBottom: 32 }}>
-            <InLineContainer style={{ alignItems: 'center' }}>
+          <View style={{ paddingBottom: 32 }}>
+            <InLineContainer>
               <FontAwesome5
                 name="directions"
                 size={24}
@@ -65,30 +70,66 @@ export default class StoreDetailsScreen extends React.Component {
                   paddingRight: 50,
                   flexWrap: 'wrap',
                 }}>
-                <Body>{address}</Body>
+                <TouchableOpacity onLongPress={() => writeToClipboard(address)}>
+                  <Body>{address}</Body>
+                </TouchableOpacity>
                 <Body>Ward {ward}</Body>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, marginBottom: 10 }}>
                   <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
                     {distance} miles away · distance may vary by transportation
                   </Caption>
                 </View>
+                <TouchableOpacity
+                  style={{ flexDirection: 'row' }}
+                  onPress={() =>
+                    openDirections(latitude, longitude, storeName)
+                  }>
+                  <TabSelected
+                    color={Colors.primaryOrange}
+                    style={{ marginRight: 4 }}>
+                    Get Directions
+                  </TabSelected>
+                  <FontAwesome5
+                    name="external-link-alt"
+                    size={14}
+                    color={Colors.primaryOrange}
+                  />
+                </TouchableOpacity>
               </View>
             </InLineContainer>
-          </TouchableOpacity>
+          </View>
           {/* Phone Number */}
-          <InLineContainer style={{ alignItems: 'center', paddingBottom: 32 }}>
-            <FontAwesome5
-              name="phone"
-              solid
-              size={24}
-              color={Colors.activeText}
-            />
-            <Body style={{ marginLeft: 12 }}>
-              {phoneNumber
-                ? formatPhoneNumber(phoneNumber)
-                : 'Phone number unavailable'}
-            </Body>
-          </InLineContainer>
+          {phoneNumber ? (
+            <TouchableOpacity
+              onPress={() => Linking.openURL('tel://'.concat(phoneNumber))}
+              onLongPress={() =>
+                writeToClipboard(formatPhoneNumber(phoneNumber))
+              }>
+              <InLineContainer
+                style={{ alignItems: 'center', paddingBottom: 32 }}>
+                <FontAwesome5
+                  name="phone"
+                  solid
+                  size={24}
+                  color={Colors.activeText}
+                />
+                <Body style={{ marginLeft: 12 }}>
+                  {formatPhoneNumber(phoneNumber)}
+                </Body>
+              </InLineContainer>
+            </TouchableOpacity>
+          ) : (
+            <InLineContainer
+              style={{ alignItems: 'center', paddingBottom: 32 }}>
+              <FontAwesome5
+                name="phone"
+                solid
+                size={24}
+                color={Colors.activeText}
+              />
+              <Body style={{ marginLeft: 12 }}>Phone number unavailable</Body>
+            </InLineContainer>
+          )}
           {/* Store Hours */}
           <InLineContainer style={{ paddingBottom: 32 }}>
             <FontAwesome5
@@ -138,7 +179,7 @@ export default class StoreDetailsScreen extends React.Component {
                           name="credit-card"
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}
@@ -153,7 +194,7 @@ export default class StoreDetailsScreen extends React.Component {
                           name="heart"
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}
@@ -168,7 +209,7 @@ export default class StoreDetailsScreen extends React.Component {
                           name="carrot"
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}
@@ -185,7 +226,7 @@ export default class StoreDetailsScreen extends React.Component {
                           solid
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}

@@ -6,30 +6,20 @@ import {
   NavButton,
   NavHeaderContainer,
   NavTitle,
+  Subhead,
+  Title,
 } from '../../components/BaseComponents';
 import ProductCard from '../../components/product/ProductCard';
+import Colors from '../../constants/Colors';
+import deliveryFrequency from '../../constants/Products';
 import { ProductListContainer } from '../../styled/product';
+import { ColumnContainer } from '../../styled/shared';
 
 export default class ProductsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-
-  renderProductList = () => {
-    const { products, store } = this.props.route.params;
-    return products.map((product, i) => {
-      return (
-        <ProductCard
-          key={i}
-          product={product}
-          navigation={this.props.navigation}
-          store={store}
-          displayPoints
-        />
-      );
-    });
-  };
 
   render() {
     const { products, store } = this.props.route.params;
@@ -54,9 +44,23 @@ export default class ProductsScreen extends React.Component {
                 navigation={this.props.navigation}
                 store={store}
                 displayPoints
+                productsScreen
               />
             )}
             keyExtractor={item => item.id}
+            ItemSeparatorComponent={() => (
+              <View style={{ width: 20, height: 20 }} />
+            )}
+            ListHeaderComponent={
+              <ColumnContainer style={{ marginBottom: 20 }}>
+                <Title color={Colors.activeText}>
+                  Products ({products.length})
+                </Title>
+                <Subhead color={Colors.activeText}>
+                  Delivered in the last {deliveryFrequency} days
+                </Subhead>
+              </ColumnContainer>
+            }
             ListFooterComponent={<View style={{ height: 270 }} />}
           />
         </ProductListContainer>
