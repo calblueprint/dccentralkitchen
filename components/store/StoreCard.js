@@ -2,12 +2,16 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
-import { showLocation } from 'react-native-map-link';
+import { Dimensions, TouchableOpacity } from 'react-native';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
-import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
+import {
+  computeStoreOpen,
+  getMaxWidth,
+  openDirections,
+  writeToClipboard,
+} from '../../lib/mapUtils';
 import {
   InLineContainer,
   RowContainer,
@@ -47,21 +51,6 @@ export default function StoreCard({
   } = store;
 
   const navigation = useNavigation();
-
-  const writeAddressToClipboard = () => {
-    Clipboard.setString(address);
-    Alert.alert('Copied to Clipboard!', address);
-  };
-
-  const openDirections = () => {
-    showLocation({
-      latitude,
-      longitude,
-      title: storeName,
-      googlePlaceId: 'ChIJW-T2Wt7Gt4kRKl2I1CJFUsI',
-      alwaysIncludeGoogle: true,
-    });
-  };
 
   const storeOpenStatus = computeStoreOpen(storeHours);
 
@@ -171,8 +160,8 @@ export default function StoreCard({
           </Caption>
         )}
         <TouchableOpacity
-          onPress={openDirections}
-          onLongPress={writeAddressToClipboard}>
+          onPress={() => openDirections(latitude, longitude, storeName)}
+          onLongPress={() => writeToClipboard(address)}>
           <InLineContainer style={{ alignItems: 'center' }}>
             <FontAwesome5
               name="directions"
