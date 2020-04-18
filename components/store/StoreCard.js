@@ -117,20 +117,6 @@ export default function StoreCard({
             {`${distance} miles away`}
           </Caption>
         )}
-
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="star"
-            solid
-            size={16}
-            color={rewardsAccepted ? Colors.primaryGreen : Colors.secondaryText}
-          />
-          <StoreDetailText greenText={rewardsAccepted}>
-            {rewardsAccepted
-              ? 'Earn and redeem Healthy Rewards here'
-              : 'Healthy Rewards not accepted'}
-          </StoreDetailText>
-        </InLineContainer>
         <TouchableOpacity
           onPress={openDirections}
           onLongPress={writeAddressToClipboard}>
