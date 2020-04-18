@@ -179,7 +179,7 @@ export default class StoreDetailsScreen extends React.Component {
                           name="credit-card"
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}
@@ -194,7 +194,7 @@ export default class StoreDetailsScreen extends React.Component {
                           name="heart"
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}
@@ -209,7 +209,7 @@ export default class StoreDetailsScreen extends React.Component {
                           name="carrot"
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}
@@ -226,7 +226,7 @@ export default class StoreDetailsScreen extends React.Component {
                           solid
                           size={10}
                           color={Colors.darkerGreen}
-                          style={{ marginTop: -12 }}
+                          style={{ marginTop: -1 }}
                         />
                       )}
                       textStyle={styles.chipText}

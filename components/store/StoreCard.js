@@ -93,7 +93,6 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             style={{
               flexWrap: 'wrap',
               marginTop: 6,
-              marginBottom: 6,
             }}>
             {snapOrEbtAccepted && (
               <Chip
@@ -102,7 +101,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     name="credit-card"
                     size={10}
                     color={Colors.darkerGreen}
-                    style={{ marginTop: -12 }}
+                    style={{ marginTop: -1 }}
                   />
                 )}
                 textStyle={styles.chipText}
@@ -118,7 +117,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     solid
                     size={10}
                     color={Colors.darkerGreen}
-                    style={{ marginTop: -12 }}
+                    style={{ marginTop: -1 }}
                   />
                 )}
                 textStyle={styles.chipText}
@@ -133,7 +132,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     name="carrot"
                     size={10}
                     color={Colors.darkerGreen}
-                    style={{ marginTop: -12 }}
+                    style={{ marginTop: -1 }}
                   />
                 )}
                 textStyle={styles.chipText}
@@ -149,7 +148,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     solid
                     size={10}
                     color={Colors.darkerGreen}
-                    style={{ marginTop: -12 }}
+                    style={{ marginTop: -1 }}
                   />
                 )}
                 textStyle={styles.chipText}
@@ -161,7 +160,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
         )}
         {seeDistance && (
           <Caption
-            style={{ marginBottom: 4, marginTop: 6 }}
+            style={{ marginBottom: 4, marginTop: 4 }}
             color={Colors.secondaryText}>
             {`${distance} miles away`}
           </Caption>
