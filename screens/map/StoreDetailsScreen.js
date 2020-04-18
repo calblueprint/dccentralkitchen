@@ -173,7 +173,7 @@ export default class StoreDetailsScreen extends React.Component {
                       )}
                       textStyle={styles.chipText}
                       style={styles.chip}>
-                      <Caption color={Colors.darkerGreen}>Snap Match</Caption>
+                      <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
                     </Chip>
                   )}
 
