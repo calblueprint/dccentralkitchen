@@ -19,6 +19,7 @@ import {
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
+import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
@@ -44,9 +45,9 @@ export default class RewardsScreen extends React.Component {
 
   // Load customer record & transactions
   async componentDidMount() {
-    const customerId = await AsyncStorage.getItem('userId');
+    const customerId = await AsyncStorage.getItem('customerId');
     const customer = await getCustomersById(customerId);
-    const isGuest = customerId === 'recLKK7cZHboMPEB8';
+    const isGuest = customerId === RecordIds.guestCustomerId;
     const transactions = await getCustomerTransactions(customerId);
     this.setState({
       customer,

@@ -2,17 +2,18 @@
 node_modules/**/*
 
 # Deprecated env files
-environment.js
+.env.development
+.env.production
 .airtable-schema-generator.env
 
 # Ignore schemaRaw.json (only used for manual mode)
 schemaRaw.json
 
 # env files
-.env.development
-.env.production
+environment.js
+.env.generator
 
-
+# Other
 package-lock.json
 *.DS_Store
 

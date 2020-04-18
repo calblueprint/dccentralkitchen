@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
+import Constants from 'expo-constants';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
@@ -13,8 +14,9 @@ Sentry.init({
   enableInExpoDevelopment: false,
   release: 'v1.1.0',
   debug: false,
-  environment: process.env.NODE_ENV,
+  environment: (Constants.manifest.releaseChannel || 'dev',
 });
+
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 

@@ -15,6 +15,7 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import RecordIds from '../../constants/RecordIds';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -38,8 +39,6 @@ const initialRegion = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
-
-const defaultStoreId = 'recKmetaavnMWXVrk';
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -153,7 +152,7 @@ export default class MapScreen extends React.Component {
     });
 
     const defaultStore = stores.find(store => {
-      return store.id === defaultStoreId;
+      return store.id === RecordIds.defaultStoreId;
     });
 
     const region = {
