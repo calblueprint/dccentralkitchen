@@ -11,14 +11,26 @@ import { AsyncStorage, Keyboard, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer,
+} from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { firebaseConfig } from '../../firebase';
-import { createCustomers, createPushTokens, getCustomersByPhoneNumber } from '../../lib/airtable/request';
+import {
+  createCustomers,
+  createPushTokens,
+  getCustomersByPhoneNumber,
+} from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 import validate from './validation';
 
 firebase.initializeApp(firebaseConfig);
@@ -29,10 +41,8 @@ export default class SignUpScreen extends React.Component {
     const recaptchaVerifier = React.createRef();
     this.state = {
       modalVisible: false,
-      ref: recaptchaVerifier,
+      recaptchaVerifier,
       verificationId: null,
-      verificationCode: null,
-      recaptchaToken: null,
       values: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
@@ -52,10 +62,6 @@ export default class SignUpScreen extends React.Component {
     };
   }
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
   // TODO @johnathanzhou or @anniero98
   // Notifications is jank - the `_handleNotification` function doesn't even exist. Unclear to devs what the flow should be with receiving notifications
   componentDidMount() {
@@ -63,34 +69,8 @@ export default class SignUpScreen extends React.Component {
     // this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
 
-  openRecaptcha = async () => {
-    const number = '+1'.concat(this.state.values[signUpFields.PHONENUM]);
-    const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    const verificationId = await phoneProvider.verifyPhoneNumber(
-      number,
-      this.state.ref.current
-    );
-    this.setState({ verificationId });
-    this.setModalVisible(true);
-  };
-
-  verifyCode = async code => {
-    try {
-      const credential = firebase.auth.PhoneAuthProvider.credential(
-        this.state.verificationId,
-        code
-      );
-      await firebase.auth().signInWithCredential(credential);
-      this.completeSignUp();
-    } catch (err) {
-      this.setState(prevState => ({
-        errors: {
-          ...prevState.errors,
-          [signUpFields.CODE]: 'Incorrect Code.',
-        },
-        processing: false,
-      }));
-    }
+  setModalVisible = visible => {
+    this.setState({ modalVisible: visible });
   };
 
   // TODO will be deprecated with react-navigation v5
@@ -239,6 +219,37 @@ export default class SignUpScreen extends React.Component {
     Keyboard.dismiss();
   };
 
+  openRecaptcha = async () => {
+    const number = '+1'.concat(this.state.values[signUpFields.PHONENUM]);
+    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    const verificationId = await phoneProvider.verifyPhoneNumber(
+      number,
+      this.state.recaptchaVerifier.current
+    );
+    this.setState({ verificationId });
+    this.setModalVisible(true);
+  };
+
+  verifyCode = async code => {
+    try {
+      const credential = firebase.auth.PhoneAuthProvider.credential(
+        this.state.verificationId,
+        code
+      );
+      await firebase.auth().signInWithCredential(credential);
+      this.setModalVisible(false);
+      this.completeSignUp();
+    } catch (err) {
+      this.setState(prevState => ({
+        errors: {
+          ...prevState.errors,
+          [signUpFields.CODE]: 'Incorrect Code.',
+        },
+        processing: false,
+      }));
+    }
+  };
+
   completeSignUp = async () => {
     const customerId = await this.addCustomer();
     this._clearState();
@@ -360,7 +371,7 @@ export default class SignUpScreen extends React.Component {
         </Modal>
 
         <FirebaseRecaptchaVerifierModal
-          ref={this.state.ref}
+          ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
         />
 
@@ -416,6 +427,7 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
+          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
         </AuthScreenContainer>
       </ScrollView>
     );
