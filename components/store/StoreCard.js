@@ -115,7 +115,7 @@ export default function StoreCard({
                   name="credit-card"
                   size={10}
                   color={Colors.darkerGreen}
-                  style={{ marginTop: -10 }}
+                  style={{ marginTop: -12 }}
                 />
               )}
               textStyle={styles.chipText}
@@ -131,7 +131,7 @@ export default function StoreCard({
                   solid
                   size={10}
                   color={Colors.darkerGreen}
-                  style={{ marginTop: -10 }}
+                  style={{ marginTop: -12 }}
                 />
               )}
               textStyle={styles.chipText}
@@ -146,7 +146,7 @@ export default function StoreCard({
                   name="carrot"
                   size={10}
                   color={Colors.darkerGreen}
-                  style={{ marginTop: -10 }}
+                  style={{ marginTop: -12 }}
                 />
               )}
               textStyle={styles.chipText}
@@ -162,7 +162,7 @@ export default function StoreCard({
                   solid
                   size={10}
                   color={Colors.darkerGreen}
-                  style={{ marginTop: -10 }}
+                  style={{ marginTop: -12 }}
                 />
               )}
               textStyle={styles.chipText}
