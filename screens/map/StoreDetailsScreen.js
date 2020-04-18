@@ -11,7 +11,6 @@ import {
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
-import { computeStoreOpen } from '../../lib/mapUtils';
 import { InLineContainer } from '../../styled/shared';
 
 export default class StoreDetailsScreen extends React.Component {
@@ -21,8 +20,7 @@ export default class StoreDetailsScreen extends React.Component {
   }
 
   render() {
-    const { store } = this.props.route.params;
-    const storeOpenStatus = computeStoreOpen(store.storeHours);
+    const { store, storeOpenStatus } = this.props.route.params;
     return (
       <ScrollView>
         <NavHeaderContainer withMargin>

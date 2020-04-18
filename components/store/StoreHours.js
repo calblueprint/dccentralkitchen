@@ -51,7 +51,11 @@ export default function StoreHours({ hours }) {
 
   const parseHours = () => {
     // Case: hours = "Open 24/7"
-    if (hours === 'Open 24/7' || hours === 'Store hours unavailable') {
+    if (
+      hours === 'Open 24/7' ||
+      hours === 'Store hours unavailable' ||
+      !hours
+    ) {
       return null;
     }
 

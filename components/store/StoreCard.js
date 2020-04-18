@@ -2,13 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Alert,
-  Clipboard,
-  Dimensions,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
+import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 import Colors from '../../constants/Colors';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
@@ -67,10 +61,11 @@ export default function StoreCard({
   const storeOpenStatus = computeStoreOpen(store.storeHours);
 
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       onPress={() =>
         navigation.navigate('StoreDetailsScreen', {
           store,
+          storeOpenStatus,
         })
       }>
       <StoreCardContainer includeMargins>
@@ -165,7 +160,7 @@ export default function StoreCard({
         </InLineContainer>
         <DividerBar />
       </StoreCardContainer>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
 
