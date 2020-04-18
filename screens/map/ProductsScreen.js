@@ -48,8 +48,11 @@ export default class ProductsScreen extends React.Component {
               />
             )}
             keyExtractor={item => item.id}
+            ItemSeparatorComponent={() => (
+              <View style={{ width: 20, height: 20 }} />
+            )}
             ListHeaderComponent={
-              <ColumnContainer>
+              <ColumnContainer style={{ marginBottom: 20 }}>
                 <Title color={Colors.activeText}>
                   Products ({products.length})
                 </Title>
