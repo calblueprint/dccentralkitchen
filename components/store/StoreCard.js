@@ -6,9 +6,19 @@ import { Alert, Clipboard, Dimensions, TouchableOpacity } from 'react-native';
 import { showLocation } from 'react-native-map-link';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import { formatPhoneNumber } from '../../lib/authUtils';
 import { computeStoreOpen, getMaxWidth } from '../../lib/mapUtils';
-import { InLineContainer, RowContainer, SpaceBetweenRowContainer } from '../../styled/shared';
-import { DividerBar, StoreCardContainer, StoreDetailText, styles } from '../../styled/store';
+import {
+  InLineContainer,
+  RowContainer,
+  SpaceBetweenRowContainer,
+} from '../../styled/shared';
+import {
+  DividerBar,
+  StoreCardContainer,
+  StoreDetailText,
+  styles,
+} from '../../styled/store';
 import { Caption, Subhead, Title } from '../BaseComponents';
 import StoreProductButton from './StoreProductButton';
 
@@ -25,6 +35,7 @@ export default function StoreCard({
   const {
     storeName,
     storeHours,
+    phoneNumber,
     address,
     distance,
     snapOrEbtAccepted,
@@ -97,7 +108,8 @@ export default function StoreCard({
           {seeProduct && <StoreProductButton callBack={callBack} />}
         </SpaceBetweenRowContainer>
         {/* Accepted Program Tags */}
-        <InLineContainer style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
+        <InLineContainer
+          style={{ flexWrap: 'wrap', paddingTop: 6, paddingBottom: 6 }}>
           {snapOrEbtAccepted && (
             <Chip
               icon={() => (
@@ -170,6 +182,19 @@ export default function StoreCard({
             <StoreDetailText>{address}</StoreDetailText>
           </InLineContainer>
         </TouchableOpacity>
+        <InLineContainer style={{ alignItems: 'center' }}>
+          <FontAwesome5
+            name="phone"
+            solid
+            size={16}
+            color={Colors.secondaryText}
+          />
+          <StoreDetailText>
+            {phoneNumber
+              ? formatPhoneNumber(phoneNumber)
+              : 'Phone number unavailable'}
+          </StoreDetailText>
+        </InLineContainer>
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
             name="clock"
