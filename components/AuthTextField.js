@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { TextField } from 'react-native-materialui-textfield';
 import Colors from '../constants/Colors';
@@ -52,5 +53,18 @@ function AuthTextField({
     </TextFieldContainer>
   );
 }
+
+AuthTextField.propTypes = {
+  fieldType: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired,
+  changeTextCallback: PropTypes.any.isRequired,
+  error: PropTypes.any,
+  onBlurCallback: PropTypes.any,
+};
+
+AuthTextField.defaultProps = {
+  error: null,
+  onBlurCallback: null,
+};
 
 export default AuthTextField;

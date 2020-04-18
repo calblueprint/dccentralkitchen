@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import { ButtonLabel, FilledButtonContainer } from '../BaseComponents';
@@ -18,5 +19,9 @@ function StoreProductButton({ callBack }) {
     </FilledButtonContainer>
   );
 }
+
+StoreProductButton.propTypes = {
+  callBack: PropTypes.func.isRequired,
+};
 
 export default StoreProductButton;

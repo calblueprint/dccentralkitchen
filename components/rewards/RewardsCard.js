@@ -8,26 +8,24 @@ import {
 import { Caption, Subhead } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
-class RewardsCard extends React.Component {
-  render() {
-    return (
-      <RewardsCardContainer>
-        <CircleIcon
-          icon="star"
-          iconColor={Colors.primaryGreen}
-          circleColor={Colors.lightest}
-        />
-        <RewardDescriptionContainer>
-          <Subhead color={Colors.darkerGreen}>
-            {`$${rewardDollarValue} Reward`}
-          </Subhead>
-          <Caption color={Colors.darkerGreen}>
-            {`${rewardPointValue} points`}
-          </Caption>
-        </RewardDescriptionContainer>
-      </RewardsCardContainer>
-    );
-  }
+function RewardsCard() {
+  return (
+    <RewardsCardContainer>
+      <CircleIcon
+        icon="star"
+        iconColor={Colors.primaryGreen}
+        circleColor={Colors.lightest}
+      />
+      <RewardDescriptionContainer>
+        <Subhead color={Colors.darkerGreen}>
+          {`$${rewardDollarValue} Reward`}
+        </Subhead>
+        <Caption color={Colors.darkerGreen}>
+          {`${rewardPointValue} points`}
+        </Caption>
+      </RewardDescriptionContainer>
+    </RewardsCardContainer>
+  );
 }
 
 export default RewardsCard;

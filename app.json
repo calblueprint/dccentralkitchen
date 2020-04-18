@@ -5,12 +5,12 @@
     "privacy": "public",
     "sdkVersion": "37.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.1",
+    "version": "1.1.0",
     "primaryColor": "#008550",
     "orientation": "portrait",
-    "icon": "./assets/images/CustomerAppIcon.png",
+    "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/images/DCHC_Splash.png",
+      "image": "./assets/images/hc_splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.0.1",
+      "buildNumber": "1.1.2",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
@@ -32,12 +32,21 @@
           "lyft",
           "waze"
         ]
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU"
       }
     },
     "android": {
       "package": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./google-services.json",
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
+        }
+      },
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
+      "versionCode": 3
     },
     "web": {
       "config": {
@@ -52,6 +61,14 @@
           "measurementId": "G-0584C2GYL5"
         }
       }
-    }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
+    },
+    "description": ""
   }
 }
