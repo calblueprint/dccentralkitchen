@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
@@ -95,11 +94,26 @@ export default class StoreDetailsScreen extends React.Component {
             </InLineContainer>
           </View>
           {/* Phone Number */}
-          <TouchableOpacity
-            onPress={() => Linking.openURL('tel://'.concat(phoneNumber))}
-            onLongPress={() =>
-              writeToClipboard(formatPhoneNumber(phoneNumber))
-            }>
+          {phoneNumber ? (
+            <TouchableOpacity
+              onPress={() => Linking.openURL('tel://'.concat(phoneNumber))}
+              onLongPress={() =>
+                writeToClipboard(formatPhoneNumber(phoneNumber))
+              }>
+              <InLineContainer
+                style={{ alignItems: 'center', paddingBottom: 32 }}>
+                <FontAwesome5
+                  name="phone"
+                  solid
+                  size={24}
+                  color={Colors.activeText}
+                />
+                <Body style={{ marginLeft: 12 }}>
+                  formatPhoneNumber(phoneNumber)
+                </Body>
+              </InLineContainer>
+            </TouchableOpacity>
+          ) : (
             <InLineContainer
               style={{ alignItems: 'center', paddingBottom: 32 }}>
               <FontAwesome5
@@ -108,13 +122,9 @@ export default class StoreDetailsScreen extends React.Component {
                 size={24}
                 color={Colors.activeText}
               />
-              <Body style={{ marginLeft: 12 }}>
-                {phoneNumber
-                  ? formatPhoneNumber(phoneNumber)
-                  : 'Phone number unavailable'}
-              </Body>
+              <Body style={{ marginLeft: 12 }}>Phone number unavailable</Body>
             </InLineContainer>
-          </TouchableOpacity>
+          )}
           {/* Store Hours */}
           <InLineContainer style={{ paddingBottom: 32 }}>
             <FontAwesome5
