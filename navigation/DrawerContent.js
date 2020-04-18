@@ -30,10 +30,11 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
-            Analytics.logEvent('drawer_load', {
-              name: 'Drawer Load',
-              screen: 'DrawerContent',
-            });
+            Analytics.setUserId(customerId);
+            Analytics.setUserProperty(
+              ('name': cust.name),
+              ('phoneNumber': cust.phoneNumber)
+            );
             Sentry.configureScope(scope => {
               scope.setUser({
                 id: customerId,
@@ -43,8 +44,16 @@ function DrawerContent(props) {
             });
             if (cust.name === 'Guest') {
               Sentry.captureMessage('Guest Login Successful');
+              Analytics.logEvent('drawer_load', {
+                name: 'Guest Login Successful',
+                screen: 'DrawerContent',
+              });
             } else {
               Sentry.captureMessage('Returning User');
+              Analytics.logEvent('drawer_load', {
+                name: 'Returning User',
+                screen: 'DrawerContent',
+              });
             }
             setCustomer(cust);
             setIsLoading(false);

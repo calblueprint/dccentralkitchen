@@ -89,7 +89,6 @@ export default class SignUpScreen extends React.Component {
   // Sign up function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignUp = async customerId => {
-    await Analytics.setUserId(customerId);
     await AsyncStorage.setItem('customerId', customerId);
     this.props.navigation.navigate('App');
   };
@@ -137,6 +136,9 @@ export default class SignUpScreen extends React.Component {
       });
 
       // if signup works, register the user
+
+      Analytics.setUserId(customerId);
+      Analytics.setUserProperty(('name': name), ('phoneNumber': phoneNumber));
       Sentry.configureScope(scope => {
         scope.setUser({
           id: customerId,
