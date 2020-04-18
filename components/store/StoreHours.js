@@ -68,7 +68,7 @@ export default function StoreHours({ hours }) {
       return hoursList(hoursPerDayDict);
     }
     console.log(
-      '[Storehours] parseHours: Issue parsing store hours. Hours were: ',
+      '[StoreHours] parseHours: Issue parsing store hours. Hours were: ',
       hours
     );
     return <Body>Store hours unavailable</Body>;
