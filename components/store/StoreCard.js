@@ -60,7 +60,7 @@ export default function StoreCard({
     });
   };
 
-  const storeOpenStatus = computeStoreOpen(store.storeHours);
+  const storeOpenStatus = computeStoreOpen(storeHours);
 
   return (
     <TouchableOpacity

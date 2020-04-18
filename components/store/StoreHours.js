@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
-import { daysOfTheWeekFull } from '../../constants/DaysOfTheWeek';
+import { daysOfTheWeekFull, today } from '../../constants/DaysOfTheWeek';
 import { constructHoursDict } from '../../lib/mapUtils';
 import { Body, TabSelected } from '../BaseComponents';
 
@@ -13,7 +13,6 @@ import { Body, TabSelected } from '../BaseComponents';
 export default function StoreHours({ hours }) {
   // e.g. hours = "8:30am-8:30pm Mon-Sat"
 
-  const today = new Date();
   const todaysDayIndex = today.getDay();
   const todaysDay = daysOfTheWeekFull[todaysDayIndex];
 
@@ -24,22 +23,26 @@ export default function StoreHours({ hours }) {
         <View style={{ width: '40%' }}>
           {daysOfTheWeekFull.map((day, _) => {
             if (day === todaysDay) {
-              return <TabSelected>{day}</TabSelected>;
+              return <TabSelected key={day}>{day}</TabSelected>;
             }
-            return <Body color={Colors.secondaryText}>{day}</Body>;
+            return (
+              <Body color={Colors.secondaryText} key={day}>
+                {day}
+              </Body>
+            );
           })}
         </View>
         <View style={{ width: '60%' }}>
           {daysOfTheWeekFull.map((day, _) => {
             if (day === todaysDay) {
               return (
-                <TabSelected>
+                <TabSelected key={day}>
                   {dictHours[day].replace('12am', 'Midnight')}
                 </TabSelected>
               );
             }
             return (
-              <Body color={Colors.secondaryText}>
+              <Body color={Colors.secondaryText} key={day}>
                 {dictHours[day].replace('12am', 'Midnight')}
               </Body>
             );

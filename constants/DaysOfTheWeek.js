@@ -9,3 +9,5 @@ export const daysOfTheWeek = {
 };
 export const daysOfTheWeekAbbrev = Object.keys(daysOfTheWeek);
 export const daysOfTheWeekFull = Object.values(daysOfTheWeek);
+
+export const today = new Date();
