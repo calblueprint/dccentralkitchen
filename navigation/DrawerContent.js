@@ -21,7 +21,7 @@ function DrawerContent(props) {
 
       const fetchUser = async () => {
         try {
-          const customerId = await AsyncStorage.getItem('userId');
+          const customerId = await AsyncStorage.getItem('customerId');
           let cust = null;
           if (customerId != null) {
             cust = await getCustomersById(customerId);

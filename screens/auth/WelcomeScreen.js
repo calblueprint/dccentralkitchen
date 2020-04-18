@@ -7,12 +7,12 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import RecordIds from '../../constants/RecordIds';
 import { WelcomeContainer } from '../../styled/auth';
 
 export default class WelcomeScreen extends React.Component {
   guestLogin = async () => {
-    // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('userId', 'recLKK7cZHboMPEB8');
+    await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
     this.props.navigation.navigate('App');
   };
 
@@ -51,7 +51,7 @@ export default class WelcomeScreen extends React.Component {
 
         <ButtonContainer
           style={{ marginTop: 12 }}
-          onPress={() => this.guestLogin()}>
+          onPress={async () => this.guestLogin()}>
           <ButtonLabel
             style={{ textTransform: 'none' }}
             color={Colors.primaryGreen}>

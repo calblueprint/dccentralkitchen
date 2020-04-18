@@ -43,8 +43,8 @@ export default class LogInScreen extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncLogIn = async userId => {
-    await AsyncStorage.setItem('userId', userId);
+  _asyncLogIn = async customerId => {
+    await AsyncStorage.setItem('customerId', customerId);
     this.props.navigation.navigate('App');
   };
 
