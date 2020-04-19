@@ -107,23 +107,42 @@ export const styles = StyleSheet.create({
   input: {
     fontFamily: 'poppins-regular',
   },
-  chip: {
+  tagChip: {
     backgroundColor: Colors.lightestGreen,
     color: Colors.darkerGreen,
     marginRight: 6,
-    marginBottom: 4,
     height: 18,
     marginVertical: 0,
   },
-  chipDesc: {
+  filterChip: {
+    backgroundColor: Colors.lightestOrange,
+    color: Colors.darkerOrange,
+    marginLeft: 6,
+    height: 24,
+    marginVertical: 10,
+  },
+  selectedFilterChip: {
+    backgroundColor: Colors.primaryOrange,
+    color: Colors.lightest,
+    marginLeft: 6,
+    height: 24,
+    marginVertical: 10,
+  },
+  tagChipDesc: {
     flex: 1,
     paddingBottom: 10,
     justifyContent: 'center',
   },
-  chipText: {
+  tagChipText: {
     minHeight: 16,
     marginVertical: 0,
     marginTop: 1,
+    lineHeight: 16,
+  },
+  filterChipText: {
+    minHeight: 20,
+    marginVertical: 0,
+    marginTop: 3,
     lineHeight: 16,
   },
 });

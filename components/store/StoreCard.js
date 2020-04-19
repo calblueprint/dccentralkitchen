@@ -100,8 +100,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>EBT</Caption>
               </Chip>
             )}
@@ -116,8 +116,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>WIC</Caption>
               </Chip>
             )}
@@ -131,8 +131,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
               </Chip>
             )}
@@ -147,8 +147,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
               </Chip>
             )}

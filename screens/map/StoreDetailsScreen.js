@@ -180,8 +180,8 @@ export default class StoreDetailsScreen extends React.Component {
                           style={{ marginTop: -1 }}
                         />
                       )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
+                      textStyle={styles.tagChipText}
+                      style={styles.tagChip}>
                       <Caption color={Colors.darkerGreen}>EBT</Caption>
                     </Chip>
                   )}
@@ -195,8 +195,8 @@ export default class StoreDetailsScreen extends React.Component {
                           style={{ marginTop: -1 }}
                         />
                       )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
+                      textStyle={styles.tagChipText}
+                      style={styles.tagChip}>
                       <Caption color={Colors.darkerGreen}>WIC</Caption>
                     </Chip>
                   )}
@@ -210,8 +210,8 @@ export default class StoreDetailsScreen extends React.Component {
                           style={{ marginTop: -1 }}
                         />
                       )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
+                      textStyle={styles.tagChipText}
+                      style={styles.tagChip}>
                       <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
                     </Chip>
                   )}
@@ -227,8 +227,8 @@ export default class StoreDetailsScreen extends React.Component {
                           style={{ marginTop: -1 }}
                         />
                       )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
+                      textStyle={styles.tagChipText}
+                      style={styles.tagChip}>
                       <Caption color={Colors.darkerGreen}>
                         Healthy Rewards
                       </Caption>
@@ -242,26 +242,26 @@ export default class StoreDetailsScreen extends React.Component {
                     maxWidth: '60%',
                   }}>
                   {snapOrEbtAccepted && (
-                    <View style={styles.chipDesc}>
+                    <View style={styles.tagChipDesc}>
                       <Body>Accepts SNAP/EBT</Body>
                     </View>
                   )}
                   {wic && (
-                    <View style={styles.chipDesc}>
+                    <View style={styles.tagChipDesc}>
                       <Body numberOfLines={1} ellipsizeMode="tail">
                         WIC approved
                       </Body>
                     </View>
                   )}
                   {couponProgramPartner && (
-                    <View style={styles.chipDesc}>
+                    <View style={styles.tagChipDesc}>
                       <Body numberOfLines={1} ellipsizeMode="tail">
                         Accepts SNAP Matching
                       </Body>
                     </View>
                   )}
                   {rewardsAccepted && (
-                    <View style={styles.chipDesc}>
+                    <View style={styles.tagChipDesc}>
                       <Body numberOfLines={1} ellipsizeMode="tail">
                         Accepts Healthy Rewards
                       </Body>
