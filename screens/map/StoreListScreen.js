@@ -1,11 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, ScrollView, View } from 'react-native';
 import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
+import { Chip } from 'react-native-paper';
 import {
   Body,
   ButtonLabel,
+  Caption,
   NavHeaderContainer,
   Title,
 } from '../../components/BaseComponents';
@@ -22,6 +24,14 @@ export default class StoreListScreen extends React.Component {
       allStores: stores,
       navigation,
       searchStr: '',
+      filters: {
+        openNow: false,
+        productsInStock: false,
+        ebt: false,
+        wic: false,
+        snapMatch: false,
+        healthyRewards: false,
+      },
       filteredStores: stores,
       showDefaultStore,
     };
@@ -94,6 +104,91 @@ export default class StoreListScreen extends React.Component {
             />
           </ColumnContainer>
         </NavHeaderContainer>
+        <ScrollView horizontal>
+          {/* Chips */}
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="clock"
+                solid
+                size={10}
+                color={Colors.darkerOrange}
+                style={{ marginTop: -1 }}
+              />
+            )}
+            textStyle={styles.chipText}
+            style={styles.chip}>
+            <Caption color={Colors.darkerOrange}>Open now</Caption>
+          </Chip>
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="shopping-basket"
+                size={10}
+                color={Colors.darkerOrange}
+                style={{ marginTop: -1 }}
+              />
+            )}
+            textStyle={styles.chipText}
+            style={styles.chip}>
+            <Caption color={Colors.darkerOrange}>Products in stock</Caption>
+          </Chip>
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="credit-card"
+                size={10}
+                color={Colors.darkerOrange}
+                style={{ marginTop: -1 }}
+              />
+            )}
+            textStyle={styles.chipText}
+            style={styles.chip}>
+            <Caption color={Colors.darkerOrange}>EBT</Caption>
+          </Chip>
+
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="heart"
+                size={10}
+                color={Colors.darkerOrange}
+                style={{ marginTop: -1 }}
+              />
+            )}
+            textStyle={styles.chipText}
+            style={styles.chip}>
+            <Caption color={Colors.darkerOrange}>WIC</Caption>
+          </Chip>
+
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="carrot"
+                size={10}
+                color={Colors.darkerOrange}
+                style={{ marginTop: -1 }}
+              />
+            )}
+            textStyle={styles.chipText}
+            style={styles.chip}>
+            <Caption color={Colors.darkerOrange}>SNAP Match</Caption>
+          </Chip>
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="star"
+                solid
+                size={10}
+                color={Colors.darkerOrange}
+                style={{ marginTop: -1 }}
+              />
+            )}
+            textStyle={styles.chipText}
+            style={styles.chip}>
+            <Caption color={Colors.darkerOrange}>Healthy Rewards</Caption>
+          </Chip>
+        </ScrollView>
         <FlatList
           data={this.state.filteredStores}
           renderItem={({ item }) => (

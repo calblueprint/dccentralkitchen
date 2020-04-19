@@ -139,8 +139,8 @@ export default class SignUpScreen extends React.Component {
 
       Analytics.setUserId(customerId);
       Analytics.setUserProperties({
-        name: name,
-        phoneNumber: phoneNumber,
+        name,
+        phoneNumber,
       });
       Sentry.configureScope(scope => {
         scope.setUser({
