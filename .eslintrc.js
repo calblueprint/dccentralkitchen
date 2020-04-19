@@ -50,5 +50,6 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/forbid-prop-types': ['on', { forbid: ['any'] }],
     'react/jsx-closing-bracket-location': 'off',
+    'react/jsx-wrap-multilines': 'off',
   },
 };
