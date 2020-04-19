@@ -5,9 +5,7 @@ import React from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
-import { formatPhoneNumber } from '../../lib/authUtils';
 import {
-  computeStoreOpen,
   getMaxWidth,
   openDirections,
   writeToClipboard,
@@ -32,7 +30,7 @@ import { Caption, Title } from '../BaseComponents';
 export default function StoreCard({ store, storeList, seeDistance }) {
   const {
     storeName,
-    storeHours,
+    storeOpenStatus,
     phoneNumber,
     address,
     distance,
@@ -45,8 +43,6 @@ export default function StoreCard({ store, storeList, seeDistance }) {
   } = store;
 
   const navigation = useNavigation();
-
-  const storeOpenStatus = computeStoreOpen(storeHours);
 
   return (
     <TouchableOpacity
@@ -186,9 +182,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             color={Colors.secondaryText}
           />
           <StoreDetailText>
-            {phoneNumber
-              ? formatPhoneNumber(phoneNumber)
-              : 'Phone number unavailable'}
+            {phoneNumber || 'Phone number unavailable'}
           </StoreDetailText>
         </InLineContainer>
         <InLineContainer style={{ alignItems: 'center' }}>
@@ -214,13 +208,11 @@ export default function StoreCard({ store, storeList, seeDistance }) {
 
 StoreCard.propTypes = {
   store: PropTypes.object,
-  callBack: PropTypes.func,
   storeList: PropTypes.bool,
   seeDistance: PropTypes.bool.isRequired,
 };
 
 StoreCard.defaultProps = {
   store: null,
-  callBack: null,
   storeList: false,
 };
