@@ -34,7 +34,7 @@ function AuthTextField({
         error={error}
         errorColor={Colors.error}
         returnKeyType="done"
-        keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
+        keyboardType={fieldType === 'Phone Number' ? 'numeric' : undefined}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
         labelPadding={6}
