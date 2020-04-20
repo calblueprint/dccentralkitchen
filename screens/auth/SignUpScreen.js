@@ -7,31 +7,20 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard, Modal } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  BigTitle,
-  ButtonLabel,
-  FilledButtonContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { firebaseConfig } from '../../firebase';
-import {
-  createCustomers,
-  createPushTokens,
-  getCustomersByPhoneNumber,
-} from '../../lib/airtable/request';
+import { createCustomers, createPushTokens, getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import {
-  AuthScreenContainer,
-  BackButton,
-  FormContainer,
-} from '../../styled/auth';
+import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
 import validate from './validation';
+import VerificationScreen from './VerificationScreen';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -240,13 +229,7 @@ export default class SignUpScreen extends React.Component {
       this.setModalVisible(false);
       this.completeSignUp();
     } catch (err) {
-      this.setState(prevState => ({
-        errors: {
-          ...prevState.errors,
-          [signUpFields.CODE]: 'Incorrect Code.',
-        },
-        processing: false,
-      }));
+      console.log(err);
     }
   };
 
@@ -275,10 +258,6 @@ export default class SignUpScreen extends React.Component {
       case signUpFields.NAME:
         error = !text.replace(/\s/g, '').length;
         if (error) errorMsg = 'Name cannot be blank';
-        break;
-      case signUpFields.CODE:
-        errorMsg = validate('code', text);
-        error = errorMsg !== null;
         break;
       default:
         console.log('Not reached');
@@ -328,47 +307,11 @@ export default class SignUpScreen extends React.Component {
       !errors[signUpFields.PHONENUM] &&
       !errors[signUpFields.PASSWORD];
 
-    const signUpPermission = fieldsFilled && noErrors && !processing;
+    const signUpPermission = fieldsFilled && noErrors;
 
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Modal
-          animationType={'slide'}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
-          <AuthScreenContainer>
-            <BackButton
-              onPress={() => this.setModalVisible(!this.state.modalVisible)}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <BigTitle>Verify your number.</BigTitle>
-            <FormContainer>
-              <AuthTextField
-                fieldType="Verification"
-                value={this.state.values[signUpFields.CODE]}
-                onBlurCallback={value =>
-                  this.updateError(value, signUpFields.CODE)
-                }
-                changeTextCallback={async text =>
-                  this.onTextChange(text, signUpFields.CODE)
-                }
-                error={this.state.errors[signUpFields.CODE]}
-              />
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 24, alignSelf: 'flex-end' }}
-              color={Colors.primaryGreen}
-              width="100%"
-              onPress={() =>
-                this.verifyCode(this.state.values[signUpFields.CODE])
-              }>
-              <ButtonLabel color={Colors.lightest}>Verify</ButtonLabel>
-            </FilledButtonContainer>
-          </AuthScreenContainer>
-        </Modal>
+        {this.state.modalVisible && <VerificationScreen visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha}></VerificationScreen>}
 
         <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}

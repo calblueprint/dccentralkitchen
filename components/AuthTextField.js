@@ -34,7 +34,7 @@ function AuthTextField({
         error={error}
         errorColor={Colors.error}
         returnKeyType="done"
-        keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
+        keyboardType={fieldType === 'Phone Number' || fieldType === 'Verification Code' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
         labelPadding={6}
@@ -45,9 +45,9 @@ function AuthTextField({
           Note: this is how clerks will greet you!
         </Caption>
       )}
-      {fieldType === 'Verification' && !error && (
+      {fieldType === 'Verification Code' && !error && (
         <Caption color={Colors.activeText}>
-          A code has been sent to your phone number.
+          Enter the code sent to your phone number.
         </Caption>
       )}
     </TextFieldContainer>

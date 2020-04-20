@@ -1,21 +1,9 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  AsyncStorage,
-  Dimensions,
-  Image,
-  ScrollView,
-  View,
-} from 'react-native';
+import { AsyncStorage, Dimensions, Image, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import {
-  BigTitle,
-  ButtonLabel,
-  FilledButtonContainer,
-  NavButton,
-  NavHeaderContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonLabel, FilledButtonContainer, NavButton, NavHeaderContainer } from '../../components/BaseComponents';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
@@ -58,7 +46,7 @@ export default class RewardsScreen extends React.Component {
   }
 
   _logout = async () => {
-    this.props.navigation.goBack();
+    //this.props.navigation.goBack();
     AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };

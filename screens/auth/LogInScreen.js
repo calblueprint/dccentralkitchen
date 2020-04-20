@@ -8,24 +8,12 @@ import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  BigTitle,
-  ButtonLabel,
-  Caption,
-  FilledButtonContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonContainer, ButtonLabel, Caption, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getAllCustomers } from '../../lib/airtable/request';
-import {
-  formatPhoneNumber,
-  updateCustomerPushTokens,
-} from '../../lib/authUtils';
+import { formatPhoneNumber, updateCustomerPushTokens } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import {
-  AuthScreenContainer,
-  BackButton,
-  FormContainer,
-} from '../../styled/auth';
+import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class LogInScreen extends React.Component {
@@ -40,7 +28,7 @@ export default class LogInScreen extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
@@ -191,13 +179,15 @@ export default class LogInScreen extends React.Component {
             <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
           </FilledButtonContainer>
 
-          {/* TODO @tommypoa: Forgot password functionality
-
-          <ForgotPasswordButtonContainer>
-            <ButtonContainer>
-              <Body color={Colors.primaryGreen}>Forgot password?</Body>
-            </ButtonContainer>
-          </ForgotPasswordButtonContainer> */}
+          <ButtonContainer
+            style={{ marginTop: 12 }}
+            onPress={async () => this.props.navigation.navigate('Reset')}>
+            <ButtonLabel
+              style={{ textTransform: 'none' }}
+              color={Colors.primaryGreen}>
+              Forgot Password?
+          </ButtonLabel>
+          </ButtonContainer>
         </JustifyCenterContainer>
       </AuthScreenContainer>
     );
