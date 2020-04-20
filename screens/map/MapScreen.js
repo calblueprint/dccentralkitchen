@@ -26,7 +26,7 @@ import {
 
 const minSnapPoint = 160;
 const midSnapPoint = 325;
-const maxSnapPoint = 460;
+const maxSnapPoint = 488;
 
 const deltas = {
   latitudeDelta: 0.01,
