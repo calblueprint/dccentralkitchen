@@ -86,7 +86,7 @@ export default class LogInScreen extends React.Component {
       );
       // Returns empty array if no customer is found
       if (customers.length === 1) {
-        customer = customers[0];
+        [customer] = customers;
         // If customer exists, we should update their push tokens
         await updateCustomerPushTokens(customer, token);
         // Log in
@@ -114,7 +114,7 @@ export default class LogInScreen extends React.Component {
         Analytics.setUserId(customer.id);
         Analytics.setUserProperties({
           name: customer.name,
-          phoneNumber: phoneNumber,
+          phoneNumber,
         });
         Sentry.configureScope(scope => {
           scope.setUser({

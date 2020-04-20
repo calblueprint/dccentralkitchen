@@ -54,10 +54,10 @@ export default class ProductsScreen extends React.Component {
             ListHeaderComponent={
               <ColumnContainer style={{ marginBottom: 20 }}>
                 <Title color={Colors.activeText}>
-                  Products ({products.length})
+                  {`Products ${products.length}`}
                 </Title>
                 <Subhead color={Colors.activeText}>
-                  Delivered in the last {deliveryFrequency} days
+                  {`Delivered in the last ${deliveryFrequency} days`}
                 </Subhead>
               </ColumnContainer>
             }
