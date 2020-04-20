@@ -216,7 +216,7 @@ export default class MapScreen extends React.Component {
 
     // Animate to new store region
     const region = {
-      latitude: store.latitude,
+      latitude: store.latitude - deltas.latitudeDelta / 3.5,
       longitude: store.longitude,
       ...deltas,
     };
@@ -273,12 +273,14 @@ export default class MapScreen extends React.Component {
             </Subhead>
           </SearchBar>
         </NavHeaderContainer>
-        <CenterLocation
-          callBack={async () => {
-            await this._findCurrentLocation();
-            await this._orderStoresByDistance(this.state.stores);
-          }}
-        />
+        {!this.state.showDefaultStore && (
+          <CenterLocation
+            callBack={async () => {
+              await this._findCurrentLocation();
+              await this._orderStoresByDistance(this.state.stores);
+            }}
+          />
+        )}
         {/* Display Map */}
         <MapView
           style={{
@@ -302,7 +304,9 @@ export default class MapScreen extends React.Component {
               }}
               onPress={() => this.changeCurrentStore(store)}>
               <StoreMarker
-                storeName={store.storeName}
+                storeName={
+                  this.state.region.longitudeDelta < 0.07 ? store.storeName : ''
+                }
                 focused={store.focused}
               />
             </Marker>
