@@ -2,9 +2,17 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
-import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
+import { SearchBar } from 'react-native-elements';
+// @tommypoa: Create styled-component for this
 import { Chip } from 'react-native-paper';
-import { Body, ButtonLabel, Caption, NavHeaderContainer, Title } from '../../components/BaseComponents';
+
+import {
+  Body,
+  ButtonLabel,
+  Caption,
+  NavHeaderContainer,
+  Title,
+} from '../../components/BaseComponents';
 import StoreCard from '../../components/store/StoreCard';
 import Colors from '../../constants/Colors';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
@@ -107,11 +115,15 @@ export default class StoreListScreen extends React.Component {
                 />
               }
               inputStyle={styles.input}
+              // eslint-disable-next-line no-return-assign
               ref={search => (this.search = search)}
             />
           </ColumnContainer>
         </NavHeaderContainer>
-        <ScrollView horizontal style={{ height: 52 }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ height: 52 }}>
           {/* Filter Chips */}
           <Chip
             icon={() => (
@@ -254,7 +266,9 @@ export default class StoreListScreen extends React.Component {
                 solid
                 size={10}
                 color={
-                  filters.rewardsAccepted ? Colors.lightest : Colors.darkerOrange
+                  filters.rewardsAccepted
+                    ? Colors.lightest
+                    : Colors.darkerOrange
                 }
                 style={{ marginTop: 0 }}
               />

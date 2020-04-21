@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+
 import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
@@ -110,22 +111,23 @@ export const styles = StyleSheet.create({
   tagChip: {
     backgroundColor: Colors.lightestGreen,
     color: Colors.darkerGreen,
-    marginRight: 6,
     height: 18,
     marginVertical: 0,
+    marginRight: 6,
+    marginBottom: 4,
   },
   filterChip: {
     backgroundColor: Colors.lightestOrange,
     color: Colors.darkerOrange,
-    marginLeft: 6,
     height: 24,
+    marginLeft: 6,
     marginVertical: 10,
   },
   selectedFilterChip: {
     backgroundColor: Colors.primaryOrange,
     color: Colors.lightest,
-    marginLeft: 6,
     height: 24,
+    marginLeft: 6,
     marginVertical: 10,
   },
   tagChipDesc: {
