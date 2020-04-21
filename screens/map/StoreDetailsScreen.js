@@ -73,10 +73,10 @@ export default class StoreDetailsScreen extends React.Component {
                 <TouchableOpacity onLongPress={() => writeToClipboard(address)}>
                   <Body>{address}</Body>
                 </TouchableOpacity>
-                <Body>Ward {ward}</Body>
+                <Body>{`Ward ${ward}`}</Body>
                 <View style={{ flex: 1, marginBottom: 10 }}>
                   <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
-                    {distance} miles away · distance may vary by transportation
+                    {`${distance} miles away · distance may vary by transportation`}
                   </Caption>
                 </View>
                 <TouchableOpacity

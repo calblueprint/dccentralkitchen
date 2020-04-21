@@ -88,7 +88,7 @@ export default class SignUpScreen extends React.Component {
 
   // Sign up function. It sets the user token in local storage
   // to be the fname + lname and then navigates to homescreen.
-  _asyncSignUp = async customerId => {
+  _asyncSignUp = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     this.props.navigation.navigate('App');
   };
@@ -139,10 +139,10 @@ export default class SignUpScreen extends React.Component {
 
       Analytics.setUserId(customerId);
       Analytics.setUserProperties({
-        name: name,
-        phoneNumber: phoneNumber,
+        name,
+        phoneNumber,
       });
-      Sentry.configureScope(scope => {
+      Sentry.configureScope((scope) => {
         scope.setUser({
           id: customerId,
           username: name,
@@ -178,7 +178,7 @@ export default class SignUpScreen extends React.Component {
           attemptedPass: null,
           error: errorMsg,
         });
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
             [signUpFields.PHONENUM]: errorMsg,
@@ -229,7 +229,7 @@ export default class SignUpScreen extends React.Component {
         console.log('Not reached');
     }
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       errors: { ...prevState.errors, [signUpField]: errorMsg },
       values: { ...prevState.values, [signUpField]: text },
     }));
@@ -238,7 +238,7 @@ export default class SignUpScreen extends React.Component {
   };
 
   // onBlur callback is required in case customer taps on field, does nothing, and taps out
-  onBlur = async signUpField => {
+  onBlur = async (signUpField) => {
     await this.updateError(signUpField);
   };
 
@@ -253,7 +253,7 @@ export default class SignUpScreen extends React.Component {
     ) {
       await this.updateError(text, signUpField);
     } else {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         values: { ...prevState.values, [signUpField]: text },
       }));
     }
@@ -286,10 +286,10 @@ export default class SignUpScreen extends React.Component {
             <AuthTextField
               fieldType="Name"
               value={this.state.values[signUpFields.NAME]}
-              onBlurCallback={value =>
+              onBlurCallback={(value) =>
                 this.updateError(value, signUpFields.NAME)
               }
-              changeTextCallback={async text =>
+              changeTextCallback={async (text) =>
                 this.onTextChange(text, signUpFields.NAME)
               }
               error={this.state.errors[signUpFields.NAME]}
@@ -298,10 +298,10 @@ export default class SignUpScreen extends React.Component {
             <AuthTextField
               fieldType="Phone Number"
               value={this.state.values[signUpFields.PHONENUM]}
-              onBlurCallback={value =>
+              onBlurCallback={(value) =>
                 this.updateError(value, signUpFields.PHONENUM)
               }
-              changeTextCallback={text =>
+              changeTextCallback={(text) =>
                 this.onTextChange(text, signUpFields.PHONENUM)
               }
               error={this.state.errors[signUpFields.PHONENUM]}
@@ -310,10 +310,10 @@ export default class SignUpScreen extends React.Component {
             <AuthTextField
               fieldType="Password"
               value={this.state.values[signUpFields.PASSWORD]}
-              onBlurCallback={value =>
+              onBlurCallback={(value) =>
                 this.updateError(value, signUpFields.PASSWORD)
               }
-              changeTextCallback={text =>
+              changeTextCallback={(text) =>
                 this.onTextChange(text, signUpFields.PASSWORD)
               }
               error={this.state.errors[signUpFields.PASSWORD]}

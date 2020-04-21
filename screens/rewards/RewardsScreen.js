@@ -36,7 +36,9 @@ export default class RewardsScreen extends React.Component {
     this.state = {
       customer: null,
       transactions: [],
+      // eslint-disable-next-line react/no-unused-state
       index: tab,
+      // eslint-disable-next-line react/no-unused-state
       routes,
       isLoading: true,
       isGuest: false,
@@ -74,12 +76,13 @@ export default class RewardsScreen extends React.Component {
     }
   };
 
-  renderTabBar = props => {
+  renderTabBar = (props) => {
     return (
       <TabBar
         style={styles.tabBar}
         labelStyle={styles.tabBarLabel}
         tabStyle={{ width: 'auto' }}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         indicatorStyle={styles.tabBarIndicator}
       />
@@ -160,7 +163,8 @@ export default class RewardsScreen extends React.Component {
           navigationState={this.state}
           renderScene={this.renderScene}
           renderTabBar={this.renderTabBar}
-          onIndexChange={index => this.setState({ index })}
+          // eslint-disable-next-line react/no-unused-state
+          onIndexChange={(index) => this.setState({ index })}
           initialLayout={{
             width: Dimensions.get('window').width,
             height: Dimensions.get('window').height,
@@ -174,7 +178,7 @@ export default class RewardsScreen extends React.Component {
 
 RewardsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  tab: PropTypes.any,
+  tab: PropTypes.number,
 };
 
 RewardsScreen.defaultProps = {

@@ -47,7 +47,7 @@ export default class ProductsScreen extends React.Component {
                 productsScreen
               />
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
             ItemSeparatorComponent={() => (
               <View style={{ width: 20, height: 20 }} />
             )}

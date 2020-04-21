@@ -5,7 +5,13 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  AsyncStorage,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
@@ -57,6 +63,7 @@ export default class MapScreen extends React.Component {
 
   async componentDidMount() {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
+    AsyncStorage.clear();
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
   }
@@ -120,7 +127,7 @@ export default class MapScreen extends React.Component {
     }
   };
 
-  _populateStoreProducts = async store => {
+  _populateStoreProducts = async (store) => {
     try {
       const products = await getProductData(store);
       if (products) {
@@ -134,12 +141,12 @@ export default class MapScreen extends React.Component {
   // Calculate distances and sort by closest to location
   // _findCurrentLocation populates this.state.region with the correct lat/lon
   // Since it's initially set to a default value, we use that instead of this.state.location
-  _orderStoresByDistance = async stores => {
+  _orderStoresByDistance = async (stores) => {
     const sortedStores = [];
     const latlng = this.state.region;
 
     // We need distance to display in the StoreList
-    stores.forEach(store => {
+    stores.forEach((store) => {
       const currStore = store;
       const distanceMeters = getDistance(latlng, store);
       // Convert distance to 'x.xx' form, in miles units
@@ -151,7 +158,7 @@ export default class MapScreen extends React.Component {
       return a.distance - b.distance;
     });
 
-    const defaultStore = stores.find(store => {
+    const defaultStore = stores.find((store) => {
       return store.id === RecordIds.defaultStoreId;
     });
 
@@ -162,7 +169,7 @@ export default class MapScreen extends React.Component {
     };
 
     // Condition for showDefaultStore requires prevState, so a little messy
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       stores: sortedStores,
       store:
         prevState.locationErrorMsg || sortedStores[0].distance > 100
@@ -202,7 +209,7 @@ export default class MapScreen extends React.Component {
     );
   };
 
-  onRegionChangeComplete = region => {
+  onRegionChangeComplete = (region) => {
     this.setState({ region });
   };
 
@@ -287,13 +294,13 @@ export default class MapScreen extends React.Component {
             overflow: 'visible',
             zIndex: -1,
           }}
-          ref={mapView => {
+          ref={(mapView) => {
             this._map = mapView;
           }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display store markers */}
-          {this.state.stores.map(store => (
+          {this.state.stores.map((store) => (
             <Marker
               key={store.id}
               coordinate={{
@@ -330,7 +337,7 @@ export default class MapScreen extends React.Component {
             snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
-            ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
+            ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
         <TouchableOpacity

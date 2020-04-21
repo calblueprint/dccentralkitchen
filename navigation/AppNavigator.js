@@ -12,7 +12,7 @@ import StoresStackNavigator from './stack_navigators/StoresStack';
 
 const Drawer = createDrawerNavigator();
 
-const getActiveRouteName = state => {
+const getActiveRouteName = (state) => {
   const route = state.routes[state.index];
 
   if (route.state) {
@@ -26,7 +26,8 @@ const getActiveRouteName = state => {
 function DrawerNavigator() {
   return (
     <Drawer.Navigator
-      drawerContent={props => <DrawerContent {...props} />}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      drawerContent={(props) => <DrawerContent {...props} />}
       drawerStyle={{ width: 189 }}
       drawerContentOptions={{
         labelStyle: {
@@ -73,7 +74,7 @@ export default function createAppContainer() {
   return (
     <NavigationContainer
       ref={navigationRef}
-      onStateChange={state => {
+      onStateChange={(state) => {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = getActiveRouteName(state);
         if (previousRouteName !== currentRouteName) {

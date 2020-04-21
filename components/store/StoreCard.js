@@ -214,13 +214,11 @@ export default function StoreCard({ store, storeList, seeDistance }) {
 
 StoreCard.propTypes = {
   store: PropTypes.object,
-  callBack: PropTypes.func,
   storeList: PropTypes.bool,
   seeDistance: PropTypes.bool.isRequired,
 };
 
 StoreCard.defaultProps = {
   store: null,
-  callBack: null,
   storeList: false,
 };

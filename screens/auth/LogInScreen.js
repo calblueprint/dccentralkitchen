@@ -44,7 +44,7 @@ export default class LogInScreen extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncLogIn = async customerId => {
+  _asyncLogIn = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     this.props.navigation.navigate('App');
   };
@@ -116,7 +116,7 @@ export default class LogInScreen extends React.Component {
           name: customer.name,
           phoneNumber,
         });
-        Sentry.configureScope(scope => {
+        Sentry.configureScope((scope) => {
           scope.setUser({
             id: customer.id,
             phoneNumber: formattedPhoneNumber,
@@ -158,7 +158,7 @@ export default class LogInScreen extends React.Component {
           <AuthTextField
             fieldType="Phone Number"
             value={this.state.phoneNumber}
-            changeTextCallback={async text => {
+            changeTextCallback={async (text) => {
               this.setState({ phoneNumber: text, error: '' });
             }}
             // Display error indicator ('no text') only when login fails
@@ -167,7 +167,7 @@ export default class LogInScreen extends React.Component {
           <AuthTextField
             fieldType="Password"
             value={this.state.password}
-            changeTextCallback={async text => {
+            changeTextCallback={async (text) => {
               this.setState({ password: text, error: '' });
             }}
             // Display error indicator ('no text') only when login fails

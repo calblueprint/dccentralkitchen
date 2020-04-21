@@ -55,7 +55,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               productsScreen={false}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           ListEmptyComponent={
             <View
               style={{

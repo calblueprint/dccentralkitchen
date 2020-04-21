@@ -42,8 +42,9 @@ module.exports = {
     'no-this-before-super': 'warn',
     'no-undef': 'warn',
     'no-unreachable': 'warn',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'constructor-super': 'warn',
+    'global-require': 'off',
     'valid-typeof': 'warn',
     'prettier/prettier': ['warn'],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
@@ -52,5 +53,6 @@ module.exports = {
     'react/jsx-closing-bracket-location': 'off',
     'react/jsx-curly-newline': 'off',
     'react/jsx-wrap-multilines': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };

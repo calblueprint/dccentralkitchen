@@ -33,7 +33,7 @@ function PointsHistory({ transactions }) {
             rewardsApplied={item.rewardsApplied}
           />
         )}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <View
             style={{
