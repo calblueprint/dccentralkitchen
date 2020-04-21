@@ -20,9 +20,8 @@ function ProductInfo({ product }) {
         <Body>{`Points Earned: ${points}`}</Body>
       </SpaceBetweenRowContainer>
       <Caption color={Colors.secondaryText}>
-        Note: Not all products listed are available at every store. Please
-        contact or visit individual stores to ask which products are available
-        in real time.
+        Note: Pricing and availability may vary. Please contact or visit this
+        store to confirm.
       </Caption>
     </ProductInfoContainer>
   );
