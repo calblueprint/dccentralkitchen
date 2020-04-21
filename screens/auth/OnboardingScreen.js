@@ -9,11 +9,12 @@ import {
   Title,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import {
   ONBOARDING_CONTENT,
   ONBOARDING_IMAGES,
 } from '../../constants/Onboarding';
-import { OnboardingContainer } from '../../styled/auth';
+import { OnboardingContainer, styles } from '../../styled/auth';
 import {
   JustifyCenterContainer,
   SpaceBetweenRowContainer,
@@ -36,16 +37,8 @@ export default class OnboardingScreen extends React.Component {
         dotsLength={ONBOARDING_CONTENT.length}
         activeDotIndex={this.state.pageIndex}
         containerStyle={{ backgroundColor: Colors.lightest, marginTop: 20 }}
-        dotStyle={{
-          width: 8,
-          height: 8,
-          borderRadius: 5,
-          marginHorizontal: 1,
-          backgroundColor: Colors.primaryGreen,
-        }}
-        inactiveDotStyle={{
-          backgroundColor: Colors.base,
-        }}
+        dotStyle={styles.dotStyle}
+        inactiveDotStyle={{ backgroundColor: Colors.base }}
         inactiveDotOpacity={1}
         inactiveDotScale={1}
       />
@@ -85,13 +78,13 @@ export default class OnboardingScreen extends React.Component {
     }
     return (
       <OnboardingContainer>
-        {/* Display sliding content */}
+        {/* Display sliding content: 80 = 2 * 40px for marginWidth */}
         <Carousel
           data={ONBOARDING_CONTENT}
           renderItem={this._renderItem}
           onSnapToItem={index => this.setState({ pageIndex: index })}
-          sliderWidth={300}
-          itemWidth={300}
+          sliderWidth={Window.width - 80}
+          itemWidth={Window.width - 80}
         />
 
         {/* Display pagination dots */}

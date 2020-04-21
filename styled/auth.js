@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { NavButton } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -14,7 +15,6 @@ export const AuthScreenContainer = styled(ColumnContainer)`
 `;
 
 // OnboardingScreen
-// TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
 export const OnboardingContainer = styled.View`
   display: flex;
   justify-content: center;
@@ -71,3 +71,14 @@ export const BackButton = styled(NavButton)`
   left: -8px;
   margin-bottom: 8px;
 `;
+
+// OnboardingScreen pagination styles
+export const styles = StyleSheet.create({
+  dotStyle: {
+    width: 8,
+    height: 8,
+    borderRadius: 5,
+    marginHorizontal: 1,
+    backgroundColor: Colors.primaryGreen,
+  },
+});
