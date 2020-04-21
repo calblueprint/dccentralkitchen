@@ -42,7 +42,7 @@ module.exports = {
     'no-this-before-super': 'warn',
     'no-undef': 'warn',
     'no-unreachable': 'warn',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'constructor-super': 'warn',
     'valid-typeof': 'warn',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
@@ -50,5 +50,6 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/forbid-prop-types': ['on', { forbid: ['any'] }],
     'react/jsx-closing-bracket-location': 'off',
+    'react/jsx-wrap-multilines': 'off',
   },
 };
