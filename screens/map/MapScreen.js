@@ -24,7 +24,7 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const minSnapPoint = 160;
+const minSnapPoint = 185;
 const midSnapPoint = 325;
 const maxSnapPoint = 488;
 
