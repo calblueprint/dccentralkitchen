@@ -121,13 +121,15 @@ export default class MapScreen extends React.Component {
   };
 
   _populateStoreProducts = async store => {
-    try {
-      const products = await getProductData(store);
-      if (products) {
-        this.setState({ storeProducts: products });
+    if (store) {
+      try {
+        const products = await getProductData(store);
+        if (products) {
+          this.setState({ storeProducts: products });
+        }
+      } catch (err) {
+        console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
       }
-    } catch (err) {
-      console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
     }
   };
 
