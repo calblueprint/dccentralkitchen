@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, KeyboardAvoidingView } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import { BigTitle, ButtonContainer, ButtonLabel, Caption, FilledButtonContainer } from '../../components/BaseComponents';
@@ -137,59 +137,59 @@ export default class LogInScreen extends React.Component {
       this.state.error === '';
 
     return (
-      <AuthScreenContainer>
-        <BackButton onPress={() => this.props.navigation.goBack(null)}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </BackButton>
-        <BigTitle>Log In</BigTitle>
-        <FormContainer>
-          <AuthTextField
-            fieldType="Phone Number"
-            value={this.state.phoneNumber}
-            changeTextCallback={async text => {
-              this.setState({ phoneNumber: text, error: '' });
-            }}
-            // Display error indicator ('no text') only when login fails
-            error={this.state.error ? ' ' : ''}
-          />
-          <AuthTextField
-            fieldType="Password"
-            value={this.state.password}
-            changeTextCallback={async text => {
-              this.setState({ password: text, error: '' });
-            }}
-            // Display error indicator ('no text') only when login fails
-            error={this.state.error ? ' ' : ''}
-          />
-          <Caption
-            style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}>
-            {this.state.error}
-          </Caption>
-        </FormContainer>
-        <JustifyCenterContainer>
-          <FilledButtonContainer
-            style={{ marginTop: 104 }}
-            color={
-              !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
-            }
-            width="100%"
-            onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}>
-            <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
-          </FilledButtonContainer>
+      <KeyboardAvoidingView behavior="padding">
+        <AuthScreenContainer>
+          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
+          <BigTitle>Log In</BigTitle>
+          <FormContainer>
+            <AuthTextField
+              fieldType="Phone Number"
+              value={this.state.phoneNumber}
+              changeTextCallback={async text => {
+                this.setState({ phoneNumber: text, error: '' });
+              }}
+              // Display error indicator ('no text') only when login fails
+              error={this.state.error ? ' ' : ''}
+            />
+            <AuthTextField
+              fieldType="Password"
+              value={this.state.password}
+              changeTextCallback={async text => {
+                this.setState({ password: text, error: '' });
+              }}
+              // Display error indicator ('no text') only when login fails
+              error={this.state.error ? ' ' : ''}
+            />
+            <Caption
+              style={{ alignSelf: 'center', fontSize: 14 }}
+              color={Colors.error}>
+              {this.state.error}
+            </Caption>
+          </FormContainer>
+          <JustifyCenterContainer>
+            <FilledButtonContainer
+              color={
+                !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
+              }
+              width="100%"
+              onPress={() => this.handleSubmit()}
+              disabled={!logInPermission}>
+              <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
+            </FilledButtonContainer>
 
-          <ButtonContainer
-            style={{ marginTop: 12 }}
-            onPress={async () => this.props.navigation.navigate('Reset')}>
-            <ButtonLabel
-              style={{ textTransform: 'none' }}
-              color={Colors.primaryGreen}>
-              Forgot Password?
+            <ButtonContainer
+              onPress={async () => this.props.navigation.navigate('Reset')}>
+              <ButtonLabel
+                style={{ textTransform: 'none' }}
+                color={Colors.primaryGreen}>
+                Forgot Password?
           </ButtonLabel>
-          </ButtonContainer>
-        </JustifyCenterContainer>
-      </AuthScreenContainer>
+            </ButtonContainer>
+          </JustifyCenterContainer>
+        </AuthScreenContainer>
+      </KeyboardAvoidingView>
     );
   }
 }

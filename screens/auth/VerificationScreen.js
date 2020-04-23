@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Modal } from 'react-native';
+import { KeyboardAvoidingView, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AuthTextField from '../../components/AuthTextField';
 import { BigTitle, ButtonContainer, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
@@ -70,44 +70,46 @@ export default class VerificationScreen extends React.Component {
                 onRequestClose={() => {
                     alert('Modal has been closed.');
                 }}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <AuthScreenContainer>
-                        <BackButton onPress={() => this.setModalVisible(false)}>
-                            <FontAwesome5 name="arrow-left" solid size={24} />
-                        </BackButton>
-                        <BigTitle>Verify number</BigTitle>
-                        <FormContainer>
-                            <AuthTextField
-                                fieldType="Verification Code"
-                                value={this.state.values[signUpFields.CODE]}
-                                onBlurCallback={value =>
-                                    this.updateError(value, signUpFields.CODE)
-                                }
-                                changeTextCallback={async text =>
-                                    this.onTextChange(text, signUpFields.CODE)
-                                }
-                                error={this.state.errors[signUpFields.CODE]}
-                            />
-                            <ButtonContainer
-                                onPress={async () => this.props.resend()}>
-                                <ButtonLabel
-                                    style={{ textTransform: 'none' }}
-                                    color={Colors.primaryGreen}>
-                                    Resend code
+                <KeyboardAvoidingView>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <AuthScreenContainer>
+                            <BackButton onPress={() => this.setModalVisible(false)}>
+                                <FontAwesome5 name="arrow-left" solid size={24} />
+                            </BackButton>
+                            <BigTitle>Verify number</BigTitle>
+                            <FormContainer>
+                                <AuthTextField
+                                    fieldType="Verification Code"
+                                    value={this.state.values[signUpFields.CODE]}
+                                    onBlurCallback={value =>
+                                        this.updateError(value, signUpFields.CODE)
+                                    }
+                                    changeTextCallback={async text =>
+                                        this.onTextChange(text, signUpFields.CODE)
+                                    }
+                                    error={this.state.errors[signUpFields.CODE]}
+                                />
+                                <ButtonContainer
+                                    onPress={async () => this.props.resend()}>
+                                    <ButtonLabel
+                                        style={{ textTransform: 'none' }}
+                                        color={Colors.primaryGreen}>
+                                        Resend code
                             </ButtonLabel>
-                            </ButtonContainer>
-                        </FormContainer>
-                        <FilledButtonContainer
-                            style={{ marginTop: 144, alignSelf: 'flex-end' }}
-                            color={Colors.primaryGreen}
-                            width="100%"
-                            onPress={() =>
-                                this.props.verifyCode(this.state.values[signUpFields.CODE])
-                            }>
-                            <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
-                        </FilledButtonContainer>
-                    </AuthScreenContainer>
-                </ScrollView>
+                                </ButtonContainer>
+                            </FormContainer>
+                            <FilledButtonContainer
+                                style={{ marginTop: 144, alignSelf: 'flex-end' }}
+                                color={Colors.primaryGreen}
+                                width="100%"
+                                onPress={() =>
+                                    this.props.verifyCode(this.state.values[signUpFields.CODE])
+                                }>
+                                <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
+                            </FilledButtonContainer>
+                        </AuthScreenContainer>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </Modal>
         );
     }
