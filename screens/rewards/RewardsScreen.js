@@ -21,6 +21,8 @@ import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
+import { logErrorToSentry } from '../../lib/logUtils';
+import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
 
@@ -36,6 +38,7 @@ export default class RewardsScreen extends React.Component {
     this.state = {
       customer: null,
       transactions: [],
+      participating: [],
       // eslint-disable-next-line react/no-unused-state
       index: tab,
       // eslint-disable-next-line react/no-unused-state
@@ -48,15 +51,32 @@ export default class RewardsScreen extends React.Component {
   // Load customer record & transactions
   async componentDidMount() {
     const customerId = await AsyncStorage.getItem('customerId');
-    const customer = await getCustomersById(customerId);
     const isGuest = customerId === RecordIds.guestCustomerId;
-    const transactions = await getCustomerTransactions(customerId);
-    this.setState({
-      customer,
-      transactions,
-      isGuest,
-      isLoading: false,
-    });
+    if (!isGuest) {
+      try {
+        const customer = await getCustomersById(customerId);
+        const transactions = await getCustomerTransactions(customerId);
+        const participating = await getStoreData(
+          `NOT({Rewards Accepted} = '')`
+        );
+
+        this.setState({
+          customer,
+          transactions,
+          participating,
+          isLoading: false,
+        });
+      } catch (err) {
+        console.error(err);
+        logErrorToSentry({
+          screen: 'RewardsScreem',
+          action: 'componentDidMount',
+          error: err,
+        });
+      }
+    } else {
+      this.setState({ isGuest, isLoading: false });
+    }
   }
 
   _logout = async () => {
@@ -68,7 +88,12 @@ export default class RewardsScreen extends React.Component {
   renderScene = ({ route }) => {
     switch (route.key) {
       case 'home':
-        return <RewardsHome customer={this.state.customer} />;
+        return (
+          <RewardsHome
+            customer={this.state.customer}
+            participating={this.state.participating}
+          />
+        );
       case 'history':
         return <PointsHistory transactions={this.state.transactions} />;
       default:

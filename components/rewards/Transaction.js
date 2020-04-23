@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
+import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import { displayDollarValue } from '../../lib/common';
 import { ContentContainer, TransactionCard } from '../../styled/transaction';
 import { Caption, Subhead } from '../BaseComponents';
@@ -40,9 +41,9 @@ function Transaction(props) {
             <Caption color={Colors.secondaryText}>
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
-            <Subhead>$5 reward unlocked</Subhead>
+            <Subhead>{`$${rewardDollarValue} reward unlocked`}</Subhead>
             <Caption color={Colors.secondaryText}>
-              for 500 earned points
+              {`for ${rewardPointValue} earned points`}
             </Caption>
           </ContentContainer>
         </TransactionCard>
@@ -78,7 +79,7 @@ function Transaction(props) {
             <Caption color={Colors.secondaryText}>
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
-            <Subhead>$5 reward redeemed</Subhead>
+            <Subhead>{`$${rewardDollarValue} reward redeemed`}</Subhead>
           </ContentContainer>
         </TransactionCard>
       ))}

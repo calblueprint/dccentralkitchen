@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, Image, ScrollView, View } from 'react-native';
@@ -10,7 +11,8 @@ import {
   AvailableRewardsContainer,
   RewardsProgressContainer,
 } from '../../styled/rewards';
-import { Body, Overline, Title } from '../BaseComponents';
+import { ColumnContainer } from '../../styled/shared';
+import { Body, Overline, Subhead, Title } from '../BaseComponents';
 import RewardsCard from './RewardsCard';
 
 /**
@@ -25,11 +27,31 @@ function createList(n) {
   return list;
 }
 
-function RewardsHome({ customer }) {
+function RewardsHome({ customer, participating }) {
+  const navigation = useNavigation();
   const rewardsAvailable = parseInt(customer.points, 10) / rewardPointValue;
   const pointsToNext = parseInt(customer.points, 10) % rewardPointValue;
   return (
     <ScrollView style={{ marginLeft: 16, paddingRight: 16 }}>
+      <ColumnContainer>
+        <Overline style={{ marginTop: 24, marginBottom: 4 }}>
+          Participating Stores
+        </Overline>
+        {participating.map((store) => {
+          return (
+            <Subhead
+              style={{ marginLeft: 8 }}
+              key={store.id}
+              onPress={() =>
+                navigation.navigate('Stores', {
+                  currentStore: store,
+                })
+              }>
+              {store.storeName}
+            </Subhead>
+          );
+        })}
+      </ColumnContainer>
       <RewardsProgressContainer>
         <Overline style={{ marginTop: 24, marginBottom: 12 }}>
           Reward Progress
@@ -103,6 +125,7 @@ function RewardsHome({ customer }) {
 
 RewardsHome.propTypes = {
   customer: PropTypes.object.isRequired,
+  participating: PropTypes.array.isRequired,
 };
 
 export default React.memo(RewardsHome);
