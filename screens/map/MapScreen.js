@@ -30,9 +30,9 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const minSnapPoint = 160;
+const minSnapPoint = 185;
 const midSnapPoint = 325;
-const maxSnapPoint = 460;
+const maxSnapPoint = 488;
 
 const deltas = {
   latitudeDelta: 0.01,

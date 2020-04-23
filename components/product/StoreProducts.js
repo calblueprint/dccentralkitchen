@@ -74,6 +74,8 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
             </View>
           }
           ListHeaderComponent={<View style={{ width: 16 }} />}
+          ListFooterComponent={<View style={{ width: 16 }} />}
+          ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
         />
       </View>
     </View>

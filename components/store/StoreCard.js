@@ -5,9 +5,7 @@ import React from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
-import { formatPhoneNumber } from '../../lib/authUtils';
 import {
-  computeStoreOpen,
   getMaxWidth,
   openDirections,
   writeToClipboard,
@@ -32,7 +30,7 @@ import { Caption, Title } from '../BaseComponents';
 export default function StoreCard({ store, storeList, seeDistance }) {
   const {
     storeName,
-    storeHours,
+    storeOpenStatus,
     phoneNumber,
     address,
     distance,
@@ -45,8 +43,6 @@ export default function StoreCard({ store, storeList, seeDistance }) {
   } = store;
 
   const navigation = useNavigation();
-
-  const storeOpenStatus = computeStoreOpen(storeHours);
 
   return (
     <TouchableOpacity
@@ -104,8 +100,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>EBT</Caption>
               </Chip>
             )}
@@ -120,8 +116,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>WIC</Caption>
               </Chip>
             )}
@@ -135,8 +131,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
               </Chip>
             )}
@@ -151,8 +147,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
                     style={{ marginTop: -1 }}
                   />
                 )}
-                textStyle={styles.chipText}
-                style={styles.chip}>
+                textStyle={styles.tagChipText}
+                style={styles.tagChip}>
                 <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
               </Chip>
             )}
@@ -186,9 +182,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             color={Colors.secondaryText}
           />
           <StoreDetailText>
-            {phoneNumber
-              ? formatPhoneNumber(phoneNumber)
-              : 'Phone number unavailable'}
+            {phoneNumber || 'Phone number unavailable'}
           </StoreDetailText>
         </InLineContainer>
         <InLineContainer style={{ alignItems: 'center' }}>

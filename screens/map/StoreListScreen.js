@@ -1,11 +1,14 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, View } from 'react-native';
-import { SearchBar } from 'react-native-elements'; // @tommypoa: Create styled-component for this
+import { FlatList, ScrollView, View } from 'react-native';
+import { SearchBar } from 'react-native-elements';
+// @tommypoa: Create styled-component for this
+import { Chip } from 'react-native-paper';
 import {
   Body,
   ButtonLabel,
+  Caption,
   NavHeaderContainer,
   Title,
 } from '../../components/BaseComponents';
@@ -17,12 +20,18 @@ import { CancelButton, styles } from '../../styled/store';
 export default class StoreListScreen extends React.Component {
   constructor(props) {
     super(props);
-    const { stores, navigation, showDefaultStore } = this.props.route.params;
+    const { navigation, showDefaultStore } = this.props.route.params;
     this.state = {
-      allStores: stores,
       navigation,
       searchStr: '',
-      filteredStores: stores,
+      filters: {
+        openNow: false,
+        productsInStock: false,
+        snapOrEbtAccepted: false,
+        wic: false,
+        couponProgramPartner: false,
+        rewardsAccepted: false,
+      },
       showDefaultStore,
     };
   }
@@ -39,21 +48,36 @@ export default class StoreListScreen extends React.Component {
     });
   };
 
-  updateSearch = (searchStr) => {
-    this.setState({
-      searchStr,
-      filteredStores: this.state.allStores.filter(this.filterStore(searchStr)),
-    });
-  };
-
   filterStore = (searchStr) => {
     return (store) => {
       return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
     };
   };
 
+  updateFilters = (name) => {
+    this.setState((prevState) => ({
+      filters: { ...prevState.filters, [name]: !prevState.filters[name] },
+    }));
+  };
+
   render() {
-    const { searchStr } = this.state;
+    const { stores } = this.props.route.params;
+    const { filters, searchStr } = this.state;
+    let filteredStores = stores.filter(this.filterStore(searchStr));
+    const selectedFilters = Object.keys(filters).filter((key) => filters[key]);
+    // Only apply filters if at least one is selected
+    // Otherwise, apply all that are selected
+    if (selectedFilters.length !== 0) {
+      filteredStores = filteredStores.filter((store) => {
+        return selectedFilters.every((name) => {
+          // 'Open Now' is not a boolean property that exists
+          if (name === 'openNow') {
+            return store.storeOpenStatus.includes('Open');
+          }
+          return store[name];
+        });
+      });
+    }
 
     return (
       <View>
@@ -76,7 +100,7 @@ export default class StoreListScreen extends React.Component {
               autoCapitalize="words"
               autoCorrect={false}
               placeholder="Search by store name"
-              onChangeText={this.updateSearch}
+              onChangeText={(text) => this.setState({ searchStr: text })}
               value={searchStr}
               containerStyle={styles.container}
               inputContainerStyle={styles.inputContainer}
@@ -90,12 +114,183 @@ export default class StoreListScreen extends React.Component {
                 />
               }
               inputStyle={styles.input}
+              // eslint-disable-next-line no-return-assign
               ref={(search) => (this.search = search)}
             />
           </ColumnContainer>
         </NavHeaderContainer>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ height: 52 }}>
+          {/* Filter Chips */}
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="clock"
+                solid
+                size={10}
+                color={filters.openNow ? Colors.lightest : Colors.darkerOrange}
+                style={{ marginTop: 0 }}
+              />
+            )}
+            textStyle={styles.filterChipText}
+            style={
+              filters.openNow ? styles.selectedFilterChip : styles.filterChip
+            }
+            onPress={() => {
+              this.updateFilters('openNow');
+            }}>
+            <Caption
+              color={filters.openNow ? Colors.lightest : Colors.darkerOrange}>
+              Open now
+            </Caption>
+          </Chip>
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="shopping-basket"
+                size={10}
+                color={
+                  filters.productsInStock
+                    ? Colors.lightest
+                    : Colors.darkerOrange
+                }
+                style={{ marginTop: 0 }}
+              />
+            )}
+            textStyle={styles.filterChipText}
+            style={
+              filters.productsInStock
+                ? styles.selectedFilterChip
+                : styles.filterChip
+            }
+            onPress={() => {
+              this.updateFilters('productsInStock');
+            }}>
+            <Caption
+              color={
+                filters.productsInStock ? Colors.lightest : Colors.darkerOrange
+              }>
+              Products in stock
+            </Caption>
+          </Chip>
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="credit-card"
+                size={10}
+                color={
+                  filters.snapOrEbtAccepted
+                    ? Colors.lightest
+                    : Colors.darkerOrange
+                }
+                style={{ marginTop: 0 }}
+              />
+            )}
+            textStyle={styles.filterChipText}
+            style={
+              filters.snapOrEbtAccepted
+                ? styles.selectedFilterChip
+                : styles.filterChip
+            }
+            onPress={() => {
+              this.updateFilters('snapOrEbtAccepted');
+            }}>
+            <Caption
+              color={
+                filters.snapOrEbtAccepted
+                  ? Colors.lightest
+                  : Colors.darkerOrange
+              }>
+              EBT
+            </Caption>
+          </Chip>
+
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="heart"
+                size={10}
+                color={filters.wic ? Colors.lightest : Colors.darkerOrange}
+                style={{ marginTop: 0 }}
+              />
+            )}
+            textStyle={styles.filterChipText}
+            style={filters.wic ? styles.selectedFilterChip : styles.filterChip}
+            onPress={() => {
+              this.updateFilters('wic');
+            }}>
+            <Caption
+              color={filters.wic ? Colors.lightest : Colors.darkerOrange}>
+              WIC
+            </Caption>
+          </Chip>
+
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="carrot"
+                size={10}
+                color={
+                  filters.couponProgramPartner
+                    ? Colors.lightest
+                    : Colors.darkerOrange
+                }
+                style={{ marginTop: 0 }}
+              />
+            )}
+            textStyle={styles.filterChipText}
+            style={
+              filters.couponProgramPartner
+                ? styles.selectedFilterChip
+                : styles.filterChip
+            }
+            onPress={() => {
+              this.updateFilters('couponProgramPartner');
+            }}>
+            <Caption
+              color={
+                filters.couponProgramPartner
+                  ? Colors.lightest
+                  : Colors.darkerOrange
+              }>
+              SNAP Match
+            </Caption>
+          </Chip>
+          <Chip
+            icon={() => (
+              <FontAwesome5
+                name="star"
+                solid
+                size={10}
+                color={
+                  filters.rewardsAccepted
+                    ? Colors.lightest
+                    : Colors.darkerOrange
+                }
+                style={{ marginTop: 0 }}
+              />
+            )}
+            textStyle={styles.filterChipText}
+            style={
+              filters.rewardsAccepted
+                ? styles.selectedFilterChip
+                : styles.filterChip
+            }
+            onPress={() => {
+              this.updateFilters('rewardsAccepted');
+            }}>
+            <Caption
+              color={
+                filters.rewardsAccepted ? Colors.lightest : Colors.darkerOrange
+              }>
+              Healthy Rewards
+            </Caption>
+          </Chip>
+        </ScrollView>
         <FlatList
-          data={this.state.filteredStores}
+          data={filteredStores}
           renderItem={({ item }) => (
             <StoreCard
               key={item.id}
