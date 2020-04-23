@@ -154,6 +154,7 @@ export default class SignUpScreen extends React.Component {
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
     }
+    return null;
   };
 
   // Handle form submission. Validate fields first, then check duplicates.

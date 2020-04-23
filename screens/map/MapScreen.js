@@ -69,6 +69,7 @@ export default class MapScreen extends React.Component {
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
     const resetSheet = true;
@@ -219,6 +220,7 @@ export default class MapScreen extends React.Component {
   changeCurrentStore(store, resetSheet = false) {
     // Set store focus status
     this.state.store.focused = false;
+    // eslint-disable-next-line no-param-reassign
     store.focused = true;
 
     // Animate to new store region
@@ -337,6 +339,7 @@ export default class MapScreen extends React.Component {
             snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
+            // eslint-disable-next-line no-return-assign
             ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
