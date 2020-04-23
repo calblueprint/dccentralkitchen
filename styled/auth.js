@@ -1,15 +1,17 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { NavButton } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { ColumnContainer } from './shared';
-
 // TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
 
 // Shared Auth Containers
 
-export const AuthScreenContainer = styled(ColumnContainer)`
+export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
+  behavior: Platform.OS === 'ios' ? 'padding' : null,
+})`
   justify-content: space-between;
-  margin: 50px 42px 0 42px;
+  flex: 1;
   background-color: ${Colors.lightest};
 `;
 
