@@ -150,7 +150,7 @@ export function NavHeaderContainer({
 NavHeaderContainer.propTypes = {
   backgroundColor: PropTypes.string,
   withMargin: PropTypes.bool,
-  children: PropTypes.object,
+  children: PropTypes.array,
   vertical: PropTypes.bool,
   noShadow: PropTypes.bool,
 };

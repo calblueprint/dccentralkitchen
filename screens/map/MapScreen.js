@@ -5,13 +5,7 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Alert,
-  AsyncStorage,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
@@ -63,7 +57,6 @@ export default class MapScreen extends React.Component {
 
   async componentDidMount() {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
-    AsyncStorage.clear();
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
   }
@@ -115,6 +108,7 @@ export default class MapScreen extends React.Component {
   _populateInitialStoresProducts = async () => {
     try {
       const stores = await getStoreData();
+
       // Sets list of stores in state, populates initial products
       await this._orderStoresByDistance(stores);
       // Once we choose the closest store, we must populate its store products
