@@ -30,8 +30,8 @@ function Transaction(props) {
   return (
     <View>
       {/* Display rewards unlocked */}
-      {[...Array(rewardsUnlocked).keys()].map(() => (
-        <TransactionCard>
+      {[...Array(rewardsUnlocked).keys()].map((i) => (
+        <TransactionCard key={i}>
           <CircleIcon
             icon="star"
             iconColor={Colors.primaryGreen}
@@ -68,8 +68,8 @@ function Transaction(props) {
       </TransactionCard>
 
       {/* Display rewards applied */}
-      {[...Array(rewardsApplied).keys()].map(() => (
-        <TransactionCard>
+      {[...Array(rewardsApplied).keys()].map((i) => (
+        <TransactionCard key={i}>
           <CircleIcon
             icon="star"
             iconColor={Colors.primaryOrange}
