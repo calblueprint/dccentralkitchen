@@ -36,7 +36,7 @@ function AuthTextField({
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' || fieldType === 'Verification Code' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
-        secureTextEntry={fieldType === 'Password'}
+        secureTextEntry={fieldType.includes('assword')}
         labelPadding={6}
         inputContainerPadding={4}
       />

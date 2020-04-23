@@ -75,7 +75,7 @@ export default class VerificationScreen extends React.Component {
                         <BackButton onPress={() => this.setModalVisible(false)}>
                             <FontAwesome5 name="arrow-left" solid size={24} />
                         </BackButton>
-                        <BigTitle>Verify your number.</BigTitle>
+                        <BigTitle>Verify number</BigTitle>
                         <FormContainer>
                             <AuthTextField
                                 fieldType="Verification Code"

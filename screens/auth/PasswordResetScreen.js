@@ -27,13 +27,13 @@ export default class PasswordResetScreen extends React.Component {
             confirmed: false,
             values: {
                 [signUpFields.PHONENUM]: '',
-                [signUpFields.PASSWORD1]: '',
-                [signUpFields.PASSWORD2]: '',
+                [signUpFields.NEWPASSWORD]: '',
+                [signUpFields.VERIFYPASSWORD]: '',
             },
             errors: {
                 [signUpFields.PHONENUM]: '',
-                [signUpFields.PASSWORD1]: '',
-                [signUpFields.PASSWORD2]: '',
+                [signUpFields.NEWPASSWORD]: '',
+                [signUpFields.VERIFYPASSWORD]: '',
             },
         };
     }
@@ -50,12 +50,12 @@ export default class PasswordResetScreen extends React.Component {
                 errorMsg = validate('phoneNumber', text);
                 error = errorMsg !== null;
                 break;
-            case signUpFields.PASSWORD1:
+            case signUpFields.NEWPASSWORD:
                 errorMsg = validate('password', text);
                 error = errorMsg !== null;
                 break;
-            case signUpFields.PASSWORD2:
-                errorMsg = this.state.values[signUpFields.PASSWORD1] === this.state.values[signUpFields.PASSWORD2] ? null : 'Passwords must match!';
+            case signUpFields.VERIFYPASSWORD:
+                errorMsg = this.state.values[signUpFields.NEWPASSWORD] === this.state.values[signUpFields.VERIFYPASSWORD] ? null : 'Passwords must match!';
                 error = errorMsg !== null;
                 break;
             default:
@@ -84,7 +84,7 @@ export default class PasswordResetScreen extends React.Component {
         this.setState(prevState => ({
             values: { ...prevState.values, [signUpField]: text },
         }));
-        if (this.state.verified && this.state.values[signUpFields.PASSWORD1] === this.state.values[signUpFields.PASSWORD2]) {
+        if (this.state.verified && this.state.values[signUpFields.NEWPASSWORD] === this.state.values[signUpFields.VERIFYPASSWORD]) {
             this.setState({ confirmed: true });
         } else {
             this.setState({ confirmed: false });
@@ -97,7 +97,8 @@ export default class PasswordResetScreen extends React.Component {
     };
 
     openRecaptcha = async () => {
-        if (!this.findCustomer()) {
+        const duplicate = await this.findCustomer();
+        if (!duplicate) {
             return;
         }
         const number = '+1'.concat(this.state.values[signUpFields.PHONENUM]);
@@ -106,6 +107,7 @@ export default class PasswordResetScreen extends React.Component {
             number,
             this.state.recaptchaVerifier.current
         );
+        console.log(verificationId);
         this.setState({ verificationId });
         this.setModalVisible(true);
     };
@@ -129,7 +131,7 @@ export default class PasswordResetScreen extends React.Component {
         try {
             let customer = null;
             const customers = await getCustomersByPhoneNumber(formattedPhoneNumber);
-            if (customers.length == 1) {
+            if (customers.length === 1) {
                 customer = customers[0];
                 this.setState({ customer });
             } else {
@@ -147,7 +149,7 @@ export default class PasswordResetScreen extends React.Component {
 
     //TODO: ADD RESET PASSWORD FUNCTION
     resetPassword = async () => {
-        updateCustomers(this.state.customer.id, { 'password': this.state.values[signUpFields.PASSWORD1] });
+        updateCustomers(this.state.customer.id, { 'password': this.state.values[signUpFields.NEWPASSWORD] });
         this.props.navigation.navigate('LogIn');
     }
 
@@ -182,27 +184,27 @@ export default class PasswordResetScreen extends React.Component {
                         {this.state.verified &&
                             <AuthTextField
                                 fieldType="New Password"
-                                value={this.state.values[signUpFields.PASSWORD1]}
+                                value={this.state.values[signUpFields.NEWPASSWORD]}
                                 onBlurCallback={value =>
-                                    this.updateError(value, signUpFields.PASSWORD1)
+                                    this.updateError(value, signUpFields.NEWPASSWORD)
                                 }
                                 changeTextCallback={text =>
-                                    this.onTextChange(text, signUpFields.PASSWORD1)
+                                    this.onTextChange(text, signUpFields.NEWPASSWORD)
                                 }
-                                error={this.state.errors[signUpFields.PASSWORD1]}
+                                error={this.state.errors[signUpFields.NEWPASSWORD]}
                             />
                         }
                         {this.state.verified &&
                             <AuthTextField
                                 fieldType="Re-enter New Password"
-                                value={this.state.values[signUpFields.PASSWORD2]}
+                                value={this.state.values[signUpFields.VERIFYPASSWORD]}
                                 onBlurCallback={value =>
-                                    this.updateError(value, signUpFields.PASSWORD2)
+                                    this.updateError(value, signUpFields.VERIFYPASSWORD)
                                 }
                                 changeTextCallback={text =>
-                                    this.onTextChange(text, signUpFields.PASSWORD2)
+                                    this.onTextChange(text, signUpFields.VERIFYPASSWORD)
                                 }
-                                error={this.state.errors[signUpFields.PASSWORD2]}
+                                error={this.state.errors[signUpFields.VERIFYPASSWORD]}
                             />
                         }
                     </FormContainer>

@@ -82,7 +82,7 @@ function DrawerContent(props) {
   const logout = async () => {
     AsyncStorage.clear();
     Sentry.configureScope(scope => scope.clear());
-    setTimeout(function() {
+    setTimeout(function () {
       navigation.navigate('Auth');
     }, 500);
     props.navigation.closeDrawer();
