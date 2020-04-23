@@ -23,6 +23,7 @@ import {
   DragBar,
   SearchBar,
 } from '../../styled/store';
+import { logErrorToSentry } from '../lib/logUtils';
 
 const minSnapPoint = 185;
 const midSnapPoint = 325;
@@ -117,6 +118,11 @@ export default class MapScreen extends React.Component {
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',
         err
       );
+      logErrorToSentry({
+        screen: 'MapScreen',
+        function: '_populateInitialStoresProducts',
+        error: err,
+      });
     }
   };
 
@@ -129,6 +135,11 @@ export default class MapScreen extends React.Component {
         }
       } catch (err) {
         console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
+        logErrorToSentry({
+          screen: 'MapScreen',
+          function: '_populateStoreProducts',
+          error: err,
+        });
       }
     }
   };
