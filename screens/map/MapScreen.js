@@ -16,6 +16,7 @@ import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
+import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -23,7 +24,6 @@ import {
   DragBar,
   SearchBar,
 } from '../../styled/store';
-import { logErrorToSentry } from '../lib/logUtils';
 
 const minSnapPoint = 185;
 const midSnapPoint = 325;
