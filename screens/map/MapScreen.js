@@ -16,6 +16,7 @@ import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
+import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -117,17 +118,29 @@ export default class MapScreen extends React.Component {
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',
         err
       );
+      logErrorToSentry({
+        screen: 'MapScreen',
+        function: '_populateInitialStoresProducts',
+        error: err,
+      });
     }
   };
 
   _populateStoreProducts = async store => {
-    try {
-      const products = await getProductData(store);
-      if (products) {
-        this.setState({ storeProducts: products });
+    if (store) {
+      try {
+        const products = await getProductData(store);
+        if (products) {
+          this.setState({ storeProducts: products });
+        }
+      } catch (err) {
+        console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
+        logErrorToSentry({
+          screen: 'MapScreen',
+          function: '_populateStoreProducts',
+          error: err,
+        });
       }
-    } catch (err) {
-      console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
     }
   };
 
