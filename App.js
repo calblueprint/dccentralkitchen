@@ -12,7 +12,7 @@ import AppNavigator from './navigation/AppNavigator';
 Sentry.init({
   dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
   enableInExpoDevelopment: false,
-  release: 'v1.1.0',
+  release: 'v1.2.0',
   debug: false,
   environment: env,
 });
