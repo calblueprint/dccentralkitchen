@@ -1,3 +1,4 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
@@ -10,13 +11,11 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import {
-  ONBOARDING_CONTENT,
-  ONBOARDING_IMAGES,
-} from '../../constants/Onboarding';
+import { ONBOARDING_CONTENT } from '../../constants/Onboarding';
 import { OnboardingContainer, styles } from '../../styled/auth';
 import {
-  JustifyCenterContainer,
+  RowContainer,
+  SpaceBetweenColumnContainer,
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 
@@ -53,16 +52,34 @@ export default class OnboardingScreen extends React.Component {
     this.props.navigation.navigate('LogIn');
   }
 
-  _renderItem({ item, index }) {
+  _renderItem({ item, _ }) {
     return (
-      <JustifyCenterContainer>
-        <Image
-          source={ONBOARDING_IMAGES[index]}
-          style={{ height: 55, width: 190 }}
-        />
-        <Title style={{ marginTop: 200 }}>{item.title}</Title>
+      <SpaceBetweenColumnContainer>
+        <RowContainer>
+          {!item.icons.length && (
+            <Image
+              source={require('../../assets/images/hc_start.png')}
+              style={{
+                maxWidth: '100%',
+                resizeMode: 'contain',
+                maxHeight: 400,
+              }}
+            />
+          )}
+          {item.icons.map((icon, i) => (
+            <FontAwesome5
+              key={i}
+              name={icon}
+              solid
+              size={48}
+              color={Colors.primaryGreen}
+              style={{ padding: 10 }}
+            />
+          ))}
+        </RowContainer>
+        <Title>{item.title}</Title>
         <Body style={{ marginTop: 12, textAlign: 'center' }}>{item.body}</Body>
-      </JustifyCenterContainer>
+      </SpaceBetweenColumnContainer>
     );
   }
 
@@ -85,6 +102,9 @@ export default class OnboardingScreen extends React.Component {
           onSnapToItem={index => this.setState({ pageIndex: index })}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
+          containerCustomStyle={{
+            height: Window.height / 2.5,
+          }}
         />
 
         {/* Display pagination dots */}
