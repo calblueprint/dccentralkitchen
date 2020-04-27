@@ -3,13 +3,24 @@ import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Body, Caption, NavButton, NavHeaderContainer, NavTitle, TabSelected } from '../../components/BaseComponents';
+import {
+  Body,
+  Caption,
+  NavButton,
+  NavHeaderContainer,
+  NavTitle,
+  TabSelected,
+} from '../../components/BaseComponents';
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
 import { openDirections, writeToClipboard } from '../../lib/mapUtils';
-import { ColumnContainer, InLineContainer, RowContainer } from '../../styled/shared';
+import {
+  ColumnContainer,
+  InLineContainer,
+  RowContainer,
+} from '../../styled/shared';
 import { styles } from '../../styled/store';
 
 export default class StoreDetailsScreen extends React.Component {
@@ -153,53 +164,66 @@ export default class StoreDetailsScreen extends React.Component {
             <ColumnContainer style={{ width: '100%' }}>
               <Body style={{ marginBottom: 8 }}>Accepted Programs</Body>
               {/* Chips */}
-              <RowContainer>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-evenly',
-                    width: '40%',
-                  }}>
-                  {snapOrEbtAccepted && <ProgramTag program="EBT" />}
-                  {wic && <ProgramTag program="WIC" />}
-                  {couponProgramPartner && <ProgramTag program="SNAP Match" />}
-                  {rewardsAccepted && <ProgramTag program="Healthy Rewards" />}
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    flexWrap: 'wrap',
-                    maxWidth: '60%',
-                  }}>
-                  {snapOrEbtAccepted && (
-                    <View style={styles.chipDesc}>
-                      <Body>Accepts SNAP/EBT</Body>
-                    </View>
-                  )}
-                  {wic && (
-                    <View style={styles.chipDesc}>
-                      <Body numberOfLines={1} ellipsizeMode="tail">
-                        WIC approved
-                      </Body>
-                    </View>
-                  )}
-                  {couponProgramPartner && (
-                    <View style={styles.chipDesc}>
-                      <Body numberOfLines={1} ellipsizeMode="tail">
-                        Accepts SNAP Matching
-                      </Body>
-                    </View>
-                  )}
-                  {rewardsAccepted && (
-                    <View style={styles.chipDesc}>
-                      <Body numberOfLines={1} ellipsizeMode="tail">
-                        Accepts Healthy Rewards
-                      </Body>
-                    </View>
-                  )}
-                </View>
-              </RowContainer>
+              {snapOrEbtAccepted ||
+              wic ||
+              couponProgramPartner ||
+              rewardsAccepted ? (
+                <RowContainer>
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-evenly',
+                      width: '40%',
+                    }}>
+                    {snapOrEbtAccepted && <ProgramTag program="EBT" />}
+                    {wic && <ProgramTag program="WIC" />}
+                    {couponProgramPartner && (
+                      <ProgramTag program="SNAP Match" />
+                    )}
+                    {rewardsAccepted && (
+                      <ProgramTag program="Healthy Rewards" />
+                    )}
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      flexWrap: 'wrap',
+                      maxWidth: '60%',
+                    }}>
+                    {snapOrEbtAccepted && (
+                      <View style={styles.chipDesc}>
+                        <Body>Accepts SNAP/EBT</Body>
+                      </View>
+                    )}
+                    {wic && (
+                      <View style={styles.chipDesc}>
+                        <Body numberOfLines={1} ellipsizeMode="tail">
+                          WIC approved
+                        </Body>
+                      </View>
+                    )}
+                    {couponProgramPartner && (
+                      <View style={styles.chipDesc}>
+                        <Body numberOfLines={1} ellipsizeMode="tail">
+                          Accepts SNAP Matching
+                        </Body>
+                      </View>
+                    )}
+                    {rewardsAccepted && (
+                      <View style={styles.chipDesc}>
+                        <Body numberOfLines={1} ellipsizeMode="tail">
+                          Accepts Healthy Rewards
+                        </Body>
+                      </View>
+                    )}
+                  </View>
+                </RowContainer>
+              ) : (
+                <Body color={Colors.secondaryText}>
+                  No programs accepted at this time
+                </Body>
+              )}
             </ColumnContainer>
           </InLineContainer>
         </ScrollView>

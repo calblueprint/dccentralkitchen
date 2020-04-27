@@ -69,7 +69,7 @@ function ProgramTag({ program }) {
       )}
       textStyle={styles.chipText}
       style={styles.chip}>
-      <Caption color={Colors.darkerGreen}>{programLabel}</Caption>
+        <Caption color={Colors.darkerGreen}>{programLabel}</Caption>
     </Chip>
   );
 }
