@@ -3,25 +3,59 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
+import { styles } from '../../styled/store';
+import { Caption } from '../BaseComponents';
 
 /**
  * @prop
  * */
 
-function ProgramTag({program}) {
+function capitalizeFirstLetters(word) {
+  // Separate each individual word in phrase
+  const splitWord = word.toLowerCase().split(' ');
+
+  for (var i = 0; i < splitWord.length; i++) {
+    splitWord[i] =
+      splitWord[i].charAt(0).toUpperCase() + splitWord[i].substring(1);
+  }
+
+  return splitWord.join(' ');
+}
+
+// program: a string representing the program name (valid programs are keys in programToIcon)
+function ProgramTag({ program }) {
+  let programLabel = program;
+
+  // Error checking: We'll fix the program label if it was somehow entered incorrectly
+  // i.e. "WIC" was entered as "WIc" or "SNAP Match" was entered as "snap Match"
+  // Hopefully ensures that chips will work most of the time, only not displaying if
+  // they enter the wrong string of words
+  if (
+    (program.toLowerCase() === 'wic' && program !== 'WIC') ||
+    (program.toLowerCase() === 'ebt' && program !== 'EBT')
+  ) {
+    programLabel = program.toUpperCase();
+  }
+
+  if (
+    (program.toLowerCase() === 'snap match' && program !== 'SNAP Match') ||
+    (program.toLowerCase() === 'healthy rewards' &&
+      program !== 'Healthy Rewards')
+  ) {
+    programLabel = capitalizeFirstLetters(program);
+  }
+
   const programToIcon = {
-    snapOrEbtAccepted: 'credit-card',
-    wic: 'heart',
-    couponProgramPartner: 'carrot',
-    rewardsAccepted: 'star',
+    EBT: 'credit-card',
+    WIC: 'heart',
+    'SNAP Match': 'carrot',
+    'Healthy Rewards': 'star',
   };
 
-  const programToLabel = {
-    snapOrEbtAccepted: 'EBT',
-    wic: 'WIC',
-    couponProgramPartner: 'SNAP Match',
-    rewardsAccepted: 'Healthy Rewards',
+  if (!Object.keys(programToIcon).includes(program)) {
+    return null;
   }
+
   return (
     <Chip
       icon={() => (
@@ -35,13 +69,13 @@ function ProgramTag({program}) {
       )}
       textStyle={styles.chipText}
       style={styles.chip}>
-      <Caption color={Colors.darkerGreen}>{programToLabel[]}</Caption>
+      <Caption color={Colors.darkerGreen}>{programLabel}</Caption>
     </Chip>
   );
 }
 
 ProgramTag.propTypes = {
-  callBack: PropTypes.func.isRequired,
+  program: PropTypes.string.isRequired,
 };
 
 export default ProgramTag;

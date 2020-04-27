@@ -3,24 +3,13 @@ import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Chip } from 'react-native-paper';
-import {
-  Body,
-  Caption,
-  NavButton,
-  NavHeaderContainer,
-  NavTitle,
-  TabSelected,
-} from '../../components/BaseComponents';
+import { Body, Caption, NavButton, NavHeaderContainer, NavTitle, TabSelected } from '../../components/BaseComponents';
+import ProgramTag from '../../components/store/ProgramTag';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { formatPhoneNumber } from '../../lib/authUtils';
 import { openDirections, writeToClipboard } from '../../lib/mapUtils';
-import {
-  ColumnContainer,
-  InLineContainer,
-  RowContainer,
-} from '../../styled/shared';
+import { ColumnContainer, InLineContainer, RowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
 
 export default class StoreDetailsScreen extends React.Component {
@@ -172,70 +161,10 @@ export default class StoreDetailsScreen extends React.Component {
                     justifyContent: 'space-evenly',
                     width: '40%',
                   }}>
-                  {snapOrEbtAccepted && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="credit-card"
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
-                      <Caption color={Colors.darkerGreen}>EBT</Caption>
-                    </Chip>
-                  )}
-                  {wic && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="heart"
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
-                      <Caption color={Colors.darkerGreen}>WIC</Caption>
-                    </Chip>
-                  )}
-                  {couponProgramPartner && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="carrot"
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
-                      <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
-                    </Chip>
-                  )}
-
-                  {rewardsAccepted && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="star"
-                          solid
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.chipText}
-                      style={styles.chip}>
-                      <Caption color={Colors.darkerGreen}>
-                        Healthy Rewards
-                      </Caption>
-                    </Chip>
-                  )}
+                  {snapOrEbtAccepted && <ProgramTag program="EBT" />}
+                  {wic && <ProgramTag program="WIC" />}
+                  {couponProgramPartner && <ProgramTag program="SNAP Match" />}
+                  {rewardsAccepted && <ProgramTag program="Healthy Rewards" />}
                 </View>
                 <View
                   style={{
