@@ -14,6 +14,7 @@ import Window from '../../constants/Layout';
 import { ONBOARDING_CONTENT } from '../../constants/Onboarding';
 import { OnboardingContainer, styles } from '../../styled/auth';
 import {
+  ColumnContainer,
   RowContainer,
   SpaceBetweenColumnContainer,
   SpaceBetweenRowContainer,
@@ -54,7 +55,7 @@ export default class OnboardingScreen extends React.Component {
 
   _renderItem({ item, _ }) {
     return (
-      <SpaceBetweenColumnContainer>
+      <SpaceBetweenColumnContainer style={{ flex: 1 }}>
         <RowContainer>
           {!item.icons.length && (
             <Image
@@ -77,8 +78,12 @@ export default class OnboardingScreen extends React.Component {
             />
           ))}
         </RowContainer>
-        <Title>{item.title}</Title>
-        <Body style={{ marginTop: 12, textAlign: 'center' }}>{item.body}</Body>
+        <ColumnContainer style={{ alignItems: 'center' }}>
+          <Title>{item.title}</Title>
+          <Body style={{ marginTop: 12, textAlign: 'center' }}>
+            {item.body}
+          </Body>
+        </ColumnContainer>
       </SpaceBetweenColumnContainer>
     );
   }
@@ -95,7 +100,9 @@ export default class OnboardingScreen extends React.Component {
     }
     return (
       <OnboardingContainer>
-        {/* Display sliding content: 80 = 2 * 40px for marginWidth */}
+        {/* Display sliding content: 80 = 2 * 40px for marginWidth
+        containerCustomStyle height: 337 to bound the size of carousel
+        */}
         <Carousel
           data={ONBOARDING_CONTENT}
           renderItem={this._renderItem}
@@ -103,7 +110,7 @@ export default class OnboardingScreen extends React.Component {
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
           containerCustomStyle={{
-            height: Window.height / 2.5,
+            maxHeight: 337,
           }}
         />
 

@@ -17,6 +17,7 @@ export const AuthScreenContainer = styled(ColumnContainer)`
 // OnboardingScreen
 export const OnboardingContainer = styled.View`
   display: flex;
+  flex: 1
   justify-content: center;
   background-color: ${Colors.lightest};
   margin: 200px 40px 75px 40px;
