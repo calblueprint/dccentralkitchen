@@ -30,7 +30,7 @@ class NewsScreen extends React.Component {
         <TopText> News </TopText>
         <ScrollView>
           {this.state.newsItems ? (
-            this.state.newsItems.map(newsItem => (
+            this.state.newsItems.map((newsItem) => (
               <NewsItem
                 key={newsItem.id}
                 newsItem={newsItem}

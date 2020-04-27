@@ -5,7 +5,6 @@ import { FlatList, ScrollView, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 // @tommypoa: Create styled-component for this
 import { Chip } from 'react-native-paper';
-
 import {
   Body,
   ButtonLabel,
@@ -43,20 +42,20 @@ export default class StoreListScreen extends React.Component {
 
   // TODO: fix warning involving using a callback function to look up current store.
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
-  storeDetailsTransition = store => {
+  storeDetailsTransition = (store) => {
     this.state.navigation.navigate('Stores', {
       currentStore: store,
     });
   };
 
-  filterStore = searchStr => {
-    return store => {
+  filterStore = (searchStr) => {
+    return (store) => {
       return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
     };
   };
 
-  updateFilters = name => {
-    this.setState(prevState => ({
+  updateFilters = (name) => {
+    this.setState((prevState) => ({
       filters: { ...prevState.filters, [name]: !prevState.filters[name] },
     }));
   };
@@ -65,12 +64,12 @@ export default class StoreListScreen extends React.Component {
     const { stores } = this.props.route.params;
     const { filters, searchStr } = this.state;
     let filteredStores = stores.filter(this.filterStore(searchStr));
-    const selectedFilters = Object.keys(filters).filter(key => filters[key]);
+    const selectedFilters = Object.keys(filters).filter((key) => filters[key]);
     // Only apply filters if at least one is selected
     // Otherwise, apply all that are selected
     if (selectedFilters.length !== 0) {
-      filteredStores = filteredStores.filter(store => {
-        return selectedFilters.every(name => {
+      filteredStores = filteredStores.filter((store) => {
+        return selectedFilters.every((name) => {
           // 'Open Now' is not a boolean property that exists
           if (name === 'openNow') {
             return store.storeOpenStatus.includes('Open');
@@ -101,7 +100,7 @@ export default class StoreListScreen extends React.Component {
               autoCapitalize="words"
               autoCorrect={false}
               placeholder="Search by store name"
-              onChangeText={text => this.setState({ searchStr: text })}
+              onChangeText={(text) => this.setState({ searchStr: text })}
               value={searchStr}
               containerStyle={styles.container}
               inputContainerStyle={styles.inputContainer}
@@ -116,7 +115,7 @@ export default class StoreListScreen extends React.Component {
               }
               inputStyle={styles.input}
               // eslint-disable-next-line no-return-assign
-              ref={search => (this.search = search)}
+              ref={(search) => (this.search = search)}
             />
           </ColumnContainer>
         </NavHeaderContainer>
@@ -301,7 +300,7 @@ export default class StoreListScreen extends React.Component {
               seeDistance={!this.state.showDefaultStore}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           // 16px top margin from heading
           ListHeaderComponent={<View style={{ height: 16 }} />}
           // 420 bottom margin to make sure all search results show with the keyboard activated.

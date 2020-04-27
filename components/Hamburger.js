@@ -12,7 +12,7 @@ function Hamburger({ navigation }) {
 }
 
 Hamburger.propTypes = {
-  navigation: PropTypes.any.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default Hamburger;

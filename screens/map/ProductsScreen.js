@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
+
 import {
   NavButton,
   NavHeaderContainer,
@@ -47,17 +48,17 @@ export default class ProductsScreen extends React.Component {
                 productsScreen
               />
             )}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
             ItemSeparatorComponent={() => (
               <View style={{ width: 20, height: 20 }} />
             )}
             ListHeaderComponent={
               <ColumnContainer style={{ marginBottom: 20 }}>
                 <Title color={Colors.activeText}>
-                  Products ({products.length})
+                  {`Products (${products.length})`}
                 </Title>
                 <Subhead color={Colors.activeText}>
-                  Delivered in the last {deliveryFrequency} days
+                  {`Delivered in the last ${deliveryFrequency} days`}
                 </Subhead>
               </ColumnContainer>
             }

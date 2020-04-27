@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
+
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -45,7 +46,7 @@ export default class LogInScreen extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncLogIn = async customerId => {
+  _asyncLogIn = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     this.props.navigation.navigate('App');
   };
@@ -88,7 +89,7 @@ export default class LogInScreen extends React.Component {
 
       // Phone number is registered
       if (customers.length === 1) {
-        customer = customers[0];
+        [customer] = customers;
 
         // Check if password is correct
         // We use the record ID from Airtable as the salt to encrypt
@@ -124,9 +125,9 @@ export default class LogInScreen extends React.Component {
         Analytics.setUserId(customer.id);
         Analytics.setUserProperties({
           name: customer.name,
-          phoneNumber: phoneNumber,
+          phoneNumber,
         });
-        Sentry.configureScope(scope => {
+        Sentry.configureScope((scope) => {
           scope.setUser({
             id: customer.id,
             phoneNumber: formattedPhoneNumber,
@@ -168,7 +169,7 @@ export default class LogInScreen extends React.Component {
           <AuthTextField
             fieldType="Phone Number"
             value={this.state.phoneNumber}
-            changeTextCallback={async text => {
+            changeTextCallback={async (text) => {
               this.setState({ phoneNumber: text, error: '' });
             }}
             // Display error indicator ('no text') only when login fails
@@ -177,7 +178,7 @@ export default class LogInScreen extends React.Component {
           <AuthTextField
             fieldType="Password"
             value={this.state.password}
-            changeTextCallback={async text => {
+            changeTextCallback={async (text) => {
               this.setState({ password: text, error: '' });
             }}
             // Display error indicator ('no text') only when login fails

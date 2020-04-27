@@ -10,10 +10,10 @@ export const MarkerContainer = styled.View`
   align-items: center
 `;
 export const MarkerStoreName = styled.Text`
-  font-family: ${props =>
+  font-family: ${(props) =>
     props.focused ? 'poppins-semibold' : 'poppins-medium'};
-  font-size: ${props => (props.focused ? '16px' : '14px')};
-  line-height: ${props => (props.focused ? '24px' : '20px')};
+  font-size: ${(props) => (props.focused ? '16px' : '14px')};
+  line-height: ${(props) => (props.focused ? '24px' : '20px')};
   text-align: center
   color: ${Colors.activeText};
 `;
@@ -45,7 +45,7 @@ export const BottomSheetContainer = styled.View`
 `;
 
 export const StoreCardContainer = styled.View`
-  margin: ${props =>
+  margin: ${(props) =>
     props.includeMargins ? '0 16px 10px 16px' : '0 0 10px 0'};
 `;
 
@@ -83,7 +83,7 @@ export const EBTStatusBar = styled.View`
 
 export const StoreDetailText = styled(Body)`
   margin-left: 4px;
-  color: ${props =>
+  color: ${(props) =>
     props.greenText ? Colors.primaryGreen : Colors.secondaryText};
 `;
 
