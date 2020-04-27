@@ -7,8 +7,7 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard, KeyboardAvoidingView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
@@ -29,6 +28,7 @@ export default class SignUpScreen extends React.Component {
     super(props);
     const recaptchaVerifier = React.createRef();
     this.state = {
+      formattedPhoneNumber: '',
       modalVisible: false,
       recaptchaVerifier,
       verificationId: null,
@@ -170,6 +170,7 @@ export default class SignUpScreen extends React.Component {
       const formattedPhoneNumber = formatPhoneNumber(
         this.state.values[signUpFields.PHONENUM]
       );
+      this.setState({ formattedPhoneNumber });
       const duplicateCustomers = await getCustomersByPhoneNumber(
         formattedPhoneNumber
       );
@@ -310,71 +311,68 @@ export default class SignUpScreen extends React.Component {
     const signUpPermission = fieldsFilled && noErrors;
 
     return (
-      <KeyboardAvoidingView>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {this.state.modalVisible && <VerificationScreen visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha}></VerificationScreen>}
 
-          <FirebaseRecaptchaVerifierModal
-            ref={this.state.recaptchaVerifier}
-            firebaseConfig={firebaseConfig}
+
+      <AuthScreenContainer>
+        {this.state.modalVisible && <VerificationScreen number={this.state.formattedPhoneNumber} visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha} closer={this.setModalVisible}></VerificationScreen>}
+
+        <FirebaseRecaptchaVerifierModal
+          ref={this.state.recaptchaVerifier}
+          firebaseConfig={firebaseConfig}
+        />
+        <BackButton onPress={() => this.props.navigation.goBack(null)}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
+        </BackButton>
+        <BigTitle>Sign Up</BigTitle>
+        <FormContainer>
+          <AuthTextField
+            fieldType="Name"
+            value={this.state.values[signUpFields.NAME]}
+            onBlurCallback={value =>
+              this.updateError(value, signUpFields.NAME)
+            }
+            changeTextCallback={async text =>
+              this.onTextChange(text, signUpFields.NAME)
+            }
+            error={this.state.errors[signUpFields.NAME]}
           />
 
-          <AuthScreenContainer>
-            <BackButton onPress={() => this.props.navigation.goBack(null)}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <BigTitle>Sign Up</BigTitle>
-            <FormContainer>
-              <AuthTextField
-                fieldType="Name"
-                value={this.state.values[signUpFields.NAME]}
-                onBlurCallback={value =>
-                  this.updateError(value, signUpFields.NAME)
-                }
-                changeTextCallback={async text =>
-                  this.onTextChange(text, signUpFields.NAME)
-                }
-                error={this.state.errors[signUpFields.NAME]}
-              />
+          <AuthTextField
+            fieldType="Phone Number"
+            value={this.state.values[signUpFields.PHONENUM]}
+            onBlurCallback={value =>
+              this.updateError(value, signUpFields.PHONENUM)
+            }
+            changeTextCallback={text =>
+              this.onTextChange(text, signUpFields.PHONENUM)
+            }
+            error={this.state.errors[signUpFields.PHONENUM]}
+          />
 
-              <AuthTextField
-                fieldType="Phone Number"
-                value={this.state.values[signUpFields.PHONENUM]}
-                onBlurCallback={value =>
-                  this.updateError(value, signUpFields.PHONENUM)
-                }
-                changeTextCallback={text =>
-                  this.onTextChange(text, signUpFields.PHONENUM)
-                }
-                error={this.state.errors[signUpFields.PHONENUM]}
-              />
-
-              <AuthTextField
-                fieldType="Password"
-                value={this.state.values[signUpFields.PASSWORD]}
-                onBlurCallback={value =>
-                  this.updateError(value, signUpFields.PASSWORD)
-                }
-                changeTextCallback={text =>
-                  this.onTextChange(text, signUpFields.PASSWORD)
-                }
-                error={this.state.errors[signUpFields.PASSWORD]}
-              />
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 24, alignSelf: 'flex-end' }}
-              color={
-                !signUpPermission ? Colors.lightestGreen : Colors.primaryGreen
-              }
-              width="100%"
-              onPress={() => this.handleSubmit()}
-              disabled={!signUpPermission}>
-              <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
-            </FilledButtonContainer>
-            {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
-          </AuthScreenContainer>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          <AuthTextField
+            fieldType="Password"
+            value={this.state.values[signUpFields.PASSWORD]}
+            onBlurCallback={value =>
+              this.updateError(value, signUpFields.PASSWORD)
+            }
+            changeTextCallback={text =>
+              this.onTextChange(text, signUpFields.PASSWORD)
+            }
+            error={this.state.errors[signUpFields.PASSWORD]}
+          />
+        </FormContainer>
+        <FilledButtonContainer
+          style={{ marginTop: 24, alignSelf: 'flex-end' }}
+          color={
+            !signUpPermission ? Colors.lightestGreen : Colors.primaryGreen
+          }
+          width="100%"
+          onPress={() => this.handleSubmit()}
+          disabled={!signUpPermission}>
+          <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
+        </FilledButtonContainer>
+        {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
+      </AuthScreenContainer>
     );
   }
 }

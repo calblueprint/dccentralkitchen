@@ -8,25 +8,12 @@ import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import {
-  BigTitle,
-  ButtonContainer,
-  ButtonLabel,
-  Caption,
-  FilledButtonContainer,
-} from '../../components/BaseComponents';
+import { BigTitle, ButtonContainer, ButtonLabel, Caption, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getAllCustomers } from '../../lib/airtable/request';
-import {
-  formatPhoneNumber,
-  updateCustomerPushTokens,
-} from '../../lib/authUtils';
+import { formatPhoneNumber, updateCustomerPushTokens } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import {
-  AuthScreenContainer,
-  BackButton,
-  FormContainer,
-} from '../../styled/auth';
+import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class LogInScreen extends React.Component {
@@ -41,7 +28,7 @@ export default class LogInScreen extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
@@ -150,8 +137,7 @@ export default class LogInScreen extends React.Component {
       this.state.error === '';
 
     return (
-      <AuthScreenContainer style={{ marginTop: 30 }}>
-        {/* temporary margin top for testing it should not look like this lol */}
+      <AuthScreenContainer>
         <BackButton onPress={() => this.props.navigation.goBack(null)}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </BackButton>
@@ -195,7 +181,7 @@ export default class LogInScreen extends React.Component {
           <ButtonContainer
             onPress={async () => this.props.navigation.navigate('Reset')}>
             <ButtonLabel
-              style={{ textTransform: 'none' }}
+              style={{ textTransform: 'none', marginTop: 12 }}
               color={Colors.primaryGreen}>
               Forgot Password?
             </ButtonLabel>

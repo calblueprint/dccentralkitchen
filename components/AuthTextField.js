@@ -45,9 +45,19 @@ function AuthTextField({
           Note: this is how clerks will greet you!
         </Caption>
       )}
+      {fieldType === 'Phone Number' && !error && (
+        <Caption color={Colors.activeText}>
+          Must be a valid phone number
+        </Caption>
+      )}
+      {fieldType.includes('assword') && !error && (
+        <Caption color={Colors.activeText}>
+          Must be between 8-20 characters long
+        </Caption>
+      )}
       {fieldType === 'Verification Code' && !error && (
         <Caption color={Colors.activeText}>
-          Enter the code sent to your phone number.
+          If you did not receive a code, click resend.
         </Caption>
       )}
     </TextFieldContainer>

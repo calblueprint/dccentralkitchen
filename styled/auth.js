@@ -10,8 +10,8 @@ import { ColumnContainer } from './shared';
 export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
   behavior: Platform.OS === 'ios' ? 'padding' : null,
 })`
-  justify-content: space-between;
   flex: 1;
+  margin: 50px 42px 0 42px;
   background-color: ${Colors.lightest};
 `;
 
