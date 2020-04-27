@@ -15,8 +15,9 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { getAllCustomers } from '../../lib/airtable/request';
+import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
+  encryptPassword,
   formatPhoneNumber,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
@@ -76,28 +77,37 @@ export default class LogInScreen extends React.Component {
   // the user is found.
   handleSubmit = async () => {
     const { password, phoneNumber, token } = this.state;
-
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+
     try {
       let error = '';
       let customer = null;
-      const customers = await getAllCustomers(
-        `AND({Phone Number} = '${formattedPhoneNumber}', {Password} = '${password}')`
-      );
-      // Returns empty array if no customer is found
+
+      // Find customer in Airtable
+      const customers = await getCustomersByPhoneNumber(formattedPhoneNumber);
+
+      // Phone number is registered
       if (customers.length === 1) {
         [customer] = customers;
-        // If customer exists, we should update their push tokens
-        await updateCustomerPushTokens(customer, token);
-        // Log in
-        await this._asyncLogIn(customer.id);
+
+        // Check if password is correct
+        // We use the record ID from Airtable as the salt to encrypt
+        const encrypted = await encryptPassword(customer.id, password);
+        if (encrypted !== customer.password) {
+          error = 'Phone number or password is incorrect.';
+        } else {
+          // Match found; update push tokens if necessary
+          await updateCustomerPushTokens(customer, token);
+          // Log in
+          await this._asyncLogIn(customer.id);
+        }
       } else if (customers.length > 1) {
         // In case of database malformation, may return more than one record
         // TODO this message is a design edge case
         error =
           'Database error: more than one customer found with this login information. Please report an issue so we can fix it for you!';
       } else {
-        // No customer found
+        // Returns empty array if no customer is found
         error = 'Phone number or password is incorrect.';
       }
 

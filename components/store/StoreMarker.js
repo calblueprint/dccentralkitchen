@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
+
 import { MarkerContainer, MarkerStoreName } from '../../styled/store';
 
 function StoreMarker({ storeName, focused }) {
@@ -24,7 +25,11 @@ function StoreMarker({ storeName, focused }) {
 
 StoreMarker.propTypes = {
   storeName: PropTypes.string.isRequired,
-  focused: PropTypes.bool.isRequired,
+  focused: PropTypes.bool,
+};
+
+StoreMarker.defaultProps = {
+  focused: false,
 };
 
 export default StoreMarker;

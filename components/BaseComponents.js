@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
+
 import Colors from '../constants/Colors';
 
 export const TextButton = styled.Text`
@@ -150,7 +151,7 @@ export function NavHeaderContainer({
 NavHeaderContainer.propTypes = {
   backgroundColor: PropTypes.string,
   withMargin: PropTypes.bool,
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   vertical: PropTypes.bool,
   noShadow: PropTypes.bool,
 };
