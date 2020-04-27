@@ -2,8 +2,15 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, Image, ScrollView, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { ProgressBar } from 'react-native-paper';
+
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
@@ -39,16 +46,17 @@ function RewardsHome({ customer, participating }) {
         </Overline>
         {participating.map((store) => {
           return (
-            <Subhead
-              style={{ marginLeft: 8 }}
-              key={store.id}
-              onPress={() =>
-                navigation.navigate('Stores', {
-                  currentStore: store,
-                })
-              }>
-              {store.storeName}
-            </Subhead>
+            <TouchableOpacity key={store.id}>
+              <Subhead
+                style={{ marginLeft: 8 }}
+                onPress={() =>
+                  navigation.navigate('Stores', {
+                    currentStore: store,
+                  })
+                }>
+                {store.storeName}
+              </Subhead>
+            </TouchableOpacity>
           );
         })}
       </ColumnContainer>
