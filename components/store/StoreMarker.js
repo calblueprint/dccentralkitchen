@@ -24,7 +24,11 @@ function StoreMarker({ storeName, focused }) {
 
 StoreMarker.propTypes = {
   storeName: PropTypes.string.isRequired,
-  focused: PropTypes.bool.isRequired,
+  focused: PropTypes.bool,
+};
+
+StoreMarker.defaultProps = {
+  focused: false,
 };
 
 export default StoreMarker;

@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
+
 import {
   NavButton,
   NavHeaderContainer,
