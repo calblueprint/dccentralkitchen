@@ -55,7 +55,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               productsScreen={false}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           ListEmptyComponent={
             <View
               style={{
@@ -74,6 +74,8 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
             </View>
           }
           ListHeaderComponent={<View style={{ width: 16 }} />}
+          ListFooterComponent={<View style={{ width: 16 }} />}
+          ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
         />
       </View>
     </View>

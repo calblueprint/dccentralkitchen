@@ -14,7 +14,6 @@ import {
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
-import { formatPhoneNumber } from '../../lib/authUtils';
 import { openDirections, writeToClipboard } from '../../lib/mapUtils';
 import {
   ColumnContainer,
@@ -30,10 +29,11 @@ export default class StoreDetailsScreen extends React.Component {
   }
 
   render() {
-    const { store, storeOpenStatus } = this.props.route.params;
+    const { store } = this.props.route.params;
     const {
       storeName,
       storeHours,
+      storeOpenStatus,
       address,
       distance,
       ward,
@@ -73,10 +73,10 @@ export default class StoreDetailsScreen extends React.Component {
                 <TouchableOpacity onLongPress={() => writeToClipboard(address)}>
                   <Body>{address}</Body>
                 </TouchableOpacity>
-                <Body>Ward {ward}</Body>
+                <Body>{`Ward ${ward}`}</Body>
                 <View style={{ flex: 1, marginBottom: 10 }}>
                   <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
-                    {distance} miles away · distance may vary by transportation
+                    {`${distance} miles away · distance may vary by transportation`}
                   </Caption>
                 </View>
                 <TouchableOpacity
@@ -101,10 +101,10 @@ export default class StoreDetailsScreen extends React.Component {
           {/* Phone Number */}
           {phoneNumber ? (
             <TouchableOpacity
-              onPress={() => Linking.openURL('tel://'.concat(phoneNumber))}
-              onLongPress={() =>
-                writeToClipboard(formatPhoneNumber(phoneNumber))
-              }>
+              onPress={() =>
+                Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
+              }
+              onLongPress={() => writeToClipboard(phoneNumber)}>
               <InLineContainer
                 style={{ alignItems: 'center', paddingBottom: 32 }}>
                 <FontAwesome5
@@ -113,9 +113,7 @@ export default class StoreDetailsScreen extends React.Component {
                   size={24}
                   color={Colors.activeText}
                 />
-                <Body style={{ marginLeft: 12 }}>
-                  {formatPhoneNumber(phoneNumber)}
-                </Body>
+                <Body style={{ marginLeft: 12 }}>{phoneNumber}</Body>
               </InLineContainer>
             </TouchableOpacity>
           ) : (
@@ -192,26 +190,26 @@ export default class StoreDetailsScreen extends React.Component {
                       maxWidth: '60%',
                     }}>
                     {snapOrEbtAccepted && (
-                      <View style={styles.chipDesc}>
+                      <View style={styles.tagChipDesc}>
                         <Body>Accepts SNAP/EBT</Body>
                       </View>
                     )}
                     {wic && (
-                      <View style={styles.chipDesc}>
+                      <View style={styles.tagChipDesc}>
                         <Body numberOfLines={1} ellipsizeMode="tail">
                           WIC approved
                         </Body>
                       </View>
                     )}
                     {couponProgramPartner && (
-                      <View style={styles.chipDesc}>
+                      <View style={styles.tagChipDesc}>
                         <Body numberOfLines={1} ellipsizeMode="tail">
                           Accepts SNAP Matching
                         </Body>
                       </View>
                     )}
                     {rewardsAccepted && (
-                      <View style={styles.chipDesc}>
+                      <View style={styles.tagChipDesc}>
                         <Body numberOfLines={1} ellipsizeMode="tail">
                           Accepts Healthy Rewards
                         </Body>

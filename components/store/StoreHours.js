@@ -16,7 +16,7 @@ export default function StoreHours({ hours }) {
   const todaysDayIndex = today.getDay();
   const todaysDay = daysOfTheWeekFull[todaysDayIndex];
 
-  const hoursList = dictHours => {
+  const hoursList = (dictHours) => {
     return (
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         {/* Days of the week */}

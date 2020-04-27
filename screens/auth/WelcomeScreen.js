@@ -50,7 +50,7 @@ export default class WelcomeScreen extends React.Component {
         </FilledButtonContainer>
 
         <ButtonContainer
-          style={{ marginTop: 12 }}
+          style={{ marginTop: 4, padding: 12 }}
           onPress={async () => this.guestLogin()}>
           <ButtonLabel
             style={{ textTransform: 'none' }}

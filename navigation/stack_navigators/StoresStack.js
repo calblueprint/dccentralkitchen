@@ -1,4 +1,7 @@
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';

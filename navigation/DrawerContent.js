@@ -35,7 +35,7 @@ function DrawerContent(props) {
               name: cust.name,
               phoneNumber: cust.phoneNumber,
             });
-            Sentry.configureScope(scope => {
+            Sentry.configureScope((scope) => {
               scope.setUser({
                 id: customerId,
                 username: cust.name,
@@ -81,7 +81,7 @@ function DrawerContent(props) {
   }
   const logout = async () => {
     AsyncStorage.clear();
-    Sentry.configureScope(scope => scope.clear());
+    Sentry.configureScope((scope) => scope.clear());
     setTimeout(function() {
       navigation.navigate('Auth');
     }, 500);

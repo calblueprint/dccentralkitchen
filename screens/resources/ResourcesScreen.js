@@ -34,19 +34,19 @@ export default class ResourcesScreen extends React.Component {
     try {
       const resources = await getAllResources();
       const CrisisResources = resources.filter(
-        resource => resource.category === 'Crisis Response'
+        (resource) => resource.category === 'Crisis Response'
       );
       const DCCentralKitchenResources = resources.filter(
-        resource => resource.category === 'DC Central Kitchen Resources'
+        (resource) => resource.category === 'DC Central Kitchen Resources'
       );
       const CommunityResources = resources.filter(
-        resource => resource.category === 'Community Resources'
+        (resource) => resource.category === 'Community Resources'
       );
       const GovernmentResources = resources.filter(
-        resource => resource.category === 'Government Resources'
+        (resource) => resource.category === 'Government Resources'
       );
       const ResourcesForSeniors = resources.filter(
-        resource => resource.category === 'Resources for Seniors'
+        (resource) => resource.category === 'Resources for Seniors'
       );
       this.setState({
         CrisisResources,
@@ -71,7 +71,7 @@ export default class ResourcesScreen extends React.Component {
         </NavHeaderContainer>
         <ScrollView>
           <ResourceCategoryBar icon="hands-helping" title="Crisis Response" />
-          {this.state.CrisisResources.map(resource => (
+          {this.state.CrisisResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -79,7 +79,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
-          {this.state.DCCentralKitchenResources.map(resource => (
+          {this.state.DCCentralKitchenResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -87,7 +87,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="heart" title="Community" />
-          {this.state.CommunityResources.map(resource => (
+          {this.state.CommunityResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -95,7 +95,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="balance-scale" title="Government" />
-          {this.state.GovernmentResources.map(resource => (
+          {this.state.GovernmentResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -103,7 +103,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="user" title="Seniors" />
-          {this.state.ResourcesForSeniors.map(resource => (
+          {this.state.ResourcesForSeniors.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}

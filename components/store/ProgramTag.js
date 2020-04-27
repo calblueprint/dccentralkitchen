@@ -10,8 +10,16 @@ import { Caption } from '../BaseComponents';
  * @prop
  * */
 
+// Capitalizes the first letter of every word in a phrase.
+// Note: catch special cases like certain words that are all uppercase.
 function capitalizeFirstLetters(word) {
-  // Separate each individual word in phrase
+  // Separate each individual word in phrase.
+
+  // Special case since SNAP is all uppercase
+  if (word.toLowerCase() === 'snap match') {
+    return 'SNAP Match';
+  }
+
   const splitWord = word.toLowerCase().split(' ');
 
   for (var i = 0; i < splitWord.length; i++) {
@@ -67,9 +75,9 @@ function ProgramTag({ program }) {
           style={{ marginTop: -1 }}
         />
       )}
-      textStyle={styles.chipText}
-      style={styles.chip}>
-        <Caption color={Colors.darkerGreen}>{programLabel}</Caption>
+      textStyle={styles.tagChipText}
+      style={styles.tagChip}>
+      <Caption color={Colors.darkerGreen}>{programLabel}</Caption>
     </Chip>
   );
 }

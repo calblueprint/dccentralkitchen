@@ -40,9 +40,9 @@ function Transaction(props) {
             <Caption color={Colors.secondaryText}>
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
-            <Subhead>{`$5 reward unlocked`}</Subhead>
+            <Subhead>$5 reward unlocked</Subhead>
             <Caption color={Colors.secondaryText}>
-              {`for 500 earned points`}
+              for 500 earned points
             </Caption>
           </ContentContainer>
         </TransactionCard>
@@ -78,7 +78,7 @@ function Transaction(props) {
             <Caption color={Colors.secondaryText}>
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
-            <Subhead>{`$5 reward redeemed`}</Subhead>
+            <Subhead>$5 reward redeemed</Subhead>
           </ContentContainer>
         </TransactionCard>
       ))}
