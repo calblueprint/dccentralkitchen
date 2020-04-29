@@ -11,16 +11,11 @@ import {
   NavTitle,
   TabSelected,
 } from '../../components/BaseComponents';
-import ProgramTag from '../../components/store/ProgramTag';
+import AcceptedPrograms from '../../components/store/AcceptedPrograms';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { openDirections, writeToClipboard } from '../../lib/mapUtils';
-import {
-  ColumnContainer,
-  InLineContainer,
-  RowContainer,
-} from '../../styled/shared';
-import { styles } from '../../styled/store';
+import { ColumnContainer, InLineContainer } from '../../styled/shared';
 
 export default class StoreDetailsScreen extends React.Component {
   constructor(props) {
@@ -166,57 +161,12 @@ export default class StoreDetailsScreen extends React.Component {
               wic ||
               couponProgramPartner ||
               rewardsAccepted ? (
-                <RowContainer>
-                  <View
-                    style={{
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
-                      justifyContent: 'space-evenly',
-                      width: '40%',
-                    }}>
-                    {snapOrEbtAccepted && <ProgramTag program="EBT" />}
-                    {wic && <ProgramTag program="WIC" />}
-                    {couponProgramPartner && (
-                      <ProgramTag program="SNAP Match" />
-                    )}
-                    {rewardsAccepted && (
-                      <ProgramTag program="Healthy Rewards" />
-                    )}
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'column',
-                      flexWrap: 'wrap',
-                      maxWidth: '60%',
-                    }}>
-                    {snapOrEbtAccepted && (
-                      <View style={styles.tagChipDesc}>
-                        <Body>Accepts SNAP/EBT</Body>
-                      </View>
-                    )}
-                    {wic && (
-                      <View style={styles.tagChipDesc}>
-                        <Body numberOfLines={1} ellipsizeMode="tail">
-                          WIC approved
-                        </Body>
-                      </View>
-                    )}
-                    {couponProgramPartner && (
-                      <View style={styles.tagChipDesc}>
-                        <Body numberOfLines={1} ellipsizeMode="tail">
-                          Accepts SNAP Matching
-                        </Body>
-                      </View>
-                    )}
-                    {rewardsAccepted && (
-                      <View style={styles.tagChipDesc}>
-                        <Body numberOfLines={1} ellipsizeMode="tail">
-                          Accepts Healthy Rewards
-                        </Body>
-                      </View>
-                    )}
-                  </View>
-                </RowContainer>
+                <AcceptedPrograms
+                  snapOrEbtAccepted={snapOrEbtAccepted}
+                  wic={wic}
+                  couponProgramPartner={couponProgramPartner}
+                  rewardsAccepted={rewardsAccepted}
+                />
               ) : (
                 <Body color={Colors.secondaryText}>
                   No programs accepted at this time
