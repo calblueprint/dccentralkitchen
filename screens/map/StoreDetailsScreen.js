@@ -50,6 +50,35 @@ export default class StoreDetailsScreen extends React.Component {
           <NavTitle>{storeName}</NavTitle>
         </NavHeaderContainer>
         <ScrollView style={{ marginLeft: 16, marginTop: 30 }}>
+          {/* Accepted Programs */}
+          <InLineContainer style={{ paddingBottom: 32 }}>
+            <FontAwesome5
+              name="star"
+              solid
+              size={24}
+              color={Colors.activeText}
+              style={{ marginRight: 12 }}
+            />
+            <ColumnContainer style={{ width: '100%' }}>
+              <Body style={{ marginBottom: 8 }}>Accepted Programs</Body>
+              {/* Chips */}
+              {snapOrEbtAccepted ||
+              wic ||
+              couponProgramPartner ||
+              rewardsAccepted ? (
+                <AcceptedPrograms
+                  snapOrEbtAccepted={snapOrEbtAccepted}
+                  wic={wic}
+                  couponProgramPartner={couponProgramPartner}
+                  rewardsAccepted={rewardsAccepted}
+                />
+              ) : (
+                <Body color={Colors.secondaryText}>
+                  No programs accepted at this time
+                </Body>
+              )}
+            </ColumnContainer>
+          </InLineContainer>
           {/* Directions */}
           <View style={{ paddingBottom: 32 }}>
             <InLineContainer>
@@ -144,35 +173,6 @@ export default class StoreDetailsScreen extends React.Component {
               </Body>
               <StoreHours hours={storeHours} />
             </View>
-          </InLineContainer>
-          {/* Accepted Programs */}
-          <InLineContainer style={{ paddingBottom: 32 }}>
-            <FontAwesome5
-              name="star"
-              solid
-              size={24}
-              color={Colors.activeText}
-              style={{ marginRight: 12 }}
-            />
-            <ColumnContainer style={{ width: '100%' }}>
-              <Body style={{ marginBottom: 8 }}>Accepted Programs</Body>
-              {/* Chips */}
-              {snapOrEbtAccepted ||
-              wic ||
-              couponProgramPartner ||
-              rewardsAccepted ? (
-                <AcceptedPrograms
-                  snapOrEbtAccepted={snapOrEbtAccepted}
-                  wic={wic}
-                  couponProgramPartner={couponProgramPartner}
-                  rewardsAccepted={rewardsAccepted}
-                />
-              ) : (
-                <Body color={Colors.secondaryText}>
-                  No programs accepted at this time
-                </Body>
-              )}
-            </ColumnContainer>
           </InLineContainer>
         </ScrollView>
       </View>

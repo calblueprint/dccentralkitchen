@@ -18,7 +18,7 @@ const programToDesc = {
   WIC: 'WIC approved',
   'SNAP Match':
     'Spend $5 with SNAP and include fresh produce in purchase to get $5 free on fresh produce',
-  'Healthy Rewards': 'Accepts Healthy Rewards',
+  'Healthy Rewards': 'Participates in Healthy Rewards',
 };
 
 const snapURL = 'https://dccentralkitchen.org/5for5/';
