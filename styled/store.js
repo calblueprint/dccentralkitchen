@@ -15,8 +15,6 @@ export const MarkerStoreName = styled.Text`
   line-height: ${props => (props.focused ? '24px' : '20px')};
   text-align: center
   color: ${Colors.activeText};
-  text-shadow-color: ${Colors.primaryOrange}
-  text-shadow-radius: 5px;
 `;
 
 export const DragBar = styled.View`
