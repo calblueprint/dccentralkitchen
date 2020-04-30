@@ -136,7 +136,8 @@ export default class SignUpScreen extends React.Component {
       const customerId = await createCustomers({
         name,
         phoneNumber,
-        points: 0,
+        // 2020/4/29 update for Nam's launch
+        points: 500,
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 
