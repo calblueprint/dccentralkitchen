@@ -17,7 +17,12 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { BottomSheetContainer, BottomSheetHeaderContainer, DragBar, SearchBar } from '../../styled/store';
+import {
+  BottomSheetContainer,
+  BottomSheetHeaderContainer,
+  DragBar,
+  SearchBar,
+} from '../../styled/store';
 
 const minSnapPoint = 160;
 const midSnapPoint = 325;
@@ -104,6 +109,9 @@ export default class MapScreen extends React.Component {
       const stores = await getStoreData();
       // Sets list of stores in state, populates initial products
       await this._orderStoresByDistance(stores);
+
+      // Set current store to be focused
+      this.state.store.focused = true;
       // Once we choose the closest store, we must populate its store products
       // Better to perform API calls at top level, and then pass data as props.
       await this._populateStoreProducts(this.state.store);
