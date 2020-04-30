@@ -91,7 +91,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
             : styles.filterChip
           : styles.tagChip
       }
-      onPress={() => selectedFunc()}>
+      onPress={selectedFunc ? () => selectedFunc() : undefined}>
       <Caption color={tagContentColor}>{programLabel}</Caption>
     </Chip>
   );
