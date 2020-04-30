@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-// @tommypoa: Create styled-component for this
-import { Chip } from 'react-native-paper';
 import {
   Body,
   ButtonLabel,
-  Caption,
   NavHeaderContainer,
   Title,
 } from '../../components/BaseComponents';
+import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
 import Colors from '../../constants/Colors';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
@@ -124,170 +122,54 @@ export default class StoreListScreen extends React.Component {
           showsHorizontalScrollIndicator={false}
           style={{ height: 52 }}>
           {/* Filter Chips */}
-          <Chip
-            icon={() => (
-              <FontAwesome5
-                name="clock"
-                solid
-                size={10}
-                color={filters.openNow ? Colors.lightest : Colors.darkerOrange}
-                style={{ marginTop: 0 }}
-              />
-            )}
-            textStyle={styles.filterChipText}
-            style={
-              filters.openNow ? styles.selectedFilterChip : styles.filterChip
-            }
-            onPress={() => {
+          <ProgramTag
+            program="Open now"
+            tag
+            selected={filters.openNow}
+            selectedFunc={() => {
               this.updateFilters('openNow');
-            }}>
-            <Caption
-              color={filters.openNow ? Colors.lightest : Colors.darkerOrange}>
-              Open now
-            </Caption>
-          </Chip>
-          <Chip
-            icon={() => (
-              <FontAwesome5
-                name="shopping-basket"
-                size={10}
-                color={
-                  filters.productsInStock
-                    ? Colors.lightest
-                    : Colors.darkerOrange
-                }
-                style={{ marginTop: 0 }}
-              />
-            )}
-            textStyle={styles.filterChipText}
-            style={
-              filters.productsInStock
-                ? styles.selectedFilterChip
-                : styles.filterChip
-            }
-            onPress={() => {
+            }}
+          />
+          <ProgramTag
+            program="Products in stock"
+            tag
+            selected={filters.productsInStock}
+            selectedFunc={() => {
               this.updateFilters('productsInStock');
-            }}>
-            <Caption
-              color={
-                filters.productsInStock ? Colors.lightest : Colors.darkerOrange
-              }>
-              Products in stock
-            </Caption>
-          </Chip>
-          <Chip
-            icon={() => (
-              <FontAwesome5
-                name="credit-card"
-                size={10}
-                color={
-                  filters.snapOrEbtAccepted
-                    ? Colors.lightest
-                    : Colors.darkerOrange
-                }
-                style={{ marginTop: 0 }}
-              />
-            )}
-            textStyle={styles.filterChipText}
-            style={
-              filters.snapOrEbtAccepted
-                ? styles.selectedFilterChip
-                : styles.filterChip
-            }
-            onPress={() => {
+            }}
+          />
+          <ProgramTag
+            program="EBT"
+            tag
+            selected={filters.snapOrEbtAccepted}
+            selectedFunc={() => {
               this.updateFilters('snapOrEbtAccepted');
-            }}>
-            <Caption
-              color={
-                filters.snapOrEbtAccepted
-                  ? Colors.lightest
-                  : Colors.darkerOrange
-              }>
-              EBT
-            </Caption>
-          </Chip>
-
-          <Chip
-            icon={() => (
-              <FontAwesome5
-                name="heart"
-                size={10}
-                color={filters.wic ? Colors.lightest : Colors.darkerOrange}
-                style={{ marginTop: 0 }}
-              />
-            )}
-            textStyle={styles.filterChipText}
-            style={filters.wic ? styles.selectedFilterChip : styles.filterChip}
-            onPress={() => {
+            }}
+          />
+          <ProgramTag
+            program="WIC"
+            tag
+            selected={filters.wic}
+            selectedFunc={() => {
               this.updateFilters('wic');
-            }}>
-            <Caption
-              color={filters.wic ? Colors.lightest : Colors.darkerOrange}>
-              WIC
-            </Caption>
-          </Chip>
-
-          <Chip
-            icon={() => (
-              <FontAwesome5
-                name="carrot"
-                size={10}
-                color={
-                  filters.couponProgramPartner
-                    ? Colors.lightest
-                    : Colors.darkerOrange
-                }
-                style={{ marginTop: 0 }}
-              />
-            )}
-            textStyle={styles.filterChipText}
-            style={
-              filters.couponProgramPartner
-                ? styles.selectedFilterChip
-                : styles.filterChip
-            }
-            onPress={() => {
+            }}
+          />
+          <ProgramTag
+            program="SNAP Match"
+            tag
+            selected={filters.couponProgramPartner}
+            selectedFunc={() => {
               this.updateFilters('couponProgramPartner');
-            }}>
-            <Caption
-              color={
-                filters.couponProgramPartner
-                  ? Colors.lightest
-                  : Colors.darkerOrange
-              }>
-              SNAP Match
-            </Caption>
-          </Chip>
-          <Chip
-            icon={() => (
-              <FontAwesome5
-                name="star"
-                solid
-                size={10}
-                color={
-                  filters.rewardsAccepted
-                    ? Colors.lightest
-                    : Colors.darkerOrange
-                }
-                style={{ marginTop: 0 }}
-              />
-            )}
-            textStyle={styles.filterChipText}
-            style={
-              filters.rewardsAccepted
-                ? styles.selectedFilterChip
-                : styles.filterChip
-            }
-            onPress={() => {
+            }}
+          />
+          <ProgramTag
+            program="Healthy Rewards"
+            tag
+            selected={filters.rewardsAccepted}
+            selectedFunc={() => {
               this.updateFilters('rewardsAccepted');
-            }}>
-            <Caption
-              color={
-                filters.rewardsAccepted ? Colors.lightest : Colors.darkerOrange
-              }>
-              Healthy Rewards
-            </Caption>
-          </Chip>
+            }}
+          />
         </ScrollView>
         <FlatList
           data={filteredStores}
