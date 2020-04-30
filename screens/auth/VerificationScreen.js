@@ -20,14 +20,12 @@ export default class VerificationScreen extends React.Component {
     }
 
     updateError = async (text, signUpField) => {
-        let error = false;
         let errorMsg = '';
         // const fieldValue = this.state.values[signUpField];
         // validate returns null if no error is found
         switch (signUpField) {
             case signUpFields.CODE:
                 errorMsg = validate('code', text);
-                error = errorMsg !== null;
                 break;
             default:
                 console.log('Not reached');
