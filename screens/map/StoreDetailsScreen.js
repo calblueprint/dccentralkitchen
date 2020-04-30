@@ -42,16 +42,16 @@ export default class StoreDetailsScreen extends React.Component {
     } = store;
 
     return (
-      <View>
-        <NavHeaderContainer withMargin>
+      <View style={{ flex: 1 }}>
+        <NavHeaderContainer>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>
           <NavTitle>{storeName}</NavTitle>
         </NavHeaderContainer>
-        <ScrollView style={{ marginLeft: 16, marginTop: 30 }}>
+        <ScrollView style={{ marginLeft: 16 }}>
           {/* Accepted Programs */}
-          <InLineContainer style={{ paddingBottom: 32 }}>
+          <InLineContainer style={{ paddingBottom: 32, marginTop: 30 }}>
             <FontAwesome5
               name="star"
               solid
