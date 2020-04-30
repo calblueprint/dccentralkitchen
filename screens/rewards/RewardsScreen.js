@@ -16,6 +16,7 @@ import {
   NavButton,
   NavHeaderContainer,
 } from '../../components/BaseComponents';
+import ParticipatingStores from '../../components/rewards/ParticipatingStores';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
@@ -152,6 +153,7 @@ export default class RewardsScreen extends React.Component {
                 }}
               />
             </View>
+            <ParticipatingStores participating={this.state.participating} />
             <FilledButtonContainer
               style={{ marginBottom: 24, alignSelf: 'center' }}
               color={Colors.primaryGreen}
