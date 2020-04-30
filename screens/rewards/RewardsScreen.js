@@ -53,30 +53,25 @@ export default class RewardsScreen extends React.Component {
   async componentDidMount() {
     const customerId = await AsyncStorage.getItem('customerId');
     const isGuest = customerId === RecordIds.guestCustomerId;
-    if (!isGuest) {
-      try {
-        const customer = await getCustomersById(customerId);
-        const transactions = await getCustomerTransactions(customerId);
-        const participating = await getStoreData(
-          `NOT({Rewards Accepted} = '')`
-        );
+    try {
+      const customer = await getCustomersById(customerId);
+      const transactions = await getCustomerTransactions(customerId);
+      const participating = await getStoreData(`NOT({Rewards Accepted} = '')`);
 
-        this.setState({
-          customer,
-          transactions,
-          participating,
-          isLoading: false,
-        });
-      } catch (err) {
-        console.error(err);
-        logErrorToSentry({
-          screen: 'RewardsScreem',
-          action: 'componentDidMount',
-          error: err,
-        });
-      }
-    } else {
-      this.setState({ isGuest, isLoading: false });
+      this.setState({
+        isGuest,
+        customer,
+        transactions,
+        participating,
+        isLoading: false,
+      });
+    } catch (err) {
+      console.error(err);
+      logErrorToSentry({
+        screen: 'RewardsScreem',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
@@ -153,7 +148,10 @@ export default class RewardsScreen extends React.Component {
                 }}
               />
             </View>
-            <ParticipatingStores participating={this.state.participating} />
+            <ParticipatingStores
+              participating={this.state.participating}
+              guest
+            />
             <FilledButtonContainer
               style={{ marginBottom: 24, alignSelf: 'center' }}
               color={Colors.primaryGreen}

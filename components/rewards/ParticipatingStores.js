@@ -5,13 +5,12 @@ import { TouchableOpacity } from 'react-native';
 import { ColumnContainer } from '../../styled/shared';
 import { Overline, Subhead } from '../BaseComponents';
 
-export default function ParticipatingStores({ participating }) {
+export default function ParticipatingStores({ participating, guest }) {
   const navigation = useNavigation();
   return (
-    <ColumnContainer>
-      <Overline style={{ marginTop: 24, marginBottom: 4 }}>
-        Participating Stores
-      </Overline>
+    <ColumnContainer
+      style={guest ? { marginLeft: 16, marginBottom: 24 } : { marginTop: 28 }}>
+      <Overline style={{}}>Participating Stores</Overline>
       {participating.map((store) => {
         return (
           <TouchableOpacity key={store.id}>
@@ -34,4 +33,5 @@ export default function ParticipatingStores({ participating }) {
 
 ParticipatingStores.propTypes = {
   participating: PropTypes.array.isRequired,
+  guest: PropTypes.bool.isRequired,
 };
