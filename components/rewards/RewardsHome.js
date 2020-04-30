@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, Image, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
+
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
@@ -11,6 +12,7 @@ import {
   RewardsProgressContainer,
 } from '../../styled/rewards';
 import { Body, Overline, Title } from '../BaseComponents';
+import ParticipatingStores from './ParticipatingStores';
 import RewardsCard from './RewardsCard';
 
 /**
@@ -25,7 +27,7 @@ function createList(n) {
   return list;
 }
 
-function RewardsHome({ customer }) {
+function RewardsHome({ customer, participating }) {
   const rewardsAvailable = parseInt(customer.points, 10) / rewardPointValue;
   const pointsToNext = parseInt(customer.points, 10) % rewardPointValue;
   return (
@@ -87,6 +89,7 @@ function RewardsHome({ customer }) {
           }
         />
       </AvailableRewardsContainer>
+      <ParticipatingStores participating={participating} guest={false} />
       <View style={{ maxHeight: 600, marginTop: 12 }}>
         <Image
           source={require('../../assets/images/HowItWorks.png')}
@@ -103,6 +106,7 @@ function RewardsHome({ customer }) {
 
 RewardsHome.propTypes = {
   customer: PropTypes.object.isRequired,
+  participating: PropTypes.array.isRequired,
 };
 
 export default React.memo(RewardsHome);

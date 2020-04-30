@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage } from 'react-native';
 import * as Sentry from 'sentry-expo';
-
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,

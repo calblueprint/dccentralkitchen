@@ -42,7 +42,7 @@ export default class StoreListScreen extends React.Component {
 
   // TODO: fix warning involving using a callback function to look up current store.
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
-  storeDetailsTransition = (store) => {
+  mapTransition = (store) => {
     this.state.navigation.navigate('Stores', {
       currentStore: store,
     });
@@ -295,7 +295,7 @@ export default class StoreListScreen extends React.Component {
             <StoreCard
               key={item.id}
               store={item}
-              callBack={() => this.storeDetailsTransition(item)}
+              callBack={() => this.mapTransition(item)}
               storeList
               seeDistance={!this.state.showDefaultStore}
             />
