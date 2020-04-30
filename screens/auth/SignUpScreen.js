@@ -36,13 +36,11 @@ export default class SignUpScreen extends React.Component {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
         [signUpFields.PASSWORD]: '',
-        [signUpFields.CODE]: '',
       },
       errors: {
         [signUpFields.NAME]: '',
         [signUpFields.PHONENUM]: '',
         [signUpFields.PASSWORD]: '',
-        [signUpFields.CODE]: '',
         // Duplicate phone number error - currently not being displayed
         submit: '',
       },
@@ -229,8 +227,10 @@ export default class SignUpScreen extends React.Component {
       await firebase.auth().signInWithCredential(credential);
       this.setModalVisible(false);
       this.completeSignUp();
+      return true;
     } catch (err) {
       console.log(err);
+      return false;
     }
   };
 

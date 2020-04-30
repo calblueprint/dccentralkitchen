@@ -35,7 +35,7 @@ function AuthTextField({
         errorColor={Colors.error}
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' || fieldType === 'Verification Code' ? 'numeric' : 'default'}
-        maxLength={fieldType === 'Phone Number' ? 10 : null}
+        maxLength={fieldType === 'Phone Number' ? 10 : fieldType === 'Verification Code' ? 6 : null}
         secureTextEntry={fieldType.includes('assword')}
         labelPadding={6}
         inputContainerPadding={4}
@@ -45,16 +45,7 @@ function AuthTextField({
           Note: this is how clerks will greet you!
         </Caption>
       )}
-      {fieldType === 'Phone Number' && !error && (
-        <Caption color={Colors.activeText}>
-          Must be a valid phone number
-        </Caption>
-      )}
-      {fieldType.includes('assword') && !error && (
-        <Caption color={Colors.activeText}>
-          Must be between 8-20 characters long
-        </Caption>
-      )}
+
       {fieldType === 'Verification Code' && !error && (
         <Caption color={Colors.activeText}>
           If you did not receive a code, click resend.

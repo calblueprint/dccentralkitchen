@@ -33,8 +33,7 @@ const validation = {
       message: '^Code cannot be blank.',
     },
     length: {
-      minimum: 6,
-      maximum: 6,
+      is: 6,
       message: '^Must be six digits!',
     },
     // To check for only numbers in the future

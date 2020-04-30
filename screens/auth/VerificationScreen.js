@@ -56,9 +56,30 @@ export default class VerificationScreen extends React.Component {
 
     };
 
-    setModalVisible = visible => {
+    setModalVisible = async visible => {
         this.props.closer(visible);
         this.setState({ modalVisible: visible });
+    };
+
+    resendCode = async visible => {
+        await this.setModalVisible(visible);
+        await this.props.resend();
+        this.setModalVisible(!visible);
+    };
+
+    verifyCode = async (code) => {
+        try {
+            const verified = await this.props.verifyCode(code);
+            if (!verified) {
+                this.setState(prevState => ({
+                    errors: { ...prevState.errors, [signUpFields.CODE]: 'Incorrect code!' },
+
+                }));
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     render() {
@@ -84,13 +105,13 @@ export default class VerificationScreen extends React.Component {
                             onBlurCallback={value =>
                                 this.updateError(value, signUpFields.CODE)
                             }
-                            changeTextCallback={async text =>
+                            changeTextCallback={text =>
                                 this.onTextChange(text, signUpFields.CODE)
                             }
                             error={this.state.errors[signUpFields.CODE]}
                         />
                         <ButtonContainer
-                            onPress={async () => this.props.resend()}>
+                            onPress={async () => this.resendCode(false)}>
                             <ButtonLabel
                                 style={{ textTransform: 'none' }}
                                 color={Colors.primaryGreen}>
@@ -103,7 +124,7 @@ export default class VerificationScreen extends React.Component {
                         color={Colors.primaryGreen}
                         width="100%"
                         onPress={() =>
-                            this.props.verifyCode(this.state.values[signUpFields.CODE])
+                            this.verifyCode(this.state.values[signUpFields.CODE])
                         }>
                         <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
                     </FilledButtonContainer>

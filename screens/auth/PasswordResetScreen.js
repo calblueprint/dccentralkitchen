@@ -62,7 +62,10 @@ export default class PasswordResetScreen extends React.Component {
             default:
                 console.log('Not reached');
         }
-
+        if (error) { this.setState({ confirmed: false }); }
+        else if (this.state.verified && this.state.values[signUpFields.NEWPASSWORD] === this.state.values[signUpFields.VERIFYPASSWORD]) {
+            this.setState({ confirmed: true });
+        }
         this.setState(prevState => ({
             errors: { ...prevState.errors, [signUpField]: errorMsg },
             values: { ...prevState.values, [signUpField]: text },
@@ -85,11 +88,6 @@ export default class PasswordResetScreen extends React.Component {
         this.setState(prevState => ({
             values: { ...prevState.values, [signUpField]: text },
         }));
-        if (this.state.verified && this.state.values[signUpFields.NEWPASSWORD] === this.state.values[signUpFields.VERIFYPASSWORD]) {
-            this.setState({ confirmed: true });
-        } else {
-            this.setState({ confirmed: false });
-        }
 
     };
 
@@ -126,9 +124,10 @@ export default class PasswordResetScreen extends React.Component {
             await firebase.auth().signInWithCredential(credential);
             this.setState({ verified: true });
             this.setModalVisible(false);
+            return true;
         } catch (err) {
-            this.setModalVisible(false);
             console.log(err);
+            return false;
         }
     };
 
@@ -141,12 +140,6 @@ export default class PasswordResetScreen extends React.Component {
             if (customers.length === 1) {
                 customer = customers[0];
                 this.setState({ customer });
-            } else {
-                const errorMsg = 'Invalid number!';
-                this.setState(prevState => ({
-                    errors: { ...prevState.errors, [signUpFields.PHONENUM]: errorMsg },
-                }));
-                return false;
             }
         } catch (err) {
             console.log(err);
@@ -160,14 +153,15 @@ export default class PasswordResetScreen extends React.Component {
     }
 
     render() {
+        const validNumber = !this.state.errors[signUpFields.PHONENUM];
         return (
-
             <AuthScreenContainer>
-                {this.state.modalVisible && <VerificationScreen number={this.state.formattedPhoneNumber} visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha} closer={this.setModalVisible}></VerificationScreen>}
                 <FirebaseRecaptchaVerifierModal
                     ref={this.state.recaptchaVerifier}
                     firebaseConfig={firebaseConfig}
                 />
+                {this.state.modalVisible && <VerificationScreen number={this.state.formattedPhoneNumber} visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha} closer={this.setModalVisible}></VerificationScreen>}
+
                 <BackButton onPress={() => this.props.navigation.goBack()}>
                     <FontAwesome5 name="arrow-left" solid size={24} />
                 </BackButton>
@@ -222,23 +216,30 @@ export default class PasswordResetScreen extends React.Component {
                 {!this.state.verified && !this.state.success &&
                     <FilledButtonContainer
                         style={{ marginTop: 48 }}
-                        color={Colors.primaryGreen}
+                        color={
+                            !validNumber ? Colors.lightestGreen : Colors.primaryGreen
+                        }
                         width="100%"
                         onPress={() =>
                             this.openRecaptcha()
-                        }>
+                        }
+                        disabled={!validNumber}>
                         <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
                     </FilledButtonContainer>
                 }
                 {this.state.verified && !this.state.success &&
                     <FilledButtonContainer
                         style={{ marginTop: 48 }}
-                        color={Colors.primaryGreen}
+                        color={
+                            !this.state.confirmed ? Colors.lightestGreen : Colors.primaryGreen
+                        }
                         width="100%"
-                        disabled={this.state.confirmed}
                         onPress={() =>
                             this.resetPassword()
-                        }>
+                        }
+                        disabled={!this.state.confirmed}>
+
+
                         <ButtonLabel color={Colors.lightest}>Reset Password</ButtonLabel>
                     </FilledButtonContainer>
                 }
@@ -247,10 +248,10 @@ export default class PasswordResetScreen extends React.Component {
                         style={{ marginTop: 48 }}
                         color={Colors.primaryGreen}
                         width="100%"
-                        disabled={this.state.confirmed}
                         onPress={() =>
                             this.props.navigation.navigate('LogIn')
-                        }>
+                        }
+                    >
                         <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
                     </FilledButtonContainer>
                 }
