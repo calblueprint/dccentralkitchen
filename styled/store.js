@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-
 import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
@@ -144,7 +143,7 @@ export const styles = StyleSheet.create({
   filterChipText: {
     minHeight: 20,
     marginVertical: 0,
-    marginTop: 3,
+    marginTop: 4,
     lineHeight: 16,
   },
 });
