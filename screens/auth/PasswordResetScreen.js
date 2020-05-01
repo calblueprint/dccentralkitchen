@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
@@ -266,5 +267,5 @@ export default class PasswordResetScreen extends React.Component {
 }
 
 PasswordResetScreen.propTypes = {
-
+    navigation: PropTypes.object.isRequired,
 };
