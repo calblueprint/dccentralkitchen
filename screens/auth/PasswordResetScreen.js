@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import React from 'react';
+import { View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import { BigTitle, ButtonLabel, Caption, FilledButtonContainer, Subhead } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
@@ -165,98 +166,101 @@ export default class PasswordResetScreen extends React.Component {
                 <BackButton onPress={() => this.props.navigation.goBack()}>
                     <FontAwesome5 name="arrow-left" solid size={24} />
                 </BackButton>
-                {!this.state.verified && !this.state.success && <BigTitle>Forgot Password</BigTitle>}
-                {!this.state.verified && !this.state.success && <Subhead style={{ marginTop: 32 }}>Enter the phone number connected to your account to reset your password.</Subhead>}
-                {!this.state.verified && !this.state.success && <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>A text containing a 6-digit code will be sent.</Caption>}
-                {this.state.verified && !this.state.success && <BigTitle>Set New Password</BigTitle>}
-                {this.state.success && <BigTitle>Success!</BigTitle>}
-                {this.state.success && <Subhead style={{ marginTop: 32 }}>Your new password was successfully set.</Subhead>}
-
-                {!this.state.success && <FormContainer>
-                    {!this.state.verified &&
-                        <AuthTextField
-                            fieldType="Phone Number"
-                            value={this.state.values[signUpFields.PHONENUM]}
-                            onBlurCallback={value =>
-                                this.updateError(value, signUpFields.PHONENUM)
-                            }
-                            changeTextCallback={text =>
-                                this.onTextChange(text, signUpFields.PHONENUM)
-                            }
-                            error={this.state.errors[signUpFields.PHONENUM]}
-                        />
-                    }
-                    {this.state.verified &&
-                        <AuthTextField
-                            fieldType="New Password"
-                            value={this.state.values[signUpFields.NEWPASSWORD]}
-                            onBlurCallback={value =>
-                                this.updateError(value, signUpFields.NEWPASSWORD)
-                            }
-                            changeTextCallback={text =>
-                                this.onTextChange(text, signUpFields.NEWPASSWORD)
-                            }
-                            error={this.state.errors[signUpFields.NEWPASSWORD]}
-                        />
-                    }
-                    {this.state.verified &&
-                        <AuthTextField
-                            fieldType="Re-enter New Password"
-                            value={this.state.values[signUpFields.VERIFYPASSWORD]}
-                            onBlurCallback={value =>
-                                this.updateError(value, signUpFields.VERIFYPASSWORD)
-                            }
-                            changeTextCallback={text =>
-                                this.onTextChange(text, signUpFields.VERIFYPASSWORD)
-                            }
-                            error={this.state.errors[signUpFields.VERIFYPASSWORD]}
-                        />
-                    }
-                </FormContainer>}
-                {!this.state.verified && !this.state.success &&
-                    <FilledButtonContainer
-                        style={{ marginTop: 48 }}
-                        color={
-                            !validNumber ? Colors.lightestGreen : Colors.primaryGreen
-                        }
-                        width="100%"
-                        onPress={() =>
-                            this.openRecaptcha()
-                        }
-                        disabled={!validNumber}>
-                        <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
-                    </FilledButtonContainer>
-                }
                 {this.state.verified && !this.state.success &&
-                    <FilledButtonContainer
-                        style={{ marginTop: 48 }}
-                        color={
-                            !this.state.confirmed ? Colors.lightestGreen : Colors.primaryGreen
-                        }
-                        width="100%"
-                        onPress={() =>
-                            this.resetPassword()
-                        }
-                        disabled={!this.state.confirmed}>
+                    <View>
+                        <BigTitle>Set New Password</BigTitle>
+                        <FormContainer>
+                            <AuthTextField
+                                fieldType="New Password"
+                                value={this.state.values[signUpFields.NEWPASSWORD]}
+                                onBlurCallback={value =>
+                                    this.updateError(value, signUpFields.NEWPASSWORD)
+                                }
+                                changeTextCallback={text =>
+                                    this.onTextChange(text, signUpFields.NEWPASSWORD)
+                                }
+                                error={this.state.errors[signUpFields.NEWPASSWORD]}
+                            />
+                            <AuthTextField
+                                fieldType="Re-enter New Password"
+                                value={this.state.values[signUpFields.VERIFYPASSWORD]}
+                                onBlurCallback={value =>
+                                    this.updateError(value, signUpFields.VERIFYPASSWORD)
+                                }
+                                changeTextCallback={text =>
+                                    this.onTextChange(text, signUpFields.VERIFYPASSWORD)
+                                }
+                                error={this.state.errors[signUpFields.VERIFYPASSWORD]}
+                            />
+                        </FormContainer>
+                        <FilledButtonContainer
+                            style={{ marginTop: 48 }}
+                            color={
+                                !this.state.confirmed ? Colors.lightestGreen : Colors.primaryGreen
+                            }
+                            width="100%"
+                            onPress={() =>
+                                this.resetPassword()
+                            }
+                            disabled={!this.state.confirmed}>
 
 
-                        <ButtonLabel color={Colors.lightest}>Reset Password</ButtonLabel>
-                    </FilledButtonContainer>
+                            <ButtonLabel color={Colors.lightest}>Reset Password</ButtonLabel>
+                        </FilledButtonContainer>
+                    </View>
                 }
+
+                {!this.state.verified && !this.state.success &&
+                    <View>
+                        <BigTitle>Forgot Password</BigTitle>
+                        <Subhead style={{ marginTop: 32 }}>Enter the phone number connected to your account to reset your password.</Subhead>
+                        <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>A text containing a 6-digit code will be sent.</Caption>
+                        <FormContainer>
+                            <AuthTextField
+                                fieldType="Phone Number"
+                                value={this.state.values[signUpFields.PHONENUM]}
+                                onBlurCallback={value =>
+                                    this.updateError(value, signUpFields.PHONENUM)
+                                }
+                                changeTextCallback={text =>
+                                    this.onTextChange(text, signUpFields.PHONENUM)
+                                }
+                                error={this.state.errors[signUpFields.PHONENUM]}
+                            />
+                        </FormContainer>
+                        <FilledButtonContainer
+                            style={{ marginTop: 48 }}
+                            color={
+                                !validNumber ? Colors.lightestGreen : Colors.primaryGreen
+                            }
+                            width="100%"
+                            onPress={() =>
+                                this.openRecaptcha()
+                            }
+                            disabled={!validNumber}>
+                            <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
+                        </FilledButtonContainer>
+                    </View>
+                }
+
                 {this.state.success &&
-                    <FilledButtonContainer
-                        style={{ marginTop: 48 }}
-                        color={Colors.primaryGreen}
-                        width="100%"
-                        onPress={() =>
-                            this.props.navigation.navigate('LogIn')
-                        }
-                    >
-                        <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
-                    </FilledButtonContainer>
+                    <View>
+                        <BigTitle>Success!</BigTitle>
+                        <Subhead style={{ marginTop: 32 }}>Your new password was successfully set.</Subhead>
+                        <FilledButtonContainer
+                            style={{ marginTop: 48 }}
+                            color={Colors.primaryGreen}
+                            width="100%"
+                            onPress={() =>
+                                this.props.navigation.navigate('LogIn')
+                            }
+                        >
+                            <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
+                        </FilledButtonContainer>
+                    </View>
+
                 }
             </AuthScreenContainer>
-
         );
     }
 }
