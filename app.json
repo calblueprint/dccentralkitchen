@@ -1,10 +1,14 @@
 {
   "expo": {
-    "name": "Healthy Corners Rewards",
-    "slug": "healthy-corners-rewards",
+    "name": "Healthy Corners Rewards-androidtestkeyboard",
+    "slug": "healthy-corners-rewards-androidtestkeyboard",
     "privacy": "public",
     "sdkVersion": "37.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.1.0",
     "primaryColor": "#008550",
     "orientation": "portrait",
@@ -17,7 +21,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
@@ -45,7 +51,10 @@
           "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
         }
       },
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
       "versionCode": 3
     },
     "web": {

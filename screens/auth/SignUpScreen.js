@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard } from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
@@ -16,6 +16,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import { env } from '../../environment';
 import {
   createCustomers,
   createPushTokens,
@@ -349,9 +350,9 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          {/* {env === 'dev' && (
+          {env === 'dev' && (
             <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-          )} */}
+          )}
         </ScrollView>
       </AuthScreenContainer>
     );
