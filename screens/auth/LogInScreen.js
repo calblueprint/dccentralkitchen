@@ -5,15 +5,28 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonContainer, ButtonLabel, Caption, FilledButtonContainer } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonContainer,
+  ButtonLabel,
+  Caption,
+  FilledButtonContainer,
+} from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getAllCustomers } from '../../lib/airtable/request';
-import { formatPhoneNumber, updateCustomerPushTokens } from '../../lib/authUtils';
+import {
+  formatPhoneNumber,
+  updateCustomerPushTokens,
+} from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
 
 export default class LogInScreen extends React.Component {
@@ -28,12 +41,13 @@ export default class LogInScreen extends React.Component {
     };
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
   _asyncLogIn = async customerId => {
     await AsyncStorage.setItem('customerId', customerId);
+    Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
@@ -113,7 +127,6 @@ export default class LogInScreen extends React.Component {
           Sentry.captureMessage('Log In Successful');
         });
       }
-
       this.setState({
         error,
       });

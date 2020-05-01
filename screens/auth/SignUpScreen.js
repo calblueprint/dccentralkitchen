@@ -10,14 +10,26 @@ import React from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer,
+} from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { firebaseConfig } from '../../firebase';
-import { createCustomers, createPushTokens, getCustomersByPhoneNumber } from '../../lib/airtable/request';
+import {
+  createCustomers,
+  createPushTokens,
+  getCustomersByPhoneNumber,
+} from '../../lib/airtable/request';
 import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
 
@@ -93,6 +105,7 @@ export default class SignUpScreen extends React.Component {
   // to be the fname + lname and then navigates to homescreen.
   _asyncSignUp = async customerId => {
     await AsyncStorage.setItem('customerId', customerId);
+    Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
@@ -311,10 +324,15 @@ export default class SignUpScreen extends React.Component {
     const signUpPermission = fieldsFilled && noErrors;
 
     return (
-
-
       <AuthScreenContainer>
-        {this.state.modalVisible && <VerificationScreen number={this.state.formattedPhoneNumber} visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha} closer={this.setModalVisible}></VerificationScreen>}
+        {this.state.modalVisible && (
+          <VerificationScreen
+            number={this.state.formattedPhoneNumber}
+            visible={this.state.modalVisible}
+            verifyCode={this.verifyCode}
+            resend={this.openRecaptcha}
+            closer={this.setModalVisible}></VerificationScreen>
+        )}
 
         <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
@@ -328,9 +346,7 @@ export default class SignUpScreen extends React.Component {
           <AuthTextField
             fieldType="Name"
             value={this.state.values[signUpFields.NAME]}
-            onBlurCallback={value =>
-              this.updateError(value, signUpFields.NAME)
-            }
+            onBlurCallback={value => this.updateError(value, signUpFields.NAME)}
             changeTextCallback={async text =>
               this.onTextChange(text, signUpFields.NAME)
             }
@@ -363,9 +379,7 @@ export default class SignUpScreen extends React.Component {
         </FormContainer>
         <FilledButtonContainer
           style={{ marginTop: 24, alignSelf: 'flex-end' }}
-          color={
-            !signUpPermission ? Colors.lightestGreen : Colors.primaryGreen
-          }
+          color={!signUpPermission ? Colors.lightestGreen : Colors.primaryGreen}
           width="100%"
           onPress={() => this.handleSubmit()}
           disabled={!signUpPermission}>
