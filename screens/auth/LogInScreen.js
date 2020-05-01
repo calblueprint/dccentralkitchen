@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, ScrollView } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -160,55 +160,66 @@ export default class LogInScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <BackButton onPress={() => this.props.navigation.goBack(null)}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </BackButton>
-        <BigTitle>Log In</BigTitle>
-        <FormContainer>
-          <AuthTextField
-            fieldType="Phone Number"
-            value={this.state.phoneNumber}
-            changeTextCallback={async (text) => {
-              this.setState({ phoneNumber: text, error: '' });
-            }}
-            // Display error indicator ('no text') only when login fails
-            error={this.state.error ? ' ' : ''}
-          />
-          <AuthTextField
-            fieldType="Password"
-            value={this.state.password}
-            changeTextCallback={async (text) => {
-              this.setState({ password: text, error: '' });
-            }}
-            // Display error indicator ('no text') only when login fails
-            error={this.state.error ? ' ' : ''}
-          />
-          <Caption
-            style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}>
-            {this.state.error}
-          </Caption>
-        </FormContainer>
-        <JustifyCenterContainer>
-          <FilledButtonContainer
-            style={{ marginTop: 104 }}
-            color={
-              !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
-            }
-            width="100%"
-            onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}>
-            <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
-          </FilledButtonContainer>
+        <ScrollView
+          ref={(ref) => {
+            this.scrollView = ref;
+          }}
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}>
+          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
+          <BigTitle>Log In</BigTitle>
+          <FormContainer>
+            <AuthTextField
+              fieldType="Phone Number"
+              value={this.state.phoneNumber}
+              changeTextCallback={async (text) => {
+                this.setState({ phoneNumber: text, error: '' });
+              }}
+              onBlurCallback={() =>
+                this.scrollView.scrollToEnd({ animated: true })
+              }
+              // Display error indicator ('no text') only when login fails
+              error={this.state.error ? ' ' : ''}
+            />
+            <AuthTextField
+              fieldType="Password"
+              value={this.state.password}
+              changeTextCallback={async (text) => {
+                this.setState({ password: text, error: '' });
+              }}
+              // Display error indicator ('no text') only when login fails
+              error={this.state.error ? ' ' : ''}
+            />
+            <Caption
+              style={{ alignSelf: 'center', fontSize: 14 }}
+              color={Colors.error}>
+              {this.state.error}
+            </Caption>
+          </FormContainer>
+          <JustifyCenterContainer>
+            <FilledButtonContainer
+              style={{ marginVertical: 24 }}
+              color={
+                !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
+              }
+              width="100%"
+              onPress={() => this.handleSubmit()}
+              disabled={!logInPermission}>
+              <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
+            </FilledButtonContainer>
 
-          {/* TODO @tommypoa: Forgot password functionality
+            {/* TODO @tommypoa: Forgot password functionality
 
           <ForgotPasswordButtonContainer>
             <ButtonContainer>
               <Body color={Colors.primaryGreen}>Forgot password?</Body>
             </ButtonContainer>
           </ForgotPasswordButtonContainer> */}
-        </JustifyCenterContainer>
+          </JustifyCenterContainer>
+        </ScrollView>
       </AuthScreenContainer>
     );
   }

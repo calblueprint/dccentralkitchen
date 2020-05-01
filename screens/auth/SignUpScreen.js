@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
@@ -16,7 +16,6 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
-import { env } from '../../environment';
 import {
   createCustomers,
   createPushTokens,
@@ -290,8 +289,14 @@ export default class SignUpScreen extends React.Component {
     const signUpPermission = fieldsFilled && noErrors && !processing;
 
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <AuthScreenContainer>
+      <AuthScreenContainer>
+        <ScrollView
+          style={{ flex: 1 }}
+          keyboardShouldPersistTaps="always"
+          showsVerticalScrollIndicator={false}
+          ref={(ref) => {
+            this.scrollView = ref;
+          }}>
           <BackButton onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
@@ -300,21 +305,22 @@ export default class SignUpScreen extends React.Component {
             <AuthTextField
               fieldType="Name"
               value={this.state.values[signUpFields.NAME]}
-              onBlurCallback={(value) =>
-                this.updateError(value, signUpFields.NAME)
-              }
-              changeTextCallback={async (text) =>
-                this.onTextChange(text, signUpFields.NAME)
-              }
+              onBlurCallback={(value) => {
+                this.updateError(value, signUpFields.NAME);
+                this.scrollView.scrollToEnd({ animated: true });
+              }}
+              changeTextCallback={async (text) => {
+                this.onTextChange(text, signUpFields.NAME);
+              }}
               error={this.state.errors[signUpFields.NAME]}
             />
 
             <AuthTextField
               fieldType="Phone Number"
               value={this.state.values[signUpFields.PHONENUM]}
-              onBlurCallback={(value) =>
-                this.updateError(value, signUpFields.PHONENUM)
-              }
+              onBlurCallback={(value) => {
+                this.updateError(value, signUpFields.PHONENUM);
+              }}
               changeTextCallback={(text) =>
                 this.onTextChange(text, signUpFields.PHONENUM)
               }
@@ -334,7 +340,7 @@ export default class SignUpScreen extends React.Component {
             />
           </FormContainer>
           <FilledButtonContainer
-            style={{ marginTop: 24, alignSelf: 'flex-end' }}
+            style={{ marginVertical: 24, alignSelf: 'flex-end' }}
             color={
               !signUpPermission ? Colors.lightestGreen : Colors.primaryGreen
             }
@@ -343,11 +349,11 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          {env === 'dev' && (
+          {/* {env === 'dev' && (
             <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-          )}
-        </AuthScreenContainer>
-      </ScrollView>
+          )} */}
+        </ScrollView>
+      </AuthScreenContainer>
     );
   }
 }
