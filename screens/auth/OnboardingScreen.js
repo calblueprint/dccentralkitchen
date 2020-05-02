@@ -79,7 +79,7 @@ export default class OnboardingScreen extends React.Component {
           ))}
         </RowContainer>
         <ColumnContainer style={{ alignItems: 'center' }}>
-          <Title>{item.title}</Title>
+          <Title style={{ textAlign: 'center' }}>{item.title}</Title>
           <Body style={{ marginTop: 12, textAlign: 'center' }}>
             {item.body}
           </Body>
@@ -106,7 +106,7 @@ export default class OnboardingScreen extends React.Component {
         <Carousel
           data={ONBOARDING_CONTENT}
           renderItem={this._renderItem}
-          onSnapToItem={index => this.setState({ pageIndex: index })}
+          onSnapToItem={(index) => this.setState({ pageIndex: index })}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
           containerCustomStyle={{
