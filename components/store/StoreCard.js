@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { Dimensions, Linking, TouchableOpacity } from 'react-native';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import {
@@ -174,17 +174,25 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             <StoreDetailText>{address}</StoreDetailText>
           </InLineContainer>
         </TouchableOpacity>
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="phone"
-            solid
-            size={16}
-            color={Colors.secondaryText}
-          />
-          <StoreDetailText>
-            {phoneNumber || 'Phone number unavailable'}
-          </StoreDetailText>
-        </InLineContainer>
+        <TouchableOpacity
+          disabled={storeList}
+          onPress={() =>
+            Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
+          }
+          onLongPress={() => writeToClipboard(phoneNumber)}>
+          <InLineContainer style={{ alignItems: 'center' }}>
+            <FontAwesome5
+              name="phone"
+              solid
+              size={16}
+              color={Colors.secondaryText}
+            />
+            <StoreDetailText>
+              {phoneNumber || 'Phone number unavailable'}
+            </StoreDetailText>
+          </InLineContainer>
+        </TouchableOpacity>
+
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
             name="clock"
