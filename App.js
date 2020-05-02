@@ -6,14 +6,15 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
+import { env } from './environment';
 import AppNavigator from './navigation/AppNavigator';
 
 Sentry.init({
   dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
-  enableInExpoDevelopment: true,
+  enableInExpoDevelopment: false,
   release: 'v1.1.0',
-  debug: true,
-  environment: 'development',
+  debug: false,
+  environment: env,
 });
 
 export default function App(props) {

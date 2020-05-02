@@ -34,7 +34,7 @@ function AuthTextField({
         error={error}
         errorColor={Colors.error}
         returnKeyType="done"
-        keyboardType={fieldType === 'Phone Number' ? 'numeric' : 'default'}
+        keyboardType={fieldType === 'Phone Number' ? 'numeric' : undefined}
         maxLength={fieldType === 'Phone Number' ? 10 : null}
         secureTextEntry={fieldType === 'Password'}
         labelPadding={6}
@@ -51,14 +51,13 @@ function AuthTextField({
 
 AuthTextField.propTypes = {
   fieldType: PropTypes.string.isRequired,
-  value: PropTypes.any.isRequired,
-  changeTextCallback: PropTypes.any.isRequired,
-  error: PropTypes.any,
-  onBlurCallback: PropTypes.any,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  changeTextCallback: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
+  onBlurCallback: PropTypes.func,
 };
 
 AuthTextField.defaultProps = {
-  error: null,
   onBlurCallback: null,
 };
 

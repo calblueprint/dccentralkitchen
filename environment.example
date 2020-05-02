@@ -1,0 +1,63 @@
+/** ***************************
+ * environment.js
+ * path: '/environment.js'
+ ***************************** */
+
+/* Modified from https://alxmrtnz.com/thoughts/2019/03/12/environment-variables-and-workflow-in-expo.html#comment-4589309119 */
+
+/* 
+USAGE:
+import getEnvVars from '../../environment';
+*/
+
+/* 
+ Replace the following lines in `lib/airtable.js` (starting with this one)
+const ENDPOINT_URL = 'https://api.airtable.com';
+
+const { BASE_ID, AIRTABLE_API_KEY } = getEnvVars();
+
+Airtable.configure({
+  endpointUrl: ENDPOINT_URL,
+  apiKey: AIRTABLE_API_KEY,
+});
+
+const base = Airtable.base(BASE_ID);
+
+*/
+
+import Constants from 'expo-constants';
+
+const DEV_BASE_ID = 'appYfW7a2loPD26Vg';
+const PROD_BASE_ID = 'app4fXK49bqcjDMEo';
+const AIRTABLE_API_KEY = 'YOUR-API-KEY';
+
+// For Sentry logging
+const staticEnvVars = {
+  SENTRY_ORG: 'calblueprint',
+  SENTRY_PROJECT: 'dccentralkitchen',
+  SENTRY_AUTH_TOKEN: 'YOUR-SENTRY-AUTH-TOKEN',
+};
+
+const ENV_VARIABLES = {
+  dev: {
+    BASE_ID: DEV_BASE_ID,
+    AIRTABLE_API_KEY,
+  },
+  prod: {
+    BASE_ID: PROD_BASE_ID,
+    AIRTABLE_API_KEY,
+  },
+};
+
+const env = Constants.manifest.releaseChannel || 'dev';
+const getEnvVars = () => {
+  if (__DEV__) {
+    return ENV_VARIABLES.dev;
+  }
+  if (env === 'prod') {
+    return ENV_VARIABLES.prod;
+  }
+  console.log('[environment.js] UNREACHED');
+  return {};
+};
+export { getEnvVars as default, staticEnvVars, env };

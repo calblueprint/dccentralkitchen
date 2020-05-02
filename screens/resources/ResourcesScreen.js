@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -15,7 +16,7 @@ export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      CovidResources: [],
+      CrisisResources: [],
       DCCentralKitchenResources: [],
       CommunityResources: [],
       GovernmentResources: [],
@@ -24,25 +25,31 @@ export default class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
+    Analytics.setUnavailabilityLogging(false);
+    Analytics.logEvent('open_resources', {
+      name: 'resources',
+      screen: 'ResourcesScreen',
+    });
+    Analytics.setCurrentScreen('ResourcesScreen');
     try {
       const resources = await getAllResources();
-      const CovidResources = resources.filter(
-        resource => resource.category === 'COVID-19 (Coronavirus)'
+      const CrisisResources = resources.filter(
+        (resource) => resource.category === 'Crisis Response'
       );
       const DCCentralKitchenResources = resources.filter(
-        resource => resource.category === 'DC Central Kitchen Resources'
+        (resource) => resource.category === 'DC Central Kitchen Resources'
       );
       const CommunityResources = resources.filter(
-        resource => resource.category === 'Community Resources'
+        (resource) => resource.category === 'Community Resources'
       );
       const GovernmentResources = resources.filter(
-        resource => resource.category === 'Government Resources'
+        (resource) => resource.category === 'Government Resources'
       );
       const ResourcesForSeniors = resources.filter(
-        resource => resource.category === 'Resources for Seniors'
+        (resource) => resource.category === 'Resources for Seniors'
       );
       this.setState({
-        CovidResources,
+        CrisisResources,
         DCCentralKitchenResources,
         CommunityResources,
         GovernmentResources,
@@ -63,11 +70,8 @@ export default class ResourcesScreen extends React.Component {
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
-          <ResourceCategoryBar
-            icon="clinic-medical"
-            title="COVID-19 (Coronavirus)"
-          />
-          {this.state.CovidResources.map(resource => (
+          <ResourceCategoryBar icon="hands-helping" title="Crisis Response" />
+          {this.state.CrisisResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -75,7 +79,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
-          {this.state.DCCentralKitchenResources.map(resource => (
+          {this.state.DCCentralKitchenResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -83,7 +87,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="heart" title="Community" />
-          {this.state.CommunityResources.map(resource => (
+          {this.state.CommunityResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -91,7 +95,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="balance-scale" title="Government" />
-          {this.state.GovernmentResources.map(resource => (
+          {this.state.GovernmentResources.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
@@ -99,7 +103,7 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           <ResourceCategoryBar icon="user" title="Seniors" />
-          {this.state.ResourcesForSeniors.map(resource => (
+          {this.state.ResourcesForSeniors.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}

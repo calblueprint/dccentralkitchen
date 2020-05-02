@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const ProductListContainer = styled.View`
-  padding: 0 18%;
+  padding: 0 16px;
 `;
 
 export const ProductInfoContainer = styled.View`

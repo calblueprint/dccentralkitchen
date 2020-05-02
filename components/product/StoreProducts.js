@@ -6,6 +6,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
+import { StoreDetailText } from '../../styled/store';
 import { Body, ButtonContainer, Subhead, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
@@ -14,15 +15,20 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   return (
     <View>
-      <StoreCard
-        store={store}
-        key={store.id}
-        seeProduct={false}
-        seeDistance={!showDefaultStore}
-      />
+      <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
       <View>
         <SpaceBetweenRowContainer margin={(0, 16)}>
-          <Title>Products</Title>
+          <View style={{ flexDirection: 'row' }}>
+            <Title>Products</Title>
+            {products.length > 0 && (
+              <StoreDetailText
+                color={Colors.secondaryText}
+                style={{ marginTop: 7 }}>
+                recently delivered
+              </StoreDetailText>
+            )}
+          </View>
+
           <ButtonContainer
             onPress={() =>
               navigation.navigate('Products', {
@@ -46,9 +52,10 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               product={item}
               navigation={navigation}
               store={store}
+              productsScreen={false}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           ListEmptyComponent={
             <View
               style={{
@@ -67,6 +74,8 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
             </View>
           }
           ListHeaderComponent={<View style={{ width: 16 }} />}
+          ListFooterComponent={<View style={{ width: 16 }} />}
+          ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
         />
       </View>
     </View>

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+
 import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
@@ -9,10 +10,10 @@ export const MarkerContainer = styled.View`
   align-items: center
 `;
 export const MarkerStoreName = styled.Text`
-  font-family: ${props =>
+  font-family: ${(props) =>
     props.focused ? 'poppins-semibold' : 'poppins-medium'};
-  font-size: ${props => (props.focused ? '16px' : '14px')};
-  line-height: ${props => (props.focused ? '24px' : '20px')};
+  font-size: ${(props) => (props.focused ? '16px' : '14px')};
+  line-height: ${(props) => (props.focused ? '24px' : '20px')};
   text-align: center
   color: ${Colors.activeText};
 `;
@@ -44,7 +45,7 @@ export const BottomSheetContainer = styled.View`
 `;
 
 export const StoreCardContainer = styled.View`
-  margin: ${props =>
+  margin: ${(props) =>
     props.includeMargins ? '0 16px 10px 16px' : '0 0 10px 0'};
 `;
 
@@ -82,7 +83,7 @@ export const EBTStatusBar = styled.View`
 
 export const StoreDetailText = styled(Body)`
   margin-left: 4px;
-  color: ${props =>
+  color: ${(props) =>
     props.greenText ? Colors.primaryGreen : Colors.secondaryText};
 `;
 
@@ -93,7 +94,7 @@ export const CancelButton = styled(ButtonContainer)`
   justify-content: center;
 `;
 
-// Search bar styles
+// Search bar + chip styles
 
 export const styles = StyleSheet.create({
   inputContainer: {
@@ -106,5 +107,44 @@ export const styles = StyleSheet.create({
   },
   input: {
     fontFamily: 'poppins-regular',
+  },
+  tagChip: {
+    backgroundColor: Colors.lightestGreen,
+    color: Colors.darkerGreen,
+    height: 18,
+    marginVertical: 0,
+    marginRight: 6,
+    marginBottom: 4,
+  },
+  filterChip: {
+    backgroundColor: Colors.lightestOrange,
+    color: Colors.darkerOrange,
+    height: 24,
+    marginLeft: 6,
+    marginVertical: 10,
+  },
+  selectedFilterChip: {
+    backgroundColor: Colors.primaryOrange,
+    color: Colors.lightest,
+    height: 24,
+    marginLeft: 6,
+    marginVertical: 10,
+  },
+  tagChipDesc: {
+    flex: 1,
+    paddingBottom: 10,
+    justifyContent: 'center',
+  },
+  tagChipText: {
+    minHeight: 16,
+    marginVertical: 0,
+    marginTop: 1,
+    lineHeight: 16,
+  },
+  filterChipText: {
+    minHeight: 20,
+    marginVertical: 0,
+    marginTop: 3,
+    lineHeight: 16,
   },
 });

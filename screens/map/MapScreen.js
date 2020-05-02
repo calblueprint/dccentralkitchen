@@ -5,18 +5,18 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
-import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { getCustomersById } from '../../lib/airtable/request';
+import RecordIds from '../../constants/RecordIds';
+import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -25,9 +25,9 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const minSnapPoint = 160;
+const minSnapPoint = 185;
 const midSnapPoint = 325;
-const maxSnapPoint = 460;
+const maxSnapPoint = 488;
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -41,8 +41,6 @@ const initialRegion = {
   longitudeDelta: 0.0421,
 };
 
-const defaultStoreId = 'recKmetaavnMWXVrk';
-
 export default class MapScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -54,8 +52,6 @@ export default class MapScreen extends React.Component {
       stores: null,
       store: null,
       storeProducts: null,
-      customer: null,
-      isGuest: false,
       showDefaultStore: false,
     };
   }
@@ -64,19 +60,14 @@ export default class MapScreen extends React.Component {
     // We get current location first, since we need to use the lat/lon found in _populateIntitialStoresProducts
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
-    const customerId = await AsyncStorage.getItem('userId');
-    const customer = await getCustomersById(customerId);
-    const isGuest = customerId === 'recLKK7cZHboMPEB8';
-    this.setState({
-      customer,
-      isGuest,
-    });
   }
 
   // TODO pretty high chance this should be either handled by navigation or `getDerivedStateFromProps`
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
-    this.changeCurrentStore(store, (resetSheet = true));
+    const resetSheet = true;
+    this.changeCurrentStore(store, resetSheet);
     const region = {
       latitude: store.latitude,
       longitude: store.longitude,
@@ -118,8 +109,12 @@ export default class MapScreen extends React.Component {
   _populateInitialStoresProducts = async () => {
     try {
       const stores = await getStoreData();
+
       // Sets list of stores in state, populates initial products
       await this._orderStoresByDistance(stores);
+
+      // Set current store to be focused
+      this.state.store.focused = true;
       // Once we choose the closest store, we must populate its store products
       // Better to perform API calls at top level, and then pass data as props.
       await this._populateStoreProducts(this.state.store);
@@ -128,29 +123,41 @@ export default class MapScreen extends React.Component {
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',
         err
       );
+      logErrorToSentry({
+        screen: 'MapScreen',
+        function: '_populateInitialStoresProducts',
+        error: err,
+      });
     }
   };
 
-  _populateStoreProducts = async store => {
-    try {
-      const products = await getProductData(store);
-      if (products) {
-        this.setState({ storeProducts: products });
+  _populateStoreProducts = async (store) => {
+    if (store) {
+      try {
+        const products = await getProductData(store);
+        if (products) {
+          this.setState({ storeProducts: products });
+        }
+      } catch (err) {
+        console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
+        logErrorToSentry({
+          screen: 'MapScreen',
+          function: '_populateStoreProducts',
+          error: err,
+        });
       }
-    } catch (err) {
-      console.error('[MapScreen] (_populateStoreProducts) Airtable:', err);
     }
   };
 
   // Calculate distances and sort by closest to location
   // _findCurrentLocation populates this.state.region with the correct lat/lon
   // Since it's initially set to a default value, we use that instead of this.state.location
-  _orderStoresByDistance = async stores => {
+  _orderStoresByDistance = async (stores) => {
     const sortedStores = [];
     const latlng = this.state.region;
 
     // We need distance to display in the StoreList
-    stores.forEach(store => {
+    stores.forEach((store) => {
       const currStore = store;
       const distanceMeters = getDistance(latlng, store);
       // Convert distance to 'x.xx' form, in miles units
@@ -162,8 +169,8 @@ export default class MapScreen extends React.Component {
       return a.distance - b.distance;
     });
 
-    const defaultStore = stores.find(store => {
-      return store.id === defaultStoreId;
+    const defaultStore = stores.find((store) => {
+      return store.id === RecordIds.defaultStoreId;
     });
 
     const region = {
@@ -173,7 +180,7 @@ export default class MapScreen extends React.Component {
     };
 
     // Condition for showDefaultStore requires prevState, so a little messy
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       stores: sortedStores,
       store:
         prevState.locationErrorMsg || sortedStores[0].distance > 100
@@ -213,7 +220,7 @@ export default class MapScreen extends React.Component {
     );
   };
 
-  onRegionChangeComplete = region => {
+  onRegionChangeComplete = (region) => {
     this.setState({ region });
   };
 
@@ -223,11 +230,12 @@ export default class MapScreen extends React.Component {
   changeCurrentStore(store, resetSheet = false) {
     // Set store focus status
     this.state.store.focused = false;
+    // eslint-disable-next-line no-param-reassign
     store.focused = true;
 
     // Animate to new store region
     const region = {
-      latitude: store.latitude,
+      latitude: store.latitude - deltas.latitudeDelta / 3.5,
       longitude: store.longitude,
       ...deltas,
     };
@@ -284,12 +292,14 @@ export default class MapScreen extends React.Component {
             </Subhead>
           </SearchBar>
         </NavHeaderContainer>
-        <CenterLocation
-          callBack={async () => {
-            await this._findCurrentLocation();
-            await this._orderStoresByDistance(this.state.stores);
-          }}
-        />
+        {!this.state.showDefaultStore && (
+          <CenterLocation
+            callBack={async () => {
+              await this._findCurrentLocation();
+              await this._orderStoresByDistance(this.state.stores);
+            }}
+          />
+        )}
         {/* Display Map */}
         <MapView
           style={{
@@ -298,13 +308,13 @@ export default class MapScreen extends React.Component {
             overflow: 'visible',
             zIndex: -1,
           }}
-          ref={mapView => {
+          ref={(mapView) => {
             this._map = mapView;
           }}
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display store markers */}
-          {this.state.stores.map(store => (
+          {this.state.stores.map((store) => (
             <Marker
               key={store.id}
               coordinate={{
@@ -313,7 +323,9 @@ export default class MapScreen extends React.Component {
               }}
               onPress={() => this.changeCurrentStore(store)}>
               <StoreMarker
-                storeName={store.storeName}
+                storeName={
+                  this.state.region.longitudeDelta < 0.07 ? store.storeName : ''
+                }
                 focused={store.focused}
               />
             </Marker>
@@ -324,9 +336,12 @@ export default class MapScreen extends React.Component {
               key={coords.latitude
                 .toString()
                 .concat(coords.longitude.toString())}
-              coordinate={coords}
-              image={require('../../assets/images/Current_Location.png')}
-            />
+              coordinate={coords}>
+              <Image
+                style={{ width: 32, height: 32 }}
+                source={require('../../assets/images/Current_Location.png')}
+              />
+            </Marker>
           )}
         </MapView>
         {/* Display bottom sheet. 
@@ -341,7 +356,8 @@ export default class MapScreen extends React.Component {
             snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
-            ref={bottomSheetRef => (this.bottomSheetRef = bottomSheetRef)}
+            // eslint-disable-next-line no-return-assign
+            ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
         <TouchableOpacity

@@ -1,5 +1,6 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
@@ -21,7 +22,7 @@ function DrawerContent(props) {
 
       const fetchUser = async () => {
         try {
-          const customerId = await AsyncStorage.getItem('userId');
+          const customerId = await AsyncStorage.getItem('customerId');
           let cust = null;
           if (customerId != null) {
             cust = await getCustomersById(customerId);
@@ -29,7 +30,12 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
-            Sentry.configureScope(scope => {
+            Analytics.setUserId(customerId);
+            Analytics.setUserProperties({
+              name: cust.name,
+              phoneNumber: cust.phoneNumber,
+            });
+            Sentry.configureScope((scope) => {
               scope.setUser({
                 id: customerId,
                 username: cust.name,
@@ -38,8 +44,16 @@ function DrawerContent(props) {
             });
             if (cust.name === 'Guest') {
               Sentry.captureMessage('Guest Login Successful');
+              Analytics.logEvent('drawer_load', {
+                name: 'Guest Login Successful',
+                screen: 'DrawerContent',
+              });
             } else {
               Sentry.captureMessage('Returning User');
+              Analytics.logEvent('drawer_load', {
+                name: 'Returning User',
+                screen: 'DrawerContent',
+              });
             }
             setCustomer(cust);
             setIsLoading(false);
@@ -67,7 +81,7 @@ function DrawerContent(props) {
   }
   const logout = async () => {
     AsyncStorage.clear();
-    Sentry.configureScope(scope => scope.clear());
+    Sentry.configureScope((scope) => scope.clear());
     setTimeout(function() {
       navigation.navigate('Auth');
     }, 500);

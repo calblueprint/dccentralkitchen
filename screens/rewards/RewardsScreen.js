@@ -16,10 +16,14 @@ import {
   NavButton,
   NavHeaderContainer,
 } from '../../components/BaseComponents';
+import ParticipatingStores from '../../components/rewards/ParticipatingStores';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
+import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
+import { logErrorToSentry } from '../../lib/logUtils';
+import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
 
@@ -35,7 +39,10 @@ export default class RewardsScreen extends React.Component {
     this.state = {
       customer: null,
       transactions: [],
+      participating: [],
+      // eslint-disable-next-line react/no-unused-state
       index: tab,
+      // eslint-disable-next-line react/no-unused-state
       routes,
       isLoading: true,
       isGuest: false,
@@ -44,16 +51,28 @@ export default class RewardsScreen extends React.Component {
 
   // Load customer record & transactions
   async componentDidMount() {
-    const customerId = await AsyncStorage.getItem('userId');
-    const customer = await getCustomersById(customerId);
-    const isGuest = customerId === 'recLKK7cZHboMPEB8';
-    const transactions = await getCustomerTransactions(customerId);
-    this.setState({
-      customer,
-      transactions,
-      isGuest,
-      isLoading: false,
-    });
+    const customerId = await AsyncStorage.getItem('customerId');
+    const isGuest = customerId === RecordIds.guestCustomerId;
+    try {
+      const customer = await getCustomersById(customerId);
+      const transactions = await getCustomerTransactions(customerId);
+      const participating = await getStoreData(`NOT({Rewards Accepted} = '')`);
+
+      this.setState({
+        isGuest,
+        customer,
+        transactions,
+        participating,
+        isLoading: false,
+      });
+    } catch (err) {
+      console.error(err);
+      logErrorToSentry({
+        screen: 'RewardsScreem',
+        action: 'componentDidMount',
+        error: err,
+      });
+    }
   }
 
   _logout = async () => {
@@ -65,7 +84,12 @@ export default class RewardsScreen extends React.Component {
   renderScene = ({ route }) => {
     switch (route.key) {
       case 'home':
-        return <RewardsHome customer={this.state.customer} />;
+        return (
+          <RewardsHome
+            customer={this.state.customer}
+            participating={this.state.participating}
+          />
+        );
       case 'history':
         return <PointsHistory transactions={this.state.transactions} />;
       default:
@@ -73,12 +97,13 @@ export default class RewardsScreen extends React.Component {
     }
   };
 
-  renderTabBar = props => {
+  renderTabBar = (props) => {
     return (
       <TabBar
         style={styles.tabBar}
         labelStyle={styles.tabBarLabel}
         tabStyle={{ width: 'auto' }}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         indicatorStyle={styles.tabBarIndicator}
       />
@@ -123,6 +148,10 @@ export default class RewardsScreen extends React.Component {
                 }}
               />
             </View>
+            <ParticipatingStores
+              participating={this.state.participating}
+              guest
+            />
             <FilledButtonContainer
               style={{ marginBottom: 24, alignSelf: 'center' }}
               color={Colors.primaryGreen}
@@ -159,7 +188,8 @@ export default class RewardsScreen extends React.Component {
           navigationState={this.state}
           renderScene={this.renderScene}
           renderTabBar={this.renderTabBar}
-          onIndexChange={index => this.setState({ index })}
+          // eslint-disable-next-line react/no-unused-state
+          onIndexChange={(index) => this.setState({ index })}
           initialLayout={{
             width: Dimensions.get('window').width,
             height: Dimensions.get('window').height,
@@ -173,7 +203,7 @@ export default class RewardsScreen extends React.Component {
 
 RewardsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  tab: PropTypes.any,
+  tab: PropTypes.number,
 };
 
 RewardsScreen.defaultProps = {
