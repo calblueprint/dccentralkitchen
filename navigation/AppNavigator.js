@@ -5,10 +5,10 @@ import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
-import RewardsScreen from '../screens/rewards/RewardsScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
+import RewardsStackNavigator from './stack_navigators/RewardsStack';
 import StoresStackNavigator from './stack_navigators/StoresStack';
 
 const Drawer = createDrawerNavigator();
@@ -43,13 +43,16 @@ function DrawerNavigator() {
       <Drawer.Screen
         name="Stores"
         component={StoresStackNavigator}
-        options={{ title: 'Stores', swipeEnabled: false }}
+        options={{ title: 'Map', swipeEnabled: false }}
       />
       <Drawer.Screen
         name="Rewards"
-        options={{ title: 'Rewards', drawerLockMode: 'locked-closed' }}>
-        {(props) => <RewardsScreen {...props} tab={1} />}
-      </Drawer.Screen>
+        component={RewardsStackNavigator}
+        options={{
+          title: 'Rewards',
+          drawerLockMode: 'locked-closed',
+        }}
+      />
       <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}
