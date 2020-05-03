@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, ScrollView } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   Body,
@@ -78,12 +78,14 @@ export default class OnboardingScreen extends React.Component {
             />
           ))}
         </RowContainer>
-        <ColumnContainer style={{ alignItems: 'center' }}>
-          <Title style={{ textAlign: 'center' }}>{item.title}</Title>
-          <Body style={{ marginTop: 12, textAlign: 'center' }}>
-            {item.body}
-          </Body>
-        </ColumnContainer>
+        <ScrollView>
+          <ColumnContainer style={{ alignItems: 'center' }}>
+            <Title style={{ textAlign: 'center' }}>{item.title}</Title>
+            <Body style={{ marginTop: 12, textAlign: 'center' }}>
+              {item.body}
+            </Body>
+          </ColumnContainer>
+        </ScrollView>
       </SpaceBetweenColumnContainer>
     );
   }
