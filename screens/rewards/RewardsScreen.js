@@ -109,6 +109,7 @@ export default class RewardsScreen extends React.Component {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         indicatorStyle={styles.tabBarIndicator}
+        scrollEnabled
       />
     );
   };
