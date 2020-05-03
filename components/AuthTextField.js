@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { TextField } from 'react-native-materialui-textfield';
-
 import Colors from '../constants/Colors';
 import { TextFieldContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
+
 
 /**
  * @prop
@@ -37,7 +37,6 @@ function AuthTextField({
         returnKeyType="done"
         keyboardType={fieldType === 'Phone Number' || fieldType === 'Verification Code' ? 'numeric' : 'default'}
         maxLength={fieldType === 'Phone Number' ? 10 : fieldType === 'Verification Code' ? 6 : null}
-        {/* Multiple password fields with different casing */}
         secureTextEntry={fieldType.includes('assword')}
         labelPadding={6}
         inputContainerPadding={4}
@@ -61,12 +60,13 @@ AuthTextField.propTypes = {
   fieldType: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   changeTextCallback: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   onBlurCallback: PropTypes.func,
 };
 
 AuthTextField.defaultProps = {
   onBlurCallback: null,
+  error: null,
 };
 
 export default AuthTextField;
