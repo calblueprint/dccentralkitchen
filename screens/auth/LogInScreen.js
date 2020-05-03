@@ -16,8 +16,9 @@ import {
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { getAllCustomers } from '../../lib/airtable/request';
+import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
+  encryptPassword,
   formatPhoneNumber,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
@@ -45,7 +46,7 @@ export default class LogInScreen extends React.Component {
 
   // From SignUpScreen. Sign in function. It sets the user token in local storage
   // to be the user ID and then navigates to homescreen.
-  _asyncLogIn = async customerId => {
+  _asyncLogIn = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     Keyboard.dismiss();
     this.props.navigation.navigate('App');
@@ -78,28 +79,37 @@ export default class LogInScreen extends React.Component {
   // the user is found.
   handleSubmit = async () => {
     const { password, phoneNumber, token } = this.state;
-
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+
     try {
       let error = '';
       let customer = null;
-      const customers = await getAllCustomers(
-        `AND({Phone Number} = '${formattedPhoneNumber}', {Password} = '${password}')`
-      );
-      // Returns empty array if no customer is found
+
+      // Find customer in Airtable
+      const customers = await getCustomersByPhoneNumber(formattedPhoneNumber);
+
+      // Phone number is registered
       if (customers.length === 1) {
-        customer = customers[0];
-        // If customer exists, we should update their push tokens
-        await updateCustomerPushTokens(customer, token);
-        // Log in
-        await this._asyncLogIn(customer.id);
+        [customer] = customers;
+
+        // Check if password is correct
+        // We use the record ID from Airtable as the salt to encrypt
+        const encrypted = await encryptPassword(customer.id, password);
+        if (encrypted !== customer.password) {
+          error = 'Phone number or password is incorrect.';
+        } else {
+          // Match found; update push tokens if necessary
+          await updateCustomerPushTokens(customer, token);
+          // Log in
+          await this._asyncLogIn(customer.id);
+        }
       } else if (customers.length > 1) {
         // In case of database malformation, may return more than one record
         // TODO this message is a design edge case
         error =
           'Database error: more than one customer found with this login information. Please report an issue so we can fix it for you!';
       } else {
-        // No customer found
+        // Returns empty array if no customer is found
         error = 'Phone number or password is incorrect.';
       }
 
@@ -116,9 +126,9 @@ export default class LogInScreen extends React.Component {
         Analytics.setUserId(customer.id);
         Analytics.setUserProperties({
           name: customer.name,
-          phoneNumber: phoneNumber,
+          phoneNumber,
         });
-        Sentry.configureScope(scope => {
+        Sentry.configureScope((scope) => {
           scope.setUser({
             id: customer.id,
             phoneNumber: formattedPhoneNumber,
@@ -159,7 +169,7 @@ export default class LogInScreen extends React.Component {
           <AuthTextField
             fieldType="Phone Number"
             value={this.state.phoneNumber}
-            changeTextCallback={async text => {
+            changeTextCallback={async (text) => {
               this.setState({ phoneNumber: text, error: '' });
             }}
             // Display error indicator ('no text') only when login fails
@@ -168,7 +178,7 @@ export default class LogInScreen extends React.Component {
           <AuthTextField
             fieldType="Password"
             value={this.state.password}
-            changeTextCallback={async text => {
+            changeTextCallback={async (text) => {
               this.setState({ password: text, error: '' });
             }}
             // Display error indicator ('no text') only when login fails

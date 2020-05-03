@@ -1,8 +1,9 @@
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { NavButton } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { ColumnContainer } from './shared';
+
 // TODO @tommypoa: Consider creating re-usable containers taking in props for the 3 Auth screens
 
 // Shared Auth Containers
@@ -13,6 +14,15 @@ export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
   flex: 1;
   margin: 50px 42px 0 42px;
   background-color: ${Colors.lightest};
+`;
+
+// OnboardingScreen
+export const OnboardingContainer = styled.View`
+  display: flex;
+  flex: 1
+  justify-content: center;
+  background-color: ${Colors.lightest};
+  margin: 200px 40px 75px 40px;
 `;
 
 // WelcomeScreen
@@ -64,3 +74,14 @@ export const BackButton = styled(NavButton)`
   left: -8px;
   margin-bottom: 8px;
 `;
+
+// OnboardingScreen pagination styles
+export const styles = StyleSheet.create({
+  dotStyle: {
+    width: 8,
+    height: 8,
+    borderRadius: 5,
+    marginHorizontal: 1,
+    backgroundColor: Colors.primaryGreen,
+  },
+});

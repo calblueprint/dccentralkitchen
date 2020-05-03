@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
+
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
@@ -35,7 +36,7 @@ function DrawerContent(props) {
               name: cust.name,
               phoneNumber: cust.phoneNumber,
             });
-            Sentry.configureScope(scope => {
+            Sentry.configureScope((scope) => {
               scope.setUser({
                 id: customerId,
                 username: cust.name,
@@ -81,8 +82,8 @@ function DrawerContent(props) {
   }
   const logout = async () => {
     AsyncStorage.clear();
-    Sentry.configureScope(scope => scope.clear());
-    setTimeout(function () {
+    Sentry.configureScope((scope) => scope.clear());
+    setTimeout(function() {
       navigation.navigate('Auth');
     }, 500);
     props.navigation.closeDrawer();

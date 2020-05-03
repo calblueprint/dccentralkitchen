@@ -1,12 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
-import Constants from 'expo-constants';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
+import { env } from './environment';
 import AppNavigator from './navigation/AppNavigator';
 
 Sentry.init({
@@ -14,7 +14,7 @@ Sentry.init({
   enableInExpoDevelopment: false,
   release: 'v1.1.0',
   debug: false,
-  environment: Constants.manifest.releaseChannel || 'dev',
+  environment: env,
 });
 
 export default function App(props) {
