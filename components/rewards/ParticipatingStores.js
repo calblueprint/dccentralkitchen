@@ -9,7 +9,7 @@ export default function ParticipatingStores({ participating, guest }) {
   const navigation = useNavigation();
   return (
     <ColumnContainer
-      style={guest ? { marginLeft: 16, marginBottom: 24 } : { marginTop: 28 }}>
+      style={guest ? { marginLeft: 16, marginBottom: 40 } : { marginTop: 28 }}>
       <Overline style={{}}>Participating Stores</Overline>
       {participating.map((store) => {
         return (
