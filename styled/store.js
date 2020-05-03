@@ -132,7 +132,8 @@ export const styles = StyleSheet.create({
   tagChipDesc: {
     flex: 1,
     paddingBottom: 10,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    maxWidth: '50%',
   },
   tagChipText: {
     minHeight: 16,
