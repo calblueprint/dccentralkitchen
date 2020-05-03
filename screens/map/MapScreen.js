@@ -5,10 +5,9 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
@@ -113,6 +112,9 @@ export default class MapScreen extends React.Component {
 
       // Sets list of stores in state, populates initial products
       await this._orderStoresByDistance(stores);
+
+      // Set current store to be focused
+      this.state.store.focused = true;
       // Once we choose the closest store, we must populate its store products
       // Better to perform API calls at top level, and then pass data as props.
       await this._populateStoreProducts(this.state.store);
@@ -233,7 +235,7 @@ export default class MapScreen extends React.Component {
 
     // Animate to new store region
     const region = {
-      latitude: store.latitude,
+      latitude: store.latitude - deltas.latitudeDelta / 3.5,
       longitude: store.longitude,
       ...deltas,
     };
@@ -290,12 +292,14 @@ export default class MapScreen extends React.Component {
             </Subhead>
           </SearchBar>
         </NavHeaderContainer>
-        <CenterLocation
-          callBack={async () => {
-            await this._findCurrentLocation();
-            await this._orderStoresByDistance(this.state.stores);
-          }}
-        />
+        {!this.state.showDefaultStore && (
+          <CenterLocation
+            callBack={async () => {
+              await this._findCurrentLocation();
+              await this._orderStoresByDistance(this.state.stores);
+            }}
+          />
+        )}
         {/* Display Map */}
         <MapView
           style={{
@@ -319,7 +323,9 @@ export default class MapScreen extends React.Component {
               }}
               onPress={() => this.changeCurrentStore(store)}>
               <StoreMarker
-                storeName={store.storeName}
+                storeName={
+                  this.state.region.longitudeDelta < 0.07 ? store.storeName : ''
+                }
                 focused={store.focused}
               />
             </Marker>
@@ -330,9 +336,12 @@ export default class MapScreen extends React.Component {
               key={coords.latitude
                 .toString()
                 .concat(coords.longitude.toString())}
-              coordinate={coords}
-              image={require('../../assets/images/Current_Location.png')}
-            />
+              coordinate={coords}>
+              <Image
+                style={{ width: 32, height: 32 }}
+                source={require('../../assets/images/Current_Location.png')}
+              />
+            </Marker>
           )}
         </MapView>
         {/* Display bottom sheet. 

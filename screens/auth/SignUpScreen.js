@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard } from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
@@ -16,6 +16,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import { env } from '../../environment';
 import {
   createCustomers,
   createPushTokens,
@@ -87,7 +88,7 @@ export default class SignUpScreen extends React.Component {
   // Configures to use David Ro's test account
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('customerId', RecordIds.customerId);
+    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
     this.props.navigation.navigate('App');
   };
 
@@ -136,7 +137,8 @@ export default class SignUpScreen extends React.Component {
       const customerId = await createCustomers({
         name,
         phoneNumber,
-        points: 0,
+        // 2020/4/29 update for Nam's launch
+        points: 500,
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 
@@ -341,7 +343,9 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
-          {/* <Button title="Testing Bypass" onPress={() => this._devBypass()} /> */}
+          {env === 'dev' && (
+            <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+          )}
         </AuthScreenContainer>
       </ScrollView>
     );

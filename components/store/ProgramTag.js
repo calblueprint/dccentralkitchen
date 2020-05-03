@@ -30,8 +30,8 @@ function capitalizeFirstLetters(word) {
   return splitWord.join(' ');
 }
 
-// program: a string representing the program name (valid programs are keys in programToIcon)
-function ProgramTag({ program }) {
+// program: a string representing the program name (valid programs are keys in labelToIcon)
+function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
   let programLabel = program;
 
   // Error checking: We'll fix the program label if it was somehow entered incorrectly
@@ -53,14 +53,22 @@ function ProgramTag({ program }) {
     programLabel = capitalizeFirstLetters(program);
   }
 
-  const programToIcon = {
+  const labelToIcon = {
     EBT: 'credit-card',
     WIC: 'heart',
     'SNAP Match': 'carrot',
     'Healthy Rewards': 'star',
+    'Open now': 'clock',
+    'Products in stock': 'shopping-basket',
   };
 
-  if (!Object.keys(programToIcon).includes(program)) {
+  const tagContentColor = tag
+    ? selected
+      ? Colors.lightest
+      : Colors.darkerOrange
+    : Colors.darkerGreen;
+
+  if (!Object.keys(labelToIcon).includes(program)) {
     return null;
   }
 
@@ -68,22 +76,38 @@ function ProgramTag({ program }) {
     <Chip
       icon={() => (
         <FontAwesome5
-          name={programToIcon[program]}
+          name={labelToIcon[program]}
           solid
           size={10}
-          color={Colors.darkerGreen}
-          style={{ marginTop: -1 }}
+          color={tagContentColor}
+          style={tag ? { marginTop: -1 } : { marginTop: 0 }}
         />
       )}
-      textStyle={styles.tagChipText}
-      style={styles.tagChip}>
-      <Caption color={Colors.darkerGreen}>{programLabel}</Caption>
+      textStyle={tag ? styles.filterChipText : styles.tagChipText}
+      style={
+        tag
+          ? selected
+            ? styles.selectedFilterChip
+            : styles.filterChip
+          : styles.tagChip
+      }
+      onPress={selectedFunc ? () => selectedFunc() : undefined}>
+      <Caption color={tagContentColor}>{programLabel}</Caption>
     </Chip>
   );
 }
 
 ProgramTag.propTypes = {
   program: PropTypes.string.isRequired,
+  tag: PropTypes.bool,
+  selected: PropTypes.bool,
+  selectedFunc: PropTypes.func,
+};
+
+ProgramTag.defaultProps = {
+  tag: false,
+  selected: false,
+  selectedFunc: null,
 };
 
 export default ProgramTag;

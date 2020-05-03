@@ -2,7 +2,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
-
 import {
   NavButton,
   NavHeaderContainer,
@@ -57,9 +56,6 @@ export default class ProductsScreen extends React.Component {
                 <Title color={Colors.activeText}>
                   {`Products (${products.length})`}
                 </Title>
-                <Subhead color={Colors.activeText}>
-                  {`Delivered in the last ${deliveryFrequency} days`}
-                </Subhead>
               </ColumnContainer>
             }
             ListFooterComponent={<View style={{ height: 270 }} />}

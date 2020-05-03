@@ -144,7 +144,7 @@ export const styles = StyleSheet.create({
   filterChipText: {
     minHeight: 20,
     marginVertical: 0,
-    marginTop: 3,
+    marginTop: 4,
     lineHeight: 16,
   },
 });
