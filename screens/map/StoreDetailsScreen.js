@@ -99,24 +99,12 @@ export default class StoreDetailsScreen extends React.Component {
             </InLineContainer>
           </View>
           {/* Phone Number */}
-          {phoneNumber ? (
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
-              }
-              onLongPress={() => writeToClipboard(phoneNumber)}>
-              <InLineContainer
-                style={{ alignItems: 'center', paddingBottom: 32 }}>
-                <FontAwesome5
-                  name="phone"
-                  solid
-                  size={24}
-                  color={Colors.activeText}
-                />
-                <Body style={{ marginLeft: 12 }}>{phoneNumber}</Body>
-              </InLineContainer>
-            </TouchableOpacity>
-          ) : (
+          <TouchableOpacity
+            disabled={!phoneNumber}
+            onPress={() =>
+              Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
+            }
+            onLongPress={() => writeToClipboard(phoneNumber)}>
             <InLineContainer
               style={{ alignItems: 'center', paddingBottom: 32 }}>
               <FontAwesome5
@@ -125,9 +113,11 @@ export default class StoreDetailsScreen extends React.Component {
                 size={24}
                 color={Colors.activeText}
               />
-              <Body style={{ marginLeft: 12 }}>Phone number unavailable</Body>
+              <Body style={{ marginLeft: 12 }}>
+                {phoneNumber || 'Phone number unavailable'}
+              </Body>
             </InLineContainer>
-          )}
+          </TouchableOpacity>
           {/* Store Hours */}
           <InLineContainer style={{ paddingBottom: 32 }}>
             <FontAwesome5
