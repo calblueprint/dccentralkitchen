@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
-
 import AuthTextField from '../../components/AuthTextField';
 import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
@@ -21,6 +20,7 @@ import { logAuthErrorToSentry } from '../../lib/logUtils';
 import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
+
 
 firebase.initializeApp(firebaseConfig);
 
@@ -46,7 +46,6 @@ export default class SignUpScreen extends React.Component {
         submit: '',
       },
       token: '',
-      processing: false,
     };
   }
 
@@ -77,7 +76,6 @@ export default class SignUpScreen extends React.Component {
         [signUpFields.CODE]: '',
       },
       token: '',
-      processing: false,
       // signUpPermission: false,
     });
   };
@@ -173,7 +171,6 @@ export default class SignUpScreen extends React.Component {
   // If there are no errors, add customer to Airtable.
   handleSubmit = async () => {
     try {
-      this.setState({ processing: true });
       // Check for duplicates first
       const formattedPhoneNumber = formatPhoneNumber(
         this.state.values[signUpFields.PHONENUM]
@@ -197,7 +194,6 @@ export default class SignUpScreen extends React.Component {
             ...prevState.errors,
             [signUpFields.PHONENUM]: errorMsg,
           },
-          processing: false,
         }));
         return;
       }
@@ -220,12 +216,17 @@ export default class SignUpScreen extends React.Component {
   openRecaptcha = async () => {
     const number = '+1'.concat(this.state.values[signUpFields.PHONENUM]);
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
-    const verificationId = await phoneProvider.verifyPhoneNumber(
-      number,
-      this.state.recaptchaVerifier.current
-    );
-    this.setState({ verificationId });
-    this.setModalVisible(true);
+    try {
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        number,
+        this.state.recaptchaVerifier.current
+      );
+      this.setState({ verificationId });
+      this.setModalVisible(true);
+    } catch (err) {
+      this.setModalVisible(true);
+      console.log(err);
+    }
   };
 
   verifyCode = async (code) => {
@@ -305,7 +306,7 @@ export default class SignUpScreen extends React.Component {
   };
 
   render() {
-    const { errors, processing, values } = this.state;
+    const { errors, values } = this.state;
 
     // Initially, button should be disabled
     // Until all fields have been (at least) filled out

@@ -47,7 +47,6 @@ export default class VerificationScreen extends React.Component {
     onTextChange = async (text, signUpField) => {
         // Only update error if there is currently an error
         // Unless field is password, since it is generally the last field to be filled out
-
         this.setState(prevState => ({
             values: { ...prevState.values, [signUpField]: text },
         }));
@@ -62,7 +61,6 @@ export default class VerificationScreen extends React.Component {
     resendCode = async visible => {
         await this.setModalVisible(visible);
         await this.props.resend();
-        this.setModalVisible(!visible);
     };
 
     verifyCode = async (code) => {
