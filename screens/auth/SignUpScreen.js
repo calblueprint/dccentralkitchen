@@ -321,6 +321,7 @@ export default class SignUpScreen extends React.Component {
               value={this.state.values[signUpFields.PHONENUM]}
               onBlurCallback={(value) => {
                 this.updateError(value, signUpFields.PHONENUM);
+                this.scrollView.scrollToEnd({ animated: true });
               }}
               changeTextCallback={(text) =>
                 this.onTextChange(text, signUpFields.PHONENUM)
