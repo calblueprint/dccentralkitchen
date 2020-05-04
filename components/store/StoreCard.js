@@ -175,10 +175,10 @@ export default function StoreCard({ store, storeList, seeDistance }) {
           </InLineContainer>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled={storeList}
-          onPress={() =>
-            Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
-          }
+          disabled={storeList || !phoneNumber}
+          onPress={() => {
+            Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')));
+          }}
           onLongPress={() => writeToClipboard(phoneNumber)}>
           <InLineContainer style={{ alignItems: 'center' }}>
             <FontAwesome5
