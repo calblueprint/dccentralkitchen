@@ -5,7 +5,6 @@ import Colors from '../constants/Colors';
 import { TextFieldContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
 
-
 /**
  * @prop
  * */
@@ -35,8 +34,18 @@ function AuthTextField({
         error={error}
         errorColor={Colors.error}
         returnKeyType="done"
-        keyboardType={fieldType === 'Phone Number' || fieldType === 'Verification Code' ? 'numeric' : 'default'}
-        maxLength={fieldType === 'Phone Number' ? 10 : fieldType === 'Verification Code' ? 6 : null}
+        keyboardType={
+          fieldType === 'Phone Number' || fieldType === 'Verification Code'
+            ? 'numeric'
+            : undefined
+        }
+        maxLength={
+          fieldType === 'Phone Number'
+            ? 10
+            : fieldType === 'Verification Code'
+            ? 6
+            : null
+        }
         secureTextEntry={fieldType.includes('assword')}
         labelPadding={6}
         inputContainerPadding={4}
