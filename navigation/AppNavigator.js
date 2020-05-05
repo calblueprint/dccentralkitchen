@@ -8,6 +8,7 @@ import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
+import SettingsStackNavigator from './stack_navigators/SettingsStack';
 import StoresStackNavigator from './stack_navigators/StoresStack';
 
 const Drawer = createDrawerNavigator();
@@ -53,6 +54,11 @@ function DrawerNavigator() {
         name="Resources"
         component={ResourcesStackNavigator}
         options={{ title: 'Resources', swipeEnabled: false }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={SettingsStackNavigator}
+        options={{ title: 'Settings', swipeEnabled: false }}
       />
     </Drawer.Navigator>
   );

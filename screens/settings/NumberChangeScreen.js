@@ -3,42 +3,50 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { AsyncStorage, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonLabel, Caption, FilledButtonContainer, Subhead } from '../../components/BaseComponents';
+import { BigTitle, ButtonLabel, FilledButtonContainer, Subhead } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { firebaseConfig } from '../../firebase';
-import { getCustomersByPhoneNumber, updateCustomers } from '../../lib/airtable/request';
-import { encryptPassword, formatPhoneNumber, signUpFields } from '../../lib/authUtils';
+import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
+import { formatPhoneNumber, signUpFields } from '../../lib/authUtils';
 import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
-import validate from './validation';
-import VerificationScreen from './VerificationScreen';
+import validate from '../auth/validation';
+import VerificationScreen from '../auth/VerificationScreen';
+
 
 export default class PasswordResetScreen extends React.Component {
-
     constructor(props) {
         super(props);
         const recaptchaVerifier = React.createRef();
         this.state = {
             customer: null,
+            confirmed: false,
             success: false,
             modalVisible: false,
             recaptchaVerifier,
             verificationId: null,
             verified: false,
-            confirmed: false,
             formattedPhoneNumber: '',
             values: {
                 [signUpFields.PHONENUM]: '',
-                [signUpFields.NEWPASSWORD]: '',
-                [signUpFields.VERIFYPASSWORD]: '',
             },
             errors: {
                 [signUpFields.PHONENUM]: '',
-                [signUpFields.NEWPASSWORD]: '',
-                [signUpFields.VERIFYPASSWORD]: '',
             },
         };
+    }
+
+    // Load customer record & transactions
+    async componentDidMount() {
+        const customerId = await AsyncStorage.getItem('customerId');
+        try {
+            const customer = await getCustomersById(customerId);
+
+            this.setState({ customer });
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     // Check for an error with updated text
@@ -53,19 +61,11 @@ export default class PasswordResetScreen extends React.Component {
                 errorMsg = validate('phoneNumber', text);
                 error = errorMsg !== null;
                 break;
-            case signUpFields.NEWPASSWORD:
-                errorMsg = validate('password', text);
-                error = errorMsg !== null;
-                break;
-            case signUpFields.VERIFYPASSWORD:
-                errorMsg = this.state.values[signUpFields.NEWPASSWORD] === this.state.values[signUpFields.VERIFYPASSWORD] ? null : 'Passwords must match!';
-                error = errorMsg !== null;
-                break;
             default:
                 console.log('Not reached');
         }
         if (error) { this.setState({ confirmed: false }); }
-        else if (this.state.verified && this.state.values[signUpFields.NEWPASSWORD] === this.state.values[signUpFields.VERIFYPASSWORD]) {
+        else {
             this.setState({ confirmed: true });
         }
         this.setState(prevState => ({
@@ -98,10 +98,8 @@ export default class PasswordResetScreen extends React.Component {
     };
 
     openRecaptcha = async () => {
-        const duplicate = await this.findCustomer();
-        if (!duplicate) {
-            return;
-        }
+        const formattedPhoneNumber = formatPhoneNumber(this.state.values[signUpFields.PHONENUM]);
+        this.setState({ formattedPhoneNumber });
         const number = '+1'.concat(this.state.values[signUpFields.PHONENUM]);
         const phoneProvider = new firebase.auth.PhoneAuthProvider();
         try {
@@ -126,6 +124,7 @@ export default class PasswordResetScreen extends React.Component {
             await firebase.auth().signInWithCredential(credential);
             this.setState({ verified: true });
             this.setModalVisible(false);
+            await this.resetPassword();
             return true;
         } catch (err) {
             console.log(err);
@@ -133,68 +132,38 @@ export default class PasswordResetScreen extends React.Component {
         }
     };
 
-    findCustomer = async () => {
-        const formattedPhoneNumber = formatPhoneNumber(this.state.values[signUpFields.PHONENUM]);
-        this.setState({ formattedPhoneNumber });
-        try {
-            let customer = null;
-            const customers = await getCustomersByPhoneNumber(formattedPhoneNumber);
-            if (customers.length === 1) {
-                customer = customers[0];
-                this.setState({ customer });
-            }
-        } catch (err) {
-            console.log(err);
-        }
-        return true;
-    }
-
     resetPassword = async () => {
-        // We use the record ID generated by Airtable as the salt to encrypt
-        const encrypted = await encryptPassword(this.state.customer.id, this.state.values[signUpFields.NEWPASSWORD]);
-        // Update the created record with the encrypted password
-        await updateCustomers(this.state.customer.id, { password: encrypted });
+        // Update the created record with the new number
+        await updateCustomers(this.state.customer.id, { phoneNumber: this.state.formattedPhoneNumber });
         this.setState({ success: true });
     }
 
     render() {
-        const validNumber = !this.state.errors[signUpFields.PHONENUM];
         return (
             <AuthScreenContainer>
+                <BackButton onPress={() => this.props.navigation.goBack()}>
+                    <FontAwesome5 name="arrow-left" solid size={24} />
+                </BackButton>
                 <FirebaseRecaptchaVerifierModal
                     ref={this.state.recaptchaVerifier}
                     firebaseConfig={firebaseConfig}
                 />
                 {this.state.modalVisible && <VerificationScreen number={this.state.formattedPhoneNumber} visible={this.state.modalVisible} verifyCode={this.verifyCode} resend={this.openRecaptcha} closer={this.setModalVisible}></VerificationScreen>}
 
-                <BackButton onPress={() => this.props.navigation.goBack()}>
-                    <FontAwesome5 name="arrow-left" solid size={24} />
-                </BackButton>
-                {this.state.verified && !this.state.success &&
+                {!this.state.success &&
                     <View>
-                        <BigTitle>Set New Password</BigTitle>
+                        <BigTitle>Set New Number</BigTitle>
                         <FormContainer>
                             <AuthTextField
-                                fieldType="New Password"
-                                value={this.state.values[signUpFields.NEWPASSWORD]}
-                                onBlurCallback={value =>
-                                    this.updateError(value, signUpFields.NEWPASSWORD)
+                                fieldType="Phone Number"
+                                value={this.state.values[signUpFields.PHONENUM]}
+                                onBlurCallback={(value) =>
+                                    this.updateError(value, signUpFields.PHONENUM)
                                 }
-                                changeTextCallback={text =>
-                                    this.onTextChange(text, signUpFields.NEWPASSWORD)
+                                changeTextCallback={(text) =>
+                                    this.onTextChange(text, signUpFields.PHONENUM)
                                 }
-                                error={this.state.errors[signUpFields.NEWPASSWORD]}
-                            />
-                            <AuthTextField
-                                fieldType="Re-enter New Password"
-                                value={this.state.values[signUpFields.VERIFYPASSWORD]}
-                                onBlurCallback={value =>
-                                    this.updateError(value, signUpFields.VERIFYPASSWORD)
-                                }
-                                changeTextCallback={text =>
-                                    this.onTextChange(text, signUpFields.VERIFYPASSWORD)
-                                }
-                                error={this.state.errors[signUpFields.VERIFYPASSWORD]}
+                                error={this.state.errors[signUpFields.PHONENUM]}
                             />
                         </FormContainer>
                         <FilledButtonContainer
@@ -204,45 +173,10 @@ export default class PasswordResetScreen extends React.Component {
                             }
                             width="100%"
                             onPress={() =>
-                                this.resetPassword()
-                            }
-                            disabled={!this.state.confirmed}>
-
-
-                            <ButtonLabel color={Colors.lightest}>Reset Password</ButtonLabel>
-                        </FilledButtonContainer>
-                    </View>
-                }
-
-                {!this.state.verified && !this.state.success &&
-                    <View>
-                        <BigTitle>Forgot Password</BigTitle>
-                        <Subhead style={{ marginTop: 32 }}>Enter the phone number connected to your account to reset your password.</Subhead>
-                        <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>A text containing a 6-digit code will be sent.</Caption>
-                        <FormContainer>
-                            <AuthTextField
-                                fieldType="Phone Number"
-                                value={this.state.values[signUpFields.PHONENUM]}
-                                onBlurCallback={value =>
-                                    this.updateError(value, signUpFields.PHONENUM)
-                                }
-                                changeTextCallback={text =>
-                                    this.onTextChange(text, signUpFields.PHONENUM)
-                                }
-                                error={this.state.errors[signUpFields.PHONENUM]}
-                            />
-                        </FormContainer>
-                        <FilledButtonContainer
-                            style={{ marginTop: 48 }}
-                            color={
-                                !validNumber ? Colors.lightestGreen : Colors.primaryGreen
-                            }
-                            width="100%"
-                            onPress={() =>
                                 this.openRecaptcha()
                             }
-                            disabled={!validNumber}>
-                            <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
+                            disabled={!this.state.confirmed}>
+                            <ButtonLabel color={Colors.lightest}>Reset Number</ButtonLabel>
                         </FilledButtonContainer>
                     </View>
                 }
@@ -250,19 +184,18 @@ export default class PasswordResetScreen extends React.Component {
                 {this.state.success &&
                     <View>
                         <BigTitle>Success!</BigTitle>
-                        <Subhead style={{ marginTop: 32 }}>Your new password was successfully set.</Subhead>
+                        <Subhead style={{ marginTop: 32 }}>Your number has been changed.</Subhead>
                         <FilledButtonContainer
                             style={{ marginTop: 48 }}
                             color={Colors.primaryGreen}
                             width="100%"
                             onPress={() =>
-                                this.props.navigation.navigate('LogIn')
+                                this.props.navigation.goBack()
                             }
                         >
-                            <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
+                            <ButtonLabel color={Colors.lightest}>Back To Settings</ButtonLabel>
                         </FilledButtonContainer>
                     </View>
-
                 }
             </AuthScreenContainer>
         );
