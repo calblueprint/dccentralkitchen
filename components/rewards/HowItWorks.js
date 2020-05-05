@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, ScrollView, View } from 'react-native';
+import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import { BigTitle, Title } from '../BaseComponents';
 
 /**
@@ -51,7 +52,7 @@ function HowItWorks() {
         <BigTitle>Save</BigTitle>
         <Title style={{ textAlign: 'center' }}>
           {' '}
-          Every 500 points you earn unlocks a $5 reward!
+          Every {rewardPointValue} points you earn unlocks a ${rewardDollarValue} reward!
           {'\n\n'}
           Redeem on Healthy Corners products at participating stores!
         </Title>
