@@ -7,7 +7,7 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard, ScrollView } from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -33,6 +33,7 @@ import {
 import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
+  AuthScrollContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
@@ -340,10 +341,7 @@ export default class SignUpScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <ScrollView
-          style={{ flex: 1 }}
-          keyboardShouldPersistTaps="always"
-          showsVerticalScrollIndicator={false}
+        <AuthScrollContainer
           ref={(ref) => {
             this.scrollView = ref;
           }}>
@@ -417,7 +415,7 @@ export default class SignUpScreen extends React.Component {
           {env === 'dev' && (
             <Button title="Testing Bypass" onPress={() => this._devBypass()} />
           )}
-        </ScrollView>
+        </AuthScrollContainer>
       </AuthScreenContainer>
     );
   }

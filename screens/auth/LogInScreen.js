@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard, ScrollView } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -25,6 +25,7 @@ import {
 import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
+  AuthScrollContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
@@ -161,13 +162,10 @@ export default class LogInScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <ScrollView
+        <AuthScrollContainer
           ref={(ref) => {
             this.scrollView = ref;
-          }}
-          style={{ flex: 1 }}
-          keyboardShouldPersistTaps="always"
-          showsVerticalScrollIndicator={false}>
+          }}>
           <BackButton onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
@@ -220,7 +218,7 @@ export default class LogInScreen extends React.Component {
               </ButtonLabel>
             </ButtonContainer>
           </JustifyCenterContainer>
-        </ScrollView>
+        </AuthScrollContainer>
       </AuthScreenContainer>
     );
   }
