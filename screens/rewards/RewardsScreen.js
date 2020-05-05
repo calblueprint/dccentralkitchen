@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Dimensions, Image, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-
 import { BigTitle, ButtonLabel, FilledButtonContainer, NavButton, NavHeaderContainer } from '../../components/BaseComponents';
 import ParticipatingStores from '../../components/rewards/ParticipatingStores';
 import PointsHistory from '../../components/rewards/PointsHistory';
@@ -15,6 +14,7 @@ import { logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
+
 
 const routes = [
   { key: 'home', title: 'My Rewards' },
@@ -65,7 +65,7 @@ export default class RewardsScreen extends React.Component {
   }
 
   _logout = async () => {
-    AsyncStorage.clear();
+    await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
 

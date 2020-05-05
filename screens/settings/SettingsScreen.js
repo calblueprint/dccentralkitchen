@@ -23,7 +23,7 @@ export default class SettingsScreen extends React.Component {
     };
 
     _logout = async () => {
-        AsyncStorage.clear();
+        await AsyncStorage.clear();
         this.props.navigation.navigate('Auth');
     };
 
