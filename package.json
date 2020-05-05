@@ -97,6 +97,7 @@
     "react-native-tab-view": "^2.11.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "^0.11.7",
+    "react-native-webview": "8.1.1",
     "react-phone-number-input": "^2.3.24",
     "reanimated-bottom-sheet": "^1.0.0-alpha.15",
     "sentry-expo": "^2.0.3",

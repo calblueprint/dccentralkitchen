@@ -22,7 +22,7 @@ function capitalizeFirstLetters(word) {
 
   const splitWord = word.toLowerCase().split(' ');
 
-  for (var i = 0; i < splitWord.length; i++) {
+  for (let i = 0; i < splitWord.length; i += 1) {
     splitWord[i] =
       splitWord[i].charAt(0).toUpperCase() + splitWord[i].substring(1);
   }
