@@ -14,6 +14,7 @@ import Colors from '../../constants/Colors';
 import { signUpFields } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
+  AuthScrollContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
@@ -101,42 +102,48 @@ export default class VerificationScreen extends React.Component {
           this.setModalVisible(false);
         }}>
         <AuthScreenContainer>
-          <BackButton onPress={() => this.setModalVisible(false)}>
-            <FontAwesome5 name="arrow-left" solid size={24} />
-          </BackButton>
-          <BigTitle>{`Verify Phone \nNumber`}</BigTitle>
-          <Subhead style={{ paddingTop: 32 }}>
-            {`Enter the 6-digit code sent to\n ${this.props.number}`}
-          </Subhead>
-          <FormContainer>
-            <AuthTextField
-              fieldType="Verification Code"
-              value={this.state.values[signUpFields.CODE]}
-              onBlurCallback={(value) =>
-                this.updateError(value, signUpFields.CODE)
-              }
-              changeTextCallback={(text) =>
-                this.onTextChange(text, signUpFields.CODE)
-              }
-              error={this.state.errors[signUpFields.CODE]}
-            />
-            <ButtonContainer onPress={async () => this.resendCode(false)}>
-              <ButtonLabel
-                style={{ textTransform: 'none' }}
-                color={Colors.primaryGreen}>
-                Resend code
-              </ButtonLabel>
-            </ButtonContainer>
-          </FormContainer>
-          <FilledButtonContainer
-            style={{ marginTop: 48 }}
-            color={Colors.primaryGreen}
-            width="100%"
-            onPress={() =>
-              this.verifyCode(this.state.values[signUpFields.CODE])
-            }>
-            <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
-          </FilledButtonContainer>
+          <AuthScrollContainer
+            ref={(ref) => {
+              this.scrollView = ref;
+            }}>
+            <BackButton onPress={() => this.setModalVisible(false)}>
+              <FontAwesome5 name="arrow-left" solid size={24} />
+            </BackButton>
+            <BigTitle>{`Verify Phone \nNumber`}</BigTitle>
+            <Subhead style={{ paddingTop: 32 }}>
+              {`Enter the 6-digit code sent to\n ${this.props.number}`}
+            </Subhead>
+            <FormContainer>
+              <AuthTextField
+                fieldType="Verification Code"
+                value={this.state.values[signUpFields.CODE]}
+                onBlurCallback={(value) =>
+                  this.updateError(value, signUpFields.CODE)
+                }
+                changeTextCallback={(text) => {
+                  this.onTextChange(text, signUpFields.CODE);
+                  this.scrollView.scrollToEnd({ animated: true });
+                }}
+                error={this.state.errors[signUpFields.CODE]}
+              />
+              <ButtonContainer onPress={async () => this.resendCode(false)}>
+                <ButtonLabel
+                  style={{ textTransform: 'none' }}
+                  color={Colors.primaryGreen}>
+                  Resend code
+                </ButtonLabel>
+              </ButtonContainer>
+            </FormContainer>
+            <FilledButtonContainer
+              style={{ marginTop: 48, marginBottom: 24 }}
+              color={Colors.primaryGreen}
+              width="100%"
+              onPress={() =>
+                this.verifyCode(this.state.values[signUpFields.CODE])
+              }>
+              <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
+            </FilledButtonContainer>
+          </AuthScrollContainer>
         </AuthScreenContainer>
       </Modal>
     );

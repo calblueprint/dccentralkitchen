@@ -1,4 +1,4 @@
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: 'AIzaSyBjHTeYFCuZM7NcOD6z6_yPBWbAFDeieJo',
   authDomain: 'healthy-corners.firebaseapp.com',
   databaseURL: 'https://healthy-corners.firebaseio.com',
@@ -8,3 +8,5 @@ export const firebaseConfig = {
   appId: '1:861017041940:web:b9a10ef73bfb8b9c6ecb01',
   measurementId: 'G-0584C2GYL5',
 };
+
+export default firebaseConfig;

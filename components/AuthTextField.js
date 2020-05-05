@@ -24,8 +24,8 @@ function AuthTextField({
         autoCorrect={false}
         label={fieldType}
         labelTextStyle={{ fontFamily: 'poppins-regular' }}
-        lineWidth={1.75}
-        activeLineWidth={1.75}
+        lineWidth={1.5}
+        activeLineWidth={1.5}
         onChangeText={changeTextCallback}
         value={value}
         baseColor={Colors.activeText}
@@ -48,7 +48,6 @@ function AuthTextField({
         }
         secureTextEntry={fieldType.includes('assword')}
         labelPadding={6}
-        inputContainerPadding={4}
       />
       {fieldType === 'Name' && !error && (
         <Caption color={Colors.activeText}>
