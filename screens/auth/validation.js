@@ -8,13 +8,13 @@ const pattern = '((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[W]).{6,20})';
 const validation = {
   name: {
     presence: {
-      message: '^Name cannot be blank.',
+      message: '^Name cannot be blank',
     },
   },
   phoneNumber: {
     // This verifies that it's not blank.
     presence: {
-      message: '^Phone number cannot be blank.',
+      message: '^Phone number cannot be blank',
     },
     length: {
       is: 10,
@@ -27,9 +27,25 @@ const validation = {
     // }
   },
 
+  code: {
+    // This verifies that it's not blank.
+    presence: {
+      message: '^Code cannot be blank',
+    },
+    length: {
+      is: 6,
+      message: '^Code must be six digits',
+    },
+    // To check for only numbers in the future
+    // format: {
+    //   pattern: '/^d+$/',
+    //   message: 'Phone number cannot contain non-numeric characters.'
+    // }
+  },
+
   password: {
     presence: {
-      message: '^Password cannot be blank.',
+      message: '^Password cannot be blank',
     },
     length: {
       minimum: 8,
