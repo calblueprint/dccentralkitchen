@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { NavButton } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -8,8 +8,10 @@ import { ColumnContainer } from './shared';
 
 // Shared Auth Containers
 
-export const AuthScreenContainer = styled(ColumnContainer)`
-  justify-content: space-between;
+export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
+  behavior: Platform.OS === 'ios' ? 'padding' : null,
+})`
+  flex: 1;
   margin: 50px 42px 0 42px;
   background-color: ${Colors.lightest};
 `;

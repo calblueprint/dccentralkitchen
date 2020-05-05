@@ -3,7 +3,6 @@ import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
-import { Chip } from 'react-native-paper';
 import {
   Body,
   Caption,
@@ -12,15 +11,11 @@ import {
   NavTitle,
   TabSelected,
 } from '../../components/BaseComponents';
+import AcceptedPrograms from '../../components/store/AcceptedPrograms';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { openDirections, writeToClipboard } from '../../lib/mapUtils';
-import {
-  ColumnContainer,
-  InLineContainer,
-  RowContainer,
-} from '../../styled/shared';
-import { styles } from '../../styled/store';
+import { ColumnContainer, InLineContainer } from '../../styled/shared';
 
 export default class StoreDetailsScreen extends React.Component {
   constructor(props) {
@@ -47,14 +42,43 @@ export default class StoreDetailsScreen extends React.Component {
     } = store;
 
     return (
-      <View>
-        <NavHeaderContainer withMargin>
+      <View style={{ flex: 1 }}>
+        <NavHeaderContainer>
           <NavButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </NavButton>
           <NavTitle>{storeName}</NavTitle>
         </NavHeaderContainer>
-        <ScrollView style={{ marginLeft: 16, marginTop: 30 }}>
+        <ScrollView style={{ marginLeft: 16 }}>
+          {/* Accepted Programs */}
+          <InLineContainer style={{ paddingBottom: 32, marginTop: 30 }}>
+            <FontAwesome5
+              name="star"
+              solid
+              size={24}
+              color={Colors.activeText}
+              style={{ marginRight: 12 }}
+            />
+            <ColumnContainer style={{ width: '100%' }}>
+              <Body style={{ marginBottom: 8 }}>Accepted Programs</Body>
+              {/* Chips */}
+              {snapOrEbtAccepted ||
+              wic ||
+              couponProgramPartner ||
+              rewardsAccepted ? (
+                <AcceptedPrograms
+                  snapOrEbtAccepted={snapOrEbtAccepted}
+                  wic={wic}
+                  couponProgramPartner={couponProgramPartner}
+                  rewardsAccepted={rewardsAccepted}
+                />
+              ) : (
+                <Body color={Colors.secondaryText}>
+                  No programs accepted at this time
+                </Body>
+              )}
+            </ColumnContainer>
+          </InLineContainer>
           {/* Directions */}
           <View style={{ paddingBottom: 32 }}>
             <InLineContainer>
@@ -99,24 +123,12 @@ export default class StoreDetailsScreen extends React.Component {
             </InLineContainer>
           </View>
           {/* Phone Number */}
-          {phoneNumber ? (
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
-              }
-              onLongPress={() => writeToClipboard(phoneNumber)}>
-              <InLineContainer
-                style={{ alignItems: 'center', paddingBottom: 32 }}>
-                <FontAwesome5
-                  name="phone"
-                  solid
-                  size={24}
-                  color={Colors.activeText}
-                />
-                <Body style={{ marginLeft: 12 }}>{phoneNumber}</Body>
-              </InLineContainer>
-            </TouchableOpacity>
-          ) : (
+          <TouchableOpacity
+            disabled={!phoneNumber}
+            onPress={() =>
+              Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
+            }
+            onLongPress={() => writeToClipboard(phoneNumber)}>
             <InLineContainer
               style={{ alignItems: 'center', paddingBottom: 32 }}>
               <FontAwesome5
@@ -125,9 +137,11 @@ export default class StoreDetailsScreen extends React.Component {
                 size={24}
                 color={Colors.activeText}
               />
-              <Body style={{ marginLeft: 12 }}>Phone number unavailable</Body>
+              <Body style={{ marginLeft: 12 }}>
+                {phoneNumber || 'Phone number unavailable'}
+              </Body>
             </InLineContainer>
-          )}
+          </TouchableOpacity>
           {/* Store Hours */}
           <InLineContainer style={{ paddingBottom: 32 }}>
             <FontAwesome5
@@ -149,127 +163,6 @@ export default class StoreDetailsScreen extends React.Component {
               </Body>
               <StoreHours hours={storeHours} />
             </View>
-          </InLineContainer>
-          {/* Accepted Programs */}
-          <InLineContainer style={{ paddingBottom: 32 }}>
-            <FontAwesome5
-              name="star"
-              solid
-              size={24}
-              color={Colors.activeText}
-              style={{ marginRight: 12 }}
-            />
-            <ColumnContainer style={{ width: '100%' }}>
-              <Body style={{ marginBottom: 8 }}>Accepted Programs</Body>
-              {/* Chips */}
-              <RowContainer>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'space-evenly',
-                    width: '40%',
-                  }}>
-                  {snapOrEbtAccepted && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="credit-card"
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.tagChipText}
-                      style={styles.tagChip}>
-                      <Caption color={Colors.darkerGreen}>EBT</Caption>
-                    </Chip>
-                  )}
-                  {wic && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="heart"
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.tagChipText}
-                      style={styles.tagChip}>
-                      <Caption color={Colors.darkerGreen}>WIC</Caption>
-                    </Chip>
-                  )}
-                  {couponProgramPartner && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="carrot"
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.tagChipText}
-                      style={styles.tagChip}>
-                      <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
-                    </Chip>
-                  )}
-
-                  {rewardsAccepted && (
-                    <Chip
-                      icon={() => (
-                        <FontAwesome5
-                          name="star"
-                          solid
-                          size={10}
-                          color={Colors.darkerGreen}
-                          style={{ marginTop: -1 }}
-                        />
-                      )}
-                      textStyle={styles.tagChipText}
-                      style={styles.tagChip}>
-                      <Caption color={Colors.darkerGreen}>
-                        Healthy Rewards
-                      </Caption>
-                    </Chip>
-                  )}
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    flexWrap: 'wrap',
-                    maxWidth: '60%',
-                  }}>
-                  {snapOrEbtAccepted && (
-                    <View style={styles.tagChipDesc}>
-                      <Body>Accepts SNAP/EBT</Body>
-                    </View>
-                  )}
-                  {wic && (
-                    <View style={styles.tagChipDesc}>
-                      <Body numberOfLines={1} ellipsizeMode="tail">
-                        WIC approved
-                      </Body>
-                    </View>
-                  )}
-                  {couponProgramPartner && (
-                    <View style={styles.tagChipDesc}>
-                      <Body numberOfLines={1} ellipsizeMode="tail">
-                        Accepts SNAP Matching
-                      </Body>
-                    </View>
-                  )}
-                  {rewardsAccepted && (
-                    <View style={styles.tagChipDesc}>
-                      <Body numberOfLines={1} ellipsizeMode="tail">
-                        Accepts Healthy Rewards
-                      </Body>
-                    </View>
-                  )}
-                </View>
-              </RowContainer>
-            </ColumnContainer>
           </InLineContainer>
         </ScrollView>
       </View>

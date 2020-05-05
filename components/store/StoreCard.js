@@ -2,8 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, TouchableOpacity } from 'react-native';
-import { Chip } from 'react-native-paper';
+import { Dimensions, Linking, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
 import {
   getMaxWidth,
@@ -19,9 +18,9 @@ import {
   DividerBar,
   StoreCardContainer,
   StoreDetailText,
-  styles,
 } from '../../styled/store';
 import { Caption, Title } from '../BaseComponents';
+import ProgramTag from './ProgramTag';
 
 /**
  * @prop
@@ -90,68 +89,10 @@ export default function StoreCard({ store, storeList, seeDistance }) {
               flexWrap: 'wrap',
               marginTop: 6,
             }}>
-            {snapOrEbtAccepted && (
-              <Chip
-                icon={() => (
-                  <FontAwesome5
-                    name="credit-card"
-                    size={10}
-                    color={Colors.darkerGreen}
-                    style={{ marginTop: -1 }}
-                  />
-                )}
-                textStyle={styles.tagChipText}
-                style={styles.tagChip}>
-                <Caption color={Colors.darkerGreen}>EBT</Caption>
-              </Chip>
-            )}
-            {wic && (
-              <Chip
-                icon={() => (
-                  <FontAwesome5
-                    name="heart"
-                    solid
-                    size={10}
-                    color={Colors.darkerGreen}
-                    style={{ marginTop: -1 }}
-                  />
-                )}
-                textStyle={styles.tagChipText}
-                style={styles.tagChip}>
-                <Caption color={Colors.darkerGreen}>WIC</Caption>
-              </Chip>
-            )}
-            {couponProgramPartner && (
-              <Chip
-                icon={() => (
-                  <FontAwesome5
-                    name="carrot"
-                    size={10}
-                    color={Colors.darkerGreen}
-                    style={{ marginTop: -1 }}
-                  />
-                )}
-                textStyle={styles.tagChipText}
-                style={styles.tagChip}>
-                <Caption color={Colors.darkerGreen}>SNAP Match</Caption>
-              </Chip>
-            )}
-            {rewardsAccepted && (
-              <Chip
-                icon={() => (
-                  <FontAwesome5
-                    name="star"
-                    solid
-                    size={10}
-                    color={Colors.darkerGreen}
-                    style={{ marginTop: -1 }}
-                  />
-                )}
-                textStyle={styles.tagChipText}
-                style={styles.tagChip}>
-                <Caption color={Colors.darkerGreen}>Healthy Rewards</Caption>
-              </Chip>
-            )}
+            {snapOrEbtAccepted && <ProgramTag program="EBT" />}
+            {wic && <ProgramTag program="WIC" />}
+            {couponProgramPartner && <ProgramTag program="SNAP Match" />}
+            {rewardsAccepted && <ProgramTag program="Healthy Rewards" />}
           </InLineContainer>
         )}
         {seeDistance && (
@@ -174,17 +115,25 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             <StoreDetailText>{address}</StoreDetailText>
           </InLineContainer>
         </TouchableOpacity>
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="phone"
-            solid
-            size={16}
-            color={Colors.secondaryText}
-          />
-          <StoreDetailText>
-            {phoneNumber || 'Phone number unavailable'}
-          </StoreDetailText>
-        </InLineContainer>
+        <TouchableOpacity
+          disabled={storeList || !phoneNumber}
+          onPress={() => {
+            Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')));
+          }}
+          onLongPress={() => writeToClipboard(phoneNumber)}>
+          <InLineContainer style={{ alignItems: 'center' }}>
+            <FontAwesome5
+              name="phone"
+              solid
+              size={16}
+              color={Colors.secondaryText}
+            />
+            <StoreDetailText>
+              {phoneNumber || 'Phone number unavailable'}
+            </StoreDetailText>
+          </InLineContainer>
+        </TouchableOpacity>
+
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
             name="clock"
