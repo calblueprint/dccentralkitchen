@@ -12,18 +12,14 @@ import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
+import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import {
-  BottomSheetContainer,
-  BottomSheetHeaderContainer,
-  DragBar,
-  SearchBar,
-} from '../../styled/store';
+import { BottomSheetContainer, BottomSheetHeaderContainer, DragBar, SearchBar } from '../../styled/store';
 
 const minSnapPoint = 185;
 const midSnapPoint = 325;
@@ -373,9 +369,7 @@ export default class MapScreen extends React.Component {
             zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
-          <View>
-            <Subhead color="#fff"> Healthy Rewards </Subhead>
-          </View>
+          <RewardsFooter>Yes</RewardsFooter>
         </TouchableOpacity>
       </View>
     );
