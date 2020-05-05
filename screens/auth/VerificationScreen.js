@@ -81,7 +81,8 @@ export default class VerificationScreen extends React.Component {
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.CODE]: 'Incorrect code!',
+            [signUpFields.CODE]:
+              'Incorrect verification code, please try again.',
           },
         }));
       }
@@ -105,8 +106,7 @@ export default class VerificationScreen extends React.Component {
           </BackButton>
           <BigTitle>{`Verify Phone \nNumber`}</BigTitle>
           <Subhead style={{ paddingTop: 32 }}>
-            {`Enter the 6-digit code sent to\n
-            ${this.props.number}`}
+            {`Enter the 6-digit code sent to\n ${this.props.number}`}
           </Subhead>
           <FormContainer>
             <AuthTextField

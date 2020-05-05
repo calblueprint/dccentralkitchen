@@ -77,7 +77,7 @@ export default class PasswordResetScreen extends React.Component {
           this.state.values[signUpFields.NEWPASSWORD] ===
           this.state.values[signUpFields.VERIFYPASSWORD]
             ? null
-            : 'Passwords must match!';
+            : 'Passwords must match';
         error = errorMsg !== null;
         break;
       default:
@@ -264,7 +264,8 @@ export default class PasswordResetScreen extends React.Component {
               password.
             </Subhead>
             <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-              A text containing a 6-digit code will be sent.
+              You will recieve a text containing a 6-digit code to verify your
+              phone number. Msg & data rates may apply.
             </Caption>
             <FormContainer>
               <AuthTextField
