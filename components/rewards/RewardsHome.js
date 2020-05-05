@@ -88,7 +88,7 @@ function RewardsHome({ customer, participating }) {
           }
         />
       </AvailableRewardsContainer>
-      <ParticipatingStores participating={participating} guest />
+      <ParticipatingStores participating={participating} guest={false} />
     </ScrollView>
   );
 }
