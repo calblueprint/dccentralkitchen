@@ -25,6 +25,7 @@ import {
 } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
+  AuthScrollContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
@@ -197,115 +198,126 @@ export default class PasswordResetScreen extends React.Component {
     const validNumber = !this.state.errors[signUpFields.PHONENUM];
     return (
       <AuthScreenContainer>
-        <FirebaseRecaptchaVerifierModal
-          ref={this.state.recaptchaVerifier}
-          firebaseConfig={firebaseConfig}
-        />
-        {this.state.modalVisible && (
-          <VerificationScreen
-            number={this.state.formattedPhoneNumber}
-            visible={this.state.modalVisible}
-            verifyCode={this.verifyCode}
-            resend={this.openRecaptcha}
-            closer={this.setModalVisible}
+        <AuthScrollContainer
+          ref={(ref) => {
+            this.scrollView = ref;
+          }}>
+          <FirebaseRecaptchaVerifierModal
+            ref={this.state.recaptchaVerifier}
+            firebaseConfig={firebaseConfig}
           />
-        )}
+          {this.state.modalVisible && (
+            <VerificationScreen
+              number={this.state.formattedPhoneNumber}
+              visible={this.state.modalVisible}
+              verifyCode={this.verifyCode}
+              resend={this.openRecaptcha}
+              closer={this.setModalVisible}
+            />
+          )}
 
-        <BackButton onPress={() => this.props.navigation.goBack()}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </BackButton>
-        {this.state.verified && !this.state.success && (
-          <View>
-            <BigTitle>Set New Password</BigTitle>
-            <FormContainer>
-              <AuthTextField
-                fieldType="New Password"
-                value={this.state.values[signUpFields.NEWPASSWORD]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, signUpFields.NEWPASSWORD)
+          <BackButton onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
+          {this.state.verified && !this.state.success && (
+            <View>
+              <BigTitle>Set New Password</BigTitle>
+              <FormContainer>
+                <AuthTextField
+                  fieldType="New Password"
+                  value={this.state.values[signUpFields.NEWPASSWORD]}
+                  onBlurCallback={(value) => {
+                    this.updateError(value, signUpFields.NEWPASSWORD);
+                    this.scrollView.scrollToEnd({ animated: true });
+                  }}
+                  changeTextCallback={(text) =>
+                    this.onTextChange(text, signUpFields.NEWPASSWORD)
+                  }
+                  error={this.state.errors[signUpFields.NEWPASSWORD]}
+                />
+                <AuthTextField
+                  fieldType="Re-enter New Password"
+                  value={this.state.values[signUpFields.VERIFYPASSWORD]}
+                  onBlurCallback={(value) =>
+                    this.updateError(value, signUpFields.VERIFYPASSWORD)
+                  }
+                  changeTextCallback={(text) =>
+                    this.onTextChange(text, signUpFields.VERIFYPASSWORD)
+                  }
+                  error={this.state.errors[signUpFields.VERIFYPASSWORD]}
+                />
+              </FormContainer>
+              <FilledButtonContainer
+                style={{ marginTop: 48, marginBottom: 24 }}
+                color={
+                  !this.state.confirmed
+                    ? Colors.lightestGreen
+                    : Colors.primaryGreen
                 }
-                changeTextCallback={(text) =>
-                  this.onTextChange(text, signUpFields.NEWPASSWORD)
-                }
-                error={this.state.errors[signUpFields.NEWPASSWORD]}
-              />
-              <AuthTextField
-                fieldType="Re-enter New Password"
-                value={this.state.values[signUpFields.VERIFYPASSWORD]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, signUpFields.VERIFYPASSWORD)
-                }
-                changeTextCallback={(text) =>
-                  this.onTextChange(text, signUpFields.VERIFYPASSWORD)
-                }
-                error={this.state.errors[signUpFields.VERIFYPASSWORD]}
-              />
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={
-                !this.state.confirmed
-                  ? Colors.lightestGreen
-                  : Colors.primaryGreen
-              }
-              width="100%"
-              onPress={() => this.resetPassword()}
-              disabled={!this.state.confirmed}>
-              <ButtonLabel color={Colors.lightest}>Reset Password</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
+                width="100%"
+                onPress={() => this.resetPassword()}
+                disabled={!this.state.confirmed}>
+                <ButtonLabel color={Colors.lightest}>
+                  Reset Password
+                </ButtonLabel>
+              </FilledButtonContainer>
+            </View>
+          )}
 
-        {!this.state.verified && !this.state.success && (
-          <View>
-            <BigTitle>Forgot Password</BigTitle>
-            <Subhead style={{ marginTop: 32 }}>
-              Enter the phone number connected to your account to reset your
-              password.
-            </Subhead>
-            <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-              You will recieve a text containing a 6-digit code to verify your
-              phone number. Msg & data rates may apply.
-            </Caption>
-            <FormContainer>
-              <AuthTextField
-                fieldType="Phone Number"
-                value={this.state.values[signUpFields.PHONENUM]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, signUpFields.PHONENUM)
+          {!this.state.verified && !this.state.success && (
+            <View>
+              <BigTitle>Forgot Password</BigTitle>
+              <Subhead style={{ marginTop: 32 }}>
+                Enter the phone number connected to your account to reset your
+                password.
+              </Subhead>
+              <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
+                You will recieve a text containing a 6-digit code to verify your
+                phone number. Msg & data rates may apply.
+              </Caption>
+              <FormContainer>
+                <AuthTextField
+                  fieldType="Phone Number"
+                  value={this.state.values[signUpFields.PHONENUM]}
+                  onBlurCallback={(value) =>
+                    this.updateError(value, signUpFields.PHONENUM)
+                  }
+                  changeTextCallback={(text) => {
+                    this.scrollView.scrollToEnd({ animated: true });
+                    this.onTextChange(text, signUpFields.PHONENUM);
+                  }}
+                  error={this.state.errors[signUpFields.PHONENUM]}
+                />
+              </FormContainer>
+              <FilledButtonContainer
+                style={{ marginVertical: 24 }}
+                color={
+                  !validNumber ? Colors.lightestGreen : Colors.primaryGreen
                 }
-                changeTextCallback={(text) =>
-                  this.onTextChange(text, signUpFields.PHONENUM)
-                }
-                error={this.state.errors[signUpFields.PHONENUM]}
-              />
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={!validNumber ? Colors.lightestGreen : Colors.primaryGreen}
-              width="100%"
-              onPress={() => this.openRecaptcha()}
-              disabled={!validNumber}>
-              <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
+                width="100%"
+                onPress={() => this.openRecaptcha()}
+                disabled={!validNumber}>
+                <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
+              </FilledButtonContainer>
+            </View>
+          )}
 
-        {this.state.success && (
-          <View>
-            <BigTitle>Success!</BigTitle>
-            <Subhead style={{ marginTop: 32 }}>
-              Your new password was successfully set.
-            </Subhead>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={Colors.primaryGreen}
-              width="100%"
-              onPress={() => this.props.navigation.navigate('LogIn')}>
-              <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
+          {this.state.success && (
+            <View>
+              <BigTitle>Success!</BigTitle>
+              <Subhead style={{ marginTop: 32 }}>
+                Your new password was successfully set.
+              </Subhead>
+              <FilledButtonContainer
+                style={{ marginTop: 48 }}
+                color={Colors.primaryGreen}
+                width="100%"
+                onPress={() => this.props.navigation.navigate('LogIn')}>
+                <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
+              </FilledButtonContainer>
+            </View>
+          )}
+        </AuthScrollContainer>
       </AuthScreenContainer>
     );
   }
