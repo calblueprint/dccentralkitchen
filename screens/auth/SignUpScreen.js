@@ -7,20 +7,37 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard } from 'react-native';
+import { AsyncStorage, Button, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
-import { BigTitle, ButtonLabel, FilledButtonContainer } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer,
+} from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import { env } from '../../environment';
 import { firebaseConfig } from '../../firebase';
-import { createCustomers, createPushTokens, getCustomersByPhoneNumber, updateCustomers } from '../../lib/airtable/request';
-import { encryptPassword, formatPhoneNumber, signUpFields } from '../../lib/authUtils';
+import {
+  createCustomers,
+  createPushTokens,
+  getCustomersByPhoneNumber,
+  updateCustomers,
+} from '../../lib/airtable/request';
+import {
+  encryptPassword,
+  formatPhoneNumber,
+  signUpFields,
+} from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
-import { AuthScreenContainer, BackButton, FormContainer } from '../../styled/auth';
+import {
+  AuthScreenContainer,
+  BackButton,
+  FormContainer,
+} from '../../styled/auth';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
-
 
 firebase.initializeApp(firebaseConfig);
 
@@ -146,7 +163,6 @@ export default class SignUpScreen extends React.Component {
       await updateCustomers(customerId, { password: encrypted });
 
       // If signup succeeds, register the user for analytics and logging
-
       Analytics.setUserId(customerId);
       Analytics.setUserProperties({
         name,
@@ -173,6 +189,7 @@ export default class SignUpScreen extends React.Component {
     try {
       // Check for duplicates first
       const formattedPhoneNumber = formatPhoneNumber(
+        // eslint-disable-next-line react/no-access-state-in-setstate
         this.state.values[signUpFields.PHONENUM]
       );
       this.setState({ formattedPhoneNumber });
@@ -219,6 +236,7 @@ export default class SignUpScreen extends React.Component {
     try {
       const verificationId = await phoneProvider.verifyPhoneNumber(
         number,
+        // eslint-disable-next-line react/no-access-state-in-setstate
         this.state.recaptchaVerifier.current
       );
       this.setState({ verificationId });
@@ -256,7 +274,6 @@ export default class SignUpScreen extends React.Component {
   updateError = async (text, signUpField) => {
     let error = false;
     let errorMsg = '';
-    // const fieldValue = this.state.values[signUpField];
     // validate returns null if no error is found
     switch (signUpField) {
       case signUpFields.PHONENUM:
@@ -329,7 +346,8 @@ export default class SignUpScreen extends React.Component {
             visible={this.state.modalVisible}
             verifyCode={this.verifyCode}
             resend={this.openRecaptcha}
-            closer={this.setModalVisible}></VerificationScreen>
+            closer={this.setModalVisible}
+          />
         )}
 
         <FirebaseRecaptchaVerifierModal
@@ -385,9 +403,9 @@ export default class SignUpScreen extends React.Component {
           disabled={!signUpPermission}>
           <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
         </FilledButtonContainer>
-        {/* {env === 'dev' && (
-            <Button title="Testing Bypass" onPress={() => this._devBypass()} />
-          )} */}
+        {env === 'dev' && (
+          <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+        )}
       </AuthScreenContainer>
     );
   }
