@@ -5,11 +5,12 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, ScrollView } from 'react-native';
+import { AsyncStorage, Keyboard, ScrollView } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
+  ButtonContainer,
   ButtonLabel,
   Caption,
   FilledButtonContainer,
@@ -47,6 +48,7 @@ export default class LogInScreen extends React.Component {
   // to be the user ID and then navigates to homescreen.
   _asyncLogIn = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
+    Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
@@ -135,7 +137,6 @@ export default class LogInScreen extends React.Component {
           Sentry.captureMessage('Log In Successful');
         });
       }
-
       this.setState({
         error,
       });
@@ -201,7 +202,7 @@ export default class LogInScreen extends React.Component {
           </FormContainer>
           <JustifyCenterContainer>
             <FilledButtonContainer
-              style={{ marginVertical: 24 }}
+              style={{ marginTop: 24 }}
               color={
                 !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
               }
@@ -210,14 +211,14 @@ export default class LogInScreen extends React.Component {
               disabled={!logInPermission}>
               <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
             </FilledButtonContainer>
-
-            {/* TODO @tommypoa: Forgot password functionality
-
-          <ForgotPasswordButtonContainer>
-            <ButtonContainer>
-              <Body color={Colors.primaryGreen}>Forgot password?</Body>
+            <ButtonContainer
+              onPress={async () => this.props.navigation.navigate('Reset')}>
+              <ButtonLabel
+                style={{ textTransform: 'none', marginVertical: 12 }}
+                color={Colors.primaryGreen}>
+                Forgot Password?
+              </ButtonLabel>
             </ButtonContainer>
-          </ForgotPasswordButtonContainer> */}
           </JustifyCenterContainer>
         </ScrollView>
       </AuthScreenContainer>

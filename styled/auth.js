@@ -37,12 +37,6 @@ export const WelcomeContainer = styled.View`
 
 // LogInScreen
 
-// Margin-top value is 140 (figma) - 36 (input margin bottom) = 104px.
-
-export const ForgotPasswordButtonContainer = styled.View`
-  margin-top: 13px;
-`;
-
 // Used in AuthTextField
 // Hardcoded 80px to avoid having the animations when errors show for LoginScreen
 export const TextFieldContainer = styled.View`

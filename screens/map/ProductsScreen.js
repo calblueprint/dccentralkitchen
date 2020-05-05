@@ -6,12 +6,10 @@ import {
   NavButton,
   NavHeaderContainer,
   NavTitle,
-  Subhead,
   Title,
 } from '../../components/BaseComponents';
 import ProductCard from '../../components/product/ProductCard';
 import Colors from '../../constants/Colors';
-import deliveryFrequency from '../../constants/Products';
 import { ProductListContainer } from '../../styled/product';
 import { ColumnContainer } from '../../styled/shared';
 
@@ -58,7 +56,7 @@ export default class ProductsScreen extends React.Component {
                 </Title>
               </ColumnContainer>
             }
-            ListFooterComponent={<View style={{ height: 270 }} />}
+            ListFooterComponent={<View style={{ height: 400 }} />}
           />
         </ProductListContainer>
       </View>
