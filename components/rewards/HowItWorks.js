@@ -21,7 +21,6 @@ function HowItWorks() {
         />
         <BigTitle>Shop</BigTitle>
         <Title style={{ textAlign: 'center' }}>
-          {' '}
           Buy Healthy Corners products at participating stores!
         </Title>
 
@@ -35,10 +34,7 @@ function HowItWorks() {
         />
         <BigTitle>Earn</BigTitle>
         <Title style={{ textAlign: 'center' }}>
-          {' '}
-          Every dollar you spend on healthy products earns you points!
-          {'\n'}
-          $1 = 100 points
+          {`Every dollar you spend on healthy products earns you points!\n $1 = 100 points`}
         </Title>
 
         <Image
@@ -51,10 +47,7 @@ function HowItWorks() {
         />
         <BigTitle>Save</BigTitle>
         <Title style={{ textAlign: 'center' }}>
-          {' '}
-          Every {rewardPointValue} points you earn unlocks a ${rewardDollarValue} reward!
-          {'\n\n'}
-          Redeem on Healthy Corners products at participating stores!
+          {`Every ${rewardPointValue} points you earn unlocks a $${rewardDollarValue} reward!\n\nRedeem on Healthy Corners products at participating stores!`}
         </Title>
       </View>
     </ScrollView>
