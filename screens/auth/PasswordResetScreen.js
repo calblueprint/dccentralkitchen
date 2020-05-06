@@ -74,9 +74,9 @@ export default class PasswordResetScreen extends React.Component {
         error = errorMsg !== null;
         break;
       case inputFields.VERIFYPASSWORD:
+        // Compare with new value
         errorMsg =
-          this.state.values[inputFields.NEWPASSWORD] ===
-          this.state.values[inputFields.VERIFYPASSWORD]
+          this.state.values[inputFields.NEWPASSWORD] === text
             ? null
             : 'Passwords must match';
         error = errorMsg !== null;
@@ -88,10 +88,15 @@ export default class PasswordResetScreen extends React.Component {
       errors: { ...prevState.errors, [inputField]: errorMsg },
       values: { ...prevState.values, [inputField]: text },
       confirmed:
-        prevState.verified &&
-        prevState.values[inputFields.NEWPASSWORD] ===
-          prevState.values[inputFields.VERIFYPASSWORD] &&
-        !error,
+        // Compare with new verifyPassword value
+        inputField === inputFields.VERIFYPASSWORD
+          ? prevState.verified &&
+            prevState.values[inputFields.NEWPASSWORD] === text &&
+            !error
+          : prevState.verified &&
+            prevState.values[inputFields.NEWPASSWORD] ===
+              prevState.values[inputFields.VERIFYPASSWORD] &&
+            !error,
     }));
 
     return error;

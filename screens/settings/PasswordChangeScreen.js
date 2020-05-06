@@ -60,11 +60,11 @@ export default class PasswordChangeScreen extends React.Component {
         error = errorMsg !== null;
         break;
       case inputFields.VERIFYPASSWORD:
+        // Compare with new value
         errorMsg =
-          this.state.values[inputFields.NEWPASSWORD] ===
-          this.state.values[inputFields.VERIFYPASSWORD]
+          this.state.values[inputFields.NEWPASSWORD] === text
             ? null
-            : 'Passwords must match!';
+            : 'Passwords must match';
         error = errorMsg !== null;
         break;
       default:

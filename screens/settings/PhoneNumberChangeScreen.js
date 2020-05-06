@@ -35,7 +35,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
     this.state = {
       customer: null,
       success: false,
-      verified: false,
       modalVisible: false,
       recaptchaVerifier,
       verificationId: null,
@@ -135,7 +134,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
         code
       );
       await firebase.auth().signInWithCredential(credential);
-      this.setState({ verified: true });
       this.setModalVisible(false);
       await this.updatePhoneNumber();
       return true;
@@ -191,10 +189,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
   };
 
   render() {
-    const { errors, values, verified } = this.state;
+    const { errors, values } = this.state;
 
     const permission =
-      values[inputFields.PHONENUM] && !errors[inputFields.PHONENUM] && verified;
+      values[inputFields.PHONENUM] && !errors[inputFields.PHONENUM];
 
     return (
       <AuthScreenContainer>
