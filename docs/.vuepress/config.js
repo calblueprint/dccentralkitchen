@@ -1,8 +1,19 @@
 module.exports = {
   title: 'Healthy Corners Rewards',
   description:
-    'Documentation for the projects developed by @calblueprint for DC Central Kitchen',
+    "Documentation for the projects developed by @calblueprint for DC Central Kitchen's Healthy Corners initiative",
+  head: [
+    [
+      'link',
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: '/logo.png',
+      },
+    ],
+  ],
   themeConfig: {
+    smoothScroll: true,
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Admin Guide', link: '/guide/' },
@@ -45,6 +56,6 @@ module.exports = {
         ],
       },
     ],
-    sidebar: ['/', '/guide/', '/dev/'],
+    sidebar: ['/guide/', '/dev/'],
   },
 };
