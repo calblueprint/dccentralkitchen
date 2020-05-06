@@ -111,6 +111,44 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.state.values[inputFields.PHONENUM]
     );
     this.setState({ formattedPhoneNumber });
+
+    try {
+      // Update the created record with the new number
+      const duplicateCustomers = await getCustomersByPhoneNumber(
+        formattedPhoneNumber
+      );
+      if (duplicateCustomers.length !== 0) {
+        console.log('Duplicate customer');
+        const errorMsg = 'Phone number already in use.';
+        logAuthErrorToSentry({
+          screen: 'checkDuplicateCustomers',
+          action: 'updatePhoneNumber',
+          attemptedPhone: formattedPhoneNumber,
+          attemptedPass: null,
+          error: errorMsg,
+        });
+        this.setState((prevState) => ({
+          errors: {
+            ...prevState.errors,
+            [inputFields.PHONENUM]: errorMsg,
+          },
+        }));
+        return;
+      }
+    } catch (err) {
+      console.error(
+        '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
+        err
+      );
+      logAuthErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'checkDuplicateCustomers',
+        attemptedPhone: formattedPhoneNumber,
+        attemptedPass: null,
+        error: err,
+      });
+    }
+
     const number = '+1'.concat(this.state.values[inputFields.PHONENUM]);
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
@@ -146,29 +184,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
   updatePhoneNumber = async () => {
     const { formattedPhoneNumber } = this.state;
     try {
-      // Update the created record with the new number
-      const duplicateCustomers = await getCustomersByPhoneNumber(
-        formattedPhoneNumber
-      );
-      if (duplicateCustomers.length !== 0) {
-        console.log('Duplicate customer');
-        const errorMsg = 'Phone number already in use.';
-        logAuthErrorToSentry({
-          screen: 'PhoneNumberChangeScreen',
-          action: 'updatePhoneNumber',
-          attemptedPhone: formattedPhoneNumber,
-          attemptedPass: null,
-          error: errorMsg,
-        });
-        this.setState((prevState) => ({
-          errors: {
-            ...prevState.errors,
-            [inputFields.PHONENUM]: errorMsg,
-          },
-        }));
-        return;
-      }
-
       await updateCustomers(this.state.customer.id, {
         phoneNumber: this.state.formattedPhoneNumber,
       });
