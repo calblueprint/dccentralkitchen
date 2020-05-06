@@ -11,7 +11,7 @@ import {
   Subhead,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { signUpFields } from '../../lib/authUtils';
+import { inputFields } from '../../lib/authUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -25,16 +25,16 @@ export default class VerificationScreen extends React.Component {
     super(props);
     this.state = {
       modalVisible: this.props.visible,
-      values: { [signUpFields.CODE]: '' },
-      errors: { [signUpFields.CODE]: '' },
+      values: { [inputFields.CODE]: '' },
+      errors: { [inputFields.CODE]: '' },
     };
   }
 
-  updateError = async (text, signUpField) => {
+  updateError = async (text, inputField) => {
     let errorMsg = '';
     // validate returns null if no error is found
-    switch (signUpField) {
-      case signUpFields.CODE:
+    switch (inputField) {
+      case inputFields.CODE:
         errorMsg = validate('code', text);
         break;
       default:
@@ -42,25 +42,25 @@ export default class VerificationScreen extends React.Component {
     }
 
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [signUpField]: errorMsg },
-      values: { ...prevState.values, [signUpField]: text },
+      errors: { ...prevState.errors, [inputField]: errorMsg },
+      values: { ...prevState.values, [inputField]: text },
     }));
   };
 
   // onBlur callback is required in case customer taps on field, does nothing, and taps out
-  onBlur = async (signUpField) => {
-    await this.updateError(signUpField);
+  onBlur = async (inputField) => {
+    await this.updateError(inputField);
   };
 
   // onTextChange does a check before updating errors
   // It can only remove errors, not trigger them
-  onTextChange = async (text, signUpField) => {
+  onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
-    if (this.state.errors[signUpField]) {
-      await this.updateError(text, signUpField);
+    if (this.state.errors[inputField]) {
+      await this.updateError(text, inputField);
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [signUpField]: text },
+        values: { ...prevState.values, [inputField]: text },
       }));
     }
   };
@@ -82,7 +82,7 @@ export default class VerificationScreen extends React.Component {
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.CODE]:
+            [inputFields.CODE]:
               'Incorrect verification code, please try again.',
           },
         }));
@@ -116,15 +116,15 @@ export default class VerificationScreen extends React.Component {
             <FormContainer>
               <AuthTextField
                 fieldType="Verification Code"
-                value={this.state.values[signUpFields.CODE]}
+                value={this.state.values[inputFields.CODE]}
                 onBlurCallback={(value) =>
-                  this.updateError(value, signUpFields.CODE)
+                  this.updateError(value, inputFields.CODE)
                 }
                 changeTextCallback={(text) => {
-                  this.onTextChange(text, signUpFields.CODE);
+                  this.onTextChange(text, inputFields.CODE);
                   this.scrollView.scrollToEnd({ animated: true });
                 }}
-                error={this.state.errors[signUpFields.CODE]}
+                error={this.state.errors[inputFields.CODE]}
               />
               <ButtonContainer onPress={async () => this.resendCode(false)}>
                 <ButtonLabel
@@ -139,7 +139,7 @@ export default class VerificationScreen extends React.Component {
               color={Colors.primaryGreen}
               width="100%"
               onPress={() =>
-                this.verifyCode(this.state.values[signUpFields.CODE])
+                this.verifyCode(this.state.values[inputFields.CODE])
               }>
               <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
             </FilledButtonContainer>
