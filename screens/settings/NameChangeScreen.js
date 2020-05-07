@@ -106,10 +106,10 @@ export default class NameChangeScreen extends React.Component {
         </BackButton>
         {!this.state.success && (
           <View>
-            <BigTitle>Set Your New Name</BigTitle>
+            <BigTitle>Change Name</BigTitle>
             <FormContainer>
               <AuthTextField
-                fieldType="Name"
+                fieldType="New Name"
                 value={this.state.values[inputFields.NAME]}
                 onBlurCallback={(value) =>
                   this.updateError(value, inputFields.NAME)
@@ -134,17 +134,20 @@ export default class NameChangeScreen extends React.Component {
         {this.state.success && (
           <View>
             <BigTitle>Success!</BigTitle>
-            <Subhead style={{ marginTop: 32 }}>
-              Your name has been changed.
+            <Subhead
+              style={{
+                marginTop: 32,
+              }}>
+              {`Your name was successfully changed to ${
+                this.state.values[inputFields.NAME]
+              }`}
             </Subhead>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => this.props.navigation.goBack()}>
-              <ButtonLabel color={Colors.lightest}>
-                Back To Settings
-              </ButtonLabel>
+              <ButtonLabel color={Colors.lightest}>Go To Settings</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

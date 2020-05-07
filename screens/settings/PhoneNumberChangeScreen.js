@@ -230,7 +230,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
         {!this.state.success && (
           <View>
-            <BigTitle>Set New Number</BigTitle>
+            <BigTitle>Change Phone Number</BigTitle>
             <FormContainer>
               <AuthTextField
                 fieldType="Phone Number"
@@ -250,7 +250,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.openRecaptcha()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightest}>Reset Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightest}>Change Number</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -259,16 +259,15 @@ export default class PhoneNumberChangeScreen extends React.Component {
           <View>
             <BigTitle>Success!</BigTitle>
             <Subhead style={{ marginTop: 32 }}>
-              Your number has been changed.
+              {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}`}
+              .
             </Subhead>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => this.props.navigation.goBack()}>
-              <ButtonLabel color={Colors.lightest}>
-                Back To Settings
-              </ButtonLabel>
+              <ButtonLabel color={Colors.lightest}>Go To Settings</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

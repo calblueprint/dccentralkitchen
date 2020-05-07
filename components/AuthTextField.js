@@ -40,6 +40,7 @@ function AuthTextField({
             : undefined
         }
         maxLength={
+          // eslint-disable-next-line no-nested-ternary
           fieldType === 'Phone Number'
             ? 10
             : fieldType === 'Verification Code'
@@ -49,7 +50,7 @@ function AuthTextField({
         secureTextEntry={fieldType.includes('assword')}
         labelPadding={6}
       />
-      {fieldType === 'Name' && !error && (
+      {fieldType.includes('Name') && !error && (
         <Caption color={Colors.activeText}>
           Note: this is how clerks will greet you!
         </Caption>
