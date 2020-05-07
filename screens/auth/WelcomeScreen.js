@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Image } from 'react-native';
 import {
-  ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
@@ -48,8 +47,24 @@ export default class WelcomeScreen extends React.Component {
           onPress={() => this.navigateLogIn()}>
           <ButtonLabel color="white">Log In</ButtonLabel>
         </FilledButtonContainer>
+        <FilledButtonContainer
+          style={{ marginTop: 12 }}
+          color={Colors.lighterGreen}
+          width="100%"
+          onPress={() => this.guestLogin()}>
+          <ButtonLabel color="white">guestguest</ButtonLabel>
+        </FilledButtonContainer>
+        <FilledButtonContainer
+          style={{ marginTop: 6 }}
+          color="transparent"
+          width="100%"
+          onPress={() => this.navigateSignup()}>
+          <ButtonLabel color={Colors.primaryGreen}>
+            guestmotherfucker
+          </ButtonLabel>
+        </FilledButtonContainer>
 
-        <ButtonContainer
+        {/* <ButtonContainer
           style={{ marginTop: 4, padding: 12 }}
           onPress={async () => this.guestLogin()}>
           <ButtonLabel
@@ -57,7 +72,7 @@ export default class WelcomeScreen extends React.Component {
             color={Colors.primaryGreen}>
             Continue without an account
           </ButtonLabel>
-        </ButtonContainer>
+        </ButtonContainer> */}
       </WelcomeContainer>
     );
   }
