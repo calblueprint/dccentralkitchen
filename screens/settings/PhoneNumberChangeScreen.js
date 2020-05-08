@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
@@ -211,9 +212,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <BackButton onPress={() => this.props.navigation.goBack()}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </BackButton>
         <FirebaseRecaptchaVerifierModal
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
@@ -230,6 +228,9 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
         {!this.state.success && (
           <View>
+            <BackButton onPress={() => this.props.navigation.goBack()}>
+              <FontAwesome5 name="arrow-left" solid size={24} />
+            </BackButton>
             <BigTitle>Change Phone Number</BigTitle>
             <FormContainer>
               <AuthTextField
@@ -257,17 +258,17 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
         {this.state.success && (
           <View>
+            <BackButton />
             <BigTitle>Success!</BigTitle>
             <Subhead style={{ marginTop: 32 }}>
-              {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}`}
-              .
+              {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}. Refresh to see changes.`}
             </Subhead>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
-              onPress={() => this.props.navigation.goBack()}>
-              <ButtonLabel color={Colors.lightest}>Go To Settings</ButtonLabel>
+              onPress={() => Updates.reload()}>
+              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

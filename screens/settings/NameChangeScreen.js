@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, View } from 'react-native';
@@ -101,11 +102,11 @@ export default class NameChangeScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <BackButton onPress={() => this.props.navigation.goBack()}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </BackButton>
         {!this.state.success && (
           <View>
+            <BackButton onPress={() => this.props.navigation.goBack()}>
+              <FontAwesome5 name="arrow-left" solid size={24} />
+            </BackButton>
             <BigTitle>Change Name</BigTitle>
             <FormContainer>
               <AuthTextField
@@ -133,6 +134,7 @@ export default class NameChangeScreen extends React.Component {
 
         {this.state.success && (
           <View>
+            <BackButton />
             <BigTitle>Success!</BigTitle>
             <Subhead
               style={{
@@ -140,14 +142,14 @@ export default class NameChangeScreen extends React.Component {
               }}>
               {`Your name was successfully changed to ${
                 this.state.values[inputFields.NAME]
-              }`}
+              }.Press refresh to see changes.`}
             </Subhead>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
-              onPress={() => this.props.navigation.goBack()}>
-              <ButtonLabel color={Colors.lightest}>Go To Settings</ButtonLabel>
+              onPress={() => Updates.reload()}>
+              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

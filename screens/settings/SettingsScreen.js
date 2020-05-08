@@ -46,6 +46,7 @@ export default class SettingsScreen extends React.Component {
   }
 
   _logout = async () => {
+    this.props.navigation.goBack();
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
@@ -65,24 +66,21 @@ export default class SettingsScreen extends React.Component {
             <SettingsCard
               title="Create an account"
               description="Start earning healthy rewards."
-              path="Auth"
-              navigation={this.props.navigation}
+              navigation={this._logout}
             />
           )}
           {!this.state.isGuest && (
             <SettingsCard
               title={this.state.name}
               description="Change Name"
-              path="Name"
-              navigation={this.props.navigation}
+              navigation={() => this.props.navigation.navigate('Name')}
             />
           )}
           {!this.state.isGuest && (
             <SettingsCard
               title={this.state.number}
               description="Change Phone Number"
-              path="Number"
-              navigation={this.props.navigation}
+              navigation={() => this.props.navigation.navigate('Number')}
             />
           )}
           <CategoryBar icon="info" title="About" />
@@ -111,7 +109,7 @@ export default class SettingsScreen extends React.Component {
           <TouchableOpacity onPress={() => this._logout()}>
             {this.state.isGuest ? (
               <ResourceItemCard>
-                <Subhead color={Colors.error}>Exit Guest Mode</Subhead>
+                <Subhead>Exit Guest Mode</Subhead>
               </ResourceItemCard>
             ) : (
               <ResourceItemCard>

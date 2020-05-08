@@ -5,9 +5,9 @@ import Colors from '../../constants/Colors';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
 import { Body, Subhead } from '../BaseComponents';
 
-function SettingsCard({ title, description, path, navigation }) {
+function SettingsCard({ title, description, navigation }) {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(path)}>
+    <TouchableOpacity onPress={() => navigation()}>
       <ResourceItemCard>
         <ContentContainer>
           <Subhead>{title}</Subhead>
@@ -21,8 +21,7 @@ function SettingsCard({ title, description, path, navigation }) {
 SettingsCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-  navigation: PropTypes.object.isRequired,
+  navigation: PropTypes.func.isRequired,
 };
 
 export default SettingsCard;
