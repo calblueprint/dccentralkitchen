@@ -72,6 +72,7 @@ export default class RewardsScreen extends React.Component {
   }
 
   _logout = async () => {
+    this.props.navigation.goBack();
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
   };
