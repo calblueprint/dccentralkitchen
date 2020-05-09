@@ -46,7 +46,7 @@ const adminSidebar = [
     title: 'Admin Guide',
     path: '/admin',
     sidebarDepth: 2,
-    children: ['/admin/airtable'],
+    children: ['/admin/airtable', '/admin/storehours', '/admin/forms'],
   },
 ];
 const devSidebar = [
@@ -98,6 +98,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    lastUpdated: 'Last Updated',
     smoothScroll: true,
     nav: globalNavbar,
     sidebar: {
@@ -108,4 +109,21 @@ module.exports = {
       '/shared': devSidebar,
     },
   },
+  plugins: [
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'rightlink',
+        defaultTitle: '',
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'callout',
+        before: (info) => `<div class="callout"><p class="title">${info}</p>`,
+        after: '</div>',
+      },
+    ],
+  ],
 };
