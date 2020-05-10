@@ -62,6 +62,8 @@ const devSidebar = [
       '/customer/rewards',
       '/customer/resources',
       '/shared/deploy',
+      '/shared/appstoreupdate',
+      '/shared/otaupdate',
     ],
   },
   {
