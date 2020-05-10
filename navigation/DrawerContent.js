@@ -1,16 +1,15 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
-
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
 import { logErrorToSentry } from '../lib/logUtils';
-
 
 function DrawerContent(props) {
   const [customer, setCustomer] = React.useState(null);
@@ -84,10 +83,11 @@ function DrawerContent(props) {
   const logout = async () => {
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
-    setTimeout(function () {
+    setTimeout(function() {
       navigation.navigate('Auth');
     }, 500);
     props.navigation.closeDrawer();
+    Updates.reload();
   };
 
   return (

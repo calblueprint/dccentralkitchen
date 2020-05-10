@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Dimensions, ScrollView, View } from 'react-native';
@@ -75,6 +76,7 @@ export default class RewardsScreen extends React.Component {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
+    Updates.reload();
   };
 
   renderScene = ({ route }) => {

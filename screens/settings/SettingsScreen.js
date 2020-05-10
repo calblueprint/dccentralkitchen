@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -43,6 +44,7 @@ export default class SettingsScreen extends React.Component {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
+    Updates.reload();
   };
 
   render() {
