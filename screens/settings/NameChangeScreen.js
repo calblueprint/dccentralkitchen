@@ -142,7 +142,7 @@ export default class NameChangeScreen extends React.Component {
               }}>
               {`Your name was successfully changed to ${
                 this.state.values[inputFields.NAME]
-              }.Press refresh to see changes.`}
+              }. Press refresh to see changes.`}
             </Subhead>
             <FilledButtonContainer
               style={{ marginTop: 48 }}

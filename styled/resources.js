@@ -4,10 +4,8 @@ import Colors from '../constants/Colors';
 export const ResourceItemCard = styled.View`
   border-bottom-width: 1px;
   border-color: ${Colors.lighter};
-  margin-top: 12px;
-  margin-left: 24px;
+  margin: 12px 24px 0 24px;
   padding-bottom: 12px;
-  margin-right: 24px;
   flex-direction: row;
   justify-content: space-between;
 `;
