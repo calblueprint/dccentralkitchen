@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
-
 import { Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
@@ -109,9 +108,17 @@ function DrawerContent(props) {
       </View>
       <DrawerItemList {...props} />
       <TouchableOpacity
-        style={{ padding: 8, height: 114 }}
+        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
+        onPress={() => {
+          props.navigation.goBack();
+          props.navigation.navigate('RewardsOverlay');
+        }}>
+        <Title style={{ height: 30 }}>Rewards</Title>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => Linking.openURL(link)}>
-        <Title>Feedback</Title>
+        <Title style={{ height: 30 }}>Feedback</Title>
       </TouchableOpacity>
       <View
         style={{

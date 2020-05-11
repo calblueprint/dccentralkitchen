@@ -8,7 +8,6 @@ import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
-import RewardsStackNavigator from './stack_navigators/RewardsStack';
 import StoresStackNavigator from './stack_navigators/StoresStack';
 
 const Drawer = createDrawerNavigator();
@@ -44,14 +43,6 @@ function DrawerNavigator() {
         name="Stores"
         component={StoresStackNavigator}
         options={{ title: 'Map', swipeEnabled: false }}
-      />
-      <Drawer.Screen
-        name="Rewards"
-        component={RewardsStackNavigator}
-        options={{
-          title: 'Rewards',
-          drawerLockMode: 'locked-closed',
-        }}
       />
       <Drawer.Screen
         name="Resources"
