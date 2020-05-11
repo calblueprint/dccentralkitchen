@@ -46,14 +46,6 @@ function DrawerNavigator() {
         options={{ title: 'Map', swipeEnabled: false }}
       />
       <Drawer.Screen
-        name="Rewards"
-        component={RewardsStackNavigator}
-        options={{
-          title: 'Rewards',
-          drawerLockMode: 'locked-closed',
-        }}
-      />
-      <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}
         options={{ title: 'Resources', swipeEnabled: false }}
