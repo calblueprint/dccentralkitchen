@@ -119,10 +119,10 @@ export default class SettingsScreen extends React.Component {
           </View>
           <CategoryBar
             icon="sign-out-alt"
-            title={this.state.isGuest ? 'Exit' : 'Log out'}
+            title={this.state.isGuest ? 'Exit' : 'Log Out'}
           />
           <SettingsCard
-            title={this.state.isGuest ? 'Exit Guest Mode' : 'Log out'}
+            title={this.state.isGuest ? 'Exit Guest Mode' : 'Log Out'}
             titleColor={!this.state.isGuest ? Colors.error : null}
             navigation={this._logout}
           />
