@@ -108,17 +108,17 @@ function DrawerContent(props) {
       </View>
       <DrawerItemList {...props} />
       <TouchableOpacity
-        style={{ padding: 8 }}
+        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => {
           props.navigation.goBack();
           props.navigation.navigate('RewardsOverlay');
         }}>
-        <Title>Rewards</Title>
+        <Title style={{ height: 30 }}>Rewards</Title>
       </TouchableOpacity>
       <TouchableOpacity
-        style={{ padding: 8 }}
+        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => Linking.openURL(link)}>
-        <Title>Feedback</Title>
+        <Title style={{ height: 30 }}>Feedback</Title>
       </TouchableOpacity>
       <View
         style={{
