@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   Body,
@@ -52,18 +52,15 @@ export default class OnboardingScreen extends React.Component {
   _renderItem = ({ item, _ }) => {
     return (
       <SpaceBetweenColumnContainer>
-        <View
+        <Image
+          source={item.illustration}
+          resizeMode="contain"
           style={{
             flex: 1,
-          }}>
-          <Image
-            source={item.illustration}
-            style={{
-              maxHeight: '100%',
-              maxWidth: '100%',
-            }}
-          />
-        </View>
+            height: '100%',
+            width: '100%',
+          }}
+        />
         <ColumnContainer>
           <Title style={{ textAlign: 'center' }}>{item.title}</Title>
           <Body style={{ marginTop: 12, textAlign: 'center' }}>
@@ -97,10 +94,6 @@ export default class OnboardingScreen extends React.Component {
           onSnapToItem={(index) => this.setState({ pageIndex: index })}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
-          containerCustomStyle={{
-            maxHeight: 1000,
-            backgroundColor: 'yellow',
-          }}
         />
 
         {/* Display pagination dots */}

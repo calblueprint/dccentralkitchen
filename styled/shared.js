@@ -24,7 +24,6 @@ export const SpaceBetweenColumnContainer = styled.View`
   flex-direction: column
   flex: 1
   justify-content: flex-end
-  background-color: red
 `;
 
 export const SpaceAroundRowContainer = styled.View`
