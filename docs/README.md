@@ -7,7 +7,7 @@ footer: Learn more about Blueprint and what we do at calblueprint.org.
 
 ---
 
-A guide to the customer and companion clerk applications developed with Expo, React Native, and Airtable and built for DC Central Kitchen's "Healthy Corners" program by the [@calblueprint](https://calblueprint.org) 2019-2020 team.
+A guide to the customer and companion clerk applications developed with Expo, React Native, and Airtable built for DC Central Kitchen's "Healthy Corners" initiative. Developed by [UC Berkeley @calblueprint](https://calblueprint.org)'s team during the 2019-2020 school year.
 
 ## Editing this site
 

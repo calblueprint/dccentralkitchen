@@ -1,7 +1,7 @@
 # Admin Guide
 
-- What you need to know
+What you need to know
 
-- Airtable: what it is
+## Airtable
 
-- Airtable schema overview
+## Google Sheets
