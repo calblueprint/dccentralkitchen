@@ -28,10 +28,9 @@ export const OnboardingContainer = styled.View`
   display: flex;
   flex: 1
   justify-content: center;
-  background-color: ${Colors.lightest};
-  margin: 200px 40px 75px 40px;
+  margin: 75px 40px 75px 40px;
 `;
-
+// background-color: ${Colors.lightest};
 // WelcomeScreen
 // TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
 export const WelcomeContainer = styled.View`

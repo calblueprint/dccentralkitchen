@@ -21,8 +21,10 @@ export const SpaceBetweenRowContainer = styled.View`
 
 export const SpaceBetweenColumnContainer = styled.View`
   display: flex;
-  justify-content: space-between
-  align-items: center;
+  flex-direction: column
+  flex: 1
+  justify-content: flex-end
+  background-color: red
 `;
 
 export const SpaceAroundRowContainer = styled.View`
