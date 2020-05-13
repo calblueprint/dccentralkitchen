@@ -60,15 +60,14 @@ export default class SignUpScreen extends React.Component {
         [inputFields.NAME]: '',
         [inputFields.PHONENUM]: '',
         [inputFields.PASSWORD]: '',
-        // Duplicate phone number error - currently not being displayed
-        submit: '',
       },
       token: '',
     };
   }
 
   // TODO @johnathanzhou or @anniero98
-  // Notifications is jank - the `_handleNotification` function doesn't even exist. Unclear to devs what the flow should be with receiving notifications
+  // Notifications currently not functional - the `_handleNotification` function doesn't even exist.
+  // Also unclear to devs what the flow should be with receiving notifications
   componentDidMount() {
     // this.registerForPushNotificationsAsync();
     // this._notificationSubscription = Notifications.addListener(this._handleNotification);
@@ -78,7 +77,7 @@ export default class SignUpScreen extends React.Component {
     this.setState({ modalVisible: visible });
   };
 
-  // TODO will be deprecated with react-navigation v5
+  // TODO should convert to functional component and use onFocusEffect
   _clearState = () => {
     this.setState({
       values: {
@@ -94,7 +93,6 @@ export default class SignUpScreen extends React.Component {
         [inputFields.CODE]: '',
       },
       token: '',
-      // signUpPermission: false,
     });
   };
 
@@ -107,7 +105,7 @@ export default class SignUpScreen extends React.Component {
   };
 
   // Sign up function. It sets the user token in local storage
-  // to be the fname + lname and then navigates to homescreen.
+  // to be the customer's recordId and then navigates to the Map screen.
   _asyncSignUp = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     Keyboard.dismiss();
@@ -131,7 +129,7 @@ export default class SignUpScreen extends React.Component {
         return;
       }
       const token = await Notifications.getExpoPushTokenAsync();
-      await this.setState({ token });
+      this.setState({ token });
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -410,7 +408,10 @@ export default class SignUpScreen extends React.Component {
             <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
           {env === 'dev' && (
-            <Button title="Testing Bypass" onPress={() => this._devBypass()} />
+            <Button
+              title="Testing Bypass"
+              onPress={async () => this._devBypass()}
+            />
           )}
         </AuthScrollContainer>
       </AuthScreenContainer>

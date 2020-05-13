@@ -20,6 +20,7 @@ import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
   encryptPassword,
   formatPhoneNumber,
+  inputFields,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
@@ -30,29 +31,36 @@ import {
   FormContainer,
 } from '../../styled/auth';
 import { JustifyCenterContainer } from '../../styled/shared';
+import validate from './validation';
 
 export default class LogInScreen extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      phoneNumber: '',
-      password: '',
-      error: '',
+      values: {
+        [inputFields.PHONENUM]: '',
+        [inputFields.PASSWORD]: '',
+      },
+      errors: {
+        [inputFields.PHONENUM]: '',
+        // Error field for password is not used but this makes the code cleaner
+        [inputFields.PASSWORD]: '',
+        submit: '',
+      },
       token: null,
     };
   }
 
-  componentDidMount() {}
-
-  // From SignUpScreen. Sign in function. It sets the user token in local storage
-  // to be the user ID and then navigates to homescreen.
+  // From SignUpScreen. Sets the user token in local storage
+  // to be the customer's recordId and then navigates to the Map screen.
   _asyncLogIn = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
+  // 5/13/2020: unused
   registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
       const { status: existingStatus } = await Permissions.getAsync(
@@ -76,10 +84,12 @@ export default class LogInScreen extends React.Component {
     }
   };
 
-  // This function will reformat the phone number to (XXX) XXX-XXXX and sign the user in if
-  // the user is found.
+  // Logs the customer in if found in Airtable
   handleSubmit = async () => {
-    const { password, phoneNumber, token } = this.state;
+    const { values, token } = this.state;
+    const phoneNumber = values[inputFields.PHONENUM];
+    const password = values[inputFields.PASSWORD];
+
     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
 
     try {
@@ -138,9 +148,9 @@ export default class LogInScreen extends React.Component {
           Sentry.captureMessage('Log In Successful');
         });
       }
-      this.setState({
-        error,
-      });
+      this.setState((prevState) => ({
+        errors: { ...prevState.errors, submit: error },
+      }));
     } catch (err) {
       console.error('[LogInScreen] Airtable:', err);
       logAuthErrorToSentry({
@@ -153,12 +163,63 @@ export default class LogInScreen extends React.Component {
     }
   };
 
+  // Check for an error with updated text
+  // Set errors and updated text in state
+  updateError = async (text, inputField) => {
+    let error = false;
+    let errorMsg = '';
+    // validate returns null if no error is found
+    switch (inputField) {
+      case inputFields.PHONENUM:
+        errorMsg = validate('phoneNumber', text);
+        error = errorMsg !== null;
+        break;
+      default:
+        console.log('Not reached');
+    }
+
+    this.setState((prevState) => ({
+      errors: { ...prevState.errors, [inputField]: errorMsg },
+      values: { ...prevState.values, [inputField]: text },
+    }));
+
+    return error;
+  };
+
+  // onBlur callback is required in case customer taps on field, does nothing, and taps out
+  onBlur = async (inputField) => {
+    await this.updateError(inputField);
+  };
+
+  // onTextChange does a check before updating errors
+  // It can only remove errors, not trigger them
+  onTextChange = async (text, inputField) => {
+    // Only update error if there is currently an error
+    // Unless field is password, since it is generally the last field to be filled out
+    if (this.state.errors[inputField]) {
+      await this.updateError(text, inputField);
+    } else {
+      this.setState((prevState) => ({
+        values: { ...prevState.values, [inputField]: text },
+        // Clear submission error
+        errors: { ...prevState.errors, submit: '' },
+      }));
+    }
+  };
+
   render() {
-    const { phoneNumber, password } = this.state;
-    const logInPermission =
-      phoneNumber.length === 10 &&
-      password.length >= 8 &&
-      this.state.error === '';
+    const { errors, values } = this.state;
+
+    // Initially, button should be disabled
+    // Until all fields have been (at least) filled out
+    const fieldsFilled =
+      values[inputFields.PHONENUM] && values[inputFields.PASSWORD];
+    const noErrors =
+      !errors.submit &&
+      !errors[inputFields.PHONENUM] &&
+      !errors[inputFields.PASSWORD];
+
+    const logInPermission = fieldsFilled && noErrors;
 
     return (
       <AuthScreenContainer>
@@ -173,29 +234,30 @@ export default class LogInScreen extends React.Component {
           <FormContainer>
             <AuthTextField
               fieldType="Phone Number"
-              value={this.state.phoneNumber}
-              changeTextCallback={async (text) => {
-                this.setState({ phoneNumber: text, error: '' });
+              value={this.state.values[inputFields.PHONENUM]}
+              onBlurCallback={(value) => {
+                this.updateError(value, inputFields.PHONENUM);
+                this.scrollView.scrollToEnd({ animated: true });
               }}
-              onBlurCallback={() =>
-                this.scrollView.scrollToEnd({ animated: true })
+              changeTextCallback={(text) =>
+                this.onTextChange(text, inputFields.PHONENUM)
               }
-              // Display error indicator ('no text') only when login fails
-              error={this.state.error ? ' ' : ''}
+              error={this.state.errors[inputFields.PHONENUM]}
             />
             <AuthTextField
               fieldType="Password"
-              value={this.state.password}
-              changeTextCallback={async (text) => {
-                this.setState({ password: text, error: '' });
-              }}
+              value={this.state.values[inputFields.PASSWORD]}
+              changeTextCallback={(text) =>
+                this.onTextChange(text, inputFields.PASSWORD)
+              }
               // Display error indicator ('no text') only when login fails
-              error={this.state.error ? ' ' : ''}
+              // this.state.errors.submit ? ' ' :
+              error={this.state.errors[inputFields.PASSWORD]}
             />
             <Caption
               style={{ alignSelf: 'center', fontSize: 14 }}
               color={Colors.error}>
-              {this.state.error}
+              {this.state.errors.submit}
             </Caption>
           </FormContainer>
           <JustifyCenterContainer>
