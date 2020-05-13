@@ -250,8 +250,6 @@ export default class LogInScreen extends React.Component {
               changeTextCallback={(text) =>
                 this.onTextChange(text, inputFields.PASSWORD)
               }
-              // Display error indicator ('no text') only when login fails
-              // this.state.errors.submit ? ' ' :
               error={this.state.errors[inputFields.PASSWORD]}
             />
             <Caption
