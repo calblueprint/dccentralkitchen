@@ -5,7 +5,7 @@ import { CategoryCard, CategoryHeadingContainer } from '../../styled/resources';
 import { Title } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
-function ResourceCategoryBar({ icon, title }) {
+function CategoryBar({ icon, title }) {
   return (
     <CategoryCard>
       <CircleIcon
@@ -20,9 +20,9 @@ function ResourceCategoryBar({ icon, title }) {
   );
 }
 
-ResourceCategoryBar.propTypes = {
+CategoryBar.propTypes = {
   icon: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default ResourceCategoryBar;
+export default CategoryBar;

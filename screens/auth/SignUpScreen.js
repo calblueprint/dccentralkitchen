@@ -28,7 +28,7 @@ import {
 import {
   encryptPassword,
   formatPhoneNumber,
-  signUpFields,
+  inputFields,
 } from '../../lib/authUtils';
 import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
@@ -52,14 +52,14 @@ export default class SignUpScreen extends React.Component {
       recaptchaVerifier,
       verificationId: null,
       values: {
-        [signUpFields.NAME]: '',
-        [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
+        [inputFields.NAME]: '',
+        [inputFields.PHONENUM]: '',
+        [inputFields.PASSWORD]: '',
       },
       errors: {
-        [signUpFields.NAME]: '',
-        [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
+        [inputFields.NAME]: '',
+        [inputFields.PHONENUM]: '',
+        [inputFields.PASSWORD]: '',
         // Duplicate phone number error - currently not being displayed
         submit: '',
       },
@@ -82,16 +82,16 @@ export default class SignUpScreen extends React.Component {
   _clearState = () => {
     this.setState({
       values: {
-        [signUpFields.NAME]: '',
-        [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
-        [signUpFields.CODE]: '',
+        [inputFields.NAME]: '',
+        [inputFields.PHONENUM]: '',
+        [inputFields.PASSWORD]: '',
+        [inputFields.CODE]: '',
       },
       errors: {
-        [signUpFields.NAME]: '',
-        [signUpFields.PHONENUM]: '',
-        [signUpFields.PASSWORD]: '',
-        [signUpFields.CODE]: '',
+        [inputFields.NAME]: '',
+        [inputFields.PHONENUM]: '',
+        [inputFields.PASSWORD]: '',
+        [inputFields.CODE]: '',
       },
       token: '',
       // signUpPermission: false,
@@ -140,9 +140,9 @@ export default class SignUpScreen extends React.Component {
   // Add customer to Airtable, creating a push token record first.
   addCustomer = async () => {
     const { token, values } = this.state;
-    const name = values[signUpFields.NAME];
-    const phoneNumber = values[signUpFields.PHONENUM];
-    const password = values[signUpFields.PASSWORD];
+    const name = values[inputFields.NAME];
+    const phoneNumber = values[inputFields.PHONENUM];
+    const password = values[inputFields.PASSWORD];
     try {
       let pushTokenId = null;
       if (token) {
@@ -191,7 +191,7 @@ export default class SignUpScreen extends React.Component {
       // Check for duplicates first
       const formattedPhoneNumber = formatPhoneNumber(
         // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.values[signUpFields.PHONENUM]
+        this.state.values[inputFields.PHONENUM]
       );
       this.setState({ formattedPhoneNumber });
       const duplicateCustomers = await getCustomersByPhoneNumber(
@@ -210,7 +210,7 @@ export default class SignUpScreen extends React.Component {
         this.setState((prevState) => ({
           errors: {
             ...prevState.errors,
-            [signUpFields.PHONENUM]: errorMsg,
+            [inputFields.PHONENUM]: errorMsg,
           },
         }));
         return;
@@ -232,7 +232,7 @@ export default class SignUpScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
-    const number = '+1'.concat(this.state.values[signUpFields.PHONENUM]);
+    const number = '+1'.concat(this.state.values[inputFields.PHONENUM]);
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
       const verificationId = await phoneProvider.verifyPhoneNumber(
@@ -272,20 +272,20 @@ export default class SignUpScreen extends React.Component {
 
   // Check for an error with updated text
   // Set errors and updated text in state
-  updateError = async (text, signUpField) => {
+  updateError = async (text, inputField) => {
     let error = false;
     let errorMsg = '';
     // validate returns null if no error is found
-    switch (signUpField) {
-      case signUpFields.PHONENUM:
+    switch (inputField) {
+      case inputFields.PHONENUM:
         errorMsg = validate('phoneNumber', text);
         error = errorMsg !== null;
         break;
-      case signUpFields.PASSWORD:
+      case inputFields.PASSWORD:
         errorMsg = validate('password', text);
         error = errorMsg !== null;
         break;
-      case signUpFields.NAME:
+      case inputFields.NAME:
         error = !text.replace(/\s/g, '').length;
         if (error) errorMsg = 'Name cannot be blank';
         break;
@@ -294,31 +294,28 @@ export default class SignUpScreen extends React.Component {
     }
 
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [signUpField]: errorMsg },
-      values: { ...prevState.values, [signUpField]: text },
+      errors: { ...prevState.errors, [inputField]: errorMsg },
+      values: { ...prevState.values, [inputField]: text },
     }));
 
     return error;
   };
 
   // onBlur callback is required in case customer taps on field, does nothing, and taps out
-  onBlur = async (signUpField) => {
-    await this.updateError(signUpField);
+  onBlur = async (inputField) => {
+    await this.updateError(inputField);
   };
 
   // onTextChange does a check before updating errors
   // It can only remove errors, not trigger them
-  onTextChange = async (text, signUpField) => {
+  onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
     // Unless field is password, since it is generally the last field to be filled out
-    if (
-      this.state.errors[signUpField] ||
-      signUpField === signUpFields.PASSWORD
-    ) {
-      await this.updateError(text, signUpField);
+    if (this.state.errors[inputField] || inputField === inputFields.PASSWORD) {
+      await this.updateError(text, inputField);
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [signUpField]: text },
+        values: { ...prevState.values, [inputField]: text },
       }));
     }
   };
@@ -329,13 +326,13 @@ export default class SignUpScreen extends React.Component {
     // Initially, button should be disabled
     // Until all fields have been (at least) filled out
     const fieldsFilled =
-      values[signUpFields.NAME] &&
-      values[signUpFields.PHONENUM] &&
-      values[signUpFields.PASSWORD];
+      values[inputFields.NAME] &&
+      values[inputFields.PHONENUM] &&
+      values[inputFields.PASSWORD];
     const noErrors =
-      !errors[signUpFields.NAME] &&
-      !errors[signUpFields.PHONENUM] &&
-      !errors[signUpFields.PASSWORD];
+      !errors[inputFields.NAME] &&
+      !errors[inputFields.PHONENUM] &&
+      !errors[inputFields.PASSWORD];
 
     const signUpPermission = fieldsFilled && noErrors;
 
@@ -366,40 +363,40 @@ export default class SignUpScreen extends React.Component {
           <FormContainer>
             <AuthTextField
               fieldType="Name"
-              value={this.state.values[signUpFields.NAME]}
+              value={this.state.values[inputFields.NAME]}
               onBlurCallback={(value) => {
-                this.updateError(value, signUpFields.NAME);
+                this.updateError(value, inputFields.NAME);
                 this.scrollView.scrollToEnd({ animated: true });
               }}
               changeTextCallback={async (text) =>
-                this.onTextChange(text, signUpFields.NAME)
+                this.onTextChange(text, inputFields.NAME)
               }
-              error={this.state.errors[signUpFields.NAME]}
+              error={this.state.errors[inputFields.NAME]}
             />
 
             <AuthTextField
               fieldType="Phone Number"
-              value={this.state.values[signUpFields.PHONENUM]}
+              value={this.state.values[inputFields.PHONENUM]}
               onBlurCallback={(value) => {
-                this.updateError(value, signUpFields.PHONENUM);
+                this.updateError(value, inputFields.PHONENUM);
                 this.scrollView.scrollToEnd({ animated: true });
               }}
               changeTextCallback={(text) =>
-                this.onTextChange(text, signUpFields.PHONENUM)
+                this.onTextChange(text, inputFields.PHONENUM)
               }
-              error={this.state.errors[signUpFields.PHONENUM]}
+              error={this.state.errors[inputFields.PHONENUM]}
             />
 
             <AuthTextField
               fieldType="Password"
-              value={this.state.values[signUpFields.PASSWORD]}
+              value={this.state.values[inputFields.PASSWORD]}
               onBlurCallback={(value) =>
-                this.updateError(value, signUpFields.PASSWORD)
+                this.updateError(value, inputFields.PASSWORD)
               }
               changeTextCallback={(text) =>
-                this.onTextChange(text, signUpFields.PASSWORD)
+                this.onTextChange(text, inputFields.PASSWORD)
               }
-              error={this.state.errors[signUpFields.PASSWORD]}
+              error={this.state.errors[inputFields.PASSWORD]}
             />
           </FormContainer>
           <FilledButtonContainer

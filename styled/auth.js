@@ -15,9 +15,10 @@ export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
   flex-direction: column;
   margin-horizontal: 42px;
 `;
-// ScrollView nested inn AuthScreenContainer for keyboard avoiding behavior
+
+// ScrollView nested in AuthScreenContainer for keyboard avoiding behavior
 export const AuthScrollContainer = styled.ScrollView.attrs({
-  keyboardShouldPersistTaps: 'always',
+  keyboardShouldPersistTaps: 'handled',
   showsVerticalScrollIndicator: false,
 })`
   flex: 1;

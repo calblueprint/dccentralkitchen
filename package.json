@@ -125,6 +125,6 @@
   },
   "private": true,
   "peerDependencies": {
-    "@unimodules/core": "*"
+    "@unimodules/core": "^5.1.2"
   }
 }
