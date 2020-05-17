@@ -234,7 +234,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
             <BigTitle>Change Phone Number</BigTitle>
             <FormContainer>
               <AuthTextField
-                fieldType="Phone Number"
+                fieldType="New Phone Number"
                 value={this.state.values[inputFields.PHONENUM]}
                 onBlurCallback={(value) =>
                   this.updateError(value, inputFields.PHONENUM)

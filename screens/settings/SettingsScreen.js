@@ -43,7 +43,11 @@ export default class SettingsScreen extends React.Component {
   _logout = async () => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
+    if (this.state.isGuest) {
+      this.props.navigation.navigate('SignUp');
+    } else {
+      this.props.navigation.navigate('Auth');
+    }
     Updates.reload();
   };
 
@@ -68,14 +72,14 @@ export default class SettingsScreen extends React.Component {
           {!this.state.isGuest && (
             <SettingsCard
               title={this.state.name}
-              description="Change Name"
+              description="Change name"
               navigation={() => this.props.navigation.navigate('Name')}
             />
           )}
           {!this.state.isGuest && (
             <SettingsCard
               title={this.state.number}
-              description="Change Phone Number"
+              description="Change phone number"
               navigation={() => this.props.navigation.navigate('Number')}
             />
           )}

@@ -43,13 +43,8 @@ function DrawerNavigator() {
       <Drawer.Screen
         name="Stores"
         component={StoresStackNavigator}
-        options={{ title: 'Stores', swipeEnabled: false }}
+        options={{ title: 'Map', swipeEnabled: false }}
       />
-      {/* <Drawer.Screen
-        name="Rewards"
-        options={{ title: 'Points History', drawerLockMode: 'locked-closed' }}>
-        {props => <RewardsScreen {...props} tab={1} />}
-      </Drawer.Screen> */}
       <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}

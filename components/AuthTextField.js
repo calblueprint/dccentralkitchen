@@ -35,13 +35,14 @@ function AuthTextField({
         errorColor={Colors.error}
         returnKeyType="done"
         keyboardType={
-          fieldType === 'Phone Number' || fieldType === 'Verification Code'
+          fieldType.includes('Phone Number') ||
+          fieldType === 'Verification Code'
             ? 'numeric'
             : undefined
         }
         maxLength={
           // eslint-disable-next-line no-nested-ternary
-          fieldType === 'Phone Number'
+          fieldType.includes('Phone Number')
             ? 10
             : fieldType === 'Verification Code'
             ? 6
