@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { AsyncStorage, View } from 'react-native';
@@ -63,13 +64,18 @@ export default class RewardsFooter extends React.Component {
             <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
               {this.state.isGuest
                 ? 'Learn about Healthy Rewards >'
-                : `${this.state.rewards} rewards`}
+                : this.state.rewards > 0
+                ? `${this.state.rewards} rewards`
+                : `${this.state.customer.points} points`}
             </Subhead>
           </View>
         )}
-        {/* &gt; is a code for >, but since we can't use that, we use &gt; */}
         {this.state.customer && !this.state.isGuest && (
-          <Subhead color={Colors.lightest}>View your rewards &gt;</Subhead>
+          <Subhead color={Colors.lightest}>
+            {this.state.rewards > 0
+              ? `View your rewards >`
+              : `View your points >`}
+          </Subhead>
         )}
       </View>
     );
