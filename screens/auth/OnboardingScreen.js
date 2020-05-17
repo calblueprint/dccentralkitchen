@@ -11,12 +11,12 @@ import {
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import ONBOARDING_CONTENT from '../../constants/Onboarding';
-import { OnboardingContainer, styles } from '../../styled/auth';
 import {
-  ColumnContainer,
-  SpaceBetweenColumnContainer,
-  SpaceBetweenRowContainer,
-} from '../../styled/shared';
+  OnboardingContainer,
+  OnboardingContentContainer,
+  styles,
+} from '../../styled/auth';
+import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 
 export default class OnboardingScreen extends React.Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export default class OnboardingScreen extends React.Component {
 
   _renderItem = ({ item, _ }) => {
     return (
-      <SpaceBetweenColumnContainer>
+      <OnboardingContentContainer>
         <Image
           source={item.illustration}
           resizeMode="contain"
@@ -67,7 +67,7 @@ export default class OnboardingScreen extends React.Component {
             {item.body}
           </Body>
         </ColumnContainer>
-      </SpaceBetweenColumnContainer>
+      </OnboardingContentContainer>
     );
   };
 
