@@ -86,7 +86,7 @@ export default class SettingsScreen extends React.Component {
           <CategoryBar icon="shield-alt" title="Privacy" />
           <SettingsCard
             title="Location Settings"
-            description="Manage your location sharing preferences"
+            description="Manage Your Location Sharing Preferences"
             navigation={() => Linking.openURL('app-settings:')}
           />
           <SettingsCard
