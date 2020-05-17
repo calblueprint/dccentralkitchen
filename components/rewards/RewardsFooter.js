@@ -64,8 +64,12 @@ export default class RewardsFooter extends React.Component {
             <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
               {this.state.isGuest
                 ? 'Learn about Healthy Rewards >'
+                : this.state.rewards === 1
+                ? `${this.state.rewards} reward`
                 : this.state.rewards > 0
                 ? `${this.state.rewards} rewards`
+                : this.state.customer.points === 1
+                ? `${this.state.customer.points} point`
                 : `${this.state.customer.points} points`}
             </Subhead>
           </View>
