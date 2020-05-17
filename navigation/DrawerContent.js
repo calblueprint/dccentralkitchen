@@ -109,6 +109,19 @@ function DrawerContent(props) {
         <Title style={{ color: 'white' }}>{customer.name}</Title>
       </View>
       <DrawerItemList {...props} />
+      <TouchableOpacity
+        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
+        onPress={() => {
+          props.navigation.goBack();
+          props.navigation.navigate('RewardsOverlay');
+        }}>
+        <Title style={{ height: 30 }}>Rewards</Title>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
+        onPress={() => Linking.openURL(link)}>
+        <Title style={{ height: 30 }}>Feedback</Title>
+      </TouchableOpacity>
       <View
         style={{
           flex: 1,
@@ -116,11 +129,6 @@ function DrawerContent(props) {
           justifyContent: 'flex-end',
           verticalAlign: 'bottom',
         }}>
-        <TouchableOpacity
-          style={{ padding: 16 }}
-          onPress={() => Linking.openURL(link)}>
-          <Title>Report Issue</Title>
-        </TouchableOpacity>
         <TouchableOpacity
           style={{ paddingLeft: 16, paddingBottom: 21 }}
           onPress={() => logout()}>
