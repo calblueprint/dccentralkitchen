@@ -43,7 +43,11 @@ export default class SettingsScreen extends React.Component {
   _logout = async () => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
+    if (this.state.isGuest) {
+      this.props.navigation.navigate('SignUp');
+    } else {
+      this.props.navigation.navigate('Auth');
+    }
     Updates.reload();
   };
 
