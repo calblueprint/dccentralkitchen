@@ -19,7 +19,12 @@ import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
-import { BottomSheetContainer, BottomSheetHeaderContainer, DragBar, SearchBar } from '../../styled/store';
+import {
+  BottomSheetContainer,
+  BottomSheetHeaderContainer,
+  DragBar,
+  SearchBar,
+} from '../../styled/store';
 
 const minSnapPoint = 185;
 const midSnapPoint = 325;
@@ -369,7 +374,7 @@ export default class MapScreen extends React.Component {
             zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
-          <RewardsFooter>Yes</RewardsFooter>
+          <RewardsFooter />
         </TouchableOpacity>
       </View>
     );

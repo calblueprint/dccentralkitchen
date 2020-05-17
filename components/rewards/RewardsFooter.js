@@ -3,7 +3,9 @@ import React from 'react';
 import { AsyncStorage, View } from 'react-native';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import { rewardPointValue } from '../../constants/Rewards';
 import { getCustomersById } from '../../lib/airtable/request';
+import { logErrorToSentry } from '../../lib/logUtils';
 import { Subhead } from '../BaseComponents';
 /**
  * @prop
@@ -14,21 +16,23 @@ export default class RewardsFooter extends React.Component {
     super(props);
     this.state = {
       customer: null,
-      transactions: [],
-      isLoading: true,
       isGuest: false,
+      rewards: 0,
     };
   }
-  // Load customer record & transactions
+
   async componentDidMount() {
     const customerId = await AsyncStorage.getItem('customerId');
     const isGuest = customerId === RecordIds.guestCustomerId;
     try {
       const customer = await getCustomersById(customerId);
+      const rewards = customer
+        ? Math.floor(parseInt(customer.points, 10) / rewardPointValue)
+        : 0;
       this.setState({
         isGuest,
         customer,
-        isLoading: false,
+        rewards,
       });
     } catch (err) {
       console.error(err);
@@ -59,12 +63,13 @@ export default class RewardsFooter extends React.Component {
             <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
               {this.state.isGuest
                 ? 'Learn about Healthy Rewards >'
-                : `${this.state.customer.points} points`}
+                : `${this.state.rewards} rewards`}
             </Subhead>
           </View>
         )}
+        {/* &gt; is a code for >, but since we can't use that, we use &gt; */}
         {this.state.customer && !this.state.isGuest && (
-          <Subhead color={Colors.lightest}>Your next reward &gt;</Subhead>
+          <Subhead color={Colors.lightest}>View your rewards &gt;</Subhead>
         )}
       </View>
     );
