@@ -5,11 +5,12 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
+  ButtonContainer,
   ButtonLabel,
   Caption,
   FilledButtonContainer,
@@ -24,6 +25,7 @@ import {
 import { logAuthErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
+  AuthScrollContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
@@ -47,6 +49,7 @@ export default class LogInScreen extends React.Component {
   // to be the user ID and then navigates to homescreen.
   _asyncLogIn = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
+    Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
@@ -135,7 +138,6 @@ export default class LogInScreen extends React.Component {
           Sentry.captureMessage('Log In Successful');
         });
       }
-
       this.setState({
         error,
       });
@@ -160,55 +162,63 @@ export default class LogInScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        <BackButton onPress={() => this.props.navigation.goBack(null)}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </BackButton>
-        <BigTitle>Log In</BigTitle>
-        <FormContainer>
-          <AuthTextField
-            fieldType="Phone Number"
-            value={this.state.phoneNumber}
-            changeTextCallback={async (text) => {
-              this.setState({ phoneNumber: text, error: '' });
-            }}
-            // Display error indicator ('no text') only when login fails
-            error={this.state.error ? ' ' : ''}
-          />
-          <AuthTextField
-            fieldType="Password"
-            value={this.state.password}
-            changeTextCallback={async (text) => {
-              this.setState({ password: text, error: '' });
-            }}
-            // Display error indicator ('no text') only when login fails
-            error={this.state.error ? ' ' : ''}
-          />
-          <Caption
-            style={{ alignSelf: 'center', fontSize: 14 }}
-            color={Colors.error}>
-            {this.state.error}
-          </Caption>
-        </FormContainer>
-        <JustifyCenterContainer>
-          <FilledButtonContainer
-            style={{ marginTop: 104 }}
-            color={
-              !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
-            }
-            width="100%"
-            onPress={() => this.handleSubmit()}
-            disabled={!logInPermission}>
-            <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
-          </FilledButtonContainer>
-
-          {/* TODO @tommypoa: Forgot password functionality
-
-          <ForgotPasswordButtonContainer>
-            <ButtonContainer>
-              <Body color={Colors.primaryGreen}>Forgot password?</Body>
+        <AuthScrollContainer
+          ref={(ref) => {
+            this.scrollView = ref;
+          }}>
+          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
+          <BigTitle>Log In</BigTitle>
+          <FormContainer>
+            <AuthTextField
+              fieldType="Phone Number"
+              value={this.state.phoneNumber}
+              changeTextCallback={async (text) => {
+                this.setState({ phoneNumber: text, error: '' });
+              }}
+              onBlurCallback={() =>
+                this.scrollView.scrollToEnd({ animated: true })
+              }
+              // Display error indicator ('no text') only when login fails
+              error={this.state.error ? ' ' : ''}
+            />
+            <AuthTextField
+              fieldType="Password"
+              value={this.state.password}
+              changeTextCallback={async (text) => {
+                this.setState({ password: text, error: '' });
+              }}
+              // Display error indicator ('no text') only when login fails
+              error={this.state.error ? ' ' : ''}
+            />
+            <Caption
+              style={{ alignSelf: 'center', fontSize: 14 }}
+              color={Colors.error}>
+              {this.state.error}
+            </Caption>
+          </FormContainer>
+          <JustifyCenterContainer>
+            <FilledButtonContainer
+              style={{ marginTop: 24 }}
+              color={
+                !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
+              }
+              width="100%"
+              onPress={() => this.handleSubmit()}
+              disabled={!logInPermission}>
+              <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
+            </FilledButtonContainer>
+            <ButtonContainer
+              onPress={async () => this.props.navigation.navigate('Reset')}>
+              <ButtonLabel
+                style={{ textTransform: 'none', marginVertical: 12 }}
+                color={Colors.primaryGreen}>
+                Forgot Password?
+              </ButtonLabel>
             </ButtonContainer>
-          </ForgotPasswordButtonContainer> */}
-        </JustifyCenterContainer>
+          </JustifyCenterContainer>
+        </AuthScrollContainer>
       </AuthScreenContainer>
     );
   }

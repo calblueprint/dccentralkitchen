@@ -1,9 +1,17 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Dimensions, Image, ScrollView, View } from 'react-native';
+import { AsyncStorage, Dimensions, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { BigTitle, ButtonLabel, FilledButtonContainer, NavButton, NavHeaderContainer } from '../../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonLabel,
+  FilledButtonContainer,
+  NavButton,
+  NavHeaderContainer,
+} from '../../components/BaseComponents';
+import HowItWorks from '../../components/rewards/HowItWorks';
 import ParticipatingStores from '../../components/rewards/ParticipatingStores';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
@@ -18,6 +26,7 @@ import { styles } from '../../styled/rewards';
 const routes = [
   { key: 'home', title: 'My Rewards' },
   { key: 'history', title: 'Points History' },
+  { key: 'howitworks', title: 'How It Works' },
 ];
 
 export default class RewardsScreen extends React.Component {
@@ -67,6 +76,7 @@ export default class RewardsScreen extends React.Component {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth');
+    Updates.reload();
   };
 
   renderScene = ({ route }) => {
@@ -80,6 +90,13 @@ export default class RewardsScreen extends React.Component {
         );
       case 'history':
         return <PointsHistory transactions={this.state.transactions} />;
+      case 'howitworks':
+        return (
+          <HowItWorks
+            isGuest={this.state.isGuest}
+            participating={this.state.participating}
+          />
+        );
       default:
         return null;
     }
@@ -94,6 +111,7 @@ export default class RewardsScreen extends React.Component {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         indicatorStyle={styles.tabBarIndicator}
+        scrollEnabled
       />
     );
   };
@@ -120,22 +138,10 @@ export default class RewardsScreen extends React.Component {
             </BigTitle>
           </NavHeaderContainer>
           <ScrollView>
-            <View
-              style={{
-                marginRight: 16,
-                marginLeft: 16,
-                maxHeight: 600,
-                marginTop: 12,
-              }}>
-              <Image
-                source={require('../../assets/images/HowItWorks.png')}
-                style={{
-                  width: '100%',
-                  maxHeight: 600,
-                  resizeMode: 'contain',
-                }}
-              />
-            </View>
+            <HowItWorks
+              isGuest={this.state.isGuest}
+              participating={this.state.participating}
+            />
             <ParticipatingStores
               participating={this.state.participating}
               guest

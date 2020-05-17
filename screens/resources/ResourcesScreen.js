@@ -8,8 +8,8 @@ import {
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
+import CategoryBar from '../../components/resources/CategoryBar';
 import ResourceCard from '../../components/resources/ResourceCard';
-import ResourceCategoryBar from '../../components/resources/ResourceCategoryBar';
 import { getAllResources } from '../../lib/airtable/request';
 
 export default class ResourcesScreen extends React.Component {
@@ -70,7 +70,7 @@ export default class ResourcesScreen extends React.Component {
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
-          <ResourceCategoryBar icon="hands-helping" title="Crisis Response" />
+          <CategoryBar icon="hands-helping" title="Crisis Response" />
           {this.state.CrisisResources.map((resource) => (
             <ResourceCard
               key={resource.id}
@@ -78,7 +78,7 @@ export default class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceCategoryBar icon="carrot" title="DC Central Kitchen" />
+          <CategoryBar icon="carrot" title="DC Central Kitchen" />
           {this.state.DCCentralKitchenResources.map((resource) => (
             <ResourceCard
               key={resource.id}
@@ -86,7 +86,7 @@ export default class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceCategoryBar icon="heart" title="Community" />
+          <CategoryBar icon="heart" title="Community" />
           {this.state.CommunityResources.map((resource) => (
             <ResourceCard
               key={resource.id}
@@ -94,7 +94,7 @@ export default class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceCategoryBar icon="balance-scale" title="Government" />
+          <CategoryBar icon="balance-scale" title="Government" />
           {this.state.GovernmentResources.map((resource) => (
             <ResourceCard
               key={resource.id}
@@ -102,7 +102,7 @@ export default class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          <ResourceCategoryBar icon="user" title="Seniors" />
+          <CategoryBar icon="user" title="Seniors" />
           {this.state.ResourcesForSeniors.map((resource) => (
             <ResourceCard
               key={resource.id}
