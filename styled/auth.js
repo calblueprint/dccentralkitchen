@@ -29,8 +29,15 @@ export const OnboardingContainer = styled.View`
   display: flex;
   flex: 1
   justify-content: center;
-  background-color: ${Colors.lightest};
-  margin: 200px 40px 75px 40px;
+  margin-horizontal: 40px
+  padding: 75px 0px
+`;
+
+export const OnboardingContentContainer = styled.View`
+  display: flex;
+  flex-direction: column
+  flex: 1
+  justify-content: flex-end
 `;
 
 // WelcomeScreen

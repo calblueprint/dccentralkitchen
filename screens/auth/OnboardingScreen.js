@@ -1,7 +1,6 @@
-import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, ScrollView } from 'react-native';
+import { Image } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   Body,
@@ -11,14 +10,13 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { ONBOARDING_CONTENT } from '../../constants/Onboarding';
-import { OnboardingContainer, styles } from '../../styled/auth';
+import ONBOARDING_CONTENT from '../../constants/Onboarding';
 import {
-  ColumnContainer,
-  RowContainer,
-  SpaceBetweenColumnContainer,
-  SpaceBetweenRowContainer,
-} from '../../styled/shared';
+  OnboardingContainer,
+  OnboardingContentContainer,
+  styles,
+} from '../../styled/auth';
+import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 
 export default class OnboardingScreen extends React.Component {
   constructor(props) {
@@ -28,6 +26,12 @@ export default class OnboardingScreen extends React.Component {
       loading: true,
       pageIndex: 0,
     };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 10);
   }
 
   get pagination() {
@@ -45,55 +49,34 @@ export default class OnboardingScreen extends React.Component {
     );
   }
 
+  _renderItem = ({ item, _ }) => {
+    return (
+      <OnboardingContentContainer>
+        <Image
+          source={item.illustration}
+          resizeMode="contain"
+          style={{
+            flex: 1,
+            height: '100%',
+            width: '100%',
+          }}
+        />
+        <ColumnContainer>
+          <Title style={{ textAlign: 'center' }}>{item.title}</Title>
+          <Body style={{ marginTop: 12, textAlign: 'center' }}>
+            {item.body}
+          </Body>
+        </ColumnContainer>
+      </OnboardingContentContainer>
+    );
+  };
+
   navigateWelcome() {
     this.props.navigation.navigate('Welcome');
   }
 
   navigateLogIn() {
     this.props.navigation.navigate('LogIn');
-  }
-
-  _renderItem({ item, _ }) {
-    return (
-      <SpaceBetweenColumnContainer style={{ flex: 1 }}>
-        <RowContainer>
-          {!item.icons.length && (
-            <Image
-              source={require('../../assets/images/hc_start.png')}
-              style={{
-                maxWidth: '100%',
-                resizeMode: 'contain',
-                maxHeight: 400,
-              }}
-            />
-          )}
-          {item.icons.map((icon, i) => (
-            <FontAwesome5
-              key={i}
-              name={icon}
-              solid
-              size={48}
-              color={Colors.primaryGreen}
-              style={{ padding: 10 }}
-            />
-          ))}
-        </RowContainer>
-        <ScrollView>
-          <ColumnContainer style={{ alignItems: 'center' }}>
-            <Title style={{ textAlign: 'center' }}>{item.title}</Title>
-            <Body style={{ marginTop: 12, textAlign: 'center' }}>
-              {item.body}
-            </Body>
-          </ColumnContainer>
-        </ScrollView>
-      </SpaceBetweenColumnContainer>
-    );
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ loading: false });
-    }, 10);
   }
 
   render() {
@@ -111,9 +94,6 @@ export default class OnboardingScreen extends React.Component {
           onSnapToItem={(index) => this.setState({ pageIndex: index })}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
-          containerCustomStyle={{
-            maxHeight: 337,
-          }}
         />
 
         {/* Display pagination dots */}
