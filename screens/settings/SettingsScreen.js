@@ -3,7 +3,14 @@ import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Image, Linking, ScrollView, View } from 'react-native';
+import {
+  AsyncStorage,
+  Image,
+  Linking,
+  Platform,
+  ScrollView,
+  View,
+} from 'react-native';
 import {
   Body,
   ButtonContainer,
@@ -87,7 +94,11 @@ export default class SettingsScreen extends React.Component {
           <SettingsCard
             title="Location Settings"
             description="Manage your location sharing preferences"
-            navigation={() => Linking.openURL('app-settings:')}
+            navigation={
+              Platform.OS === 'ios'
+                ? () => Linking.openURL('app-settings:')
+                : () => Linking.openSettings()
+            }
           />
           <SettingsCard
             title="Privacy Policy"
