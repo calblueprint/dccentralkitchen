@@ -3030,7 +3030,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@unimodules/core@^5.1.2", "@unimodules/core@~5.1.0":
+"@unimodules/core@~5.1.0":
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/@unimodules/core/-/core-5.1.2.tgz#44de60184c9a50cf57bc8ec1cd024810a72ecf3e"
   integrity sha512-iCWEbzsNHqDfL6p8FyCGPnL2EW7vdgMJsNNSlWtM/gl8kePdqZMI7aOxTC4cdRS2xm0wzxuDBtpfJkzZsKINZg==
