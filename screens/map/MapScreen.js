@@ -183,8 +183,7 @@ export default class MapScreen extends React.Component {
         prevState.locationErrorMsg || sortedStores[0].distance > 100
           ? defaultStore
           : sortedStores[0],
-      showDefaultStore:
-        prevState.locationErrorMsg || sortedStores[0].distance > 100,
+      showDefaultStore: sortedStores[0].distance > 100,
       region:
         prevState.locationErrorMsg || sortedStores[0].distance > 100
           ? region
