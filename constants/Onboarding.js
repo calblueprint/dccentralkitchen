@@ -19,7 +19,7 @@ const ONBOARDING_CONTENT = [
   {
     title: 'Shop healthy and save',
     body:
-      'Sign up for Healthy Rewards to earn $5 rewards when you buy healthy products',
+      'Earn Healthy Rewards for buying healthy products and get $5 FREE if you sign up now',
     illustration: require('../assets/images/Onboarding_4.png'),
   },
   {
