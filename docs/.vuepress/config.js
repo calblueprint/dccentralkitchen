@@ -3,23 +3,6 @@ const globalNavbar = [
   { text: 'Admin Guide', link: '/admin/' },
   { text: 'Developer Docs', link: '/shared/overview' },
   {
-    text: 'Github',
-    items: [
-      {
-        text: 'Customer App',
-        link: 'https://github.com/calblueprint/dccentralkitchen',
-      },
-      {
-        text: 'Clerk App',
-        link: 'https://github.com/calblueprint/dccentralkitchen-clerks',
-      },
-      {
-        text: 'Backend',
-        link: 'https://github.com/calblueprint/dccentralkitchen-node',
-      },
-    ],
-  },
-  {
     text: 'Airtable',
     items: [
       {
@@ -39,14 +22,31 @@ const globalNavbar = [
       },
     ],
   },
+  {
+    text: 'GitHub',
+    items: [
+      {
+        text: 'Customer App',
+        link: 'https://github.com/calblueprint/dccentralkitchen',
+      },
+      {
+        text: 'Clerk App',
+        link: 'https://github.com/calblueprint/dccentralkitchen-clerks',
+      },
+      {
+        text: 'Backend Server',
+        link: 'https://github.com/calblueprint/dccentralkitchen-node',
+      },
+    ],
+  },
 ];
 
 const adminSidebar = [
   {
     title: 'Admin Guide',
-    path: '/admin',
+    collapsable: false,
     sidebarDepth: 2,
-    children: ['/admin/airtable', '/admin/storehours', '/admin/forms'],
+    children: ['/admin/', '/admin/storehours', '/admin/forms'],
   },
 ];
 const devSidebar = [
@@ -56,36 +56,39 @@ const devSidebar = [
     path: '/customer',
     sidebarDepth: 2,
     children: [
+      '/customer/getting-started',
       '/customer/navigation',
       '/customer/auth',
       '/customer/map',
       '/customer/rewards',
       '/customer/resources',
-      '/shared/deploy',
-      '/shared/appstoreupdate',
-      '/shared/otaupdate',
+      '/customer/analytics',
+      '/customer/otaupdate',
+      '/customer/appstoreupdate',
     ],
   },
   {
     title: 'Clerk Application',
     path: '/clerk',
     sidebarDepth: 2,
-    children: ['/clerk/navigation', '/clerk/checkout', '/shared/deploy'],
+    children: [
+      '/clerk/getting-started',
+      '/clerk/navigation',
+      '/clerk/checkout',
+      '/clerk/analytics',
+      '/clerk/otaupdate',
+      '/clerk/appstoreupdate',
+    ],
   },
   {
     title: 'Backend Application',
     path: '/node',
     sidebarDepth: 2,
-    children: ['/node/deploy'],
+    children: ['/node/app-overview'],
   },
 ];
 
 module.exports = {
-  // Git repo and edit links
-  repo: 'calblueprint/dccentralkitchen',
-  docsDir: 'docs',
-  docsBranch: 'docs',
-  editLinks: true,
   title: 'Healthy Corners Rewards',
   description:
     "Documentation for the projects developed by @calblueprint for DC Central Kitchen's Healthy Corners initiative",
@@ -100,6 +103,12 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    // Git repo and edit links
+    repo: 'calblueprint/dccentralkitchen',
+    docsDir: 'docs',
+    docsBranch: 'docs',
+    editLinkText: 'Edit this page on GitHub',
+    editLinks: true,
     lastUpdated: 'Last Updated',
     smoothScroll: true,
     nav: globalNavbar,

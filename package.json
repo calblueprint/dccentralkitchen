@@ -128,8 +128,5 @@
     "vuepress-plugin-container": "^2.1.3",
     "yarnhook": "^0.4.3"
   },
-  "private": true,
-  "peerDependencies": {
-    "@unimodules/core": "*"
-  }
+  "private": true
 }

@@ -1,6 +1,6 @@
 # Healthy Corners Rewards Privacy Policy
-*Effective Date: March 21, 2020; Last updated May 9, 2020*
 
+_Effective Date: March 21, 2020; Last updated May 9, 2020_
 
 This Privacy Policy explains how Healthy Corners Rewards ("us", "we", "our") uses and protects your information when you use Healthy Corners Rewards ("app", "Service") .
 
@@ -28,11 +28,11 @@ We may request to send you push notifications regarding your account or announce
 
 ## Information Use
 
-Healthy Corners Rewards uses the personal information you provide in a manner that is consistent with this Privacy Policy. If you provide information for a certain reason, we may use that information in connection with the reason for which it was provided. 
+Healthy Corners Rewards uses the personal information you provide in a manner that is consistent with this Privacy Policy. If you provide information for a certain reason, we may use that information in connection with the reason for which it was provided.
 
-Healthy Corners Rewards uses transactional data to facilitate your transactions with Rewards Providers. If you are a Healthy Corners Rewards accountholder, and you voluntarily provide your account information to a Rewards Provider, transactional data will be used by Rewards Providers to automatically award you rewards points. We may also remove personal information from transactional data and aggregate it with other anonymous data, pool and/or combine aggregated data with other information, and share aggregated data with Rewards Providers. 
+Healthy Corners Rewards uses transactional data to facilitate your transactions with Rewards Providers. If you are a Healthy Corners Rewards accountholder, and you voluntarily provide your account information to a Rewards Provider, transactional data will be used by Rewards Providers to automatically award you rewards points. We may also remove personal information from transactional data and aggregate it with other anonymous data, pool and/or combine aggregated data with other information, and share aggregated data with Rewards Providers.
 
-By making a purchase at a Rewards Provider that uses Healthy Corners Rewards terminals, your transactional information will be used in accordance with this Privacy Policy. Transactional data of Healthy Corners Rewards accountholders may be used to provide you with Healthy Corners Rewards  points and other offers.
+By making a purchase at a Rewards Provider that uses Healthy Corners Rewards terminals, your transactional information will be used in accordance with this Privacy Policy. Transactional data of Healthy Corners Rewards accountholders may be used to provide you with Healthy Corners Rewards points and other offers.
 
 ## Information Disclosure
 
@@ -68,7 +68,7 @@ Information may be processed, stored, and used outside of the country in which y
 
 ## Changes to this Privacy Policy
 
-We reserve the right to make changes to this Privacy Policy at any time and for any reason. We will alert you about any changes by updating the “Last updated” date of this Privacy Policy. 
+We reserve the right to make changes to this Privacy Policy at any time and for any reason. We will alert you about any changes by updating the “Last updated” date of this Privacy Policy.
 
 ## Contact Us
 

@@ -1,10 +1,15 @@
+---
+prev: ../shared/overview
+next: ./getting-started
+---
+
 # Customer Application
 
-Contents will match README for setup
+Mobile (iOS/Android compatible) application created with React Native via Expo's managed workflow, and Airtable as a backend / database.
 
-## Setup
+This repo contains code for the customer-facing application and contains the majority of functionality for our project. This section is meant to be a guide for contributors to this project.
 
 ## App Store
 
-iOS App Store:
-Google Play Store:
+- iOS App Store: <https://apps.apple.com/us/app/healthy-corners-rewards/id1503424404?ls=1>
+- Google Play Store: <https://play.google.com/store/apps/details?id=org.calblueprint.HealthyCornersRewards>
