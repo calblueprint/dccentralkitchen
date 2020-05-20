@@ -17,6 +17,10 @@ Run `yarn docs:dev` to get the documentation site running locally. It'll default
 
 ### VuePress modifications
 
+[Reusable Markdown pseudo-components](https://github.com/vuejs/vuepress/issues/222)
+
+- Non-ideal only in that the embedded markdown pages no longer render headers in the sidebar. Might have to create a new section in the sidebar after all.
+
 ## Deployment
 
 We use Netlify for continuous deployment. It's configured to auto-build and deploy to <https://healthycorners-rewards.netlify.app/> whenever a commit is pushed to the `dccentralkitchen/docs` branch.

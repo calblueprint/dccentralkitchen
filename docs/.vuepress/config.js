@@ -44,10 +44,9 @@ const globalNavbar = [
 const adminSidebar = [
   {
     title: 'Admin Guide',
-    path: '/admin',
-    collapsible: false,
+    collapsable: false,
     sidebarDepth: 2,
-    children: ['/admin/storehours', '/admin/forms'],
+    children: ['/admin/', '/admin/storehours', '/admin/forms'],
   },
 ];
 const devSidebar = [
