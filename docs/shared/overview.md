@@ -1,6 +1,12 @@
+---
+next: '../customer/'
+---
+
 # Project Overview
 
 ## Introduction
+
+// unfinished (need a blurb)
 
 - [Fall 2019 Project Presentation](https://docs.google.com/presentation/d/1Q5_InElKnsrxvVdGdSQnlQo9-2z041UiefY3XZN8qhc/edit?usp=sharing)
 - [Spring 2020 Project Presentation](https://docs.google.com/presentation/d/1c3pYATagMPXHsOCdEdmAfON6V6Vqg8KVUIMyGI1Baj4/edit?usp=sharing)
@@ -17,13 +23,15 @@
   - Written in Node.js using an Express server. Deployed with Heroku to <https://healthycorners-rewards-node.herokuapp.com/.>
 - [Documentation site](https://healthycorners-rewards.netlify.app/)
   - This website! See the [homepage](/) for details.
-- [Backend server](https://github.com/calblueprint/dccentralkitchen-backend)
-  - CURRENTLY UNUSED (contains outdated code to work with push notifications)
+- [(Outdated) backend server](https://github.com/calblueprint/dccentralkitchen-backend)
+  - CURRENTLY UNUSED. Contains outdated code to work with push notifications; if necessary, the code should be moved to the `dccentralkitchen-node` repo and refactored for updated usage.
 
 ## Navigating this site
 
 Relevant documentation can be found in the individual subpages:
 
-- [Customer](/customer)
-- [Clerk](/clerk)
-- [Backend](/node)
+**[Customer](/customer)**
+
+**[Clerk](/clerk)**
+
+**[Backend](/node)**

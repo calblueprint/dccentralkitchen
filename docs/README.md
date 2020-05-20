@@ -15,6 +15,8 @@ This site is powered by [VuePress](https://vuepress.vuejs.org/), using the defau
 
 Run `yarn docs:dev` to get the documentation site running locally. It'll default to `localhost:8080`; terminal output will tell you what port if not.
 
+### VuePress modifications
+
 ## Deployment
 
 We use Netlify for continuous deployment. It's configured to auto-build and deploy to <https://healthycorners-rewards.netlify.app/> whenever a commit is pushed to the `dccentralkitchen/docs` branch.

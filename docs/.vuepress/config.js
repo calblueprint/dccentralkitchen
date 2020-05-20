@@ -57,14 +57,15 @@ const devSidebar = [
     path: '/customer',
     sidebarDepth: 2,
     children: [
+      '/customer/getting-started',
       '/customer/navigation',
       '/customer/auth',
       '/customer/map',
       '/customer/rewards',
       '/customer/resources',
-      '/shared/analytics',
-      '/shared/appstoreupdate',
-      '/shared/otaupdate',
+      '/customer/analytics',
+      '/customer/otaupdate',
+      '/customer/appstoreupdate',
     ],
   },
   {
@@ -72,18 +73,19 @@ const devSidebar = [
     path: '/clerk',
     sidebarDepth: 2,
     children: [
+      '/clerk/getting-started',
       '/clerk/navigation',
       '/clerk/checkout',
-      '/shared/analytics',
-      '/shared/appstoreupdate',
-      '/shared/otaupdate',
+      '/clerk/analytics',
+      '/clerk/otaupdate',
+      '/clerk/appstoreupdate',
     ],
   },
   {
     title: 'Backend Application',
     path: '/node',
     sidebarDepth: 2,
-    children: ['/node/deploy'],
+    children: ['/node/app-overview'],
   },
 ];
 
