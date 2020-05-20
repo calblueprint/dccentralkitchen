@@ -62,7 +62,7 @@ const devSidebar = [
       '/customer/map',
       '/customer/rewards',
       '/customer/resources',
-      '/shared/deploy',
+      '/shared/analytics',
       '/shared/appstoreupdate',
       '/shared/otaupdate',
     ],
@@ -71,7 +71,13 @@ const devSidebar = [
     title: 'Clerk Application',
     path: '/clerk',
     sidebarDepth: 2,
-    children: ['/clerk/navigation', '/clerk/checkout', '/shared/deploy'],
+    children: [
+      '/clerk/navigation',
+      '/clerk/checkout',
+      '/shared/analytics',
+      '/shared/appstoreupdate',
+      '/shared/otaupdate',
+    ],
   },
   {
     title: 'Backend Application',

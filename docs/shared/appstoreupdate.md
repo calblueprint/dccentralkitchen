@@ -1,7 +1,7 @@
 # Updating the app
 
 ## Set up your release branch
-1. Pull the lastest version of `master` into the `release` branch
+1. Pull the latest version of `master` into the `release` branch
 2. Bump the following version numbers in **`app.json`**
     - Increment `version` and `buildNumber` based on [Semantic Versioning](https://semver.org/) guidelines
     - `versionCode` must be an integer. Increment by 1 for each release.
