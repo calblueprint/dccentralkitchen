@@ -3,6 +3,7 @@
 ::: warning NOTE
 This documentation is the same for both the customer and clerk applications.
 :::
+[[toc]]
 
 You'll need access to our Airtable workspace in order to access the bases. Please request access from a member of the Healthy Corners team.
 
@@ -55,7 +56,7 @@ You'll need access to our Airtable workspace in order to access the bases. Pleas
    The rules for the linter and formatter are in `.eslintrc.js` and `prettier.config.js`. The configuration for VS Code is shared and enforced across developers for this project; it's found in `.vscode/settings.json`.
 
    ::: warning NOTE
-   We noticed that because VS Code and Prettier (the extension) sometimes conflict with their formatters, formatting can be slightly inconsistent even with the `formatOnSave` option in VS Code's `settings.json`. See this for more: <https://github.com/prettier/prettier-vscode/issues/716>. Thus, we run `prettier` in a [pre-commit hook](#git-hooks--packagejson-scripts).
+   We noticed that because VS Code and Prettier (the extension) sometimes conflict with their formatters, formatting can be slightly inconsistent even with the `formatOnSave` option in VS Code's `settings.json`. See this for more: <https://github.com/prettier/prettier-vscode/issues/716>. Thus, we run `prettier` in a [pre-commit hook](#git-hooks-packagejson-scripts).
    :::
 
 ## Contributing
@@ -105,6 +106,10 @@ One of the amazing developers in Blueprint created the [`airtable-schema-generat
 ::: tip
 See [PR #48](https://github.com/calblueprint/dccentralkitchen/pull/48) (customer) and [PR #10](https://github.com/calblueprint/dccentralkitchen-clerks/pull/10) (clerk) for when we first refactored the existing code to use the wrapper API.
 :::
+
+## Deploying to the App Store(s)
+
+Please see the **Deploying & Managing Apps** section - [here's the app store update doc](../shared/appstoreupdate.md).
 
 ## References
 

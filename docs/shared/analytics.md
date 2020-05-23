@@ -1,4 +1,8 @@
-<!-- Embedded with the <Content/> Vue component into Customer/Clerk sections -->
+# Monitoring & Analytics
+
+::: warning NOTE
+This documentation is the same for both the customer and clerk applications.
+:::
 
 ## TODO (annie wang)
 

@@ -1,3 +1,9 @@
+---
+navbar: false
+sidebar: false
+editLink: false
+---
+
 # Healthy Corners Rewards Privacy Policy
 
 _Effective Date: March 21, 2020; Last updated May 9, 2020_

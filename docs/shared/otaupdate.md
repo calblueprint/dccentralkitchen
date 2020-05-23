@@ -1,4 +1,8 @@
-<!-- Embedded with the <Content/> Vue component into Customer/Clerk sections -->
+# Expo OTA Updates
+
+::: warning NOTE
+This documentation is the same for both the customer and clerk applications.
+:::
 
 Over-the-air (OTA) updates allow you to publish a new version of your app JavaScript and assets without building a new version of your standalone app and re-submitting to app stores.
 ::: rightlink
