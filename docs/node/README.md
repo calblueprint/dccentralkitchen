@@ -21,7 +21,7 @@ The details of how it's configured can be found in the [admin guide](../admin/#g
 Here are some of the affected views in the customer application.
 | Map view | Individual store's product list |
 | :------------------------------------------------: | :------------------------------------------------------------------: |
-| ![Customer App: map view](./assets/map-view.png) | ![Customer App: a store's product list](./assets/product-list.png) |
+| ![Customer App: map view](./assets/store-map-view.png) | ![Customer App: a store's product list](./assets/store-product-list.png) |
 
 ## Server
 
