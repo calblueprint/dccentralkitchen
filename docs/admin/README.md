@@ -10,7 +10,7 @@ Developers should read through the [developer documentation](../shared/overview.
 
 We run a daily job to automatically update a store's current products in Airtable from the most recent deliveries. Currently, the Google sheet that is being used to update Airtable is called `Blueprint - Store Products` on the "FY20 Sales Data and Trends" Google Sheet. It pulls data from the 'Auto Import' sheet, so it relies on the columns being as expected.
 
-![Google Sheets - Blueprint sheet](../node/assets/google-sheet.png)
+![Google Sheets - Blueprint sheet](./assets/intro/google-sheet.png)
 
 ::: danger
 When the Google Sheet for deliveries is changed, the code for the automatic update **must be updated** to link to the new Google Sheet. We recommend that a developer helps do this - though it's not many steps, it does need some technical knowledge. On the admin side, the current `Blueprint - Store Products` sheet must be replicated **exactly** in the new Google Sheet, including which columns correspond to what. The formulas must be updated so that data is accurately transferred to the `Blueprint - Store Products` sheet.
@@ -73,4 +73,4 @@ If you scroll down, you can see the linked Product records and can add/remove to
 Finally, as a reminder, these are some of the affected views in the customer application. We're looking at the same example store here, so you can see that the changes are reflected directly in the application.
 | Map view | Individual store's product list |
 | :------------------------------------------------: | :------------------------------------------------------------------: |
-| ![Customer App: map view](../node/assets/map-view.png) | ![Customer App: a store's product list](../node/assets/product-list.png) |
+| ![Customer App: map view](./assets/intro/map-view.png) | ![Customer App: a store's product list](./assets/intro/product-list.png) |
