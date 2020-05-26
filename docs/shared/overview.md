@@ -4,13 +4,7 @@ next: '../customer/'
 
 # Project Overview
 
-## Introduction
-
-// unfinished (need a blurb)
-
-- [Fall 2019 Project Presentation](https://docs.google.com/presentation/d/1Q5_InElKnsrxvVdGdSQnlQo9-2z041UiefY3XZN8qhc/edit?usp=sharing)
-- [Spring 2020 Project Presentation](https://docs.google.com/presentation/d/1c3pYATagMPXHsOCdEdmAfON6V6Vqg8KVUIMyGI1Baj4/edit?usp=sharing)
-- [Design Prototypes](https://www.notion.so/Healthy-Corners-Design-Prototype-Instructions-36bd82a2c8614457940f49e9d1ff2042)
+See [the homepage](/#introduction) for an introduction to the project.
 
 ## Applications
 
@@ -26,12 +20,22 @@ next: '../customer/'
 - [(Outdated) backend server](https://github.com/calblueprint/dccentralkitchen-backend)
   - CURRENTLY UNUSED. Contains outdated code to work with push notifications; if necessary, the code should be moved to the `dccentralkitchen-node` repo and refactored for updated usage.
 
+## Known Issues
+
+We use GitHub's built-in issue tracker to track issues we are aware of (e.g [the customer repo](https://github.com/calblueprint/dccentralkitchen/issues)). Looking at open issues may be helpful when attempting to triage or fix bugs.
+
+Additionally, we've done our best to document our work/thought process throughout development via the PR descriptions. We also used "Squash and merge" for almost all PRs, so running `git blame` from `master` and then inspecting the source PR(s) from a particular commit may be helpful as well.
+
 ## Navigating this site
 
-Relevant documentation can be found in the individual subpages:
+Relevant documentation, including instructions for onboarding and setting up local environments, development lifecycle, etc can be found in the individual subpages:
 
-**[Customer](/customer)**
+- **[Customer](/customer)**
 
-**[Clerk](/clerk)**
+- **[Clerk](/clerk)**
 
-**[Backend](/node)**
+- **[Backend](/node)**
+
+The **Managing & Deploying Apps** section contains documentation that is shared between two or more of our repos.
+
+Finally, for convenience the `PROD` base, `DEV` base, and Airtable workspace are linked in the nav bar; so are all three of the active GitHub repos.

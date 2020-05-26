@@ -85,9 +85,10 @@ const devSidebar = [
     ],
   },
   {
-    title: 'Deploying & Managing Apps',
+    title: 'Managing & Deploying Apps',
     sidebarDepth: 2,
     children: [
+      '/shared/airtable',
       '/shared/otaupdate',
       '/shared/appstoreupdate',
       '/shared/analytics',

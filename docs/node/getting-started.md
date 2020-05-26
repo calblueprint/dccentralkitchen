@@ -40,6 +40,14 @@ More details on how the application works in [Application Overview]('./app-overv
 This application is set up with `babel-node` to allow `import/export` syntax instead of `require` syntax. Thus, running `.js` files requires `yarn babel-node` as a prefix - e.g `yarn babel-node index.js` instead of `node index.js`.
 :::
 
+### Working with Airtable
+
+You'll need to fill in `REACT_APP_AIRTABLE_API_KEY` with your **personal API key** once you have access to the workspace. This can be found in your [Airtable account overview page](https://airtable.com/account). **You should never commit this key!** In the unfortunate event that you do, click "Regenerate API key" on the same page.
+
+First, read through the [general "Working With Airtable" page](../shared/airtable) for an introduction to working with Airtable and the `airtable-schema-generator` package, which generates custom helper functions based on a specific Airtable base's configuration, or "schema".
+
+In our code, we only ever call functions in `request.js`; see `utils/storeProducts.js` for example usage of the helper functions.
+
 ### Google API
 
 Any application that interacts with any of Google's products must utilize the authentication flow (essentially getting consent from the user).

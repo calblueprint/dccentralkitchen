@@ -97,23 +97,23 @@ These code quality and lifecycle improvements were originally added to the custo
 
 ### Working with Airtable
 
-TODO
+You'll need to fill in `REACT_APP_AIRTABLE_API_KEY` with your **personal API key** once you have access to the workspace. This can be found in your [Airtable account overview page](https://airtable.com/account). **You should never commit this key!** In the unfortunate event that you do, click "Regenerate API key" on the same page.
 
-#### Schema Generator
+First, read through the [general "Working With Airtable" page](../shared/airtable) for an introduction to working with Airtable and the `airtable-schema-generator` package, which generates custom helper functions based on a specific Airtable base's configuration, or "schema".
 
-One of the amazing developers in Blueprint created the [`airtable-schema-generator` package](https://github.com/aivantg/airtable-schema-generator) that generates helper functions for working with the Airtable API. Take a look at its README for details of how it works. In our code, we only ever call functions in `request.js`; see `lib/<feature>Utils.js` for example usage.
+In our code, we only ever call functions in `request.js`; see `lib/<feature>Utils.js` for example usage of the helper functions.
 
-::: tip
-See [PR #48](https://github.com/calblueprint/dccentralkitchen/pull/48) (customer) and [PR #10](https://github.com/calblueprint/dccentralkitchen-clerks/pull/10) (clerk) for when we first refactored the existing code to use the wrapper API.
-:::
+---
+
+You'll notice that the workspace contains multiple bases. Likely, you will only really interact with the `[DEV]` and `[PROD]` bases - if you take a look at `environment.js` (which you should have created in the [Setup section](#setup)), you'll see that the environment variables auto-switch to connect to the `[DEV]` base in "development" mode using various flags. To elaborate, we only connect to the `[PROD]` base in "production"; this assumes the Expo `release-channel` is called `prod`. If that doesn't exist, check if `NODE_ENV` is `production`, which is true when an app is published via Expo, or when you click "Production mode" via the Expo UI. The [original PR for auto-switching](https://github.com/calblueprint/dccentralkitchen/pull/95) has helpful screenshots, though we added fallbacks and fall-throughs since then.
+
+What all that means is that when you're developing locally, you should be working with the `[DEV]` base. Once your updates have been deployed to the App Store, use a test account from the `[PROD]` base to see if your updates are working properly.
 
 ## Deploying to the App Store(s)
 
-Please see the **Deploying & Managing Apps** section - [here's the app store update doc](../shared/appstoreupdate.md).
+Please see the **Managing & Deploying Apps** section - [here's the app store update doc](../shared/appstoreupdate.md).
 
 ## References
-
-<https://github.com/Airtable/airtable.js/blob/master/CHANGELOG.md>
 
 Development lifecycle:
 
