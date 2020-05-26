@@ -46,7 +46,7 @@ const adminSidebar = [
     title: 'Admin Guide',
     collapsable: false,
     sidebarDepth: 2,
-    children: ['/admin/', '/admin/storehours', '/admin/forms'],
+    children: ['/admin/', '/admin/stores', '/admin/storehours', '/admin/forms'],
   },
 ];
 
