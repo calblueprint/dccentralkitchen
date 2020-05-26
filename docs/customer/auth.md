@@ -69,6 +69,22 @@ It is used on:
 - `LogInScreen`
 - `VerificationScreen`
 - `PasswordResetScreen`
+  
+### Firebase setup
+#### Configuration and Usage
+
+Firebase is already configured in the app from `firebase.js` and initialized in `SignUpScreen.js.`
+
+To make edits to the configuration (in the case of changing API keys, database urls, and etc.), changing them in `firebase.js` should be sufficient. If you initialize firebase from elsewhere in the app, be sure to delete `firebase.initializeApp(firebaseConfig);` from `SignUpScreen.js`.
+
+We currently use it purely for phone number authentication (to read more on how that works, see Phone Authentication in this documentation directory).
+
+If you do choose to add other methods of verification, see below to make the correct edits to the console, and follow provided guides on how to implement those.
+
+#### Using the [Firebase Console](https://console.firebase.google.com/)
+
+To configure other methods of authentication, or change any vital settings, please consult the console and relevant guides provided by Google.
+
 
 ### Workflow
 #### Signing Up
