@@ -111,7 +111,7 @@ What all that means is that when you're developing locally, you should be workin
 
 ## Deploying to the App Store(s)
 
-Please see the **Managing & Deploying Apps** section - [here's the app store update doc](../shared/appstoreupdate.md).
+Please see the **Managing & Deploying Apps** section - [here's the app store update doc](../shared/deployingupdates.md).
 
 ## References
 

@@ -20,7 +20,7 @@ Details in the next section.
 
 The `airtable-schema-generator` package relies on the local `schema.js` matching that of the actual Airtable base it's referencing. Thus, the schema generator must be re-run whenever there are schema updates to keep the local files in sync.
 
-When breaking changes are made, **schema updates must be merged and deployed** via an [over-the-air update](./otaupdate.md) **_before_** the Airtable schema can actually be changed via the UI.
+When breaking changes are made, **schema updates must be merged and deployed** via an [over-the-air update](./deployingupdates.html#option-a-updating-ota) **_before_** the Airtable schema can actually be changed via the UI.
 
 Generally speaking, it's best to create a new development branch with **solely** the schema updates because schema changes affect **all branches immediately**. Creating a separate PR for schema updates isolates those changes and is also good practice.
 
