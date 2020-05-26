@@ -64,6 +64,7 @@ const devSidebar = [
       '/customer/map',
       '/customer/rewards',
       '/customer/resources',
+      '/customer/settings',
     ],
   },
   {
