@@ -1,13 +1,14 @@
-# Authentication Flow
+# Authentication
+This document covers the main components of the customer authentication flow, including Onboarding, Sign Up, Log In, Password Reset, SMS Verification, and Guest mode.
+[[toc]]
 
-## Overview
-This document runs through the user flow of the Customer Auth stack – it will touch on all the different screens and possible ways to modify them.
+## Auth Screens
+This section runs through the user flow of the Customer Auth stack, and will touch on all the different screens and possible ways to modify them.
 
 ::: tip
 Read [React Navigation 5](./navigation.md) for a detailed overview of what a stack is, and the different stacks that exists within the app.
 :::
 
-## Screens
 ![Authentication Flow](../assets/navigation/authflow.png)
 Flow Diagram Taken from [React Navigation 5 Documentation](./navigation.md)
 
@@ -86,4 +87,14 @@ Pressing forgot password prompts the user to enter their phone number, which if 
 <img src="../assets/customer_auth/newpass.png" width="30%">
 
 ## Guest mode
-- [Customer #74: Guest Mode](https://github.com/calblueprint/dccentralkitchen/pull/74)
+Guest Mode allows users to access non-rewards features of the app without the need for an account.
+
+Guest Mode relies on a dummy account on Airtable with the number ########## so that no one can intentionally log in as a guest.
+
+::: warning
+This Guest record must not be deleted from the Customers table or the record ID will not match.
+:::
+
+Throughout the app, the guest id is stored as a constant and used to check if the user is currently signed in as a guest. If so, the entirety of the rewards features are turned to pointers to create an account, but the user still retains access to [resources](resources.md), [settings](settings.md), and the ability to search and filter stores.
+
+See [Customer PR #74: Guest Mode](https://github.com/calblueprint/dccentralkitchen/pull/74)

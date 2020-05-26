@@ -1,4 +1,4 @@
-# Clerk Authentication
+# Authentication
 This guide covers the three steps to get to the checkout screen:
 1. [Store lookup](#step-1-store-lookup): "Enter store name"
 2. [Clerk login](#step-2-clerk-login): "Enter your employee PIN"
