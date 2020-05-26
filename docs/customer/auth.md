@@ -59,8 +59,30 @@ The current screens that exists in the Customer Auth stack are:
 - Create a new screen file in the `screens/auth` folder
 - Add the screen to the `navigation/stack_navigators/AuthStack.js` file
 
-## SignUp
-
 ## SMS Verification
+
+Phone authentication is handled using Google Firebase through Expo, and imported as `expo-firebase-recaptcha`.
+
+It is used on: 
+- `SignUpScreen`
+- `LogInScreen`
+- `VerificationScreen`
+- `PasswordResetScreen`
+
+### Workflow
+#### Signing Up
+Clicking Create Account triggers the reCaptcha modal (provided by imports) to pop up. Upon successful anti-robot verification, setModalVisible is called to pull up `VerificationScreen`. This prompts the user to enter the verification code. On successful entry, the modal calls functions that have been passed in to complete account creation.
+
+#### Forgot Password
+Pressing forgot password prompts the user to enter their phone number, which if successful, triggers the reCaptcha modal (provided by imports) to pop up. Upon successful anti-robot verification, setModalVisible is called to pull up `VerificationScreen`. This prompts the user to enter the verification code. On successful entry, the modal calls functions that have been passed in to allow new passwords to be created.
+
+#### Relevant PRs
+- [Customer #97: Phone Number Authentication + Forgot Password Functionality](https://github.com/calblueprint/dccentralkitchen/pull/97)
+#### Helpful links
+- <https://expo.canny.io/feature-requests/p/phone-number-auth-with-firebase>
+  
+<img src="../assets/customer_auth/forgotpass.png" width="30%">
+<img src="../assets/customer_auth/verifyphone.png" width="30%">
+<img src="../assets/customer_auth/newpass.png" width="30%">
 
 ## Guest mode
