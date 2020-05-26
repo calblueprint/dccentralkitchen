@@ -61,6 +61,7 @@ const devSidebar = [
       '/customer/styling',
       '/customer/navigation',
       '/customer/auth',
+      '/customer/stores',
       '/customer/map',
       '/customer/rewards',
       '/customer/resources',
