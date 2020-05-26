@@ -58,6 +58,7 @@ const devSidebar = [
     children: [
       ['/customer/', 'Introduction'],
       '/customer/getting-started',
+      '/customer/styling',
       '/customer/navigation',
       '/customer/auth',
       '/customer/map',
