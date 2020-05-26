@@ -5,21 +5,19 @@ This document runs through the different components within the main `MapScreen` 
 The different components/sections relevant for the `MapScreen` are as follows:
 [[toc]]
 
-## Main Components
-</br>
 <img src="../assets/stores/map.png" width="40%"/>
 
-### Map
+## Map
 
-- The map uses the component `MapView`, which is imported from the package `'react-native-maps'`
+- The map uses the component `MapView`, which is imported from the package [`react-native-maps`](https://github.com/react-native-community/react-native-maps)
 
-### Store Markers
+## Store Markers
 
 - These store markers are rendered on the map based on where the different grocery/corner stores are.
 - Clicking on these store makers automatically navigates the map's area to where the store is, focuses the store marker, and displays the store's information on the Bottom Sheet (more details below).
     - Supported by helper function `changeCurrentStore()`
 
-#### How and what to modify
+#### How to modify
 
 - The icon images
     - Navigate to file `components/store/StoreMarkers.js` and change the icons for the markers, for both the resting and focused state.
@@ -36,7 +34,7 @@ The different components/sections relevant for the `MapScreen` are as follows:
       onPress={() => this.changeCurrentStore(store)}>
     ```
 
-### Search Bar
+## Search Bar
 
 - Essentially a styled button
 - Clicking on the search bar brings the user to the `StoreListScreen` where they can browse the full list of stores.
@@ -46,17 +44,17 @@ The different components/sections relevant for the `MapScreen` are as follows:
 - The component is found within `styled/store.js/`
 - The margins and paddings can be modified for the component there
 
-### Center location button
+## Center location button
 
 - Button only renders if location services is enabled on user's device
 - Clicking on this button brings the map to where the user currently is, and also displays the closest store to the user on the bottom sheet
     - Supported with helper functions `_findCurrentLocation()` and `_orderStoresByDistance(stores)`
 
-### Hamburger menu button
+## Hamburger menu button
 
 - Button to toggle the drawer menu, showing different screens that the user can navigate to
 
-### BottomSheet
+## BottomSheet
 
 - Component imported from the package `'reanimated-bottom-sheet'`
 - Takes in several different props as seen below, configured for the best user experience
@@ -86,7 +84,46 @@ To modify the content, see the two functions below
 
 - Renders the content from component `StoreProducts`, which contains basic store information and list of products that are being delivered
 
-### Healthy Rewards Footer
+### BottomSheet heights
+- This section runs through how the height of the `BottomSheet` in the `MapScreen` is calculated and determined.
+- The heights are labelled as `snapPoints`, for which there are a total of three values.
+    - `minSnapPoint` – lowest height the sheet can go
+    - `midSnapPoint` – mid-level. This is the height that the sheet starts with, providing a quick view of the store's important information while having a decent view of the map.
+    - `maxSnapPoint` – highest height of the sheet.
+  
+<img src="../assets/stores/minsnap.png" width="30%"/>
+<img src="../assets/stores/midsnap.png" width="30%"/>
+<img src="../assets/stores/maxsnap.png" width="30%"/>
+
+`minSnapPoint`, `midSnapPoint`, and `maxSnapPoint` above
+
+BottomSheet documentation can be found [**here**](https://github.com/osdnk/react-native-reanimated-bottom-sheet).
+
+#### How the values are calculated
+
+- Current values are stated below. The values are in `pt` units, as required by the `BottomSheet` package.
+
+    ```jsx
+    const minSnapPoint = 185;
+    const midSnapPoint = 325;
+    const maxSnapPoint = 488;
+    ```
+
+- The values seen above are done after rough estimation and testing by visually accounting how it looks like on phone screens of different sizes.
+- Read the next section to see an example of how we estimated the values for `maxSnapPoint`. The same process is done for the other snap points as well.
+
+#### Estimation (maxSnapPoint)
+
+- Estimating pixel (`px`) height from bottom of the screen
+    - Green Healthy Rewards Tab: `70px`
+    - Height of `BottomSheet` when fully expanded: `~540px`
+    - Adjustment pixels (after testing): `40px`
+    - TOTAL: `650px`
+- Converting to `pt` value
+    - `650px * 0.75 = 487.5pt`
+    - Rounded up to final value of `488pt`
+
+## Healthy Rewards Footer
 
 Clicking on the footer brings the user to the `RewardsScreen`.
 
