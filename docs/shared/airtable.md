@@ -70,11 +70,11 @@ This file contains helper functions for every crud operation for every table. It
 
 #### schema.js
 
-This file is a schema mapping that describes all the table and column names in a JS format. The app should never use this file but it is necessary for airtable.js to translate records to JS-readable variable names. It should be used as a reference to know what a column name has been translated to.
+This file is a schema mapping that describes all the table and column names in a JS format. The app should never use this file directly, but it is necessary for `airtable.js` to translate records to JS-readable variable names. It should be used as a reference to know what a column name has been translated to.
 
 #### schema.json
 
-This is a JSON version of schema.js for reference.
+This is a JSON version of `schema.js` for reference.
 
 ---
 
