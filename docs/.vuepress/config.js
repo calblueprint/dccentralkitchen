@@ -66,6 +66,7 @@ const devSidebar = [
       '/customer/rewards',
       '/customer/resources',
       '/customer/settings',
+      '/customer/constants',
     ],
   },
   {
@@ -77,6 +78,7 @@ const devSidebar = [
       '/clerk/auth',
       '/clerk/navigation',
       '/clerk/checkout',
+      '/clerk/constants',
     ],
   },
   {
