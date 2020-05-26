@@ -8,7 +8,7 @@ Read [React Navigation 5](./navigation.md) for a detailed overview of what a sta
 :::
 
 ## Screens
-![Authentication Flow](../assets/customer_auth/authflow.png)
+![Authentication Flow](../assets/navigation/authflow.png)
 Flow Diagram Taken from [React Navigation 5 Documentation](./navigation.md)
 
 The current screens that exists in the Customer Auth stack are:
@@ -86,3 +86,4 @@ Pressing forgot password prompts the user to enter their phone number, which if 
 <img src="../assets/customer_auth/newpass.png" width="30%">
 
 ## Guest mode
+- [Customer #74: Guest Mode](https://github.com/calblueprint/dccentralkitchen/pull/74)
