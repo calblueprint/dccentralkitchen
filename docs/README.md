@@ -15,11 +15,13 @@ This site is powered by [VuePress](https://vuepress.vuejs.org/), using the defau
 
 Run `yarn docs:dev` to get the documentation site running locally. It'll default to `localhost:8080`; terminal output will tell you what port if not.
 
-### VuePress modifications
+### VuePress advanced usage
+
+[Customizing the default theme and other tips](https://vuepressbook.com/)
 
 [Reusable Markdown pseudo-components](https://github.com/vuejs/vuepress/issues/222)
 
-- Non-ideal only in that the embedded markdown pages no longer render headers in the sidebar. Might have to create a new section in the sidebar after all.
+- Non-ideal only in that the embedded markdown pages no longer render headers in the sidebar - for pages where headers are important, create a new section in the sidebar and link to them.
 
 ## Deployment
 

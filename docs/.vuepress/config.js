@@ -49,42 +49,50 @@ const adminSidebar = [
     children: ['/admin/', '/admin/storehours', '/admin/forms'],
   },
 ];
+
 const devSidebar = [
   '/shared/overview',
   {
     title: 'Customer Application',
-    path: '/customer',
     sidebarDepth: 2,
     children: [
+      ['/customer/', 'Introduction'],
       '/customer/getting-started',
       '/customer/navigation',
       '/customer/auth',
       '/customer/map',
       '/customer/rewards',
       '/customer/resources',
-      '/customer/analytics',
-      '/customer/otaupdate',
-      '/customer/appstoreupdate',
     ],
   },
   {
     title: 'Clerk Application',
-    path: '/clerk',
     sidebarDepth: 2,
     children: [
+      ['/clerk/', 'Introduction'],
       '/clerk/getting-started',
       '/clerk/navigation',
       '/clerk/checkout',
-      '/clerk/analytics',
-      '/clerk/otaupdate',
-      '/clerk/appstoreupdate',
     ],
   },
   {
-    title: 'Backend Application',
-    path: '/node',
+    title: 'Backend Server',
     sidebarDepth: 2,
-    children: ['/node/app-overview'],
+    children: [
+      ['/node/', 'Introduction'],
+      '/node/getting-started',
+      '/node/app-overview',
+    ],
+  },
+  {
+    title: 'Managing & Deploying Apps',
+    sidebarDepth: 2,
+    children: [
+      '/shared/airtable',
+      '/shared/otaupdate',
+      '/shared/appstoreupdate',
+      '/shared/analytics',
+    ],
   },
 ];
 

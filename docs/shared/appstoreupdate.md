@@ -1,4 +1,12 @@
-<!-- Embedded with the <Content/> Vue component into Customer/Clerk sections -->
+# Updating in the App Store
+
+::: warning NOTE
+This documentation is the same for both the customer and clerk applications.
+:::
+
+::: danger NOTE
+Some fixes may be able to be shipped via **Expo OTA updates**. Please see [this doc](./otaupdate.md) for more information on when to use OTA updates.
+:::
 
 ## Set up your release branch
 
