@@ -89,8 +89,7 @@ const devSidebar = [
     sidebarDepth: 2,
     children: [
       '/shared/airtable',
-      '/shared/otaupdate',
-      '/shared/appstoreupdate',
+      '/shared/deployingupdates',
       '/shared/analytics',
     ],
   },
