@@ -4,12 +4,13 @@
 This documentation is the same for both the customer and clerk applications.
 :::
 
-You can either deploy the update over-the-air (OTA) or submit a build a new version of the standalone app and re-submit to app stores. 
+You can either deploy the update over-the-air (OTA) or submit a build a new version of the standalone app and re-submit to app stores.
 
 **Jump to instructions:**
+
 - [Option A. Updating over-the-air (OTA)](#option-a-updating-ota)
 - [Option B. Submitting a new build](#option-b-submitting-a-new-build)
-  
+
 If you are unsure which method to use, carefully read the guidelines below.
 
 ## Updating OTA vs. submitting a new build
@@ -23,11 +24,12 @@ From [Expo Docs: Configuring OTA Updates](https://docs.expo.io/guides/configurin
 Not all updates can be submitted OTA. There are several limitations with OTA updates, including many changes in `app.json`. You can read more about the [limitations of OTA updates here](https://docs.expo.io/workflow/publishing/#limitations). Additionally, rollout and adoption of OTA updates can be unreliable. Err on the side of caution when deciding whether to make an OTA update or submit a new build.
 
 ### When to [update OTA](#option-a-updating-ota)
+
 - **Backwards-compatible bug fixes**: features where the app would remain usable for those with or without the latest update
   - ex. front-end additions with store details and store hours in [v1.1_tag_updates](https://github.com/calblueprint/dccentralkitchen/releases/tag/v1.1_tag_updates)
 - **Minor time-sensitive changes**
   - ex. Healthy Corners requested adding 500 bonus points for signing up to help the Nam's Market launch in [v1.2.0_signup_bonus](https://github.com/calblueprint/dccentralkitchen/releases/tag/v1.2.0_signup_bonus), which also includes several visual bug fixes
-- **Airtable schema updates**: breaking if not updated immediately **TODO: LINK TO MORE ON SCHEMA UPDATES**
+- **Airtable schema updates**: breaking if not updated immediately. [More details here](./airtable.md#making-changes-to-the-airtable-base-s).
 
 ### When to [submit a new build](#option-b-submitting-a-new-build)
 
@@ -49,11 +51,11 @@ From [Expo Docs: Configuring OTA Updates](https://docs.expo.io/guides/configurin
 ### Set up your release branch
 
 1. Create a new branch from the most up-to-date version of master named `release` with the update version number using [Semantic Versioning](https://semver.org/) guidelines. For most updates, it is recommended to only increment the PATCH version.
-   ``` bash
+   ```bash
    git checkout -b release-1.1.2
    ```
 2. Bump the `expo.version` number in **`app.json`** with the new SemVer version number.
-  
+
    ```json {4}
    {
      "expo": {
@@ -63,17 +65,20 @@ From [Expo Docs: Configuring OTA Updates](https://docs.expo.io/guides/configurin
      }
    }
    ```
+
 ### Publish with Expo
+
 1. In your release branch, run `expo publish --release-channel prod`
 2. Once the update finishes processing, the latest updates should appear within the app. If changes do not appear immediately, close and reopen the app.
 
 Once the OTA update is successfully published, skip the next section and jump to [Merge release changes](#merge-release-changes).
-   
+
 ## Option B. Submitting a new build
 
 ### Set up your release branch
+
 1. Create a new branch from the most up-to-date version of master named `release` with the update version number using [Semantic Versioning](https://semver.org/) guidelines.
-   ``` bash
+   ```bash
    git checkout -b release-1.1.0
    ```
 2. Bump the following version numbers in **`app.json`**
@@ -106,12 +111,14 @@ Once the OTA update is successfully published, skip the next section and jump to
 [Expo Docs: Configuration with app.json](https://docs.expo.io/versions/latest/workflow/configuration)
 
 ### iOS - App Store
+
 ::: warning Follow these instructions for the Customer app ONLY
 Only the customer-facing app is deployed to the App Store. The Clerk app is only deployed for Android on the Google Play Store. To deploy updates for the Clerk app, skip to the instructions on [deploying for Android](#android-google-play)
 :::
 
 #### Start the Expo Build
-1. In the Expo CLI, run `expo build:ios --release-channel prod` 
+
+1. In the Expo CLI, run `expo build:ios --release-channel prod`
 2. When prompted, select `archive`
 3. Enter Apple ID credentials
 
@@ -159,21 +166,23 @@ To test the app on your device, you will need to install the TestFlight iOS app 
    - **Description**: Update the app description if there are any major new features or updates. This should not need to change much for smaller updates.
 
 #### Helpful Links
+
 - [Expo Docs: Building Standalone Apps](https://docs.expo.io/distribution/building-standalone-apps/)
 - [Expo Docs: Uploading Apps to the Apple App Store and Google Play](https://docs.expo.io/distribution/uploading-apps/)
 - [App Store Connect Help: App Store icon, app preview, and screenshots overview](https://help.apple.com/app-store-connect/#/dev910472ff2)
 
-
 ### Android - Google Play
+
 ::: tip Follow these instructions for both apps
 Both the customer-facing and clerk-facing apps are deployed in the Google Play Store.
 :::
 
 #### Start the Expo Build
-1. In the Expo CLI, run `expo build:android --release-channel prod` 
+
+1. In the Expo CLI, run `expo build:android --release-channel prod`
 2. When prompted, select `apk`
 
-Once the build starts, it can take anywhere from a few minutes to a several hours, depending on how much traffic there is. You can check the build status in your Expo Dashboard, or monitor the queues in [Expo's Turtle status site](https://expo.io/turtle-status). 
+Once the build starts, it can take anywhere from a few minutes to a several hours, depending on how much traffic there is. You can check the build status in your Expo Dashboard, or monitor the queues in [Expo's Turtle status site](https://expo.io/turtle-status).
 
 #### Upload for Android
 
@@ -224,14 +233,16 @@ If there are any major updates that would require updating any of the following 
 - Contact details
 
 #### Helpful Links
+
 - [Expo Docs: Building Standalone Apps](https://docs.expo.io/distribution/building-standalone-apps/)
 - [Google Play Console: Prepare & roll out releases](https://support.google.com/googleplay/android-developer/answer/7159011?hl=en)
 
-
 ## Merge release changes
+
 Once the update is successfully deployed, merge the release branch into `master` to update any hotfixes and version numbers.
 
 ## Track the Release in GitHub
+
 It is easy to lose track of which changes are included with which updates, and whether those updates were delivered OTA or through new builds. Releases in Github are good for organizing and documenting releases.
 
 ### Tag the Release
@@ -247,12 +258,15 @@ It is easy to lose track of which changes are included with which updates, and w
    ```bash
    $ git tag v1.2.0_signup_bonus
    ```
+
 2. Push the tag using `git push origin <tagname>`
+
    ```bash
     $ git push origin v1.2.0_signup_bonus
    ```
 
    More on [Git Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
+
 ### Create a Release from the tag
 
 This is optional but highly recommended to track bigger releases including more major feature changes.
@@ -284,7 +298,7 @@ This is optional but highly recommended to track bigger releases including more 
      ::: rightlink
      Source: [Customer v1.1.0 Release Notes](https://github.com/calblueprint/dccentralkitchen/releases/tag/v1.1.0)
      :::
-5. (Only for new build updates) Upload the .apk and .ipa files downloaded from Expo 
+5. (Only for new build updates) Upload the .apk and .ipa files downloaded from Expo
 6. Select **Publish release**
 
 #### Helpful Links

@@ -83,16 +83,16 @@ These code quality and lifecycle improvements were originally added to the custo
 
 - **`package.json` scripts**
 
-  - These are listed in `package.json` under `scripts`. They are mostly shorthand for convenient terminal commands. Run these with `yarn run script-name`, e.g
+  - These are listed in `package.json` under `scripts`. They are mostly shorthand for convenient terminal commands. Run these with `yarn script-name`, e.g
 
   ```bash
-  yarn run lint-all
+  yarn lint-all
   ```
 
   Most of these do not require arguments, with the exception of `pretty`, which requires a target - either a pattern or a filename.
 
   ```bash
-  yarn run pretty components/*.js
+  yarn pretty components/*.js
   ```
 
 ### Working with Airtable

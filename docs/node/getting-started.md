@@ -40,6 +40,15 @@ More details on how the application works in [Application Overview]('./app-overv
 This application is set up with `babel-node` to allow `import/export` syntax instead of `require` syntax. Thus, running `.js` files requires `yarn babel-node` as a prefix - e.g `yarn babel-node index.js` instead of `node index.js`.
 :::
 
+### Development Lifecycle
+
+Most of the information in [customer/clerk documentation](../shared/getting-started.md#development-lifecycle) still holds true, with some exceptions:
+
+- There was only one developer for this repo, so no PRs were really made, though that can and should change :sweat-smile:
+- This repo does not use `yarnhook`
+- This repo uses `pretty-quick` instead of `prettier` for the pre-commit hook
+- This repo doesn't have any fun scripts - just `start` and `generate-schema`
+
 ### Working with Airtable
 
 You'll need to fill in `REACT_APP_AIRTABLE_API_KEY` with your **personal API key** once you have access to the workspace. This can be found in your [Airtable account overview page](https://airtable.com/account). **You should never commit this key!** In the unfortunate event that you do, click "Regenerate API key" on the same page.

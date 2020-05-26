@@ -98,11 +98,54 @@ See [PR #48](https://github.com/calblueprint/dccentralkitchen/pull/48) (customer
 
 ### Running the generator
 
-The local schema files are (re)generated with the command `yarn generate-schema`. For convenience, all of our repos are configued to use the `auto-headless` mode so there is no user interaction required. Thus, you must fill in the `AIRTABLE_EMAIL` and `AIRTABLE_PASSWORD` sections of your local `.env.generator` file to allow automated login on Airtable.
+::: tip
+The generator does **not need to be run regularly**. Ideally, schema updates are few and far between (especially since they are often breaking!).
+:::
+
+_When you first clone the repos, you do **NOT** need to run the generator. The `lib/airtable/*.js` files have been generated and are already committed. There's no need to regenerate unless the schema changes._
+
+The local schema files are (re)generated with the command `yarn generate-schema`. For convenience, all of our repos are configued to use the `auto-headless` mode so there is no user interaction required. Thus, you must fill in the `AIRTABLE_EMAIL` and `AIRTABLE_PASSWORD` sections of your local `.env.generator` file (customer/clerk repos) or `.env` file (node repo) to allow automated login on Airtable.
 
 ::: warning NOTE
 These credentials are not saved anywhere other than your own computer. This allows the schema generator to automatically scrape your schema from Airtable. If you're curious about what happens when the generator code runs, change `auto-headless` in the schema generator's settings in package.json to `auto`.
 :::
+
+#### Post-generation modifications
+
+Because the customer and clerk repos use a custom file to store and auto-switch environment variables between `[DEV]` and `[PROD]` instead of a traditional `.env` file, the schema generator doesn't know how to find the `AIRTABLE_BASE_ID` or the `REACT_APP_AIRTABLE_API_KEY` in `airtable.js`.
+
+Thus, after regenerating the local files, you must copy this code into `airtable.js`.
+
+```javascript
+// Add import to the top of the file
+import getEnvVars from '../../environment';
+
+// Replace the following lines in `lib/airtable.js` (starting with this one)
+const ENDPOINT_URL = 'https://api.airtable.com';
+
+const { BASE_ID, AIRTABLE_API_KEY } = getEnvVars();
+
+Airtable.configure({
+  endpointUrl: ENDPOINT_URL,
+  apiKey: AIRTABLE_API_KEY,
+});
+
+const base = Airtable.base(BASE_ID);
+```
+
+This code can also be found as a block comment in `environment.example`.
+
+---
+
+Note that the node repo's copy of `airtable.js` contains some custom helper functions, so the settings default to `overwrite: false`. The following only applies if it is set to `overwrite: true`.
+
+The node repo uses the `dotenv-safe` package to locate environment variables.
+
+Thus, after regenerating the files, you must add this line to `airtable.js` (we did so after the import lines):
+
+```javascript
+require('dotenv-safe').config({ allowEmptyValues: true });
+```
 
 ### Configuration
 
