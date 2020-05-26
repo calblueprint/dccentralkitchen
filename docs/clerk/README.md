@@ -11,4 +11,4 @@ This repo contains code for the clerk-facing application, designed for usage in 
 
 ## App Store
 
-- Google Play Store: <https://play.google.com/store/apps/details?id=org.calblueprint.HealthyCornersClerk>
+- Google Play Store: [Healthy Corners - Healthy Rewards Clerk](https://play.google.com/store/apps/details?id=org.calblueprint.HealthyCornersClerk)
