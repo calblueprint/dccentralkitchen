@@ -5,7 +5,7 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
@@ -68,6 +68,7 @@ export default class MapScreen extends React.Component {
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
     const resetSheet = true;
+    store.distance = this.findStoreDistance(store);
     this.changeCurrentStore(store, resetSheet);
     const region = {
       latitude: store.latitude,
@@ -82,17 +83,13 @@ export default class MapScreen extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     // Error message not checked anywhere
     if (status !== 'granted') {
-      Alert.alert(
-        'Location Error',
-        'We are unable to get your location. Enable your location services for this app and try again when your network refreshes.'
-      );
       this.setState({
         locationErrorMsg: 'Permission to access location was denied',
       });
     } else {
       const location = await Location.getCurrentPositionAsync({});
       const region = {
-        latitude: location.coords.latitude,
+        latitude: location.coords.latitude - deltas.latitudeDelta / 3.5,
         longitude: location.coords.longitude,
         ...deltas,
       };
@@ -155,14 +152,10 @@ export default class MapScreen extends React.Component {
   // Since it's initially set to a default value, we use that instead of this.state.location
   _orderStoresByDistance = async (stores) => {
     const sortedStores = [];
-    const latlng = this.state.region;
-
-    // We need distance to display in the StoreList
+    // Display distance in the StoreList
     stores.forEach((store) => {
       const currStore = store;
-      const distanceMeters = getDistance(latlng, store);
-      // Convert distance to 'x.xx' form, in miles units
-      currStore.distance = convertDistance(distanceMeters, 'mi').toFixed(2);
+      currStore.distance = this.findStoreDistance(store);
       sortedStores.push(currStore);
     });
     // sorts in place
@@ -187,8 +180,9 @@ export default class MapScreen extends React.Component {
         prevState.locationErrorMsg || sortedStores[0].distance > 100
           ? defaultStore
           : sortedStores[0],
-      showDefaultStore:
-        prevState.locationErrorMsg || sortedStores[0].distance > 100,
+      showDefaultStore: prevState.locationErrorMsg
+        ? true
+        : sortedStores[0].distance > 100,
       region:
         prevState.locationErrorMsg || sortedStores[0].distance > 100
           ? region
@@ -223,6 +217,13 @@ export default class MapScreen extends React.Component {
 
   onRegionChangeComplete = (region) => {
     this.setState({ region });
+  };
+
+  findStoreDistance = (store) => {
+    const distanceMeters = getDistance(this.state.region, store);
+    // Convert distance to 'x.xx' form, in miles units
+    const distance = convertDistance(distanceMeters, 'mi').toFixed(2);
+    return distance;
   };
 
   // Update current store and its products

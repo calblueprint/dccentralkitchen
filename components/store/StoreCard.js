@@ -67,7 +67,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             onPress={() =>
               navigation.navigate('StoreDetailsScreen', {
                 store,
-                storeOpenStatus,
+                seeDistance,
               })
             }
             style={{ paddingLeft: 10 }}>
