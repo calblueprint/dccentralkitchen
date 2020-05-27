@@ -75,7 +75,6 @@ const devSidebar = [
       '/customer/resources',
       '/customer/settings',
       '/customer/constants',
-      '/customer/usertesting',
     ],
   },
   {
@@ -110,6 +109,7 @@ const devSidebar = [
       '/shared/analytics',
     ],
   },
+  '/shared/usertesting',
 ];
 
 module.exports = {

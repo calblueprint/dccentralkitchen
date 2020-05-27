@@ -1,3 +1,3 @@
 # User Testing Takeaways & Wishlist
 
-[See the customer user testing insights and feature wishlist here.](../customer/usertesting.md)
+See our [user testing insights and feature wishlist](../shared/usertesting.md) in the developer docs.
