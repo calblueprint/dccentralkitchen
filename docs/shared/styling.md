@@ -14,6 +14,8 @@ See the design prototypes in Figma [here](../design.md#shared-components)
 
 If you find yourself adding something that is used throughout the application (e.g. a new styled button) rather than having it confined to one screen or one location, consider making it into a base component as to reduce repetitive code/importing from different locations.
 
+[Customer PR #28: Base Components](https://github.com/calblueprint/dccentralkitchen/pull/28)
+
 ### Buttons
 - `TextButton`: Used as a base of other button labels
 - `ButtonLabel`: Used to add text to button containers
@@ -134,7 +136,41 @@ import { NavButton, NavHeaderContainer, NavTitle } from '../../components/BaseCo
 ::: details Result
 ![../assets/basecomponents/IMG_3236.png](../assets/basecomponents/IMG_3236.png)
 :::
+::: tip Using SafeAreaProvider for notch detection
+The header container detects safe area insets and adjusts the navigation heading height depending on if the device has a notch.
 
+In order to use `SafeAreaProvider` to detect if the device has a notch:
+- NavHeaderContainer must be a functional component
+- The root component must be wrapped in SafeAreaProvider
+  
+[See Expo SafeAreaContext docs here](https://docs.expo.io/versions/latest/sdk/safe-area-context/)
+
+[Related PR: #56](https://github.com/calblueprint/dccentralkitchen/pull/56)
+
+In the `NavHeaderContainer`, the `topInset` is calculated with `useSafeArea().top`, and this inset is added to the top padding to make sure the heading content is not blocked by a notch if the device has a notch.
+
+``` jsx
+// Source: BaseComponents.js
+import { useSafeArea } from 'react-native-safe-area-context';
+...
+export function NavHeaderContainer({
+    ...
+}) {
+  const topInset = useSafeArea().top;
+  return (
+    <View
+      style={{
+        ...
+        paddingTop: 16 + topInset,
+        minHeight: 62 + topInset,
+        ...
+      }}>
+      {children}
+    </View>
+  );
+}
+```
+:::
 ## Text Components
 The following text components from `BaseComponents.js` are used throughout both apps.
 - `BigTitle`
@@ -177,5 +213,13 @@ If you find yourself using a fairly styled component throughout the app (say, a 
 
 If you're trying to align components in a fun way, check `shared.js` first, and if it's not there, add a container so that it can be reused in the future!
 
-## Related PRs
-- [Customer #28: Base Components](https://github.com/calblueprint/dccentralkitchen/pull/28)
+## Styling considerations for Android
+We have run into a few issues that only appear on Android devices:
+- Android does not register `box-shadow`. Instead, you have to use `elevation`.
+- `font-weight` cannot be specified in CSS for custom fonts,or it will default to Android in Roboto ([source](https://github.com/react-navigation/react-navigation/issues/2822)). However, you must specify `fontWeight: 'normal'` in `createDrawerNavigator`
+- To make passwords hide in text fields on Android, the `keyboardType` must be set to `undefined`
+
+**Android bugfix PRs**
+- [#78](https://github.com/calblueprint/dccentralkitchen/pull/78/)
+- [#121](https://github.com/calblueprint/dccentralkitchen/pull/121)
+- [#152](https://github.com/calblueprint/dccentralkitchen/pull/152)
