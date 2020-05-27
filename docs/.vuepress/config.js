@@ -2,6 +2,7 @@ const globalNavbar = [
   { text: 'Home', link: '/' },
   { text: 'Admin Guide', link: '/admin/' },
   { text: 'Developer Docs', link: '/shared/overview' },
+  { text: 'Design Prototypes', link: '/design' },
   {
     text: 'Airtable',
     items: [
@@ -46,7 +47,13 @@ const adminSidebar = [
     title: 'Admin Guide',
     collapsable: false,
     sidebarDepth: 2,
-    children: ['/admin/', '/admin/storehours', '/admin/forms'],
+    children: [
+      '/admin/',
+      '/admin/stores',
+      '/admin/storehours',
+      '/admin/forms',
+      '/admin/usertesting',
+    ],
   },
 ];
 
@@ -59,6 +66,7 @@ const devSidebar = [
       ['/customer/', 'Introduction'],
       '/customer/getting-started',
       '/customer/styling',
+      '/customer/icons',
       '/customer/navigation',
       '/customer/auth',
       '/customer/stores',
@@ -75,6 +83,8 @@ const devSidebar = [
     children: [
       ['/clerk/', 'Introduction'],
       '/clerk/getting-started',
+      '/clerk/styling',
+      '/clerk/icons',
       '/clerk/auth',
       '/clerk/navigation',
       '/clerk/checkout',
@@ -99,6 +109,7 @@ const devSidebar = [
       '/shared/analytics',
     ],
   },
+  '/shared/usertesting',
 ];
 
 module.exports = {

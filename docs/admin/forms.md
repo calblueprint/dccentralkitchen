@@ -1,6 +1,6 @@
 # Airtable forms
 
-Use these links to add **new** records to Airtable. To edit existing records, **\_**.
+Use these links to add **new** records to Airtable.
 
 | Airtable Form Links                                                  |
 | -------------------------------------------------------------------- |
