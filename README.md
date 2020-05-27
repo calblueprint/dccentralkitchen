@@ -9,5 +9,5 @@ All documentation lives at <https://healthycorners-rewards.netlify.app> - for ne
 
 ## Companion projects
 
-Clerk-facing tablet application: [`dccentralkitchen-clerks`](https://github.com/calblueprint/dccentralkitchen-clerks)
-Backend server: [`dccentralkitchen-node`](https://github.com/calblueprint/dccentralkitchen-node)
+- Clerk-facing tablet application: [`dccentralkitchen-clerks`](https://github.com/calblueprint/dccentralkitchen-clerks)
+- Backend server: [`dccentralkitchen-node`](https://github.com/calblueprint/dccentralkitchen-node)
