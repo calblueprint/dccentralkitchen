@@ -51,6 +51,7 @@ const adminSidebar = [
       '/admin/',
       '/admin/stores',
       '/admin/storehours',
+      '/admin/productimages',
       '/admin/forms',
       '/admin/usertesting',
     ],
