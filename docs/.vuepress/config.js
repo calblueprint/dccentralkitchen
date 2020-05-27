@@ -76,6 +76,7 @@ const devSidebar = [
     children: [
       ['/clerk/', 'Introduction'],
       '/clerk/getting-started',
+      '/clerk/styling',
       '/clerk/icons',
       '/clerk/auth',
       '/clerk/navigation',
