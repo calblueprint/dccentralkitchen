@@ -4,7 +4,7 @@ Use this guide to edit store information in Airtable. Column names are indicated
 [[toc]]
 
 ::: warning NOTE
-To **add a new store**, use the form linked [here](./forms.md).
+To **add a new store**, use the form linked [here](links.html#airtable-forms).
 :::
 
 ### `Primary Key`

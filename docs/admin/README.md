@@ -57,7 +57,7 @@ As you can see, we currently have **nine** tables - the admin-facing tables also
 
   Customer passwords are encrypted, but phone number and preferred name are exposed.
 
-  Clerk pins are exposed because they are simple 4-digit numbers, and set by admins - admins may modify these pins in rare cases. New clerks should be created via [Airtable form](./forms.md) - in general, it's best not to directly add new records in case some required fields are missed by accident. Clerk pins may be edited via the `Clerks` table "Admin View".
+  Clerk PINs are exposed because they are simple 4-digit numbers, and set by admins - admins may modify these PINs in rare cases. New clerks should be created via [Airtable form](links.html#airtable-forms) - in general, it's best not to directly add new records in case some required fields are missed by accident. Clerk PINs may be edited via the `Clerks` table "Admin View".
 
   Transactions represent an individual customer's transaction at checkout at a single store.
 
@@ -65,7 +65,7 @@ As you can see, we currently have **nine** tables - the admin-facing tables also
 
   Information in all of these tables is public-facing; we display almost all of this information to customers in the application, so there isn't as much of a need to restrict access (it's also why all screenshots in this guide are from the `Stores` table).
 
-  Stores, products, and resources should be added using Airtable forms - in these forms, we detailed some contraints on what the data must look like for the application to display data properly. We've linked them [all here](./forms.md).
+  Stores, products, and resources should be added using Airtable forms - in these forms, we detailed some contraints on what the data must look like for the application to display data properly. We've linked them [all here](links.html#airtable-forms).
 
   In particular, the `Store Hours` input is very finicky. Please read [formatting guidelines](./storehours.md) we've detailed.
 

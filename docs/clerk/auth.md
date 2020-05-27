@@ -44,7 +44,7 @@ In `componentDidMount`, all stores are loaded into the state. The dropdown menu 
 
 #### Overview
 
-The clerk uses the `TextField` component to enter a clerk pin. This component is currently configured to only accept four numerical values:
+The clerk uses the `TextField` component to enter a clerk PIN. This component is currently configured to only accept four numerical values:
 
 ```jsx
 <TextField
@@ -65,7 +65,7 @@ The clerk uses the `TextField` component to enter a clerk pin. This component is
 
 `handleSubmit`: Performs a clerk lookup using `lookupClerk`. `lookupResult` comes with a `status`, `record`, and `errorMsg`.
 
-If a clerk record is found corresponding to the given store name and clerk pin, the clerk and store information is stored in `AsyncStorage` via `_asyncLoginClerk`. The app then navigates to the `CustomerLoginScreen`.
+If a clerk record is found corresponding to the given store name and clerk PIN, the clerk and store information is stored in `AsyncStorage` via `_asyncLoginClerk`. The app then navigates to the `CustomerLoginScreen`.
 
 If no clerk record is found, the `lookupResult.errorMsg` is displayed.
 

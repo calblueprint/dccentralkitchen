@@ -52,9 +52,9 @@ const adminSidebar = [
       '/admin/stores',
       '/admin/storehours',
       '/admin/productimages',
-      '/admin/forms',
       '/admin/usertesting',
       '/admin/marketingassets',
+      '/admin/links',
     ],
   },
 ];

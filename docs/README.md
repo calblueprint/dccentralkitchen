@@ -7,7 +7,7 @@ footer: Learn more about Blueprint and what we do at calblueprint.org.
 
 ---
 
-A guide to the customer and companion clerk applications developed with Expo, React Native, and Airtable built for DC Central Kitchen's ["Healthy Corners" initiative](https://dccentralkitchen.org/healthy-corners/).
+A guide to the customer and companion clerk applications developed with Expo, React Native, and Airtable built for DC Central Kitchen's [Healthy Corners initiative](https://dccentralkitchen.org/healthy-corners/).
 
 ## Introduction
 
@@ -53,6 +53,9 @@ Run `yarn docs:dev` to get the documentation site running locally. It'll default
 ## Deployment
 
 We use Netlify for continuous deployment. It's configured to auto-build and deploy to <https://healthycorners-rewards.netlify.app/> whenever a commit is pushed to the `dccentralkitchen/docs` branch.
+
+## Contact
+For any questions about the admin or developer side of this project, contact **Annie Wang** at <wangannie@berkeley.edu>
 
 ## About
 

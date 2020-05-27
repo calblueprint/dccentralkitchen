@@ -7,8 +7,8 @@ The QR code to download the app (for both Apple and Android devices) can be acce
 
 ![qr](../assets/marketing/hc_small.png)
 
-## Short links
-- App store link (for both Apple and Android devices) <http://tiny.cc/HealthyCornersApp> 
+## App store link
+This link <http://tiny.cc/HealthyCornersApp> opens the app in the appropriate app store (works for both Apple and Android devices).
 
 ## Illustrations & 'How it Works'
 - Graphic assets used throughout the app (designed by Ace Chen) are linked in Figma and can be found in [Design Prototypes - Illustrations & Assets](../design.html#illustrations-assets).
