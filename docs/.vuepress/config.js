@@ -54,6 +54,7 @@ const adminSidebar = [
       '/admin/productimages',
       '/admin/forms',
       '/admin/usertesting',
+      '/admin/marketingassets',
     ],
   },
 ];
