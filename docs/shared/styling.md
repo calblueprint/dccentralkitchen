@@ -7,7 +7,7 @@ This documentation is the same for both the customer and clerk applications.
 [[toc]]
 
 ::: tip Design prototypes
-See the design prototypes in Figma [here](../design.md#shared-components)
+See the design prototypes in Figma [here](../design.md#component-library)
 :::
 
 ## Base Components
@@ -207,7 +207,7 @@ The following text components from `BaseComponents.js` are used throughout both 
 - `Overline`
 - `TabSelected`
 
-This is how the text components are displayed. Source: [component designs in Figma](../design.md#shared-components).
+This is how the text components are displayed. Source: [component designs in Figma](../design.md#component-library).
 
 ![../assets/basecomponents/Text_Styles.png](../assets/basecomponents/Text_Styles.png)
 

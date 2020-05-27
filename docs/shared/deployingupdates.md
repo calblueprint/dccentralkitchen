@@ -163,6 +163,11 @@ To test the app on your device, you will need to install the TestFlight iOS app 
        > • Security updates, small improvements, and bug fixes.
 
    - **App Previews and Screenshots**: Upload new app screenshots if necessary to reflect any major new features or visual changes. You can take these screenshots using `cmd` + `s` in an iOS simulator in devices of the proper dimensions. See [Apple's guidelines here.](https://help.apple.com/app-store-connect/#/dev910472ff2)
+    ::: tip
+    Follow [this guide on updating app screenshots](../design.html#updating-app-screenshots) to use the styled screenshot frames. 
+
+    Past versions of app screenshots are included [in Dropbox here](../design.html#additional-assets).
+    :::
    - **Description**: Update the app description if there are any major new features or updates. This should not need to change much for smaller updates.
 
 #### Helpful Links
@@ -229,6 +234,13 @@ If there are any major updates that would require updating any of the following 
 - Title
 - Description
 - Graphic assets (icons, screenshots)
+  ::: tip
+  Since Android screenshot guidelines are more flexible, we usually use the same screenshots that we use for the Apple App Store. 
+  
+  Follow [this guide on updating app screenshots](../design.html#updating-app-screenshots) to use the styled screenshot frames.
+
+  Past versions of app screenshots are included [in Dropbox here](../design.html#additional-assets).
+  :::
 - Categorization (categories, tags)
 - Contact details
 
