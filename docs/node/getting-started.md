@@ -59,12 +59,12 @@ In our code, we only ever call functions in `request.js`; see `utils/storeProduc
 
 ### Google API
 
-Any application that interacts with any of Google's products must utilize the authentication flow (essentially getting consent from the user).
+Any application that interacts with any of Google's products must utilize the auth flow (essentially getting consent from the user).
 
 ::: danger
-With the currently deployed application, we've gotten authentication set up such that the application uses `anniero@berkeley.edu`'s permissions for editing the "FY20 Sales Data and Trends" spreadsheet.
+With the currently deployed application, we've gotten auth set up such that the application uses `anniero@berkeley.edu`'s permissions for editing the "FY20 Sales Data and Trends" spreadsheet.
 
-This isn't sustainable, as the authenticated user will need "Edit access" to the spreadsheet source and the source Google Sheet may change. See the [code documentation](./app-overview.md#google-oauth-authentication) for how to update the authenticated user.
+This isn't sustainable, as the authenticated user will need "Edit access" to the spreadsheet source and the source Google Sheet may change. See the [code documentation](./app-overview.md#google-auth) for how to update the authenticated user.
 :::
 
 In general, I found the Google documentation a bit lacking, and the Google Cloud Platform page unintuitive to navigate. Thus, I've included screenshots along with minimal instructions for some common pages you may need to visit.
@@ -110,7 +110,7 @@ The easiest thing to do is use [moment.js](https://momentjs.com/docs/). Don't wa
 Some routes are accessible via browser (e.g the `GET` routes - in particular, the initial authorization **must** be done via browser since it requires user consent).
 
 ::: warning POSTMAN
-Another option is to do so via the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls that modify the spreadsheet are locked via a `secretKey`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
+Another option is to do so via the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls that modify the spreadsheet are locked via a `HC_SECRET`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
 
 **Example**
 ![Postman example](./assets/postman.png)
@@ -188,10 +188,8 @@ We've installed it because we might want to inspect the `console.log` output of 
 
 Google API
 
-- <https://github.com/googleapis/google-api-nodejs-client#google-apis-nodejs-client>
 - Google Sheets API reference: <https://developers.google.com/sheets/api/guides/concepts>
 - Google Project console (only viewable to authorized users for the project) <https://console.cloud.google.com/apis/credentials/consent?project=quickstart-1587887313757>
-- Why do we need to keep `refreshToken` around? <https://github.com/googleapis/google-api-nodejs-client/issues/750#issuecomment-304521450>
 
 Deploying
 
