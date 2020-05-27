@@ -2,6 +2,41 @@
 
 ## Cart (line items)
 
+Line Items are records detailing the purchase of a specific product in a single transaction. They allow us to keep a record of specific purchases made in individual transactions, as can be seen in the Transactions table.
+
+## Transactions
+Upon confirmation of a transaction, a transaction record is created in the **Transactions** table.
+
+```jsx
+// checkoutUtils.js
+export async function addTransaction(customer, cart, transaction) {
+  const storeId = await AsyncStorage.getItem('storeId');
+  const clerkId = await AsyncStorage.getItem('clerkId');
+
+  const { discount, subtotal, totalSale, pointsEarned, rewardsApplied } = transaction;
+
+  const transactionId = await createTransactions({
+    customerId: customer.id,
+    currentPoints: customer.points,
+    storeId,
+    clerkId,
+    pointsEarned,
+    rewardsApplied,
+    subtotal,
+    discount,
+    totalSale,
+  });
+
+  // A list of ids for line items from the transaction.
+  const itemIds = await calculateProductsPurchased(cart);
+
+  // productsPurchaseIds - airtable-schema-generator depluralizing bug
+  await updateTransactions(transactionId, { productsPurchaseIds: itemIds });
+
+  return transactionId;
+}
+```
+
 ## Quantity Modal
 
 ## Rewards Modal
