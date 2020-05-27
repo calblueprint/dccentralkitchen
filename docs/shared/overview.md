@@ -16,7 +16,7 @@ See [the homepage](/#introduction) for an introduction to the project.
   - Runs a scheduled job to port data from Google Sheets to Airtable (production base)
   - Written in Node.js using an Express server. Deployed with Heroku to <https://healthycorners-rewards-node.herokuapp.com/.>
 - [Documentation site](https://healthycorners-rewards.netlify.app/)
-  - This website! See the [homepage](/) for details.
+  - This website! See the [homepage](/#editing-this-site) for details.
 - [(Outdated) backend server](https://github.com/calblueprint/dccentralkitchen-backend)
   - CURRENTLY UNUSED. Contains outdated code to work with push notifications; if necessary, the code should be moved to the `dccentralkitchen-node` repo and refactored for updated usage.
 

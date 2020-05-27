@@ -12,7 +12,7 @@ To run the job locally, use the `POST '/updateMappings/prod'` route.
 
 The server logic is contained in this file. We initialize the Express app and configure it. We initialize the Google OAuth client and configure it.
 
-Next, the various endpoints are defined. They are documented via inline comments. The auth-related endpoints are documented in the next section. Otherwise, the functions called are documented in the [`utils/*.js` section](#utilsjs-files).
+Next, the various endpoints are defined. They are documented via inline comments. The auth-related endpoints are documented in the next section. Otherwise, the functions called are documented in the [`utils/*.js` section](#utils-js-files).
 
 ## Google Auth
 
@@ -193,7 +193,7 @@ This file and the endpoints that call various functions in it is useful if you w
 
 This is the job run daily via Heroku Scheduler. It simply initializes the OAuth client with the stored `refresh_token`, adds a listener to ensure `access_token` automatic updates, and then calls `updateStoreProducts`.
 
-Details on how to configure the scheduled job are in the [Getting Started section](./getting-started.md#heroku-scheduler).
+Details on how to configure the scheduled job are in the [Getting Started page](./getting-started.md#heroku-scheduler).
 
 ### `utils/parseCsv.js`
 

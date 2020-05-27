@@ -34,7 +34,7 @@ Additionally, you must have been added to the [Heroku](#deploying-with-heroku) p
 
 ## Contributing
 
-More details on how the application works in [Application Overview]('./app-overview.md').
+More details on how the application works in [Application Overview](./app-overview.md).
 
 ::: warning NOTE
 This application is set up with `babel-node` to allow `import/export` syntax instead of `require` syntax. Thus, running `.js` files requires `yarn babel-node` as a prefix - e.g `yarn babel-node index.js` instead of `node index.js`.
@@ -42,9 +42,9 @@ This application is set up with `babel-node` to allow `import/export` syntax ins
 
 ### Development Lifecycle
 
-Most of the information in [customer/clerk documentation](../shared/getting-started.md#development-lifecycle) still holds true, with some exceptions:
+Most of the information in the [customer/clerk documentation](../shared/getting-started.md#development-lifecycle) still holds true, with some exceptions:
 
-- There was only one developer for this repo, so no PRs were really made, though that can and should change :sweat-smile:
+- There was only one developer for this repo, so no PRs were really made, though that can and should change (^:
 - This repo does not use `yarnhook`
 - This repo uses `pretty-quick` instead of `prettier` for the pre-commit hook
 - This repo doesn't have any fun scripts - just `start` and `generate-schema`
