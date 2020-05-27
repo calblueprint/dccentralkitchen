@@ -4,7 +4,7 @@
 
 React Navigation 5 offers a completely new API based on components rather than JSON-serializable objects.
 
-### Relevant Files
+#### Relevant files
 
 `AppNavigator.js`
 
@@ -12,7 +12,7 @@ React Navigation 5 offers a completely new API based on components rather than J
 
 `DrawerContent.js`
 
-## Existing Stacks
+## Existing stacks
 
 Currently, the following stacks exist:
 
@@ -26,11 +26,11 @@ Currently, the following stacks exist:
 
 - `StoresStack` (`stack_navigators/StoresStack.js`): Screens related to store lookup, such as the map screen, store list, products screen (per-store basis), and store details screen (per-store basis)
 
-### Flow Diagrams
+### Flow diagrams
 ![Auth Flow](../assets/navigation/authflow.png)
 ![Drawer](../assets/navigation/dcck-drawer.png)
 
-## Adding a New Stack
+## Adding a new stack
 ::: tip
 Refer to documentation on [adding a new stack](https://reactnavigation.org/docs/stack-navigator/)
 ::: 
@@ -82,7 +82,7 @@ const config = Platform.select({
 
 `component`: The name of the screen component being rendered
 
-## Adding a New Screen
+## Adding a new screen
 
 1. Create a new screen component (i.e. `NewScreen`)
 2. Import screen to corresponding stack navigator and pass in as screen component under the stack
@@ -91,7 +91,9 @@ const config = Platform.select({
 We've had a lot of issues with class components conflicting with our need to use hooks (i.e. `useEffect` or `useFocusEffect`), so it would be best to make a functional component from the get-go and avoid using deprecated methods like `componentWillReceiveProps` in classes
 :::
 
-## Adding a New Tab to the Drawer (Hamburger Menu)
+## Adding a tab to the drawer (hamburger menu)
+
+No actual edits need to be made to the HamburgerButton when changing the drawer. The drawer relies on React Navigation + Drawer, so all the button does is call `toggleDrawer`.
 
 Import and pass in your new screen or stack to the `DrawerNavigator`
 
@@ -103,7 +105,7 @@ Import and pass in your new screen or stack to the `DrawerNavigator`
 />
 ```
 
-::: warning
+::: warning NOTE
 `name` : how we will reference the stack or screen when navigating within the app, if necessary to define
 
 `title`: string that can be used as a fallback for headerTitle ([docs](https://reactnavigation.org/docs/stack-navigator/)), **NOT** to be confused with `drawerLabel` (we don't really need this if we don't have a header)
@@ -111,9 +113,9 @@ Import and pass in your new screen or stack to the `DrawerNavigator`
 
 Styling for the drawer can be found in `DrawerContent.js`.
 
-### Adding a Section to the Bottom of the Drawer
+#### Adding a link to the drawer
 
-These links are basically hardcoded and not passed in as props from the `DrawerNavigator` to `DrawerContent` .
+These links are basically hardcoded and not passed in as props from the `DrawerNavigator` to `DrawerContent`. To add functional buttons (such as the LogOut button), add a styled `TouchableOpacity` and have it and call a function in `onPress`.
 
 ```jsx
 <TouchableOpacity
@@ -125,7 +127,7 @@ These links are basically hardcoded and not passed in as props from the `DrawerN
 
 Refer to "Report Issue" and "Log Out" buttons for more details in `DrawerContent`.
 
-## Navigating Between Screens in the App
+## Navigating between screens in the app
 
 This is an example from `StoreCard.js` upon clicking the search bar to navigate to `StoresList`:
 
@@ -150,8 +152,6 @@ const store = route.params;
 ```
 
 For more details on parameters in components, visit this [doc](https://reactnavigation.org/docs/params/).
-
-### Navigation
 
 In a functional component, you can use the `useNavigation()` hook.
 
