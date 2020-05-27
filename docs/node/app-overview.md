@@ -182,7 +182,7 @@ During this process, we generate some useful information and `console.log` it so
 ::: warning
 Out of these four, the "missing" categories are important to be aware of. You can view the Heroku logs via [Logentries](./getting-started.md#logentries).
 
-Ask a Healthy Corners admin to add products/stores to the `PROD` Airtable base via [Airtable form](../admin/links.html#airtable-forms).
+Ask a Healthy Corners admin to add products/stores to the `PROD` Airtable base via [Airtable form](../admin/forms.md).
 :::
 
 ### `utils/synchDevProd.js`

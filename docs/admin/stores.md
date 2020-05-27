@@ -3,8 +3,12 @@ Use this guide to edit store information in Airtable. Column names are indicated
 
 [[toc]]
 
+::: tip NOTE
+To **add a new store**, use the form linked [here](forms.md).
+:::
+
 ::: warning NOTE
-To **add a new store**, use the form linked [here](links.html#airtable-forms).
+Currently, there is no way to temporarily hide a store. To permanently delete a store, right click anywhere on the row and select the "Delete" option in the drop down menu.
 :::
 
 ### `Primary Key`

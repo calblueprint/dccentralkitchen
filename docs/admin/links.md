@@ -1,16 +1,5 @@
 # Important links
 
-## Airtable forms
-
-Use these links to add **new** records to the PROD base in Airtable. To edit existing records, refer to the [Airtable overview guide](./#usage).
-| Airtable Form Links                                                  |
-| -------------------------------------------------------------------- |
-| [Add a new store](https://airtable.com/shrQIlY8nMRBJfElw)            |
-| [Add a new product](https://airtable.com/shrFUgVUHDns8QqoW)          |
-| [Add a new resource link](https://airtable.com/shrrLPnVm6kOA9nZZ)    |
-| [Create a new clerk account](https://airtable.com/shrx0yAKHrESSseFJ) |
-
-
 ## Shortlinks
 
 We use editable shortlinks so the external links used throught the apps can be easily updated without changing the code.

@@ -49,9 +49,11 @@ const adminSidebar = [
     sidebarDepth: 2,
     children: [
       '/admin/',
+      '/admin/forms',
       '/admin/stores',
       '/admin/storehours',
       '/admin/productimages',
+      '/admin/newclerk',
       '/admin/usertesting',
       '/admin/marketingassets',
       '/admin/links',

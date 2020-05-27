@@ -1,6 +1,10 @@
-# Airtable forms
+# Adding to Airtable
 
-Use these links to add **new** records to Airtable.
+Use these links to add **new** records to the **PROD** base in Airtable. Specific instructions for each field are included in the form descriptions. To edit existing records, refer to the [Airtable overview guide](./#usage).
+
+::: warning NOTE
+For security reasons, these links are password protected. Contact <wangannie@berkeley.edu> if you need access.
+:::
 
 | Airtable Form Links                                                  |
 | -------------------------------------------------------------------- |

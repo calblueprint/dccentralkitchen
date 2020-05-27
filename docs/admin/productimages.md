@@ -33,6 +33,6 @@ If you are uploading the image to an existing record in Airtable:
 - Drag and drop the processed image into the **Image** column in the **Products** table
 - OR in the **Image** column, click the **+** button to open the file picker to select the file from where you saved it.
 
-If you are uploading the image to create a new product through the [Airtable form](links.html#airtable-forms):
+If you are uploading the image to create a new product through the [Airtable form](forms.md):
 - Drag and drop the processed image over where it says **Drop files here**
 - OR select **Attach file**
