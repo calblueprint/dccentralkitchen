@@ -37,19 +37,12 @@ All components used in both apps exist here. All customer-related components are
 
 The graphics used on both the App and Play stores are in the **Illustrations** page. They currently contain screenshots from the app as of May 2020. If/when these need to be updated, here is a step-by-step guide on how to replace the images. 
 
-1. Download the screenshots you intend to you onto the computer you are editing Figma from. In this example, I'm using a picture of my cat. 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3c6b77a1-6d6c-41c4-bc70-edc53f145557/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3c6b77a1-6d6c-41c4-bc70-edc53f145557/Untitled.png)
-
-2. Navigate to the Illustrations page in Figma. **Do not delete the image you want to replace.**
-3. In the top left corner, click the three-bar menu, go to file, then click **Place Image.** You can also use `**ctrl/cmd + shift + k**`. 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7a979b03-1701-4fbd-83eb-a17397b0b55e/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7a979b03-1701-4fbd-83eb-a17397b0b55e/Untitled.png)
-
-4. Select the image you want to use to replace. 
-
-5. A crosshairs with a preview of your image will appear. **Click the image you want to replace**
-
+1. Download the screenshots you intend to use onto the computer you are editing Figma from.
+2. Navigate to the Illustrations page in Figma. **Do NOT delete the image you want to replace.**
+3. In the top left corner, click the three-bar menu, go to file, then click **Place Image.** You can also use `**ctrl/cmd + shift + k**`.
+4. Select the new screenshot you are replacing the existing screenshot with. 
+5. A crosshairs with a preview of your image will appear. **Click the image you want to replace.**
 6. You're done! Figma will automatically crop/fit the image you just uploaded to match the original image. Since these are all same-size screenshots, there should be no need to recrop/resize at all. 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2a494309-b254-4af9-a8e2-df424cb533fe/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2a494309-b254-4af9-a8e2-df424cb533fe/Untitled.png)
 
 Please note that the App Store requires both the 6.5 inch and 5.5 inch versions, and you will need to take screenshots on phones/simulators of both sizes and replace all 8 images.
 
