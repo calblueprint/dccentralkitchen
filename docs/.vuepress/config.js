@@ -59,6 +59,7 @@ const devSidebar = [
       ['/customer/', 'Introduction'],
       '/customer/getting-started',
       '/customer/styling',
+      '/customer/icons',
       '/customer/navigation',
       '/customer/auth',
       '/customer/stores',
@@ -75,6 +76,7 @@ const devSidebar = [
     children: [
       ['/clerk/', 'Introduction'],
       '/clerk/getting-started',
+      '/clerk/icons',
       '/clerk/auth',
       '/clerk/navigation',
       '/clerk/checkout',
