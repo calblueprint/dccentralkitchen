@@ -2,6 +2,7 @@ const globalNavbar = [
   { text: 'Home', link: '/' },
   { text: 'Admin Guide', link: '/admin/' },
   { text: 'Developer Docs', link: '/shared/overview' },
+  { text: 'Design Prototypes', link: '/design' },
   {
     text: 'Airtable',
     items: [
@@ -46,7 +47,13 @@ const adminSidebar = [
     title: 'Admin Guide',
     collapsable: false,
     sidebarDepth: 2,
-    children: ['/admin/', '/admin/stores', '/admin/storehours', '/admin/forms'],
+    children: [
+      '/admin/',
+      '/admin/stores',
+      '/admin/storehours',
+      '/admin/forms',
+      '/admin/usertesting',
+    ],
   },
 ];
 
@@ -68,6 +75,7 @@ const devSidebar = [
       '/customer/resources',
       '/customer/settings',
       '/customer/constants',
+      '/customer/usertesting',
     ],
   },
   {

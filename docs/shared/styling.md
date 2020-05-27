@@ -6,6 +6,10 @@ This documentation is the same for both the customer and clerk applications.
 
 [[toc]]
 
+::: tip Design prototypes
+See the design prototypes in Figma [here](../design.md#shared-components)
+:::
+
 ## Base Components
 
 If you find yourself adding something that is used throughout the application (e.g. a new styled button) rather than having it confined to one screen or one location, consider making it into a base component as to reduce repetitive code/importing from different locations.
@@ -141,7 +145,7 @@ The following text components from `BaseComponents.js` are used throughout both 
 - `Overline`
 - `TabSelected`
 
-This is how the text components are displayed. Source: [component designs in Figma](../shared/design.md#shared-components).
+This is how the text components are displayed. Source: [component designs in Figma](../design.md#shared-components).
 
 ![../assets/basecomponents/Text_Styles.png](../assets/basecomponents/Text_Styles.png)
 

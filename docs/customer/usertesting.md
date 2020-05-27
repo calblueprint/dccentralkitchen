@@ -1,4 +1,4 @@
-# User Testing Takeaways and Wishlist
+# User Testing Takeaways & Wishlist
 
 ## Takeaways
 
