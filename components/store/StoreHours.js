@@ -22,15 +22,11 @@ export default function StoreHours({ hours }) {
         {/* Days of the week */}
         <View style={{ width: '40%' }}>
           {daysOfTheWeekFull.map((day, _) => {
-            if (day === todaysDay) {
-              return (
-                <Body bold key={day}>
-                  {day}
-                </Body>
-              );
-            }
             return (
-              <Body color={Colors.secondaryText} key={day}>
+              <Body
+                bold={day === todaysDay}
+                color={day !== todaysDay && Colors.secondaryText}
+                key={day}>
                 {day}
               </Body>
             );
@@ -38,15 +34,11 @@ export default function StoreHours({ hours }) {
         </View>
         <View style={{ width: '60%' }}>
           {daysOfTheWeekFull.map((day, _) => {
-            if (day === todaysDay) {
-              return (
-                <Body bold key={day}>
-                  {dictHours[day].replace('12am', 'Midnight')}
-                </Body>
-              );
-            }
             return (
-              <Body color={Colors.secondaryText} key={day}>
+              <Body
+                bold={day === todaysDay}
+                color={day !== todaysDay && Colors.secondaryText}
+                key={day}>
                 {dictHours[day].replace('12am', 'Midnight')}
               </Body>
             );
