@@ -6,9 +6,10 @@ Use these links to add **new** records to the **PROD** base in Airtable. Specifi
 For security reasons, these links are password protected. Contact <wangannie@berkeley.edu> if you need access.
 :::
 
-| Airtable Form Links                                                  |
-| -------------------------------------------------------------------- |
-| [Add a new store](https://airtable.com/shrQIlY8nMRBJfElw)            |
-| [Add a new product](https://airtable.com/shrFUgVUHDns8QqoW)          |
-| [Add a new resource link](https://airtable.com/shrrLPnVm6kOA9nZZ)    |
-| [Create a new Clerk account](https://airtable.com/shrx0yAKHrESSseFJ) |
+| Airtable Form Links                                               |
+| ----------------------------------------------------------------- |
+| [Add a new store](https://airtable.com/shrQIlY8nMRBJfElw)         |
+| [Add a new product](https://airtable.com/shrFUgVUHDns8QqoW)       |
+| [Add a new resource link](https://airtable.com/shrrLPnVm6kOA9nZZ) |
+
+To add a new clerk account, refer to [this page](./newclerk.md).

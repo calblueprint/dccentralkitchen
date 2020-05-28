@@ -1,4 +1,5 @@
-# Editing stores in Airtable
+# Editing existing store data
+
 Use this guide to edit store information in Airtable. Column names are indicated below with brief explanations and examples.
 
 [[toc]]
@@ -40,6 +41,7 @@ Only include the Street Number and Street Name, **not the entire address with ci
 Enter the store's full address [here](https://www.latlong.net/)to find the Latitude and Longitude. Copy and paste the full numbers here.
 
 The numbers should look similar to this example:
+
 - Latitude: `38.903049`
 - Longitude: `-76.934087`
 
@@ -68,9 +70,9 @@ If a phone number is not available, leave this field blank. DO NOT enter anythin
 ### Accepted programs checkboxes
 
 For the following columns, check the box if the program is accepted at the store. Otherwise, leave the column blank. For reference, this is how the Airtable column names display in the app.
-| Airtable column name   | Tag label       |
+| Airtable column name | Tag label |
 | ---------------------- | --------------- |
-| SNAP or EBT Accepted   | EBT             |
-| Coupon Program Partner | SNAP Match      |
-| Rewards Accepted       | Healthy Rewards |
-| WIC                    | WIC             |
+| SNAP or EBT Accepted | EBT |
+| Coupon Program Partner | SNAP Match |
+| Rewards Accepted | Healthy Rewards |
+| WIC | WIC |

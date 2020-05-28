@@ -2,7 +2,7 @@
 
 ## Shortlinks
 
-We use editable shortlinks so the external links used throught the apps can be easily updated without changing the code.
+We use editable shortlinks so the external links used throughout the apps can be easily updated without changing the code.
 
 | Link                                 | Description                                                                                                                                     |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |

@@ -1,8 +1,34 @@
-# Introduction
+# Admin Guide
 
-This section is meant to help members of the Healthy Corners team familiarize themselves with Airtable and how to update data that appears in the customer and/or clerk applications.
+This guide is for members of the Healthy Corners team, to understand how to perform administrative tasks necessary to manage the Healthy Corners Rewards project. For an introduction to the project and the rewards program, please refer to the [homepage](/#introduction).
+
+Reading through the [Airtable introduction](#airtable) to familiarize yourself with Airtable, which stores all the data for the rewards program, is **essential**.
 
 Developers should read through the [developer documentation](../shared/overview.md).
+
+## Navigating this site
+
+We'll briefly introduce the other pages.
+
+::: warning
+Due to the nature of the project, there are some constraints on how data must be formatted when creating a new "record", or database row, in Airtable.
+
+Failing to meet these data format expectations will result in data being displayed incorrectly on the application(s), or in the worst case could cause the application(s) to crash.
+:::
+The **Airtable Guidelines** section:
+
+- [Adding to Airtable](./forms.md): Links to password-protected Airtable forms. Use these to add _new_ data to Airtable - they'll ensure all required fields are populated and have instructions on formatting.
+- [Create a clerk account](./newclerk.md): Instructions to create a new clerk account.
+- [Editing existing store data](./stores.md): This details the expected format of each field of a Store record. Make sure not to violate any of these rules when updating store data!
+- [Formatting store hours](./storehours.md): Specifically, the `Store Hours` field is very finicky. Detailed examples of accepted/unaccepted format can be found in this page.
+- [Processing product images](./productimages.md): Image sizes are constrained. This guide walks through how to compress and upload images.
+
+[Scheduled Updates](./scheduled-update.md): Explains how we keep the products displayed in the app in-sync with deliveries, and what needs to be maintained through Google Sheets.  
+[Marketing assets](./marketingassets.md): Links to various marketing assets for the applications.  
+[Important links](./links.md): Shortlinks used for convenience.  
+[Future development](./future.md): Please take a look at this page when considering changes, new features, etc.
+
+[Design Prototypes](../design.md) (linked in the navbar): introduction to Figma, which is where our application designs live; embedded prototypes.
 
 ## Airtable
 
@@ -90,72 +116,3 @@ Of these tables, currently `Push Tokens` and `News` are unused. Neither of the a
 The leftmost field of every table is used as the **primary key**. For technical reasons, this field **must** be unique for every record inthe table. Thus, we use a combination of the rest of the records' fields to make it as human-readable as possible while also guaranteeing uniqueness (usually by mixing in the records' underlying database ID).
 
 Please **do not modify** the primary key field and replace it with something else. But feel free to look at the formulas and tweak them (as long as you keep the `RECORD_ID()` part and/or otherwise enforce uniqueness).
-
-## Google Sheets
-
-We run a daily job to automatically update a store's current products in Airtable from the most recent deliveries. Currently, the Google sheet that is being used to update Airtable is called `Blueprint - Store Products` on the "FY20 Sales Data and Trends" Google Sheet. It pulls data from the 'Auto Import' sheet, so it relies on the columns being as expected.
-
-![Google Sheets - Blueprint sheet](./assets/intro/google-sheet.png)
-
-::: danger
-When the Google Sheet for deliveries is changed, the code for the automatic update **must be updated** to link to the new Google Sheet. We recommend that a developer helps do this - though it's not many steps, it does need some technical knowledge. On the admin side, the current `Blueprint - Store Products` sheet must be replicated **exactly** in the new Google Sheet, including which columns correspond to what. The formulas must be updated so that data is accurately transferred to the `Blueprint - Store Products` sheet.
-:::
-
-We'll explain the various formulas and constraints on the cells in this sheet.
-
----
-
-### Header row
-
-Most of the important cells have notes added to explain what they do as indicated by the black triangle in the upper-right corner of the cell - hover over them to view the notes.
-
-For example, the "'Auto Import' Row LOWER Limit cell" is purely informative and doesn't affect anything else on the sheet.
-
-![Auto Import cell](./assets/intro/auto-import.png)
-
-The "Date Range Start" and "Date Range End" cells are used in the formulas (more on that later) and are updated during the scheduled job to be `Today` and `Today - <Date Range Length>`. Modifying these will **not** affect future scheduled updates, since the code will simply overwrite these values.
-
-Notably, the "Date Range Length" cell is the **only cell that is used as input** by the scheduled product update code. This number indicates how many days of deliveries to check for products!
-
-::: tip
-For example, if you want to show the past 10 days of delivered products, you should update this value to **10**. The next time the scheduled job runs, it will use "10" to update the "Date Range Start" and "Date Range End" cell values.
-
-Please note that this will only affect **future** jobs - you may need to wait up to 24 hours for this change to be reflected in the app. If you'd like it to be done faster, please have a developer run the job manually ([documentation for this app](../node)).
-:::
-
-### Formula cells
-
-All of the yellow-highlighted cells other than "Date Range Start" and "Date Range End" are **formula cells**.
-
-For example, the first cell in the "Store Name" is actually a formula that does a lookup to get all the names of all stores that had deliveries during the date range specified.
-
-In general, these **do not need to be modified**.
-![Formula from Google Sheet](./assets/intro/formula.png)
-
-However, for every store that has deliveries, its corresponding cells in columns **B** ("Last Delivery") and **C** ("Products") are also formula cells. This means that the formula must be manually copied in. Currently, we assume a limit of **100 stores**. That means the formulas are pre-populated up to the 101th cell.
-::: danger
-If there are ever > 100 stores delivered to within "Date Range Length", unless the formulas are manually copied to the 101th+ row, **some products will not be updated in Airtable.**
-:::
-
-Some additional notes about the formula cells:
-
-- "Last Delivery" displays the latest delivery date to a store within the specified date range. However, that doesn't mean **all updated products** were delivered on that day (i.e consider the case store had multiple deliveries within the specified date range).
-- All formulas use a lower bound of 21000 as the first row to start getting data from in 'Auto Import'. Theoretically, updating this lower bound in all the formulas would make the formula lookup faster, but speed shouldn't be a big problem.
-- All formulas will automatically use the last row of the spreadsheet as the upper bound. This is due to A1 notation: `$A$21000:A` means start at the 21000th row and go til the end.
-
-Example of an updated Airtable Store record
-![Example Airtable record](./assets/intro/airtable-record.png)
-
-Note that Airtable keeps a record of revision history, so you can see that the latest delivery to "Dollar Plus Super Market (Howard Road)" must have been two days ago (at time of writing).
-
-::: warning Note
-Even though the scheduled update will happen daily, Airtable will only apply new updates to a store record.
-:::
-
-If you scroll down, you can see the linked Product records and can add/remove to this list as usual if you need to.
-![Record details](./assets/intro/record-detail.png)
-
-Finally, as a reminder, these are some of the affected views in the customer application. We're looking at the same example store here, so you can see that the changes are reflected directly in the application.
-|                        Map view                        |                     Individual store's product list                      |
-| :----------------------------------------------------: | :----------------------------------------------------------------------: |
-| ![Customer App: map view](./assets/intro/map-view.png) | ![Customer App: a store's product list](./assets/intro/product-list.png) |

@@ -43,22 +43,24 @@ const globalNavbar = [
 ];
 
 const adminSidebar = [
+  '/admin/',
   {
-    title: 'Admin Guide',
+    title: 'Airtable Guidelines',
     collapsable: false,
     sidebarDepth: 2,
     children: [
-      '/admin/',
       '/admin/forms',
+      '/admin/newclerk',
       '/admin/stores',
       '/admin/storehours',
+
       '/admin/productimages',
-      '/admin/newclerk',
-      '/admin/usertesting',
-      '/admin/marketingassets',
-      '/admin/links',
     ],
   },
+  '/admin/scheduled-update',
+  '/admin/marketingassets',
+  '/admin/links',
+  '/admin/future',
 ];
 
 const devSidebar = [
@@ -113,7 +115,7 @@ const devSidebar = [
       '/shared/analytics',
     ],
   },
-  '/shared/usertesting',
+  '/shared/future',
 ];
 
 module.exports = {

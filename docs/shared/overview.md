@@ -6,7 +6,7 @@ next: '../customer/'
 
 See [the homepage](/#introduction) for an introduction to the project.
 
-## Applications
+## Application Repos
 
 - [Customer-facing application](https://github.com/calblueprint/dccentralkitchen)
   - Designed for mobile use (iOS/Android)
@@ -19,6 +19,10 @@ See [the homepage](/#introduction) for an introduction to the project.
   - This website! See the [homepage](/#editing-this-site) for details.
 - [(Outdated) backend server](https://github.com/calblueprint/dccentralkitchen-backend)
   - CURRENTLY UNUSED. Contains outdated code to work with push notifications; if necessary, the code should be moved to the `dccentralkitchen-node` repo and refactored for updated usage.
+
+## Design
+
+Go to the [design prototypes page](../design) (linked in the navbar) to see the Figma project, as well as various resources.
 
 ## Known Issues
 
@@ -38,4 +42,6 @@ Relevant documentation, including instructions for onboarding and setting up loc
 
 The **Managing & Deploying Apps** section contains documentation that is shared between two or more of our repos.
 
-Finally, for convenience the `PROD` base, `DEV` base, and Airtable workspace are linked in the nav bar; so are all three of the active GitHub repos.
+[Future development](./future.md): Please take a look at this page when considering changes, new features, etc.
+
+Navbar: For convenience, the `PROD` base, `DEV` base, and Airtable workspace are linked, as well as all three of the active GitHub repos.
