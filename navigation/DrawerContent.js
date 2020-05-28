@@ -16,7 +16,15 @@ function DrawerContent(props) {
   const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
-
+  const logout = async () => {
+    await AsyncStorage.clear();
+    Sentry.configureScope((scope) => scope.clear());
+    setTimeout(() => {
+      navigation.navigate('Auth');
+    }, 500);
+    props.navigation.closeDrawer();
+    Updates.reload();
+  };
   useFocusEffect(
     React.useCallback(() => {
       let isActive = true;
@@ -66,6 +74,7 @@ function DrawerContent(props) {
             action: 'componentDidMount',
             error: err,
           });
+          logout();
         }
       };
 
@@ -80,15 +89,6 @@ function DrawerContent(props) {
   if (isLoading) {
     return null;
   }
-  const logout = async () => {
-    await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
-    setTimeout(() => {
-      navigation.navigate('Auth');
-    }, 500);
-    props.navigation.closeDrawer();
-    Updates.reload();
-  };
 
   return (
     <View
