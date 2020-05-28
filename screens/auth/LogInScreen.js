@@ -272,7 +272,8 @@ export default class LogInScreen extends React.Component {
             <ButtonContainer
               onPress={async () => this.props.navigation.navigate('Reset')}>
               <ButtonLabel
-                style={{ textTransform: 'none', marginVertical: 12 }}
+                noCaps
+                style={{ marginVertical: 12 }}
                 color={Colors.primaryGreen}>
                 Forgot Password?
               </ButtonLabel>

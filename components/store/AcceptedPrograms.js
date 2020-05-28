@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
-import { Body, ButtonContainer, TabSelected } from '../BaseComponents';
+import { Body, ButtonContainer, ButtonLabel } from '../BaseComponents';
 import ProgramTag from './ProgramTag';
 
 /**
@@ -31,13 +31,14 @@ function Program({ programName }) {
         <Body>{programToDesc[programName]}</Body>
         {programName === 'SNAP Match' && (
           <ButtonContainer
-            style={{ flexDirection: 'row' }}
+            style={{ flexDirection: 'row', alignItems: 'center' }}
             onPress={() => Linking.openURL(snapURL)}>
-            <TabSelected
+            <ButtonLabel
+              noCaps
               color={Colors.primaryOrange}
               style={{ marginRight: 4 }}>
               Learn More
-            </TabSelected>
+            </ButtonLabel>
             <FontAwesome5
               name="external-link-alt"
               size={14}

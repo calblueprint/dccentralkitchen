@@ -6,11 +6,11 @@ import { ScrollView, View } from 'react-native';
 import {
   Body,
   ButtonContainer,
+  ButtonLabel,
   Caption,
   NavButton,
   NavHeaderContainer,
   NavTitle,
-  TabSelected,
 } from '../../components/BaseComponents';
 import AcceptedPrograms from '../../components/store/AcceptedPrograms';
 import StoreHours from '../../components/store/StoreHours';
@@ -107,15 +107,16 @@ export default class StoreDetailsScreen extends React.Component {
                   )}
                 </View>
                 <ButtonContainer
-                  style={{ flexDirection: 'row' }}
+                  style={{ flexDirection: 'row', alignItems: 'center' }}
                   onPress={() =>
                     openDirections(latitude, longitude, storeName)
                   }>
-                  <TabSelected
+                  <ButtonLabel
+                    noCaps
                     color={Colors.primaryOrange}
                     style={{ marginRight: 4 }}>
                     Get Directions
-                  </TabSelected>
+                  </ButtonLabel>
                   <FontAwesome5
                     name="external-link-alt"
                     size={14}

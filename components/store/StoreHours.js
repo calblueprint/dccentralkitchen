@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { daysOfTheWeekFull, today } from '../../constants/DaysOfTheWeek';
 import { constructHoursDict } from '../../lib/mapUtils';
-import { Body, TabSelected } from '../BaseComponents';
+import { Body } from '../BaseComponents';
 
 /**
  * @prop
@@ -23,7 +23,11 @@ export default function StoreHours({ hours }) {
         <View style={{ width: '40%' }}>
           {daysOfTheWeekFull.map((day, _) => {
             if (day === todaysDay) {
-              return <TabSelected key={day}>{day}</TabSelected>;
+              return (
+                <Body bold key={day}>
+                  {day}
+                </Body>
+              );
             }
             return (
               <Body color={Colors.secondaryText} key={day}>
@@ -36,9 +40,9 @@ export default function StoreHours({ hours }) {
           {daysOfTheWeekFull.map((day, _) => {
             if (day === todaysDay) {
               return (
-                <TabSelected key={day}>
+                <Body bold key={day}>
                   {dictHours[day].replace('12am', 'Midnight')}
-                </TabSelected>
+                </Body>
               );
             }
             return (

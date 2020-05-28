@@ -5,37 +5,14 @@ import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
-export const TextButton = styled.Text`
-  font-family: poppins-regular;
-  font-size: 14px;
-  line-height: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: ${(props) => props.color || Colors.primaryGreen};
-`;
-
-export const CircleIconContainer = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  padding: 8px;
-  border-radius: 20px;
-  background-color: ${(props) => props.color || Colors.lighterGreen};
-`;
-
 export const ButtonContainer = styled.TouchableOpacity``;
 
-export const ButtonLabel = styled(TextButton)`
+export const ButtonLabel = styled.Text`
   font-family: poppins-semibold;
   font-size: 14px;
-  line-height: 21px;
-  display: flex;
+  line-height: 20px;
   text-align: center;
-  letter-spacing: 0.01px;
-  text-transform: uppercase;
+  text-transform: ${(props) => (props.noCaps ? ' none' : 'uppercase')};
   color: ${(props) => props.color || Colors.activeText};
 `;
 
@@ -77,7 +54,8 @@ export const Subhead = styled.Text`
 `;
 
 export const Body = styled.Text`
-  font-family: poppins-regular;
+  font-family: ${(props) =>
+    props.bold ? 'poppins-semibold' : 'poppins-regular'};
   font-size: 14px;
   line-height: 20px;
   color: ${(props) => props.color || Colors.activeText};
@@ -95,13 +73,6 @@ export const Overline = styled.Text`
   font-size: 14px;
   line-height: 20px;
   text-transform: uppercase;
-  color: ${(props) => props.color || Colors.activeText};
-`;
-
-export const TabSelected = styled.Text`
-  font-family: poppins-semibold;
-  font-size: 14px;
-  line-height: 20px;
   color: ${(props) => props.color || Colors.activeText};
 `;
 

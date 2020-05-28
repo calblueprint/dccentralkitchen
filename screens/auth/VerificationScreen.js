@@ -127,9 +127,7 @@ export default class VerificationScreen extends React.Component {
                 error={this.state.errors[inputFields.CODE]}
               />
               <ButtonContainer onPress={async () => this.resendCode(false)}>
-                <ButtonLabel
-                  style={{ textTransform: 'none' }}
-                  color={Colors.primaryGreen}>
+                <ButtonLabel noCaps color={Colors.primaryGreen}>
                   Resend code
                 </ButtonLabel>
               </ButtonContainer>

@@ -60,9 +60,7 @@ export default class WelcomeScreen extends React.Component {
           <ButtonContainer
             style={{ marginTop: 4, padding: 12 }}
             onPress={async () => this.guestLogin()}>
-            <ButtonLabel
-              style={{ textTransform: 'none' }}
-              color={Colors.primaryGreen}>
+            <ButtonLabel noCaps color={Colors.primaryGreen}>
               Continue without an account
             </ButtonLabel>
           </ButtonContainer>
