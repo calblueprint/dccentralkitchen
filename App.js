@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
@@ -12,7 +12,6 @@ import AppNavigator from './navigation/AppNavigator';
 Sentry.init({
   dsn: 'https://dacd32167a384e189eab16e9588c0e67@sentry.io/5172575',
   enableInExpoDevelopment: false,
-  release: 'v1.1.0',
   debug: false,
   environment: env,
 });
@@ -22,13 +21,11 @@ export default function App(props) {
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
-      <SafeAreaProvider>
-        <AppLoading
-          startAsync={loadResourcesAsync}
-          onError={handleLoadingError}
-          onFinish={() => handleFinishLoading(setLoadingComplete)}
-        />
-      </SafeAreaProvider>
+      <AppLoading
+        startAsync={loadResourcesAsync}
+        onError={handleLoadingError}
+        onFinish={() => handleFinishLoading(setLoadingComplete)}
+      />
     );
   }
   return (
@@ -44,12 +41,9 @@ export default function App(props) {
 async function loadResourcesAsync() {
   await Promise.all([
     Font.loadAsync({
-      // This is the font that we are using for our tab bar
-      ...Ionicons.font,
-      // We include SpaceMono because we use it in RewardsScreen.js. Feel free to
-      // remove this if you are not using it in your app
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      // Used across application
+      // This is the icon style we use
+      ...FontAwesome5.font,
+      // Poppins is the custom font used across the application
       'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
       'poppins-semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
       'poppins-medium': require('./assets/fonts/Poppins-Medium.ttf'),
