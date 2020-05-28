@@ -64,7 +64,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
 
   const tagContentColor = tag
     ? selected
-      ? Colors.lightest
+      ? Colors.lightText
       : Colors.darkerOrange
     : Colors.darkerGreen;
 

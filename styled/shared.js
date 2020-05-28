@@ -25,10 +25,6 @@ export const SpaceAroundRowContainer = styled.View`
   justify-content: space-around;
 `;
 
-export const ScrollCategory = styled.Text`
-  font-size: 14px;
-`;
-
 export const PoppinsText = styled.Text`
   font-family: poppins-regular;
 `;

@@ -38,7 +38,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               })
             }>
             {products.length > 0 && (
-              <Subhead color="black">{`See all ${products.length}`}</Subhead>
+              <Subhead>{`See all ${products.length}`}</Subhead>
             )}
           </ButtonContainer>
         </SpaceBetweenRowContainer>
@@ -65,7 +65,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               <FontAwesome5
                 name="shopping-basket"
                 size={64}
-                color={Colors.base}
+                color={Colors.primaryGray}
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>

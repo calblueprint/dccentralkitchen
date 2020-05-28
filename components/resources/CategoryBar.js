@@ -10,7 +10,7 @@ function CategoryBar({ icon, title }) {
     <CategoryCard>
       <CircleIcon
         icon={icon}
-        iconColor={Colors.lightest}
+        iconColor={Colors.lightText}
         circleColor={Colors.lighterGreen}
       />
       <CategoryHeadingContainer>

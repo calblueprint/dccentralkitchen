@@ -141,7 +141,7 @@ export default class VerificationScreen extends React.Component {
               onPress={() =>
                 this.verifyCode(this.state.values[inputFields.CODE])
               }>
-              <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
             </FilledButtonContainer>
           </AuthScrollContainer>
         </AuthScreenContainer>

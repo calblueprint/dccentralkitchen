@@ -127,7 +127,7 @@ export default class NameChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.changeName()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightest}>Change Name</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Change Name</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -149,7 +149,7 @@ export default class NameChangeScreen extends React.Component {
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

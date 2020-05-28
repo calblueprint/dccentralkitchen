@@ -25,12 +25,10 @@ export default class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
-    Analytics.setUnavailabilityLogging(false);
     Analytics.logEvent('open_resources', {
       name: 'resources',
       screen: 'ResourcesScreen',
     });
-    Analytics.setCurrentScreen('ResourcesScreen');
     try {
       const resources = await getAllResources();
       const CrisisResources = resources.filter(

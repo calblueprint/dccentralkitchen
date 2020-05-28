@@ -12,7 +12,7 @@ export default function SettingsStackNavigator() {
     <SettingsStack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: Colors.lightest },
+        cardStyle: { backgroundColor: Colors.bgLight },
         gestureEnabled: false,
       }}>
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />

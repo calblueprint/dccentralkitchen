@@ -74,7 +74,7 @@ function RewardsHome({ customer, participating }) {
                 name="star"
                 size={64}
                 solid
-                color={Colors.base}
+                color={Colors.primaryGray}
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>No available rewards.</Body>

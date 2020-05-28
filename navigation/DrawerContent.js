@@ -83,13 +83,12 @@ function DrawerContent(props) {
   const logout = async () => {
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
-    setTimeout(function () {
+    setTimeout(() => {
       navigation.navigate('Auth');
     }, 500);
     props.navigation.closeDrawer();
     Updates.reload();
   };
-
 
   return (
     <View
@@ -100,14 +99,14 @@ function DrawerContent(props) {
       }}>
       <View
         style={{
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.bgDark,
           height: 114,
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-end',
           padding: 8,
         }}>
-        <Title style={{ color: 'white' }}>{customer.name}</Title>
+        <Title style={{ color: Colors.lightText }}>{customer.name}</Title>
       </View>
       <DrawerItemList {...props} />
       <TouchableOpacity

@@ -9,7 +9,6 @@ import {
   Title,
 } from '../../components/BaseComponents';
 import ProductCard from '../../components/product/ProductCard';
-import Colors from '../../constants/Colors';
 import { ProductListContainer } from '../../styled/product';
 import { ColumnContainer } from '../../styled/shared';
 
@@ -51,9 +50,7 @@ export default class ProductsScreen extends React.Component {
             )}
             ListHeaderComponent={
               <ColumnContainer style={{ marginBottom: 20 }}>
-                <Title color={Colors.activeText}>
-                  {`Products (${products.length})`}
-                </Title>
+                <Title>{`Products (${products.length})`}</Title>
               </ColumnContainer>
             }
             ListFooterComponent={<View style={{ height: 400 }} />}

@@ -20,7 +20,7 @@ export default function NewsStackNavigator() {
       screenOptions={{
         drawerLabel: 'News',
         headerShown: false,
-        cardStyle: { backgroundColor: Colors.lightest },
+        cardStyle: { backgroundColor: Colors.bgLight },
         config,
       }}>
       <NewsStack.Screen name="News" component={NewsScreen} />

@@ -60,8 +60,13 @@ export default class RewardsFooter extends React.Component {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <FontAwesome5 name="star" solid size={16} color={Colors.lightest} />
-            <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
+            <FontAwesome5
+              name="star"
+              solid
+              size={16}
+              color={Colors.lightText}
+            />
+            <Subhead style={{ paddingLeft: 8 }} color={Colors.lightText}>
               {this.state.isGuest
                 ? 'Learn about Healthy Rewards >'
                 : this.state.rewards === 1
@@ -75,7 +80,7 @@ export default class RewardsFooter extends React.Component {
           </View>
         )}
         {this.state.customer && !this.state.isGuest && (
-          <Subhead color={Colors.lightest}>
+          <Subhead color={Colors.lightText}>
             {this.state.rewards > 0
               ? `View your rewards >`
               : `View your points >`}

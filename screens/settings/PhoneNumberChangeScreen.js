@@ -251,7 +251,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.openRecaptcha()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightest}>Change Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Change Number</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -268,7 +268,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

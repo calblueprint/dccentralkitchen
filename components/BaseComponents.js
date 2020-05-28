@@ -3,7 +3,6 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-
 import Colors from '../constants/Colors';
 
 export const TextButton = styled.Text`
@@ -28,7 +27,7 @@ export const CircleIconContainer = styled.View`
 `;
 
 export const ButtonContainer = styled.TouchableOpacity``;
-// TODO @tommypoa Replace top / bottom 25%
+
 export const ButtonLabel = styled(TextButton)`
   font-family: poppins-semibold;
   font-size: 14px;
@@ -37,7 +36,7 @@ export const ButtonLabel = styled(TextButton)`
   text-align: center;
   letter-spacing: 0.01px;
   text-transform: uppercase;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
@@ -60,35 +59,35 @@ export const BigTitle = styled.Text`
   font-size: 32px;
   line-height: 48px;
   text-align: ${(props) => props.align || 'left'};
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Title = styled.Text`
   font-family: poppins-medium;
   font-size: 20px;
   line-height: 30px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Subhead = styled.Text`
   font-family: poppins-regular;
   font-size: 16px;
   line-height: 24px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Body = styled.Text`
   font-family: poppins-regular;
   font-size: 14px;
   line-height: 20px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Caption = styled.Text`
   font-family: poppins-medium;
   font-size: 12px;
   line-height: 16px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Overline = styled.Text`
@@ -96,14 +95,14 @@ export const Overline = styled.Text`
   font-size: 14px;
   line-height: 20px;
   text-transform: uppercase;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const TabSelected = styled.Text`
   font-family: poppins-semibold;
   font-size: 14px;
   line-height: 20px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const NavButton = styled.TouchableOpacity`
@@ -136,8 +135,8 @@ export function NavHeaderContainer({
         paddingBottom: 4,
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
-        backgroundColor: backgroundColor || Colors.lightest,
-        shadowColor: noShadow ? 'transparent' : '#000',
+        backgroundColor: backgroundColor || Colors.bgLight,
+        shadowColor: noShadow ? 'transparent' : Colors.bgDark,
         elevation: noShadow ? 0 : 7,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,

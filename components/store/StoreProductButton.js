@@ -15,7 +15,7 @@ function StoreProductButton({ callBack }) {
       color={Colors.primaryOrange}
       onPress={callBack}
       style={{ borderRadius: 10 }}>
-      <ButtonLabel color={Colors.lightest}>See Products</ButtonLabel>
+      <ButtonLabel color={Colors.lightText}>See Products</ButtonLabel>
     </FilledButtonContainer>
   );
 }

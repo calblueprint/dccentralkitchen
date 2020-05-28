@@ -14,7 +14,7 @@ function RewardsCard() {
       <CircleIcon
         icon="star"
         iconColor={Colors.primaryGreen}
-        circleColor={Colors.lightest}
+        circleColor={Colors.lightText}
       />
       <RewardDescriptionContainer>
         <Subhead color={Colors.darkerGreen}>

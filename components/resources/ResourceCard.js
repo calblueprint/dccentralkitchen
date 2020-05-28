@@ -31,7 +31,7 @@ function ResourceCard({ resourceCard }) {
           <FontAwesome5
             name="external-link-alt"
             size={24}
-            color={Colors.base}
+            color={Colors.primaryGray}
           />
         </IconContainer>
       </ResourceItemCard>

@@ -8,12 +8,13 @@ export const MarkerContainer = styled.View`
   display: flex
   align-items: center
 `;
+
 export const MarkerStoreName = styled.Text`
   font-family: ${(props) =>
     props.focused ? 'poppins-semibold' : 'poppins-medium'};
   font-size: ${(props) => (props.focused ? '16px' : '14px')};
   line-height: ${(props) => (props.focused ? '24px' : '20px')};
-  text-align: center
+  text-align: center;
   color: ${Colors.activeText};
 `;
 
@@ -29,17 +30,18 @@ export const DividerBar = styled.View`
   margin-top: 16px;
   height: 1px;
   width: 100%;
-  background-color: ${Colors.light};
+  background-color: ${Colors.lighterGray};
 `;
+
 export const BottomSheetHeaderContainer = styled.View`
-  background-color: #fff;
+  background-color: ${Colors.bgLight};
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
 `;
 
 export const BottomSheetContainer = styled.View`
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
-  background-color: #fff;
+  background-color: ${Colors.bgLight};
   padding-bottom: 100px;
 `;
 
@@ -97,7 +99,7 @@ export const CancelButton = styled(ButtonContainer)`
 
 export const styles = StyleSheet.create({
   inputContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.bgLight,
   },
   container: {
     backgroundColor: 'transparent',
@@ -124,7 +126,7 @@ export const styles = StyleSheet.create({
   },
   selectedFilterChip: {
     backgroundColor: Colors.primaryOrange,
-    color: Colors.lightest,
+    color: Colors.lightText,
     height: 24,
     marginLeft: 6,
     marginVertical: 10,

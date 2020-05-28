@@ -258,7 +258,7 @@ export default class PasswordResetScreen extends React.Component {
                 width="100%"
                 onPress={() => this.resetPassword()}
                 disabled={!this.state.confirmed}>
-                <ButtonLabel color={Colors.lightest}>
+                <ButtonLabel color={Colors.lightText}>
                   Reset Password
                 </ButtonLabel>
               </FilledButtonContainer>
@@ -298,7 +298,7 @@ export default class PasswordResetScreen extends React.Component {
                 width="100%"
                 onPress={() => this.openRecaptcha()}
                 disabled={!validNumber}>
-                <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
+                <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
               </FilledButtonContainer>
             </View>
           )}
@@ -314,7 +314,7 @@ export default class PasswordResetScreen extends React.Component {
                 color={Colors.primaryGreen}
                 width="100%"
                 onPress={() => this.props.navigation.navigate('LogIn')}>
-                <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
+                <ButtonLabel color={Colors.lightText}>Go to Log In</ButtonLabel>
               </FilledButtonContainer>
             </View>
           )}

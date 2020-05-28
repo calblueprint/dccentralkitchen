@@ -131,7 +131,7 @@ export default class RewardsScreen extends React.Component {
             <BigTitle
               style={{
                 marginLeft: 18,
-                color: Colors.lightest,
+                color: Colors.lightText,
                 fontSize: 36,
               }}>
               Healthy Rewards
@@ -151,7 +151,7 @@ export default class RewardsScreen extends React.Component {
               color={Colors.primaryGreen}
               width="267px"
               onPress={() => this._logout()}>
-              <ButtonLabel color={Colors.lightest}>
+              <ButtonLabel color={Colors.lightText}>
                 Sign Up For Rewards
               </ButtonLabel>
             </FilledButtonContainer>
@@ -172,7 +172,7 @@ export default class RewardsScreen extends React.Component {
           <BigTitle
             style={{
               marginLeft: 18,
-              color: Colors.lightest,
+              color: Colors.lightText,
               fontSize: 36,
             }}>
             Healthy Rewards

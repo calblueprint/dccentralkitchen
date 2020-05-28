@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
+import Colors from './constants/Colors';
 import { env } from './environment';
 import AppNavigator from './navigation/AppNavigator';
 
@@ -69,6 +70,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.bgLight,
   },
 });

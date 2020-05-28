@@ -7,7 +7,7 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { Alert, AsyncStorage, Button, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -125,13 +125,13 @@ export default class SignUpScreen extends React.Component {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+        Alert.alert('Failed to get push token for push notification!');
         return;
       }
       const token = await Notifications.getExpoPushTokenAsync();
       this.setState({ token });
     } else {
-      alert('Must use physical device for Push Notifications');
+      Alert.alert('Must use physical device for Push Notifications');
     }
   };
 
@@ -405,7 +405,7 @@ export default class SignUpScreen extends React.Component {
             width="100%"
             onPress={() => this.handleSubmit()}
             disabled={!signUpPermission}>
-            <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
           {env === 'dev' && (
             <Button

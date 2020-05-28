@@ -45,7 +45,7 @@ function PointsHistory({ transactions }) {
             <FontAwesome5
               name="store"
               size={64}
-              color={Colors.base}
+              color={Colors.primaryGray}
               style={{ marginBottom: 12 }}
             />
             <Body color={Colors.secondaryText}>No history to show.</Body>
