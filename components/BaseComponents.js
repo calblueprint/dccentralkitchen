@@ -20,10 +20,6 @@ export const FilledButtonContainer = styled(ButtonContainer)`
   width: ${(props) => props.width || '344px'};
   height: ${(props) => props.height || '40px'};
   background: ${(props) => props.color || Colors.primaryGreen};
-  ${(props) =>
-    props.pressed
-      ? 'box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 24px 38px rgba(0, 0, 0, 0.14);'
-      : ''};
   border-radius: ${(props) => props.borderRadius || '20px'};
   display: flex;
   flex-direction: column;
@@ -46,7 +42,7 @@ export const Title = styled.Text`
   color: ${(props) => props.color || Colors.activeText};
 `;
 
-export const Subhead = styled.Text`
+export const Subtitle = styled.Text`
   font-family: poppins-regular;
   font-size: 16px;
   line-height: 24px;
@@ -76,7 +72,7 @@ export const Overline = styled.Text`
   color: ${(props) => props.color || Colors.activeText};
 `;
 
-export const NavButton = styled.TouchableOpacity`
+export const NavButtonContainer = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   z-index: 100;

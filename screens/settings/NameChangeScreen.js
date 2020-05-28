@@ -8,7 +8,7 @@ import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
@@ -136,14 +136,14 @@ export default class NameChangeScreen extends React.Component {
           <View>
             <BackButton />
             <BigTitle>Success!</BigTitle>
-            <Subhead
+            <Subtitle
               style={{
                 marginTop: 32,
               }}>
               {`Your name was successfully changed to ${
                 this.state.values[inputFields.NAME]
               }. Press refresh to see changes.`}
-            </Subhead>
+            </Subtitle>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}

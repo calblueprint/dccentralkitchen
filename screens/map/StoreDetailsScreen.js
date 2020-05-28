@@ -8,7 +8,7 @@ import {
   ButtonContainer,
   ButtonLabel,
   Caption,
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
@@ -45,9 +45,9 @@ export default class StoreDetailsScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
-          <NavButton onPress={() => this.props.navigation.goBack()}>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle>{storeName}</NavTitle>
         </NavHeaderContainer>
         <ScrollView style={{ marginLeft: 16 }}>

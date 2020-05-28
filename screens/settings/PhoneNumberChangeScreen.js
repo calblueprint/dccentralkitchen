@@ -10,7 +10,7 @@ import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import firebaseConfig from '../../firebase';
@@ -260,9 +260,9 @@ export default class PhoneNumberChangeScreen extends React.Component {
           <View>
             <BackButton />
             <BigTitle>Success!</BigTitle>
-            <Subhead style={{ marginTop: 32 }}>
+            <Subtitle style={{ marginTop: 32 }}>
               {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}. Refresh to see changes.`}
-            </Subhead>
+            </Subtitle>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}

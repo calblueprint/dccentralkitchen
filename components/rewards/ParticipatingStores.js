@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ColumnContainer } from '../../styled/shared';
-import { ButtonContainer, Overline, Subhead } from '../BaseComponents';
+import { ButtonContainer, Overline, Subtitle } from '../BaseComponents';
 
 export default function ParticipatingStores({ participating, guest }) {
   const navigation = useNavigation();
@@ -17,7 +17,7 @@ export default function ParticipatingStores({ participating, guest }) {
       {participating.map((store) => {
         return (
           <ButtonContainer key={store.id}>
-            <Subhead
+            <Subtitle
               style={{ marginLeft: 12 }}
               onPress={() =>
                 navigation.navigate('Stores', {
@@ -25,11 +25,11 @@ export default function ParticipatingStores({ participating, guest }) {
                 })
               }>
               {store.storeName}
-            </Subhead>
+            </Subtitle>
           </ButtonContainer>
         );
       })}
-      <Subhead style={{ marginLeft: 12 }}>More stores coming soon!</Subhead>
+      <Subtitle style={{ marginLeft: 12 }}>More stores coming soon!</Subtitle>
     </ColumnContainer>
   );
 }

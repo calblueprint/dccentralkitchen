@@ -8,7 +8,7 @@ import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
 } from '../../components/BaseComponents';
 import HowItWorks from '../../components/rewards/HowItWorks';
@@ -128,9 +128,9 @@ export default class RewardsScreen extends React.Component {
           vertical
           noShadow
           backgroundColor={Colors.primaryGreen}>
-          <NavButton onPress={() => this.props.navigation.goBack()}>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-down" solid size={24} color="white" />
-          </NavButton>
+          </NavButtonContainer>
           <BigTitle
             style={{
               marginLeft: 18,

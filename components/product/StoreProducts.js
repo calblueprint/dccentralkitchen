@@ -7,7 +7,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
 import { StoreDetailText } from '../../styled/store';
-import { Body, ButtonContainer, Subhead, Title } from '../BaseComponents';
+import { Body, ButtonContainer, Subtitle, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
@@ -38,7 +38,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               })
             }>
             {products.length > 0 && (
-              <Subhead>{`See all ${products.length}`}</Subhead>
+              <Subtitle>{`See all ${products.length}`}</Subtitle>
             )}
           </ButtonContainer>
         </SpaceBetweenRowContainer>

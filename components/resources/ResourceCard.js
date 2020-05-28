@@ -9,7 +9,7 @@ import {
   IconContainer,
   ResourceItemCard,
 } from '../../styled/resources';
-import { Body, ButtonContainer, Subhead } from '../BaseComponents';
+import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
 function cardPressed(resource) {
   Analytics.logEvent('resources_ext_link', {
@@ -24,7 +24,7 @@ function ResourceCard({ resourceCard }) {
     <ButtonContainer onPress={() => cardPressed(resourceCard)}>
       <ResourceItemCard>
         <ContentContainer>
-          <Subhead>{resourceCard.title}</Subhead>
+          <Subtitle>{resourceCard.title}</Subtitle>
           <Body color={Colors.secondaryText}>{resourceCard.description}</Body>
         </ContentContainer>
         <IconContainer>

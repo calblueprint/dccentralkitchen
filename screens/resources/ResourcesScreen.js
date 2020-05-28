@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import {
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
@@ -62,9 +62,10 @@ export default class ResourcesScreen extends React.Component {
     return (
       <View>
         <NavHeaderContainer>
-          <NavButton onPress={() => this.props.navigation.goBack(null)}>
+          <NavButtonContainer
+            onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>

@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
-import { Body, ButtonContainer, Subhead } from '../BaseComponents';
+import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
 function SettingsCard({ title, description, navigation, titleColor }) {
   return (
     <ButtonContainer onPress={() => navigation()}>
       <ResourceItemCard>
         <ContentContainer>
-          <Subhead color={titleColor}>{title}</Subhead>
+          <Subtitle color={titleColor}>{title}</Subtitle>
           {description === '' || (
             <Body color={Colors.secondaryText}>{description}</Body>
           )}

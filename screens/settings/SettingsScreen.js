@@ -14,7 +14,7 @@ import {
 import {
   Body,
   ButtonContainer,
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
@@ -62,9 +62,10 @@ export default class SettingsScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
-          <NavButton onPress={() => this.props.navigation.goBack(null)}>
+          <NavButtonContainer
+            onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle>Settings</NavTitle>
         </NavHeaderContainer>
         <ScrollView>

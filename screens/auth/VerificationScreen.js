@@ -8,7 +8,7 @@ import {
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { inputFields } from '../../lib/authUtils';
@@ -110,9 +110,9 @@ export default class VerificationScreen extends React.Component {
               <FontAwesome5 name="arrow-left" solid size={24} />
             </BackButton>
             <BigTitle>{`Verify Phone \nNumber`}</BigTitle>
-            <Subhead style={{ paddingTop: 32 }}>
+            <Subtitle style={{ paddingTop: 32 }}>
               {`Enter the 6-digit code sent to\n ${this.props.number}`}
-            </Subhead>
+            </Subtitle>
             <FormContainer>
               <AuthTextField
                 fieldType="Verification Code"

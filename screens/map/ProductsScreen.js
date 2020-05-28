@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import {
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
   Title,
@@ -23,9 +23,9 @@ export default class ProductsScreen extends React.Component {
     return (
       <View>
         <NavHeaderContainer withMargin>
-          <NavButton onPress={() => this.props.navigation.goBack()}>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle>{store.storeName}</NavTitle>
         </NavHeaderContainer>
         <ProductListContainer>

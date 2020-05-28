@@ -11,7 +11,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {
   ButtonContainer,
   NavHeaderContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
@@ -195,7 +195,6 @@ export default class MapScreen extends React.Component {
   };
 
   renderHeader = () => (
-    // TODO @tommypoa Favourites functionality
     <BottomSheetHeaderContainer>
       <DragBar />
     </BottomSheetHeaderContainer>
@@ -204,11 +203,11 @@ export default class MapScreen extends React.Component {
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Subhead
+        <Subtitle
           style={{ margin: 16, marginBottom: 0 }}
           color={Colors.secondaryText}>
           Browsing healthy products at
-        </Subhead>
+        </Subtitle>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -293,9 +292,9 @@ export default class MapScreen extends React.Component {
               size={16}
               color={Colors.primaryOrange}
             />
-            <Subhead color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+            <Subtitle color={Colors.secondaryText} style={{ marginLeft: 8 }}>
               Find a store
-            </Subhead>
+            </Subtitle>
           </SearchBar>
         </NavHeaderContainer>
         {!this.state.showDefaultStore && (
@@ -374,7 +373,6 @@ export default class MapScreen extends React.Component {
             backgroundColor: Colors.primaryGreen,
             alignSelf: 'stretch',
             width: Window.width,
-            alignItems: 'center',
             justifyContent: 'center',
             zIndex: 1000,
           }}
