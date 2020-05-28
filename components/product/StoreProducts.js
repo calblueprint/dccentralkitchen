@@ -17,7 +17,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
     <View>
       <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
       <View>
-        <SpaceBetweenRowContainer margin={(0, 16)}>
+        <SpaceBetweenRowContainer margin={16}>
           <View style={{ flexDirection: 'row' }}>
             <Title>Products</Title>
             {products.length > 0 && (
@@ -69,7 +69,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>
-                No recent deliveries...check back later!
+                No deliveries in the last 7 days...check back later!
               </Body>
             </View>
           }
