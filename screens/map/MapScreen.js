@@ -20,6 +20,7 @@ import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { initialRegion } from '../../constants/Map';
 import RecordIds from '../../constants/RecordIds';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
@@ -37,13 +38,6 @@ const maxSnapPoint = 488;
 const deltas = {
   latitudeDelta: 0.01,
   longitudeDelta: 0.01,
-};
-
-const initialRegion = {
-  latitude: 38.905548,
-  longitude: -77.036623,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
 };
 
 export default class MapScreen extends React.Component {
