@@ -61,7 +61,7 @@ You'll need access to our Airtable workspace in order to access the bases. Pleas
 
 ## Contributing
 
-### Development Lifecycle
+### Development lifecycle
 
 These code quality and lifecycle improvements were originally added to the customer repo in [PR #23](https://github.com/calblueprint/dccentralkitchen/pull/23), and to the clerk repo in [PR #6](https://github.com/calblueprint/dccentralkitchen-clerks/pull/6).
 
@@ -76,6 +76,10 @@ These code quality and lifecycle improvements were originally added to the custo
 - **Pre-commit hook**: lint & format
 
   - [husky](https://www.npmjs.com/package/husky) enables easy usage of Git hooks, while [lint-staged](https://github.com/okonet/lint-staged) runs a series of scripts on only staged files.
+  - Notably, this will prevent you from committing unless you fix the lint errors. If you find an exceptional case where fixing the lint errors is undesirable, VSCode makes it easy to add a `// disable <rule-name>` line. You should **not** commit with `--no-verify`, as this will just cause the errors to snowball. Fixing lint errors also helps you learn good practice when writing JavaScript/working in React.
+    ::: tip
+    See the PRs ([Customer #128](https://github.com/calblueprint/dccentralkitchen/pull/128) and [clerk #50](https://github.com/calblueprint/dccentralkitchen-clerks/pull/50) where we enabled the linter and linted the entire repo for examples.
+    :::
 
 - **Post-checkout/merge/write hook**: yarn package management
 
@@ -108,6 +112,17 @@ In our code, we only ever call functions in `request.js`; see `lib/<feature>Util
 You'll notice that the workspace contains multiple bases. Likely, you will only really interact with the `[DEV]` and `[PROD]` bases - if you take a look at `environment.js` (which you should have created in the [Setup section](#setup)), you'll see that the environment variables auto-switch to connect to the `[DEV]` base in "development" mode using various flags. To elaborate, we only connect to the `[PROD]` base in "production"; this assumes the Expo `release-channel` is called `prod`. If that doesn't exist, check if `NODE_ENV` is `production`, which is true when an app is published via Expo, or when you click "Production mode" via the Expo UI. The [original PR for auto-switching](https://github.com/calblueprint/dccentralkitchen/pull/95) has helpful screenshots, though we added fallbacks and fall-throughs since then.
 
 What all that means is that when you're developing locally, you should be working with the `[DEV]` base. Once your updates have been deployed to the App Store, use a test account from the `[PROD]` base to see if your updates are working properly.
+
+### Directory structure
+
+When adding to the repo, try your best to adhere to our structure, but these are just general guidelines. There will always be exceptional cases, so use your best judgment as to whether to (and where to) create new files.
+
+- `components`: Reusable React components (e.g repeated often within a screen, used across several screens, bulky components which are extremely complex, general-purpose components).
+- `constants`: In general, try not to hardcode IDs or values. For example, we keep `rewardsDollarValue` and `rewardsPointValue` in `constants/Rewards.js`. See the [constants](./constants.md) doc.
+- `lib`: Shared Javascript functions, and the Airtable generated files. Most of these are named `<feature-name>Utils.js`, in accordance with the files or subfolders of `screens`. We generally extract these as long as the function doesn't need to use `this.<variable-or-function>`, especially if it's a lengthy function. Many of these are also reused across files.
+- `navigation`: The logic for all the application navigation. See the [navigation docs](./navigation.md).
+- `screens`: The content for the individual screens displayed in the app. These are sometimes categorized into subfolders based on feature (customer app).
+- `styled`: Contains the `styled-components` corresponding to various components and screens. Generally named `<feature-name>.js`.
 
 ## Deploying to the App Store(s)
 
