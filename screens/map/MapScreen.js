@@ -5,10 +5,14 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
+import {
+  ButtonContainer,
+  NavHeaderContainer,
+  Subhead,
+} from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
@@ -362,7 +366,7 @@ export default class MapScreen extends React.Component {
             ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
-        <TouchableOpacity
+        <ButtonContainer
           style={{
             position: 'absolute',
             height: 70,
@@ -376,7 +380,7 @@ export default class MapScreen extends React.Component {
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <RewardsFooter />
-        </TouchableOpacity>
+        </ButtonContainer>
       </View>
     );
   }

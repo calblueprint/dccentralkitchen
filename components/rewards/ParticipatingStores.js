@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { ColumnContainer } from '../../styled/shared';
-import { Overline, Subhead } from '../BaseComponents';
+import { ButtonContainer, Overline, Subhead } from '../BaseComponents';
 
 export default function ParticipatingStores({ participating, guest }) {
   const navigation = useNavigation();
@@ -17,7 +16,7 @@ export default function ParticipatingStores({ participating, guest }) {
       <Overline>Participating Stores</Overline>
       {participating.map((store) => {
         return (
-          <TouchableOpacity key={store.id}>
+          <ButtonContainer key={store.id}>
             <Subhead
               style={{ marginLeft: 12 }}
               onPress={() =>
@@ -27,7 +26,7 @@ export default function ParticipatingStores({ participating, guest }) {
               }>
               {store.storeName}
             </Subhead>
-          </TouchableOpacity>
+          </ButtonContainer>
         );
       })}
       <Subhead style={{ marginLeft: 12 }}>More stores coming soon!</Subhead>

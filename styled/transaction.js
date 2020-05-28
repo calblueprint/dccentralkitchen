@@ -7,7 +7,7 @@ export const TransactionCard = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.12);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.14);
-  border-color: ${Colors.lighter};
+  border-color: ${Colors.lightestGray};
   background-color: ${Colors.bgLight};
   margin: 8px 16px;
   padding: 16px 8px;

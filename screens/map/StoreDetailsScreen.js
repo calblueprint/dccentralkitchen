@@ -2,9 +2,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import {
   Body,
+  ButtonContainer,
   Caption,
   NavButton,
   NavHeaderContainer,
@@ -94,9 +95,9 @@ export default class StoreDetailsScreen extends React.Component {
                   paddingRight: 50,
                   flexWrap: 'wrap',
                 }}>
-                <TouchableOpacity onLongPress={() => writeToClipboard(address)}>
+                <ButtonContainer onLongPress={() => writeToClipboard(address)}>
                   <Body>{address}</Body>
-                </TouchableOpacity>
+                </ButtonContainer>
                 <Body>{`Ward ${ward}`}</Body>
                 <View style={{ flex: 1, marginBottom: 10 }}>
                   {seeDistance && (
@@ -105,7 +106,7 @@ export default class StoreDetailsScreen extends React.Component {
                     </Caption>
                   )}
                 </View>
-                <TouchableOpacity
+                <ButtonContainer
                   style={{ flexDirection: 'row' }}
                   onPress={() =>
                     openDirections(latitude, longitude, storeName)
@@ -120,12 +121,12 @@ export default class StoreDetailsScreen extends React.Component {
                     size={14}
                     color={Colors.primaryOrange}
                   />
-                </TouchableOpacity>
+                </ButtonContainer>
               </View>
             </InLineContainer>
           </View>
           {/* Phone Number */}
-          <TouchableOpacity
+          <ButtonContainer
             disabled={!phoneNumber}
             onPress={() =>
               Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
@@ -143,7 +144,7 @@ export default class StoreDetailsScreen extends React.Component {
                 {phoneNumber || 'Phone number unavailable'}
               </Body>
             </InLineContainer>
-          </TouchableOpacity>
+          </ButtonContainer>
           {/* Store Hours */}
           <InLineContainer style={{ paddingBottom: 32 }}>
             <FontAwesome5

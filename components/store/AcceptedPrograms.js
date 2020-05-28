@@ -2,11 +2,11 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
-import { Body, TabSelected } from '../BaseComponents';
+import { Body, ButtonContainer, TabSelected } from '../BaseComponents';
 import ProgramTag from './ProgramTag';
 
 /**
@@ -30,7 +30,7 @@ function Program({ programName }) {
       <View style={styles.tagChipDesc}>
         <Body>{programToDesc[programName]}</Body>
         {programName === 'SNAP Match' && (
-          <TouchableOpacity
+          <ButtonContainer
             style={{ flexDirection: 'row' }}
             onPress={() => Linking.openURL(snapURL)}>
             <TabSelected
@@ -43,7 +43,7 @@ function Program({ programName }) {
               size={14}
               color={Colors.primaryOrange}
             />
-          </TouchableOpacity>
+          </ButtonContainer>
         )}
       </View>
     </SpaceBetweenRowContainer>

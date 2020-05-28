@@ -66,22 +66,6 @@ export const SearchBar = styled(ButtonContainer)`
   elevation: 12;
 `;
 
-export const EBTStatusBar = styled.View`
-  display: flex;
-  flex-direction: row;
-  padding-top: 1px;
-  padding-left: 6px;
-  padding-right: 9px;
-  background-color: ${Colors.lightestGreen};
-  align-items: center;
-  justify-content: space-between;
-  width: 48px;
-  height: 18px;
-  border-radius: 20px;
-  margin-top: 6px;
-  margin-left: 6px;
-`;
-
 export const StoreDetailText = styled(Body)`
   margin-left: 4px;
   color: ${(props) =>

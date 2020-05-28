@@ -2,8 +2,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Dimensions, Linking, TouchableOpacity } from 'react-native';
+import { Linking } from 'react-native';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import {
   getMaxWidth,
   openDirections,
@@ -19,7 +20,7 @@ import {
   StoreCardContainer,
   StoreDetailText,
 } from '../../styled/store';
-import { Caption, Title } from '../BaseComponents';
+import { ButtonContainer, Caption, Title } from '../BaseComponents';
 import ProgramTag from './ProgramTag';
 
 /**
@@ -44,7 +45,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity
+    <ButtonContainer
       disabled={!storeList}
       onPress={() =>
         navigation.navigate('Stores', {
@@ -56,14 +57,14 @@ export default function StoreCard({ store, storeList, seeDistance }) {
           <RowContainer>
             <Title
               style={{
-                maxWidth: getMaxWidth(Dimensions.get('window').width),
+                maxWidth: getMaxWidth(Window.width),
               }}
               numberOfLines={1}
               ellipsizeMode="tail">
               {storeName}
             </Title>
           </RowContainer>
-          <TouchableOpacity
+          <ButtonContainer
             onPress={() =>
               navigation.navigate('StoreDetailsScreen', {
                 store,
@@ -77,7 +78,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
               size={30}
               color={Colors.primaryOrange}
             />
-          </TouchableOpacity>
+          </ButtonContainer>
         </SpaceBetweenRowContainer>
         {/* Accepted Program Tags */}
         {(snapOrEbtAccepted ||
@@ -102,7 +103,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             {`${distance} miles away`}
           </Caption>
         )}
-        <TouchableOpacity
+        <ButtonContainer
           disabled={storeList}
           onPress={() => openDirections(latitude, longitude, storeName)}
           onLongPress={() => writeToClipboard(address)}>
@@ -114,8 +115,8 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             />
             <StoreDetailText>{address}</StoreDetailText>
           </InLineContainer>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </ButtonContainer>
+        <ButtonContainer
           disabled={storeList || !phoneNumber}
           onPress={() => {
             Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')));
@@ -132,7 +133,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
               {phoneNumber || 'Phone number unavailable'}
             </StoreDetailText>
           </InLineContainer>
-        </TouchableOpacity>
+        </ButtonContainer>
 
         <InLineContainer style={{ alignItems: 'center' }}>
           <FontAwesome5
@@ -151,7 +152,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
         </InLineContainer>
         <DividerBar />
       </StoreCardContainer>
-    </TouchableOpacity>
+    </ButtonContainer>
   );
 }
 

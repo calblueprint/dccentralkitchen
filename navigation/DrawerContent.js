@@ -4,9 +4,9 @@ import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, Linking, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
-import { Title } from '../components/BaseComponents';
+import { ButtonContainer, Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
 import { logErrorToSentry } from '../lib/logUtils';
@@ -109,19 +109,19 @@ function DrawerContent(props) {
         <Title style={{ color: Colors.lightText }}>{customer.name}</Title>
       </View>
       <DrawerItemList {...props} />
-      <TouchableOpacity
+      <ButtonContainer
         style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => {
           props.navigation.goBack();
           props.navigation.navigate('RewardsOverlay');
         }}>
         <Title style={{ height: 30 }}>Rewards</Title>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </ButtonContainer>
+      <ButtonContainer
         style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => Linking.openURL(link)}>
         <Title style={{ height: 30 }}>Feedback</Title>
-      </TouchableOpacity>
+      </ButtonContainer>
       <View
         style={{
           flex: 1,
@@ -129,11 +129,11 @@ function DrawerContent(props) {
           justifyContent: 'flex-end',
           verticalAlign: 'bottom',
         }}>
-        <TouchableOpacity
+        <ButtonContainer
           style={{ paddingLeft: 16, paddingBottom: 21 }}
           onPress={() => logout()}>
           <Title>Log Out</Title>
-        </TouchableOpacity>
+        </ButtonContainer>
       </View>
     </View>
   );

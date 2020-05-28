@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import {
   Card,
   ContentContainer,
@@ -8,6 +7,7 @@ import {
   DateContainer,
   DateText,
 } from '../../styled/news';
+import { ButtonContainer } from '../BaseComponents';
 
 class NewsItem extends React.Component {
   displaySummary() {
@@ -22,7 +22,7 @@ class NewsItem extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
+      <ButtonContainer
         onPress={() =>
           this.props.navigation.navigate('NewsDetails', {
             currentNewsItem: this.props.newsItem,
@@ -37,7 +37,7 @@ class NewsItem extends React.Component {
             <ContentText>{this.displaySummary()}</ContentText>
           </ContentContainer>
         </Card>
-      </TouchableOpacity>
+      </ButtonContainer>
     );
   }
 }

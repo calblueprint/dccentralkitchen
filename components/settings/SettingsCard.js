@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
-import { Body, Subhead } from '../BaseComponents';
+import { Body, ButtonContainer, Subhead } from '../BaseComponents';
 
 function SettingsCard({ title, description, navigation, titleColor }) {
   return (
-    <TouchableOpacity onPress={() => navigation()}>
+    <ButtonContainer onPress={() => navigation()}>
       <ResourceItemCard>
         <ContentContainer>
           <Subhead color={titleColor}>{title}</Subhead>
@@ -16,7 +15,7 @@ function SettingsCard({ title, description, navigation, titleColor }) {
           )}
         </ContentContainer>
       </ResourceItemCard>
-    </TouchableOpacity>
+    </ButtonContainer>
   );
 }
 
