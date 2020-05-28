@@ -105,7 +105,7 @@ export default class SettingsScreen extends React.Component {
             title="Privacy Policy"
             navigation={() =>
               Linking.openURL(
-                'https://hackmd.io/@wangannie/HealthyCornersRewardsPrivacyPolicy'
+                'https://healthycorners-rewards.netlify.app/shared/privacypolicy.html'
               )
             }
           />
