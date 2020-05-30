@@ -1,4 +1,4 @@
-# Marketing assets
+# Marketing Assets
 
 Here are some resources that may be helpful with marketing the app.
 

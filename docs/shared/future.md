@@ -1,4 +1,4 @@
-# Future development
+# Future Development
 
 When considering design changes, pivots, and/or new features, this page may be useful. Also, as a reference, the motivation behind the original design is covered in the [Fall 2019 presentation](https://docs.google.com/presentation/d/1Q5_InElKnsrxvVdGdSQnlQo9-2z041UiefY3XZN8qhc/edit?usp=sharing).
 
