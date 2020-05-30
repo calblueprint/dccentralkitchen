@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+import * as Sentry from 'sentry-expo';
 import {
   BigTitle,
   ButtonLabel,
@@ -75,6 +76,7 @@ export default class RewardsScreen extends React.Component {
   _logout = async () => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
+    Sentry.configureScope((scope) => scope.clear());
     this.props.navigation.navigate('Auth', { screen: 'SignUp' });
   };
 

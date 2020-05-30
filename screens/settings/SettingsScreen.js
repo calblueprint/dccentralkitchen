@@ -10,6 +10,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import {
   Body,
   ButtonContainer,
@@ -49,6 +50,7 @@ export default class SettingsScreen extends React.Component {
   _logout = async () => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
+    Sentry.configureScope((scope) => scope.clear());
     if (this.state.isGuest) {
       this.props.navigation.navigate('Auth', { screen: 'SignUp' });
     } else {
