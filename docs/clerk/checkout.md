@@ -1,6 +1,10 @@
 # Checkout Screen
 
-## Cart (line items)
+This guide covers the basic components of the Checkout Screen.
+
+![checkout](../assets/clerk/checkoutscreen.jpeg)
+
+## Current Sale (line items)
 
 Line Items are records detailing the purchase of a specific product in a single transaction. They allow us to keep a record of specific purchases made in individual transactions, as can be seen in the Transactions table.
 
