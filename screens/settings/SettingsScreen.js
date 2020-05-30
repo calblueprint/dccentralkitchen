@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -51,11 +50,10 @@ export default class SettingsScreen extends React.Component {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
     if (this.state.isGuest) {
-      this.props.navigation.navigate('SignUp');
+      this.props.navigation.navigate('Auth', { screen: 'SignUp' });
     } else {
-      this.props.navigation.navigate('Auth');
+      this.props.navigation.navigate('Auth', { screen: 'Welcome' });
     }
-    Updates.reload();
   };
 
   render() {
