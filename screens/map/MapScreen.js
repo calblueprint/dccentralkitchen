@@ -5,7 +5,7 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
@@ -307,6 +307,8 @@ export default class MapScreen extends React.Component {
             overflow: 'visible',
             zIndex: -1,
           }}
+          loadingEnabled
+          showsUserLocation
           ref={(mapView) => {
             this._map = mapView;
           }}
@@ -329,19 +331,6 @@ export default class MapScreen extends React.Component {
               />
             </Marker>
           ))}
-          {/* If current location found, show current location marker */}
-          {this.state.location && (
-            <Marker
-              key={coords.latitude
-                .toString()
-                .concat(coords.longitude.toString())}
-              coordinate={coords}>
-              <Image
-                style={{ width: 32, height: 32 }}
-                source={require('../../assets/images/Current_Location.png')}
-              />
-            </Marker>
-          )}
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
