@@ -47,14 +47,13 @@ export default class SettingsScreen extends React.Component {
     this.setState({ isGuest });
   }
 
-  _logout = async () => {
+  _logout = async (signUp = false) => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
-    if (this.state.isGuest) {
-      this.props.navigation.navigate('Auth', { screen: 'SignUp' });
-    } else {
-      this.props.navigation.navigate('Auth', { screen: 'Welcome' });
+    this.props.navigation.navigate('Auth', { screen: 'Welcome' });
+    if (signUp) {
+      this.props.navigation.navigate('SignUp');
     }
   };
 
@@ -74,7 +73,7 @@ export default class SettingsScreen extends React.Component {
             <SettingsCard
               title="Create an account"
               description="Start earning Healthy Rewards"
-              navigation={this._logout}
+              navigation={() => this._logout(true)}
             />
           )}
           {!this.state.isGuest && (
