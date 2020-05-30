@@ -46,7 +46,6 @@ export default class MapScreen extends React.Component {
 
     this.state = {
       locationErrorMsg: null,
-      location: null,
       region: initialRegion,
       stores: null,
       store: null,
@@ -85,18 +84,32 @@ export default class MapScreen extends React.Component {
         locationErrorMsg: 'Permission to access location was denied',
       });
     } else {
-      const location = await Location.getCurrentPositionAsync({});
-      const region = {
-        latitude: location.coords.latitude - deltas.latitudeDelta / 3.5,
-        longitude: location.coords.longitude,
-        ...deltas,
-      };
-      // Don't re-animate if we're using the default store
-      if (this._map && !this.state.showDefaultStore) {
-        this._map.animateToRegion(region, 1000);
-        this.setState({ locationErrorMsg: null, location });
-      } else {
-        this.setState({ locationErrorMsg: null, location, region });
+      try {
+        const location = await Location.getCurrentPositionAsync({
+          timeout: 3000,
+        });
+        const region = {
+          latitude: location.coords.latitude - deltas.latitudeDelta / 3.5,
+          longitude: location.coords.longitude,
+          ...deltas,
+        };
+        // Don't re-animate if we're using the default store
+        if (this._map && !this.state.showDefaultStore) {
+          this._map.animateToRegion(region, 1000);
+          this.setState({ locationErrorMsg: null });
+        } else {
+          this.setState({ locationErrorMsg: null, region });
+        }
+      } catch (err) {
+        console.log(err);
+        this.setState({
+          locationErrorMsg: 'Permission to access location was denied',
+        });
+        logErrorToSentry({
+          screen: 'MapScreen',
+          function: '_findCurrentLocation',
+          error: err,
+        });
       }
     }
   };
@@ -253,11 +266,6 @@ export default class MapScreen extends React.Component {
   }
 
   render() {
-    let coords = null;
-    if (this.state.location) {
-      coords = this.state.location.coords;
-    }
-
     // If populateStores has not finished, return nothing
     if (!this.state.stores || !this.state.storeProducts) {
       return <View />;
