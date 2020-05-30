@@ -20,7 +20,7 @@ import {
   updateCustomers,
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, inputFields } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -58,6 +58,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       console.error(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
@@ -122,7 +127,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         console.log('Duplicate customer');
         const errorMsg = 'Phone number already in use.';
         logAuthErrorToSentry({
-          screen: 'checkDuplicateCustomers',
+          screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
           attemptedPhone: formattedPhoneNumber,
           attemptedPass: null,
@@ -163,6 +168,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
     } catch (err) {
       this.setModalVisible(true);
       console.log(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   };
 
@@ -178,6 +188,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };

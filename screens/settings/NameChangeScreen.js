@@ -13,6 +13,7 @@ import {
 import Colors from '../../constants/Colors';
 import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
 import { inputFields } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -43,6 +44,11 @@ export default class NameChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       console.error(err);
+      logErrorToSentry({
+        screen: 'NameChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 

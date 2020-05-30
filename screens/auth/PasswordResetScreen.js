@@ -23,6 +23,7 @@ import {
   formatPhoneNumber,
   inputFields,
 } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -146,6 +147,11 @@ export default class PasswordResetScreen extends React.Component {
     } catch (err) {
       this.setModalVisible(true);
       console.log(err);
+      logErrorToSentry({
+        screen: 'PasswordResetScreen',
+        action: 'openRecaptcha',
+        error: err,
+      });
     }
   };
 
@@ -161,6 +167,11 @@ export default class PasswordResetScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PasswordResetScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };
@@ -180,6 +191,11 @@ export default class PasswordResetScreen extends React.Component {
       }
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PasswordResetScreen',
+        action: 'findCustomer',
+        error: err,
+      });
     }
     return true;
   };

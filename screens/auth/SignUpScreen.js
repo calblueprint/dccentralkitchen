@@ -30,7 +30,7 @@ import {
   formatPhoneNumber,
   inputFields,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -178,6 +178,11 @@ export default class SignUpScreen extends React.Component {
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
+      logErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'addCustomer',
+        error: err,
+      });
     }
     return null;
   };
@@ -243,6 +248,11 @@ export default class SignUpScreen extends React.Component {
     } catch (err) {
       this.setModalVisible(true);
       console.log(err);
+      logErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'openRecaptcha',
+        error: err,
+      });
     }
   };
 
@@ -258,6 +268,11 @@ export default class SignUpScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };
