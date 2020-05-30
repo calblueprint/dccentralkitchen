@@ -4,7 +4,7 @@ import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Linking, View } from 'react-native';
+import { Alert, AsyncStorage, Linking, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import { ButtonContainer, Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -74,7 +74,11 @@ function DrawerContent(props) {
             action: 'componentDidMount',
             error: err,
           });
-          logout();
+          Alert.alert(
+            'This account has been removed',
+            'You are logged into an account that no longer exists. You must log out and create a new account.',
+            [{ text: 'OK', onPress: () => logout() }]
+          );
         }
       };
 
