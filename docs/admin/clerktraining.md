@@ -21,7 +21,7 @@ To view just the video demos, click here: [Clerk Training Gif Demos](./clerktrai
 **Table of Contents:** 
 [[toc]]
 
-## :carrot: What is Healthy Rewards?
+## What is Healthy Rewards?
 
 **Healthy Rewards** is a program that encourages shoppers to purchase more fresh and healthy fruits and vegetables! 
 
@@ -36,7 +36,7 @@ Here's how it works:
 ![../assets/clerk_training/how_it_works_final.jpg](../assets/clerk_training/how_it_works_final.jpg)
 
 
-## :link: Step 0: Combining with Store POS
+## Step 0: Combining with Store POS
 
 ::: warning NOTE
 This app **does not replace** your store's current point of sale system! It is meant to be used with your store's system if a customer buys Healthy Corners products and is part of the Healthy Rewards program. 
@@ -55,7 +55,7 @@ A checkout will work like this:
 
 This guide explains how the app process works!
 
-## :key: Step 1: Log In
+## Step 1: Log In
 The app opens **on this screen :arrow_down:**
 
 ![../assets/clerk_training/Empty.png](../assets/clerk_training/Empty.png)
@@ -84,7 +84,7 @@ If you are a Healthy Corners administrator and need to make a ew clerk account, 
 :::
 
 
-## :telephone_receiver: Step 2: Enter Customer & Access Menu
+## Step 2: Enter Customer & Access Menu
 
 Once you log in, the screen will become **white** and you can **start customer transactions** or interact with the **menu**! :arrow_down:
 
@@ -113,7 +113,7 @@ This demo shows a clerk entering the customer Robin Hood with the phone number 0
 ![../assets/clerk_training/ezgif-4-8632375edeed.gif](../assets/clerk_training/ezgif-4-8632375edeed.gif)
 :::
 
-## :shopping_cart: Step 3: Checkout Products
+## Step 3: Checkout Products
 
 Here are the terms for the checkout screen.
 
@@ -167,7 +167,7 @@ This demo shows a clerk adding blueberries to a large sale then scrolling up and
 ![../assets/clerk_training/big_sale.gif](../assets/clerk_training/big_sale.gif)
 :::
 
-## :star2: Step 4: Add Rewards and Confirm
+## Step 4: Add Rewards and Confirm
 
 ::: callout Rewards
 Rewards: see a customer's available rewards and current points, as well as apply/remove rewards from this sale
@@ -205,7 +205,7 @@ Note that the **menu** is in the top left again — you are able to report issue
 To copy the `Transaction ID` for reporting issues, tap and hold the ID on the right. 
 :::
 
-## :books: Clerk Training Mode
+## Clerk Training Mode
 
 ::: tip
 To practice using the clerk system, you can log in to the **Clerk Training Mode!** No sales are recorded here, so you can practice with the checkout system.
@@ -230,7 +230,7 @@ This demo shows a clerk logging into clerk training mode with the pin 0000 and g
 ![../assets/clerk_training/clerk_training_demo.gif](../assets/clerk_training/clerk_training_demo.gif)
 :::
 
-## :question: Frequently Asked Questions
+##  Frequently Asked Questions
 
 ### How do I access Clerk Training Mode?
 
