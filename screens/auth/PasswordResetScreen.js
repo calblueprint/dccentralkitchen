@@ -3,7 +3,7 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
@@ -13,6 +13,7 @@ import {
   Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import { signUpBonus } from '../../constants/Rewards';
 import firebaseConfig from '../../firebase';
 import {
   getCustomersByPhoneNumber,
@@ -20,7 +21,7 @@ import {
 } from '../../lib/airtable/request';
 import {
   encryptPassword,
-  formatPhoneNumber,
+  formatPhoneNumberInput,
   inputFields,
 } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
@@ -36,6 +37,7 @@ import VerificationScreen from './VerificationScreen';
 export default class PasswordResetScreen extends React.Component {
   constructor(props) {
     super(props);
+    const { forgot } = this.props.route.params;
     const recaptchaVerifier = React.createRef();
     this.state = {
       customer: null,
@@ -45,7 +47,7 @@ export default class PasswordResetScreen extends React.Component {
       verificationId: null,
       verified: false,
       confirmed: false,
-      formattedPhoneNumber: '',
+      forgot,
       values: {
         [inputFields.PHONENUM]: '',
         [inputFields.NEWPASSWORD]: '',
@@ -117,10 +119,21 @@ export default class PasswordResetScreen extends React.Component {
       inputField === inputFields.NEWPASSWORD ||
       inputFields.VERIFYPASSWORD
     ) {
-      await this.updateError(text, inputField);
+      await this.updateError(
+        inputField === inputFields.PHONENUM
+          ? formatPhoneNumberInput(text)
+          : text,
+        inputField
+      );
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        values: {
+          ...prevState.values,
+          [inputField]:
+            inputField === inputFields.PHONENUM
+              ? formatPhoneNumberInput(text)
+              : text,
+        },
       }));
     }
   };
@@ -177,17 +190,39 @@ export default class PasswordResetScreen extends React.Component {
   };
 
   findCustomer = async () => {
-    const formattedPhoneNumber = formatPhoneNumber(
-      // eslint-disable-next-line react/no-access-state-in-setstate
-      this.state.values[inputFields.PHONENUM]
-    );
-    this.setState({ formattedPhoneNumber });
     try {
       let customer = null;
-      const customers = await getCustomersByPhoneNumber(formattedPhoneNumber);
+      const customers = await getCustomersByPhoneNumber(
+        this.state.values[inputFields.PHONENUM]
+      );
       if (customers.length === 1) {
         [customer] = customers;
+        if (!this.state.forgot) {
+          if (customer.password) {
+            Alert.alert(
+              '',
+              'This phone number already has a password set. Log in to access your account.',
+              [
+                {
+                  text: 'Log In',
+                  onPress: () => this.props.navigation.navigate('LogIn'),
+                },
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+              ]
+            );
+            return false;
+          }
+        }
         this.setState({ customer });
+      } else {
+        const errorMsg = 'There is no account registered with this number';
+        this.setState((prevState) => ({
+          errors: { ...prevState.errors, [inputFields.PHONENUM]: errorMsg },
+        }));
+        return false;
       }
     } catch (err) {
       console.log(err);
@@ -208,6 +243,11 @@ export default class PasswordResetScreen extends React.Component {
     );
     // Update the created record with the encrypted password
     await updateCustomers(this.state.customer.id, { password: encrypted });
+    if (!this.state.forgot) {
+      await updateCustomers(this.state.customer.id, {
+        points: (this.state.customer.points || 0) + signUpBonus,
+      });
+    }
     this.setState({ success: true });
   };
 
@@ -225,7 +265,7 @@ export default class PasswordResetScreen extends React.Component {
           />
           {this.state.modalVisible && (
             <VerificationScreen
-              number={this.state.formattedPhoneNumber}
+              number={this.state.values[inputFields.PHONENUM]}
               visible={this.state.modalVisible}
               verifyCode={this.verifyCode}
               resend={this.openRecaptcha}
@@ -238,7 +278,9 @@ export default class PasswordResetScreen extends React.Component {
           </BackButton>
           {this.state.verified && !this.state.success && (
             <View>
-              <BigTitle>Set New Password</BigTitle>
+              <BigTitle>
+                {this.state.forgot ? 'Set New Password' : 'Set a Password'}
+              </BigTitle>
               <FormContainer>
                 <AuthTextField
                   fieldType="New Password"
@@ -283,10 +325,13 @@ export default class PasswordResetScreen extends React.Component {
 
           {!this.state.verified && !this.state.success && (
             <View>
-              <BigTitle>Forgot Password</BigTitle>
+              <BigTitle>
+                {this.state.forgot ? 'Forgot Password' : 'Set a password'}
+              </BigTitle>
               <Subtitle style={{ marginTop: 32 }}>
-                Enter the phone number connected to your account to reset your
-                password.
+                {this.state.forgot
+                  ? 'Enter the phone number connected to your account to reset your password.'
+                  : 'If you registered in store, enter your phone number to set a password for your account.'}
               </Subtitle>
               <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
                 You will recieve a text containing a 6-digit code to verify your
@@ -342,4 +387,5 @@ export default class PasswordResetScreen extends React.Component {
 
 PasswordResetScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

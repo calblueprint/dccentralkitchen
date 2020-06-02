@@ -17,6 +17,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import { signUpBonus } from '../../constants/Rewards';
 import { env } from '../../environment';
 import firebaseConfig from '../../firebase';
 import {
@@ -27,7 +28,7 @@ import {
 } from '../../lib/airtable/request';
 import {
   encryptPassword,
-  formatPhoneNumber,
+  formatPhoneNumberInput,
   inputFields,
 } from '../../lib/authUtils';
 import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
@@ -47,7 +48,6 @@ export default class SignUpScreen extends React.Component {
     super(props);
     const recaptchaVerifier = React.createRef();
     this.state = {
-      formattedPhoneNumber: '',
       modalVisible: false,
       recaptchaVerifier,
       verificationId: null,
@@ -151,7 +151,7 @@ export default class SignUpScreen extends React.Component {
         name,
         phoneNumber,
         // 2020/4/29 update for Nam's launch
-        points: 500,
+        points: signUpBonus,
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 
@@ -192,13 +192,8 @@ export default class SignUpScreen extends React.Component {
   handleSubmit = async () => {
     try {
       // Check for duplicates first
-      const formattedPhoneNumber = formatPhoneNumber(
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.values[inputFields.PHONENUM]
-      );
-      this.setState({ formattedPhoneNumber });
       const duplicateCustomers = await getCustomersByPhoneNumber(
-        formattedPhoneNumber
+        this.state.values[inputFields.PHONENUM]
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
@@ -206,7 +201,7 @@ export default class SignUpScreen extends React.Component {
         logAuthErrorToSentry({
           screen: 'SignUpScreen',
           action: 'handleSubmit',
-          attemptedPhone: formattedPhoneNumber,
+          attemptedPhone: this.state.values[inputFields.PHONENUM],
           attemptedPass: null,
           error: errorMsg,
         });
@@ -325,10 +320,21 @@ export default class SignUpScreen extends React.Component {
     // Only update error if there is currently an error
     // Unless field is password, since it is generally the last field to be filled out
     if (this.state.errors[inputField] || inputField === inputFields.PASSWORD) {
-      await this.updateError(text, inputField);
+      await this.updateError(
+        inputField === inputFields.PHONENUM
+          ? formatPhoneNumberInput(text)
+          : text,
+        inputField
+      );
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        values: {
+          ...prevState.values,
+          [inputField]:
+            inputField === inputFields.PHONENUM
+              ? formatPhoneNumberInput(text)
+              : text,
+        },
       }));
     }
   };
@@ -357,7 +363,7 @@ export default class SignUpScreen extends React.Component {
           }}>
           {this.state.modalVisible && (
             <VerificationScreen
-              number={this.state.formattedPhoneNumber}
+              number={this.state.values[inputFields.PHONENUM]}
               visible={this.state.modalVisible}
               verifyCode={this.verifyCode}
               resend={this.openRecaptcha}

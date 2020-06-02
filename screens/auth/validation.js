@@ -17,7 +17,7 @@ const validation = {
       message: '^Phone number cannot be blank',
     },
     length: {
-      is: 10,
+      is: 14,
       message: '^Must be a valid phone number',
     },
     // To check for only numbers in the future

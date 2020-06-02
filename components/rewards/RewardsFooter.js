@@ -75,7 +75,7 @@ export default class RewardsFooter extends React.Component {
                 ? `${this.state.rewards} rewards`
                 : this.state.customer.points === 1
                 ? `${this.state.customer.points} point`
-                : `${this.state.customer.points} points`}
+                : `${this.state.customer.points || 0} points`}
             </Subtitle>
           </View>
         )}

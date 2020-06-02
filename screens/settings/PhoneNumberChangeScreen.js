@@ -9,6 +9,7 @@ import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
+  Caption,
   FilledButtonContainer,
   Subtitle,
 } from '../../components/BaseComponents';
@@ -19,7 +20,7 @@ import {
   getCustomersByPhoneNumber,
   updateCustomers,
 } from '../../lib/airtable/request';
-import { formatPhoneNumber, inputFields } from '../../lib/authUtils';
+import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
 import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
@@ -39,7 +40,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
       modalVisible: false,
       recaptchaVerifier,
       verificationId: null,
-      formattedPhoneNumber: '',
       values: {
         [inputFields.PHONENUM]: '',
       },
@@ -99,10 +99,21 @@ export default class PhoneNumberChangeScreen extends React.Component {
   onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
     if (this.state.errors[inputField]) {
-      await this.updateError(text, inputField);
+      await this.updateError(
+        inputField === inputFields.PHONENUM
+          ? formatPhoneNumberInput(text)
+          : text,
+        inputField
+      );
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        values: {
+          ...prevState.values,
+          [inputField]:
+            inputField === inputFields.PHONENUM
+              ? formatPhoneNumberInput(text)
+              : text,
+        },
       }));
     }
   };
@@ -112,16 +123,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
-    const formattedPhoneNumber = formatPhoneNumber(
-      // eslint-disable-next-line react/no-access-state-in-setstate
-      this.state.values[inputFields.PHONENUM]
-    );
-    this.setState({ formattedPhoneNumber });
-
     try {
       // Update the created record with the new number
       const duplicateCustomers = await getCustomersByPhoneNumber(
-        formattedPhoneNumber
+        this.state.values[inputFields.PHONENUM]
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
@@ -129,7 +134,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         logAuthErrorToSentry({
           screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
-          attemptedPhone: formattedPhoneNumber,
+          attemptedPhone: this.state.values[inputFields.PHONENUM],
           attemptedPass: null,
           error: errorMsg,
         });
@@ -149,7 +154,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'checkDuplicateCustomers',
-        attemptedPhone: formattedPhoneNumber,
+        attemptedPhone: this.state.values[inputFields.PHONENUM],
         attemptedPass: null,
         error: err,
       });
@@ -198,10 +203,9 @@ export default class PhoneNumberChangeScreen extends React.Component {
   };
 
   updatePhoneNumber = async () => {
-    const { formattedPhoneNumber } = this.state;
     try {
       await updateCustomers(this.state.customer.id, {
-        phoneNumber: this.state.formattedPhoneNumber,
+        phoneNumber: this.state.values[inputFields.PHONENUM],
       });
       this.setState({ success: true });
     } catch (err) {
@@ -212,7 +216,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'updatePhoneNumber',
-        attemptedPhone: formattedPhoneNumber,
+        attemptedPhone: this.state.values[inputFields.PHONENUM],
         attemptedPass: null,
         error: err,
       });
@@ -233,7 +237,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         />
         {this.state.modalVisible && (
           <VerificationScreen
-            number={this.state.formattedPhoneNumber}
+            number={this.state.values[inputFields.PHONENUM]}
             visible={this.state.modalVisible}
             verifyCode={this.verifyCode}
             resend={this.openRecaptcha}
@@ -247,6 +251,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
               <FontAwesome5 name="arrow-left" solid size={24} />
             </BackButton>
             <BigTitle>Change Phone Number</BigTitle>
+            <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
+              You will recieve a text containing a 6-digit code to verify this
+              phone number. Msg & data rates may apply.
+            </Caption>
             <FormContainer>
               <AuthTextField
                 fieldType="New Phone Number"
@@ -276,7 +284,9 @@ export default class PhoneNumberChangeScreen extends React.Component {
             <BackButton />
             <BigTitle>Success!</BigTitle>
             <Subtitle style={{ marginTop: 32 }}>
-              {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}. Refresh to see changes.`}
+              {`Your phone number was successfully changed to ${
+                this.state.values[inputFields.PHONENUM]
+              }. Refresh to see changes.`}
             </Subtitle>
             <FilledButtonContainer
               style={{ marginTop: 48 }}

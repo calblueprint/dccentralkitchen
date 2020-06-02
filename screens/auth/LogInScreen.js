@@ -19,7 +19,7 @@ import Colors from '../../constants/Colors';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import {
   encryptPassword,
-  formatPhoneNumber,
+  formatPhoneNumberInput,
   inputFields,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
@@ -90,14 +90,12 @@ export default class LogInScreen extends React.Component {
     const phoneNumber = values[inputFields.PHONENUM];
     const password = values[inputFields.PASSWORD];
 
-    const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
-
     try {
       let error = '';
       let customer = null;
 
       // Find customer in Airtable
-      const customers = await getCustomersByPhoneNumber(formattedPhoneNumber);
+      const customers = await getCustomersByPhoneNumber(phoneNumber);
 
       // Phone number is registered
       if (customers.length === 1) {
@@ -128,7 +126,7 @@ export default class LogInScreen extends React.Component {
         logAuthErrorToSentry({
           screen: 'LogInScreen',
           action: 'handleSubmit',
-          attemptedPhone: formattedPhoneNumber,
+          attemptedPhone: phoneNumber,
           attemptedPass: password,
           error,
         });
@@ -142,7 +140,7 @@ export default class LogInScreen extends React.Component {
         Sentry.configureScope((scope) => {
           scope.setUser({
             id: customer.id,
-            phoneNumber: formattedPhoneNumber,
+            phoneNumber,
             username: customer.name,
           });
           Sentry.captureMessage('Log In Successful');
@@ -156,7 +154,7 @@ export default class LogInScreen extends React.Component {
       logAuthErrorToSentry({
         screen: 'loginScreen',
         action: 'handleSubmit',
-        attemptedPhone: formattedPhoneNumber,
+        attemptedPhone: phoneNumber,
         attemptedPass: password,
         error: err,
       });
@@ -197,10 +195,21 @@ export default class LogInScreen extends React.Component {
     // Only update error if there is currently an error
     // Unless field is password, since it is generally the last field to be filled out
     if (this.state.errors[inputField]) {
-      await this.updateError(text, inputField);
+      await this.updateError(
+        inputField === inputFields.PHONENUM
+          ? formatPhoneNumberInput(text)
+          : text,
+        inputField
+      );
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        values: {
+          ...prevState.values,
+          [inputField]:
+            inputField === inputFields.PHONENUM
+              ? formatPhoneNumberInput(text)
+              : text,
+        },
         // Clear submission error
         errors: { ...prevState.errors, submit: '' },
       }));
@@ -270,7 +279,9 @@ export default class LogInScreen extends React.Component {
               <ButtonLabel color={Colors.lightText}>Log in</ButtonLabel>
             </FilledButtonContainer>
             <ButtonContainer
-              onPress={async () => this.props.navigation.navigate('Reset')}>
+              onPress={async () =>
+                this.props.navigation.navigate('Reset', { forgot: true })
+              }>
               <ButtonLabel
                 noCaps
                 style={{ marginVertical: 12 }}
