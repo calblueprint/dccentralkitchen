@@ -46,7 +46,7 @@ The code currently protects against capitalization errors, so passing in `"wIC"`
 
 - [Chip icons](https://callstack.github.io/react-native-paper/icons.html)
 - [Chip component](https://callstack.github.io/react-native-paper/chip.html)
-- [Airtable Schema Generator](shared/airtable.html#airtable-schema-generator)
+- [Airtable Schema Generator](shared/airtable.html#running-the-generator)
 
 ## Store search by name
 ![storesearch](../assets/stores/storesearch.png)

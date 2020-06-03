@@ -50,7 +50,7 @@ You'll notice that this workspace is currently on the `Pro trial` - we're using 
 
 ### Usage
 
-Airtable does a better job of introducing its product than we ever could. We'd recommend going through their ["Getting started with Airtable" guides](airtable.com) - they're short but extremely helpful!
+Airtable does a better job of introducing its product than we ever could. We'd recommend going through their ["Getting started with Airtable" guides](https://support.airtable.com/hc/en-us/sections/360003922433) - they're short but extremely helpful!
 
 Once you're comfortable with Airtable, you might also want to take a look at the ["Power user's guide"](https://support.airtable.com/hc/en-us/articles/360021500274-The-Airtable-power-user-s-guide)
 
