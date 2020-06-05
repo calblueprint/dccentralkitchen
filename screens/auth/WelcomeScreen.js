@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Image, View } from 'react-native';
 import {
+  Body,
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
@@ -9,6 +10,7 @@ import {
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { WelcomeContainer } from '../../styled/auth';
+import { RowContainer } from '../../styled/shared';
 
 export default class WelcomeScreen extends React.Component {
   guestLogin = async () => {
@@ -57,15 +59,6 @@ export default class WelcomeScreen extends React.Component {
             onPress={() => this.navigateLogIn()}>
             <ButtonLabel color="white">Log In</ButtonLabel>
           </FilledButtonContainer>
-          <FilledButtonContainer
-            style={{ marginTop: 12 }}
-            color={Colors.lighterGreen}
-            width="100%"
-            onPress={() =>
-              this.props.navigation.navigate('Reset', { forgot: false })
-            }>
-            <ButtonLabel color="white">Registered in-store</ButtonLabel>
-          </FilledButtonContainer>
           <ButtonContainer
             style={{ marginTop: 4, padding: 12 }}
             onPress={async () => this.guestLogin()}>
@@ -73,6 +66,22 @@ export default class WelcomeScreen extends React.Component {
               Continue without an account
             </ButtonLabel>
           </ButtonContainer>
+          <RowContainer
+            style={{
+              marginTop: 14,
+              padding: 12,
+              justifyContent: 'center',
+            }}>
+            <Body>Registered in store? </Body>
+            <ButtonContainer
+              onPress={() =>
+                this.props.navigation.navigate('Reset', { forgot: false })
+              }>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Set a password
+              </ButtonLabel>
+            </ButtonContainer>
+          </RowContainer>
         </View>
       </WelcomeContainer>
     );

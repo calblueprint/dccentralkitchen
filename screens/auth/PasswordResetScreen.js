@@ -218,7 +218,7 @@ export default class PasswordResetScreen extends React.Component {
         }
         this.setState({ customer });
       } else {
-        const errorMsg = 'There is no account registered with this number';
+        const errorMsg = 'No account registered with this number';
         this.setState((prevState) => ({
           errors: { ...prevState.errors, [inputFields.PHONENUM]: errorMsg },
         }));
@@ -368,7 +368,9 @@ export default class PasswordResetScreen extends React.Component {
             <View>
               <BigTitle>Success!</BigTitle>
               <Subtitle style={{ marginTop: 32 }}>
-                Your new password was successfully set.
+                {this.state.forgot
+                  ? 'Your new password was successfully set.'
+                  : 'Your account is fully set up! Next time, go straight to Log In to access your account.'}
               </Subtitle>
               <FilledButtonContainer
                 style={{ marginTop: 48 }}
