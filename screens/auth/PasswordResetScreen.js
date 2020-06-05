@@ -57,6 +57,7 @@ export default class PasswordResetScreen extends React.Component {
         [inputFields.PHONENUM]: '',
         [inputFields.NEWPASSWORD]: '',
         [inputFields.VERIFYPASSWORD]: '',
+        submit: '',
       },
     };
   }
@@ -88,7 +89,7 @@ export default class PasswordResetScreen extends React.Component {
         console.log('Not reached');
     }
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [inputField]: errorMsg },
+      errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
       values: { ...prevState.values, [inputField]: text },
       confirmed:
         // Compare with new verifyPassword value
@@ -158,7 +159,12 @@ export default class PasswordResetScreen extends React.Component {
       this.setState({ verificationId });
       this.setModalVisible(true);
     } catch (err) {
-      this.setModalVisible(true);
+      this.setState({
+        errors: {
+          submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
+        },
+      });
+      this.setModalVisible(false);
       console.log(err);
       logErrorToSentry({
         screen: 'PasswordResetScreen',
@@ -252,7 +258,9 @@ export default class PasswordResetScreen extends React.Component {
   };
 
   render() {
-    const validNumber = !this.state.errors[inputFields.PHONENUM];
+    const { errors, values } = this.state;
+    const validNumber = !errors[inputFields.PHONENUM];
+
     return (
       <AuthScreenContainer>
         <AuthScrollContainer
@@ -265,7 +273,7 @@ export default class PasswordResetScreen extends React.Component {
           />
           {this.state.modalVisible && (
             <VerificationScreen
-              number={this.state.values[inputFields.PHONENUM]}
+              number={values[inputFields.PHONENUM]}
               visible={this.state.modalVisible}
               verifyCode={this.verifyCode}
               resend={this.openRecaptcha}
@@ -284,7 +292,7 @@ export default class PasswordResetScreen extends React.Component {
               <FormContainer>
                 <AuthTextField
                   fieldType="New Password"
-                  value={this.state.values[inputFields.NEWPASSWORD]}
+                  value={values[inputFields.NEWPASSWORD]}
                   onBlurCallback={(value) => {
                     this.updateError(value, inputFields.NEWPASSWORD);
                     this.scrollView.scrollToEnd({ animated: true });
@@ -292,18 +300,18 @@ export default class PasswordResetScreen extends React.Component {
                   changeTextCallback={(text) =>
                     this.onTextChange(text, inputFields.NEWPASSWORD)
                   }
-                  error={this.state.errors[inputFields.NEWPASSWORD]}
+                  error={errors[inputFields.NEWPASSWORD]}
                 />
                 <AuthTextField
                   fieldType="Re-enter New Password"
-                  value={this.state.values[inputFields.VERIFYPASSWORD]}
+                  value={values[inputFields.VERIFYPASSWORD]}
                   onBlurCallback={(value) =>
                     this.updateError(value, inputFields.VERIFYPASSWORD)
                   }
                   changeTextCallback={(text) =>
                     this.onTextChange(text, inputFields.VERIFYPASSWORD)
                   }
-                  error={this.state.errors[inputFields.VERIFYPASSWORD]}
+                  error={errors[inputFields.VERIFYPASSWORD]}
                 />
               </FormContainer>
               <FilledButtonContainer
@@ -340,7 +348,7 @@ export default class PasswordResetScreen extends React.Component {
               <FormContainer>
                 <AuthTextField
                   fieldType="Phone Number"
-                  value={this.state.values[inputFields.PHONENUM]}
+                  value={values[inputFields.PHONENUM]}
                   onBlurCallback={(value) =>
                     this.updateError(value, inputFields.PHONENUM)
                   }
@@ -348,8 +356,13 @@ export default class PasswordResetScreen extends React.Component {
                     this.scrollView.scrollToEnd({ animated: true });
                     this.onTextChange(text, inputFields.PHONENUM);
                   }}
-                  error={this.state.errors[inputFields.PHONENUM]}
+                  error={errors[inputFields.PHONENUM]}
                 />
+                <Caption
+                  style={{ alignSelf: 'center', fontSize: 14 }}
+                  color={Colors.error}>
+                  {errors.submit}
+                </Caption>
               </FormContainer>
               <FilledButtonContainer
                 style={{ marginVertical: 24 }}

@@ -13,6 +13,7 @@ import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
+  Caption,
   FilledButtonContainer,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
@@ -60,6 +61,7 @@ export default class SignUpScreen extends React.Component {
         [inputFields.NAME]: '',
         [inputFields.PHONENUM]: '',
         [inputFields.PASSWORD]: '',
+        submit: '',
       },
       token: '',
     };
@@ -197,7 +199,7 @@ export default class SignUpScreen extends React.Component {
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
-        const errorMsg = 'Phone number already in use.';
+        const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
           screen: 'SignUpScreen',
           action: 'handleSubmit',
@@ -230,6 +232,9 @@ export default class SignUpScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
+    // const number = '+1'.concat(
+    //   this.state.values[inputFields.PHONENUM].replace(/\D/g, '')
+    // );
     const number = '+1'.concat(this.state.values[inputFields.PHONENUM]);
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
@@ -241,7 +246,12 @@ export default class SignUpScreen extends React.Component {
       this.setState({ verificationId });
       this.setModalVisible(true);
     } catch (err) {
-      this.setModalVisible(true);
+      this.setState({
+        errors: {
+          submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
+        },
+      });
+      this.setModalVisible(false);
       console.log(err);
       logErrorToSentry({
         screen: 'SignUpScreen',
@@ -302,7 +312,7 @@ export default class SignUpScreen extends React.Component {
     }
 
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [inputField]: errorMsg },
+      errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
       values: { ...prevState.values, [inputField]: text },
     }));
 
@@ -363,7 +373,7 @@ export default class SignUpScreen extends React.Component {
           }}>
           {this.state.modalVisible && (
             <VerificationScreen
-              number={this.state.values[inputFields.PHONENUM]}
+              number={values[inputFields.PHONENUM]}
               visible={this.state.modalVisible}
               verifyCode={this.verifyCode}
               resend={this.openRecaptcha}
@@ -382,7 +392,7 @@ export default class SignUpScreen extends React.Component {
           <FormContainer>
             <AuthTextField
               fieldType="Name"
-              value={this.state.values[inputFields.NAME]}
+              value={values[inputFields.NAME]}
               onBlurCallback={(value) => {
                 this.updateError(value, inputFields.NAME);
                 this.scrollView.scrollToEnd({ animated: true });
@@ -390,12 +400,12 @@ export default class SignUpScreen extends React.Component {
               changeTextCallback={async (text) =>
                 this.onTextChange(text, inputFields.NAME)
               }
-              error={this.state.errors[inputFields.NAME]}
+              error={errors[inputFields.NAME]}
             />
 
             <AuthTextField
               fieldType="Phone Number"
-              value={this.state.values[inputFields.PHONENUM]}
+              value={values[inputFields.PHONENUM]}
               onBlurCallback={(value) => {
                 this.updateError(value, inputFields.PHONENUM);
                 this.scrollView.scrollToEnd({ animated: true });
@@ -403,20 +413,25 @@ export default class SignUpScreen extends React.Component {
               changeTextCallback={(text) =>
                 this.onTextChange(text, inputFields.PHONENUM)
               }
-              error={this.state.errors[inputFields.PHONENUM]}
+              error={errors[inputFields.PHONENUM]}
             />
 
             <AuthTextField
               fieldType="Password"
-              value={this.state.values[inputFields.PASSWORD]}
+              value={values[inputFields.PASSWORD]}
               onBlurCallback={(value) =>
                 this.updateError(value, inputFields.PASSWORD)
               }
               changeTextCallback={(text) =>
                 this.onTextChange(text, inputFields.PASSWORD)
               }
-              error={this.state.errors[inputFields.PASSWORD]}
+              error={errors[inputFields.PASSWORD]}
             />
+            <Caption
+              style={{ alignSelf: 'center', fontSize: 14 }}
+              color={Colors.error}>
+              {errors.submit}
+            </Caption>
           </FormContainer>
           <FilledButtonContainer
             style={{ marginVertical: 24, alignSelf: 'flex-end' }}
@@ -426,7 +441,7 @@ export default class SignUpScreen extends React.Component {
             width="100%"
             onPress={() => this.handleSubmit()}
             disabled={!signUpPermission}>
-            <ButtonLabel color={Colors.lightText}>Sign Up</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
           </FilledButtonContainer>
           {env === 'dev' && (
             <Button

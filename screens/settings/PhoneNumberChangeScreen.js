@@ -45,6 +45,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       },
       errors: {
         [inputFields.PHONENUM]: '',
+        submit: '',
       },
     };
   }
@@ -82,7 +83,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         console.log('Not reached');
     }
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [inputField]: errorMsg },
+      errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
       values: { ...prevState.values, [inputField]: text },
     }));
 
@@ -130,7 +131,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
-        const errorMsg = 'Phone number already in use.';
+        const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
           screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
@@ -171,7 +172,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ verificationId });
       this.setModalVisible(true);
     } catch (err) {
-      this.setModalVisible(true);
+      this.setState({
+        errors: {
+          submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
+        },
+      });
+      this.setModalVisible(false);
       console.log(err);
       logErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
@@ -267,6 +273,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
                 }
                 error={this.state.errors[inputFields.PHONENUM]}
               />
+              <Caption
+                style={{ alignSelf: 'center', fontSize: 14 }}
+                color={Colors.error}>
+                {errors.submit}
+              </Caption>
             </FormContainer>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
