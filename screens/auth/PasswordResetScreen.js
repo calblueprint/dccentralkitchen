@@ -324,9 +324,7 @@ export default class PasswordResetScreen extends React.Component {
                 width="100%"
                 onPress={() => this.resetPassword()}
                 disabled={!this.state.confirmed}>
-                <ButtonLabel color={Colors.lightText}>
-                  Reset Password
-                </ButtonLabel>
+                <ButtonLabel color={Colors.lightText}>Set Password</ButtonLabel>
               </FilledButtonContainer>
             </View>
           )}
@@ -339,11 +337,11 @@ export default class PasswordResetScreen extends React.Component {
               <Subtitle style={{ marginTop: 32 }}>
                 {this.state.forgot
                   ? 'Enter the phone number connected to your account to reset your password.'
-                  : 'If you registered in store, enter your phone number to set a password for your account.'}
+                  : 'Enter the phone number you used to register in person to finish setting up your account.'}
               </Subtitle>
               <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-                You will recieve a text containing a 6-digit code to verify your
-                phone number. Msg & data rates may apply.
+                You will recieve a text containing a 6-digit verification code.
+                Msg & data rates may apply.
               </Caption>
               <FormContainer>
                 <AuthTextField

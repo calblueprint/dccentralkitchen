@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
@@ -12,9 +13,12 @@ import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
+  Body,
+  ButtonContainer,
   ButtonLabel,
   Caption,
   FilledButtonContainer,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
@@ -39,6 +43,7 @@ import {
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import { RowContainer } from '../../styled/shared';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
 
@@ -200,6 +205,30 @@ export default class SignUpScreen extends React.Component {
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
         const errorMsg = 'Phone number already in use';
+        if (
+          duplicateCustomers.length === 1 &&
+          !duplicateCustomers[0].password
+        ) {
+          Alert.alert(
+            'Phone number registered without a password',
+            `${
+              this.state.values[inputFields.PHONENUM]
+            } does not have a password yet. Set a password to finish setting up your account.`,
+            [
+              {
+                text: 'Set a password',
+                onPress: () =>
+                  this.props.navigation.navigate('Reset', {
+                    forgot: false,
+                  }),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
+        }
         logAuthErrorToSentry({
           screen: 'SignUpScreen',
           action: 'handleSubmit',
@@ -385,10 +414,21 @@ export default class SignUpScreen extends React.Component {
             ref={this.state.recaptchaVerifier}
             firebaseConfig={firebaseConfig}
           />
-          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
           <BigTitle>Sign Up</BigTitle>
+          <Subtitle style={{ marginTop: 32 }}>
+            {'If you registered in person with your phone number, '}
+            <Subtitle
+              color={Colors.primaryGreen}
+              onPress={() =>
+                this.props.navigation.navigate('Reset', { forgot: false })
+              }>
+              click here to set a password
+            </Subtitle>
+            {' to finish setting up your account.'}
+          </Subtitle>
           <FormContainer>
             <AuthTextField
               fieldType="Name"
@@ -434,7 +474,7 @@ export default class SignUpScreen extends React.Component {
             </Caption>
           </FormContainer>
           <FilledButtonContainer
-            style={{ marginVertical: 24, alignSelf: 'flex-end' }}
+            style={{ marginTop: 24, marginBottom: 12, alignSelf: 'flex-end' }}
             color={
               !signUpPermission ? Colors.lightestGreen : Colors.primaryGreen
             }
@@ -443,6 +483,21 @@ export default class SignUpScreen extends React.Component {
             disabled={!signUpPermission}>
             <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
           </FilledButtonContainer>
+
+          <RowContainer
+            style={{
+              justifyContent: 'center',
+            }}>
+            <Body>Already have an account? </Body>
+            <ButtonContainer
+              onPress={() =>
+                this.props.navigation.dispatch(StackActions.replace('LogIn'))
+              }>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Log In
+              </ButtonLabel>
+            </ButtonContainer>
+          </RowContainer>
           {env === 'dev' && (
             <Button
               title="Testing Bypass"

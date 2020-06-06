@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
@@ -10,10 +11,12 @@ import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
+  Body,
   ButtonContainer,
   ButtonLabel,
   Caption,
   FilledButtonContainer,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
@@ -30,7 +33,7 @@ import {
   BackButton,
   FormContainer,
 } from '../../styled/auth';
-import { JustifyCenterContainer } from '../../styled/shared';
+import { JustifyCenterContainer, RowContainer } from '../../styled/shared';
 import validate from './validation';
 
 export default class LogInScreen extends React.Component {
@@ -100,6 +103,27 @@ export default class LogInScreen extends React.Component {
       // Phone number is registered
       if (customers.length === 1) {
         [customer] = customers;
+        if (!customer.password) {
+          Alert.alert(
+            'Phone number registered without a password',
+            `${
+              this.state.values[inputFields.PHONENUM]
+            } does not have a password yet. Set a password to finish setting up your account.`,
+            [
+              {
+                text: 'Set a password',
+                onPress: () =>
+                  this.props.navigation.navigate('Reset', {
+                    forgot: false,
+                  }),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
+        }
 
         // Check if password is correct
         // We use the record ID from Airtable as the salt to encrypt
@@ -240,6 +264,18 @@ export default class LogInScreen extends React.Component {
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
           <BigTitle>Log In</BigTitle>
+          <Subtitle style={{ marginTop: 32 }}>
+            {'If you registered in person with your phone number, '}
+            <Subtitle
+              color={Colors.primaryGreen}
+              onPress={() =>
+                this.props.navigation.navigate('Reset', { forgot: false })
+              }>
+              click here to set a password
+            </Subtitle>
+            {' to finish setting up your account.'}
+          </Subtitle>
+
           <FormContainer>
             <AuthTextField
               fieldType="Phone Number"
@@ -261,6 +297,15 @@ export default class LogInScreen extends React.Component {
               }
               error={this.state.errors[inputFields.PASSWORD]}
             />
+            <ButtonContainer
+              style={{ alignSelf: 'left', marginTop: -12, marginBottom: 12 }}
+              onPress={async () =>
+                this.props.navigation.navigate('Reset', { forgot: true })
+              }>
+              <ButtonLabel noCaps color={Colors.secondaryText}>
+                Forgot Password?
+              </ButtonLabel>
+            </ButtonContainer>
             <Caption
               style={{ alignSelf: 'center', fontSize: 14 }}
               color={Colors.error}>
@@ -269,7 +314,7 @@ export default class LogInScreen extends React.Component {
           </FormContainer>
           <JustifyCenterContainer>
             <FilledButtonContainer
-              style={{ marginTop: 24 }}
+              style={{ marginTop: 24, marginBottom: 12 }}
               color={
                 !logInPermission ? Colors.lightestGreen : Colors.primaryGreen
               }
@@ -278,17 +323,20 @@ export default class LogInScreen extends React.Component {
               disabled={!logInPermission}>
               <ButtonLabel color={Colors.lightText}>Log in</ButtonLabel>
             </FilledButtonContainer>
-            <ButtonContainer
-              onPress={async () =>
-                this.props.navigation.navigate('Reset', { forgot: true })
-              }>
-              <ButtonLabel
-                noCaps
-                style={{ marginVertical: 12 }}
-                color={Colors.primaryGreen}>
-                Forgot Password?
-              </ButtonLabel>
-            </ButtonContainer>
+            <RowContainer
+              style={{
+                justifyContent: 'center',
+              }}>
+              <Body>Don&apos;t have an account?</Body>
+              <ButtonContainer
+                onPress={() =>
+                  this.props.navigation.dispatch(StackActions.replace('SignUp'))
+                }>
+                <ButtonLabel noCaps color={Colors.primaryGreen}>
+                  Sign Up
+                </ButtonLabel>
+              </ButtonContainer>
+            </RowContainer>
           </JustifyCenterContainer>
         </AuthScrollContainer>
       </AuthScreenContainer>

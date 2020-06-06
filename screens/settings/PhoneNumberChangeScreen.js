@@ -258,8 +258,8 @@ export default class PhoneNumberChangeScreen extends React.Component {
             </BackButton>
             <BigTitle>Change Phone Number</BigTitle>
             <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-              You will recieve a text containing a 6-digit code to verify this
-              phone number. Msg & data rates may apply.
+              You will recieve a text containing a 6-digit verification code.
+              Msg & data rates may apply.
             </Caption>
             <FormContainer>
               <AuthTextField
@@ -285,7 +285,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.openRecaptcha()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightText}>Change Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

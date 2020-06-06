@@ -63,7 +63,7 @@ export default class WelcomeScreen extends React.Component {
             style={{ marginTop: 4, padding: 12 }}
             onPress={async () => this.guestLogin()}>
             <ButtonLabel noCaps color={Colors.primaryGreen}>
-              Continue without an account
+              Continue as guest
             </ButtonLabel>
           </ButtonContainer>
           <RowContainer
@@ -72,7 +72,7 @@ export default class WelcomeScreen extends React.Component {
               padding: 12,
               justifyContent: 'center',
             }}>
-            <Body>Registered in store? </Body>
+            <Body>Registered in person? </Body>
             <ButtonContainer
               onPress={() =>
                 this.props.navigation.navigate('Reset', { forgot: false })
