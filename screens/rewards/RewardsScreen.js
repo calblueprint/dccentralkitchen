@@ -74,7 +74,7 @@ export default class RewardsScreen extends React.Component {
   }
 
   _logout = async () => {
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('Stores');
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
     this.props.navigation.navigate('Auth', { screen: 'SignUp' });

@@ -29,7 +29,6 @@ function DrawerNavigator() {
     <Drawer.Navigator
       // eslint-disable-next-line react/jsx-props-no-spreading
       drawerContent={(props) => <DrawerContent {...props} />}
-      drawerStyle={{ width: 189 }}
       drawerContentOptions={{
         labelStyle: {
           fontFamily: 'poppins-medium',
@@ -38,7 +37,12 @@ function DrawerNavigator() {
           color: Colors.activeText,
         },
         activeTintColor: Colors.primaryGreen,
-        itemStyle: { marginVertical: 0, marginHorizontal: 0, borderRadius: 0 },
+        itemStyle: {
+          marginVertical: 4,
+          marginHorizontal: 0,
+          paddingLeft: 16,
+          borderRadius: 0,
+        },
       }}>
       <Drawer.Screen
         name="Stores"
@@ -48,12 +52,18 @@ function DrawerNavigator() {
       <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}
-        options={{ title: 'Resources', swipeEnabled: false }}
+        options={{
+          title: 'Resources',
+          unmountOnBlur: true,
+        }}
       />
       <Drawer.Screen
         name="Settings"
         component={SettingsStackNavigator}
-        options={{ title: 'Settings', swipeEnabled: false }}
+        options={{
+          title: 'Settings',
+          unmountOnBlur: true,
+        }}
       />
     </Drawer.Navigator>
   );
