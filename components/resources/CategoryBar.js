@@ -8,12 +8,14 @@ import CircleIcon from '../CircleIcon';
 function CategoryBar({ icon, title }) {
   return (
     <CategoryCard>
-      <CircleIcon
-        icon={icon}
-        iconColor={Colors.lightText}
-        circleColor={Colors.lighterGreen}
-      />
-      <CategoryHeadingContainer>
+      {icon !== '' && (
+        <CircleIcon
+          icon={icon}
+          iconColor={Colors.lightText}
+          circleColor={Colors.lighterGreen}
+        />
+      )}
+      <CategoryHeadingContainer style={icon !== '' && { marginLeft: 12 }}>
         <Title>{title}</Title>
       </CategoryHeadingContainer>
     </CategoryCard>
@@ -21,8 +23,12 @@ function CategoryBar({ icon, title }) {
 }
 
 CategoryBar.propTypes = {
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   title: PropTypes.string.isRequired,
+};
+
+CategoryBar.defaultProps = {
+  icon: '',
 };
 
 export default CategoryBar;
