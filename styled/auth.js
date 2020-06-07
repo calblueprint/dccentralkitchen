@@ -15,9 +15,10 @@ export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
   flex-direction: column;
   margin-horizontal: 42px;
 `;
-// ScrollView nested inn AuthScreenContainer for keyboard avoiding behavior
+
+// ScrollView nested in AuthScreenContainer for keyboard avoiding behavior
 export const AuthScrollContainer = styled.ScrollView.attrs({
-  keyboardShouldPersistTaps: 'always',
+  keyboardShouldPersistTaps: 'handled',
   showsVerticalScrollIndicator: false,
 })`
   flex: 1;
@@ -28,18 +29,26 @@ export const OnboardingContainer = styled.View`
   display: flex;
   flex: 1
   justify-content: center;
-  background-color: ${Colors.lightest};
-  margin: 200px 40px 75px 40px;
+  margin-horizontal: 40px
+  padding: 75px 0px
+`;
+
+export const OnboardingContentContainer = styled.View`
+  display: flex;
+  flex-direction: column
+  flex: 1
+  justify-content: flex-end
 `;
 
 // WelcomeScreen
 // TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
 export const WelcomeContainer = styled.View`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: ${Colors.lightest};
-  margin: 240px 42px;
+  flex: 1;
+  margin-horizontal: 42px;
+  padding-bottom: 75px;
 `;
 
 // LogInScreen

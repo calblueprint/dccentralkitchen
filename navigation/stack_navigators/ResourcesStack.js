@@ -17,7 +17,7 @@ export default function ResourcesStackNavigator() {
   return (
     <ResourcesStack.Navigator
       screenOptions={{
-        drawerLabel: 'Rewards',
+        drawerLabel: 'Resources',
         headerShown: false,
         cardStyle: { backgroundColor: Colors.lightest },
         config,

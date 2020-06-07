@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Image } from 'react-native';
+import { AsyncStorage, Image, View } from 'react-native';
 import {
   ButtonContainer,
   ButtonLabel,
@@ -27,37 +27,46 @@ export default class WelcomeScreen extends React.Component {
   render() {
     return (
       <WelcomeContainer>
-        <Image
-          source={require('../../assets/images/hc_start.png')}
+        {/* Welcome Image */}
+        <View
           style={{
-            maxWidth: '100%',
-            resizeMode: 'contain',
-            maxHeight: 400,
-          }}
-        />
-        <FilledButtonContainer
-          style={{ marginTop: 108 }}
-          width="100%"
-          onPress={() => this.navigateSignup()}>
-          <ButtonLabel color="white">Sign up</ButtonLabel>
-        </FilledButtonContainer>
-        <FilledButtonContainer
-          style={{ marginTop: 12 }}
-          color={Colors.lighterGreen}
-          width="100%"
-          onPress={() => this.navigateLogIn()}>
-          <ButtonLabel color="white">Log In</ButtonLabel>
-        </FilledButtonContainer>
-
-        <ButtonContainer
-          style={{ marginTop: 4, padding: 12 }}
-          onPress={async () => this.guestLogin()}>
-          <ButtonLabel
-            style={{ textTransform: 'none' }}
-            color={Colors.primaryGreen}>
-            Continue without an account
-          </ButtonLabel>
-        </ButtonContainer>
+            height: '60%',
+            justifyContent: 'flex-end',
+          }}>
+          <Image
+            source={require('../../assets/images/hc_start.png')}
+            style={{
+              maxWidth: '100%',
+              resizeMode: 'contain',
+              maxHeight: 400,
+            }}
+          />
+        </View>
+        {/* Buttons */}
+        <View style={{ width: '100%' }}>
+          <FilledButtonContainer
+            style={{ marginTop: 12 }}
+            width="100%"
+            onPress={() => this.navigateSignup()}>
+            <ButtonLabel color="white">Sign up</ButtonLabel>
+          </FilledButtonContainer>
+          <FilledButtonContainer
+            style={{ marginTop: 12 }}
+            color={Colors.lighterGreen}
+            width="100%"
+            onPress={() => this.navigateLogIn()}>
+            <ButtonLabel color="white">Log In</ButtonLabel>
+          </FilledButtonContainer>
+          <ButtonContainer
+            style={{ marginTop: 4, padding: 12 }}
+            onPress={async () => this.guestLogin()}>
+            <ButtonLabel
+              style={{ textTransform: 'none' }}
+              color={Colors.primaryGreen}>
+              Continue without an account
+            </ButtonLabel>
+          </ButtonContainer>
+        </View>
       </WelcomeContainer>
     );
   }

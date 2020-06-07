@@ -24,7 +24,7 @@ export default class StoreDetailsScreen extends React.Component {
   }
 
   render() {
-    const { store } = this.props.route.params;
+    const { store, seeDistance } = this.props.route.params;
     const {
       storeName,
       storeHours,
@@ -99,9 +99,11 @@ export default class StoreDetailsScreen extends React.Component {
                 </TouchableOpacity>
                 <Body>{`Ward ${ward}`}</Body>
                 <View style={{ flex: 1, marginBottom: 10 }}>
-                  <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
-                    {`${distance} miles away · distance may vary by transportation`}
-                  </Caption>
+                  {seeDistance && (
+                    <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
+                      {`${distance} miles away · distance may vary by transportation`}
+                    </Caption>
+                  )}
                 </View>
                 <TouchableOpacity
                   style={{ flexDirection: 'row' }}
