@@ -49,7 +49,12 @@ const ENV_VARIABLES = {
   },
 };
 
-const env = Constants.manifest.releaseChannel || 'dev';
+// If releaseChannel not set, use process.env.NODE_ENV as substitute
+const env =
+  Constants.manifest.releaseChannel || process.env.NODE_ENV === 'production'
+    ? 'prod'
+    : 'dev';
+
 const getEnvVars = () => {
   if (__DEV__) {
     return ENV_VARIABLES.dev;
@@ -57,7 +62,7 @@ const getEnvVars = () => {
   if (env === 'prod') {
     return ENV_VARIABLES.prod;
   }
-  console.log('[environment.js] UNREACHED');
-  return {};
+  // Fall through to dev
+  return ENV_VARIABLES.dev;
 };
 export { getEnvVars as default, staticEnvVars, env };

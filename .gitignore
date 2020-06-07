@@ -13,6 +13,9 @@ schemaRaw.json
 environment.js
 .env.generator
 
+# VuePress build output
+docs/.vuepress/dist
+
 # Other
 package-lock.json
 *.DS_Store
