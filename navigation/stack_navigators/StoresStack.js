@@ -30,7 +30,7 @@ export default function StoresStackNavigator() {
         drawerLabel: 'Stores',
         gestureEnabled: true,
         headerShown: false,
-        cardStyle: { backgroundColor: Colors.lightest },
+        cardStyle: { backgroundColor: Colors.bgLight },
         config,
       }}>
       <StoresStack.Screen name="Stores" component={MapScreen} />

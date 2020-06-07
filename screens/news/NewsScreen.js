@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import Hamburger from '../../components/Hamburger';
 import NewsItem from '../../components/news/NewsItem';
+import { logErrorToSentry } from '../../lib/logUtils';
 import { getNewsItems } from '../../lib/newsUtils';
 import { TopText } from '../../styled/news';
 
@@ -20,6 +21,11 @@ class NewsScreen extends React.Component {
       this.setState({ newsItems });
     } catch (err) {
       console.error('[NewsScreen] Airtable:', err);
+      logErrorToSentry({
+        screen: 'NewsScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 

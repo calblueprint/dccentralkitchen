@@ -40,9 +40,9 @@ export default class OnboardingScreen extends React.Component {
       <Pagination
         dotsLength={ONBOARDING_CONTENT.length}
         activeDotIndex={this.state.pageIndex}
-        containerStyle={{ backgroundColor: Colors.lightest, marginTop: 20 }}
+        containerStyle={{ backgroundColor: Colors.bgLight, marginTop: 20 }}
         dotStyle={styles.dotStyle}
-        inactiveDotStyle={{ backgroundColor: Colors.base }}
+        inactiveDotStyle={{ backgroundColor: Colors.primaryGray }}
         inactiveDotOpacity={1}
         inactiveDotScale={1}
       />

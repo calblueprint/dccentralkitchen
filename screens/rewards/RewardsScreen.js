@@ -1,14 +1,14 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Updates } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Dimensions, ScrollView, View } from 'react-native';
+import { AsyncStorage, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
+import * as Sentry from 'sentry-expo';
 import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
 } from '../../components/BaseComponents';
 import HowItWorks from '../../components/rewards/HowItWorks';
@@ -16,6 +16,7 @@ import ParticipatingStores from '../../components/rewards/ParticipatingStores';
 import PointsHistory from '../../components/rewards/PointsHistory';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
@@ -75,8 +76,8 @@ export default class RewardsScreen extends React.Component {
   _logout = async () => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
-    Updates.reload();
+    Sentry.configureScope((scope) => scope.clear());
+    this.props.navigation.navigate('Auth', { screen: 'SignUp' });
   };
 
   renderScene = ({ route }) => {
@@ -121,22 +122,25 @@ export default class RewardsScreen extends React.Component {
       return null;
     }
 
-    if (this.state.isGuest) {
-      return (
-        <View style={{ flex: 1 }}>
-          <NavHeaderContainer vertical backgroundColor={Colors.primaryGreen}>
-            <NavButton onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5 name="arrow-down" solid size={24} color="white" />
-            </NavButton>
-            <BigTitle
-              style={{
-                marginLeft: 18,
-                color: Colors.lightest,
-                fontSize: 36,
-              }}>
-              Healthy Rewards
-            </BigTitle>
-          </NavHeaderContainer>
+    return (
+      <View style={{ flex: 1 }}>
+        <NavHeaderContainer
+          vertical
+          noShadow
+          backgroundColor={Colors.primaryGreen}>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-down" solid size={24} color="white" />
+          </NavButtonContainer>
+          <BigTitle
+            style={{
+              marginLeft: 18,
+              color: Colors.lightText,
+              fontSize: 36,
+            }}>
+            Healthy Rewards
+          </BigTitle>
+        </NavHeaderContainer>
+        {this.state.isGuest ? (
           <ScrollView>
             <HowItWorks
               isGuest={this.state.isGuest}
@@ -151,45 +155,25 @@ export default class RewardsScreen extends React.Component {
               color={Colors.primaryGreen}
               width="267px"
               onPress={() => this._logout()}>
-              <ButtonLabel color={Colors.lightest}>
+              <ButtonLabel color={Colors.lightText}>
                 Sign Up For Rewards
               </ButtonLabel>
             </FilledButtonContainer>
           </ScrollView>
-        </View>
-      );
-    }
-
-    return (
-      <View style={{ flex: 1 }}>
-        <NavHeaderContainer
-          vertical
-          noShadow
-          backgroundColor={Colors.primaryGreen}>
-          <NavButton onPress={() => this.props.navigation.goBack()}>
-            <FontAwesome5 name="arrow-down" solid size={24} color="white" />
-          </NavButton>
-          <BigTitle
-            style={{
-              marginLeft: 18,
-              color: Colors.lightest,
-              fontSize: 36,
-            }}>
-            Healthy Rewards
-          </BigTitle>
-        </NavHeaderContainer>
-        <TabView
-          navigationState={this.state}
-          renderScene={this.renderScene}
-          renderTabBar={this.renderTabBar}
-          // eslint-disable-next-line react/no-unused-state
-          onIndexChange={(index) => this.setState({ index })}
-          initialLayout={{
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
-          }}
-          style={styles.tabView}
-        />
+        ) : (
+          <TabView
+            navigationState={this.state}
+            renderScene={this.renderScene}
+            renderTabBar={this.renderTabBar}
+            // eslint-disable-next-line react/no-unused-state
+            onIndexChange={(index) => this.setState({ index })}
+            initialLayout={{
+              width: Window.width,
+              height: Window.height,
+            }}
+            style={styles.tabView}
+          />
+        )}
       </View>
     );
   }

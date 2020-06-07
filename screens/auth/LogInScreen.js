@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard } from 'react-native';
+import { Alert, AsyncStorage, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -74,13 +74,13 @@ export default class LogInScreen extends React.Component {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+        Alert.alert('Failed to get push token for push notification!');
         return;
       }
       const pushToken = await Notifications.getExpoPushTokenAsync();
       await this.setState({ token: pushToken });
     } else {
-      alert('Must use physical device for Push Notifications');
+      Alert.alert('Must use physical device for Push Notifications');
     }
   };
 
@@ -267,12 +267,13 @@ export default class LogInScreen extends React.Component {
               width="100%"
               onPress={() => this.handleSubmit()}
               disabled={!logInPermission}>
-              <ButtonLabel color={Colors.lightest}>Log in</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Log in</ButtonLabel>
             </FilledButtonContainer>
             <ButtonContainer
               onPress={async () => this.props.navigation.navigate('Reset')}>
               <ButtonLabel
-                style={{ textTransform: 'none', marginVertical: 12 }}
+                noCaps
+                style={{ marginVertical: 12 }}
                 color={Colors.primaryGreen}>
                 Forgot Password?
               </ButtonLabel>

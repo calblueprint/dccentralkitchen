@@ -8,10 +8,11 @@ import {
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { inputFields } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -89,6 +90,11 @@ export default class VerificationScreen extends React.Component {
       }
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'VerificationScreen',
+        action: 'verifyCode',
+        error: err,
+      });
     }
   };
 
@@ -110,9 +116,9 @@ export default class VerificationScreen extends React.Component {
               <FontAwesome5 name="arrow-left" solid size={24} />
             </BackButton>
             <BigTitle>{`Verify Phone \nNumber`}</BigTitle>
-            <Subhead style={{ paddingTop: 32 }}>
+            <Subtitle style={{ paddingTop: 32 }}>
               {`Enter the 6-digit code sent to\n ${this.props.number}`}
-            </Subhead>
+            </Subtitle>
             <FormContainer>
               <AuthTextField
                 fieldType="Verification Code"
@@ -127,9 +133,7 @@ export default class VerificationScreen extends React.Component {
                 error={this.state.errors[inputFields.CODE]}
               />
               <ButtonContainer onPress={async () => this.resendCode(false)}>
-                <ButtonLabel
-                  style={{ textTransform: 'none' }}
-                  color={Colors.primaryGreen}>
+                <ButtonLabel noCaps color={Colors.primaryGreen}>
                   Resend code
                 </ButtonLabel>
               </ButtonContainer>
@@ -141,7 +145,7 @@ export default class VerificationScreen extends React.Component {
               onPress={() =>
                 this.verifyCode(this.state.values[inputFields.CODE])
               }>
-              <ButtonLabel color={Colors.lightest}>Verify Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
             </FilledButtonContainer>
           </AuthScrollContainer>
         </AuthScreenContainer>

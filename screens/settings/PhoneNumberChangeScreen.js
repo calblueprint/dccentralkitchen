@@ -10,7 +10,7 @@ import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import firebaseConfig from '../../firebase';
@@ -20,7 +20,7 @@ import {
   updateCustomers,
 } from '../../lib/airtable/request';
 import { formatPhoneNumber, inputFields } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -58,6 +58,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       console.error(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
@@ -122,7 +127,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         console.log('Duplicate customer');
         const errorMsg = 'Phone number already in use.';
         logAuthErrorToSentry({
-          screen: 'checkDuplicateCustomers',
+          screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
           attemptedPhone: formattedPhoneNumber,
           attemptedPass: null,
@@ -163,6 +168,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
     } catch (err) {
       this.setModalVisible(true);
       console.log(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   };
 
@@ -178,6 +188,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };
@@ -251,7 +266,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.openRecaptcha()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightest}>Change Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Change Number</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -260,15 +275,15 @@ export default class PhoneNumberChangeScreen extends React.Component {
           <View>
             <BackButton />
             <BigTitle>Success!</BigTitle>
-            <Subhead style={{ marginTop: 32 }}>
+            <Subtitle style={{ marginTop: 32 }}>
               {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}. Refresh to see changes.`}
-            </Subhead>
+            </Subtitle>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

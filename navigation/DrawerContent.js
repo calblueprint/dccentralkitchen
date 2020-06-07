@@ -4,9 +4,9 @@ import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import { Alert, AsyncStorage, Linking, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
-import { Title } from '../components/BaseComponents';
+import { ButtonContainer, Title } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
 import { logErrorToSentry } from '../lib/logUtils';
@@ -16,6 +16,16 @@ function DrawerContent(props) {
   const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
+
+  const logout = async () => {
+    await AsyncStorage.clear();
+    Sentry.configureScope((scope) => scope.clear());
+    setTimeout(() => {
+      navigation.navigate('Auth');
+    }, 500);
+    props.navigation.closeDrawer();
+    Updates.reload();
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -66,6 +76,11 @@ function DrawerContent(props) {
             action: 'componentDidMount',
             error: err,
           });
+          Alert.alert(
+            'This account has been removed',
+            'You are logged into an account that no longer exists. You must log out and create a new account.',
+            [{ text: 'OK', onPress: () => logout() }]
+          );
         }
       };
 
@@ -80,15 +95,6 @@ function DrawerContent(props) {
   if (isLoading) {
     return null;
   }
-  const logout = async () => {
-    await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
-    setTimeout(function() {
-      navigation.navigate('Auth');
-    }, 500);
-    props.navigation.closeDrawer();
-    Updates.reload();
-  };
 
   return (
     <View
@@ -99,29 +105,29 @@ function DrawerContent(props) {
       }}>
       <View
         style={{
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.bgDark,
           height: 114,
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-end',
           padding: 8,
         }}>
-        <Title style={{ color: 'white' }}>{customer.name}</Title>
+        <Title style={{ color: Colors.lightText }}>{customer.name}</Title>
       </View>
       <DrawerItemList {...props} />
-      <TouchableOpacity
+      <ButtonContainer
         style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => {
           props.navigation.goBack();
           props.navigation.navigate('RewardsOverlay');
         }}>
         <Title style={{ height: 30 }}>Rewards</Title>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </ButtonContainer>
+      <ButtonContainer
         style={{ paddingHorizontal: 8, paddingVertical: 13 }}
         onPress={() => Linking.openURL(link)}>
         <Title style={{ height: 30 }}>Feedback</Title>
-      </TouchableOpacity>
+      </ButtonContainer>
       <View
         style={{
           flex: 1,
@@ -129,11 +135,11 @@ function DrawerContent(props) {
           justifyContent: 'flex-end',
           verticalAlign: 'bottom',
         }}>
-        <TouchableOpacity
+        <ButtonContainer
           style={{ paddingLeft: 16, paddingBottom: 21 }}
           onPress={() => logout()}>
           <Title>Log Out</Title>
-        </TouchableOpacity>
+        </ButtonContainer>
       </View>
     </View>
   );

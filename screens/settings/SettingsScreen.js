@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,10 +10,11 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import {
   Body,
   ButtonContainer,
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
@@ -47,24 +47,24 @@ export default class SettingsScreen extends React.Component {
     this.setState({ isGuest });
   }
 
-  _logout = async () => {
+  _logout = async (signUp = false) => {
     this.props.navigation.goBack();
     await AsyncStorage.clear();
-    if (this.state.isGuest) {
+    Sentry.configureScope((scope) => scope.clear());
+    this.props.navigation.navigate('Auth', { screen: 'Welcome' });
+    if (signUp) {
       this.props.navigation.navigate('SignUp');
-    } else {
-      this.props.navigation.navigate('Auth');
     }
-    Updates.reload();
   };
 
   render() {
     return (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
-          <NavButton onPress={() => this.props.navigation.goBack(null)}>
+          <NavButtonContainer
+            onPress={() => this.props.navigation.goBack(null)}>
             <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle>Settings</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
@@ -73,7 +73,7 @@ export default class SettingsScreen extends React.Component {
             <SettingsCard
               title="Create an account"
               description="Start earning Healthy Rewards"
-              navigation={this._logout}
+              navigation={() => this._logout(true)}
             />
           )}
           {!this.state.isGuest && (
@@ -104,7 +104,7 @@ export default class SettingsScreen extends React.Component {
             title="Privacy Policy"
             navigation={() =>
               Linking.openURL(
-                'https://hackmd.io/@wangannie/HealthyCornersRewardsPrivacyPolicy'
+                'https://healthycorners-rewards.netlify.app/shared/privacypolicy.html'
               )
             }
           />

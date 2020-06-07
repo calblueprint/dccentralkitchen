@@ -87,7 +87,7 @@ export default function createAppContainer() {
         initialRouteName="AuthLoading"
         screenOptions={{
           headerShown: false,
-          cardStyle: { backgroundColor: Colors.lightest },
+          cardStyle: { backgroundColor: Colors.bgLight },
           gestureEnabled: false,
         }}>
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />

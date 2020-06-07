@@ -10,7 +10,7 @@ import {
   ButtonLabel,
   Caption,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import firebaseConfig from '../../firebase';
@@ -23,6 +23,7 @@ import {
   formatPhoneNumber,
   inputFields,
 } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -146,6 +147,11 @@ export default class PasswordResetScreen extends React.Component {
     } catch (err) {
       this.setModalVisible(true);
       console.log(err);
+      logErrorToSentry({
+        screen: 'PasswordResetScreen',
+        action: 'openRecaptcha',
+        error: err,
+      });
     }
   };
 
@@ -161,6 +167,11 @@ export default class PasswordResetScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PasswordResetScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };
@@ -180,6 +191,11 @@ export default class PasswordResetScreen extends React.Component {
       }
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PasswordResetScreen',
+        action: 'findCustomer',
+        error: err,
+      });
     }
     return true;
   };
@@ -258,7 +274,7 @@ export default class PasswordResetScreen extends React.Component {
                 width="100%"
                 onPress={() => this.resetPassword()}
                 disabled={!this.state.confirmed}>
-                <ButtonLabel color={Colors.lightest}>
+                <ButtonLabel color={Colors.lightText}>
                   Reset Password
                 </ButtonLabel>
               </FilledButtonContainer>
@@ -268,10 +284,10 @@ export default class PasswordResetScreen extends React.Component {
           {!this.state.verified && !this.state.success && (
             <View>
               <BigTitle>Forgot Password</BigTitle>
-              <Subhead style={{ marginTop: 32 }}>
+              <Subtitle style={{ marginTop: 32 }}>
                 Enter the phone number connected to your account to reset your
                 password.
-              </Subhead>
+              </Subtitle>
               <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
                 You will recieve a text containing a 6-digit code to verify your
                 phone number. Msg & data rates may apply.
@@ -298,7 +314,7 @@ export default class PasswordResetScreen extends React.Component {
                 width="100%"
                 onPress={() => this.openRecaptcha()}
                 disabled={!validNumber}>
-                <ButtonLabel color={Colors.lightest}>Continue</ButtonLabel>
+                <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
               </FilledButtonContainer>
             </View>
           )}
@@ -306,15 +322,15 @@ export default class PasswordResetScreen extends React.Component {
           {this.state.success && (
             <View>
               <BigTitle>Success!</BigTitle>
-              <Subhead style={{ marginTop: 32 }}>
+              <Subtitle style={{ marginTop: 32 }}>
                 Your new password was successfully set.
-              </Subhead>
+              </Subtitle>
               <FilledButtonContainer
                 style={{ marginTop: 48 }}
                 color={Colors.primaryGreen}
                 width="100%"
                 onPress={() => this.props.navigation.navigate('LogIn')}>
-                <ButtonLabel color={Colors.lightest}>Go to Log In</ButtonLabel>
+                <ButtonLabel color={Colors.lightText}>Go to Log In</ButtonLabel>
               </FilledButtonContainer>
             </View>
           )}

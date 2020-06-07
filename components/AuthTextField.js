@@ -52,15 +52,11 @@ function AuthTextField({
         labelPadding={6}
       />
       {fieldType.includes('Name') && !error && (
-        <Caption color={Colors.activeText}>
-          Note: this is how clerks will greet you!
-        </Caption>
+        <Caption>Note: this is how clerks will greet you!</Caption>
       )}
 
       {fieldType === 'Verification Code' && !error && (
-        <Caption color={Colors.activeText}>
-          If you did not receive a code, click resend.
-        </Caption>
+        <Caption>If you did not receive a code, click resend.</Caption>
       )}
     </TextFieldContainer>
   );

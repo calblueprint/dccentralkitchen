@@ -8,11 +8,12 @@ import {
   BigTitle,
   ButtonLabel,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
 import { inputFields } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -43,6 +44,11 @@ export default class NameChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       console.error(err);
+      logErrorToSentry({
+        screen: 'NameChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
@@ -127,7 +133,7 @@ export default class NameChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.changeName()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightest}>Change Name</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Change Name</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -136,20 +142,20 @@ export default class NameChangeScreen extends React.Component {
           <View>
             <BackButton />
             <BigTitle>Success!</BigTitle>
-            <Subhead
+            <Subtitle
               style={{
                 marginTop: 32,
               }}>
               {`Your name was successfully changed to ${
                 this.state.values[inputFields.NAME]
               }. Press refresh to see changes.`}
-            </Subhead>
+            </Subtitle>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

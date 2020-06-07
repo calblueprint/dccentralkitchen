@@ -23,16 +23,13 @@ function ProductCard({
         })
       }>
       <ColumnContainer
-        style={
-          productsScreen
-            ? { width: (Window.width - 32 - 40) / 2 }
-            : { width: 86 }
-        }>
+        style={{ width: productsScreen ? (Window.width - 32 - 40) / 2 : 86 }}>
         <Image
           source={{ uri: product.imageUrl }}
           style={{
-            height: 86,
+            height: productsScreen ? (Window.width - 32 - 40) / 2 : 86,
             borderRadius: 12,
+            resizeMode: 'contain',
           }}
         />
         <Body numberOfLines={1} ellipsizeMode="tail">

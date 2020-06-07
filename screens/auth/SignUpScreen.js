@@ -7,7 +7,7 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard } from 'react-native';
+import { Alert, AsyncStorage, Button, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -30,7 +30,7 @@ import {
   formatPhoneNumber,
   inputFields,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -125,13 +125,13 @@ export default class SignUpScreen extends React.Component {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+        Alert.alert('Failed to get push token for push notification!');
         return;
       }
       const token = await Notifications.getExpoPushTokenAsync();
       this.setState({ token });
     } else {
-      alert('Must use physical device for Push Notifications');
+      Alert.alert('Must use physical device for Push Notifications');
     }
   };
 
@@ -178,6 +178,11 @@ export default class SignUpScreen extends React.Component {
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
+      logErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'addCustomer',
+        error: err,
+      });
     }
     return null;
   };
@@ -243,6 +248,11 @@ export default class SignUpScreen extends React.Component {
     } catch (err) {
       this.setModalVisible(true);
       console.log(err);
+      logErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'openRecaptcha',
+        error: err,
+      });
     }
   };
 
@@ -258,6 +268,11 @@ export default class SignUpScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'SignUpScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };
@@ -405,7 +420,7 @@ export default class SignUpScreen extends React.Component {
             width="100%"
             onPress={() => this.handleSubmit()}
             disabled={!signUpPermission}>
-            <ButtonLabel color={Colors.lightest}>Sign Up</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Sign Up</ButtonLabel>
           </FilledButtonContainer>
           {env === 'dev' && (
             <Button

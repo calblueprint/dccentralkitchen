@@ -9,16 +9,19 @@ const Colors = {
   lighterOrange: '#F7AA68',
   primaryOrange: '#F07723',
   darkerOrange: '#8F3000',
+  // Gray
+  primaryGray: '#BDBDBD',
+  lighterGray: '#DEDEDE',
+  lightestGray: '#EBEBEB',
   // Text
+  lightText: '#FFFFFF',
   activeText: 'rgba(0, 0, 0, 0.8)',
-  secondaryText: '#999999',
-  // Other
+  secondaryText: '#666666',
+  // Background
+  bgDark: '#000000',
+  bgLight: '#FFFFFF',
+  // Error
   error: '#CB4D4D',
-  base: '#BDBDBD',
-  light: '#DEDEDE',
-  lighter: '#EBEBEB',
-  lightest: '#FFFFFF',
-  black: '#000000',
 };
 
 export default Colors;

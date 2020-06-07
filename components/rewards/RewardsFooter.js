@@ -7,7 +7,7 @@ import RecordIds from '../../constants/RecordIds';
 import { rewardPointValue } from '../../constants/Rewards';
 import { getCustomersById } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
-import { Subhead } from '../BaseComponents';
+import { Subtitle } from '../BaseComponents';
 /**
  * @prop
  * */
@@ -60,8 +60,13 @@ export default class RewardsFooter extends React.Component {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <FontAwesome5 name="star" solid size={16} color={Colors.lightest} />
-            <Subhead style={{ paddingLeft: 8 }} color={Colors.lightest}>
+            <FontAwesome5
+              name="star"
+              solid
+              size={16}
+              color={Colors.lightText}
+            />
+            <Subtitle style={{ paddingLeft: 8 }} color={Colors.lightText}>
               {this.state.isGuest
                 ? 'Learn about Healthy Rewards >'
                 : this.state.rewards === 1
@@ -71,15 +76,15 @@ export default class RewardsFooter extends React.Component {
                 : this.state.customer.points === 1
                 ? `${this.state.customer.points} point`
                 : `${this.state.customer.points} points`}
-            </Subhead>
+            </Subtitle>
           </View>
         )}
         {this.state.customer && !this.state.isGuest && (
-          <Subhead color={Colors.lightest}>
+          <Subtitle color={Colors.lightText}>
             {this.state.rewards > 0
               ? `View your rewards >`
               : `View your points >`}
-          </Subhead>
+          </Subtitle>
         )}
       </View>
     );

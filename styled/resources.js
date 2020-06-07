@@ -3,7 +3,7 @@ import Colors from '../constants/Colors';
 
 export const ResourceItemCard = styled.View`
   border-bottom-width: 1px;
-  border-color: ${Colors.lighter};
+  border-color: ${Colors.lightestGray};
   margin: 12px 24px 0 24px;
   padding-bottom: 12px;
   flex-direction: row;
@@ -23,7 +23,7 @@ export const IconContainer = styled.View`
 `;
 
 export const CategoryCard = styled.View`
-  background-color: ${Colors.lighter};
+  background-color: ${Colors.lightestGray};
   padding: 10px 18px;
   flex-direction: row;
   flex: 1;

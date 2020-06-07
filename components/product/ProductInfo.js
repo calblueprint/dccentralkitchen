@@ -4,7 +4,7 @@ import Colors from '../../constants/Colors';
 import { displayDollarValue } from '../../lib/common';
 import { ProductInfoContainer } from '../../styled/product';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
-import { Body, Caption, Subhead, Title } from '../BaseComponents';
+import { Body, Caption, Subtitle, Title } from '../BaseComponents';
 /**
  * @prop
  * */
@@ -14,7 +14,7 @@ function ProductInfo({ product }) {
   return (
     <ProductInfoContainer>
       <Title>{name}</Title>
-      <Subhead>{detail}</Subhead>
+      <Subtitle>{detail}</Subtitle>
       <SpaceBetweenRowContainer style={{ marginTop: 12, paddingBottom: 16 }}>
         <Body>{`${displayDollarValue(customerCost)} each`}</Body>
         <Body>{`Points Earned: ${points}`}</Body>

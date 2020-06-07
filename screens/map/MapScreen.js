@@ -5,10 +5,14 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { NavHeaderContainer, Subhead } from '../../components/BaseComponents';
+import {
+  ButtonContainer,
+  NavHeaderContainer,
+  Subtitle,
+} from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
@@ -16,6 +20,7 @@ import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
+import { initialRegion } from '../../constants/Map';
 import RecordIds from '../../constants/RecordIds';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { getProductData, getStoreData } from '../../lib/mapUtils';
@@ -33,13 +38,6 @@ const maxSnapPoint = 488;
 const deltas = {
   latitudeDelta: 0.01,
   longitudeDelta: 0.01,
-};
-
-const initialRegion = {
-  latitude: 38.905548,
-  longitude: -77.036623,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
 };
 
 export default class MapScreen extends React.Component {
@@ -191,20 +189,33 @@ export default class MapScreen extends React.Component {
   };
 
   renderHeader = () => (
-    // TODO @tommypoa Favourites functionality
-    <BottomSheetHeaderContainer>
-      <DragBar />
-    </BottomSheetHeaderContainer>
+    <View
+      style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+      }}>
+      {!this.state.showDefaultStore && (
+        <CenterLocation
+          callBack={async () => {
+            await this._findCurrentLocation();
+            await this._orderStoresByDistance(this.state.stores);
+          }}
+        />
+      )}
+      <BottomSheetHeaderContainer>
+        <DragBar />
+      </BottomSheetHeaderContainer>
+    </View>
   );
 
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Subhead
+        <Subtitle
           style={{ margin: 16, marginBottom: 0 }}
           color={Colors.secondaryText}>
           Browsing healthy products at
-        </Subhead>
+        </Subtitle>
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -289,27 +300,21 @@ export default class MapScreen extends React.Component {
               size={16}
               color={Colors.primaryOrange}
             />
-            <Subhead color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+            <Subtitle color={Colors.secondaryText} style={{ marginLeft: 8 }}>
               Find a store
-            </Subhead>
+            </Subtitle>
           </SearchBar>
         </NavHeaderContainer>
-        {!this.state.showDefaultStore && (
-          <CenterLocation
-            callBack={async () => {
-              await this._findCurrentLocation();
-              await this._orderStoresByDistance(this.state.stores);
-            }}
-          />
-        )}
         {/* Display Map */}
         <MapView
           style={{
             marginTop: -170,
             flex: 100,
-            overflow: 'visible',
             zIndex: -1,
           }}
+          rotateEnabled={false}
+          loadingEnabled
+          showsUserLocation
           ref={(mapView) => {
             this._map = mapView;
           }}
@@ -332,19 +337,6 @@ export default class MapScreen extends React.Component {
               />
             </Marker>
           ))}
-          {/* If current location found, show current location marker */}
-          {this.state.location && (
-            <Marker
-              key={coords.latitude
-                .toString()
-                .concat(coords.longitude.toString())}
-              coordinate={coords}>
-              <Image
-                style={{ width: 32, height: 32 }}
-                source={require('../../assets/images/Current_Location.png')}
-              />
-            </Marker>
-          )}
         </MapView>
         {/* Display bottom sheet. 
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
@@ -362,7 +354,7 @@ export default class MapScreen extends React.Component {
             ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}
           />
         </View>
-        <TouchableOpacity
+        <ButtonContainer
           style={{
             position: 'absolute',
             height: 70,
@@ -370,13 +362,12 @@ export default class MapScreen extends React.Component {
             backgroundColor: Colors.primaryGreen,
             alignSelf: 'stretch',
             width: Window.width,
-            alignItems: 'center',
             justifyContent: 'center',
             zIndex: 1000,
           }}
           onPress={() => this.props.navigation.navigate('RewardsOverlay')}>
           <RewardsFooter />
-        </TouchableOpacity>
+        </ButtonContainer>
       </View>
     );
   }
