@@ -10,7 +10,7 @@ View: `Admin View`
 
 Column: `Store Hours`
 
-![assets/storehours/admin.png](./assets/storehours/admin.png)
+![assets/storehours/admin.png](../assets/storehours/admin.png)
 
 # Overview
 
@@ -95,10 +95,10 @@ Repeat this pattern for the number of days/day ranges with varying hours.
 9am-7pm Sun, 9am-8pm Tu-Sat, Closed Mon
 ```
 
-![assets/storehours/Untitled.png](./assets/storehours/Untitled.png)
+![assets/storehours/Untitled.png](../assets/storehours/Untitled.png)
 
 ::: details Resulting Display
-![assets/storehours/Untitled2.png](./assets/storehours/Untitled2.png)
+![assets/storehours/Untitled2.png](../assets/storehours/Untitled2.png)
 :::
 
 ### 2. Same hours every day of the week
@@ -119,10 +119,10 @@ OpeningTime-ClosingTime Daily
 8am-10pm Daily
 ```
 
-![assets/storehours/Untitled3.png](./assets/storehours/Untitled3.png)
+![assets/storehours/Untitled3.png](../assets/storehours/Untitled3.png)
 
 ::: details Resulting Display
-![assets/storehours/Untitled7.png](./assets/storehours/Untitled7.png)
+![assets/storehours/Untitled7.png](../assets/storehours/Untitled7.png)
 :::
 
 ::: tip Ex. Kwik Stop: 7am-12am Daily
@@ -132,10 +132,10 @@ OpeningTime-ClosingTime Daily
 7am-12am Daily
 ```
 
-![assets/storehours/Untitled5.png](./assets/storehours/Untitled5.png)
+![assets/storehours/Untitled5.png](../assets/storehours/Untitled5.png)
 
 ::: details Resulting Display
-![assets/storehours/Untitled8.png](./assets/storehours/Untitled8.png)
+![assets/storehours/Untitled8.png](../assets/storehours/Untitled8.png)
 :::
 ::: warning Warning: stores that open/close at midnight
 The time must be entered into Airtable as **12am** . The app will automatically convert this to display **Midnight**.
@@ -159,10 +159,10 @@ Open 24/7
 Open 24/7
 ```
 
-![assets/storehours/Untitled9.png](./assets/storehours/Untitled9.png)
+![assets/storehours/Untitled9.png](../assets/storehours/Untitled9.png)
 
 ::: details Resulting Display
-![assets/storehours/Untitled11.png](./assets/storehours/Untitled11.png)
+![assets/storehours/Untitled11.png](../assets/storehours/Untitled11.png)
 :::
 
 ### 4. Store closes after midnight
@@ -185,10 +185,10 @@ In the example below, even though the store opens until `3am` the following day,
 8am-3am Mon-Fri, 10am-12am Sat-Sun
 ```
 
-![assets/storehours/Untitled15.png](./assets/storehours/Untitled15.png)
+![assets/storehours/Untitled15.png](../assets/storehours/Untitled15.png)
 
 ::: details Resulting Display
-![assets/storehours/Untitled17.png](./assets/storehours/Untitled17.png)
+![assets/storehours/Untitled17.png](../assets/storehours/Untitled17.png)
 :::
 
 ::: danger Incorrect Input Examples
@@ -218,10 +218,10 @@ Store hours unavailable
 Store hours unavailable
 ```
 
-![assets/storehours/Untitled12.png](./assets/storehours/Untitled12.png)
+![assets/storehours/Untitled12.png](../assets/storehours/Untitled12.png)
 
 ::: details Resulting Display
-![assets/storehours/Untitled14.png](./assets/storehours/Untitled14.png)
+![assets/storehours/Untitled14.png](../assets/storehours/Untitled14.png)
 :::
 
 ## Additional Considerations

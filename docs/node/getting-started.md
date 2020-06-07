@@ -73,15 +73,15 @@ In general, I found the Google documentation a bit lacking, and the Google Cloud
 
 Project credentials (`CLIENT_ID`, `CLIENT_SECRET`) are located in the `APIs & Services` section.
 
-![Locating Credentials screen](./assets/locating-credentials.png)
+![Locating Credentials screen](../assets/node/locating-credentials.png)
 
 Click on the "Healthy Corners Rewards OAuth Client"
 
-![OAuth2 Client Info](./assets/oauth2-client-info.png)
+![OAuth2 Client Info](../assets/node/oauth2-client-info.png)
 
 Click "Download JSON" or alternatively directly copy-paste the Client ID and Client Secret. If you scroll down, you'll see this section:
 
-![Redirect URIs](./assets/redirect-URIs.png)
+![Redirect URIs](../assets/node/redirect-URIs.png)
 
 Here, you can set redirect URIs - if the domain ever changes, you **must** update this. Otherwise, authorization will stop working! Furthermore, the `REDIRECT_URI` in `.env` and Heroku's config vars **must match and be listed here**.
 
@@ -91,13 +91,13 @@ When testing auth, you may need to revoke application permission, since the `ref
 
 You can do so here: <https://myaccount.google.com/permissions>
 
-![Google app access](./assets/app-access.png)
+![Google app access](../assets/node/app-access.png)
 
 #### Add a user to the project
 
 This can be done via the [IAM page in the Google Cloud console](https://console.cloud.google.com/iam-admin/iam?authuser=1&folder=&organizationId=&orgonly=true&project=quickstart-1587887313757&supportedpurview=organizationId).
 
-![IAM page](./assets/iam.png)
+![IAM page](../assets/node/iam.png)
 
 ### Working with Dates
 
@@ -113,7 +113,7 @@ Some routes are accessible via browser (e.g the `GET` routes - in particular, th
 Another option is to do so via the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls that modify the spreadsheet are locked via a `HC_SECRET`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
 
 **Example**
-![Postman example](./assets/postman.png)
+![Postman example](../assets/node/postman.png)
 
 Note that you **must** add the `Content-Type: application/json` header. Then, the `Body` (select `raw` for format) of the request in its expected format:
 
@@ -139,7 +139,7 @@ Please do not add your Airtable email and password to the config vars, as they a
 
 You can access or update config vars via the Heroku dashboard.
 
-![Heroku Dashboard - config vars](./assets/heroku-config-vars.png)
+![Heroku Dashboard - config vars](../assets/node/heroku-config-vars.png)
 
 Notably, the `REACT_APP_AIRTABLE_API_KEY` and `REFRESH_TOKEN` are personal to individual developers; the `HC_SECRET` securing `POST` routes is also a member of the config variables.
 
@@ -157,7 +157,7 @@ Be sure to push your changes to the canonical repository (typically with `git pu
 
 Once the application is up and running, you will see this on the application homepage:
 
-![Live Server](./assets/server-live.png)
+![Live Server](../assets/node/server-live.png)
 
 ### Heroku Scheduler
 
@@ -171,18 +171,18 @@ It's perfect for our particular use case, and is why we deployed with Heroku (re
 
 This is what the [scheduler dashboard](https://dashboard.heroku.com/apps/healthycorners-rewards-node/scheduler) looks like:
 
-![Scheduler Dashboard](./assets/scheduler-dashboard.png)
+![Scheduler Dashboard](../assets/node/scheduler-dashboard.png)
 
 With the job editor, you can configure how often you want the scheduled job to run. It's currently set to run daily at midnight UTC time.
 
-![Job editor](./assets/job-editor.png)
+![Job editor](../assets/node/job-editor.png)
 
 ### Logentries
 
 [Logentries](https://devcenter.heroku.com/articles/logentries) is a free add-on for monitoring your application and viewing logs.
 
 We've installed it because we might want to inspect the `console.log` output of the scheduled job. Logentries will also send email notifications when the server crashes.
-![Logentries Output](./assets/output-logentries.png)
+![Logentries Output](../assets/node/output-logentries.png)
 
 ## References
 

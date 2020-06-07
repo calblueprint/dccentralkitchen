@@ -10,7 +10,7 @@ This backend server built with Express and Node integrates the Airtable and Goog
 ---
 
 Here's a screenshot of the sheet (`Blueprint - Store Products`) that our app modifies, which acts as the data source for Airtable.
-![Google Sheet - Blueprint sheet](./assets/google-sheet.png)
+![Google Sheet - Blueprint sheet](../assets/node/google-sheet.png)
 
 ::: tip
 The details of how it's configured can be found in the [admin guide](../admin/#google-sheets), but for our purposes, we will assume this spreadsheet will always accurately list stores & products delivered during the range specified in the yellow-highlighted cells.
@@ -19,9 +19,9 @@ The details of how it's configured can be found in the [admin guide](../admin/#g
 ---
 
 Here are some of the affected views in the customer application.
-|                        Map view                        |                     Individual store's product list                      |
-| :----------------------------------------------------: | :----------------------------------------------------------------------: |
-| ![Customer App: map view](./assets/store-map-view.png) | ![Customer App: a store's product list](./assets/store-product-list.png) |
+|                           Map view                           |                        Individual store's product list                         |
+| :----------------------------------------------------------: | :----------------------------------------------------------------------------: |
+| ![Customer App: map view](../assets/node/store-map-view.png) | ![Customer App: a store's product list](../assets/node/store-product-list.png) |
 
 ## Server
 

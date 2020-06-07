@@ -36,7 +36,7 @@ The **Airtable Guidelines** section:
 
 All admins need access to our [Airtable workspace](https://airtable.com/invite/l?inviteId=invFPVCCPnoHZ0htX&inviteToken=8c4d57af33a94c6b1527d75df1f13c7ecb9a98b38ae3eb432700445e1fb2bc6d).
 
-![Airtable workspace](./assets/intro/airtable-workspace.png)
+![Airtable workspace](../assets/intro/airtable-workspace.png)
 
 There are multiple bases: `PROD` stands for "Production", meaning that base is where the live applications are pulling data from. `DEV` stands for "Development", and that base is used only when developers are working on or testing the app on their computers.
 
@@ -73,7 +73,7 @@ Views are one of Airtable's most powerful features; they allow for a myriad of w
 
 Now, we'll briefly describe how the `[PROD]` base is set up.
 
-![Airtable PROD](./assets/intro/airtable-prod.png)
+![Airtable PROD](../assets/intro/airtable-prod.png)
 
 As you can see, we currently have **nine** tables - the admin-facing tables also should all have an "Admin View" already created. These can roughly be split into **three categories**:
 

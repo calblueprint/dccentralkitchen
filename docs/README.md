@@ -61,4 +61,4 @@ For any questions about the admin or developer side of this project, contact **A
 
 This project was built by one of [UC Berkeley @calblueprint](https://calblueprint.org)'s teams during the 2019-2020 school year.
 
-![Blueprint SP'20 Team](./shared/assets/team.png)
+![Blueprint SP'20 Team](./assets/team.png)

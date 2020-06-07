@@ -147,7 +147,7 @@ To test the app on your device, you will need to install the TestFlight iOS app 
 2. Go to **My Apps** and select **Healthy Corners Rewards**
 3. Under the **App Store** tab on the left menu bar, select **+ Version or Platform**, and select **iOS** from the dropdown
 
-   ![./assets/appstoreupdate/AppStoreConnect.png](./assets/appstoreupdate/AppStoreConnect.png)
+   ![./assets/appstoreupdate/AppStoreConnect.png](../assets/appstoreupdate/AppStoreConnect.png)
 
 4. Update Version Information
 
@@ -193,7 +193,7 @@ Once the build starts, it can take anywhere from a few minutes to a several hour
 
 Once the build is complete, click the link in the command line or go to your Expo dashboard, select the build, and download the Build artifact (APK).
 
-![./assets/appstoreupdate/download.png](./assets/appstoreupdate/download.png)
+![./assets/appstoreupdate/download.png](../assets/appstoreupdate/download.png)
 
 #### Test the APK
 
@@ -205,7 +205,7 @@ If you have Android Studio with an emulator or virtual device, select **Profile 
 If you don't have an Android Emulator, upload the APK to [Appetize](https://appetize.io/upload) to test it on an Android device online for free.
 :::
 
-![./assets/appstoreupdate/android_studio.png](./assets/appstoreupdate/android_studio.png)
+![./assets/appstoreupdate/android_studio.png](../assets/appstoreupdate/android_studio.png)
 
 #### Create a new Release in the Google Play Console
 
@@ -285,7 +285,7 @@ This is optional but highly recommended to track bigger releases including more 
 
 1. Go to the **Tags** within the **Releases** page in the [customer](https://github.com/calblueprint/dccentralkitchen/tags) or [clerk](https://github.com/calblueprint/dccentralkitchen-clerks/tags) repo
 2. Select the `•••` menu by the latest tag and select **Create release**
-   ![Tag](./assets/appstoreupdate/release-git.png)
+   ![Tag](../assets/appstoreupdate/release-git.png)
 3. In **Release Title**, enter the SemVer code from `version` in **`app.json`**. In parentheses, add either **OTA** if the update was published OTA, or **build** if the update was published by a standalone build.
 4. Add a description about the **Features & Improvements** and **Bug Fixes**.
    ::: callout Example: v1.1.0 (build)

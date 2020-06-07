@@ -63,7 +63,7 @@ This will use the `refresh_token` in the environment and initialize the OAuth cl
 
 1. Go to <https://healthycorners-rewards-node.herokuapp.com/auth>. This will check if a user has been authorized, and then do a read-only call to the Google Sheets API. It accesses a [test version of the live spreadsheet](https://docs.google.com/spreadsheets/d/129BwSHKu-_qTMcpZKpqCp55qQWNipXft9tPOnqFkyB0/edit#gid=0), which is viewable to anyone with the link.
    If all is well with the authorization, you'll see something like this:
-   > ![Successfully authorized](./assets/authorized.png)
+   > ![Successfully authorized](../assets/node/authorized.png)
 2. To check that the authorized user is able to access the live spreadsheeht, go to <https://healthycorners-rewards-node.herokuapp.com/getMappings/current>. This will use the authorized user to do a read-only call to the live spreadsheet and display the current store-product mapping.
 
 :::
@@ -74,19 +74,19 @@ This route must be used to collect a user's `refresh_token`.
 
 Here's the initial page:
 
-![Auth initial page](./assets/auth-required.png)
+![Auth initial page](../assets/node/auth-required.png)
 
 The authorization flow - choose an account
 
-![Choose an account](./assets/choose-account.png)
+![Choose an account](../assets/node/choose-account.png)
 
 The authorization flow - grant requested permissions
 
-![Grant permissions](./assets/grant-permission.png)
+![Grant permissions](../assets/node/grant-permission.png)
 
 The authorization flow - confirm permissions
 
-![Confirm](./assets/confirm.png)
+![Confirm](../assets/node/confirm.png)
 
 ### GET '/auth-callback'
 
@@ -96,7 +96,7 @@ The auth flow:
 
 If authorization is successful, this page will be shown.
 
-![Auth initial page](./assets/auth-success.png)
+![Auth initial page](../assets/node/auth-success.png)
 
 Copy the `refresh_token` in full (we've censored part of it in this screenshot for obvious reasons), and update it in both your local `.env` file and the [Heroku config vars](./getting-started.md#config-vars).
 

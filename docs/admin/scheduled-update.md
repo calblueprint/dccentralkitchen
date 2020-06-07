@@ -4,7 +4,7 @@ We run a daily job to automatically update a store's current products in Airtabl
 
 **_In general, this should not need much maintenance - only rarely, when the Google Sheet source for the delivery data changes._** _We recommend reading through this guide to understand how it works at a high level so you will be informed when action does need to be taken_.
 
-![Google Sheets - Blueprint sheet](./assets/intro/google-sheet.png)
+![Google Sheets - Blueprint sheet](../assets/intro/google-sheet.png)
 
 ::: danger
 When the Google Sheet for deliveries is changed, the code for the automatic update **must be updated** to link to the new Google Sheet. We recommend that a developer helps do this - though it's not many steps, it does need some technical knowledge. On the admin side, the current `Blueprint - Store Products` sheet must be replicated **exactly** in the new Google Sheet, including which columns correspond to what. The formulas must be updated so that data is accurately transferred to the `Blueprint - Store Products` sheet.
@@ -20,7 +20,7 @@ Most of the important cells have notes added to explain what they do as indicate
 
 For example, the "'Auto Import' Row LOWER Limit cell" is purely informative and doesn't affect anything else on the sheet.
 
-![Auto Import cell](./assets/intro/auto-import.png)
+![Auto Import cell](../assets/intro/auto-import.png)
 
 The "Date Range Start" and "Date Range End" cells are used in the formulas (more on that later) and are updated during the scheduled job to be `Today` and `Today - <Date Range Length>`. Modifying these will **not** affect future scheduled updates, since the code will simply overwrite these values.
 
@@ -39,7 +39,7 @@ All of the yellow-highlighted cells other than "Date Range Start" and "Date Rang
 For example, the first cell in the "Store Name" is actually a formula that does a lookup to get all the names of all stores that had deliveries during the date range specified.
 
 In general, these **do not need to be modified**.
-![Formula from Google Sheet](./assets/intro/formula.png)
+![Formula from Google Sheet](../assets/intro/formula.png)
 
 However, for every store that has deliveries, its corresponding cells in columns **B** ("Last Delivery") and **C** ("Products") are also formula cells. This means that the formula must be manually copied in. Currently, we assume a limit of **100 stores**. That means the formulas are pre-populated up to the 101th cell.
 ::: danger
@@ -53,7 +53,7 @@ Some additional notes about the formula cells:
 - All formulas will automatically use the last row of the spreadsheet as the upper bound. This is due to A1 notation: `$A$21000:A` means start at the 21000th row and go til the end.
 
 Example of an updated Airtable Store record
-![Example Airtable record](./assets/intro/airtable-record.png)
+![Example Airtable record](../assets/intro/airtable-record.png)
 
 Note that Airtable keeps a record of revision history, so you can see that the latest delivery to "Dollar Plus Super Market (Howard Road)" must have been two days ago (at time of writing).
 
@@ -62,9 +62,9 @@ Even though the scheduled update will happen daily, Airtable will only apply new
 :::
 
 If you scroll down, you can see the linked Product records and can add/remove to this list as usual if you need to.
-![Record details](./assets/intro/record-detail.png)
+![Record details](../assets/intro/record-detail.png)
 
 Finally, as a reminder, these are some of the affected views in the customer application. We're looking at the same example store here, so you can see that the changes are reflected directly in the application.
-| Map view | Individual store's product list |
-| :----------------------------------------------------: | :----------------------------------------------------------------------: |
-| ![Customer App: map view](./assets/intro/map-view.png) | ![Customer App: a store's product list](./assets/intro/product-list.png) |
+|                        Map view                         |                      Individual store's product list                      |
+| :-----------------------------------------------------: | :-----------------------------------------------------------------------: |
+| ![Customer App: map view](../assets/intro/map-view.png) | ![Customer App: a store's product list](../assets/intro/product-list.png) |
