@@ -17,7 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": ["assets/images/*"],
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
