@@ -327,7 +327,7 @@ export default class LogInScreen extends React.Component {
               style={{
                 justifyContent: 'center',
               }}>
-              <Body>Don&apos;t have an account?</Body>
+              <Body>{`Don't have an account? `}</Body>
               <ButtonContainer
                 onPress={() =>
                   this.props.navigation.dispatch(StackActions.replace('SignUp'))

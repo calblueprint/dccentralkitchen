@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
@@ -93,6 +94,7 @@ export default class PasswordResetScreen extends React.Component {
       values: { ...prevState.values, [inputField]: text },
       confirmed:
         // Compare with new verifyPassword value
+        !prevState.errors[inputFields.NEWPASSWORD] &&
         inputField === inputFields.VERIFYPASSWORD
           ? prevState.verified &&
             prevState.values[inputFields.NEWPASSWORD] === text &&
@@ -281,8 +283,30 @@ export default class PasswordResetScreen extends React.Component {
             />
           )}
 
-          <BackButton onPress={() => this.props.navigation.goBack()}>
-            <FontAwesome5 name="arrow-left" solid size={24} />
+          <BackButton
+            onPress={() => {
+              if (this.state.verified) {
+                Alert.alert(
+                  'Are you sure you want to go back? You will have to verify your phone number again.',
+                  '',
+                  [
+                    {
+                      text: 'Go back',
+                      onPress: () => this.props.navigation.goBack(),
+                    },
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                  ]
+                );
+              } else {
+                this.props.navigation.goBack();
+              }
+            }}>
+            {!this.state.success && (
+              <FontAwesome5 name="arrow-left" solid size={24} />
+            )}
           </BackButton>
           {this.state.verified && !this.state.success && (
             <View>
@@ -381,13 +405,28 @@ export default class PasswordResetScreen extends React.Component {
               <Subtitle style={{ marginTop: 32 }}>
                 {this.state.forgot
                   ? 'Your new password was successfully set.'
-                  : 'Your account is fully set up! Next time, go straight to Log In to access your account.'}
+                  : 'Your account is fully set up! Next time, you can go straight to Log In to access your account.'}
               </Subtitle>
               <FilledButtonContainer
                 style={{ marginTop: 48 }}
                 color={Colors.primaryGreen}
                 width="100%"
-                onPress={() => this.props.navigation.navigate('LogIn')}>
+                onPress={() => {
+                  if (this.state.forgot) {
+                    this.props.navigation.navigate('Auth', {
+                      screen: 'LogIn',
+                    });
+                  } else {
+                    this.props.navigation.dispatch(
+                      StackActions.replace('LogIn')
+                    );
+                  }
+                  this.setState({
+                    success: false,
+                    verified: false,
+                    forgot: true,
+                  });
+                }}>
                 <ButtonLabel color={Colors.lightText}>Go to Log In</ButtonLabel>
               </FilledButtonContainer>
             </View>
