@@ -21,56 +21,30 @@ In order for the store hours to display correctly, they **must** be entered into
 ### Time & Day Format Rules
 
 Times and days must follow the following standard formats
-| | Single | Range |
+|      | Single                                     | Range                         |
 | ---- | ------------------------------------------ | ----------------------------- |
-| Time | `9am` `8:30pm` | `9am-12pm` `8am-1am` |
-| Day | `Sun` `Mon` `Tu` `Wed` `Thurs` `Fri` `Sat` | `Sun-Wed` `Thurs-Mon` `Daily` |
+| Time | `9am` `8:30pm`                             | `9am-12pm` `8am-1am`          |
+| Day  | `Sun` `Mon` `Tu` `Wed` `Thurs` `Fri` `Sat` | `Sun-Wed` `Thurs-Mon` `Daily` |
 
 ---
 
-::: details Dos and Don'ts: Time Formats
-**Standard time formats**
+### Dos and Don'ts: Time Formats
 
-:white_check_mark: `12pm`
+| :white_check_mark: Do                        | :x: Don't                                                                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `12pm`                                       | `12 pm` do not include a space between the hour and am/pm<br/><br/>`12PM` am/pm must be lower case                       |
+| `9:30am` Only include minutes when necessary | `12:00pm` Do not include minutes when the time is even on the hour.                                                      |
+| `9am-8pm Mon...` Always specify am/pm.       | `9am-8 Mon`  Do not leave ambiguous numbers.                                                                             |
+| `9am-12am...` Use 12am for Midnight          | `9am-Midnight` Do not add the word Midnight. Instead, enter `12am` and the app will automatically display it as Midnight |
+| `12pm-9pm...` 12pm for Noon                  | `Noon-9pm` Do not add the word Noon                                                                                      |
 
-:x: `12 pm` do not include a space between the hour and am/pm
+### Dos and Don'ts: Day Formats
 
-:x: `12PM` am/pm must be lower case
+| :white_check_mark: Do                                                                     | :x: Don't                                                                                                                                                                                |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `12pm-9pm Mon-Thurs, Closed Fri` Follow the required day abbreviations                    | `12pm-9pm Monday-Thursday, Closed Friday` Do not use full day names <br/><br/>`12pm-9pm M-Th, Closed F` Do not use any other types of abbreviation                                       |
+| `8am-8pm Mon-Tu, Closed Wed, 8am-8pm Thurs-Sun` <br/><br/> `8am-8pm Thurs-Tu, Closed Wed` | `8am-8pm Mon-Sun, Closed Wed` Wed is between Mon and Sun, so the date range should end before and after Wed               <br/><br/>`8am-8pm Mon-Wed, 9am-9pm Wed` Wed is included twice |
 
-:white_check_mark:`9:30am` Only include minutes when necessary
-
-:x: `12:00pm` Do not include minutes when the time is even on the hour.
-
-:white_check_mark: `9am-8pm Mon...`
-
-:x: `9am-8 Mon` Always specify am/pm. Do not leave ambiguous numbers.
-
-:white_check_mark: `9am-12am...` Use 12am for Midnight
-
-:x: `9am-Midnight` Do not add the word Midnight. Instead, enter `12am` and the app will automatically display it as Midnight
-
-:white_check_mark: `12pm-9pm...` 12pm for Noon
-
-:x: `Noon-9pm` Do not add the word Noon
-:::
-
-::: details Dos and Don'ts: Day Formats
-**Days must be entered in [standard abbreviations](#time-day-format-rules)**
-
-:white_check_mark: `12pm-9pm Mon-Thurs, Closed Fri` Follow the required day abbreviations
-
-:x: `12pm-9pm Monday-Thursday, Closed Friday` Do not use full day names
-
-:x: `12pm-9pm M-Th, Closed F` Do not use any other types of abbreviation
-
-**Day ranges must be in order**
-
-:white_check_mark: `8am-8pm Mon-Tu, Closed Wed, 8am-8pm Thurs-Sun` OR `8am-8pm Thurs-Tu, Closed Wed`
-
-:x: `8am-8pm Mon-Sun, Closed Wed` Wed is between Mon and Sun, so the date range should end before and after Wednesday
-
-:x: `8am-8pm Mon-Wed, 9am-9pm Wed` Wed is included twice
-:::
 
 ### Combining the Time and Day
 
@@ -84,35 +58,11 @@ Times and days must follow the following standard formats
 
 :::
 
-::: details Dos and Don'ts: Combining the Time and Day
-**If a store is open 24/7**
-
-:white_check_mark: `Open 24/7`
-
-:x: `12am-12am Daily` Use **Open 24/7** instead
-
-**Always put time before the day/day range**
-
-:white_check_mark: `9am-12pm Mon-Fri, 8am-8pm Sun-Sat`
-
-:x:`Mon-Fri 9am-9pm, Sun-Sat 8am-8pm` This order is reversed
-
-:white_check_mark: `Closed Sun`
-
-:x:`Sun Closed` Closed must go before the day.
-
-**Do not add any extra words or punctuation**
-
-:white_check_mark: `Open 24/7` This is the only case where including `Open` and `/` is correct
-
-:x:`Open 9am-9pm Mon-Fri, Closed Sat` Do not add `Open` or any other words UNLESS it is `Open 24/7`
-
-:white_check_mark: `8am-8pm Mon-Tu, Closed Wed, 8am-8pm Thurs-Sun` Only use a single hyphen (no spaces around) and commas with a single space
-
-:x: `8am--8pm Mon-Tu; Closed: Wed!` Do not use any other symbols like `--` `;` `:`
-
-:x: `Mon-Tu: 8am-8pm; Fri-Sun: Closed;` Day/Time order is reversed & using incorrect symbols.
-:::
+| Rule                                      | :white_check_mark: Do                                              | :x: Don't                                                                                                                                                                                                                                          |
+| ----------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| If a store is open 24/7                   | `Open 24/7`                                                        | `12am-12am Daily`                                                                                                                                                                                                                                  |
+| Always put time before the day/day range  | `9am-12pm Mon-Fri, 8am-8pm Sun-Sat`<br><br>`Closed Sun`            | `Mon-Fri 9am-9pm, Sun-Sat 8am-8pm`<br><br>`Sun Closed`                                                                                                                                                                                             |
+| Do not add any extra words or punctuation | `Open 24/7`<br><br>`8am-8pm Mon-Tu, Closed Wed, 8am-8pm Thurs-Sun` | `8am--8pm Mon-Tu; Closed: Wed!` Do not use any other symbols like `--` `;` `:`<br> <br>`Open 9am-9pm Mon-Fri, Closed Sat` Do not add words UNLESS it is `Open 24/7`<br><br>`Mon-Tu: 8am-8pm; Fri-Sun: Closed;` Reversed & using incorrect symbols. |
 
 ## Input Scenarios & Examples
 

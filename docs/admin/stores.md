@@ -14,27 +14,29 @@ Currently, there is no way to temporarily hide a store. To permanently delete a 
 
 ### `Primary Key`
 
-:x: **Do not edit anything in this column**
+::: danger
+**Do not edit anything in this column.**
+:::
 
 ### `Store Name`
 
-This name must match the name on the Auto Import product data sheet for product delivery updates to transfer correctly.
+This name must **match the name on the Auto Import product data sheet** for product delivery updates to transfer correctly.
 
 ### `Ward`
 
 Only enter the number.
 
-:white_check_mark: `7`
-
-:x: `Ward 7`
+| :white_check_mark: Do | :x: Don't |
+| --------------------- | --------- |
+| `7`                   | `Ward 7`  |
 
 ### `Address`
 
 Only include the Street Number and Street Name, **not the entire address with city, state and zip code.**
 
-:white_check_mark: `4748 Sheriff Road Northeast`
-
-:x: `4748 Sheriff Rd NE Washington, DC 20019`
+| :white_check_mark: Do         | :x: Don't                                 |
+| ----------------------------- | ----------------------------------------- |
+| `4748 Sheriff Road Northeast` | `4748 Sheriff Rd NE Washington, DC 20019` |
 
 ### `Latitude` & `Longitude`
 
@@ -49,30 +51,23 @@ The numbers should look similar to this example:
 
 This input **MUST** follow the correct format outlined in the [store hours formatting guide](./storehours.md)
 
-:white_check_mark: Correct examples:
-
-- `9am-7pm Sun, 9am-8pm Tu-Sat, Closed Mon`
-- `8:30am-8pm Mon-Sat, 8:10am-5pm Sun`
-- `Open 24/7`
-- `8am-11pm Daily`
-- If the store hours are unavailable, enter `Store hours unavailable`
-
 ### `Phone Number`
 
 Enter 10 digits only — this will format automatically.
 
 If a phone number is not available, leave this field blank. DO NOT enter anything other than a phone number such as an email address, website link etc.
 
-:white_check_mark: `1231231234`
+| :white_check_mark: Do | :x: Don't                                                            |
+| --------------------- | -------------------------------------------------------------------- |
+| `1231231234`          | `123.123.1234` `+1(433) 343-9293` Do not add any special characters. |
 
-:x: `123.123.1234` Do not add any special characters.
 
 ### Accepted programs checkboxes
 
 For the following columns, check the box if the program is accepted at the store. Otherwise, leave the column blank. For reference, this is how the Airtable column names display in the app.
-| Airtable column name | Tag label |
+| Airtable column name   | Tag label       |
 | ---------------------- | --------------- |
-| SNAP or EBT Accepted | EBT |
-| Coupon Program Partner | SNAP Match |
-| Rewards Accepted | Healthy Rewards |
-| WIC | WIC |
+| SNAP or EBT Accepted   | EBT             |
+| Coupon Program Partner | SNAP Match      |
+| Rewards Accepted       | Healthy Rewards |
+| WIC                    | WIC             |
