@@ -34,6 +34,7 @@ export const DividerBar = styled.View`
 `;
 
 export const BottomSheetHeaderContainer = styled.View`
+  width: 100%;
   background-color: ${Colors.bgLight};
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;

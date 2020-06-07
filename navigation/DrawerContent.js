@@ -16,6 +16,7 @@ function DrawerContent(props) {
   const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
   const [isLoading, setIsLoading] = React.useState(true);
   const navigation = useNavigation();
+
   const logout = async () => {
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
@@ -25,6 +26,7 @@ function DrawerContent(props) {
     props.navigation.closeDrawer();
     Updates.reload();
   };
+
   useFocusEffect(
     React.useCallback(() => {
       let isActive = true;

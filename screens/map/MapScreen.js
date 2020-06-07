@@ -202,9 +202,23 @@ export default class MapScreen extends React.Component {
   };
 
   renderHeader = () => (
-    <BottomSheetHeaderContainer>
-      <DragBar />
-    </BottomSheetHeaderContainer>
+    <View
+      style={{
+        display: 'flex',
+        alignItems: 'flex-end',
+      }}>
+      {!this.state.showDefaultStore && (
+        <CenterLocation
+          callBack={async () => {
+            await this._findCurrentLocation();
+            await this._orderStoresByDistance(this.state.stores);
+          }}
+        />
+      )}
+      <BottomSheetHeaderContainer>
+        <DragBar />
+      </BottomSheetHeaderContainer>
+    </View>
   );
 
   renderContent = () => {
@@ -299,22 +313,14 @@ export default class MapScreen extends React.Component {
             </Subtitle>
           </SearchBar>
         </NavHeaderContainer>
-        {!this.state.showDefaultStore && (
-          <CenterLocation
-            callBack={async () => {
-              await this._findCurrentLocation();
-              await this._orderStoresByDistance(this.state.stores);
-            }}
-          />
-        )}
         {/* Display Map */}
         <MapView
           style={{
             marginTop: -170,
             flex: 100,
-            overflow: 'visible',
             zIndex: -1,
           }}
+          rotateEnabled={false}
           loadingEnabled
           showsUserLocation
           ref={(mapView) => {
