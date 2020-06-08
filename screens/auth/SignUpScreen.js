@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { StackActions } from '@react-navigation/native';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
@@ -12,11 +13,16 @@ import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
+  Body,
+  ButtonContainer,
   ButtonLabel,
+  Caption,
   FilledButtonContainer,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
+import { signUpBonus } from '../../constants/Rewards';
 import { env } from '../../environment';
 import firebaseConfig from '../../firebase';
 import {
@@ -27,7 +33,7 @@ import {
 } from '../../lib/airtable/request';
 import {
   encryptPassword,
-  formatPhoneNumber,
+  formatPhoneNumberInput,
   inputFields,
 } from '../../lib/authUtils';
 import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
@@ -37,6 +43,7 @@ import {
   BackButton,
   FormContainer,
 } from '../../styled/auth';
+import { RowContainer } from '../../styled/shared';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
 
@@ -47,7 +54,6 @@ export default class SignUpScreen extends React.Component {
     super(props);
     const recaptchaVerifier = React.createRef();
     this.state = {
-      formattedPhoneNumber: '',
       modalVisible: false,
       recaptchaVerifier,
       verificationId: null,
@@ -60,6 +66,7 @@ export default class SignUpScreen extends React.Component {
         [inputFields.NAME]: '',
         [inputFields.PHONENUM]: '',
         [inputFields.PASSWORD]: '',
+        submit: '',
       },
       token: '',
     };
@@ -151,7 +158,7 @@ export default class SignUpScreen extends React.Component {
         name,
         phoneNumber,
         // 2020/4/29 update for Nam's launch
-        points: 500,
+        points: signUpBonus,
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 
@@ -192,21 +199,40 @@ export default class SignUpScreen extends React.Component {
   handleSubmit = async () => {
     try {
       // Check for duplicates first
-      const formattedPhoneNumber = formatPhoneNumber(
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        this.state.values[inputFields.PHONENUM]
-      );
-      this.setState({ formattedPhoneNumber });
       const duplicateCustomers = await getCustomersByPhoneNumber(
-        formattedPhoneNumber
+        this.state.values[inputFields.PHONENUM]
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
-        const errorMsg = 'Phone number already in use.';
+        const errorMsg = 'Phone number already in use';
+        if (
+          duplicateCustomers.length === 1 &&
+          !duplicateCustomers[0].password
+        ) {
+          Alert.alert(
+            'Phone number registered without a password',
+            `${
+              this.state.values[inputFields.PHONENUM]
+            } does not have a password yet. Set a password to finish setting up your account.`,
+            [
+              {
+                text: 'Set a password',
+                onPress: () =>
+                  this.props.navigation.navigate('Reset', {
+                    forgot: false,
+                  }),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
+        }
         logAuthErrorToSentry({
           screen: 'SignUpScreen',
           action: 'handleSubmit',
-          attemptedPhone: formattedPhoneNumber,
+          attemptedPhone: this.state.values[inputFields.PHONENUM],
           attemptedPass: null,
           error: errorMsg,
         });
@@ -235,6 +261,9 @@ export default class SignUpScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
+    // const number = '+1'.concat(
+    //   this.state.values[inputFields.PHONENUM].replace(/\D/g, '')
+    // );
     const number = '+1'.concat(this.state.values[inputFields.PHONENUM]);
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
@@ -246,7 +275,12 @@ export default class SignUpScreen extends React.Component {
       this.setState({ verificationId });
       this.setModalVisible(true);
     } catch (err) {
-      this.setModalVisible(true);
+      this.setState({
+        errors: {
+          submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
+        },
+      });
+      this.setModalVisible(false);
       console.log(err);
       logErrorToSentry({
         screen: 'SignUpScreen',
@@ -307,7 +341,7 @@ export default class SignUpScreen extends React.Component {
     }
 
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [inputField]: errorMsg },
+      errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
       values: { ...prevState.values, [inputField]: text },
     }));
 
@@ -325,10 +359,21 @@ export default class SignUpScreen extends React.Component {
     // Only update error if there is currently an error
     // Unless field is password, since it is generally the last field to be filled out
     if (this.state.errors[inputField] || inputField === inputFields.PASSWORD) {
-      await this.updateError(text, inputField);
+      await this.updateError(
+        inputField === inputFields.PHONENUM
+          ? formatPhoneNumberInput(text)
+          : text,
+        inputField
+      );
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        values: {
+          ...prevState.values,
+          [inputField]:
+            inputField === inputFields.PHONENUM
+              ? formatPhoneNumberInput(text)
+              : text,
+        },
       }));
     }
   };
@@ -357,7 +402,7 @@ export default class SignUpScreen extends React.Component {
           }}>
           {this.state.modalVisible && (
             <VerificationScreen
-              number={this.state.formattedPhoneNumber}
+              number={values[inputFields.PHONENUM]}
               visible={this.state.modalVisible}
               verifyCode={this.verifyCode}
               resend={this.openRecaptcha}
@@ -369,14 +414,25 @@ export default class SignUpScreen extends React.Component {
             ref={this.state.recaptchaVerifier}
             firebaseConfig={firebaseConfig}
           />
-          <BackButton onPress={() => this.props.navigation.goBack(null)}>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
           <BigTitle>Sign Up</BigTitle>
+          <Subtitle style={{ marginTop: 32 }}>
+            {'If you registered in person with your phone number, '}
+            <Subtitle
+              color={Colors.primaryGreen}
+              onPress={() =>
+                this.props.navigation.navigate('Reset', { forgot: false })
+              }>
+              click here to set a password
+            </Subtitle>
+            {' to finish setting up your account.'}
+          </Subtitle>
           <FormContainer>
             <AuthTextField
               fieldType="Name"
-              value={this.state.values[inputFields.NAME]}
+              value={values[inputFields.NAME]}
               onBlurCallback={(value) => {
                 this.updateError(value, inputFields.NAME);
                 this.scrollView.scrollToEnd({ animated: true });
@@ -384,12 +440,12 @@ export default class SignUpScreen extends React.Component {
               changeTextCallback={async (text) =>
                 this.onTextChange(text, inputFields.NAME)
               }
-              error={this.state.errors[inputFields.NAME]}
+              error={errors[inputFields.NAME]}
             />
 
             <AuthTextField
               fieldType="Phone Number"
-              value={this.state.values[inputFields.PHONENUM]}
+              value={values[inputFields.PHONENUM]}
               onBlurCallback={(value) => {
                 this.updateError(value, inputFields.PHONENUM);
                 this.scrollView.scrollToEnd({ animated: true });
@@ -397,31 +453,51 @@ export default class SignUpScreen extends React.Component {
               changeTextCallback={(text) =>
                 this.onTextChange(text, inputFields.PHONENUM)
               }
-              error={this.state.errors[inputFields.PHONENUM]}
+              error={errors[inputFields.PHONENUM]}
             />
 
             <AuthTextField
               fieldType="Password"
-              value={this.state.values[inputFields.PASSWORD]}
+              value={values[inputFields.PASSWORD]}
               onBlurCallback={(value) =>
                 this.updateError(value, inputFields.PASSWORD)
               }
               changeTextCallback={(text) =>
                 this.onTextChange(text, inputFields.PASSWORD)
               }
-              error={this.state.errors[inputFields.PASSWORD]}
+              error={errors[inputFields.PASSWORD]}
             />
+            <Caption
+              style={{ alignSelf: 'center', fontSize: 14 }}
+              color={Colors.error}>
+              {errors.submit}
+            </Caption>
           </FormContainer>
           <FilledButtonContainer
-            style={{ marginVertical: 24, alignSelf: 'flex-end' }}
+            style={{ marginTop: 24, marginBottom: 12, alignSelf: 'flex-end' }}
             color={
               !signUpPermission ? Colors.lightestGreen : Colors.primaryGreen
             }
             width="100%"
             onPress={() => this.handleSubmit()}
             disabled={!signUpPermission}>
-            <ButtonLabel color={Colors.lightText}>Sign Up</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
           </FilledButtonContainer>
+
+          <RowContainer
+            style={{
+              justifyContent: 'center',
+            }}>
+            <Body>{`Already have an account? `}</Body>
+            <ButtonContainer
+              onPress={() =>
+                this.props.navigation.dispatch(StackActions.replace('LogIn'))
+              }>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Log In
+              </ButtonLabel>
+            </ButtonContainer>
+          </RowContainer>
           {env === 'dev' && (
             <Button
               title="Testing Bypass"

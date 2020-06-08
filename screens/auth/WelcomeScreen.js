@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Image, View } from 'react-native';
 import {
+  Body,
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
@@ -9,6 +10,7 @@ import {
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { WelcomeContainer } from '../../styled/auth';
+import { RowContainer } from '../../styled/shared';
 
 export default class WelcomeScreen extends React.Component {
   guestLogin = async () => {
@@ -61,9 +63,25 @@ export default class WelcomeScreen extends React.Component {
             style={{ marginTop: 4, padding: 12 }}
             onPress={async () => this.guestLogin()}>
             <ButtonLabel noCaps color={Colors.primaryGreen}>
-              Continue without an account
+              Continue as guest
             </ButtonLabel>
           </ButtonContainer>
+          <RowContainer
+            style={{
+              marginTop: 14,
+              padding: 12,
+              justifyContent: 'center',
+            }}>
+            <Body>Registered in person? </Body>
+            <ButtonContainer
+              onPress={() =>
+                this.props.navigation.navigate('Reset', { forgot: false })
+              }>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Set a password
+              </ButtonLabel>
+            </ButtonContainer>
+          </RowContainer>
         </View>
       </WelcomeContainer>
     );

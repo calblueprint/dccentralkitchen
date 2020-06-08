@@ -19,19 +19,18 @@ export const ContentContainer = styled.View`
 export const IconContainer = styled.View`
   align-items: center;
   justify-content: center;
-  margin: 12px;
+  margin: 0px 4px 0px 8px;
 `;
 
 export const CategoryCard = styled.View`
   background-color: ${Colors.lightestGray};
-  padding: 10px 18px;
+  padding: 10px 24px;
   flex-direction: row;
   flex: 1;
 `;
 
 export const CategoryHeadingContainer = styled.View`
   flex-direction: row;
-  padding-left: 12px;
   align-content: center;
   align-items: center;
   justify-content: center;

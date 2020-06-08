@@ -10,6 +10,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import AlertAsync from 'react-native-alert-async';
 import * as Sentry from 'sentry-expo';
 import {
   Body,
@@ -48,12 +49,37 @@ export default class SettingsScreen extends React.Component {
   }
 
   _logout = async (signUp = false) => {
-    this.props.navigation.goBack();
-    await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
-    this.props.navigation.navigate('Auth', { screen: 'Welcome' });
-    if (signUp) {
-      this.props.navigation.navigate('SignUp');
+    let confirm = false;
+    if (!signUp) {
+      confirm = await AlertAsync(
+        `Are you sure you want to ${
+          this.state.isGuest ? 'exit Guest Mode' : 'log out'
+        }?`,
+        '',
+        [
+          {
+            text: this.state.isGuest ? 'Exit' : 'Log Out',
+            onPress: () => true,
+          },
+          {
+            text: 'Cancel',
+            onPress: () => false,
+            style: 'cancel',
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      confirm = true;
+    }
+    if (confirm) {
+      this.props.navigation.navigate('Stores');
+      await AsyncStorage.clear();
+      Sentry.configureScope((scope) => scope.clear());
+      this.props.navigation.navigate(
+        'Auth',
+        signUp ? { screen: 'SignUp' } : { screen: 'Welcome' }
+      );
     }
   };
 
@@ -62,17 +88,18 @@ export default class SettingsScreen extends React.Component {
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
           <NavButtonContainer
-            onPress={() => this.props.navigation.goBack(null)}>
-            <FontAwesome5 name="arrow-left" solid size={24} />
+            onPress={() => this.props.navigation.toggleDrawer()}>
+            <FontAwesome5 name="bars" solid size={24} />
           </NavButtonContainer>
           <NavTitle>Settings</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
-          <CategoryBar icon="user" title="Account" />
+          <CategoryBar title="Account" />
           {this.state.isGuest && (
             <SettingsCard
-              title="Create an account"
-              description="Start earning Healthy Rewards"
+              title="Sign in or create an account"
+              rightIcon="sign-out-alt"
+              description="Start saving with Healthy Rewards"
               navigation={() => this._logout(true)}
             />
           )}
@@ -80,6 +107,7 @@ export default class SettingsScreen extends React.Component {
             <SettingsCard
               title={this.state.name}
               description="Change name"
+              rightIcon="angle-right"
               navigation={() => this.props.navigation.navigate('Name')}
             />
           )}
@@ -87,10 +115,11 @@ export default class SettingsScreen extends React.Component {
             <SettingsCard
               title={this.state.number}
               description="Change phone number"
+              rightIcon="angle-right"
               navigation={() => this.props.navigation.navigate('Number')}
             />
           )}
-          <CategoryBar icon="shield-alt" title="Privacy" />
+          <CategoryBar title="Privacy" />
           <SettingsCard
             title="Location Settings"
             description="Manage your location sharing preferences"
@@ -109,7 +138,7 @@ export default class SettingsScreen extends React.Component {
             }
           />
 
-          <CategoryBar icon="info" title="About" />
+          <CategoryBar title="About" />
           <View style={{ padding: 24 }}>
             <Image
               source={require('../../assets/images/blueprint-logo.png')}
@@ -132,13 +161,10 @@ export default class SettingsScreen extends React.Component {
               <Body>Click here to learn more at calblueprint.org</Body>
             </ButtonContainer>
           </View>
-          <CategoryBar
-            icon="sign-out-alt"
-            title={this.state.isGuest ? 'Exit' : 'Log Out'}
-          />
+          <CategoryBar title="Exit" />
           <SettingsCard
             title={this.state.isGuest ? 'Exit Guest Mode' : 'Log Out'}
-            titleColor={!this.state.isGuest ? Colors.error : null}
+            titleColor={Colors.error}
             navigation={this._logout}
           />
           <Body

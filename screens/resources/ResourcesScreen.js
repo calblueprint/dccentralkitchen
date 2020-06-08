@@ -69,8 +69,8 @@ export default class ResourcesScreen extends React.Component {
       <View>
         <NavHeaderContainer>
           <NavButtonContainer
-            onPress={() => this.props.navigation.goBack(null)}>
-            <FontAwesome5 name="arrow-left" solid size={24} />
+            onPress={() => this.props.navigation.toggleDrawer()}>
+            <FontAwesome5 name="bars" solid size={24} />
           </NavButtonContainer>
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>

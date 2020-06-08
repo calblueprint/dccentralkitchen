@@ -36,7 +36,7 @@ function RewardsHome({ customer, participating }) {
           Reward Progress
         </Overline>
         <Title style={{ marginBottom: 2 }}>
-          {`${pointsToNext} / ${rewardPointValue}`}
+          {`${pointsToNext || 0} / ${rewardPointValue}`}
         </Title>
         <ProgressBar
           style={{
