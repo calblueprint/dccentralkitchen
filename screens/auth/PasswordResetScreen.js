@@ -14,7 +14,7 @@ import {
   Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { signUpBonus } from '../../constants/Rewards';
+import { storeSignUpBonus } from '../../constants/Rewards';
 import firebaseConfig from '../../firebase';
 import {
   getCustomersByPhoneNumber,
@@ -205,25 +205,48 @@ export default class PasswordResetScreen extends React.Component {
       );
       if (customers.length === 1) {
         [customer] = customers;
-        if (!this.state.forgot) {
-          if (customer.password) {
-            Alert.alert(
-              '',
-              'This phone number already has a password set. Log in to access your account.',
-              [
-                {
-                  text: 'Log In',
-                  onPress: () => this.props.navigation.navigate('LogIn'),
-                },
-                {
-                  text: 'Cancel',
-                  style: 'cancel',
-                },
-              ]
-            );
-            return false;
-          }
+        // If the customer is setting a password after registering in store through the Set a Password screen
+        if (!this.state.forgot && customer.password) {
+          Alert.alert(
+            '',
+            'This phone number already has a password set. Log in to access your account.',
+            [
+              {
+                text: 'Log In',
+                onPress: () => this.props.navigation.navigate('LogIn'),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
+          return false;
         }
+        // If the customer tries to set a password after registering store but goes through the Forgot Password screen
+        if (this.state.forgot && !customer.password) {
+          Alert.alert(
+            'Phone number registered without a password',
+            `${
+              this.state.values[inputFields.PHONENUM]
+            } does not have a password yet. Set a password to finish setting up your account.`,
+            [
+              {
+                text: 'Set a password',
+                onPress: () =>
+                  this.props.navigation.dispatch(
+                    StackActions.replace('Reset', { forgot: false })
+                  ),
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ]
+          );
+          return false;
+        }
+
         this.setState({ customer });
       } else {
         const errorMsg = 'No account registered with this number';
@@ -251,9 +274,10 @@ export default class PasswordResetScreen extends React.Component {
     );
     // Update the created record with the encrypted password
     await updateCustomers(this.state.customer.id, { password: encrypted });
+    // Add the point bonus if the customer is setting up their account after registering in-store
     if (!this.state.forgot) {
       await updateCustomers(this.state.customer.id, {
-        points: (this.state.customer.points || 0) + signUpBonus,
+        points: (this.state.customer.points || 0) + storeSignUpBonus,
       });
     }
     this.setState({ success: true });
