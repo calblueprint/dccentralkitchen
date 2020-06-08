@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Healthy Corners Rewards",
-    "slug": "healthy-corners-rewards",
+    "name": "Healthy Corners",
+    "slug": "healthy-corners",
     "privacy": "public",
     "sdkVersion": "37.0.0",
     "platforms": ["ios", "android", "web"],
