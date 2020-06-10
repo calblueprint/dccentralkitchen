@@ -5,7 +5,7 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
@@ -31,8 +31,7 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-const iosSnapPoints = [185, 325, 488];
-const androidSnapPoints = iosSnapPoints.map((x) => x + 70);
+const snapPoints = [185, 325, 488];
 
 const deltas = {
   latitudeDelta: 0.01,
@@ -354,9 +353,7 @@ export default class MapScreen extends React.Component {
             enabledBottomClamp
             overdragResistanceFactor={1}
             enabledContentTapInteraction={false}
-            snapPoints={
-              Platform.OS === 'ios' ? iosSnapPoints : androidSnapPoints
-            }
+            snapPoints={snapPoints}
             renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             // eslint-disable-next-line no-return-assign
