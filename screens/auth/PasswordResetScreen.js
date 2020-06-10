@@ -311,15 +311,16 @@ export default class PasswordResetScreen extends React.Component {
             onPress={() => {
               if (this.state.verified) {
                 Alert.alert(
-                  'Are you sure you want to go back? You will have to verify your phone number again.',
-                  '',
+                  'Are you sure you want to leave?',
+                  'You will have to verify your phone number again.',
                   [
                     {
-                      text: 'Go back',
+                      text: 'Leave',
                       onPress: () => this.props.navigation.goBack(),
+                      style: 'destructive',
                     },
                     {
-                      text: 'Cancel',
+                      text: 'Stay',
                       style: 'cancel',
                     },
                   ]
