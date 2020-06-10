@@ -297,8 +297,13 @@ export default class LogInScreen extends React.Component {
               }
               error={this.state.errors[inputFields.PASSWORD]}
             />
+
             <ButtonContainer
-              style={{ alignSelf: 'left', marginTop: -12, marginBottom: 12 }}
+              style={{
+                alignSelf: 'flex-start',
+                marginTop: -12,
+                marginBottom: 12,
+              }}
               onPress={async () =>
                 this.props.navigation.navigate('Reset', { forgot: true })
               }>
