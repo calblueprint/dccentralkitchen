@@ -72,6 +72,7 @@
     "expo-haptics": "~8.1.0",
     "expo-location": "~8.1.0",
     "expo-permissions": "~8.1.0",
+    "expo-status-bar": "^1.0.0",
     "expo-web-browser": "~8.1.0",
     "firebase": "7.9.0",
     "geolib": "^3.1.0",
