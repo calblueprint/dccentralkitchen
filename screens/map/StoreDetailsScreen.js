@@ -2,14 +2,15 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Linking } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import {
   Body,
+  ButtonContainer,
+  ButtonLabel,
   Caption,
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
-  TabSelected,
 } from '../../components/BaseComponents';
 import AcceptedPrograms from '../../components/store/AcceptedPrograms';
 import StoreHours from '../../components/store/StoreHours';
@@ -44,9 +45,9 @@ export default class StoreDetailsScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
-          <NavButton onPress={() => this.props.navigation.goBack()}>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle>{storeName}</NavTitle>
         </NavHeaderContainer>
         <ScrollView style={{ marginLeft: 16 }}>
@@ -94,9 +95,9 @@ export default class StoreDetailsScreen extends React.Component {
                   paddingRight: 50,
                   flexWrap: 'wrap',
                 }}>
-                <TouchableOpacity onLongPress={() => writeToClipboard(address)}>
+                <ButtonContainer onLongPress={() => writeToClipboard(address)}>
                   <Body>{address}</Body>
-                </TouchableOpacity>
+                </ButtonContainer>
                 <Body>{`Ward ${ward}`}</Body>
                 <View style={{ flex: 1, marginBottom: 10 }}>
                   {seeDistance && (
@@ -105,27 +106,28 @@ export default class StoreDetailsScreen extends React.Component {
                     </Caption>
                   )}
                 </View>
-                <TouchableOpacity
-                  style={{ flexDirection: 'row' }}
+                <ButtonContainer
+                  style={{ flexDirection: 'row', alignItems: 'center' }}
                   onPress={() =>
                     openDirections(latitude, longitude, storeName)
                   }>
-                  <TabSelected
+                  <ButtonLabel
+                    noCaps
                     color={Colors.primaryOrange}
                     style={{ marginRight: 4 }}>
                     Get Directions
-                  </TabSelected>
+                  </ButtonLabel>
                   <FontAwesome5
                     name="external-link-alt"
                     size={14}
                     color={Colors.primaryOrange}
                   />
-                </TouchableOpacity>
+                </ButtonContainer>
               </View>
             </InLineContainer>
           </View>
           {/* Phone Number */}
-          <TouchableOpacity
+          <ButtonContainer
             disabled={!phoneNumber}
             onPress={() =>
               Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
@@ -143,7 +145,7 @@ export default class StoreDetailsScreen extends React.Component {
                 {phoneNumber || 'Phone number unavailable'}
               </Body>
             </InLineContainer>
-          </TouchableOpacity>
+          </ButtonContainer>
           {/* Store Hours */}
           <InLineContainer style={{ paddingBottom: 32 }}>
             <FontAwesome5

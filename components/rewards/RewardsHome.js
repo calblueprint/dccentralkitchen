@@ -36,7 +36,7 @@ function RewardsHome({ customer, participating }) {
           Reward Progress
         </Overline>
         <Title style={{ marginBottom: 2 }}>
-          {`${pointsToNext} / ${rewardPointValue}`}
+          {`${pointsToNext || 0} / ${rewardPointValue}`}
         </Title>
         <ProgressBar
           style={{
@@ -74,7 +74,7 @@ function RewardsHome({ customer, participating }) {
                 name="star"
                 size={64}
                 solid
-                color={Colors.base}
+                color={Colors.primaryGray}
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>No available rewards.</Body>

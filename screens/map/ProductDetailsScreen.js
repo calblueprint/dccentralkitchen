@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, View } from 'react-native';
 import {
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
@@ -21,9 +21,9 @@ export default class ProductDetailsScreen extends React.Component {
     return (
       <View>
         <NavHeaderContainer withMargin backgroundColor="transparent" noShadow>
-          <NavButton onPress={() => this.props.navigation.goBack()}>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="times" solid size={24} />
-          </NavButton>
+          </NavButtonContainer>
           <NavTitle />
         </NavHeaderContainer>
         <SpaceBetweenRowContainer

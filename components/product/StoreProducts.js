@@ -7,7 +7,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
 import { StoreDetailText } from '../../styled/store';
-import { Body, ButtonContainer, Subhead, Title } from '../BaseComponents';
+import { Body, ButtonContainer, Subtitle, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
@@ -17,7 +17,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
     <View>
       <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
       <View>
-        <SpaceBetweenRowContainer margin={(0, 16)}>
+        <SpaceBetweenRowContainer margin={16}>
           <View style={{ flexDirection: 'row' }}>
             <Title>Products</Title>
             {products.length > 0 && (
@@ -38,7 +38,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               })
             }>
             {products.length > 0 && (
-              <Subhead color="black">{`See all ${products.length}`}</Subhead>
+              <Subtitle>{`See all ${products.length}`}</Subtitle>
             )}
           </ButtonContainer>
         </SpaceBetweenRowContainer>
@@ -65,11 +65,11 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
               <FontAwesome5
                 name="shopping-basket"
                 size={64}
-                color={Colors.base}
+                color={Colors.primaryGray}
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>
-                No recent deliveries...check back later!
+                No deliveries in the last 7 days...check back later!
               </Body>
             </View>
           }

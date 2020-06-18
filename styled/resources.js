@@ -3,7 +3,7 @@ import Colors from '../constants/Colors';
 
 export const ResourceItemCard = styled.View`
   border-bottom-width: 1px;
-  border-color: ${Colors.lighter};
+  border-color: ${Colors.lightestGray};
   margin: 12px 24px 0 24px;
   padding-bottom: 12px;
   flex-direction: row;
@@ -19,19 +19,18 @@ export const ContentContainer = styled.View`
 export const IconContainer = styled.View`
   align-items: center;
   justify-content: center;
-  margin: 12px;
+  margin: 0px 4px 0px 8px;
 `;
 
 export const CategoryCard = styled.View`
-  background-color: ${Colors.lighter};
-  padding: 10px 18px;
+  background-color: ${Colors.lightestGray};
+  padding: 10px 24px;
   flex-direction: row;
   flex: 1;
 `;
 
 export const CategoryHeadingContainer = styled.View`
   flex-direction: row;
-  padding-left: 12px;
   align-content: center;
   align-items: center;
   justify-content: center;

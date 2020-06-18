@@ -5,7 +5,7 @@ import Colors from '../../constants/Colors';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import { displayDollarValue } from '../../lib/common';
 import { ContentContainer, TransactionCard } from '../../styled/transaction';
-import { Caption, Subhead } from '../BaseComponents';
+import { Caption, Subtitle } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
 /**
@@ -41,7 +41,7 @@ function Transaction(props) {
             <Caption color={Colors.secondaryText}>
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
-            <Subhead>{`$${rewardDollarValue} reward unlocked`}</Subhead>
+            <Subtitle>{`$${rewardDollarValue} reward unlocked`}</Subtitle>
             <Caption color={Colors.secondaryText}>
               {`for ${rewardPointValue} earned points`}
             </Caption>
@@ -60,7 +60,7 @@ function Transaction(props) {
           <Caption color={Colors.secondaryText}>
             {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
           </Caption>
-          <Subhead>{`${pointsEarned} points earned`}</Subhead>
+          <Subtitle>{`${pointsEarned} points earned`}</Subtitle>
           <Caption color={Colors.secondaryText}>
             {`for ${displayDollarValue(totalSale || 0)} of healthy products`}
           </Caption>
@@ -79,7 +79,7 @@ function Transaction(props) {
             <Caption color={Colors.secondaryText}>
               {`${date.toLocaleDateString('en-US', options)} • ${storeName}`}
             </Caption>
-            <Subhead>{`$${rewardDollarValue} reward redeemed`}</Subhead>
+            <Subtitle>{`$${rewardDollarValue} reward redeemed`}</Subtitle>
           </ContentContainer>
         </TransactionCard>
       ))}

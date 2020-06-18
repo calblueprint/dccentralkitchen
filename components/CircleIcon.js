@@ -1,11 +1,11 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { CircleIconContainer } from './BaseComponents';
+import { StyleSheet, View } from 'react-native';
 
 function CircleIcon({ circleColor, icon, iconColor }) {
   return (
-    <CircleIconContainer color={circleColor}>
+    <View style={styles.container} backgroundColor={circleColor}>
       <FontAwesome5
         name={icon}
         size={22}
@@ -13,7 +13,7 @@ function CircleIcon({ circleColor, icon, iconColor }) {
         color={iconColor}
         style={{ paddingTop: 1 }}
       />
-    </CircleIconContainer>
+    </View>
   );
 }
 
@@ -24,3 +24,15 @@ CircleIcon.propTypes = {
 };
 
 export default CircleIcon;
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    width: 40,
+    padding: 8,
+    borderRadius: 20,
+  },
+});

@@ -88,9 +88,9 @@ export default class StoreListScreen extends React.Component {
                 justifyContent: 'center',
               }}>
               <CancelButton onPress={() => this.props.navigation.goBack()}>
-                <ButtonLabel color={Colors.lightest}>Cancel</ButtonLabel>
+                <ButtonLabel color={Colors.lightText}>Cancel</ButtonLabel>
               </CancelButton>
-              <Title color={Colors.lightest} style={{ textAlign: 'center' }}>
+              <Title color={Colors.lightText} style={{ textAlign: 'center' }}>
                 Find a store
               </Title>
             </RowContainer>
@@ -196,7 +196,7 @@ export default class StoreListScreen extends React.Component {
               <FontAwesome5
                 name="store"
                 size={64}
-                color={Colors.base}
+                color={Colors.primaryGray}
                 style={{ marginBottom: 12 }}
               />
               <Body color={Colors.secondaryText}>

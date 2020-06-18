@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-
 import Colors from '../../constants/Colors';
 import LogInScreen from '../../screens/auth/LogInScreen';
 import OnboardingScreen from '../../screens/auth/OnboardingScreen';
@@ -15,7 +14,7 @@ export default function AuthStackNavigator() {
     <AuthStack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: Colors.lightest },
+        cardStyle: { backgroundColor: Colors.bgLight },
       }}>
       <AuthStack.Screen name="Onboarding" component={OnboardingScreen} />
       <AuthStack.Screen name="Welcome" component={WelcomeScreen} />

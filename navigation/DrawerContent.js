@@ -1,21 +1,37 @@
 import { DrawerItemList } from '@react-navigation/drawer';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Linking, TouchableOpacity, View } from 'react-native';
+import { Alert, AsyncStorage, Linking, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
-import { Title } from '../components/BaseComponents';
+import {
+  BigTitle,
+  ButtonContainer,
+  ButtonLabel,
+  FilledButtonContainer,
+  Subtitle,
+  Title,
+} from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
 import { logErrorToSentry } from '../lib/logUtils';
+import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
   const [customer, setCustomer] = React.useState(null);
   const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
   const [isLoading, setIsLoading] = React.useState(true);
-  const navigation = useNavigation();
+
+  const logout = async () => {
+    props.navigation.navigate('Stores');
+    await AsyncStorage.clear();
+    Sentry.configureScope((scope) => scope.clear());
+    props.navigation.navigate('Auth', { screen: 'LogIn', initial: false });
+    // Temporary fix: force update to make sure the rewards footer refreshes
+    Updates.reload();
+  };
 
   useFocusEffect(
     React.useCallback(() => {
@@ -66,6 +82,9 @@ function DrawerContent(props) {
             action: 'componentDidMount',
             error: err,
           });
+          Alert.alert('Session Expired', 'Refresh the app and log in again.', [
+            { text: 'OK', onPress: () => logout() },
+          ]);
         }
       };
 
@@ -80,15 +99,8 @@ function DrawerContent(props) {
   if (isLoading) {
     return null;
   }
-  const logout = async () => {
-    await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
-    setTimeout(function() {
-      navigation.navigate('Auth');
-    }, 500);
-    props.navigation.closeDrawer();
-    Updates.reload();
-  };
+
+  const isGuest = customer.name === 'Guest';
 
   return (
     <View
@@ -99,41 +111,70 @@ function DrawerContent(props) {
       }}>
       <View
         style={{
-          backgroundColor: Colors.black,
-          height: 114,
+          backgroundColor: isGuest ? Colors.bgDark : Colors.primaryGreen,
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'flex-end',
-          padding: 8,
+          padding: 24,
+          marginBottom: 24,
         }}>
-        <Title style={{ color: 'white' }}>{customer.name}</Title>
+        <ColumnContainer style={{ marginTop: 32, width: '100%' }}>
+          <SpaceBetweenRowContainer
+            style={{ alignItems: 'center', marginBottom: 4, width: '100%' }}>
+            <BigTitle style={{ color: Colors.lightText }}>
+              {customer.name}
+            </BigTitle>
+            {isGuest && (
+              <FilledButtonContainer
+                style={{
+                  borderColor: Colors.lightText,
+                  borderWidth: 1,
+                  height: 30,
+                  width: 80,
+                  marginVertical: 8,
+                  marginRight: 8,
+                }}
+                color={Colors.bgLight}
+                onPress={() => {
+                  logout();
+                }}>
+                <ButtonLabel noCaps>Log In</ButtonLabel>
+              </FilledButtonContainer>
+            )}
+          </SpaceBetweenRowContainer>
+          {isGuest && (
+            <Subtitle style={{ color: Colors.lightText }}>
+              Log in to start saving with Healthy Rewards
+            </Subtitle>
+          )}
+        </ColumnContainer>
       </View>
-      <DrawerItemList {...props} />
-      <TouchableOpacity
-        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
+      <ButtonContainer
+        style={{ paddingLeft: 24, paddingVertical: 13 }}
         onPress={() => {
           props.navigation.goBack();
-          props.navigation.navigate('RewardsOverlay');
+          setTimeout(
+            () =>
+              props.navigation.navigate('Stores', { screen: 'RewardsOverlay' }),
+            700
+          );
         }}>
-        <Title style={{ height: 30 }}>Rewards</Title>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{ paddingHorizontal: 8, paddingVertical: 13 }}
-        onPress={() => Linking.openURL(link)}>
-        <Title style={{ height: 30 }}>Feedback</Title>
-      </TouchableOpacity>
+        <Title style={{ height: 30 }}>Healthy Rewards</Title>
+      </ButtonContainer>
+      <DrawerItemList {...props} />
       <View
         style={{
           flex: 1,
           flexDirection: 'column',
           justifyContent: 'flex-end',
           verticalAlign: 'bottom',
+          paddingBottom: 20,
         }}>
-        <TouchableOpacity
-          style={{ paddingLeft: 16, paddingBottom: 21 }}
-          onPress={() => logout()}>
-          <Title>Log Out</Title>
-        </TouchableOpacity>
+        <ButtonContainer
+          style={{ paddingLeft: 24, paddingVertical: 13 }}
+          onPress={() => Linking.openURL(link)}>
+          <Subtitle style={{ height: 30 }}>Submit feedback</Subtitle>
+        </ButtonContainer>
       </View>
     </View>
   );

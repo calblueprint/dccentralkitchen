@@ -1,22 +1,41 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
-import { ContentContainer, ResourceItemCard } from '../../styled/resources';
-import { Body, Subhead } from '../BaseComponents';
+import {
+  ContentContainer,
+  IconContainer,
+  ResourceItemCard,
+} from '../../styled/resources';
+import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
-function SettingsCard({ title, description, navigation, titleColor }) {
+function SettingsCard({
+  title,
+  description,
+  navigation,
+  titleColor,
+  rightIcon,
+}) {
   return (
-    <TouchableOpacity onPress={() => navigation()}>
+    <ButtonContainer onPress={() => navigation()}>
       <ResourceItemCard>
         <ContentContainer>
-          <Subhead color={titleColor}>{title}</Subhead>
+          <Subtitle color={titleColor}>{title}</Subtitle>
           {description === '' || (
             <Body color={Colors.secondaryText}>{description}</Body>
           )}
         </ContentContainer>
+        {rightIcon !== '' && (
+          <IconContainer>
+            <FontAwesome5
+              name={rightIcon}
+              size={24}
+              color={Colors.primaryGray}
+            />
+          </IconContainer>
+        )}
       </ResourceItemCard>
-    </TouchableOpacity>
+    </ButtonContainer>
   );
 }
 
@@ -25,11 +44,13 @@ SettingsCard.propTypes = {
   titleColor: PropTypes.string,
   description: PropTypes.string,
   navigation: PropTypes.func.isRequired,
+  rightIcon: PropTypes.string,
 };
 
 SettingsCard.defaultProps = {
   titleColor: Colors.activeText,
   description: '',
+  rightIcon: '',
 };
 
 export default SettingsCard;

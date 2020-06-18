@@ -7687,6 +7687,11 @@ expo-font@~8.1.0:
     fbjs "1.0.0"
     fontfaceobserver "^2.1.0"
 
+expo-haptics@~8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-8.1.0.tgz#99ba3fd220f523041321ec260e6d3ec5cf4ac6c7"
+  integrity sha512-4aJUD3JYdxjj72tNo7tz5NKdhAHFtke+zOT2eaHdO8Vk2Az2IdmvWm99C7yGZKZvmRI2bnJGRyWo+rFgDWCQ3A==
+
 expo-keep-awake@~8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-8.1.0.tgz#3a1d8aa5a8395d40c7d79e1c93020ae5f848e664"
@@ -11205,6 +11210,14 @@ libphonenumber-js@^1.7.28:
   version "1.7.51"
   resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.7.51.tgz#e84901179a154c8074f9c01214dd80b859598d74"
   integrity sha512-YrmFi5rLnSMKp2tM0FkjIHGAlHyUo8pRP8u4DeMseX+gXDY96q7sgfy/Ty54nv0BqObYKzPJBUq4LMMNESjfBA==
+  dependencies:
+    minimist "^1.2.5"
+    xml2js "^0.4.17"
+
+libphonenumber-js@^1.7.52:
+  version "1.7.52"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.7.52.tgz#a30dc8ec4dfa2ce651a6abf76c6b141b244b1aa3"
+  integrity sha512-NnJbWGRWIAQwz3UOXJoka92FJqmr/VvGIHienUMnBf7QNSCYF2WhvknEgpQIhL8VLZp/rJg3m3czOHRAmyYMLg==
   dependencies:
     minimist "^1.2.5"
     xml2js "^0.4.17"
@@ -15009,6 +15022,11 @@ react-modal@^3.8.1:
     prop-types "^15.5.10"
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
+
+react-native-alert-async@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-alert-async/-/react-native-alert-async-1.0.5.tgz#f67e3d1f6c877cce8e8cd74cef3d596713f0fdb4"
+  integrity sha512-HeG0zdjtlANl8KkF9AhqgkaEooXip44Fb01dmCnYSYMm6PoRdcV4aIy6l/yAOQmArrl8LTP58APSiuZXBMCbwQ==
 
 react-native-animatable@^1.3.1:
   version "1.3.3"

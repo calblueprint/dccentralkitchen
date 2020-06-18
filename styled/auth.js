@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import { NavButton } from '../components/BaseComponents';
+import { NavButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { ColumnContainer } from './shared';
 
@@ -66,7 +66,7 @@ export const FormContainer = styled(ColumnContainer)`
   margin-top: 20px;
 `;
 
-export const BackButton = styled(NavButton)`
+export const BackButton = styled(NavButtonContainer)`
   position: relative;
   margin-top: 50px;
   left: -8px;

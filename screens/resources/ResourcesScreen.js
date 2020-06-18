@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import {
-  NavButton,
+  NavButtonContainer,
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
 import CategoryBar from '../../components/resources/CategoryBar';
 import ResourceCard from '../../components/resources/ResourceCard';
 import { getAllResources } from '../../lib/airtable/request';
+import { logErrorToSentry } from '../../lib/logUtils';
 
 export default class ResourcesScreen extends React.Component {
   constructor(props) {
@@ -25,12 +26,10 @@ export default class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
-    Analytics.setUnavailabilityLogging(false);
     Analytics.logEvent('open_resources', {
       name: 'resources',
       screen: 'ResourcesScreen',
     });
-    Analytics.setCurrentScreen('ResourcesScreen');
     try {
       const resources = await getAllResources();
       const CrisisResources = resources.filter(
@@ -57,6 +56,11 @@ export default class ResourcesScreen extends React.Component {
       });
     } catch (err) {
       console.error('[ResourcesScreen] Airtable: ', err);
+      logErrorToSentry({
+        screen: 'ResourcesScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
@@ -64,9 +68,10 @@ export default class ResourcesScreen extends React.Component {
     return (
       <View>
         <NavHeaderContainer>
-          <NavButton onPress={() => this.props.navigation.goBack(null)}>
-            <FontAwesome5 name="arrow-left" solid size={24} />
-          </NavButton>
+          <NavButtonContainer
+            onPress={() => this.props.navigation.toggleDrawer()}>
+            <FontAwesome5 name="bars" solid size={24} />
+          </NavButtonContainer>
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>

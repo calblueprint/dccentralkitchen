@@ -5,7 +5,7 @@ import {
   RewardDescriptionContainer,
   RewardsCardContainer,
 } from '../../styled/rewards';
-import { Caption, Subhead } from '../BaseComponents';
+import { Caption, Subtitle } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
 function RewardsCard() {
@@ -14,12 +14,12 @@ function RewardsCard() {
       <CircleIcon
         icon="star"
         iconColor={Colors.primaryGreen}
-        circleColor={Colors.lightest}
+        circleColor={Colors.lightText}
       />
       <RewardDescriptionContainer>
-        <Subhead color={Colors.darkerGreen}>
+        <Subtitle color={Colors.darkerGreen}>
           {`$${rewardDollarValue} Reward`}
-        </Subhead>
+        </Subtitle>
         <Caption color={Colors.darkerGreen}>
           {`${rewardPointValue} points`}
         </Caption>

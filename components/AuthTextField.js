@@ -37,13 +37,13 @@ function AuthTextField({
         keyboardType={
           fieldType.includes('Phone Number') ||
           fieldType === 'Verification Code'
-            ? 'numeric'
+            ? 'number-pad'
             : undefined
         }
         maxLength={
           // eslint-disable-next-line no-nested-ternary
           fieldType.includes('Phone Number')
-            ? 10
+            ? 14
             : fieldType === 'Verification Code'
             ? 6
             : null
@@ -52,15 +52,11 @@ function AuthTextField({
         labelPadding={6}
       />
       {fieldType.includes('Name') && !error && (
-        <Caption color={Colors.activeText}>
-          Note: this is how clerks will greet you!
-        </Caption>
+        <Caption>Note: this is how clerks will greet you!</Caption>
       )}
 
       {fieldType === 'Verification Code' && !error && (
-        <Caption color={Colors.activeText}>
-          If you did not receive a code, click resend.
-        </Caption>
+        <Caption>If you did not receive a code, click resend.</Caption>
       )}
     </TextFieldContainer>
   );

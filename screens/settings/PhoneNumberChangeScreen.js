@@ -9,8 +9,9 @@ import AuthTextField from '../../components/AuthTextField';
 import {
   BigTitle,
   ButtonLabel,
+  Caption,
   FilledButtonContainer,
-  Subhead,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import firebaseConfig from '../../firebase';
@@ -19,8 +20,8 @@ import {
   getCustomersByPhoneNumber,
   updateCustomers,
 } from '../../lib/airtable/request';
-import { formatPhoneNumber, inputFields } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
+import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -39,12 +40,12 @@ export default class PhoneNumberChangeScreen extends React.Component {
       modalVisible: false,
       recaptchaVerifier,
       verificationId: null,
-      formattedPhoneNumber: '',
       values: {
         [inputFields.PHONENUM]: '',
       },
       errors: {
         [inputFields.PHONENUM]: '',
+        submit: '',
       },
     };
   }
@@ -58,6 +59,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ customer });
     } catch (err) {
       console.error(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   }
 
@@ -77,7 +83,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         console.log('Not reached');
     }
     this.setState((prevState) => ({
-      errors: { ...prevState.errors, [inputField]: errorMsg },
+      errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
       values: { ...prevState.values, [inputField]: text },
     }));
 
@@ -94,10 +100,21 @@ export default class PhoneNumberChangeScreen extends React.Component {
   onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
     if (this.state.errors[inputField]) {
-      await this.updateError(text, inputField);
+      await this.updateError(
+        inputField === inputFields.PHONENUM
+          ? formatPhoneNumberInput(text)
+          : text,
+        inputField
+      );
     } else {
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        values: {
+          ...prevState.values,
+          [inputField]:
+            inputField === inputFields.PHONENUM
+              ? formatPhoneNumberInput(text)
+              : text,
+        },
       }));
     }
   };
@@ -107,24 +124,18 @@ export default class PhoneNumberChangeScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
-    const formattedPhoneNumber = formatPhoneNumber(
-      // eslint-disable-next-line react/no-access-state-in-setstate
-      this.state.values[inputFields.PHONENUM]
-    );
-    this.setState({ formattedPhoneNumber });
-
     try {
       // Update the created record with the new number
       const duplicateCustomers = await getCustomersByPhoneNumber(
-        formattedPhoneNumber
+        this.state.values[inputFields.PHONENUM]
       );
       if (duplicateCustomers.length !== 0) {
         console.log('Duplicate customer');
-        const errorMsg = 'Phone number already in use.';
+        const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
-          screen: 'checkDuplicateCustomers',
+          screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
-          attemptedPhone: formattedPhoneNumber,
+          attemptedPhone: this.state.values[inputFields.PHONENUM],
           attemptedPass: null,
           error: errorMsg,
         });
@@ -144,7 +155,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'checkDuplicateCustomers',
-        attemptedPhone: formattedPhoneNumber,
+        attemptedPhone: this.state.values[inputFields.PHONENUM],
         attemptedPass: null,
         error: err,
       });
@@ -161,8 +172,18 @@ export default class PhoneNumberChangeScreen extends React.Component {
       this.setState({ verificationId });
       this.setModalVisible(true);
     } catch (err) {
-      this.setModalVisible(true);
+      this.setState({
+        errors: {
+          submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
+        },
+      });
+      this.setModalVisible(false);
       console.log(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'componentDidMount',
+        error: err,
+      });
     }
   };
 
@@ -178,15 +199,19 @@ export default class PhoneNumberChangeScreen extends React.Component {
       return true;
     } catch (err) {
       console.log(err);
+      logErrorToSentry({
+        screen: 'PhoneNumberChangeScreen',
+        action: 'verifyCode',
+        error: err,
+      });
       return false;
     }
   };
 
   updatePhoneNumber = async () => {
-    const { formattedPhoneNumber } = this.state;
     try {
       await updateCustomers(this.state.customer.id, {
-        phoneNumber: this.state.formattedPhoneNumber,
+        phoneNumber: this.state.values[inputFields.PHONENUM],
       });
       this.setState({ success: true });
     } catch (err) {
@@ -197,7 +222,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'updatePhoneNumber',
-        attemptedPhone: formattedPhoneNumber,
+        attemptedPhone: this.state.values[inputFields.PHONENUM],
         attemptedPass: null,
         error: err,
       });
@@ -218,7 +243,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
         />
         {this.state.modalVisible && (
           <VerificationScreen
-            number={this.state.formattedPhoneNumber}
+            number={this.state.values[inputFields.PHONENUM]}
             visible={this.state.modalVisible}
             verifyCode={this.verifyCode}
             resend={this.openRecaptcha}
@@ -232,6 +257,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
               <FontAwesome5 name="arrow-left" solid size={24} />
             </BackButton>
             <BigTitle>Change Phone Number</BigTitle>
+            <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
+              You will recieve a text containing a 6-digit verification code.
+              Msg & data rates may apply.
+            </Caption>
             <FormContainer>
               <AuthTextField
                 fieldType="New Phone Number"
@@ -244,6 +273,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
                 }
                 error={this.state.errors[inputFields.PHONENUM]}
               />
+              <Caption
+                style={{ alignSelf: 'center', fontSize: 14 }}
+                color={Colors.error}>
+                {errors.submit}
+              </Caption>
             </FormContainer>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
@@ -251,7 +285,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.openRecaptcha()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightest}>Change Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -260,15 +294,17 @@ export default class PhoneNumberChangeScreen extends React.Component {
           <View>
             <BackButton />
             <BigTitle>Success!</BigTitle>
-            <Subhead style={{ marginTop: 32 }}>
-              {`Your phone number was successfully changed to\n ${this.state.formattedPhoneNumber}. Refresh to see changes.`}
-            </Subhead>
+            <Subtitle style={{ marginTop: 32 }}>
+              {`Your phone number was successfully changed to ${
+                this.state.values[inputFields.PHONENUM]
+              }. Refresh to see changes.`}
+            </Subtitle>
             <FilledButtonContainer
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
               onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightest}>Refresh</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}

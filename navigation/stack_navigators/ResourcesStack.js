@@ -19,7 +19,7 @@ export default function ResourcesStackNavigator() {
       screenOptions={{
         drawerLabel: 'Resources',
         headerShown: false,
-        cardStyle: { backgroundColor: Colors.lightest },
+        cardStyle: { backgroundColor: Colors.bgLight },
         config,
       }}>
       <ResourcesStack.Screen name="Resources" component={ResourcesScreen} />

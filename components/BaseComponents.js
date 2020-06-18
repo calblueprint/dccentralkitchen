@@ -3,51 +3,23 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-
 import Colors from '../constants/Colors';
 
-export const TextButton = styled.Text`
-  font-family: poppins-regular;
-  font-size: 14px;
-  line-height: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: ${(props) => props.color || Colors.primaryGreen};
-`;
-
-export const CircleIconContainer = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  padding: 8px;
-  border-radius: 20px;
-  background-color: ${(props) => props.color || Colors.lighterGreen};
-`;
-
 export const ButtonContainer = styled.TouchableOpacity``;
-// TODO @tommypoa Replace top / bottom 25%
-export const ButtonLabel = styled(TextButton)`
+
+export const ButtonLabel = styled.Text`
   font-family: poppins-semibold;
   font-size: 14px;
-  line-height: 21px;
-  display: flex;
+  line-height: 20px;
   text-align: center;
-  letter-spacing: 0.01px;
-  text-transform: uppercase;
-  color: ${(props) => props.color || Colors.black};
+  text-transform: ${(props) => (props.noCaps ? ' none' : 'uppercase')};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const FilledButtonContainer = styled(ButtonContainer)`
   width: ${(props) => props.width || '344px'};
   height: ${(props) => props.height || '40px'};
   background: ${(props) => props.color || Colors.primaryGreen};
-  ${(props) =>
-    props.pressed
-      ? 'box-shadow: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 24px 38px rgba(0, 0, 0, 0.14);'
-      : ''};
   border-radius: ${(props) => props.borderRadius || '20px'};
   display: flex;
   flex-direction: column;
@@ -60,35 +32,36 @@ export const BigTitle = styled.Text`
   font-size: 32px;
   line-height: 48px;
   text-align: ${(props) => props.align || 'left'};
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Title = styled.Text`
   font-family: poppins-medium;
   font-size: 20px;
   line-height: 30px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
-export const Subhead = styled.Text`
+export const Subtitle = styled.Text`
   font-family: poppins-regular;
   font-size: 16px;
   line-height: 24px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Body = styled.Text`
-  font-family: poppins-regular;
+  font-family: ${(props) =>
+    props.bold ? 'poppins-semibold' : 'poppins-regular'};
   font-size: 14px;
   line-height: 20px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Caption = styled.Text`
   font-family: poppins-medium;
   font-size: 12px;
   line-height: 16px;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
 export const Overline = styled.Text`
@@ -96,17 +69,10 @@ export const Overline = styled.Text`
   font-size: 14px;
   line-height: 20px;
   text-transform: uppercase;
-  color: ${(props) => props.color || Colors.black};
+  color: ${(props) => props.color || Colors.activeText};
 `;
 
-export const TabSelected = styled.Text`
-  font-family: poppins-semibold;
-  font-size: 14px;
-  line-height: 20px;
-  color: ${(props) => props.color || Colors.black};
-`;
-
-export const NavButton = styled.TouchableOpacity`
+export const NavButtonContainer = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   z-index: 100;
@@ -136,8 +102,8 @@ export function NavHeaderContainer({
         paddingBottom: 4,
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
-        backgroundColor: backgroundColor || Colors.lightest,
-        shadowColor: noShadow ? 'transparent' : '#000',
+        backgroundColor: backgroundColor || Colors.bgLight,
+        shadowColor: noShadow ? 'transparent' : Colors.bgDark,
         elevation: noShadow ? 0 : 7,
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
