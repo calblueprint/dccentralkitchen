@@ -92,7 +92,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             }}>
             {snapOrEbtAccepted && <ProgramTag program="EBT" />}
             {wic && <ProgramTag program="WIC" />}
-            {couponProgramPartner && <ProgramTag program="SNAP Match" />}
+            {couponProgramPartner && <ProgramTag program="SNAP Back" />}
             {rewardsAccepted && <ProgramTag program="Healthy Rewards" />}
           </InLineContainer>
         )}

@@ -155,7 +155,7 @@ export default class StoreListScreen extends React.Component {
             }}
           />
           <ProgramTag
-            program="SNAP Match"
+            program="SNAP Back"
             tag
             selected={filters.couponProgramPartner}
             selectedFunc={() => {

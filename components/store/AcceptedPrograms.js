@@ -16,7 +16,7 @@ import ProgramTag from './ProgramTag';
 const programToDesc = {
   EBT: 'Accepts SNAP/EBT',
   WIC: 'WIC approved',
-  'SNAP Match':
+  'SNAP Back':
     'Spend $5 with SNAP and include fresh produce in purchase to get $5 free on fresh produce',
   'Healthy Rewards': 'Participates in Healthy Rewards',
 };
@@ -29,7 +29,7 @@ function Program({ programName }) {
       <ProgramTag program={programName} />
       <View style={styles.tagChipDesc}>
         <Body>{programToDesc[programName]}</Body>
-        {programName === 'SNAP Match' && (
+        {programName === 'SNAP Back' && (
           <ButtonContainer
             style={{ flexDirection: 'row', alignItems: 'center' }}
             onPress={() => Linking.openURL(snapURL)}>
@@ -62,7 +62,7 @@ export default function AcceptedPrograms({
       style={{ justifyContent: 'space-between', paddingRight: '20%' }}>
       {snapOrEbtAccepted && <Program programName="EBT" />}
       {wic && <Program programName="WIC" />}
-      {couponProgramPartner && <Program programName="SNAP Match" />}
+      {couponProgramPartner && <Program programName="SNAP Back" />}
       {rewardsAccepted && <Program programName="Healthy Rewards" />}
     </ColumnContainer>
   );
