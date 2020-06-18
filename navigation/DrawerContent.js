@@ -79,11 +79,9 @@ function DrawerContent(props) {
             action: 'componentDidMount',
             error: err,
           });
-          Alert.alert(
-            'This account has been removed',
-            'You are logged into an account that no longer exists. You must log out and create a new account.',
-            [{ text: 'OK', onPress: () => logout() }]
-          );
+          Alert.alert('Session Expired', 'Log in again', [
+            { text: 'OK', onPress: () => logout() },
+          ]);
         }
       };
 
