@@ -22,7 +22,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
-import { signUpBonus } from '../../constants/Rewards';
+import { newSignUpBonus } from '../../constants/Rewards';
 import { env } from '../../environment';
 import firebaseConfig from '../../firebase';
 import {
@@ -158,7 +158,7 @@ export default class SignUpScreen extends React.Component {
         name,
         phoneNumber,
         // 2020/4/29 update for Nam's launch
-        points: signUpBonus,
+        points: newSignUpBonus,
         pushTokenIds: pushTokenId ? [pushTokenId] : null,
       });
 

@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -80,6 +81,8 @@ export default class SettingsScreen extends React.Component {
         'Auth',
         signUp ? { screen: 'SignUp' } : { screen: 'Welcome' }
       );
+      // Temporary fix: force update to make sure the rewards footer refreshes
+      Updates.reload();
     }
   };
 
@@ -97,7 +100,7 @@ export default class SettingsScreen extends React.Component {
           <CategoryBar title="Account" />
           {this.state.isGuest && (
             <SettingsCard
-              title="Sign in or create an account"
+              title="Log in or create an account"
               rightIcon="sign-out-alt"
               description="Start saving with Healthy Rewards"
               navigation={() => this._logout(true)}

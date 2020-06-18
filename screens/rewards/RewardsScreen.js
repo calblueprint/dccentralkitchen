@@ -1,7 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, ScrollView, View } from 'react-native';
+import { Alert, AsyncStorage, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import * as Sentry from 'sentry-expo';
 import {
@@ -49,9 +50,9 @@ export default class RewardsScreen extends React.Component {
 
   // Load customer record & transactions
   async componentDidMount() {
-    const customerId = await AsyncStorage.getItem('customerId');
-    const isGuest = customerId === RecordIds.guestCustomerId;
     try {
+      const customerId = await AsyncStorage.getItem('customerId');
+      const isGuest = customerId === RecordIds.guestCustomerId;
       const customer = await getCustomersById(customerId);
       const transactions = await getCustomerTransactions(customerId);
       const participating = await getStoreData(`NOT({Rewards Accepted} = '')`);
@@ -70,6 +71,9 @@ export default class RewardsScreen extends React.Component {
         action: 'componentDidMount',
         error: err,
       });
+      Alert.alert('Session Expired', 'Refresh the app and log in again.', [
+        { text: 'OK', onPress: () => this._logout() },
+      ]);
     }
   }
 
@@ -78,6 +82,8 @@ export default class RewardsScreen extends React.Component {
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
     this.props.navigation.navigate('Auth', { screen: 'SignUp' });
+    // Temporary fix: force update to make sure the rewards footer refreshes
+    Updates.reload();
   };
 
   renderScene = ({ route }) => {

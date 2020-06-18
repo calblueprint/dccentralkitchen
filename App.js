@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
@@ -40,6 +41,11 @@ export default function App(props) {
 
 async function loadResourcesAsync() {
   await Promise.all([
+    Asset.loadAsync([
+      require('./assets/images/hc_start.png'),
+      require('./assets/images/Marker_Focused.png'),
+      require('./assets/images/Marker_Resting.png'),
+    ]),
     Font.loadAsync({
       // This is the icon style we use
       ...FontAwesome5.font,

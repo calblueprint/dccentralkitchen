@@ -1,5 +1,6 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
+import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -27,7 +28,9 @@ function DrawerContent(props) {
     props.navigation.navigate('Stores');
     await AsyncStorage.clear();
     Sentry.configureScope((scope) => scope.clear());
-    props.navigation.navigate('Auth', { screen: 'LogIn' });
+    props.navigation.navigate('Auth', { screen: 'LogIn', initial: false });
+    // Temporary fix: force update to make sure the rewards footer refreshes
+    Updates.reload();
   };
 
   useFocusEffect(
@@ -79,11 +82,9 @@ function DrawerContent(props) {
             action: 'componentDidMount',
             error: err,
           });
-          Alert.alert(
-            'This account has been removed',
-            'You are logged into an account that no longer exists. You must log out and create a new account.',
-            [{ text: 'OK', onPress: () => logout() }]
-          );
+          Alert.alert('Session Expired', 'Refresh the app and log in again.', [
+            { text: 'OK', onPress: () => logout() },
+          ]);
         }
       };
 
