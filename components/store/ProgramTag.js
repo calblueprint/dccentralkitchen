@@ -40,7 +40,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
   // they enter the wrong string of words
   if (
     (program.toLowerCase() === 'wic' && program !== 'WIC') ||
-    (program.toLowerCase() === 'ebt' && program !== 'EBT')
+    (program.toLowerCase() === 'snap/ebt' && program !== 'SNAP/EBT')
   ) {
     programLabel = program.toUpperCase();
   }
@@ -54,7 +54,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
   }
 
   const labelToIcon = {
-    EBT: 'credit-card',
+    'SNAP/EBT': 'credit-card',
     WIC: 'heart',
     'SNAP Back': 'carrot',
     'Healthy Rewards': 'star',
