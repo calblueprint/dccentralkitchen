@@ -16,7 +16,7 @@ import {
 } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
-import { logErrorToSentry } from '../lib/logUtils';
+import { logErrorToSentry, resetUserLog } from '../lib/logUtils';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
@@ -25,9 +25,15 @@ function DrawerContent(props) {
   const [isLoading, setIsLoading] = React.useState(true);
 
   const logout = async () => {
+    Analytics.logEvent('logout', {
+      component: 'DrawerContent',
+      function: 'logout',
+      is_guest: true,
+      redirect: 'Log In', // Redirect not working yet
+    });
+    resetUserLog();
     props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
     props.navigation.navigate('Auth', { screen: 'LogIn', initial: false });
     // Temporary fix: force update to make sure the rewards footer refreshes
     Updates.reload();
@@ -50,7 +56,7 @@ function DrawerContent(props) {
             Analytics.setUserId(customerId);
             Analytics.setUserProperties({
               name: cust.name,
-              phoneNumber: cust.phoneNumber,
+              phone_number: cust.phoneNumber,
             });
             Sentry.configureScope((scope) => {
               scope.setUser({
@@ -63,13 +69,13 @@ function DrawerContent(props) {
               Sentry.captureMessage('Guest Login Successful');
               Analytics.logEvent('drawer_load', {
                 name: 'Guest Login Successful',
-                screen: 'DrawerContent',
+                component: 'DrawerContent',
               });
             } else {
               Sentry.captureMessage('Returning User');
               Analytics.logEvent('drawer_load', {
                 name: 'Returning User',
-                screen: 'DrawerContent',
+                component: 'DrawerContent',
               });
             }
             setCustomer(cust);

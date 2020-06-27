@@ -1,10 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Updates } from 'expo';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, AsyncStorage, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
-import * as Sentry from 'sentry-expo';
 import {
   BigTitle,
   ButtonLabel,
@@ -20,7 +20,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
-import { logErrorToSentry } from '../../lib/logUtils';
+import { logErrorToSentry, resetUserLog } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
@@ -78,9 +78,15 @@ export default class RewardsScreen extends React.Component {
   }
 
   _logout = async () => {
+    Analytics.logEvent('logout', {
+      component: 'RewardsScreen',
+      function: '_logout',
+      is_guest: true,
+      redirect: 'Sign Up', // Redirect not working yet
+    });
+    resetUserLog();
     this.props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
     this.props.navigation.navigate('Auth', { screen: 'SignUp' });
     // Temporary fix: force update to make sure the rewards footer refreshes
     Updates.reload();

@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import Constants from 'expo-constants';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
@@ -12,7 +13,6 @@ import {
   View,
 } from 'react-native';
 import AlertAsync from 'react-native-alert-async';
-import * as Sentry from 'sentry-expo';
 import {
   Body,
   ButtonContainer,
@@ -25,6 +25,7 @@ import SettingsCard from '../../components/settings/SettingsCard';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
+import { resetUserLog } from '../../lib/logUtils';
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
@@ -74,9 +75,15 @@ export default class SettingsScreen extends React.Component {
       confirm = true;
     }
     if (confirm) {
+      Analytics.logEvent('logout', {
+        component: 'SettingsScreen',
+        function: '_logout',
+        is_guest: this.state.isGuest,
+        redirect: signUp ? 'Sign Up' : null, // Redirect not working yet
+      });
+      resetUserLog();
       this.props.navigation.navigate('Stores');
       await AsyncStorage.clear();
-      Sentry.configureScope((scope) => scope.clear());
       this.props.navigation.navigate(
         'Auth',
         signUp ? { screen: 'SignUp' } : { screen: 'Welcome' }
