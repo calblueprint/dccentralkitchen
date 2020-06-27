@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
@@ -30,13 +31,17 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
           </View>
 
           <ButtonContainer
-            onPress={() =>
+            onPress={() => {
+              Analytics.logEvent('view_all_products', {
+                store_name: store.storeName,
+                products_in_stock: store.productIds.length,
+              });
               navigation.navigate('Products', {
                 products,
                 navigation,
                 store,
-              })
-            }>
+              });
+            }}>
             {products.length > 0 && (
               <Subtitle>{`See all ${products.length}`}</Subtitle>
             )}
