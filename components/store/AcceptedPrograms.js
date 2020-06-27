@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Linking } from 'expo';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
@@ -32,7 +33,12 @@ function Program({ programName }) {
         {programName === 'SNAP Match' && (
           <ButtonContainer
             style={{ flexDirection: 'row', alignItems: 'center' }}
-            onPress={() => Linking.openURL(snapURL)}>
+            onPress={() => {
+              Analytics.logEvent('snap_match_learn_more', {
+                purpose: 'Clicked Learn More link about SNAP matching',
+              });
+              Linking.openURL(snapURL);
+            }}>
             <ButtonLabel
               noCaps
               color={Colors.primaryOrange}

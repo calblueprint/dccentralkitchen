@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Linking } from 'expo';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -129,9 +130,13 @@ export default class StoreDetailsScreen extends React.Component {
           {/* Phone Number */}
           <ButtonContainer
             disabled={!phoneNumber}
-            onPress={() =>
-              Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')))
-            }
+            onPress={() => {
+              Analytics.logEvent('click_phone_number', {
+                store_name: storeName,
+                store_phone_number: phoneNumber,
+              });
+              Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')));
+            }}
             onLongPress={() => writeToClipboard(phoneNumber)}>
             <InLineContainer
               style={{ alignItems: 'center', paddingBottom: 32 }}>

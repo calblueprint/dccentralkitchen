@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Linking } from 'react-native';
@@ -65,12 +66,15 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             </Title>
           </RowContainer>
           <ButtonContainer
-            onPress={() =>
+            onPress={() => {
+              Analytics.logEvent('view_store_details', {
+                store_name: storeName,
+              });
               navigation.navigate('StoreDetailsScreen', {
                 store,
                 seeDistance,
-              })
-            }
+              });
+            }}
             style={{ paddingLeft: 10 }}>
             <FontAwesome5
               name="info-circle"
@@ -119,6 +123,10 @@ export default function StoreCard({ store, storeList, seeDistance }) {
         <ButtonContainer
           disabled={storeList || !phoneNumber}
           onPress={() => {
+            Analytics.logEvent('click_phone_number', {
+              store_name: storeName,
+              store_phone_number: phoneNumber,
+            });
             Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')));
           }}
           onLongPress={() => writeToClipboard(phoneNumber)}>
