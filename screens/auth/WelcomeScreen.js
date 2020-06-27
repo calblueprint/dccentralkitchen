@@ -1,3 +1,5 @@
+import Constants from 'expo-constants';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { AsyncStorage, Image, View } from 'react-native';
@@ -15,6 +17,9 @@ import { RowContainer } from '../../styled/shared';
 export default class WelcomeScreen extends React.Component {
   guestLogin = async () => {
     await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
+    Analytics.logEvent('guest_login_complete', {
+      installation_id: Constants.installationId,
+    });
     this.props.navigation.navigate('App');
   };
 

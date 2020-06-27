@@ -36,7 +36,11 @@ import {
   formatPhoneNumberInput,
   inputFields,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
+import {
+  logAuthErrorToSentry,
+  logErrorToSentry,
+  setUserLog,
+} from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -47,7 +51,9 @@ import { RowContainer } from '../../styled/shared';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -169,19 +175,11 @@ export default class SignUpScreen extends React.Component {
       await updateCustomers(customerId, { password: encrypted });
 
       // If signup succeeds, register the user for analytics and logging
-      Analytics.setUserId(customerId);
-      Analytics.setUserProperties({
-        name,
-        phoneNumber,
+      setUserLog({ id: customerId, name, phoneNumber });
+      Analytics.logEvent('sign_up_complete', {
+        customer_id: customerId,
       });
-      Sentry.configureScope((scope) => {
-        scope.setUser({
-          id: customerId,
-          username: name,
-          phoneNumber,
-        });
-        Sentry.captureMessage('Sign Up Successful');
-      });
+      Sentry.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);
