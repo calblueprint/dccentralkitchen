@@ -7,7 +7,7 @@ import {
   Body,
   ButtonLabel,
   NavHeaderContainer,
-  Title,
+  Title
 } from '../../components/BaseComponents';
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
@@ -155,7 +155,7 @@ export default class StoreListScreen extends React.Component {
             }}
           />
           <ProgramTag
-            program="SNAP Back"
+            program="SNAP Match"
             tag
             selected={filters.couponProgramPartner}
             selectedFunc={() => {

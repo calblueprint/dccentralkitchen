@@ -16,8 +16,8 @@ function capitalizeFirstLetters(word) {
   // Separate each individual word in phrase.
 
   // Special case since SNAP is all uppercase
-  if (word.toLowerCase() === 'snap back') {
-    return 'SNAP Back';
+  if (word.toLowerCase() === 'snap match') {
+    return 'SNAP Match';
   }
 
   const splitWord = word.toLowerCase().split(' ');
@@ -35,7 +35,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
   let programLabel = program;
 
   // Error checking: We'll fix the program label if it was somehow entered incorrectly
-  // i.e. "WIC" was entered as "WIc" or "SNAP Back" was entered as "snap Back"
+  // i.e. "WIC" was entered as "WIc" or "SNAP Match" was entered as "snap Match"
   // Hopefully ensures that chips will work most of the time, only not displaying if
   // they enter the wrong string of words
   if (
@@ -46,7 +46,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
   }
 
   if (
-    (program.toLowerCase() === 'snap back' && program !== 'SNAP Back') ||
+    (program.toLowerCase() === 'snap match' && program !== 'SNAP Match') ||
     (program.toLowerCase() === 'healthy rewards' &&
       program !== 'Healthy Rewards')
   ) {
@@ -56,7 +56,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
   const labelToIcon = {
     'SNAP/EBT': 'credit-card',
     WIC: 'heart',
-    'SNAP Back': 'carrot',
+    'SNAP Match': 'carrot',
     'Healthy Rewards': 'star',
     'Open now': 'clock',
     'Products in stock': 'shopping-basket',
