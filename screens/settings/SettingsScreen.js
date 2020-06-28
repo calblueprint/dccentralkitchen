@@ -5,6 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
+  ActivityIndicator,
   AsyncStorage,
   Image,
   Linking,
@@ -25,7 +26,7 @@ import SettingsCard from '../../components/settings/SettingsCard';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
-import { resetUserLog } from '../../lib/logUtils';
+import { clearUserLog } from '../../lib/logUtils';
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class SettingsScreen extends React.Component {
       isGuest: false,
       name: '',
       number: '',
+      logoutIsLoading: false,
     };
   }
 
@@ -75,13 +77,17 @@ export default class SettingsScreen extends React.Component {
       confirm = true;
     }
     if (confirm) {
-      Analytics.logEvent('logout', {
-        component: 'SettingsScreen',
-        function: '_logout',
+      // Show the loading indicator
+      this.setState({ logoutIsLoading: true });
+      await Analytics.logEvent('logout', {
         is_guest: this.state.isGuest,
-        redirect: signUp ? 'Sign Up' : null, // Redirect not working yet
+        redirect: signUp ? 'Sign Up' : 'Welcome', // Redirect not working yet
       });
-      resetUserLog();
+      // Delay to make sure the event is logged
+      const delay = (duration) =>
+        new Promise((resolve) => setTimeout(resolve, duration));
+      await delay(3000);
+      clearUserLog();
       this.props.navigation.navigate('Stores');
       await AsyncStorage.clear();
       this.props.navigation.navigate(
@@ -187,6 +193,22 @@ export default class SettingsScreen extends React.Component {
             {`Version ${Constants.manifest.version}`}
           </Body>
         </ScrollView>
+        {/* TODO @wangannie: Standardize into full loading overlay component */}
+        {this.state.logoutIsLoading && (
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(0,0,0,.4)',
+            }}>
+            <ActivityIndicator size="large" color={Colors.lightText} />
+          </View>
+        )}
       </View>
     );
   }

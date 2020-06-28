@@ -3,7 +3,13 @@ import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, AsyncStorage, ScrollView, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  ScrollView,
+  View,
+} from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import {
   BigTitle,
@@ -20,7 +26,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
-import { logErrorToSentry, resetUserLog } from '../../lib/logUtils';
+import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
 import { styles } from '../../styled/rewards';
@@ -45,6 +51,7 @@ export default class RewardsScreen extends React.Component {
       routes,
       isLoading: true,
       isGuest: false,
+      logoutIsLoading: false,
     };
   }
 
@@ -78,13 +85,17 @@ export default class RewardsScreen extends React.Component {
   }
 
   _logout = async () => {
-    Analytics.logEvent('logout', {
-      component: 'RewardsScreen',
-      function: '_logout',
+    // Show the loading indicator
+    this.setState({ logoutIsLoading: true });
+    await Analytics.logEvent('logout', {
       is_guest: true,
-      redirect: 'Sign Up', // Redirect not working yet
+      redirect_to: 'Sign Up', // Redirect not working yet
     });
-    resetUserLog();
+    // Delay to make sure the event is logged
+    const delay = (duration) =>
+      new Promise((resolve) => setTimeout(resolve, duration));
+    await delay(3000);
+    clearUserLog();
     this.props.navigation.navigate('Stores');
     await AsyncStorage.clear();
     this.props.navigation.navigate('Auth', { screen: 'SignUp' });
@@ -95,6 +106,7 @@ export default class RewardsScreen extends React.Component {
   renderScene = ({ route }) => {
     switch (route.key) {
       case 'home':
+        Analytics.setCurrentScreen('RewardsHome');
         return (
           <RewardsHome
             customer={this.state.customer}
@@ -102,8 +114,10 @@ export default class RewardsScreen extends React.Component {
           />
         );
       case 'history':
+        Analytics.setCurrentScreen('PointsHistory');
         return <PointsHistory transactions={this.state.transactions} />;
       case 'howitworks':
+        Analytics.setCurrentScreen('HowItWorks');
         return (
           <HowItWorks
             isGuest={this.state.isGuest}
@@ -167,9 +181,13 @@ export default class RewardsScreen extends React.Component {
               color={Colors.primaryGreen}
               width="267px"
               onPress={() => this._logout()}>
-              <ButtonLabel color={Colors.lightText}>
-                Sign Up For Rewards
-              </ButtonLabel>
+              {this.state.logoutIsLoading ? (
+                <ActivityIndicator color={Colors.lightText} />
+              ) : (
+                <ButtonLabel color={Colors.lightText}>
+                  Sign Up For Rewards
+                </ButtonLabel>
+              )}
             </FilledButtonContainer>
           </ScrollView>
         ) : (
