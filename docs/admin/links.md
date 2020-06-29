@@ -17,16 +17,16 @@ We use editable shortlinks so the external links used throughout the apps can be
 
 We developed a guide on how to use the clerk tablet app to assist with clerk training and serve as an ongoing reference for clerks. This guide is also linked in the hamburger menu within the app. They should also be in a printable format.
 
-**Clerk Training Guide:** <http://healthycorners-rewards.netlify.app/admin/clerktraining.html>
+**Clerk Training Guide:** <http://healthycorners.calblueprint.org/admin/clerktraining.html>
 
-**Condensed Clerk Training Guide (GIFs only):** <http://healthycorners-rewards.netlify.app/admin/clerktraininggifs.html>
+**Condensed Clerk Training Guide (GIFs only):** <http://healthycorners.calblueprint.org/admin/clerktraininggifs.html>
 
 ::: warning NOTE
-These links are still embedded within this documentation site, though the sidebars will disappear. To return to this site, go back to <https://healthycorners-rewards.netlify.app/>
+These links are still embedded within this documentation site, though the sidebars will disappear. To return to this site, go back to <https://healthycorners.calblueprint.org/>
 :::
 
 ## Privacy Policy
 
 We developed a privacy policy for the customer-facing app to comply with App Store guidelines.
 
-**Healthy Corners Rewards App Privacy Policy:** <https://healthycorners-rewards.netlify.app/shared/privacypolicy.html>
+**Healthy Corners Customer App Privacy Policy:** <https://healthycorners.calblueprint.org/shared/privacypolicy.html>

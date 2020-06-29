@@ -119,7 +119,7 @@ const devSidebar = [
 ];
 
 module.exports = {
-  title: 'Healthy Corners Rewards',
+  title: 'Healthy Corners',
   description:
     "Documentation for the projects developed by @calblueprint for DC Central Kitchen's Healthy Corners initiative",
   head: [

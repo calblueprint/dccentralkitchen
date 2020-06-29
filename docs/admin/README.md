@@ -1,6 +1,6 @@
 # Admin Guide
 
-This guide is for members of the Healthy Corners team, to understand how to perform administrative tasks necessary to manage the Healthy Corners Rewards project. For an introduction to the project and the rewards program, please refer to the [homepage](/#introduction).
+This guide is for members of the Healthy Corners team, to understand how to perform administrative tasks necessary to manage the Healthy Corners project. For an introduction to the project and the rewards program, please refer to the [homepage](/#introduction).
 
 Reading through the [Airtable introduction](#airtable) to familiarize yourself with Airtable, which stores all the data for the rewards program, is **essential**.
 

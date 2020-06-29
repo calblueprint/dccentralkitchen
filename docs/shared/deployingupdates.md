@@ -144,7 +144,7 @@ To test the app on your device, you will need to install the TestFlight iOS app 
 #### Create a new Version in App Store Connect
 
 1. Sign in to the developer account in [App Store Connect](<https://appstoreconnect.apple.com/](https://appstoreconnect.apple.com/)>)
-2. Go to **My Apps** and select **Healthy Corners Rewards**
+2. Go to **My Apps** and select **Healthy Corners**
 3. Under the **App Store** tab on the left menu bar, select **+ Version or Platform**, and select **iOS** from the dropdown
 
    ![./assets/appstoreupdate/AppStoreConnect.png](../assets/appstoreupdate/AppStoreConnect.png)
@@ -210,7 +210,7 @@ If you don't have an Android Emulator, upload the APK to [Appetize](https://appe
 #### Create a new Release in the Google Play Console
 
 1. Go to the [Google Play Console](https://play.google.com/apps/publish/) and sign in
-2. Select either **Healthy Corners Rewards** (customer-facing app) or **Healthy Rewards Clerk** (clerk-facing app) from **All Applications**
+2. Select either **Healthy Corners** (customer-facing app) or **Healthy Corners Clerk** (clerk-facing app) from **All Applications**
 3. From the menu on the left, open **Release management** and select **App releases**
 4. Under **Production track** select **Manage** on the right
 5. Select **Create Release** on the top right.

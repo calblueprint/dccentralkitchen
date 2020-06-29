@@ -16,7 +16,7 @@ User testing conducted in the final few weeks of development helped to develop a
 
 - Most user testers said they consistently shop at the same 2 or 3 stores.
 - Usually, shoppers will go to whatever is closest to home/work — wherever they are when they go shopping.
-- Customers may be willing to shop at a Healthy Corners Rewards participating store if it is a reasonable distance away.
+- Customers may be willing to shop at a Healthy Rewards participating store if it is a reasonable distance away.
   - This distance depends on what transportation is available. For those with cards, a distance of a few blocks felt reasonable.
   - As a result, it would be helpful to launch this program ward by ward, so there is a participating store within x-mile radius of any given residence.
 
@@ -70,6 +70,6 @@ This also felt particular to the COVID-19 pandemic — it is more important now 
 
 ## Final thoughts
 
-There is still a lot of potential for this app! Not every need or stretch feature could be addressed, and only minimal testing was conducted due to remote constraints. Having more varied user testing with more diverse users would shed light onto what future features would be useful for the Healthy Corners Rewards app.
+There is still a lot of potential for this app! Not every need or stretch feature could be addressed, and only minimal testing was conducted due to remote constraints. Having more varied user testing with more diverse users would shed light onto what future features would be useful for the Healthy Corners app.
 
 Ultimately, we hope this app is able to grow to serve more users' needs and wants.

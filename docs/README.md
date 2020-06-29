@@ -1,6 +1,6 @@
 ---
 home: true
-heroText: Healthy Corners Rewards
+heroText: Healthy Corners
 heroImage: /hc_splash.png
 footer: Learn more about Blueprint and what we do at calblueprint.org.
 ---

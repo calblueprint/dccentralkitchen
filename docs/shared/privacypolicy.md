@@ -4,17 +4,17 @@ sidebar: false
 editLink: false
 ---
 
-# Healthy Corners Rewards Privacy Policy
+# Healthy Corners App Privacy Policy
 
-_Effective Date: March 21, 2020; Last updated May 9, 2020_
+_Effective Date: March 21, 2020; Last updated June 18, 2020_
 
-This Privacy Policy explains how Healthy Corners Rewards ("us", "we", "our") uses and protects your information when you use Healthy Corners Rewards ("app", "Service") .
+This Privacy Policy explains how DC Central Kitchen ("us", "we", "our") uses and protects your information when you use the Healthy Corners app ("app", "Service") .
 
 By using our app, you are consenting to our use of your personal information in accordance with this Privacy Policy. The Personal Information that we collect is used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
 
 ## Information We Collect
 
-### **Information You Provide**
+### Information You Provide
 
 We collect personal information from you when you voluntarily provide it, such as when you register for access to the app, use certain aspects of the service, or respond to one of our surveys. For example, we collect your name and phone number upon registering for an account to use the service.
 
@@ -34,15 +34,15 @@ We may request to send you push notifications regarding your account or announce
 
 ## Information Use
 
-Healthy Corners Rewards uses the personal information you provide in a manner that is consistent with this Privacy Policy. If you provide information for a certain reason, we may use that information in connection with the reason for which it was provided.
+The Healthy Corners app uses the personal information you provide in a manner that is consistent with this Privacy Policy. If you provide information for a certain reason, we may use that information in connection with the reason for which it was provided.
 
-Healthy Corners Rewards uses transactional data to facilitate your transactions with Rewards Providers. If you are a Healthy Corners Rewards accountholder, and you voluntarily provide your account information to a Rewards Provider, transactional data will be used by Rewards Providers to automatically award you rewards points. We may also remove personal information from transactional data and aggregate it with other anonymous data, pool and/or combine aggregated data with other information, and share aggregated data with Rewards Providers.
+The Healthy Corners app uses transactional data to facilitate your transactions with Rewards Providers. If you are a Healthy Rewards accountholder, and you voluntarily provide your account information to a Rewards Provider, transactional data will be used by Rewards Providers to automatically award you rewards points. We may also remove personal information from transactional data and aggregate it with other anonymous data, pool and/or combine aggregated data with other information, and share aggregated data with Rewards Providers.
 
-By making a purchase at a Rewards Provider that uses Healthy Corners Rewards terminals, your transactional information will be used in accordance with this Privacy Policy. Transactional data of Healthy Corners Rewards accountholders may be used to provide you with Healthy Corners Rewards points and other offers.
+By making a purchase at a Rewards Provider that uses Healthy Rewards terminals, your transactional information will be used in accordance with this Privacy Policy. Transactional data of Healthy Rewards accountholders may be used to provide you with Healthy Rewards points and other offers.
 
 ## Information Disclosure
 
-Healthy Corners Rewards app collects error statistics through Sentry and analytics through Firebase.
+The Healthy Corners app collects error statistics through Sentry and analytics through Firebase.
 
 We do not share personal information with any outside parties. All data is managed by the personnel of DC Central Kitchen and connected Healthy Corners stores.
 
@@ -54,7 +54,7 @@ We may delete your information at any time and for any reason, such as technical
 
 #### Links to Other Websites
 
-Our app contains links that lead to other websites. If you click on these links, Healthy Corners Rewards app is not held responsible for your data and privacy protection. Visiting those websites is not governed by this privacy policy agreement. Make sure to read the privacy policy documentation of the external website.
+Our app contains links that lead to other websites. If you click on these links, we are not held responsible for your data and privacy protection. Visiting those websites is not governed by this privacy policy agreement. Make sure to read the privacy policy documentation of the external website.
 
 ## Access to Information
 
@@ -66,7 +66,7 @@ We comply with the California Online Privacy Protection Act. Therefore, we will 
 
 ## Children’s Online Privacy Protection Act Compliance
 
-Healthy Corners Rewards app does not direct services to, nor does it not knowingly collect personal information from children under the age of 13. If we learn that a child under the age of 13 has provided personally identifiable information through the app, we will endeavor to delete that information from our databases.
+The Healthy Corners app does not direct services to, nor does it not knowingly collect personal information from children under the age of 13. If we learn that a child under the age of 13 has provided personally identifiable information through the app, we will endeavor to delete that information from our databases.
 
 ## International Transfers of Information
 
@@ -78,4 +78,4 @@ We reserve the right to make changes to this Privacy Policy at any time and for 
 
 ## Contact Us
 
-If you have questions or comments about this Privacy Policy, please contact us at healthyrewards@calblueprint.org
+If you have questions or comments about this Privacy Policy, please contact us at <healthycornersdev@gmail.com>

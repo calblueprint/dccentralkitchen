@@ -1,6 +1,6 @@
 # dccentralkitchen
 
-## Healthy Corners Rewards (DC Central Kitchen)
+## Healthy Corners (DC Central Kitchen)
 
 All documentation lives at <https://healthycorners-rewards.netlify.app> - for new contributors, we recommend starting with the [project overview](https://healthycorners-rewards.netlify.app/shared/overview.html).
 
