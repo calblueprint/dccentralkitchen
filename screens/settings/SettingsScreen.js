@@ -82,7 +82,7 @@ export default class SettingsScreen extends React.Component {
       this.setState({ logoutIsLoading: true });
       await Analytics.logEvent('logout', {
         is_guest: this.state.isGuest,
-        redirect: signUp ? 'Sign Up' : 'Welcome', // Redirect not working yet
+        redirect_to: signUp ? 'Sign Up' : 'Welcome', // Redirect not working yet
       });
       // Delay to make sure the event is logged
       const delay = (duration) =>
