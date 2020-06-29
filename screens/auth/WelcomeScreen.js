@@ -15,6 +15,10 @@ import { WelcomeContainer } from '../../styled/auth';
 import { RowContainer } from '../../styled/shared';
 
 export default class WelcomeScreen extends React.Component {
+  async componentDidMount() {
+    await Analytics.setUserId(Constants.installationId);
+  }
+
   guestLogin = async () => {
     await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
     Analytics.logEvent('guest_login_complete', {

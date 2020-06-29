@@ -1,6 +1,7 @@
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import { Updates } from 'expo';
+import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -64,6 +65,7 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
+            Analytics.setUserId(Constants.installationId);
             setUserLog(cust);
             if (cust.name === 'Guest') {
               Sentry.captureMessage('Guest Login Successful');
