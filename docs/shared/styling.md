@@ -18,7 +18,6 @@ If you find yourself adding something that is used throughout the application (e
 
 ### Buttons
 
-- `TextButton`: Used as a base of other button labels
 - `ButtonLabel`: Used to add text to button containers
 - `ButtonContainer`: A sized TouchableOpacity
 
@@ -62,9 +61,9 @@ If you find yourself adding something that is used throughout the application (e
 Navigation headers are only used in the customer app.
 :::
 
-All navigation headers use a `NavHeaderContainer`, but the `NavButton` and `NavTitle` are optional. The `NavHeaderContainer` can contain other components (see [Store List Example](#store-list-vertical-nav-header-containing-other-components))
+All navigation headers use a `NavHeaderContainer`, but the `NavButtonContainer` and `NavTitle` are optional. The `NavHeaderContainer` can contain other components (see [Store List Example](#store-list-vertical-nav-header-containing-other-components))
 
-### `NavButton`
+### `NavButtonContainer`
 
 Used as navigation buttons, seen as the back buttons and hamburger button throughout the app.
 
@@ -98,12 +97,12 @@ Specially styled `Title` for headers with centered text and appropriate spacing.
 ```jsx
 // Source: StoreDetailsScreen.js
 import { FontAwesome5 } from '@expo/vector-icons';
-import { NavButton, NavHeaderContainer, NavTitle } from '../../components/BaseComponents';
+import { NavButtonContainer, NavHeaderContainer, NavTitle } from '../../components/BaseComponents';
 ...
 <NavHeaderContainer>
-    <NavButton onPress={() => this.props.navigation.goBack()}>
+    <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
         <FontAwesome5 name="arrow-left" solid size={24} />
-    </NavButton>
+    </NavButtonContainer>
     <NavTitle>{storeName}</NavTitle>
 </NavHeaderContainer>
 ```
@@ -145,9 +144,9 @@ import { NavButton, NavHeaderContainer, NavTitle } from '../../components/BaseCo
 ```jsx
 // Source: RewardsScreen.js
 <NavHeaderContainer vertical noShadow backgroundColor={Colors.primaryGreen}>
-  <NavButton onPress={() => this.props.navigation.goBack()}>
+  <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
     <FontAwesome5 name="arrow-down" solid size={24} color="white" />
-  </NavButton>
+  </NavButtonContainer>
   <BigTitle style={{ marginLeft: 18, color: Colors.lightest, fontSize: 36 }}>
     Healthy Rewards
   </BigTitle>
@@ -201,15 +200,14 @@ The following text components from `BaseComponents.js` are used throughout both 
 
 - `BigTitle`
 - `Title`
-- `Subhead`
+- `Subtitle`
 - `Body`
 - `Caption`
 - `Overline`
-- `TabSelected`
 
 This is how the text components are displayed. Source: [component designs in Figma](../design.md#component-library).
 
-![../assets/basecomponents/Text_Styles.png](../assets/basecomponents/Text_Styles.png)
+![../assets/basecomponents/text.png](../assets/basecomponents/text.png)
 
 ## Colors
 
@@ -217,7 +215,7 @@ Various colors used throughout the app have been defined in `Colors.js`
 
 <<< @/constants/Colors.js
 
-![../assets/basecomponents/Screen_Shot_2020-05-06_at_2.27.15_PM.png](../assets/basecomponents/Screen_Shot_2020-05-06_at_2.27.15_PM.png)
+![../assets/basecomponents/colors.png](../assets/basecomponents/colors.png)
 
 ## `shared.js` Containers
 

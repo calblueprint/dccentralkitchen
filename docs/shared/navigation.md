@@ -178,7 +178,7 @@ You can also pass navigation to a functional component as a parameter.
 In classes, you can get `navigation` through props.
 
 ```jsx
-<NavButton onPress={() => this.props.navigation.goBack()}>
+<NavButtonContainer onPress={() => this.props.navigation.goBack()}>
 ```
 
 ## Helpful Links
