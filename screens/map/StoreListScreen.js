@@ -166,7 +166,7 @@ export default class StoreListScreen extends React.Component {
             }}
           />
           <ProgramTag
-            program="EBT"
+            program="SNAP/EBT"
             tag
             selected={filters.snapOrEbtAccepted}
             selectedFunc={() => {

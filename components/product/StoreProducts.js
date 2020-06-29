@@ -6,7 +6,11 @@ import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { SpaceBetweenRowContainer } from '../../styled/shared';
+import {
+  ColumnContainer,
+  RowContainer,
+  SpaceBetweenRowContainer,
+} from '../../styled/shared';
 import { StoreDetailText } from '../../styled/store';
 import { Body, ButtonContainer, Subtitle, Title } from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
@@ -18,35 +22,41 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
     <View>
       <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
       <View>
-        <SpaceBetweenRowContainer margin={16}>
-          <View style={{ flexDirection: 'row' }}>
-            <Title>Products</Title>
-            {products.length > 0 && (
-              <StoreDetailText
-                color={Colors.secondaryText}
-                style={{ marginTop: 7 }}>
-                recently delivered
-              </StoreDetailText>
-            )}
-          </View>
-
-          <ButtonContainer
-            onPress={() => {
-              Analytics.logEvent('view_all_products', {
-                store_name: store.storeName,
-                products_in_stock: store.productIds.length,
-              });
-              navigation.navigate('Products', {
-                products,
-                navigation,
-                store,
-              });
-            }}>
-            {products.length > 0 && (
-              <Subtitle>{`See all ${products.length}`}</Subtitle>
-            )}
-          </ButtonContainer>
-        </SpaceBetweenRowContainer>
+        <ColumnContainer>
+          <SpaceBetweenRowContainer margin={16}>
+            <RowContainer>
+              <Title>Products</Title>
+              {products.length > 0 && (
+                <StoreDetailText
+                  color={Colors.secondaryText}
+                  style={{ marginTop: 7 }}>
+                  recently delivered
+                </StoreDetailText>
+              )}
+            </RowContainer>
+            <ButtonContainer
+              onPress={() => {
+                Analytics.logEvent('view_all_products', {
+                  store_name: store.storeName,
+                  products_in_stock: store.productIds.length,
+                });
+                navigation.navigate('Products', {
+                  products,
+                  navigation,
+                  store,
+                });
+              }}>
+              {products.length > 0 && (
+                <Subtitle>{`See all ${products.length}`}</Subtitle>
+              )}
+            </ButtonContainer>
+          </SpaceBetweenRowContainer>
+          {store.stocksOtherVendors && (
+            <Body style={{ marginHorizontal: 16, marginTop: -16 }}>
+              This store regularly stocks additional produce from other vendors.
+            </Body>
+          )}
+        </ColumnContainer>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -73,8 +83,11 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
                 color={Colors.primaryGray}
                 style={{ marginBottom: 12 }}
               />
-              <Body color={Colors.secondaryText}>
-                No deliveries in the last 7 days...check back later!
+              <Body
+                style={{ textAlign: 'center' }}
+                color={Colors.secondaryText}>
+                No Healthy Corners deliveries in the last 7 days. Check back
+                later!
               </Body>
             </View>
           }

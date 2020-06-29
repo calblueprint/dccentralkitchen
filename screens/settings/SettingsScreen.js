@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
+import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
@@ -148,7 +149,7 @@ export default class SettingsScreen extends React.Component {
           <SettingsCard
             title="Privacy Policy"
             navigation={() =>
-              Linking.openURL(
+              WebBrowser.openBrowserAsync(
                 'https://healthycorners-rewards.netlify.app/shared/privacypolicy.html'
               )
             }
