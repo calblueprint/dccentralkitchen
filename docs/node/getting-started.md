@@ -173,7 +173,7 @@ This is what the [scheduler dashboard](https://dashboard.heroku.com/apps/healthy
 
 ![Scheduler Dashboard](../assets/node/scheduler-dashboard.png)
 
-With the job editor, you can configure how often you want the scheduled job to run. It's currently set to run daily at midnight UTC time.
+With the job editor, you can configure how often you want the scheduled job to run. It's currently set to run daily at 5pm eastern time.
 
 ![Job editor](../assets/node/job-editor.png)
 
