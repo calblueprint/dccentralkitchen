@@ -2,8 +2,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import Colors from './constants/Colors';
@@ -32,7 +33,7 @@ export default function App(props) {
   return (
     <SafeAreaProvider>
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        {Platform.OS === 'ios' && <StatusBar style="dark" />}
         <AppNavigator />
       </View>
     </SafeAreaProvider>

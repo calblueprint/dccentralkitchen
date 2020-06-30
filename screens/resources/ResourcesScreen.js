@@ -17,11 +17,11 @@ export default class ResourcesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      CrisisResources: [],
-      DCCentralKitchenResources: [],
-      CommunityResources: [],
-      GovernmentResources: [],
-      ResourcesForSeniors: [],
+      CrisisResponse: [],
+      Seniors: [],
+      Food: [],
+      SocialServices: [],
+      Miscellaneous: [],
     };
   }
 
@@ -32,27 +32,29 @@ export default class ResourcesScreen extends React.Component {
     });
     try {
       const resources = await getAllResources();
-      const CrisisResources = resources.filter(
+      const CrisisResponse = resources.filter(
         (resource) => resource.category === 'Crisis Response'
       );
-      const DCCentralKitchenResources = resources.filter(
-        (resource) => resource.category === 'DC Central Kitchen Resources'
+      const Seniors = resources.filter(
+        (resource) => resource.category === 'Seniors'
       );
-      const CommunityResources = resources.filter(
-        (resource) => resource.category === 'Community Resources'
+      const Food = resources.filter((resource) => resource.category === 'Food');
+      const SocialServices = resources.filter(
+        (resource) => resource.category === 'Social Services'
       );
-      const GovernmentResources = resources.filter(
-        (resource) => resource.category === 'Government Resources'
-      );
-      const ResourcesForSeniors = resources.filter(
-        (resource) => resource.category === 'Resources for Seniors'
+      const Miscellaneous = resources.filter(
+        (resource) =>
+          resource.category !== 'Crisis Response' &&
+          resource.category !== 'Seniors' &&
+          resource.category !== 'Food' &&
+          resources.category !== 'Social Services'
       );
       this.setState({
-        CrisisResources,
-        DCCentralKitchenResources,
-        CommunityResources,
-        GovernmentResources,
-        ResourcesForSeniors,
+        CrisisResponse,
+        Seniors,
+        Food,
+        SocialServices,
+        Miscellaneous,
       });
     } catch (err) {
       console.error('[ResourcesScreen] Airtable: ', err);
@@ -75,40 +77,50 @@ export default class ResourcesScreen extends React.Component {
           <NavTitle>Resources</NavTitle>
         </NavHeaderContainer>
         <ScrollView>
-          <CategoryBar icon="hands-helping" title="Crisis Response" />
-          {this.state.CrisisResources.map((resource) => (
+          {this.state.CrisisResponse.length > 0 && (
+            <CategoryBar icon="exclamation-triangle" title="Crisis Response" />
+          )}
+          {this.state.CrisisResponse.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
               navigation={this.props.navigation}
             />
           ))}
-          <CategoryBar icon="carrot" title="DC Central Kitchen" />
-          {this.state.DCCentralKitchenResources.map((resource) => (
+          {this.state.Seniors.length > 0 && (
+            <CategoryBar icon="user" title="Seniors" />
+          )}
+          {this.state.Seniors.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
               navigation={this.props.navigation}
             />
           ))}
-          <CategoryBar icon="heart" title="Community" />
-          {this.state.CommunityResources.map((resource) => (
+          {this.state.Food.length > 0 && (
+            <CategoryBar icon="carrot" title="Food" />
+          )}
+          {this.state.Food.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
               navigation={this.props.navigation}
             />
           ))}
-          <CategoryBar icon="balance-scale" title="Government" />
-          {this.state.GovernmentResources.map((resource) => (
+          {this.state.SocialServices.length > 0 && (
+            <CategoryBar icon="hands-helping" title="Social Services" />
+          )}
+          {this.state.SocialServices.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
               navigation={this.props.navigation}
             />
           ))}
-          <CategoryBar icon="user" title="Seniors" />
-          {this.state.ResourcesForSeniors.map((resource) => (
+          {this.state.Miscellaneous.length > 0 && (
+            <CategoryBar icon="book-open" title="Miscellaneous" />
+          )}
+          {this.state.Miscellaneous.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
