@@ -30,7 +30,7 @@ Times and days must follow the following standard formats
 
 ### Dos and Don'ts: Time Formats
 
-| :white_check_mark: Do                        | :x: Don't                                                                                                                |
+| Do                                           | Don't                                                                                                                    |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `12pm`                                       | `12 pm` do not include a space between the hour and am/pm<br/><br/>`12PM` am/pm must be lower case                       |
 | `9:30am` Only include minutes when necessary | `12:00pm` Do not include minutes when the time is even on the hour.                                                      |
@@ -40,7 +40,7 @@ Times and days must follow the following standard formats
 
 ### Dos and Don'ts: Day Formats
 
-| :white_check_mark: Do                                                                     | :x: Don't                                                                                                                                                                                |
+| Do                                                                                        | Don't                                                                                                                                                                                    |
 | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `12pm-9pm Mon-Thurs, Closed Fri` Follow the required day abbreviations                    | `12pm-9pm Monday-Thursday, Closed Friday` Do not use full day names <br/><br/>`12pm-9pm M-Th, Closed F` Do not use any other types of abbreviation                                       |
 | `8am-8pm Mon-Tu, Closed Wed, 8am-8pm Thurs-Sun` <br/><br/> `8am-8pm Thurs-Tu, Closed Wed` | `8am-8pm Mon-Sun, Closed Wed` Wed is between Mon and Sun, so the date range should end before and after Wed               <br/><br/>`8am-8pm Mon-Wed, 9am-9pm Wed` Wed is included twice |
@@ -58,7 +58,7 @@ Times and days must follow the following standard formats
 
 :::
 
-| Rule                                      | :white_check_mark: Do                                              | :x: Don't                                                                                                                                                                                                                                          |
+| Rule                                      | Do                                                                 | Don't                                                                                                                                                                                                                                              |
 | ----------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | If a store is open 24/7                   | `Open 24/7`                                                        | `12am-12am Daily`                                                                                                                                                                                                                                  |
 | Always put time before the day/day range  | `9am-12pm Mon-Fri, 8am-8pm Sun-Sat`<br><br>`Closed Sun`            | `Mon-Fri 9am-9pm, Sun-Sat 8am-8pm`<br><br>`Sun Closed`                                                                                                                                                                                             |

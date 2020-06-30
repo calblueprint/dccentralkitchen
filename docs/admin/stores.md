@@ -8,9 +8,6 @@ Use this guide to edit store information in Airtable. Column names are indicated
 To **add a new store**, use the form linked [here](forms.md).
 :::
 
-::: warning NOTE
-Currently, there is no way to temporarily hide a store. To permanently delete a store, right click anywhere on the row and select the "Delete" option in the drop down menu.
-:::
 
 ### `Primary Key`
 
@@ -26,15 +23,15 @@ This name must **match the name on the Auto Import product data sheet** for prod
 
 Only enter the number.
 
-| :white_check_mark: Do | :x: Don't |
-| --------------------- | --------- |
-| `7`                   | `Ward 7`  |
+| Do  | Don't    |
+| --- | -------- |
+| `7` | `Ward 7` |
 
 ### `Address`
 
 Only include the Street Number and Street Name, **not the entire address with city, state and zip code.**
 
-| :white_check_mark: Do         | :x: Don't                                 |
+| Do                            | Don't                                     |
 | ----------------------------- | ----------------------------------------- |
 | `4748 Sheriff Road Northeast` | `4748 Sheriff Rd NE Washington, DC 20019` |
 
@@ -57,9 +54,9 @@ Enter 10 digits only — this will format automatically.
 
 If a phone number is not available, leave this field blank. DO NOT enter anything other than a phone number such as an email address, website link etc.
 
-| :white_check_mark: Do | :x: Don't                                                            |
-| --------------------- | -------------------------------------------------------------------- |
-| `1231231234`          | `123.123.1234` `+1(433) 343-9293` Do not add any special characters. |
+| Do           | Don't                                                                |
+| ------------ | -------------------------------------------------------------------- |
+| `1231231234` | `123.123.1234` `+1(433) 343-9293` Do not add any special characters. |
 
 
 ### Accepted programs checkboxes
@@ -71,3 +68,13 @@ For the following columns, check the box if the program is accepted at the store
 | Coupon Program Partner | SNAP Match      |
 | Rewards Accepted       | Healthy Rewards |
 | WIC                    | WIC             |
+
+### `Do Not Display`
+
+Check this box to hide a store from displaying to customers in the app.
+
+
+### `Stocks Other Vendors`
+
+Checking this box will display the following message with the store:
+> This store regularly stocks additional produce from other vendors.

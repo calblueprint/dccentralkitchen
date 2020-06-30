@@ -70,6 +70,5 @@ See [below](#note-on-the-recordids-js-file) for a note on `/constants/RecordIds.
 - The description are as follows
   - **`testCustomerId`**: Id specifying a default customer for testing purposes. This customer will only be accessed during development, and not in production/live apps.
   - **`guestCustomerId`**: Id specifying a default customer for guest mode. This is required to determine some of the content in the drawer/hamburger menu
-  - **`clerkTrainingStoreId`**: Id specifying a fake store that is used for clerk training. All transactions made in this store ensures that there are no false data for other existing stores.
   - **`defaultStoreId`**: Id specifying a store that a user will see when they launch the app, if they don't have location services enabled or is too far away from all the stores.
 - Apart from `defaultStoreId`, the other ids does not need to be changed.
