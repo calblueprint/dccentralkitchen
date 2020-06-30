@@ -12,20 +12,25 @@ For example, if you added something under “Crisis Response", and titled it DC 
 ![Resource](../assets/resources/resource.png)
 
 ## Adding a new category
+
+::: tip
+Resources that are uncategorized in Airtable or do not match a category in the code will still display under a **Miscellaneous** section
+:::
+
 Adding new resources can be done through `ResourcesScreen.js`.
 
 Navigate to the state, and add a list for your new category.
 
-```jsx
+```jsx {9}
 constructor(props) {
     super(props);
     this.state = {
-      CrisisResources: [],
-      DCCentralKitchenResources: [],
-      CommunityResources: [],
-      GovernmentResources: [],
-      ResourcesForSeniors: [],
-			ADDCATEGORYHERE: [],
+      CrisisResponse: [],
+      Seniors: [],
+      Food: [],
+      SocialServices: [],
+      Miscellaneous: [],
+      ADDCATEGORYHERE: [],
     };
   }
 ```
@@ -61,4 +66,5 @@ Your new category should now render.
 ![resource_airtable](../assets/resources/resourceairtable.png)
 
 #### Relevant PRs
+- [Customer PR #166: Resources category updates](https://github.com/calblueprint/dccentralkitchen/pull/166)
 - [Customer PR #37: Resources Screen](https://github.com/calblueprint/dccentralkitchen/pull/37)
