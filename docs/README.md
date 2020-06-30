@@ -2,12 +2,18 @@
 home: true
 heroText: Healthy Corners
 heroImage: /hc_splash.png
-footer: Learn more about Blueprint and what we do at calblueprint.org.
+footer: Learn more about Blueprint and what we do at calblueprint.org
 ---
 
 ---
 
 A guide to the customer and companion clerk applications developed with Expo, React Native, and Airtable built for DC Central Kitchen's [Healthy Corners initiative](https://dccentralkitchen.org/healthy-corners/).
+::: tip Quick Links
+If you are a **Healthy Corners or DC Central Kitchen administrator**, jump to the [Admin Guide](./admin) 
+
+If you are a **developer**, jump to the [Developer Docs](./shared/overview)
+:::
+
 
 ## Introduction
 
@@ -20,7 +26,7 @@ This project's main goal was to improve/build off Healthy Corner’s existing pr
 
 Concretely, that means we built two separate applications - one is the customer-facing mobile application, and the other is a companion Clerk application for tablets.
 
-::: tip HOW IT WORKS
+::: tip How Healthy Rewards works
 The reward process works in three steps: shop, earn, and save. Customers start by going to a participating store and buying Healthy Corners’ fresh fruits and vegetables.
 
 For each dollar they spend on these products, they earn 100 points. Once a customer reaches 500 points, they unlock a \$5 reward, which they can redeem on more healthy products.
