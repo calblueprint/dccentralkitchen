@@ -1,6 +1,6 @@
 ---
 navbar: false
-sidebar: false
+sidebar: auto
 editLink: false
 next: ./clerktraininggifs
 prev: false
