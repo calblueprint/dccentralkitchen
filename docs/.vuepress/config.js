@@ -152,6 +152,17 @@ module.exports = {
   },
   plugins: [
     [
+      'container',
+      {
+        type: 'faq',
+        before: (info) =>
+          `<details class="custom-block faq">${
+            info ? `<summary>${info}</summary>` : ''
+          }\n`,
+        after: () => '</details>\n',
+      },
+    ],
+    [
       'vuepress-plugin-container',
       {
         type: 'rightlink',
