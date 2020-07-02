@@ -9,31 +9,27 @@ import {
   NavTitle,
 } from '../components/BaseComponents';
 
-export default class FAQScreen extends React.Component {
-  render() {
-    return (
-      <View
-        style={{
-          display: 'flex',
-          flex: 1,
-          flexDirection: 'column',
-        }}>
-        <NavHeaderContainer>
-          <NavButtonContainer
-            onPress={() => this.props.navigation.toggleDrawer()}>
-            <FontAwesome5 name="bars" solid size={24} />
-          </NavButtonContainer>
-          <NavTitle>Frequently Asked Questions</NavTitle>
-        </NavHeaderContainer>
-        <WebView
-          source={{
-            uri: 'https://healthycorners.calblueprint.org/faq.html',
-          }}
-          style={{ marginTop: 10 }}
-        />
-      </View>
-    );
-  }
+export default function FAQScreen(props) {
+  return (
+    <View
+      style={{
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column',
+      }}>
+      <NavHeaderContainer>
+        <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
+          <FontAwesome5 name="bars" solid size={24} />
+        </NavButtonContainer>
+        <NavTitle>Frequently Asked Questions</NavTitle>
+      </NavHeaderContainer>
+      <WebView
+        source={{
+          uri: 'https://healthycorners.calblueprint.org/faq.html',
+        }}
+      />
+    </View>
+  );
 }
 
 FAQScreen.propTypes = {

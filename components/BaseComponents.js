@@ -108,6 +108,7 @@ export function NavHeaderContainer({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
+        zIndex: 1,
       }}>
       {children}
     </View>
