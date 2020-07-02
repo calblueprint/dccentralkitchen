@@ -23,8 +23,7 @@ import {
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { newSignUpBonus } from '../../constants/Rewards';
-import { env } from '../../environment';
-import firebaseConfig from '../../firebase';
+import { env, firebaseConfig } from '../../environment';
 import {
   createCustomers,
   createPushTokens,

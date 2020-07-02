@@ -16,6 +16,10 @@ environment.js
 # VuePress build output
 docs/.vuepress/dist
 
+# Google Services for Firebase
+google-services.json
+GoogleService-Info.plist
+
 # Other
 package-lock.json
 *.DS_Store

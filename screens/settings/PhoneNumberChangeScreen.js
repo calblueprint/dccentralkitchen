@@ -14,7 +14,7 @@ import {
   Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import firebaseConfig from '../../firebase';
+import { firebaseConfig } from '../../environment';
 import {
   getCustomersById,
   getCustomersByPhoneNumber,
