@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
+import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
@@ -20,6 +21,9 @@ Sentry.init({
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  // False to disable Analytics log and warning messages on the Expo client
+  Analytics.setUnavailabilityLogging(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (

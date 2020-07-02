@@ -106,7 +106,6 @@ export default class RewardsScreen extends React.Component {
   renderScene = ({ route }) => {
     switch (route.key) {
       case 'home':
-        Analytics.setCurrentScreen('RewardsHome');
         return (
           <RewardsHome
             customer={this.state.customer}
@@ -114,10 +113,8 @@ export default class RewardsScreen extends React.Component {
           />
         );
       case 'history':
-        Analytics.setCurrentScreen('PointsHistory');
         return <PointsHistory transactions={this.state.transactions} />;
       case 'howitworks':
-        Analytics.setCurrentScreen('HowItWorks');
         return (
           <HowItWorks
             isGuest={this.state.isGuest}
@@ -195,8 +192,11 @@ export default class RewardsScreen extends React.Component {
             navigationState={this.state}
             renderScene={this.renderScene}
             renderTabBar={this.renderTabBar}
-            // eslint-disable-next-line react/no-unused-state
-            onIndexChange={(index) => this.setState({ index })}
+            onIndexChange={(index) => {
+              // eslint-disable-next-line react/no-unused-state
+              this.setState({ index });
+              Analytics.setCurrentScreen(routes[index].title);
+            }}
             initialLayout={{
               width: Window.width,
               height: Window.height,
