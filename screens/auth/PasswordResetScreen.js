@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { StackActions } from '@react-navigation/native';
+import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
@@ -15,7 +16,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { storeSignUpBonus } from '../../constants/Rewards';
-import firebaseConfig from '../../firebase';
+import { firebaseConfig } from '../../environment';
 import {
   getCustomersByPhoneNumber,
   updateCustomers,
@@ -61,6 +62,19 @@ export default class PasswordResetScreen extends React.Component {
         submit: '',
       },
     };
+  }
+
+  async componentDidMount() {
+    const delay = (duration) =>
+      new Promise((resolve) => setTimeout(resolve, duration));
+    await delay(1000);
+
+    // 1 second delay to set the screen after AppNavigator sets to Reset
+    if (this.props.route.params.forgot) {
+      Analytics.setCurrentScreen('Forgot password');
+    } else {
+      Analytics.setCurrentScreen('Set a password');
+    }
   }
 
   // Check for an error with updated text

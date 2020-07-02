@@ -26,7 +26,7 @@ import {
   inputFields,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { logAuthErrorToSentry, setUserLog } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -156,19 +156,11 @@ export default class LogInScreen extends React.Component {
         });
       } else {
         // if login works, register the user
-        Analytics.setUserId(customer.id);
-        Analytics.setUserProperties({
-          name: customer.name,
-          phoneNumber,
+        setUserLog(customer);
+        Analytics.logEvent('log_in_complete', {
+          customer_id: customer.id,
         });
-        Sentry.configureScope((scope) => {
-          scope.setUser({
-            id: customer.id,
-            phoneNumber,
-            username: customer.name,
-          });
-          Sentry.captureMessage('Log In Successful');
-        });
+        Sentry.captureMessage('Log In Successful');
       }
       this.setState((prevState) => ({
         errors: { ...prevState.errors, submit: error },

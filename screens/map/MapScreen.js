@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import convertDistance from 'geolib/es/convertDistance';
@@ -81,6 +82,7 @@ export default class MapScreen extends React.Component {
       this.setState({
         locationErrorMsg: 'Permission to access location was denied',
       });
+      Analytics.setUserProperty('location_permissions', 'denied');
     } else {
       try {
         const location = await Location.getCurrentPositionAsync({
@@ -98,11 +100,13 @@ export default class MapScreen extends React.Component {
         } else {
           this.setState({ locationErrorMsg: null, region });
         }
+        Analytics.setUserProperty('location_permissions', 'granted');
       } catch (err) {
         console.log(err);
         this.setState({
           locationErrorMsg: 'Permission to access location was denied',
         });
+        Analytics.setUserProperty('location_permissions', 'error');
         logErrorToSentry({
           screen: 'MapScreen',
           function: '_findCurrentLocation',
@@ -197,6 +201,10 @@ export default class MapScreen extends React.Component {
           ? region
           : prevState.region,
     }));
+    Analytics.setUserProperty(
+      'closest_store',
+      this.state.showDefaultStore ? 'default' : this.state.store.storeName
+    );
   };
 
   renderHeader = () => (
@@ -208,6 +216,9 @@ export default class MapScreen extends React.Component {
       {!this.state.showDefaultStore && (
         <CenterLocation
           callBack={async () => {
+            Analytics.logEvent('center_location', {
+              purpose: 'Centers map to current location',
+            });
             await this._findCurrentLocation();
             await this._orderStoresByDistance(this.state.stores);
           }}
@@ -250,8 +261,13 @@ export default class MapScreen extends React.Component {
 
   // Update current store and its products
   // Only called after initial store has been set
-  // Only expand the bottom sheet to display products if navigated from 'See Products' button on StoreList
+  // Only expand (reset) the bottom sheet to display products if navigated from StoreList
   changeCurrentStore(store, resetSheet = false) {
+    Analytics.logEvent('view_store_products', {
+      store_name: this.state.store.storeName,
+      products_in_stock: 'productIds' in store ? store.productIds.length : 0,
+      purpose: 'View a store and products available',
+    });
     // Set store focus status
     this.state.store.focused = false;
     // eslint-disable-next-line no-param-reassign

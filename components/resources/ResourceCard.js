@@ -12,10 +12,9 @@ import {
 import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
 function cardPressed(resource) {
-  Analytics.logEvent('resources_ext_link', {
-    name: resource.title,
-    screen: 'Resources',
-    purpose: 'Opens external link',
+  Analytics.logEvent('open_resource_link', {
+    resource_name: resource.title,
+    resource_category: resource.category,
   });
   Linking.openURL(resource.url);
 }

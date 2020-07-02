@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FlatList, ScrollView, View } from 'react-native';
@@ -7,7 +8,7 @@ import {
   Body,
   ButtonLabel,
   NavHeaderContainer,
-  Title
+  Title,
 } from '../../components/BaseComponents';
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
@@ -32,10 +33,30 @@ export default class StoreListScreen extends React.Component {
       },
       showDefaultStore,
     };
+    this.searchStrHistory = [];
+    this.filterHistory = [];
   }
 
   componentDidMount() {
     this.search.focus();
+  }
+
+  componentWillUnmount() {
+    if (this.searchStrHistory.length > 0) {
+      Analytics.logEvent('search_stores', {
+        search_queries: this.searchStrHistory,
+      });
+    }
+    if (this.filterHistory.length > 0) {
+      const { filters } = this.state;
+      const selectedFilters = Object.keys(filters)
+        .filter((key) => filters[key])
+        .reduce((res, key) => Object.assign(res, { [key]: filters[key] }), {});
+      Analytics.logEvent('filter_stores', {
+        ...selectedFilters,
+        filter_history: this.filterHistory,
+      });
+    }
   }
 
   // TODO: fix warning involving using a callback function to look up current store.
@@ -47,12 +68,16 @@ export default class StoreListScreen extends React.Component {
   };
 
   filterStore = (searchStr) => {
+    if (searchStr !== '') {
+      this.searchStrHistory.push(searchStr);
+    }
     return (store) => {
       return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
     };
   };
 
   updateFilters = (name) => {
+    this.filterHistory.push(name);
     this.setState((prevState) => ({
       filters: { ...prevState.filters, [name]: !prevState.filters[name] },
     }));
