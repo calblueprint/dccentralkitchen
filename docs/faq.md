@@ -1,8 +1,8 @@
 ---
 editLink: false
 sidebar: auto
+navbar: false
 heroImage: /hc_splash.png
-layout: LogoLayout
 footer: Click here to use our online contact form
 footerLink: https://tiny.cc/RewardsFeedback
 ---
