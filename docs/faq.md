@@ -10,13 +10,42 @@ footerLink: https://tiny.cc/RewardsFeedback
 
 ## Healthy Corners
 
+:::faq What is Healthy Corners?
+Healthy Corners is a DC Central Kitchen program that strives to expand healthy food access in DC. We deliver fresh produce and healthy snacks to corner stores in areas where food access is limited, offering produce at wholesale prices and providing marketing and technical assistance. 
+:::
+
+::: faq How do I save at Healthy Corners stores?
+- Low prices
+- SNAP matching
+- Healthy Rewards
+:::
+
+## Products & Prices
+:::faq What does it mean if a store shows 'No recent deliveries'?
+“No recent deliveries” means a store has not received a Healthy Corners delivery in the past week. The store may have fruits and vegetables in stock from another vendor or a previous delivery. 
+:::
+
+:::faq How often are products listed in the app updated?
+Products are updated daily at 5 PM EST.
+:::
+
+:::faq How are prices set?
+Prices are set quarterly with the seasons: summer, fall, winter, and spring. Healthy Corners 
+:::
+
+:::faq Why are the prices listed on this app different from the prices in-store?
+Answer:
+:::
+
+## Stores
+
 ## SNAP Matching and Coupons
 
 ## Healthy Rewards
 
 <br/>
 
-::: faq How do I join the Healthy Rewards program?
+:::faq How do I join the Healthy Rewards program?
 You can create a Healthy Rewards account by downloading the Healthy Corners app or by registering in person at a participating Healthy Corners store.
 
 **Healthy Corners App**
