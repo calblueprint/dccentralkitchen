@@ -1,15 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  AsyncStorage,
-  ScrollView,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 import {
   BigTitle,

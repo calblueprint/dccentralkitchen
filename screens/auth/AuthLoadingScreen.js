@@ -1,6 +1,6 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage } from 'react-native';
 
 // TODO: combine with AuthLoading?
 export default class AuthLoadingScreen extends React.Component {

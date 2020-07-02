@@ -1,11 +1,12 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Linking from 'expo-linking';
 import PropTypes from 'prop-types';
 import React from 'react';
-import * as Linking from 'expo-linking';
-import { ActivityIndicator, Alert, AsyncStorage, View } from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import {
   BigTitle,
