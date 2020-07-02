@@ -8,6 +8,8 @@ footerLink: https://tiny.cc/RewardsFeedback
 ---
 # Frequently Asked Questions
 
+[[toc]]
+
 ## Healthy Corners
 
 :::faq What is Healthy Corners?
