@@ -10,36 +10,30 @@ import {
 import ProductInfo from '../../components/product/ProductInfo';
 import { SpaceBetweenRowContainer } from '../../styled/shared';
 
-export default class ProductDetailsScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export default function ProductDetailsScreen(props) {
+  const { currentProduct } = props.route.params;
 
-  render() {
-    const { currentProduct } = this.props.route.params;
-    return (
-      <View>
-        <NavHeaderContainer withMargin backgroundColor="transparent" noShadow>
-          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
-            <FontAwesome5 name="times" solid size={24} />
-          </NavButtonContainer>
-          <NavTitle />
-        </NavHeaderContainer>
-        <SpaceBetweenRowContainer
-          style={{
-            marginLeft: 20,
-            marginRight: 8,
-          }}>
-          <ProductInfo style={{ flexShrink: 2 }} product={currentProduct} />
-          <Image
-            source={{ uri: currentProduct.imageUrl }}
-            style={{ width: 80, height: 80 }}
-          />
-        </SpaceBetweenRowContainer>
-      </View>
-    );
-  }
+  return (
+    <View>
+      <NavHeaderContainer withMargin backgroundColor="transparent" noShadow>
+        <NavButtonContainer onPress={() => props.navigation.goBack()}>
+          <FontAwesome5 name="times" solid size={24} />
+        </NavButtonContainer>
+        <NavTitle />
+      </NavHeaderContainer>
+      <SpaceBetweenRowContainer
+        style={{
+          marginLeft: 20,
+          marginRight: 8,
+        }}>
+        <ProductInfo style={{ flexShrink: 2 }} product={currentProduct} />
+        <Image
+          source={{ uri: currentProduct.imageUrl }}
+          style={{ width: 80, height: 80 }}
+        />
+      </SpaceBetweenRowContainer>
+    </View>
+  );
 }
 
 ProductDetailsScreen.propTypes = {
