@@ -4,13 +4,8 @@ import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  AsyncStorage,
-  Linking,
-  View,
-} from 'react-native';
+import * as Linking from 'expo-linking';
+import { ActivityIndicator, Alert, AsyncStorage, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import {
   BigTitle,

@@ -9,11 +9,11 @@ import {
   ActivityIndicator,
   AsyncStorage,
   Image,
-  Linking,
   Platform,
   ScrollView,
   View,
 } from 'react-native';
+import * as Linking from 'expo-linking';
 import AlertAsync from 'react-native-alert-async';
 import {
   Body,
