@@ -43,6 +43,18 @@ Answer:
 
 ## SNAP Matching and Coupons
 
+:::faq What is SNAP matching?
+Answer:
+:::
+
+:::faq How do I earn coupons?
+Spend at least $5 using your SNAP/EBT card. Your SNAP/EBT purchase must contain at least 1 fresh fruit or vegetable. The store clerk will give you a $5 coupon at checkout.
+:::
+
+:::faq How many coupons can I earn?
+You will earn 1 coupon per purchase every time you make a qualifying purchase.
+:::
+
 ## Healthy Rewards
 
 <br/>
