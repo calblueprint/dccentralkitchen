@@ -45,7 +45,11 @@
           "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
         }
       },
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "VIBRATE"
+      ],
       "versionCode": 6
     },
     "hooks": {
