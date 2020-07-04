@@ -21,6 +21,7 @@ import {
 import HowItWorks from '../../components/rewards/HowItWorks';
 import ParticipatingStores from '../../components/rewards/ParticipatingStores';
 import PointsHistory from '../../components/rewards/PointsHistory';
+import RewardsFAQ from '../../components/rewards/RewardsFAQ';
 import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
@@ -186,6 +187,7 @@ export default class RewardsScreen extends React.Component {
                 </ButtonLabel>
               )}
             </FilledButtonContainer>
+            <RewardsFAQ />
           </ScrollView>
         ) : (
           <TabView

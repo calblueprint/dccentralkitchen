@@ -1,6 +1,14 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import { Body } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
+
+export const Question = styled(Body).attrs({
+  bold: true,
+})`
+  margin-top: 32px;
+  margin-bottom: 8px;
+`;
 
 export const RewardsCardContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
