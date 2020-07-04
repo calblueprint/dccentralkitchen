@@ -1,16 +1,17 @@
 ---
 editLink: false
-sidebar: auto
+sidebar: false
 navbar: false
-heroImage: /hc_splash.png
-footer: Click here to use our online contact form
-footerLink: https://tiny.cc/RewardsFeedback
 ---
-# Frequently Asked Questions
+# Healthy Corners FAQs
 
+#### Browse by topic
 [[toc]]
 
-## Healthy Corners
+---
+
+### Healthy Corners
+<br/>
 
 :::faq What is Healthy Corners?
 Healthy Corners is a DC Central Kitchen program that strives to expand healthy food access in DC. We deliver fresh produce and healthy snacks to corner stores in areas where food access is limited, offering produce at wholesale prices and providing marketing and technical assistance. 
@@ -22,7 +23,9 @@ Healthy Corners is a DC Central Kitchen program that strives to expand healthy f
 - Healthy Rewards
 :::
 
-## Products & Prices
+### Products & Prices
+<br/>
+
 :::faq What does it mean if a store shows 'No recent deliveries'?
 “No recent deliveries” means a store has not received a Healthy Corners delivery in the past week. The store may have fruits and vegetables in stock from another vendor or a previous delivery. 
 :::
@@ -39,9 +42,12 @@ Prices are set quarterly with the seasons: summer, fall, winter, and spring. Hea
 Answer:
 :::
 
-## Stores
 
-## SNAP Matching and Coupons
+### Stores
+<br/>
+
+### SNAP Matching and Coupons
+<br/>
 
 :::faq What is SNAP matching?
 Answer:
@@ -55,8 +61,8 @@ Spend at least $5 using your SNAP/EBT card. Your SNAP/EBT purchase must contain 
 You will earn 1 coupon per purchase every time you make a qualifying purchase.
 :::
 
-## Healthy Rewards
 
+### Healthy Rewards 
 <br/>
 
 :::faq How do I join the Healthy Rewards program?
@@ -78,4 +84,9 @@ You can create a Healthy Rewards account by downloading the Healthy Corners app 
    3. Enter the phone number you used to sign up in store 
 ::: 
 
-## Account
+### Account
+
+
+### Contact Support
+
+If your question was not answered here, you can contact Customer Service through [our online form](https://tiny.cc/RewardsFeedback).
