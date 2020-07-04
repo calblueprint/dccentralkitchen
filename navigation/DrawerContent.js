@@ -167,13 +167,6 @@ function DrawerContent(props) {
         }}>
         <Title style={{ height: 30 }}>Healthy Rewards</Title>
       </ButtonContainer>
-      <ButtonContainer
-        style={{ paddingLeft: 24, paddingVertical: 13 }}
-        onPress={() =>
-          props.navigation.navigate('Settings', { screen: 'FAQ' })
-        }>
-        <Title style={{ height: 30 }}>FAQs</Title>
-      </ButtonContainer>
       <DrawerItemList {...props} />
       <View
         style={{
