@@ -154,7 +154,21 @@ export default class SettingsScreen extends React.Component {
               )
             }
           />
-
+          <CategoryBar title="Help & Support" />
+          <SettingsCard
+            title="Frequently Asked Questions"
+            navigation={() =>
+              WebBrowser.openBrowserAsync(
+                'https://healthycorners.calblueprint.org/faq.html'
+              )
+            }
+          />
+          <SettingsCard
+            title="Report issue or submit feedback"
+            navigation={() =>
+              WebBrowser.openBrowserAsync('http://tiny.cc/RewardsFeedback')
+            }
+          />
           <CategoryBar title="About" />
           <View style={{ padding: 24 }}>
             <Image
