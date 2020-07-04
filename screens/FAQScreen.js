@@ -18,10 +18,10 @@ export default function FAQScreen(props) {
         flexDirection: 'column',
       }}>
       <NavHeaderContainer>
-        <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
-          <FontAwesome5 name="bars" solid size={24} />
+        <NavButtonContainer onPress={() => props.navigation.goBack()}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
         </NavButtonContainer>
-        <NavTitle>Frequently Asked Questions</NavTitle>
+        <NavTitle>FAQ</NavTitle>
       </NavHeaderContainer>
       <WebView
         source={{
