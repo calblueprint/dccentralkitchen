@@ -1,8 +1,9 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
 import {
   Body,
   ButtonContainer,

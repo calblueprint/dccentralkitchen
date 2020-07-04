@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Linking } from 'react-native';
+import * as Linking from 'expo-linking';
 import Colors from '../../constants/Colors';
 import {
   ContentContainer,

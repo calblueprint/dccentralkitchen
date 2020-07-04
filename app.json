@@ -3,7 +3,7 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "sdkVersion": "37.0.0",
+    "sdkVersion": "38.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.4.0",
     "primaryColor": "#008550",
@@ -45,7 +45,11 @@
           "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
         }
       },
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "VIBRATE"
+      ],
       "versionCode": 6
     },
     "hooks": {

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Linking } from 'react-native';
+import * as Linking from 'expo-linking';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import {
