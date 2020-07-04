@@ -42,7 +42,7 @@ export default class ResourcesScreen extends React.Component {
           resource.category !== 'Crisis Response' &&
           resource.category !== 'Seniors' &&
           resource.category !== 'Food' &&
-          resources.category !== 'Social Services'
+          resource.category !== 'Social Services'
       );
       this.setState({
         CrisisResponse,
