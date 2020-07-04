@@ -149,8 +149,13 @@ module.exports = {
       '/node': devSidebar,
       '/shared': devSidebar,
     },
+    algolia: {
+      apiKey: '3ea67aa35be2cb7fdca6bf5a750388dc',
+      indexName: 'healthycorners-rewards',
+    },
   },
   plugins: [
+    ['@vuepress/back-to-top'],
     [
       'container',
       {
