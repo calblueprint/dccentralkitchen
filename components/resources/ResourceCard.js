@@ -1,8 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
+import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
-import * as Linking from 'expo-linking';
 import Colors from '../../constants/Colors';
 import {
   ContentContainer,
@@ -16,7 +16,7 @@ function cardPressed(resource) {
     resource_name: resource.title,
     resource_category: resource.category,
   });
-  Linking.openURL(resource.url);
+  WebBrowser.openBrowserAsync(resource.url);
 }
 function ResourceCard({ resourceCard }) {
   return (
