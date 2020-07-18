@@ -27,7 +27,9 @@ export const FilledButtonContainer = styled(ButtonContainer)`
   padding-top: 2px;
 `;
 
-export const BigTitle = styled.Text`
+export const BigTitle = styled.Text.attrs({
+  allowFontScaling: false,
+})`
   font-family: poppins-medium;
   font-size: 32px;
   line-height: 48px;

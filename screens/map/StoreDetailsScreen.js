@@ -68,14 +68,19 @@ export default function StoreDetailsScreen(props) {
               size={24}
               color={Colors.activeText}
             />
-            <View
+            <ColumnContainer
               style={{
-                flexDirection: 'column',
                 paddingLeft: 12,
                 paddingRight: 50,
-                flexWrap: 'wrap',
               }}>
               <ButtonContainer
+                onPress={() =>
+                  openDirections(
+                    store.latitude,
+                    store.longitude,
+                    store.storeName
+                  )
+                }
                 onLongPress={() => writeToClipboard(store.address)}>
                 <Body>{store.address}</Body>
               </ButtonContainer>
@@ -108,7 +113,7 @@ export default function StoreDetailsScreen(props) {
                   color={Colors.primaryOrange}
                 />
               </ButtonContainer>
-            </View>
+            </ColumnContainer>
           </InLineContainer>
         </View>
         {/* Phone Number */}
@@ -145,7 +150,7 @@ export default function StoreDetailsScreen(props) {
             color={Colors.activeText}
             style={{ marginRight: 12 }}
           />
-          <View style={{ display: 'flex', flexDirection: 'column' }}>
+          <ColumnContainer>
             <Body
               color={
                 store.storeOpenStatus.includes('Open')
@@ -156,7 +161,7 @@ export default function StoreDetailsScreen(props) {
               {store.storeOpenStatus}
             </Body>
             <StoreHours hours={store.storeHours} />
-          </View>
+          </ColumnContainer>
         </InLineContainer>
       </ScrollView>
     </View>

@@ -40,6 +40,7 @@ function AuthTextField({
             ? 'number-pad'
             : undefined
         }
+        maxFontSizeMultiplier={1.4}
         maxLength={
           // eslint-disable-next-line no-nested-ternary
           fieldType.includes('Phone Number')

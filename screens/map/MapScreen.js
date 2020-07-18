@@ -7,7 +7,7 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
@@ -237,11 +237,13 @@ export default class MapScreen extends React.Component {
   renderContent = () => {
     return (
       <BottomSheetContainer>
-        <Subtitle
-          style={{ margin: 16, marginBottom: 0 }}
-          color={Colors.secondaryText}>
-          Browsing healthy products at
-        </Subtitle>
+        {PixelRatio.getFontScale() < 1.2 && (
+          <Subtitle
+            style={{ margin: 16, marginBottom: 0 }}
+            color={Colors.secondaryText}>
+            Browsing healthy products at
+          </Subtitle>
+        )}
         <StoreProducts
           navigation={this.props.navigation}
           store={this.state.store}
@@ -323,7 +325,7 @@ export default class MapScreen extends React.Component {
             }>
             <FontAwesome5
               name="search"
-              size={16}
+              size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
               color={Colors.primaryOrange}
             />
             <Subtitle color={Colors.secondaryText} style={{ marginLeft: 8 }}>
@@ -344,6 +346,7 @@ export default class MapScreen extends React.Component {
           ref={(mapView) => {
             this._map = mapView;
           }}
+          mapType="mutedStandard"
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display store markers */}
@@ -356,9 +359,8 @@ export default class MapScreen extends React.Component {
               }}
               onPress={() => this.changeCurrentStore(store)}>
               <StoreMarker
-                storeName={
-                  this.state.region.longitudeDelta < 0.07 ? store.storeName : ''
-                }
+                showName={this.state.region.longitudeDelta < 0.07}
+                storeName={store.storeName}
                 focused={store.focused}
               />
             </Marker>

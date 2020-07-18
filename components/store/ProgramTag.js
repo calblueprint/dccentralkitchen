@@ -1,6 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { PixelRatio } from 'react-native';
 import { Chip } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import { styles } from '../../styled/store';
@@ -78,7 +79,7 @@ function ProgramTag({ program, tag = false, selected = false, selectedFunc }) {
         <FontAwesome5
           name={labelToIcon[program]}
           solid
-          size={10}
+          size={10 * Math.min(PixelRatio.getFontScale(), 1.4)}
           color={tagContentColor}
           style={tag ? { marginTop: -1 } : { marginTop: 0 }}
         />

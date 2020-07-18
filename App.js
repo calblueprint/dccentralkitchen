@@ -5,7 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import Colors from './constants/Colors';
@@ -20,6 +20,8 @@ Sentry.init({
 });
 
 export default function App(props) {
+  Text.defaultProps = Text.defaultProps || {};
+  Text.defaultProps.maxFontSizeMultiplier = 1.4;
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   // False to disable Analytics log and warning messages on the Expo client

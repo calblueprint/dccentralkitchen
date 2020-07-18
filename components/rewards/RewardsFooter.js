@@ -67,7 +67,10 @@ export default class RewardsFooter extends React.Component {
               size={16}
               color={Colors.lightText}
             />
-            <Subtitle style={{ paddingLeft: 8 }} color={Colors.lightText}>
+            <Subtitle
+              style={{ paddingLeft: 8 }}
+              color={Colors.lightText}
+              maxFontSizeMultiplier={1.3}>
               {this.state.isGuest
                 ? 'Learn about Healthy Rewards >'
                 : this.state.rewards === 1
@@ -81,7 +84,7 @@ export default class RewardsFooter extends React.Component {
           </View>
         )}
         {this.state.customer && !this.state.isGuest && (
-          <Subtitle color={Colors.lightText}>
+          <Subtitle maxFontSizeMultiplier={1.2} color={Colors.lightText}>
             {this.state.rewards > 0
               ? `View your rewards >`
               : `View your points >`}
