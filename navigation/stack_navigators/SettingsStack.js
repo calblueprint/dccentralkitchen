@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Colors from '../../constants/Colors';
-import FAQScreen from '../../screens/FAQScreen';
 import NameChangeScreen from '../../screens/settings/NameChangeScreen';
 import PhoneNumberChangeScreen from '../../screens/settings/PhoneNumberChangeScreen';
 import SettingsScreen from '../../screens/settings/SettingsScreen';
@@ -19,7 +18,6 @@ export default function SettingsStackNavigator() {
       <SettingsStack.Screen name="Settings" component={SettingsScreen} />
       <SettingsStack.Screen name="Name" component={NameChangeScreen} />
       <SettingsStack.Screen name="Number" component={PhoneNumberChangeScreen} />
-      <SettingsStack.Screen name="FAQ" component={FAQScreen} />
     </SettingsStack.Navigator>
   );
 }
