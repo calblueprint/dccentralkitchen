@@ -11,8 +11,14 @@ import RewardsFAQ from './RewardsFAQ';
 
 function HowItWorks(props) {
   return (
-    <ScrollView style={{ display: 'flex', marginLeft: 16, paddingRight: 16 }}>
-      <View style={{ display: 'flex', maxHeight: 1750, paddingTop: 24 }}>
+    <ScrollView style={{ display: 'flex' }}>
+      <View
+        style={{
+          display: 'flex',
+          marginLeft: 16,
+          paddingRight: 16,
+          paddingTop: 24,
+        }}>
         <RowContainer
           style={{ width: '100%', alignItems: 'center', marginBottom: 12 }}>
           <Image
@@ -68,8 +74,8 @@ function HowItWorks(props) {
             </Subtitle>
           </ColumnContainer>
         </RowContainer>
-        {props.isGuest || <RewardsFAQ />}
       </View>
+      {props.isGuest || <RewardsFAQ />}
     </ScrollView>
   );
 }
