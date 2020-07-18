@@ -20,7 +20,7 @@ export default {
 <style lang="stylus">
 .flush
   padding 1px 0 0 0
-  font-family 'Poppins'
+  font-family 'Poppins', serif
   *:first-child
     margin-top 1px
 </style>
