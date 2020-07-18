@@ -13576,7 +13576,6 @@ npm@^6.14.6:
     cmd-shim "^3.0.3"
     columnify "~1.5.4"
     config-chain "^1.1.12"
-    debuglog "*"
     detect-indent "~5.0.0"
     detect-newline "^2.1.0"
     dezalgo "~1.0.3"
@@ -13591,7 +13590,6 @@ npm@^6.14.6:
     has-unicode "~2.0.1"
     hosted-git-info "^2.8.8"
     iferr "^1.0.2"
-    imurmurhash "*"
     infer-owner "^1.0.4"
     inflight "~1.0.6"
     inherits "^2.0.4"
@@ -13610,14 +13608,8 @@ npm@^6.14.6:
     libnpx "^10.2.2"
     lock-verify "^2.1.0"
     lockfile "^1.0.4"
-    lodash._baseindexof "*"
     lodash._baseuniq "~4.6.0"
-    lodash._bindcallback "*"
-    lodash._cacheindexof "*"
-    lodash._createcache "*"
-    lodash._getnative "*"
     lodash.clonedeep "~4.5.0"
-    lodash.restparam "*"
     lodash.union "~4.6.0"
     lodash.uniq "~4.5.0"
     lodash.without "~4.4.0"
@@ -15586,6 +15578,13 @@ react-native-appearance@~0.3.3:
     fbemitter "^2.1.1"
     invariant "^2.2.4"
     use-subscription "^1.0.0"
+
+react-native-autoheight-webview@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-autoheight-webview/-/react-native-autoheight-webview-1.5.1.tgz#67cbfb672212d93dedecf723d1914cbc40287545"
+  integrity sha512-jm/LGq+lW9MD3jdmbtDqjrBna/nkZqSIi3eajGbLM7SPlDuwDkmiMiBgonglZ6WeGqHyKbRa+f15MxqpVr+kUA==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-native-elements@^1.2.6:
   version "1.2.7"
