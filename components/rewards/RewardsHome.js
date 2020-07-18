@@ -6,6 +6,7 @@ import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
+import { displayDollarValue } from '../../lib/common';
 import {
   AvailableRewardsContainer,
   RewardsProgressContainer,
@@ -49,8 +50,10 @@ function RewardsHome({ customer, participating }) {
           color={Colors.primaryGreen}
         />
         <Body style={{ marginBottom: 28 }}>
-          {`Earn ${rewardPointValue -
-            pointsToNext} points to unlock your next $${rewardDollarValue} reward`}
+          {`Buy ${displayDollarValue(
+            (rewardPointValue - pointsToNext) / 100
+          )} of healthy food to earn ${rewardPointValue -
+            pointsToNext} points and unlock your next $${rewardDollarValue} reward`}
         </Body>
         <Overline style={{ marginBottom: 8 }}>
           {`Available Rewards (${Math.floor(rewardsAvailable)})`}
