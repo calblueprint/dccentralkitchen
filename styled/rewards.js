@@ -4,9 +4,7 @@ import Colors from '../constants/Colors';
 
 export const RewardsCardContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 9px;
-  width: 159px;
-  height: 64px;
+  border-radius: 8px;
   padding: 10px;
   margin: 6px 12px 6px 4px;
 
@@ -28,7 +26,6 @@ export const AvailableRewardsContainer = styled.View`
   margin: 8px 0;
   display: flex
   width: 100%
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 `;

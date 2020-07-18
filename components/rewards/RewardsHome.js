@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, PixelRatio, ScrollView, View } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
@@ -61,7 +61,9 @@ function RewardsHome({ customer, participating }) {
           data={createList(Math.floor(rewardsAvailable))}
           renderItem={() => <RewardsCard />}
           keyExtractor={(item, index) => index.toString()}
-          numColumns={Window.width > 370 ? 2 : 1}
+          numColumns={
+            Window.width > 370 && PixelRatio.getFontScale() < 1.2 ? 2 : 1
+          }
           ListEmptyComponent={
             <View
               style={{
