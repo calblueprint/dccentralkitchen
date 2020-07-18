@@ -103,7 +103,7 @@ You can create a Healthy Rewards account by clicking “Log In” or “Get Star
    4. Enter the code sent to you by text message to verify your phone number.
    5. Set a password for your account
    6. Log in using your new account information
-   7. 
+    
 Once your account is set up, you can access your account from the Healthy Corners app!
 :::
 
