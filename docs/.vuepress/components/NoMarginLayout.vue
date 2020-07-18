@@ -1,5 +1,5 @@
 <template>
-  <Content class="theme-default-content" />
+  <Content class="flush" />
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
 <style lang="stylus">
 body
   font-family 'Poppins'
-.theme-default-content:not(.custom)
+.flush
   padding 1px 0 0 0
   *:first-child
     margin-top 1px
