@@ -34,7 +34,7 @@ The **Airtable Guidelines** section:
 
 [Airtable](https://airtable.com/) is where all the application data is stored. Its tagline is "part spreadsheet, part database, and entirely flexible" and it is exactly what it sounds like - a database that looks like a spreadsheet. As a bonus, it also has beautiful design.
 
-All admins need access to our [Airtable workspace](https://airtable.com/invite/l?inviteId=invFPVCCPnoHZ0htX&inviteToken=8c4d57af33a94c6b1527d75df1f13c7ecb9a98b38ae3eb432700445e1fb2bc6d).
+All admins need access to our [Airtable workspace](https://airtable.com/invite/l?inviteId=invjV91ATeep6Z3FU&inviteToken=b56fc471333aae0b35e87c3ebf0336387bb29391e02b1d61d17fa927aece28cd).
 
 ![Airtable workspace](../assets/intro/airtable-workspace.png)
 

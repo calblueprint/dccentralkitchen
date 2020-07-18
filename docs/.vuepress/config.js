@@ -9,17 +9,17 @@ const globalNavbar = [
       {
         text: 'Development',
         link:
-          'https://airtable.com/invite/l?inviteId=invesIqGWvEme1unA&inviteToken=d2b75868ccb369533de5ecc1856f5b51ce59a1f8634a5e63f269b49ae6c7c829',
+          'https://airtable.com/invite/l?inviteId=invHQEihpTRQwvjDE&inviteToken=5c94d6ba23c2a7f349e6e168a25403a13f2c435af256a296f0630991998a5488',
       },
       {
         text: 'Production',
         link:
-          'https://airtable.com/invite/l?inviteId=invs00iNRdVREHGdd&inviteToken=c60062f2439511603a97ca005e1a03ee9226d9bab0149ff469034475e08381e6',
+          'https://airtable.com/invite/l?inviteId=invi3W9OkQcJ0BaVL&inviteToken=267a57e59cb2dff2f2a1053580707ce7309cbfb017f81168681daf0cd0ded24b',
       },
       {
         text: 'Workspace',
         link:
-          'https://airtable.com/invite/l?inviteId=invFPVCCPnoHZ0htX&inviteToken=8c4d57af33a94c6b1527d75df1f13c7ecb9a98b38ae3eb432700445e1fb2bc6d',
+          'https://airtable.com/invite/l?inviteId=inveo2G7RDr4TETPW&inviteToken=eaa9f9dd2c363c4aeadb64bf2918b7cbca5e6eb5c2b34e6f214e2bb796aa13df',
       },
     ],
   },
