@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { PixelRatio, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -34,6 +34,7 @@ export const DividerBar = styled.View`
 `;
 
 export const BottomSheetHeaderContainer = styled.View`
+  padding-bottom: ${PixelRatio.getFontScale() < 1.2 ? '0px' : '16px'}
   width: 100%;
   background-color: ${Colors.bgLight};
   border-top-left-radius: 32px;
@@ -97,7 +98,7 @@ export const styles = StyleSheet.create({
   tagChip: {
     backgroundColor: Colors.lightestGreen,
     color: Colors.darkerGreen,
-    height: 18,
+    height: PixelRatio.getFontScale() < 1.2 ? 18 : 24,
     marginVertical: 0,
     marginRight: 6,
     marginBottom: 4,
@@ -105,14 +106,14 @@ export const styles = StyleSheet.create({
   filterChip: {
     backgroundColor: Colors.lightestOrange,
     color: Colors.darkerOrange,
-    height: 24,
+    height: PixelRatio.getFontScale() < 1.2 ? 24 : 30,
     marginLeft: 6,
     marginVertical: 10,
   },
   selectedFilterChip: {
     backgroundColor: Colors.primaryOrange,
     color: Colors.lightText,
-    height: 24,
+    height: PixelRatio.getFontScale() < 1.2 ? 24 : 30,
     marginLeft: 6,
     marginVertical: 10,
   },
