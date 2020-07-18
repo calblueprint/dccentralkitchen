@@ -27,7 +27,7 @@ function HowItWorks(props) {
           <ColumnContainer style={{ flex: 1 }}>
             <Title>Shop</Title>
             <Subtitle>
-              Buy Healthy Corners products at participating stores
+              Simply purchase Healthy Corners products at participating stores
             </Subtitle>
           </ColumnContainer>
         </RowContainer>
@@ -45,8 +45,7 @@ function HowItWorks(props) {
           <ColumnContainer style={{ flex: 1 }}>
             <Title>Earn</Title>
             <Subtitle>
-              Give your phone number before you pay at a store to earn 100
-              points for every $1 spent on Healthy Corners products
+              {`Earn 100 points for every dollar you spend on our products!\n$1=100 points`}
             </Subtitle>
           </ColumnContainer>
         </RowContainer>
@@ -65,7 +64,7 @@ function HowItWorks(props) {
           <ColumnContainer style={{ flex: 1 }}>
             <Title>Save</Title>
             <Subtitle>
-              {`Unlock a $${rewardDollarValue} FREE produce reward each time you reach ${rewardPointValue} points`}
+              {`Unlock a $${rewardDollarValue} reward for FREE Healthy Corners products every time you reach ${rewardPointValue} points. \n$5 spent = $5 saved!`}
             </Subtitle>
           </ColumnContainer>
         </RowContainer>
