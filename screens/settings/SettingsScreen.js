@@ -188,7 +188,9 @@ export default class SettingsScreen extends React.Component {
             </Body>
             <ButtonContainer
               style={{ marginTop: 8 }}
-              onPress={() => Linking.openURL('https://calblueprint.org')}>
+              onPress={() =>
+                WebBrowser.openBrowserAsync('https://calblueprint.org')
+              }>
               <Body>Click here to learn more at calblueprint.org</Body>
             </ButtonContainer>
           </View>
