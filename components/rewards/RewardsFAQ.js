@@ -27,6 +27,16 @@ function RewardsFAQ() {
           }}
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
+          onShouldStartLoadWithRequest={(event) => {
+            if (
+              event.url !==
+              'https://healthycorners.calblueprint.org/faq-mini.html'
+            ) {
+              WebBrowser.openBrowserAsync(event.url);
+              return false;
+            }
+            return true;
+          }}
         />
         <ButtonLabel
           textAlign="left"
