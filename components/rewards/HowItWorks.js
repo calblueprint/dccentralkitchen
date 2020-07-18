@@ -10,7 +10,7 @@ import { BigTitle, Title } from '../BaseComponents';
 function HowItWorks() {
   return (
     <ScrollView style={{ display: 'flex', marginLeft: 16, paddingRight: 16 }}>
-      <View style={{ display: 'flex', alignItems: 'center', maxHeight: 1750 }}>
+      <View style={{ display: 'flex', alignItems: 'center' }}>
         <Image
           source={require('../../assets/images/1Shop.png')}
           style={{
