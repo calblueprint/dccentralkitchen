@@ -23,6 +23,7 @@ GoogleService-Info.plist
 # Other
 package-lock.json
 *.DS_Store
+.vscode/spellright.dict
 
 npm-debug.*
 *.jks
