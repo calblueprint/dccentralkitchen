@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -6,7 +7,7 @@ import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
@@ -130,6 +131,9 @@ export default class MapScreen extends React.Component {
       // Better to perform API calls at top level, and then pass data as props.
       await this._populateStoreProducts(this.state.store);
     } catch (err) {
+      Alert.alert('Update required', 'Refresh the app to see changes', [
+        { text: 'OK', onPress: () => Updates.reload() },
+      ]);
       console.error(
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',
         err

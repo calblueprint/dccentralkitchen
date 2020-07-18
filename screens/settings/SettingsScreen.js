@@ -1,15 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Updates } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ActivityIndicator,
-  AsyncStorage,
   Image,
-  Linking,
   Platform,
   ScrollView,
   View,

@@ -18,7 +18,7 @@ if (env === 'dev') {
 } else if (env === 'prod') {
   RecordIds.testCustomerId = 'recomWMtzSUQCcIvr';
   RecordIds.guestCustomerId = 'recxEGfvExP4Dv8nr';
-  RecordIds.defaultStoreId = 'recQmf64hlp9CyBas';
+  RecordIds.defaultStoreId = 'recwQ6SoM5pEj37xl';
 }
 
 export default RecordIds;
