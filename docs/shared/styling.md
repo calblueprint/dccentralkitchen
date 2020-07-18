@@ -245,7 +245,7 @@ We have run into a few issues that only appear on Android devices:
 - `font-weight` cannot be specified in CSS for custom fonts,or it will default to Android in Roboto ([source](https://github.com/react-navigation/react-navigation/issues/2822)). However, you must specify `fontWeight: 'normal'` in `createDrawerNavigator`
 - To make passwords hide in text fields on Android, the `keyboardType` must be set to `undefined`
 
-### Android bugfix PRs
+### Android bug-fix PRs
 
 - [#78](https://github.com/calblueprint/dccentralkitchen/pull/78/)
 - [#121](https://github.com/calblueprint/dccentralkitchen/pull/121)

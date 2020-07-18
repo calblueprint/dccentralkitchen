@@ -21,5 +21,11 @@
     "source.fixAll.eslint": false
   },
   "javascript.suggest.completeFunctionCalls": true,
-  "javascript.implicitProjectConfig.checkJs": true
+  "javascript.implicitProjectConfig.checkJs": true,
+  "spellright.language": [
+    "en"
+  ],
+  "spellright.documentTypes": [
+    "markdown"
+  ]
 }

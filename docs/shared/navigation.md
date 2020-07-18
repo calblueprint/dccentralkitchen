@@ -126,7 +126,7 @@ Styling for the drawer can be found in `DrawerContent.js`.
 #### Adding a link to the drawer
 
 ::: tip
-The external links in the hamburger menu can be modified without updating the code by updating the redirect URL of the shortlinks. See [this table](../admin/links.html#shortlinks) for a reference on the existing links in the hamburger menus.
+The external links in the hamburger menu can be modified without updating the code by updating the redirect URL of the short-links. See [this table](../admin/links.html#shortlinks) for a reference on the existing links in the hamburger menus.
 :::
 
 These links are basically hardcoded and not passed in as props from the `DrawerNavigator` to `DrawerContent`. To add functional buttons (such as the LogOut button), add a styled `TouchableOpacity` and have it and call a function in `onPress`.

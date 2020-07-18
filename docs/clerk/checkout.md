@@ -208,7 +208,7 @@ alphabeticalScrollTab = (label, letter) => {
 };
 ```
 
-### Quickscroll Functionality in a ScrollView
+### Quick-scroll Functionality in a ScrollView
 
 We add a `ref` to an existing ScrollView that we want to scroll through.
 
@@ -219,6 +219,6 @@ We add a `ref` to an existing ScrollView that we want to scroll through.
   }}>
 ```
 
-Each tab calls the ref's `scrollTo` method to quickscroll to a different y coordinate.
+Each tab calls the ref's `scrollTo` method to quick-scroll to a different y coordinate.
 
 _Note_: Using this same logic, it's also possible to scroll horizontally by providing an x coordinate. For our purposes, we only want to scroll up and down the products container.

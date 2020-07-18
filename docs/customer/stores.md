@@ -3,7 +3,7 @@
 ## Program tags
 Program tags list the various programs a store offers. 
 
-![programtags](../assets/stores/programtags.png)
+![Program Tags](../assets/stores/programtags.png)
 
 
 #### Relevant Files
@@ -49,7 +49,7 @@ The code currently protects against capitalization errors, so passing in `"wIC"`
 - [Airtable Schema Generator](shared/airtable.html#running-the-generator)
 
 ## Store search by name
-![storesearch](../assets/stores/storesearch.png)
+![Store Search](../assets/stores/storesearch.png)
 
 ### Files involved
 

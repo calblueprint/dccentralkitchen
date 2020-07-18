@@ -51,7 +51,7 @@ The graphics used on both the App and Play stores are in the **Illustrations** p
 3. In the top left corner, click the three-bar menu, go to file, then click **Place Image.** You can also use **`ctrl/cmd + shift + k`**.
 4. Select the new screenshot you are replacing the existing screenshot with. 
 5. A crosshairs with a preview of your image will appear. **Click the image you want to replace.**
-6. You're done! Figma will automatically crop/fit the image you just uploaded to match the original image. Since these are all same-size screenshots, there should be no need to recrop/resize at all. 
+6. You're done! Figma will automatically crop/fit the image you just uploaded to match the original image. Since these are all same-size screenshots, there should be no need to re-crop/resize at all. 
 
 Please note that the App Store requires both the 6.5 inch and 5.5 inch versions, and you will need to take screenshots on phones/simulators of both sizes and replace all 8 images.
 

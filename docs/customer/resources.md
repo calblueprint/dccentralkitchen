@@ -2,7 +2,7 @@
 The Resources screen (accessed from the hamburger menu) includes a list of helpful links from DC Central Kitchen.
 
 ::: warning NOTE
-The "Crisis Reponse" section was orignally titled "COVID-19 (Coronavirus)", but it was rejected by the App Store for specifically mentioning the pandemic. This section might be removed in the future if these resources are no longer relevant.
+The "Crisis Response" section was originally titled "COVID-19 (Coronavirus)", but it was rejected by the App Store for specifically mentioning the pandemic. This section might be removed in the future if these resources are no longer relevant.
 :::
 
 ## Adding a new resource link

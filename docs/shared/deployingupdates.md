@@ -128,7 +128,7 @@ Once the build starts, it can take anywhere from a few minutes to a several hour
 
 Once the build is complete, run `expo upload:ios` in the Expo CLI. You will be prompted to enter your developer Apple ID credentials.
 
-Alternatively, you can download the .IPA file from the Expo dashboard and upload it to Testflight using **Transporter** from the App Store ([link](https://apps.apple.com/app/transporter/id1450874784)). Learn more about manually uploading from [Expo Docs](https://docs.expo.io/distribution/uploading-apps/#manually-uploading-your-app).
+Alternatively, you can download the .IPA file from the Expo dashboard and upload it to TestFlight using **Transporter** from the App Store ([link](https://apps.apple.com/app/transporter/id1450874784)). Learn more about manually uploading from [Expo Docs](https://docs.expo.io/distribution/uploading-apps/#manually-uploading-your-app).
 
 #### Test on TestFlight
 

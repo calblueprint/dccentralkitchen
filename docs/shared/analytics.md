@@ -40,7 +40,7 @@ logAuthErrorToSentry({
 In addition to error logging, we also record the following messages:
 * Log In Successful
 * Sign Up Successful
-* Guest Login Scucessful 
+* Guest Login Successful 
 * Returning User (a user opens the app while already logged in)
 
 

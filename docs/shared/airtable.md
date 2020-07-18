@@ -104,7 +104,7 @@ The generator does **not need to be run regularly**. Ideally, schema updates are
 
 _When you first clone the repos, you do **NOT** need to run the generator. The `lib/airtable/*.js` files have been generated and are already committed. There's no need to regenerate unless the schema changes._
 
-The local schema files are (re)generated with the command `yarn generate-schema`. For convenience, all of our repos are configued to use the `auto-headless` mode so there is no user interaction required. Thus, you must fill in the `AIRTABLE_EMAIL` and `AIRTABLE_PASSWORD` sections of your local `.env.generator` file (customer/clerk repos) or `.env` file (node repo) to allow automated login on Airtable.
+The local schema files are (re)generated with the command `yarn generate-schema`. For convenience, all of our repos are configured to use the `auto-headless` mode so there is no user interaction required. Thus, you must fill in the `AIRTABLE_EMAIL` and `AIRTABLE_PASSWORD` sections of your local `.env.generator` file (customer/clerk repos) or `.env` file (node repo) to allow automated login on Airtable.
 
 ::: warning NOTE
 These credentials are not saved anywhere other than your own computer. This allows the schema generator to automatically scrape your schema from Airtable. If you're curious about what happens when the generator code runs, change `auto-headless` in the schema generator's settings in package.json to `auto`.

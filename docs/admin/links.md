@@ -1,8 +1,8 @@
 # Important Links
 
-## Shortlinks
+## Short-links
 
-We use editable shortlinks so the external links used throughout the apps can be easily updated without changing the code.
+We use editable short-links so the external links used throughout the apps can be easily updated without changing the code.
 
 | Link                                 | Description                                                                                                                                     |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
