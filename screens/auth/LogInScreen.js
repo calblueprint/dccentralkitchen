@@ -324,6 +324,7 @@ export default class LogInScreen extends React.Component {
             <RowContainer
               style={{
                 justifyContent: 'center',
+                flexWrap: 'wrap',
               }}>
               <Body>{`Don't have an account? `}</Body>
               <ButtonContainer
