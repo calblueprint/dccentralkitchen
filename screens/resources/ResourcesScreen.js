@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -26,28 +25,26 @@ export default class ResourcesScreen extends React.Component {
   }
 
   async componentDidMount() {
-    Analytics.logEvent('open_resources', {
-      name: 'resources',
-      screen: 'ResourcesScreen',
-    });
     try {
       const resources = await getAllResources();
-      const CrisisResponse = resources.filter(
-        (resource) => resource.category === 'Crisis Response'
+      const CrisisResponse = resources.filter((resource) =>
+        resource.category.includes('Crisis Response')
       );
-      const Seniors = resources.filter(
-        (resource) => resource.category === 'Seniors'
+      const Seniors = resources.filter((resource) =>
+        resource.category.includes('Seniors')
       );
-      const Food = resources.filter((resource) => resource.category === 'Food');
-      const SocialServices = resources.filter(
-        (resource) => resource.category === 'Social Services'
+      const Food = resources.filter((resource) =>
+        resource.category.includes('Food')
+      );
+      const SocialServices = resources.filter((resource) =>
+        resource.category.includes('Social Services')
       );
       const Miscellaneous = resources.filter(
         (resource) =>
-          resource.category !== 'Crisis Response' &&
-          resource.category !== 'Seniors' &&
-          resource.category !== 'Food' &&
-          resources.category !== 'Social Services'
+          !resource.category.includes('Crisis Response') &&
+          !resource.category.includes('Seniors') &&
+          !resource.category.includes('Food') &&
+          !resource.category.includes('Social Services')
       );
       this.setState({
         CrisisResponse,

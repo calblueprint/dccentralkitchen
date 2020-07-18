@@ -3,9 +3,9 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "sdkVersion": "37.0.0",
+    "sdkVersion": "38.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.4.0",
+    "version": "1.4.2",
     "primaryColor": "#008550",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -21,7 +21,7 @@
     "ios": {
       "bundleIdentifier": "org.calblueprint.HealthyCornersRewards",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "buildNumber": "1.4.0",
+      "buildNumber": "1.4.3",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
@@ -45,22 +45,12 @@
           "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
         }
       },
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"],
-      "versionCode": 6
-    },
-    "web": {
-      "config": {
-        "firebase": {
-          "apiKey": "AIzaSyBjHTeYFCuZM7NcOD6z6_yPBWbAFDeieJo",
-          "authDomain": "healthy-corners.firebaseapp.com",
-          "databaseURL": "https://healthy-corners.firebaseio.com",
-          "projectId": "healthy-corners",
-          "storageBucket": "healthy-corners.appspot.com",
-          "messagingSenderId": "861017041940",
-          "appId": "1:861017041940:web:b9a10ef73bfb8b9c6ecb01",
-          "measurementId": "G-0584C2GYL5"
-        }
-      }
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "VIBRATE"
+      ],
+      "versionCode": 7
     },
     "hooks": {
       "postPublish": [

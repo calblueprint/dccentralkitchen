@@ -1,12 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import { StackActions } from '@react-navigation/native';
-import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, AsyncStorage, Keyboard } from 'react-native';
+import { Alert, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -26,7 +27,7 @@ import {
   inputFields,
   updateCustomerPushTokens,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry } from '../../lib/logUtils';
+import { logAuthErrorToSentry, setUserLog } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -156,19 +157,11 @@ export default class LogInScreen extends React.Component {
         });
       } else {
         // if login works, register the user
-        Analytics.setUserId(customer.id);
-        Analytics.setUserProperties({
-          name: customer.name,
-          phoneNumber,
+        setUserLog(customer);
+        Analytics.logEvent('log_in_complete', {
+          customer_id: customer.id,
         });
-        Sentry.configureScope((scope) => {
-          scope.setUser({
-            id: customer.id,
-            phoneNumber,
-            username: customer.name,
-          });
-          Sentry.captureMessage('Log In Successful');
-        });
+        Sentry.captureMessage('Log In Successful');
       }
       this.setState((prevState) => ({
         errors: { ...prevState.errors, submit: error },

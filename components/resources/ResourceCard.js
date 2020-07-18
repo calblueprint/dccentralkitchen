@@ -1,8 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
+import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Linking } from 'react-native';
 import Colors from '../../constants/Colors';
 import {
   ContentContainer,
@@ -12,12 +12,11 @@ import {
 import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
 function cardPressed(resource) {
-  Analytics.logEvent('resources_ext_link', {
-    name: resource.title,
-    screen: 'Resources',
-    purpose: 'Opens external link',
+  Analytics.logEvent('open_resource_link', {
+    resource_name: resource.title,
+    resource_category: resource.category,
   });
-  Linking.openURL(resource.url);
+  WebBrowser.openBrowserAsync(resource.url);
 }
 function ResourceCard({ resourceCard }) {
   return (

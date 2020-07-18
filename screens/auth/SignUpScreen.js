@@ -1,14 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import { StackActions } from '@react-navigation/native';
-import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
+import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, AsyncStorage, Button, Keyboard } from 'react-native';
+import { Alert, Button, Keyboard } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import AuthTextField from '../../components/AuthTextField';
 import {
@@ -23,8 +24,7 @@ import {
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { newSignUpBonus } from '../../constants/Rewards';
-import { env } from '../../environment';
-import firebaseConfig from '../../firebase';
+import { env, firebaseConfig } from '../../environment';
 import {
   createCustomers,
   createPushTokens,
@@ -36,7 +36,11 @@ import {
   formatPhoneNumberInput,
   inputFields,
 } from '../../lib/authUtils';
-import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
+import {
+  logAuthErrorToSentry,
+  logErrorToSentry,
+  setUserLog,
+} from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   AuthScrollContainer,
@@ -47,7 +51,9 @@ import { RowContainer } from '../../styled/shared';
 import validate from './validation';
 import VerificationScreen from './VerificationScreen';
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default class SignUpScreen extends React.Component {
   constructor(props) {
@@ -169,19 +175,11 @@ export default class SignUpScreen extends React.Component {
       await updateCustomers(customerId, { password: encrypted });
 
       // If signup succeeds, register the user for analytics and logging
-      Analytics.setUserId(customerId);
-      Analytics.setUserProperties({
-        name,
-        phoneNumber,
+      setUserLog({ id: customerId, name, phoneNumber });
+      Analytics.logEvent('sign_up_complete', {
+        customer_id: customerId,
       });
-      Sentry.configureScope((scope) => {
-        scope.setUser({
-          id: customerId,
-          username: name,
-          phoneNumber,
-        });
-        Sentry.captureMessage('Sign Up Successful');
-      });
+      Sentry.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
       console.error('[SignUpScreen] (addCustomer) Airtable:', err);

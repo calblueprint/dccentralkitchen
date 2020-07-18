@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ColumnContainer } from '../../styled/shared';
@@ -19,11 +20,14 @@ export default function ParticipatingStores({ participating, guest }) {
           <ButtonContainer key={store.id}>
             <Subtitle
               style={{ marginLeft: 12 }}
-              onPress={() =>
+              onPress={() => {
+                Analytics.logEvent('participating_store_clicked', {
+                  store_name: store.storeName,
+                });
                 navigation.navigate('Stores', {
                   currentStore: store,
-                })
-              }>
+                });
+              }}>
               {store.storeName}
             </Subtitle>
           </ButtonContainer>

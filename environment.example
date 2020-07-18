@@ -31,6 +31,28 @@ const DEV_BASE_ID = 'appYfW7a2loPD26Vg';
 const PROD_BASE_ID = 'app4fXK49bqcjDMEo';
 const AIRTABLE_API_KEY = 'YOUR-API-KEY';
 
+const prodFirebaseConfig = {
+  apiKey: 'PROD-API-KEY',
+  authDomain: 'quickstart-1587887313757.firebaseapp.com',
+  databaseURL: 'https://quickstart-1587887313757.firebaseio.com',
+  projectId: 'quickstart-1587887313757',
+  storageBucket: 'quickstart-1587887313757.appspot.com',
+  messagingSenderId: '683063775827',
+  appId: '1:683063775827:web:7ce28f91c45d6092cf6ca6',
+  measurementId: 'G-M5PXVWXBW0',
+};
+
+const devFirebaseConfig = {
+  apiKey: 'DEV-API-KEY',
+  authDomain: 'healthy-corners.firebaseapp.com',
+  databaseURL: 'https://healthy-corners.firebaseio.com',
+  projectId: 'healthy-corners',
+  storageBucket: 'healthy-corners.appspot.com',
+  messagingSenderId: '861017041940',
+  appId: '1:861017041940:web:b9a10ef73bfb8b9c6ecb01',
+  measurementId: 'G-0584C2GYL5',
+};
+
 // For Sentry logging
 const staticEnvVars = {
   SENTRY_ORG: 'calblueprint',
@@ -55,6 +77,8 @@ const env =
     ? 'prod'
     : 'dev';
 
+const firebaseConfig = env === 'prod' ? prodFirebaseConfig : devFirebaseConfig;
+
 const getEnvVars = () => {
   if (__DEV__) {
     return ENV_VARIABLES.dev;
@@ -65,4 +89,4 @@ const getEnvVars = () => {
   // Fall through to dev
   return ENV_VARIABLES.dev;
 };
-export { getEnvVars as default, staticEnvVars, env };
+export { getEnvVars as default, staticEnvVars, env, firebaseConfig };

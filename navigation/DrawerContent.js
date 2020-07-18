@@ -1,10 +1,12 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Linking from 'expo-linking';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, AsyncStorage, Linking, View } from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import * as Sentry from 'sentry-expo';
 import {
   BigTitle,
@@ -16,18 +18,29 @@ import {
 } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { getCustomersById } from '../lib/airtable/request';
-import { logErrorToSentry } from '../lib/logUtils';
+import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
   const [customer, setCustomer] = React.useState(null);
   const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
+  const [logoutIsLoading, setLogoutIsLoading] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const logout = async () => {
+    // Show the loading indicator
+    setLogoutIsLoading(true);
+    await Analytics.logEvent('logout', {
+      is_guest: true,
+      redirect_to: 'Log In', // Redirect not working yet
+    });
+    // Delay to make sure the event is logged
+    const delay = (duration) =>
+      new Promise((resolve) => setTimeout(resolve, duration));
+    await delay(3000);
+    clearUserLog();
     props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    Sentry.configureScope((scope) => scope.clear());
     props.navigation.navigate('Auth', { screen: 'LogIn', initial: false });
     // Temporary fix: force update to make sure the rewards footer refreshes
     Updates.reload();
@@ -47,29 +60,16 @@ function DrawerContent(props) {
             cust = { name: 'Guest' };
           }
           if (isActive) {
-            Analytics.setUserId(customerId);
-            Analytics.setUserProperties({
-              name: cust.name,
-              phoneNumber: cust.phoneNumber,
-            });
-            Sentry.configureScope((scope) => {
-              scope.setUser({
-                id: customerId,
-                username: cust.name,
-                phoneNumber: cust.phoneNumber,
-              });
-            });
+            setUserLog(cust);
             if (cust.name === 'Guest') {
               Sentry.captureMessage('Guest Login Successful');
               Analytics.logEvent('drawer_load', {
-                name: 'Guest Login Successful',
-                screen: 'DrawerContent',
+                purpose: 'Guest Login Successful',
               });
             } else {
               Sentry.captureMessage('Returning User');
               Analytics.logEvent('drawer_load', {
-                name: 'Returning User',
-                screen: 'DrawerContent',
+                purpose: 'Returning User',
               });
             }
             setCustomer(cust);
@@ -135,10 +135,12 @@ function DrawerContent(props) {
                   marginRight: 8,
                 }}
                 color={Colors.bgLight}
-                onPress={() => {
-                  logout();
-                }}>
-                <ButtonLabel noCaps>Log In</ButtonLabel>
+                onPress={() => logout()}>
+                {logoutIsLoading ? (
+                  <ActivityIndicator />
+                ) : (
+                  <ButtonLabel noCaps>Log In</ButtonLabel>
+                )}
               </FilledButtonContainer>
             )}
           </SpaceBetweenRowContainer>
