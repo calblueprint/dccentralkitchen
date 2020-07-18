@@ -18,10 +18,9 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 <style lang="stylus">
-body
-  font-family 'Poppins'
 .flush
   padding 1px 0 0 0
+  font-family 'Poppins'
   *:first-child
     margin-top 1px
 </style>
