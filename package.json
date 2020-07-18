@@ -131,6 +131,7 @@
     "jest-expo": "^38.0.0",
     "lint-staged": "^10.0.6",
     "prettier": "^1.18.2",
+    "react-devtools": "^4.8.2",
     "surge": "^0.21.3",
     "vuepress": "^1.4.1",
     "vuepress-plugin-container": "^2.1.3",

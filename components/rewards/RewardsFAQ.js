@@ -23,7 +23,7 @@ function RewardsFAQ() {
         <AutoHeightWebView
           style={{ width: Dimensions.get('window').width - 32 }}
           source={{
-            uri: 'http://localhost:8080/faq-mini.html',
+            uri: 'https://healthycorners.calblueprint.org/faq-mini.html',
           }}
           scrollEnabled={false}
           showsVerticalScrollIndicator={false}
