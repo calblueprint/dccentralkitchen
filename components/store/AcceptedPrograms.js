@@ -1,9 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Linking from 'expo-linking';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Linking from 'expo-linking';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
@@ -28,7 +27,7 @@ function Program({ programName }) {
   return (
     <SpaceBetweenRowContainer>
       <ProgramTag program={programName} />
-      <View style={styles.tagChipDesc}>
+      <ColumnContainer style={styles.tagChipDesc}>
         <Body>{programToDesc[programName]}</Body>
         {programName === 'SNAP Match' && (
           <ButtonContainer
@@ -52,7 +51,7 @@ function Program({ programName }) {
             />
           </ButtonContainer>
         )}
-      </View>
+      </ColumnContainer>
     </SpaceBetweenRowContainer>
   );
 }

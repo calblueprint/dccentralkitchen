@@ -1,4 +1,4 @@
-import { PixelRatio, StyleSheet } from 'react-native';
+import { PixelRatio, Platform, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
@@ -43,8 +43,8 @@ export const BottomSheetContainer = styled.View`
   elevation: 7;
   background-color: ${Colors.bgLight};
   padding-bottom: 100px;
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
 `;
 
 export const StoreCardContainer = styled.View`
@@ -126,7 +126,7 @@ export const styles = StyleSheet.create({
   tagChipText: {
     minHeight: 16,
     marginVertical: 0,
-    marginTop: 1,
+    marginTop: Platform.OS === 'ios' ? 1 : -3,
     lineHeight: 16,
   },
   filterChipText: {
