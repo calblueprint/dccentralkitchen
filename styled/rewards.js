@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { PixelRatio, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
@@ -10,6 +10,13 @@ export const RewardsCardContainer = styled.View`
 
   flex-direction: row;
   background-color: ${Colors.lightestGreen};
+`;
+
+export const HowItWorksContainer = styled.View`
+  flex-direction: ${PixelRatio.getFontScale() < 1.2 ? 'row' : 'column'};
+  align-items: ${PixelRatio.getFontScale() < 1.2 ? 'center' : 'flex-start'};
+  margin-bottom: ${PixelRatio.getFontScale() < 1.2 ? '12px' : '32px'};
+  width: 100%;
 `;
 
 export const RewardDescriptionContainer = styled.View`
