@@ -3,7 +3,7 @@ import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
-import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, Alert, View } from 'react-native';
@@ -174,7 +174,7 @@ function DrawerContent(props) {
         }}>
         <ButtonContainer
           style={{ paddingLeft: 24, paddingVertical: 13 }}
-          onPress={() => Linking.openURL(link)}>
+          onPress={() => WebBrowser.openBrowserAsync(link)}>
           <Subtitle style={{ height: 30 }}>Submit feedback</Subtitle>
         </ButtonContainer>
       </View>

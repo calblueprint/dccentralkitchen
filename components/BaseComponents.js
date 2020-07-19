@@ -11,7 +11,8 @@ export const ButtonLabel = styled.Text`
   font-family: poppins-semibold;
   font-size: 14px;
   line-height: 20px;
-  text-align: center;
+  text-align: ${(props) => props.textAlign || 'center'};
+  text-decoration: ${(props) => (props.underline ? 'underline' : 'none')}
   text-transform: ${(props) => (props.noCaps ? ' none' : 'uppercase')};
   color: ${(props) => props.color || Colors.activeText};
 `;
@@ -108,6 +109,7 @@ export function NavHeaderContainer({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
+        zIndex: 1,
       }}>
       {children}
     </View>
