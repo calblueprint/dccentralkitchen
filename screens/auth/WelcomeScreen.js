@@ -81,6 +81,7 @@ export default class WelcomeScreen extends React.Component {
               marginTop: 14,
               padding: 12,
               justifyContent: 'center',
+              flexWrap: 'wrap',
             }}>
             <Body>Registered in person? </Body>
             <ButtonContainer

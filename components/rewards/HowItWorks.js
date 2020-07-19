@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
-import { ColumnContainer, RowContainer } from '../../styled/shared';
+import { HowItWorksContainer } from '../../styled/rewards';
+import { ColumnContainer } from '../../styled/shared';
 import { Subtitle, Title } from '../BaseComponents';
 import RewardsFAQ from './RewardsFAQ';
 /**
@@ -19,14 +20,13 @@ function HowItWorks(props) {
           paddingRight: 16,
           paddingTop: 24,
         }}>
-        <RowContainer
-          style={{ width: '100%', alignItems: 'center', marginBottom: 12 }}>
+        <HowItWorksContainer>
           <Image
             source={require('../../assets/images/1Shop.png')}
             style={{
-              maxWidth: '40%',
               resizeMode: 'contain',
-              maxHeight: 150,
+              maxWidth: '40%',
+              height: 140,
               marginRight: 12,
             }}
           />
@@ -36,15 +36,14 @@ function HowItWorks(props) {
               Simply purchase Healthy Corners products at participating stores
             </Subtitle>
           </ColumnContainer>
-        </RowContainer>
-        <RowContainer
-          style={{ width: '100%', alignItems: 'center', marginBottom: 12 }}>
+        </HowItWorksContainer>
+        <HowItWorksContainer>
           <Image
             source={require('../../assets/images/2Earn.png')}
             style={{
               maxWidth: '40%',
               resizeMode: 'contain',
-              maxHeight: 150,
+              height: 140,
               marginRight: 12,
             }}
           />
@@ -54,16 +53,15 @@ function HowItWorks(props) {
               {`Earn 100 points for every dollar you spend on our products!\n$1=100 points`}
             </Subtitle>
           </ColumnContainer>
-        </RowContainer>
+        </HowItWorksContainer>
 
-        <RowContainer
-          style={{ width: '100%', alignItems: 'center', marginBottom: 12 }}>
+        <HowItWorksContainer>
           <Image
             source={require('../../assets/images/3Save.png')}
             style={{
               maxWidth: '40%',
               resizeMode: 'contain',
-              maxHeight: 150,
+              height: 140,
               marginRight: 12,
             }}
           />
@@ -73,7 +71,7 @@ function HowItWorks(props) {
               {`Unlock a $${rewardDollarValue} reward for FREE Healthy Corners products every time you reach ${rewardPointValue} points. \n$5 spent = $5 saved!`}
             </Subtitle>
           </ColumnContainer>
-        </RowContainer>
+        </HowItWorksContainer>
       </View>
       {props.isGuest || <RewardsFAQ />}
     </ScrollView>

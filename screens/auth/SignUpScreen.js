@@ -485,6 +485,7 @@ export default class SignUpScreen extends React.Component {
           <RowContainer
             style={{
               justifyContent: 'center',
+              flexWrap: 'wrap',
             }}>
             <Body>{`Already have an account? `}</Body>
             <ButtonContainer

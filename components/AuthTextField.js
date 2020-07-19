@@ -40,6 +40,8 @@ function AuthTextField({
             ? 'number-pad'
             : undefined
         }
+        includeFontPadding={false}
+        maxFontSizeMultiplier={1.4}
         maxLength={
           // eslint-disable-next-line no-nested-ternary
           fieldType.includes('Phone Number')
@@ -49,10 +51,12 @@ function AuthTextField({
             : null
         }
         secureTextEntry={fieldType.includes('assword')}
-        labelPadding={6}
+        labelPadding={10}
       />
       {fieldType.includes('Name') && !error && (
-        <Caption>Note: this is how clerks will greet you!</Caption>
+        <Caption allowFontScaling={false}>
+          Note: this is how clerks will greet you!
+        </Caption>
       )}
 
       {fieldType === 'Verification Code' && !error && (

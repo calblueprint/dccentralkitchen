@@ -161,7 +161,7 @@ function DrawerContent(props) {
             700
           );
         }}>
-        <Title style={{ height: 30 }}>Healthy Rewards</Title>
+        <Title>Healthy Rewards</Title>
       </ButtonContainer>
       <DrawerItemList {...props} />
       <View

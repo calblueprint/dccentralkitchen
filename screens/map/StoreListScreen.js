@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, PixelRatio, ScrollView, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import {
   Body,
@@ -120,6 +120,7 @@ export default class StoreListScreen extends React.Component {
               </Title>
             </RowContainer>
             <SearchBar
+              maxFontSizeMultiplier={1.4}
               autoCapitalize="words"
               autoCorrect={false}
               placeholder="Search by store name"
@@ -145,7 +146,7 @@ export default class StoreListScreen extends React.Component {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={{ height: 52 }}>
+          style={{ height: PixelRatio.getFontScale() < 1.2 ? 52 : 58 }}>
           {/* Filter Chips */}
           <ProgramTag
             program="Open now"

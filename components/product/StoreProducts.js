@@ -2,7 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { PixelRatio, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
@@ -12,7 +12,12 @@ import {
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import { StoreDetailText } from '../../styled/store';
-import { Body, ButtonContainer, Subtitle, Title } from '../BaseComponents';
+import {
+  Body,
+  ButtonContainer,
+  ButtonLabel,
+  Subtitle,
+} from '../BaseComponents';
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
@@ -23,13 +28,14 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
       <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
       <View>
         <ColumnContainer>
-          <SpaceBetweenRowContainer margin={16}>
+          <SpaceBetweenRowContainer
+            style={{ marginTop: 4, marginBottom: 8, marginHorizontal: 16 }}>
             <RowContainer>
-              <Title>Products</Title>
-              {products.length > 0 && (
+              <Subtitle>Products</Subtitle>
+              {products.length > 0 && PixelRatio.getFontScale() < 1.2 && (
                 <StoreDetailText
                   color={Colors.secondaryText}
-                  style={{ marginTop: 7 }}>
+                  style={{ marginTop: 2 }}>
                   recently delivered
                 </StoreDetailText>
               )}
@@ -47,7 +53,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
                 });
               }}>
               {products.length > 0 && (
-                <Subtitle>{`See all ${products.length}`}</Subtitle>
+                <ButtonLabel noCaps>{`See all ${products.length}`}</ButtonLabel>
               )}
             </ButtonContainer>
           </SpaceBetweenRowContainer>
@@ -59,7 +65,6 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
         </ColumnContainer>
         <FlatList
           horizontal
-          showsHorizontalScrollIndicator={false}
           data={products}
           renderItem={({ item }) => (
             <ProductCard
