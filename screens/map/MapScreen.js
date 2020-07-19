@@ -211,46 +211,45 @@ export default class MapScreen extends React.Component {
     );
   };
 
-  renderHeader = () => (
-    <View
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-      }}>
-      {!this.state.showDefaultStore && (
-        <CenterLocation
-          callBack={async () => {
-            Analytics.logEvent('center_location', {
-              purpose: 'Centers map to current location',
-            });
-            await this._findCurrentLocation();
-            await this._orderStoresByDistance(this.state.stores);
-          }}
-        />
-      )}
-      <BottomSheetHeaderContainer>
-        <DragBar />
-      </BottomSheetHeaderContainer>
-    </View>
-  );
-
   renderContent = () => {
     return (
-      <BottomSheetContainer>
-        {PixelRatio.getFontScale() < 1.2 && (
-          <Subtitle
-            style={{ margin: 16, marginBottom: 0 }}
-            color={Colors.secondaryText}>
-            Browsing healthy products at
-          </Subtitle>
-        )}
-        <StoreProducts
-          navigation={this.props.navigation}
-          store={this.state.store}
-          products={this.state.storeProducts}
-          showDefaultStore={this.state.showDefaultStore}
-        />
-      </BottomSheetContainer>
+      <View>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+          }}>
+          {!this.state.showDefaultStore && (
+            <CenterLocation
+              callBack={async () => {
+                Analytics.logEvent('center_location', {
+                  purpose: 'Centers map to current location',
+                });
+                await this._findCurrentLocation();
+                await this._orderStoresByDistance(this.state.stores);
+              }}
+            />
+          )}
+        </View>
+        <BottomSheetContainer>
+          <BottomSheetHeaderContainer>
+            <DragBar />
+          </BottomSheetHeaderContainer>
+          {PixelRatio.getFontScale() < 1.2 && (
+            <Subtitle
+              style={{ marginHorizontal: 16, marginBottom: 0 }}
+              color={Colors.secondaryText}>
+              Browsing healthy products at
+            </Subtitle>
+          )}
+          <StoreProducts
+            navigation={this.props.navigation}
+            store={this.state.store}
+            products={this.state.storeProducts}
+            showDefaultStore={this.state.showDefaultStore}
+          />
+        </BottomSheetContainer>
+      </View>
     );
   };
 
@@ -376,7 +375,6 @@ export default class MapScreen extends React.Component {
             overdragResistanceFactor={1}
             enabledContentTapInteraction={false}
             snapPoints={snapPoints}
-            renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             // eslint-disable-next-line no-return-assign
             ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}

@@ -4,9 +4,9 @@ import { Body, ButtonContainer } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 
 export const MarkerContainer = styled.View`
-  width: 150px
-  display: flex
-  align-items: center
+  max-width: 250px;
+  display: flex;
+  align-items: center;
 `;
 
 export const MarkerStoreName = styled.Text`
@@ -34,17 +34,17 @@ export const DividerBar = styled.View`
 `;
 
 export const BottomSheetHeaderContainer = styled.View`
-  padding-bottom: ${PixelRatio.getFontScale() < 1.2 ? '0px' : '16px'}
+  padding-bottom: 8px;
   width: 100%;
-  background-color: ${Colors.bgLight};
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
 `;
 
 export const BottomSheetContainer = styled.View`
-  box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  elevation: 7;
   background-color: ${Colors.bgLight};
   padding-bottom: 100px;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
 `;
 
 export const StoreCardContainer = styled.View`
@@ -58,8 +58,8 @@ export const SearchBar = styled(ButtonContainer)`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-right: 82px;
-  margin-left: 42px;
+  margin-right: 72px;
+  margin-left: 32px;
   padding-left: 12px;
   height: 40px;
   border-radius: 20px;
