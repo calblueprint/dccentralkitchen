@@ -12,7 +12,7 @@ const RecordIds = {
 if (env === 'dev') {
   RecordIds.testCustomerId = 'recimV9zs2StWB2Mj';
   RecordIds.guestCustomerId = 'recLKK7cZHboMPEB8';
-  RecordIds.defaultStoreId = 'recKmetaavnMWXVrk';
+  RecordIds.defaultStoreId = 'rec6C14onap95XOK8';
 
   // IDs from PROD base
 } else if (env === 'prod') {
