@@ -1,10 +1,11 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
+import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Modal } from 'react-native';
+import { Keyboard, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
-  BigTitle,
   ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
@@ -15,7 +16,6 @@ import { inputFields } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
-  AuthScrollContainer,
   BackButton,
   FormContainer,
 } from '../../styled/auth';
@@ -24,8 +24,17 @@ import validate from './validation';
 export default class VerificationScreen extends React.Component {
   constructor(props) {
     super(props);
+    const {
+      number,
+      customerId,
+      resend,
+      verificationId,
+    } = this.props.route.params;
     this.state = {
-      modalVisible: this.props.visible,
+      number,
+      customerId,
+      resend,
+      verificationId,
       values: { [inputFields.CODE]: '' },
       errors: { [inputFields.CODE]: '' },
     };
@@ -66,29 +75,35 @@ export default class VerificationScreen extends React.Component {
     }
   };
 
-  setModalVisible = async (visible) => {
-    this.props.closer(visible);
-    this.setState({ modalVisible: visible });
-  };
-
-  resendCode = async (visible) => {
-    await this.setModalVisible(visible);
-    await this.props.resend();
+  resendCode = async () => {
+    await this.state.resend();
   };
 
   verifyCode = async (code) => {
     try {
-      const verified = await this.props.verifyCode(code);
-      if (!verified) {
-        this.setState((prevState) => ({
-          errors: {
-            ...prevState.errors,
-            [inputFields.CODE]:
-              'Incorrect verification code, please try again.',
-          },
-        }));
+      console.log(this.state.verificationId);
+      const credential = firebase.auth.PhoneAuthProvider.credential(
+        this.state.verificationId,
+        code
+      );
+      await firebase.auth().signInWithCredential(credential);
+      console.log('VERIFICATION COMPLETE NAVIGATION GOES ON');
+      if (this.state.customerId) {
+        await AsyncStorage.setItem('customerId', this.state.customerId);
+        Keyboard.dismiss();
+        this.props.navigation.navigate('App');
+      } else {
+        this.props.navigation.navigate('CompleteSignUp', {
+          number: this.state.number,
+        });
       }
     } catch (err) {
+      this.setState((prevState) => ({
+        errors: {
+          ...prevState.errors,
+          [inputFields.CODE]: 'Incorrect verification code, please try again.',
+        },
+      }));
       console.log(err);
       logErrorToSentry({
         screen: 'VerificationScreen',
@@ -100,64 +115,48 @@ export default class VerificationScreen extends React.Component {
 
   render() {
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          this.setModalVisible(false);
-        }}>
+      <View style={{ flex: 1 }}>
         <AuthScreenContainer>
-          <AuthScrollContainer
-            ref={(ref) => {
-              this.scrollView = ref;
-            }}>
-            <BackButton onPress={() => this.setModalVisible(false)}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <BigTitle>{`Verify Phone \nNumber`}</BigTitle>
-            <Subtitle style={{ paddingTop: 32 }}>
-              {`Enter the 6-digit code sent to\n ${this.props.number}`}
-            </Subtitle>
-            <FormContainer>
-              <AuthTextField
-                fieldType="Verification Code"
-                value={this.state.values[inputFields.CODE]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, inputFields.CODE)
-                }
-                changeTextCallback={(text) => {
-                  this.onTextChange(text, inputFields.CODE);
-                  this.scrollView.scrollToEnd({ animated: true });
-                }}
-                error={this.state.errors[inputFields.CODE]}
-              />
-              <ButtonContainer onPress={async () => this.resendCode(false)}>
-                <ButtonLabel noCaps color={Colors.primaryGreen}>
-                  Resend code
-                </ButtonLabel>
-              </ButtonContainer>
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 48, marginBottom: 24 }}
-              color={Colors.primaryGreen}
-              width="100%"
-              onPress={() =>
-                this.verifyCode(this.state.values[inputFields.CODE])
-              }>
-              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
-            </FilledButtonContainer>
-          </AuthScrollContainer>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
+          <Subtitle style={{ paddingTop: 32 }}>
+            {`Enter the 6-digit code sent to you at \n ${this.state.number}`}
+          </Subtitle>
+          <FormContainer>
+            <AuthTextField
+              fieldType="Verification Code"
+              value={this.state.values[inputFields.CODE]}
+              onBlurCallback={(value) =>
+                this.updateError(value, inputFields.CODE)
+              }
+              changeTextCallback={(text) => {
+                this.onTextChange(text, inputFields.CODE);
+              }}
+              error={this.state.errors[inputFields.CODE]}
+            />
+            <ButtonContainer onPress={async () => this.resendCode(false)}>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Resend code
+              </ButtonLabel>
+            </ButtonContainer>
+          </FormContainer>
+          <FilledButtonContainer
+            style={{ marginTop: 48, marginBottom: 24 }}
+            color={Colors.primaryGreen}
+            width="100%"
+            onPress={() =>
+              this.verifyCode(this.state.values[inputFields.CODE])
+            }>
+            <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
+          </FilledButtonContainer>
         </AuthScreenContainer>
-      </Modal>
+      </View>
     );
   }
 }
 
 VerificationScreen.propTypes = {
-  number: PropTypes.string.isRequired,
-  visible: PropTypes.bool.isRequired,
-  resend: PropTypes.func.isRequired,
-  verifyCode: PropTypes.func.isRequired,
-  closer: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

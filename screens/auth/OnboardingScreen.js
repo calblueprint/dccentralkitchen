@@ -72,7 +72,7 @@ export default class OnboardingScreen extends React.Component {
   };
 
   navigateWelcome() {
-    this.props.navigation.navigate('Welcome');
+    this.props.navigation.navigate('PhoneNumber');
   }
 
   navigateLogIn() {
