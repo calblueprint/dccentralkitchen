@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { TextField } from 'react-native-materialui-textfield';
+import { TextInput } from 'react-native-paper';
 import Colors from '../constants/Colors';
 import { TextFieldContainer } from '../styled/auth';
 import { Caption } from './BaseComponents';
@@ -18,21 +18,14 @@ function AuthTextField({
 }) {
   return (
     <TextFieldContainer>
-      <TextField
+      <TextInput
+        label={fieldType}
         onBlur={onBlurCallback ? () => onBlurCallback(value) : null}
         autoCapitalize="words"
         autoCorrect={false}
-        label={fieldType}
-        labelTextStyle={{ fontFamily: 'poppins-regular' }}
-        lineWidth={1.5}
-        activeLineWidth={1.5}
         onChangeText={changeTextCallback}
         value={value}
-        baseColor={Colors.activeText}
-        tintColor={Colors.primaryGreen}
-        style={{ fontFamily: 'poppins-regular' }}
         error={error}
-        errorColor={Colors.error}
         returnKeyType="done"
         keyboardType={
           fieldType.includes('Phone Number') ||
@@ -51,7 +44,7 @@ function AuthTextField({
             : null
         }
         secureTextEntry={fieldType.includes('assword')}
-        labelPadding={10}
+        selectionColor={Colors.primaryGreen}
       />
       {fieldType.includes('Name') && !error && (
         <Caption allowFontScaling={false}>
@@ -60,7 +53,9 @@ function AuthTextField({
       )}
 
       {fieldType === 'Verification Code' && !error && (
-        <Caption>If you did not receive a code, click resend.</Caption>
+        <Caption allowFontScaling={false}>
+          If you did not receive a code, click resend.
+        </Caption>
       )}
     </TextFieldContainer>
   );
