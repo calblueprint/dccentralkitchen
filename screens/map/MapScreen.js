@@ -3,8 +3,6 @@ import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import convertDistance from 'geolib/es/convertDistance';
-import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, PixelRatio, StyleSheet, View } from 'react-native';
@@ -25,7 +23,7 @@ import Window from '../../constants/Layout';
 import { initialRegion } from '../../constants/Map';
 import RecordIds from '../../constants/RecordIds';
 import { logErrorToSentry } from '../../lib/logUtils';
-import { getProductData, getStoreData } from '../../lib/mapUtils';
+import { findDistance, getProductData, getStoreData } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
   BottomSheetHeaderContainer,
@@ -65,7 +63,7 @@ export default class MapScreen extends React.Component {
   componentWillReceiveProps(nextProps) {
     const store = nextProps.route.params.currentStore;
     const resetSheet = true;
-    store.distance = this.findStoreDistance(store);
+    store.distance = findDistance(this.state.region, store);
     this.changeCurrentStore(store, resetSheet);
     const region = {
       latitude: store.latitude,
@@ -172,7 +170,7 @@ export default class MapScreen extends React.Component {
     // Display distance in the StoreList
     stores.forEach((store) => {
       const currStore = store;
-      currStore.distance = this.findStoreDistance(store);
+      currStore.distance = findDistance(this.state.region, store);
       sortedStores.push(currStore);
     });
     // sorts in place
@@ -255,13 +253,6 @@ export default class MapScreen extends React.Component {
 
   onRegionChangeComplete = (region) => {
     this.setState({ region });
-  };
-
-  findStoreDistance = (store) => {
-    const distanceMeters = getDistance(this.state.region, store);
-    // Convert distance to 'x.xx' form, in miles units
-    const distance = convertDistance(distanceMeters, 'mi').toFixed(2);
-    return distance;
   };
 
   // Update current store and its products
