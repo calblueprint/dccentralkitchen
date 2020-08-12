@@ -11,6 +11,8 @@ import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
 import StoreDetailsScreen from '../../screens/map/StoreDetailsScreen';
 import StoreListScreen from '../../screens/map/StoreListScreen';
+import PermissionsScreen from '../../screens/onboarding/PermissionsScreen';
+import SearchStoresScreen from '../../screens/onboarding/SearchStoresScreen';
 import RewardsScreen from '../../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
@@ -33,6 +35,8 @@ export default function StoresStackNavigator() {
         cardStyle: { backgroundColor: Colors.bgLight },
         config,
       }}>
+      <StoresStack.Screen name="Permissions" component={PermissionsScreen} />
+      <StoresStack.Screen name="SearchStores" component={SearchStoresScreen} />
       <StoresStack.Screen name="Stores" component={MapScreen} />
       <StoresStack.Screen name="StoreList" component={StoreListScreen} />
       <StoresStack.Screen name="Products" component={ProductsScreen} />
