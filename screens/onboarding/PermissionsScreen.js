@@ -142,10 +142,10 @@ export default class PermissionsScreen extends React.Component {
     }
   };
 
-  async navigateSearchStores() {
+  async navigateStoreSelect() {
     await this._findCurrentLocation();
     await this._populateInitialStoresProducts();
-    this.props.navigation.navigate('SearchStores', {
+    this.props.navigation.navigate('StoreSelect', {
       navigation: this.props.navigation,
       showDefaultStore: true,
       stores: this.state.stores,
@@ -174,14 +174,14 @@ export default class PermissionsScreen extends React.Component {
           <ColumnContainer style={{ marginTop: 40 }} width="100%">
             <FilledButtonContainer
               color={Colors.primaryGreen}
-              onPress={() => this.navigateSearchStores()}>
+              onPress={() => this.navigateStoreSelect()}>
               <ButtonLabel color={Colors.lightText}>
                 Show nearby stores
               </ButtonLabel>
             </FilledButtonContainer>
             <OutlinedButtonContainer
               style={{ marginTop: 8 }}
-              onPress={() => this.navigateSearchStores()}>
+              onPress={() => this.navigateStoreSelect()}>
               <ButtonLabel color={Colors.primaryGreen}>
                 Search by ZIP or address
               </ButtonLabel>
