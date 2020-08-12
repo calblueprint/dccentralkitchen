@@ -30,7 +30,7 @@ import ProgramTag from './ProgramTag';
  * @prop
  * */
 
-export default function StoreCard({ store, storeList, seeDistance }) {
+function StoreCard({ store, storeList, seeDistance }) {
   const {
     storeName,
     storeOpenStatus,
@@ -181,3 +181,5 @@ StoreCard.defaultProps = {
   store: null,
   storeList: false,
 };
+
+export default React.memo(StoreCard);
