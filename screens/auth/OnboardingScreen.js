@@ -105,12 +105,12 @@ export default class OnboardingScreen extends React.Component {
             width="48%"
             color={Colors.lighterGreen}
             onPress={() => this.navigateLogIn()}>
-            <ButtonLabel color="white">Log In</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Log In</ButtonLabel>
           </FilledButtonContainer>
           <FilledButtonContainer
             width="48%"
             onPress={() => this.navigateWelcome()}>
-            <ButtonLabel color="white">Get started</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Get started</ButtonLabel>
           </FilledButtonContainer>
         </SpaceBetweenRowContainer>
       </OnboardingContainer>

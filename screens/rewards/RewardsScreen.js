@@ -148,7 +148,12 @@ export default class RewardsScreen extends React.Component {
           noShadow
           backgroundColor={Colors.primaryGreen}>
           <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
-            <FontAwesome5 name="arrow-down" solid size={24} color="white" />
+            <FontAwesome5
+              name="arrow-down"
+              solid
+              size={24}
+              color={Colors.lightText}
+            />
           </NavButtonContainer>
           <BigTitle
             style={{

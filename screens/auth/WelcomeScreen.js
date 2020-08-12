@@ -60,14 +60,14 @@ export default class WelcomeScreen extends React.Component {
             style={{ marginTop: 12 }}
             width="100%"
             onPress={() => this.navigateSignup()}>
-            <ButtonLabel color="white">Sign up</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Sign up</ButtonLabel>
           </FilledButtonContainer>
           <FilledButtonContainer
             style={{ marginTop: 12 }}
             color={Colors.lighterGreen}
             width="100%"
             onPress={() => this.navigateLogIn()}>
-            <ButtonLabel color="white">Log In</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>Log In</ButtonLabel>
           </FilledButtonContainer>
           <ButtonContainer
             style={{ marginTop: 4, padding: 12 }}
