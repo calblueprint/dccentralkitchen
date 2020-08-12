@@ -4,7 +4,7 @@ import * as Permissions from 'expo-permissions';
 import geo2zip from 'geo2zip';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, View } from 'react-native';
+import { AsyncStorage, Image, View } from 'react-native';
 import {
   ButtonLabel,
   FilledButtonContainer,
@@ -16,6 +16,8 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { initialRegion } from '../../constants/Map';
 import RecordIds from '../../constants/RecordIds';
+import { updateCustomers } from '../../lib/airtable/request';
+import { sendTextMessage } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { findDistance, getStoreData } from '../../lib/mapUtils';
 import { PermissionsContainer } from '../../styled/auth';
@@ -36,6 +38,7 @@ export default class PermissionsScreen extends React.Component {
       stores: null,
       store: null,
       showDefaultStore: false,
+      step: 2,
     };
   }
 
@@ -123,7 +126,7 @@ export default class PermissionsScreen extends React.Component {
   };
 
   // The state is initially populated with stores by calling the Airtable API to get all store records
-  _populateInitialStoresProducts = async () => {
+  _populateInitialStores = async () => {
     try {
       const stores = await getStoreData();
 
@@ -131,20 +134,44 @@ export default class PermissionsScreen extends React.Component {
       await this._orderStoresByDistance(stores);
     } catch (err) {
       console.error(
-        '[MapScreen] (_populateInitialStoresProducts) Airtable:',
+        '[PermissionsScreen] (_populateInitialStores) Airtable:',
         err
       );
       logErrorToSentry({
-        screen: 'MapScreen',
-        function: '_populateInitialStoresProducts',
+        screen: 'PermissionsScreen',
+        function: '_populateInitialStores',
         error: err,
       });
     }
   };
 
+  async enableNotifications() {
+    try {
+      const customerId = await AsyncStorage.getItem('customerId');
+      await updateCustomers(customerId, {
+        notifications: true,
+      });
+
+      const r = await sendTextMessage(
+        customerId,
+        'Healthy Corners: Thank you for joining Healthy Corners notifications. Reply STOP to unsubscribe.'
+      );
+
+      console.log(r ? '[sendTextMessage] Success' : '[sendTextMessage] Failed');
+      this.props.navigation.navigate('Stores');
+    } catch (err) {
+      console.error('[StoreSelectScreen] (enableNotifications) Airtable:', err);
+      logErrorToSentry({
+        screen: 'StoreSelectScreen',
+        action: 'enableNotifications',
+        error: err,
+      });
+    }
+  }
+
   async navigateStoreSelect() {
     await this._findCurrentLocation();
-    await this._populateInitialStoresProducts();
+    await this._populateInitialStores();
     this.props.navigation.navigate('StoreSelect', {
       navigation: this.props.navigation,
       showDefaultStore: true,
@@ -152,38 +179,63 @@ export default class PermissionsScreen extends React.Component {
     });
   }
 
+  async navigateMapScreen() {
+    this.props.navigation.navigate('Stores');
+  }
+
   render() {
     return (
       <PermissionsContainer>
-        <Subtitle color={Colors.secondaryText}>Step 1 of 2</Subtitle>
+        <Subtitle color={Colors.secondaryText}>
+          {`Step ${this.state.step} of 2`}
+        </Subtitle>
         <View style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
           <Image
-            source={require('../../assets/images/Onboarding_2.png')}
+            source={
+              this.state.step === 1
+                ? require('../../assets/images/Onboarding_2.png')
+                : require('../../assets/images/Onboarding_3.png')
+            }
             style={{
               height: Window.height / 3,
               resizeMode: 'contain',
               marginBottom: 24,
             }}
           />
-          <Title textAlign="center">What are your go-to corner stores?</Title>
+          <Title textAlign="center">
+            {this.state.step === 1
+              ? 'What are your go-to corner stores?'
+              : 'Can we keep in touch?'}
+          </Title>
           <Subtitle textAlign="center">
-            Plan your grocery runs knowing what is in stock, store hours, and
-            more.
+            {this.state.step === 1
+              ? 'Plan your grocery runs knowing what is in stock, store hours, and more.'
+              : 'Get notifications when your store gets new deliveries'}
           </Subtitle>
           {/* Display login/get started buttons */}
           <ColumnContainer style={{ marginTop: 40 }} width="100%">
             <FilledButtonContainer
               color={Colors.primaryGreen}
-              onPress={() => this.navigateStoreSelect()}>
+              onPress={() =>
+                this.state.step === 1
+                  ? this.navigateStoreSelect()
+                  : this.enableNotifications()
+              }>
               <ButtonLabel color={Colors.lightText}>
-                Show nearby stores
+                {this.state.step === 1
+                  ? 'Show nearby stores'
+                  : 'Enable SMS notifications'}
               </ButtonLabel>
             </FilledButtonContainer>
             <OutlinedButtonContainer
               style={{ marginTop: 8 }}
-              onPress={() => this.navigateStoreSelect()}>
+              onPress={() =>
+                this.state.step === 1
+                  ? this.navigateStoreSelect()
+                  : this.navigateMapScreen()
+              }>
               <ButtonLabel color={Colors.primaryGreen}>
-                Search by ZIP or address
+                {this.state.step === 1 ? 'Show nearby stores' : 'Not now'}
               </ButtonLabel>
             </OutlinedButtonContainer>
           </ColumnContainer>
