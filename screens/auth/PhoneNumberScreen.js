@@ -23,6 +23,10 @@ import {
 } from '../../styled/auth';
 import validate from './validation';
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 export default class PhoneNumberScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -100,7 +104,6 @@ export default class PhoneNumberScreen extends React.Component {
 
   openRecaptcha = async () => {
     const customerId = await this.findCustomer();
-    console.log('IN OPEN RECAPTCHA cid', customerId);
     const number = this.state.values[inputFields.PHONENUM];
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
@@ -158,7 +161,9 @@ export default class PhoneNumberScreen extends React.Component {
 
   render() {
     const { errors, values } = this.state;
-    const validNumber = !errors[inputFields.PHONENUM];
+    const validNumber =
+      !errors[inputFields.PHONENUM] &&
+      values[inputFields.PHONENUM].length === 14;
 
     return (
       <AuthScreenContainer>

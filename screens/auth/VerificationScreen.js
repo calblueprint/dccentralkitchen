@@ -3,11 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Keyboard, View } from 'react-native';
-import AuthTextField from '../../components/AuthTextField';
+import { ActivityIndicator, Keyboard, View } from 'react-native';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import {
   ButtonContainer,
   ButtonLabel,
+  Caption,
   FilledButtonContainer,
   Subtitle,
 } from '../../components/BaseComponents';
@@ -37,6 +38,7 @@ export default class VerificationScreen extends React.Component {
       verificationId,
       values: { [inputFields.CODE]: '' },
       errors: { [inputFields.CODE]: '' },
+      isVerifyLoading: false,
     };
   }
 
@@ -67,12 +69,15 @@ export default class VerificationScreen extends React.Component {
   onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
     if (this.state.errors[inputField]) {
-      await this.updateError(text, inputField);
-    } else {
+      await this.updateError('', inputField);
       this.setState((prevState) => ({
-        values: { ...prevState.values, [inputField]: text },
+        errors: { ...prevState.errors, [inputField]: '' },
       }));
     }
+    this.setState((prevState) => ({
+      values: { ...prevState.values, [inputField]: text },
+    }));
+    this.setState({ values: { [inputFields.CODE]: text } });
   };
 
   resendCode = async () => {
@@ -97,12 +102,18 @@ export default class VerificationScreen extends React.Component {
           number: this.state.number,
         });
       }
+      this.setState({ isVerifyLoading: false });
     } catch (err) {
       this.setState((prevState) => ({
         errors: {
           ...prevState.errors,
           [inputFields.CODE]: 'Incorrect verification code, please try again.',
         },
+        values: {
+          ...prevState.values,
+          [inputFields.CODE]: '',
+        },
+        isVerifyLoading: false,
       }));
       console.log(err);
       logErrorToSentry({
@@ -121,10 +132,52 @@ export default class VerificationScreen extends React.Component {
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
           <Subtitle style={{ paddingTop: 32 }}>
-            {`Enter the 6-digit code sent to you at \n ${this.state.number}`}
+            {`Enter the 6-digit code sent to you at ${this.state.number}`}
           </Subtitle>
           <FormContainer>
-            <AuthTextField
+            <SmoothPinCodeInput
+              cellStyle={
+                this.state.errors[inputFields.CODE] !== ''
+                  ? { borderBottomWidth: 2, borderColor: Colors.error }
+                  : {
+                      borderBottomWidth: 2,
+                      borderColor: Colors.lighterGray,
+                    }
+              }
+              cellStyleFocused={
+                this.state.errors[inputFields.CODE] !== ''
+                  ? { borderColor: Colors.error }
+                  : {
+                      borderColor: Colors.primaryGreen,
+                      backgroundColor: Colors.lightestGreen,
+                    }
+              }
+              textStyle={{
+                color: Colors.activeText,
+                fontSize: 24,
+                fontFamily: 'poppins-regular',
+              }}
+              ref={(input) => {
+                this.pinInput = input;
+              }}
+              cellSize={42}
+              value={this.state.values[inputFields.CODE]}
+              codeLength={6}
+              onTextChange={(text) => this.onTextChange(text, inputFields.CODE)}
+              onFulfill={() => {
+                setTimeout(() => {
+                  this.setState({ isVerifyLoading: true });
+                  this.verifyCode(this.state.values[inputFields.CODE]);
+                }, 500);
+              }}
+              animated={false}
+              restrictToNumbers
+              autoFocus
+            />
+            <Caption style={{ marginTop: 24 }} color={Colors.error}>
+              {this.state.errors[inputFields.CODE] ? `Incorrect code` : ` `}
+            </Caption>
+            {/* <AuthTextField
               fieldType="Verification Code"
               value={this.state.values[inputFields.CODE]}
               onBlurCallback={(value) =>
@@ -134,7 +187,7 @@ export default class VerificationScreen extends React.Component {
                 this.onTextChange(text, inputFields.CODE);
               }}
               error={this.state.errors[inputFields.CODE]}
-            />
+            /> */}
             <ButtonContainer onPress={async () => this.resendCode(false)}>
               <ButtonLabel noCaps color={Colors.primaryGreen}>
                 Resend code
@@ -148,7 +201,13 @@ export default class VerificationScreen extends React.Component {
             onPress={() =>
               this.verifyCode(this.state.values[inputFields.CODE])
             }>
-            <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>
+              {this.state.isVerifyLoading ? (
+                <ActivityIndicator color={Colors.lightText} />
+              ) : (
+                `Verify`
+              )}
+            </ButtonLabel>
           </FilledButtonContainer>
         </AuthScreenContainer>
       </View>

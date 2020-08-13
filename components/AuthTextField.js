@@ -19,6 +19,7 @@ function AuthTextField({
   return (
     <TextFieldContainer>
       <TextInput
+        autoFocus
         label={fieldType}
         onBlur={onBlurCallback ? () => onBlurCallback(value) : null}
         autoCapitalize="words"
