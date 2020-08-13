@@ -123,17 +123,25 @@ export default class SettingsScreen extends React.Component {
           {!this.state.isGuest && (
             <SettingsCard
               title={this.state.name}
-              description="Change name"
+              description="Update name"
               rightIcon="angle-right"
-              navigation={() => this.props.navigation.navigate('Name')}
+              navigation={() =>
+                this.props.navigation.navigate('Name', {
+                  name: this.state.name,
+                })
+              }
             />
           )}
           {!this.state.isGuest && (
             <SettingsCard
               title={this.state.number}
-              description="Change phone number"
+              description="Update phone number"
               rightIcon="angle-right"
-              navigation={() => this.props.navigation.navigate('Number')}
+              navigation={() =>
+                this.props.navigation.navigate('Number', {
+                  number: this.state.number,
+                })
+              }
             />
           )}
           <CategoryBar title="Privacy" />

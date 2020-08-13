@@ -24,11 +24,12 @@ import {
 export default class NameChangeScreen extends React.Component {
   constructor(props) {
     super(props);
+    const { name } = this.props.route.params;
     this.state = {
       customer: null,
       success: false,
       values: {
-        [inputFields.NAME]: '',
+        [inputFields.NAME]: name,
       },
       errors: {
         [inputFields.NAME]: '',
@@ -114,10 +115,9 @@ export default class NameChangeScreen extends React.Component {
             <BackButton onPress={() => this.props.navigation.goBack()}>
               <FontAwesome5 name="arrow-left" solid size={24} />
             </BackButton>
-            <BigTitle>Change Name</BigTitle>
             <FormContainer>
               <AuthTextField
-                fieldType="New Name"
+                fieldType="Name"
                 value={this.state.values[inputFields.NAME]}
                 onBlurCallback={(value) =>
                   this.updateError(value, inputFields.NAME)
@@ -134,7 +134,7 @@ export default class NameChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.changeName()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightText}>Change Name</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Update Name</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -167,4 +167,5 @@ export default class NameChangeScreen extends React.Component {
 
 NameChangeScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

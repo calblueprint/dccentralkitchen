@@ -35,6 +35,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
   constructor(props) {
     super(props);
     const recaptchaVerifier = React.createRef();
+    const { number } = this.props.route.params;
     this.state = {
       customer: null,
       success: false,
@@ -42,7 +43,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
       recaptchaVerifier,
       verificationId: null,
       values: {
-        [inputFields.PHONENUM]: '',
+        [inputFields.PHONENUM]: number,
       },
       errors: {
         [inputFields.PHONENUM]: '',
@@ -257,14 +258,13 @@ export default class PhoneNumberChangeScreen extends React.Component {
             <BackButton onPress={() => this.props.navigation.goBack()}>
               <FontAwesome5 name="arrow-left" solid size={24} />
             </BackButton>
-            <BigTitle>Change Phone Number</BigTitle>
             <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-              You will recieve a text containing a 6-digit verification code.
-              Msg & data rates may apply.
+              You will receive an SMS for verification. Msg & data rates may
+              apply.
             </Caption>
             <FormContainer>
               <AuthTextField
-                fieldType="New Phone Number"
+                fieldType="Phone Number"
                 value={this.state.values[inputFields.PHONENUM]}
                 onBlurCallback={(value) =>
                   this.updateError(value, inputFields.PHONENUM)
@@ -286,7 +286,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
               width="100%"
               onPress={() => this.openRecaptcha()}
               disabled={!permission}>
-              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
+              <ButtonLabel color={Colors.lightText}>Update Phone</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
@@ -316,4 +316,5 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
 PhoneNumberChangeScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
