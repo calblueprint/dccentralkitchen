@@ -177,8 +177,8 @@ export default class PhoneNumberScreen extends React.Component {
         <View>
           <Subtitle>What is your phone number?</Subtitle>
           <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-            By continuing, you will recieve a text containing a 6-digit
-            verification code. Msg & data rates may apply.
+            You will receive an SMS for verification. Msg & data rates may
+            apply.
           </Caption>
           <FormContainer>
             <AuthTextField

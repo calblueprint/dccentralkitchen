@@ -46,16 +46,19 @@ function AuthTextField({
         }
         secureTextEntry={fieldType.includes('assword')}
         selectionColor={Colors.primaryGreen}
+        style={{
+          marginBottom: 8,
+          fontFamily: 'poppins-regular',
+        }}
       />
       {fieldType.includes('Name') && !error && (
         <Caption allowFontScaling={false}>
           Note: this is how clerks will greet you!
         </Caption>
       )}
-
-      {fieldType === 'Verification Code' && !error && (
-        <Caption allowFontScaling={false}>
-          If you did not receive a code, click resend.
+      {error !== '' && (
+        <Caption color={Colors.error} allowFontScaling={false}>
+          {error}
         </Caption>
       )}
     </TextFieldContainer>

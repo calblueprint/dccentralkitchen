@@ -125,6 +125,7 @@ export default class VerificationScreen extends React.Component {
   };
 
   render() {
+    const validNumber = this.state.values[inputFields.CODE].length === 6;
     return (
       <View style={{ flex: 1 }}>
         <AuthScreenContainer>
@@ -165,8 +166,8 @@ export default class VerificationScreen extends React.Component {
               codeLength={6}
               onTextChange={(text) => this.onTextChange(text, inputFields.CODE)}
               onFulfill={() => {
+                this.setState({ isVerifyLoading: true });
                 setTimeout(() => {
-                  this.setState({ isVerifyLoading: true });
                   this.verifyCode(this.state.values[inputFields.CODE]);
                 }, 500);
               }}
@@ -174,20 +175,9 @@ export default class VerificationScreen extends React.Component {
               restrictToNumbers
               autoFocus
             />
-            <Caption style={{ marginTop: 24 }} color={Colors.error}>
+            <Caption style={{ marginTop: 8 }} color={Colors.error}>
               {this.state.errors[inputFields.CODE] ? `Incorrect code` : ` `}
             </Caption>
-            {/* <AuthTextField
-              fieldType="Verification Code"
-              value={this.state.values[inputFields.CODE]}
-              onBlurCallback={(value) =>
-                this.updateError(value, inputFields.CODE)
-              }
-              changeTextCallback={(text) => {
-                this.onTextChange(text, inputFields.CODE);
-              }}
-              error={this.state.errors[inputFields.CODE]}
-            /> */}
             <ButtonContainer onPress={async () => this.resendCode(false)}>
               <ButtonLabel noCaps color={Colors.primaryGreen}>
                 Resend code
@@ -196,18 +186,15 @@ export default class VerificationScreen extends React.Component {
           </FormContainer>
           <FilledButtonContainer
             style={{ marginTop: 48, marginBottom: 24 }}
-            color={Colors.primaryGreen}
+            color={!validNumber ? Colors.lightestGreen : Colors.primaryGreen}
             width="100%"
-            onPress={() =>
-              this.verifyCode(this.state.values[inputFields.CODE])
-            }>
-            <ButtonLabel color={Colors.lightText}>
-              {this.state.isVerifyLoading ? (
-                <ActivityIndicator color={Colors.lightText} />
-              ) : (
-                `Verify`
-              )}
-            </ButtonLabel>
+            onPress={() => this.verifyCode(this.state.values[inputFields.CODE])}
+            disabled={!validNumber}>
+            {this.state.isVerifyLoading ? (
+              <ActivityIndicator color={Colors.lightText} />
+            ) : (
+              <ButtonLabel color={Colors.lightText}>Verify</ButtonLabel>
+            )}
           </FilledButtonContainer>
         </AuthScreenContainer>
       </View>

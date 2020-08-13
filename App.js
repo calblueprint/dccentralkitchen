@@ -90,7 +90,7 @@ const theme = {
     ...DefaultTheme.colors,
     primary: Colors.primaryGreen,
     accent: Colors.primaryOrange,
-    backgroundColor: Colors.lightestGray,
+    background: 'white',
     error: Colors.error,
   },
 };
