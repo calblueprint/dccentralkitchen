@@ -5,6 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
+import VerificationScreen from '../screens/auth/VerificationScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
@@ -107,6 +108,7 @@ export default function createAppContainer() {
           options={{ animationEnabled: false }}
         />
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
+        <AppStack.Screen name="Verify" component={VerificationScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

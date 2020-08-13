@@ -3,7 +3,7 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { AsyncStorage, Keyboard, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,
@@ -41,6 +41,7 @@ export default class PhoneNumberScreen extends React.Component {
         submit: '',
       },
     };
+    this.completeVerification = this.completeVerification.bind(this);
   }
 
   async componentDidMount() {
@@ -103,7 +104,6 @@ export default class PhoneNumberScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
-    const customerId = await this.findCustomer();
     const number = this.state.values[inputFields.PHONENUM];
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
@@ -114,9 +114,9 @@ export default class PhoneNumberScreen extends React.Component {
       );
       this.props.navigation.navigate('Verify', {
         number,
-        customerId,
         verificationId,
         resend: this.openRecaptcha,
+        callBack: this.completeVerification,
       });
     } catch (err) {
       this.setState({
@@ -138,16 +138,12 @@ export default class PhoneNumberScreen extends React.Component {
       const customers = await getCustomersByPhoneNumber(
         this.state.values[inputFields.PHONENUM]
       );
-      let customer = null;
-      let customerId = null;
       if (customers.length === 1) {
-        [customer] = customers;
         console.log('ACCOUNT EXISTS LOG IN');
-        customerId = customer.id;
-      } else {
-        console.log('DOES NOT EXIST');
+        const [customer] = customers;
+        return customer.id;
       }
-      return customerId;
+      return null;
     } catch (err) {
       console.log(err);
       logErrorToSentry({
@@ -158,6 +154,20 @@ export default class PhoneNumberScreen extends React.Component {
     }
     return true;
   };
+
+  async completeVerification() {
+    const customerId = await this.findCustomer();
+
+    if (customerId) {
+      await AsyncStorage.setItem('customerId', customerId);
+      Keyboard.dismiss();
+      this.props.navigation.navigate('App');
+    } else {
+      this.props.navigation.navigate('CompleteSignUp', {
+        number: this.state.values[inputFields.PHONENUM],
+      });
+    }
+  }
 
   render() {
     const { errors, values } = this.state;

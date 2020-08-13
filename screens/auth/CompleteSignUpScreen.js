@@ -9,7 +9,7 @@ import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,
   FilledButtonContainer,
-  Title,
+  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { newSignUpBonus } from '../../constants/Rewards';
@@ -40,23 +40,6 @@ export default class CompleteSignUpScreen extends React.Component {
       },
     };
   }
-
-  // // Load customer record
-  // async componentDidMount() {
-  //   const customerId = await AsyncStorage.getItem('customerId');
-  //   try {
-  //     const customer = await getCustomersById(customerId);
-
-  //     this.setState({ customer });
-  //   } catch (err) {
-  //     console.error(err);
-  //     logErrorToSentry({
-  //       screen: 'NameChangeScreen',
-  //       action: 'componentDidMount',
-  //       error: err,
-  //     });
-  //   }
-  // }
 
   handleSubmit = async () => {
     try {
@@ -170,7 +153,7 @@ export default class CompleteSignUpScreen extends React.Component {
           <BackButton onPress={() => this.props.navigation.goBack()}>
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
-          <Title>What should we call you?</Title>
+          <Subtitle>What is your name?</Subtitle>
           <FormContainer>
             <AuthTextField
               fieldType="Name"

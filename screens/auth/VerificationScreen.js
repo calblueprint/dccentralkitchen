@@ -1,9 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ActivityIndicator, Keyboard, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import {
   ButtonContainer,
@@ -25,17 +24,7 @@ import validate from './validation';
 export default class VerificationScreen extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      number,
-      customerId,
-      resend,
-      verificationId,
-    } = this.props.route.params;
     this.state = {
-      number,
-      customerId,
-      resend,
-      verificationId,
       values: { [inputFields.CODE]: '' },
       errors: { [inputFields.CODE]: '' },
       isVerifyLoading: false,
@@ -81,27 +70,21 @@ export default class VerificationScreen extends React.Component {
   };
 
   resendCode = async () => {
-    await this.state.resend();
+    const { resend } = this.props.route.params;
+    this.props.navigation.goBack();
+    await resend();
   };
 
   verifyCode = async (code) => {
     try {
-      console.log(this.state.verificationId);
+      const { verificationId, callBack } = this.props.route.params;
       const credential = firebase.auth.PhoneAuthProvider.credential(
-        this.state.verificationId,
+        verificationId,
         code
       );
       await firebase.auth().signInWithCredential(credential);
       console.log('VERIFICATION COMPLETE NAVIGATION GOES ON');
-      if (this.state.customerId) {
-        await AsyncStorage.setItem('customerId', this.state.customerId);
-        Keyboard.dismiss();
-        this.props.navigation.navigate('App');
-      } else {
-        this.props.navigation.navigate('CompleteSignUp', {
-          number: this.state.number,
-        });
-      }
+      await callBack();
       this.setState({ isVerifyLoading: false });
     } catch (err) {
       this.setState((prevState) => ({
@@ -125,6 +108,7 @@ export default class VerificationScreen extends React.Component {
   };
 
   render() {
+    const { number } = this.props.route.params;
     const validNumber = this.state.values[inputFields.CODE].length === 6;
     return (
       <View style={{ flex: 1 }}>
@@ -133,7 +117,7 @@ export default class VerificationScreen extends React.Component {
             <FontAwesome5 name="arrow-left" solid size={24} />
           </BackButton>
           <Subtitle style={{ paddingTop: 32 }}>
-            {`Enter the 6-digit code sent to you at ${this.state.number}`}
+            {`Enter the 6-digit code sent to you at ${number}`}
           </Subtitle>
           <FormContainer>
             <SmoothPinCodeInput
@@ -189,7 +173,7 @@ export default class VerificationScreen extends React.Component {
             color={!validNumber ? Colors.lightestGreen : Colors.primaryGreen}
             width="100%"
             onPress={() => this.verifyCode(this.state.values[inputFields.CODE])}
-            disabled={!validNumber}>
+            disabled={!validNumber || this.state.isVerifyLoading}>
             {this.state.isVerifyLoading ? (
               <ActivityIndicator color={Colors.lightText} />
             ) : (
