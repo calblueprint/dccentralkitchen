@@ -1,7 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-import { Updates } from 'expo';
+import { StackActions, useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
@@ -70,14 +69,9 @@ export default function SettingsScreen(props) {
         new Promise((resolve) => setTimeout(resolve, duration));
       await delay(3000);
       clearUserLog();
-      props.navigation.navigate('Stores');
       await AsyncStorage.clear();
-      props.navigation.navigate(
-        'Auth',
-        signUp ? { screen: 'SignUp' } : { screen: 'Welcome' }
-      );
-      // Temporary fix: force update to make sure the rewards footer refreshes
-      Updates.reload();
+      props.navigation.dispatch(StackActions.popToTop());
+      props.navigation.navigate('Auth');
     }
   };
 

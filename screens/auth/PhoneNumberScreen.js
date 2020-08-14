@@ -3,7 +3,7 @@ import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Keyboard, View } from 'react-native';
+import { AsyncStorage, Button, Keyboard, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,
@@ -12,7 +12,8 @@ import {
   Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { firebaseConfig } from '../../environment';
+import RecordIds from '../../constants/RecordIds';
+import { env, firebaseConfig } from '../../environment';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
@@ -51,6 +52,12 @@ export default class PhoneNumberScreen extends React.Component {
 
     // 1 second delay to set the screen after AppNavigator sets to Reset
   }
+
+  _devBypass = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    this.props.navigation.navigate('App');
+  };
 
   // Check for an error with updated text
   // Set errors and updated text in state
@@ -216,6 +223,12 @@ export default class PhoneNumberScreen extends React.Component {
             disabled={!validNumber}>
             <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
           </FilledButtonContainer>
+          {env === 'dev' && (
+            <Button
+              title="Testing Bypass"
+              onPress={async () => this._devBypass()}
+            />
+          )}
         </View>
       </AuthScreenContainer>
     );
