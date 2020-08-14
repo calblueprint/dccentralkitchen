@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Updates } from 'expo';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
@@ -155,8 +154,10 @@ export default class NameChangeScreen extends React.Component {
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
-              onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
+              onPress={() => this.props.navigation.navigate('Settings')}>
+              <ButtonLabel color={Colors.lightText}>
+                Back to Settings
+              </ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
