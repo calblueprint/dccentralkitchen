@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
@@ -16,7 +17,7 @@ import RecordIds from '../../constants/RecordIds';
 import { env, firebaseConfig } from '../../environment';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
 import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
-import { logErrorToSentry } from '../../lib/logUtils';
+import { logErrorToSentry, setUserLog } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
   BackButton,
@@ -146,9 +147,8 @@ export default class PhoneNumberScreen extends React.Component {
         this.state.values[inputFields.PHONENUM]
       );
       if (customers.length === 1) {
-        console.log('ACCOUNT EXISTS LOG IN');
         const [customer] = customers;
-        return customer.id;
+        return customer;
       }
       return null;
     } catch (err) {
@@ -163,12 +163,20 @@ export default class PhoneNumberScreen extends React.Component {
   };
 
   async completeVerification() {
-    const customerId = await this.findCustomer();
+    const customer = await this.findCustomer();
 
-    if (customerId) {
-      await AsyncStorage.setItem('customerId', customerId);
+    if (customer) {
+      await AsyncStorage.setItem('customerId', customer.id);
       Keyboard.dismiss();
       this.props.navigation.navigate('App');
+      setUserLog({
+        id: customer.id,
+        name: customer.name,
+        phoneNumber: this.state.values[inputFields.PHONENUM],
+      });
+      Analytics.logEvent('log_in_complete', {
+        customer_id: customer.id,
+      });
     } else {
       this.props.navigation.navigate('CompleteSignUp', {
         number: this.state.values[inputFields.PHONENUM],

@@ -136,7 +136,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
           screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
           attemptedPhone: this.state.values[inputFields.PHONENUM],
-          attemptedPass: null,
           error: errorMsg,
         });
         this.setState((prevState) => ({
@@ -156,7 +155,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
         screen: 'PhoneNumberChangeScreen',
         action: 'checkDuplicateCustomers',
         attemptedPhone: this.state.values[inputFields.PHONENUM],
-        attemptedPass: null,
         error: err,
       });
     }
@@ -204,7 +202,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
         screen: 'PhoneNumberChangeScreen',
         action: 'updatePhoneNumber',
         attemptedPhone: this.state.values[inputFields.PHONENUM],
-        attemptedPass: null,
         error: err,
       });
     }

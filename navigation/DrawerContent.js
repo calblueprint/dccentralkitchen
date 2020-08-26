@@ -31,7 +31,7 @@ function DrawerContent(props) {
     setLogoutIsLoading(true);
     await Analytics.logEvent('logout', {
       is_guest: true,
-      redirect_to: 'Log In', // Redirect not working yet
+      redirect_to: 'PhoneNumber',
     });
     // Delay to make sure the event is logged
     const delay = (duration) =>
@@ -41,7 +41,20 @@ function DrawerContent(props) {
     await AsyncStorage.clear();
     props.navigation.dispatch(
       CommonActions.reset({
-        routes: [{ name: 'Auth' }],
+        routes: [
+          {
+            name: 'Auth',
+            params: {
+              screen: 'Onboarding',
+            },
+          },
+          {
+            name: 'Auth',
+            params: {
+              screen: 'PhoneNumber',
+            },
+          },
+        ],
       })
     );
   };

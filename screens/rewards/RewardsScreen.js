@@ -85,7 +85,7 @@ export default class RewardsScreen extends React.Component {
     this.setState({ logoutIsLoading: true });
     await Analytics.logEvent('logout', {
       is_guest: true,
-      redirect_to: 'Sign Up', // Redirect not working yet
+      redirect_to: 'PhoneNumber',
     });
     // Delay to make sure the event is logged
     const delay = (duration) =>
@@ -95,7 +95,20 @@ export default class RewardsScreen extends React.Component {
     await AsyncStorage.clear();
     this.props.navigation.dispatch(
       CommonActions.reset({
-        routes: [{ name: 'Auth' }],
+        routes: [
+          {
+            name: 'Auth',
+            params: {
+              screen: 'Onboarding',
+            },
+          },
+          {
+            name: 'Auth',
+            params: {
+              screen: 'PhoneNumber',
+            },
+          },
+        ],
       })
     );
   };

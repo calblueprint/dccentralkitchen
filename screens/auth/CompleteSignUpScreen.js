@@ -45,12 +45,11 @@ export default class CompleteSignUpScreen extends React.Component {
     try {
       this.completeSignUp();
     } catch (err) {
-      console.error('[SignUpScreen] (handleSubmit) Airtable:', err);
+      console.error('[CompleteSignUpScreen] (handleSubmit) Airtable:', err);
       logAuthErrorToSentry({
-        screen: 'SignUpScreen',
+        screen: 'CompleteSignUpScreen',
         action: 'handleSubmit',
         attemptedPhone: null,
-        attemptedPass: null,
         error: err,
       });
     }
@@ -121,9 +120,9 @@ export default class CompleteSignUpScreen extends React.Component {
       Sentry.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
-      console.error('[SignUpScreen] (addCustomer) Airtable:', err);
+      console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
       logErrorToSentry({
-        screen: 'SignUpScreen',
+        screen: 'CompleteSignUpScreen',
         action: 'addCustomer',
         error: err,
       });

@@ -84,7 +84,7 @@ export default class OnboardingScreen extends React.Component {
     this.props.navigation.navigate('App');
   };
 
-  navigateWelcome() {
+  navigateAuth() {
     this.props.navigation.navigate('PhoneNumber');
   }
 
@@ -112,7 +112,7 @@ export default class OnboardingScreen extends React.Component {
         <ColumnContainer style={{ marginTop: 20 }}>
           <FilledButtonContainer
             width="100%"
-            onPress={() => this.navigateWelcome()}>
+            onPress={() => this.navigateAuth()}>
             <ButtonLabel color="white">Get started</ButtonLabel>
           </FilledButtonContainer>
           <ButtonContainer
