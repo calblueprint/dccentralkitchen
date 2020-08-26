@@ -55,6 +55,7 @@ async function loadResourcesAsync() {
       require('./assets/images/hc_start.png'),
       require('./assets/images/Marker_Focused.png'),
       require('./assets/images/Marker_Resting.png'),
+      require('./assets/images/Onboarding_1.png'),
     ]),
     Font.loadAsync({
       // This is the icon style we use
