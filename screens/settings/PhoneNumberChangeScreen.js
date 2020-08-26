@@ -1,18 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Updates } from 'expo';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Keyboard, View } from 'react-native';
+import { Keyboard } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
-  BigTitle,
   ButtonLabel,
   Caption,
   FilledButtonContainer,
-  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { firebaseConfig } from '../../environment';
@@ -37,7 +34,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
     const { number } = this.props.route.params;
     this.state = {
       customer: null,
-      success: false,
       recaptchaVerifier,
       values: {
         [inputFields.PHONENUM]: number,
@@ -99,7 +95,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
   // It can only remove errors, not trigger them
   onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
-    if (this.state.errors[inputField]) {
+    if (this.state.errors[inputField] || this.state.errors.submit) {
       await this.updateError(
         inputField === inputFields.PHONENUM
           ? formatPhoneNumberInput(text)
@@ -120,6 +116,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
   };
 
   openRecaptcha = async () => {
+    Keyboard.dismiss();
     try {
       const customers = await getCustomersByPhoneNumber(
         this.state.values[inputFields.PHONENUM]
@@ -148,6 +145,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
             [inputFields.PHONENUM]: errorMsg,
           },
         }));
+        return;
       }
     } catch (err) {
       console.error(
@@ -197,7 +195,6 @@ export default class PhoneNumberChangeScreen extends React.Component {
       await updateCustomers(this.state.customer.id, {
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
-      this.setState({ success: true });
     } catch (err) {
       console.error(
         '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
@@ -231,62 +228,38 @@ export default class PhoneNumberChangeScreen extends React.Component {
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
         />
-        {!this.state.success && (
-          <View>
-            <BackButton onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-              You will receive an SMS for verification. Msg & data rates may
-              apply.
-            </Caption>
-            <FormContainer>
-              <AuthTextField
-                fieldType="Phone Number"
-                value={this.state.values[inputFields.PHONENUM]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, inputFields.PHONENUM)
-                }
-                changeTextCallback={(text) =>
-                  this.onTextChange(text, inputFields.PHONENUM)
-                }
-                error={this.state.errors[inputFields.PHONENUM]}
-              />
-              <Caption
-                style={{ alignSelf: 'center', fontSize: 14 }}
-                color={Colors.error}>
-                {errors.submit}
-              </Caption>
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={!validNumber ? Colors.lightestGreen : Colors.primaryGreen}
-              width="100%"
-              onPress={() => this.openRecaptcha()}
-              disabled={!validNumber}>
-              <ButtonLabel color={Colors.lightText}>Update Phone</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
-
-        {this.state.success && (
-          <View>
-            <BackButton />
-            <BigTitle>Success!</BigTitle>
-            <Subtitle style={{ marginTop: 32 }}>
-              {`Your phone number was successfully changed to ${
-                this.state.values[inputFields.PHONENUM]
-              }. Refresh to see changes.`}
-            </Subtitle>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={Colors.primaryGreen}
-              width="100%"
-              onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
+        <BackButton onPress={() => this.props.navigation.goBack()}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
+        </BackButton>
+        <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
+          You will receive an SMS for verification. Msg & data rates may apply.
+        </Caption>
+        <FormContainer>
+          <AuthTextField
+            fieldType="Phone Number"
+            value={this.state.values[inputFields.PHONENUM]}
+            onBlurCallback={(value) =>
+              this.updateError(value, inputFields.PHONENUM)
+            }
+            changeTextCallback={(text) =>
+              this.onTextChange(text, inputFields.PHONENUM)
+            }
+            error={this.state.errors[inputFields.PHONENUM]}
+          />
+          <Caption
+            style={{ alignSelf: 'center', fontSize: 14 }}
+            color={Colors.error}>
+            {errors.submit}
+          </Caption>
+        </FormContainer>
+        <FilledButtonContainer
+          style={{ marginTop: 48 }}
+          color={!validNumber ? Colors.lightestGreen : Colors.primaryGreen}
+          width="100%"
+          onPress={() => this.openRecaptcha()}
+          disabled={!validNumber}>
+          <ButtonLabel color={Colors.lightText}>Update Phone</ButtonLabel>
+        </FilledButtonContainer>
       </AuthScreenContainer>
     );
   }
