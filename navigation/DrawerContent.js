@@ -22,7 +22,6 @@ import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
   const [customer, setCustomer] = React.useState(null);
-  const [link, _] = React.useState('http://tiny.cc/RewardsFeedback');
   const [logoutIsLoading, setLogoutIsLoading] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -180,15 +179,26 @@ function DrawerContent(props) {
       <View
         style={{
           flex: 1,
+          marginLeft: 24,
           flexDirection: 'column',
           justifyContent: 'flex-end',
           verticalAlign: 'bottom',
-          paddingBottom: 20,
+          paddingBottom: 36,
         }}>
         <ButtonContainer
-          style={{ paddingLeft: 24, paddingVertical: 13 }}
-          onPress={() => WebBrowser.openBrowserAsync(link)}>
-          <Subtitle style={{ height: 30 }}>Submit feedback</Subtitle>
+          style={{ paddingBottom: 16 }}
+          onPress={() =>
+            WebBrowser.openBrowserAsync(
+              'https://healthycorners.calblueprint.org/faq.html'
+            )
+          }>
+          <Subtitle>FAQs</Subtitle>
+        </ButtonContainer>
+        <ButtonContainer
+          onPress={() =>
+            WebBrowser.openBrowserAsync('http://tiny.cc/RewardsFeedback')
+          }>
+          <Subtitle>Submit feedback</Subtitle>
         </ButtonContainer>
       </View>
     </View>
