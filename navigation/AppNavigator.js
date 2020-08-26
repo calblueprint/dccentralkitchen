@@ -55,7 +55,6 @@ function DrawerNavigator() {
         component={ResourcesStackNavigator}
         options={{
           title: 'Resources',
-          unmountOnBlur: true,
         }}
       />
       <Drawer.Screen
@@ -63,7 +62,6 @@ function DrawerNavigator() {
         component={SettingsStackNavigator}
         options={{
           title: 'Settings',
-          unmountOnBlur: true,
         }}
       />
     </Drawer.Navigator>

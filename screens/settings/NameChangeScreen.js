@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
+import { CommonActions } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
@@ -154,10 +155,15 @@ export default class NameChangeScreen extends React.Component {
               style={{ marginTop: 48 }}
               color={Colors.primaryGreen}
               width="100%"
-              onPress={() => this.props.navigation.navigate('Settings')}>
-              <ButtonLabel color={Colors.lightText}>
-                Back to Settings
-              </ButtonLabel>
+              onPress={() =>
+                this.props.navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'App' }],
+                  })
+                )
+              }>
+              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
             </FilledButtonContainer>
           </View>
         )}
