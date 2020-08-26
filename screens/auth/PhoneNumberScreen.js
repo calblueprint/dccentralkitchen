@@ -57,6 +57,7 @@ export default class PhoneNumberScreen extends React.Component {
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
     await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 

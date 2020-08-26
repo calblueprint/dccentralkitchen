@@ -44,7 +44,6 @@ function AuthTextField({
             ? 6
             : null
         }
-        secureTextEntry={fieldType.includes('assword')}
         selectionColor={Colors.primaryGreen}
         style={{
           marginBottom: 8,
