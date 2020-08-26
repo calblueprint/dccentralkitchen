@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
-import { useFocusEffect } from '@react-navigation/native';
-import { Updates } from 'expo';
+import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
@@ -37,13 +36,14 @@ function DrawerContent(props) {
     // Delay to make sure the event is logged
     const delay = (duration) =>
       new Promise((resolve) => setTimeout(resolve, duration));
-    await delay(3000);
+    await delay(1500);
     clearUserLog();
-    props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    props.navigation.navigate('Auth', { screen: 'LogIn', initial: false });
-    // Temporary fix: force update to make sure the rewards footer refreshes
-    Updates.reload();
+    props.navigation.dispatch(
+      CommonActions.reset({
+        routes: [{ name: 'Auth' }],
+      })
+    );
   };
 
   useFocusEffect(

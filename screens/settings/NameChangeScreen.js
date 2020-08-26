@@ -158,7 +158,6 @@ export default class NameChangeScreen extends React.Component {
               onPress={() =>
                 this.props.navigation.dispatch(
                   CommonActions.reset({
-                    index: 0,
                     routes: [{ name: 'App' }],
                   })
                 )

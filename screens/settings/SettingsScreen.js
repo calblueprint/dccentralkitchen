@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { StackActions, useFocusEffect } from '@react-navigation/native';
+import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
@@ -67,11 +67,14 @@ export default function SettingsScreen(props) {
       // Delay to make sure the event is logged
       const delay = (duration) =>
         new Promise((resolve) => setTimeout(resolve, duration));
-      await delay(3000);
+      await delay(1500);
       clearUserLog();
       await AsyncStorage.clear();
-      props.navigation.dispatch(StackActions.popToTop());
-      props.navigation.navigate('Auth');
+      props.navigation.dispatch(
+        CommonActions.reset({
+          routes: [{ name: 'Auth' }],
+        })
+      );
     }
   };
 

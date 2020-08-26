@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Updates } from 'expo';
+import { CommonActions } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -90,13 +90,14 @@ export default class RewardsScreen extends React.Component {
     // Delay to make sure the event is logged
     const delay = (duration) =>
       new Promise((resolve) => setTimeout(resolve, duration));
-    await delay(3000);
+    await delay(1500);
     clearUserLog();
-    this.props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth', { screen: 'SignUp' });
-    // Temporary fix: force update to make sure the rewards footer refreshes
-    Updates.reload();
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        routes: [{ name: 'Auth' }],
+      })
+    );
   };
 
   renderScene = ({ route }) => {
