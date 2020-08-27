@@ -2,6 +2,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CommonActions } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
@@ -75,7 +76,14 @@ export default class RewardsScreen extends React.Component {
         error: err,
       });
       Alert.alert('Session Expired', 'Refresh the app and log in again.', [
-        { text: 'OK', onPress: () => this._logout() },
+        {
+          text: 'OK',
+          onPress: async () => {
+            clearUserLog();
+            await AsyncStorage.clear();
+            await Updates.reloadAsync();
+          },
+        },
       ]);
     }
   }

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Updates from 'expo-updates';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -95,7 +96,14 @@ function DrawerContent(props) {
             error: err,
           });
           Alert.alert('Session Expired', 'Refresh the app and log in again.', [
-            { text: 'OK', onPress: () => logout() },
+            {
+              text: 'OK',
+              onPress: async () => {
+                clearUserLog();
+                await AsyncStorage.clear();
+                await Updates.reloadAsync();
+              },
+            },
           ]);
         }
       };
