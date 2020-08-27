@@ -42,14 +42,14 @@ export default function RewardsFooter() {
             console.error(err);
             logErrorToSentry({
               screen: 'RewardsFooter',
-              action: 'componentDidMount',
+              action: 'useFocusEffect',
               error: err,
             });
           }
         } catch (err) {
-          console.error('[SettingsScreen] Airtable:', err);
+          console.error('[RewardsFooter] Airtable:', err);
           logErrorToSentry({
-            screen: 'SettingsScreen',
+            screen: 'RewardsFooter',
             action: 'useFocusEffect',
             error: err,
           });
