@@ -11,5 +11,6 @@ For security reasons, these links are password protected. Contact <wangannie@ber
 | [Add a new store](https://airtable.com/shrQIlY8nMRBJfElw)         |
 | [Add a new product](https://airtable.com/shrFUgVUHDns8QqoW)       |
 | [Add a new resource link](https://airtable.com/shrrLPnVm6kOA9nZZ) |
+| [Add a new recipe](https://airtable.com/shrTcadx79jrY30HV)        |
 
 To add a new clerk account, refer to [this page](./newclerk.md).
