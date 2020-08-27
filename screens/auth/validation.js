@@ -20,13 +20,7 @@ const validation = {
       is: 14,
       message: '^Must be a valid phone number',
     },
-    // To check for only numbers in the future
-    // format: {
-    //   pattern: '/^d+$/',
-    //   message: 'Phone number cannot contain non-numeric characters.'
-    // }
   },
-
   code: {
     // This verifies that it's not blank.
     presence: {
@@ -36,28 +30,6 @@ const validation = {
       is: 6,
       message: '^Code must be six digits',
     },
-    // To check for only numbers in the future
-    // format: {
-    //   pattern: '/^d+$/',
-    //   message: 'Phone number cannot contain non-numeric characters.'
-    // }
-  },
-
-  password: {
-    presence: {
-      message: '^Password cannot be blank',
-    },
-    length: {
-      minimum: 8,
-      maximum: 20,
-      message: '^Must be 8-20 characters long',
-    },
-    // For future use for better password checking
-    // format: {
-    //   pattern: "[a-z0-9]+",
-    //   flags: "i",
-    //   message: "Must contain at least one digit, one lowercase number, and special chracter"
-    // }
   },
 };
 

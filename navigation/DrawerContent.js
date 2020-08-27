@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
-import { useFocusEffect } from '@react-navigation/native';
-import { Updates } from 'expo';
+import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Updates from 'expo-updates';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -31,18 +31,32 @@ function DrawerContent(props) {
     setLogoutIsLoading(true);
     await Analytics.logEvent('logout', {
       is_guest: true,
-      redirect_to: 'Log In', // Redirect not working yet
+      redirect_to: 'PhoneNumber',
     });
     // Delay to make sure the event is logged
     const delay = (duration) =>
       new Promise((resolve) => setTimeout(resolve, duration));
-    await delay(3000);
+    await delay(1500);
     clearUserLog();
-    props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    props.navigation.navigate('Auth', { screen: 'LogIn', initial: false });
-    // Temporary fix: force update to make sure the rewards footer refreshes
-    Updates.reload();
+    props.navigation.dispatch(
+      CommonActions.reset({
+        routes: [
+          {
+            name: 'Auth',
+            params: {
+              screen: 'Onboarding',
+            },
+          },
+          {
+            name: 'Auth',
+            params: {
+              screen: 'PhoneNumber',
+            },
+          },
+        ],
+      })
+    );
   };
 
   useFocusEffect(
@@ -82,7 +96,14 @@ function DrawerContent(props) {
             error: err,
           });
           Alert.alert('Session Expired', 'Refresh the app and log in again.', [
-            { text: 'OK', onPress: () => logout() },
+            {
+              text: 'OK',
+              onPress: async () => {
+                clearUserLog();
+                await AsyncStorage.clear();
+                await Updates.reloadAsync();
+              },
+            },
           ]);
         }
       };
