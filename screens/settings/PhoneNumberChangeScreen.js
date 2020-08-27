@@ -130,7 +130,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
           await this.completeVerification();
           return;
         }
-        console.log('Duplicate customer');
+        console.log('Phone number already in use');
         const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
           screen: 'PhoneNumberChangeScreen',

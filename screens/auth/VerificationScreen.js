@@ -163,7 +163,14 @@ export default class VerificationScreen extends React.Component {
             <Caption style={{ marginTop: 8 }} color={Colors.error}>
               {this.state.errors[inputFields.CODE] ? `Incorrect code` : ` `}
             </Caption>
-            <ButtonContainer onPress={async () => this.resendCode(false)}>
+            <ButtonContainer
+              disabled={this.state.isVerifyLoading}
+              color={
+                this.state.isVerifyLoading
+                  ? Colors.lightestGreen
+                  : Colors.primaryGreen
+              }
+              onPress={async () => this.resendCode(false)}>
               <ButtonLabel noCaps color={Colors.primaryGreen}>
                 Resend code
               </ButtonLabel>
