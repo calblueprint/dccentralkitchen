@@ -18,7 +18,8 @@ export default class ResourcesScreen extends React.Component {
     this.state = {
       CrisisResponse: [],
       Seniors: [],
-      Food: [],
+      FoodAccess: [],
+      HealthyEating: [],
       SocialServices: [],
       Miscellaneous: [],
     };
@@ -33,8 +34,11 @@ export default class ResourcesScreen extends React.Component {
       const Seniors = resources.filter((resource) =>
         resource.category.includes('Seniors')
       );
-      const Food = resources.filter((resource) =>
-        resource.category.includes('Food')
+      const FoodAccess = resources.filter((resource) =>
+        resource.category.includes('Food Access')
+      );
+      const HealthyEating = resources.filter((resource) =>
+        resource.category.includes('Healthy Eating')
       );
       const SocialServices = resources.filter((resource) =>
         resource.category.includes('Social Services')
@@ -43,13 +47,15 @@ export default class ResourcesScreen extends React.Component {
         (resource) =>
           !resource.category.includes('Crisis Response') &&
           !resource.category.includes('Seniors') &&
-          !resource.category.includes('Food') &&
+          !resource.category.includes('Food Access') &&
+          !resource.category.includes('Healthy Eating') &&
           !resource.category.includes('Social Services')
       );
       this.setState({
         CrisisResponse,
         Seniors,
-        Food,
+        FoodAccess,
+        HealthyEating,
         SocialServices,
         Miscellaneous,
       });
@@ -94,10 +100,20 @@ export default class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          {this.state.Food.length > 0 && (
-            <CategoryBar icon="carrot" title="Food" />
+          {this.state.FoodAccess.length > 0 && (
+            <CategoryBar icon="utensils" title="Food Access" />
           )}
-          {this.state.Food.map((resource) => (
+          {this.state.FoodAccess.map((resource) => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
+          {this.state.HealthyEating.length > 0 && (
+            <CategoryBar icon="carrot" title="Healthy Eating" />
+          )}
+          {this.state.HealthyEating.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
