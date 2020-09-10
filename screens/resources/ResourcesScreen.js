@@ -17,9 +17,9 @@ export default class ResourcesScreen extends React.Component {
     super(props);
     this.state = {
       CrisisResponse: [],
-      Seniors: [],
       FoodAccess: [],
       HealthyEating: [],
+      Seniors: [],
       SocialServices: [],
       Miscellaneous: [],
     };
@@ -31,14 +31,14 @@ export default class ResourcesScreen extends React.Component {
       const CrisisResponse = resources.filter((resource) =>
         resource.category.includes('Crisis Response')
       );
-      const Seniors = resources.filter((resource) =>
-        resource.category.includes('Seniors')
-      );
       const FoodAccess = resources.filter((resource) =>
         resource.category.includes('Food Access')
       );
       const HealthyEating = resources.filter((resource) =>
-        resource.category.includes('Healthy Eating')
+        resource.category.includes('Healthy Cooking & Eating')
+      );
+      const Seniors = resources.filter((resource) =>
+        resource.category.includes('Seniors')
       );
       const SocialServices = resources.filter((resource) =>
         resource.category.includes('Social Services')
@@ -46,16 +46,16 @@ export default class ResourcesScreen extends React.Component {
       const Miscellaneous = resources.filter(
         (resource) =>
           !resource.category.includes('Crisis Response') &&
-          !resource.category.includes('Seniors') &&
           !resource.category.includes('Food Access') &&
-          !resource.category.includes('Healthy Eating') &&
+          !resource.category.includes('Healthy Cooking & Eating') &&
+          !resource.category.includes('Seniors') &&
           !resource.category.includes('Social Services')
       );
       this.setState({
         CrisisResponse,
-        Seniors,
         FoodAccess,
         HealthyEating,
+        Seniors,
         SocialServices,
         Miscellaneous,
       });
@@ -90,16 +90,6 @@ export default class ResourcesScreen extends React.Component {
               navigation={this.props.navigation}
             />
           ))}
-          {this.state.Seniors.length > 0 && (
-            <CategoryBar icon="user" title="Seniors" />
-          )}
-          {this.state.Seniors.map((resource) => (
-            <ResourceCard
-              key={resource.id}
-              resourceCard={resource}
-              navigation={this.props.navigation}
-            />
-          ))}
           {this.state.FoodAccess.length > 0 && (
             <CategoryBar icon="utensils" title="Food Access" />
           )}
@@ -111,9 +101,19 @@ export default class ResourcesScreen extends React.Component {
             />
           ))}
           {this.state.HealthyEating.length > 0 && (
-            <CategoryBar icon="carrot" title="Healthy Eating" />
+            <CategoryBar icon="carrot" title="Healthy Cooking & Eating" />
           )}
           {this.state.HealthyEating.map((resource) => (
+            <ResourceCard
+              key={resource.id}
+              resourceCard={resource}
+              navigation={this.props.navigation}
+            />
+          ))}
+          {this.state.Seniors.length > 0 && (
+            <CategoryBar icon="user" title="Seniors" />
+          )}
+          {this.state.Seniors.map((resource) => (
             <ResourceCard
               key={resource.id}
               resourceCard={resource}
