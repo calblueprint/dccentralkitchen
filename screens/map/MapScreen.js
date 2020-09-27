@@ -1,8 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, PixelRatio, StyleSheet, View } from 'react-native';
@@ -130,7 +130,7 @@ export default class MapScreen extends React.Component {
       await this._populateStoreProducts(this.state.store);
     } catch (err) {
       Alert.alert('Update required', 'Refresh the app to see changes', [
-        { text: 'OK', onPress: () => Updates.reload() },
+        { text: 'OK', onPress: async () => Updates.reloadAsync() },
       ]);
       console.error(
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',

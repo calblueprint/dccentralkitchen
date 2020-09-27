@@ -14,7 +14,7 @@ import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 function cardPressed(resource) {
   Analytics.logEvent('open_resource_link', {
     resource_name: resource.title,
-    resource_category: resource.category,
+    resource_category: resource.category.toString(),
   });
   WebBrowser.openBrowserAsync(resource.url);
 }

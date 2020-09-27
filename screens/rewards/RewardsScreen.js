@@ -1,7 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Updates } from 'expo';
+import { CommonActions } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, Alert, ScrollView, View } from 'react-native';
@@ -75,7 +76,14 @@ export default class RewardsScreen extends React.Component {
         error: err,
       });
       Alert.alert('Session Expired', 'Refresh the app and log in again.', [
-        { text: 'OK', onPress: () => this._logout() },
+        {
+          text: 'OK',
+          onPress: async () => {
+            clearUserLog();
+            await AsyncStorage.clear();
+            await Updates.reloadAsync();
+          },
+        },
       ]);
     }
   }
@@ -85,18 +93,32 @@ export default class RewardsScreen extends React.Component {
     this.setState({ logoutIsLoading: true });
     await Analytics.logEvent('logout', {
       is_guest: true,
-      redirect_to: 'Sign Up', // Redirect not working yet
+      redirect_to: 'PhoneNumber',
     });
     // Delay to make sure the event is logged
     const delay = (duration) =>
       new Promise((resolve) => setTimeout(resolve, duration));
-    await delay(3000);
+    await delay(1500);
     clearUserLog();
-    this.props.navigation.navigate('Stores');
     await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth', { screen: 'SignUp' });
-    // Temporary fix: force update to make sure the rewards footer refreshes
-    Updates.reload();
+    this.props.navigation.dispatch(
+      CommonActions.reset({
+        routes: [
+          {
+            name: 'Auth',
+            params: {
+              screen: 'Onboarding',
+            },
+          },
+          {
+            name: 'Auth',
+            params: {
+              screen: 'PhoneNumber',
+            },
+          },
+        ],
+      })
+    );
   };
 
   renderScene = ({ route }) => {

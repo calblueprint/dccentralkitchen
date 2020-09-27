@@ -1,9 +1,13 @@
+import AsyncStorage from '@react-native-community/async-storage';
+import Constants from 'expo-constants';
+import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import {
   Body,
+  ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
   Title,
@@ -11,12 +15,13 @@ import {
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import ONBOARDING_CONTENT from '../../constants/Onboarding';
+import RecordIds from '../../constants/RecordIds';
 import {
   OnboardingContainer,
   OnboardingContentContainer,
   styles,
 } from '../../styled/auth';
-import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
+import { ColumnContainer } from '../../styled/shared';
 
 export default class OnboardingScreen extends React.Component {
   constructor(props) {
@@ -71,12 +76,16 @@ export default class OnboardingScreen extends React.Component {
     );
   };
 
-  navigateWelcome() {
-    this.props.navigation.navigate('Welcome');
-  }
+  guestLogin = async () => {
+    await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
+    Analytics.logEvent('guest_login_complete', {
+      installation_id: Constants.installationId,
+    });
+    this.props.navigation.navigate('App');
+  };
 
-  navigateLogIn() {
-    this.props.navigation.navigate('LogIn');
+  navigateAuth() {
+    this.props.navigation.navigate('PhoneNumber');
   }
 
   render() {
@@ -100,19 +109,20 @@ export default class OnboardingScreen extends React.Component {
         {this.pagination}
 
         {/* Display login/get started buttons */}
-        <SpaceBetweenRowContainer style={{ marginTop: 20 }}>
+        <ColumnContainer style={{ marginTop: 20 }}>
           <FilledButtonContainer
-            width="48%"
-            color={Colors.lighterGreen}
-            onPress={() => this.navigateLogIn()}>
-            <ButtonLabel color={Colors.lightText}>Log In</ButtonLabel>
+            width="100%"
+            onPress={() => this.navigateAuth()}>
+            <ButtonLabel color="white">Get started</ButtonLabel>
           </FilledButtonContainer>
-          <FilledButtonContainer
-            width="48%"
-            onPress={() => this.navigateWelcome()}>
-            <ButtonLabel color={Colors.lightText}>Get started</ButtonLabel>
-          </FilledButtonContainer>
-        </SpaceBetweenRowContainer>
+          <ButtonContainer
+            style={{ marginTop: 4, padding: 12 }}
+            onPress={async () => this.guestLogin()}>
+            <ButtonLabel noCaps color={Colors.primaryGreen}>
+              Continue as guest
+            </ButtonLabel>
+          </ButtonContainer>
+        </ColumnContainer>
       </OnboardingContainer>
     );
   }

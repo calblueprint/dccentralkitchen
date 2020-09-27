@@ -16,14 +16,6 @@ export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
   margin-horizontal: 42px;
 `;
 
-// ScrollView nested in AuthScreenContainer for keyboard avoiding behavior
-export const AuthScrollContainer = styled.ScrollView.attrs({
-  keyboardShouldPersistTaps: 'handled',
-  showsVerticalScrollIndicator: false,
-})`
-  flex: 1;
-`;
-
 // OnboardingScreen
 export const OnboardingContainer = styled.View`
   display: flex;
@@ -47,19 +39,6 @@ export const OnboardingContentContainer = styled.View`
   flex: 1
   justify-content: flex-end
 `;
-
-// WelcomeScreen
-// TODO @tommypoa: margin-top should be corrected to sit right above keyboard (as in LogIn and SignUp screens)
-export const WelcomeContainer = styled.View`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  margin-horizontal: 42px;
-  padding-bottom: 75px;
-`;
-
-// LogInScreen
 
 // Used in AuthTextField
 // Hardcoded 80px to avoid having the animations when errors show for LoginScreen

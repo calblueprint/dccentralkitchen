@@ -1,18 +1,15 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Updates } from 'expo';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { Keyboard } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
-  BigTitle,
   ButtonLabel,
   Caption,
   FilledButtonContainer,
-  Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { firebaseConfig } from '../../environment';
@@ -29,26 +26,24 @@ import {
   FormContainer,
 } from '../../styled/auth';
 import validate from '../auth/validation';
-import VerificationScreen from '../auth/VerificationScreen';
 
 export default class PhoneNumberChangeScreen extends React.Component {
   constructor(props) {
     super(props);
     const recaptchaVerifier = React.createRef();
+    const { number } = this.props.route.params;
     this.state = {
       customer: null,
-      success: false,
-      modalVisible: false,
       recaptchaVerifier,
-      verificationId: null,
       values: {
-        [inputFields.PHONENUM]: '',
+        [inputFields.PHONENUM]: number,
       },
       errors: {
         [inputFields.PHONENUM]: '',
         submit: '',
       },
     };
+    this.completeVerification = this.completeVerification.bind(this);
   }
 
   // Load customer record
@@ -100,7 +95,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
   // It can only remove errors, not trigger them
   onTextChange = async (text, inputField) => {
     // Only update error if there is currently an error
-    if (this.state.errors[inputField]) {
+    if (this.state.errors[inputField] || this.state.errors.submit) {
       await this.updateError(
         inputField === inputFields.PHONENUM
           ? formatPhoneNumberInput(text)
@@ -120,24 +115,27 @@ export default class PhoneNumberChangeScreen extends React.Component {
     }
   };
 
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
-  };
-
   openRecaptcha = async () => {
+    Keyboard.dismiss();
     try {
-      // Update the created record with the new number
-      const duplicateCustomers = await getCustomersByPhoneNumber(
+      const customers = await getCustomersByPhoneNumber(
         this.state.values[inputFields.PHONENUM]
       );
-      if (duplicateCustomers.length !== 0) {
-        console.log('Duplicate customer');
+      if (customers.length !== 0) {
+        // Don't open catpcha if the phone number is not changing
+        if (
+          customers.length === 1 &&
+          customers[0].id === this.state.customer.id
+        ) {
+          await this.completeVerification();
+          return;
+        }
+        console.log('Phone number already in use');
         const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
           screen: 'PhoneNumberChangeScreen',
           action: 'updatePhoneNumber',
           attemptedPhone: this.state.values[inputFields.PHONENUM],
-          attemptedPass: null,
           error: errorMsg,
         });
         this.setState((prevState) => ({
@@ -157,28 +155,30 @@ export default class PhoneNumberChangeScreen extends React.Component {
         screen: 'PhoneNumberChangeScreen',
         action: 'checkDuplicateCustomers',
         attemptedPhone: this.state.values[inputFields.PHONENUM],
-        attemptedPass: null,
         error: err,
       });
     }
-
-    const number = '+1'.concat(this.state.values[inputFields.PHONENUM]);
+    const number = this.state.values[inputFields.PHONENUM];
     const phoneProvider = new firebase.auth.PhoneAuthProvider();
     try {
       const verificationId = await phoneProvider.verifyPhoneNumber(
-        number,
+        '+1'.concat(number),
         // eslint-disable-next-line react/no-access-state-in-setstate
         this.state.recaptchaVerifier.current
       );
-      this.setState({ verificationId });
-      this.setModalVisible(true);
+
+      this.props.navigation.navigate('Verify', {
+        number,
+        verificationId,
+        resend: this.openRecaptcha,
+        callBack: this.completeVerification,
+      });
     } catch (err) {
       this.setState({
         errors: {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
         },
       });
-      this.setModalVisible(false);
       console.log(err);
       logErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
@@ -188,33 +188,11 @@ export default class PhoneNumberChangeScreen extends React.Component {
     }
   };
 
-  verifyCode = async (code) => {
-    try {
-      const credential = firebase.auth.PhoneAuthProvider.credential(
-        this.state.verificationId,
-        code
-      );
-      await firebase.auth().signInWithCredential(credential);
-      this.setModalVisible(false);
-      await this.updatePhoneNumber();
-      return true;
-    } catch (err) {
-      console.log(err);
-      logErrorToSentry({
-        screen: 'PhoneNumberChangeScreen',
-        action: 'verifyCode',
-        error: err,
-      });
-      return false;
-    }
-  };
-
   updatePhoneNumber = async () => {
     try {
       await updateCustomers(this.state.customer.id, {
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
-      this.setState({ success: true });
     } catch (err) {
       console.error(
         '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
@@ -224,17 +202,22 @@ export default class PhoneNumberChangeScreen extends React.Component {
         screen: 'PhoneNumberChangeScreen',
         action: 'updatePhoneNumber',
         attemptedPhone: this.state.values[inputFields.PHONENUM],
-        attemptedPass: null,
         error: err,
       });
     }
   };
 
+  async completeVerification() {
+    Keyboard.dismiss();
+    await this.updatePhoneNumber();
+    this.props.navigation.navigate('Settings');
+  }
+
   render() {
     const { errors, values } = this.state;
-
-    const permission =
-      values[inputFields.PHONENUM] && !errors[inputFields.PHONENUM];
+    const validNumber =
+      !errors[inputFields.PHONENUM] &&
+      values[inputFields.PHONENUM].length === 14;
 
     return (
       <AuthScreenContainer>
@@ -242,73 +225,38 @@ export default class PhoneNumberChangeScreen extends React.Component {
           ref={this.state.recaptchaVerifier}
           firebaseConfig={firebaseConfig}
         />
-        {this.state.modalVisible && (
-          <VerificationScreen
-            number={this.state.values[inputFields.PHONENUM]}
-            visible={this.state.modalVisible}
-            verifyCode={this.verifyCode}
-            resend={this.openRecaptcha}
-            closer={this.setModalVisible}
+        <BackButton onPress={() => this.props.navigation.goBack()}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
+        </BackButton>
+        <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
+          You will receive an SMS for verification. Msg & data rates may apply.
+        </Caption>
+        <FormContainer>
+          <AuthTextField
+            fieldType="Phone Number"
+            value={this.state.values[inputFields.PHONENUM]}
+            onBlurCallback={(value) =>
+              this.updateError(value, inputFields.PHONENUM)
+            }
+            changeTextCallback={(text) =>
+              this.onTextChange(text, inputFields.PHONENUM)
+            }
+            error={this.state.errors[inputFields.PHONENUM]}
           />
-        )}
-
-        {!this.state.success && (
-          <View>
-            <BackButton onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <BigTitle>Change Phone Number</BigTitle>
-            <Caption style={{ marginTop: 8 }} color={Colors.secondaryText}>
-              You will recieve a text containing a 6-digit verification code.
-              Msg & data rates may apply.
-            </Caption>
-            <FormContainer>
-              <AuthTextField
-                fieldType="New Phone Number"
-                value={this.state.values[inputFields.PHONENUM]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, inputFields.PHONENUM)
-                }
-                changeTextCallback={(text) =>
-                  this.onTextChange(text, inputFields.PHONENUM)
-                }
-                error={this.state.errors[inputFields.PHONENUM]}
-              />
-              <Caption
-                style={{ alignSelf: 'center', fontSize: 14 }}
-                color={Colors.error}>
-                {errors.submit}
-              </Caption>
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={!permission ? Colors.lightestGreen : Colors.primaryGreen}
-              width="100%"
-              onPress={() => this.openRecaptcha()}
-              disabled={!permission}>
-              <ButtonLabel color={Colors.lightText}>Verify Number</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
-
-        {this.state.success && (
-          <View>
-            <BackButton />
-            <BigTitle>Success!</BigTitle>
-            <Subtitle style={{ marginTop: 32 }}>
-              {`Your phone number was successfully changed to ${
-                this.state.values[inputFields.PHONENUM]
-              }. Refresh to see changes.`}
-            </Subtitle>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={Colors.primaryGreen}
-              width="100%"
-              onPress={() => Updates.reload()}>
-              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
+          <Caption
+            style={{ alignSelf: 'center', fontSize: 14 }}
+            color={Colors.error}>
+            {errors.submit}
+          </Caption>
+        </FormContainer>
+        <FilledButtonContainer
+          style={{ marginTop: 48 }}
+          color={!validNumber ? Colors.lightestGreen : Colors.primaryGreen}
+          width="100%"
+          onPress={() => this.openRecaptcha()}
+          disabled={!validNumber}>
+          <ButtonLabel color={Colors.lightText}>Update Phone</ButtonLabel>
+        </FilledButtonContainer>
       </AuthScreenContainer>
     );
   }
@@ -316,4 +264,5 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
 PhoneNumberChangeScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };

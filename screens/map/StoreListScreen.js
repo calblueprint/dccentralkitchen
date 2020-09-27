@@ -44,7 +44,7 @@ export default class StoreListScreen extends React.Component {
   componentWillUnmount() {
     if (this.searchStrHistory.length > 0) {
       Analytics.logEvent('search_stores', {
-        search_queries: this.searchStrHistory,
+        search_queries: this.searchStrHistory.toString(),
       });
     }
     if (this.filterHistory.length > 0) {
@@ -54,7 +54,7 @@ export default class StoreListScreen extends React.Component {
         .reduce((res, key) => Object.assign(res, { [key]: filters[key] }), {});
       Analytics.logEvent('filter_stores', {
         ...selectedFilters,
-        filter_history: this.filterHistory,
+        filter_history: this.filterHistory.toString(),
       });
     }
   }
