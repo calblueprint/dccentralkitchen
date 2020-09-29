@@ -20,12 +20,17 @@ import { styles } from '../../styled/store';
 export default class StoreSelectScreen extends React.Component {
   constructor(props) {
     super(props);
-    const { navigation, showDefaultStore } = this.props.route.params;
+    const {
+      navigation,
+      showDefaultStore,
+      updateStep,
+    } = this.props.route.params;
     this.state = {
       navigation,
       searchStr: '',
       showDefaultStore,
       selectedStores: [],
+      updateStep,
     };
   }
 
@@ -60,6 +65,7 @@ export default class StoreSelectScreen extends React.Component {
       await updateCustomers(customerId, {
         favoriteStoreIds: this.state.selectedStores,
       });
+      await this.navigatePermissions();
     } catch (err) {
       console.error('[StoreSelectScreen] (saveFavoriteStores) Airtable:', err);
       logErrorToSentry({
@@ -68,6 +74,11 @@ export default class StoreSelectScreen extends React.Component {
         error: err,
       });
     }
+  }
+
+  async navigatePermissions() {
+    this.state.updateStep();
+    this.state.navigation.navigate('Permissions');
   }
 
   render() {
@@ -158,8 +169,7 @@ export default class StoreSelectScreen extends React.Component {
           <FilledButtonContainer onPress={() => this.saveFavoriteStores()}>
             <ButtonLabel>{`Save ${this.state.selectedStores.length} stores`}</ButtonLabel>
           </FilledButtonContainer>
-          <FilledButtonContainer
-            onPress={() => this.state.navigation.navigate('Stores')}>
+          <FilledButtonContainer onPress={() => this.navigatePermissions()}>
             <ButtonLabel>Skip this step</ButtonLabel>
           </FilledButtonContainer>
         </View>

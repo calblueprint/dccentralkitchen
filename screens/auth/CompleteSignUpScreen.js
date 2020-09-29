@@ -133,7 +133,7 @@ export default class CompleteSignUpScreen extends React.Component {
   _asyncSignUp = async (customerId) => {
     await AsyncStorage.setItem('customerId', customerId);
     Keyboard.dismiss();
-    this.props.navigation.navigate('App');
+    this.props.navigation.navigate('Permissions');
   };
 
   completeSignUp = async () => {

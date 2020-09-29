@@ -61,6 +61,13 @@ export default class PhoneNumberScreen extends React.Component {
     this.props.navigation.navigate('App');
   };
 
+  _favoriteBypass = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    Keyboard.dismiss();
+    this.props.navigation.navigate('Permissions');
+  };
+
   // Check for an error with updated text
   // Set errors and updated text in state
   updateError = async (text, inputField) => {
@@ -169,7 +176,11 @@ export default class PhoneNumberScreen extends React.Component {
     if (customer) {
       await AsyncStorage.setItem('customerId', customer.id);
       Keyboard.dismiss();
-      this.props.navigation.navigate('App');
+      if ('favoriteStoreIds' in customer) {
+        this.props.navigation.navigate('App');
+      } else {
+        this.props.navigation.navigate('Permissions');
+      }
       setUserLog({
         id: customer.id,
         name: customer.name,
@@ -233,10 +244,16 @@ export default class PhoneNumberScreen extends React.Component {
             <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
           </FilledButtonContainer>
           {env === 'dev' && (
-            <Button
-              title="Testing Bypass"
-              onPress={async () => this._devBypass()}
-            />
+            <View>
+              <Button
+                title="Testing Bypass"
+                onPress={async () => this._devBypass()}
+              />
+              <Button
+                title="Favorites Bypass"
+                onPress={async () => this._favoriteBypass()}
+              />
+            </View>
           )}
         </View>
       </AuthScreenContainer>

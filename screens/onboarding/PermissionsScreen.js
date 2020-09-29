@@ -38,8 +38,13 @@ export default class PermissionsScreen extends React.Component {
       stores: null,
       store: null,
       showDefaultStore: false,
-      step: 2,
+      step: 1,
     };
+  }
+
+  async getLocation() {
+    await this._findCurrentLocation();
+    this.navigateStoreSelect();
   }
 
   _findCurrentLocation = async () => {
@@ -125,6 +130,10 @@ export default class PermissionsScreen extends React.Component {
     );
   };
 
+  updateStep = () => {
+    this.setState({ step: 2 });
+  };
+
   // The state is initially populated with stores by calling the Airtable API to get all store records
   _populateInitialStores = async () => {
     try {
@@ -158,11 +167,11 @@ export default class PermissionsScreen extends React.Component {
       );
 
       console.log(r ? '[sendTextMessage] Success' : '[sendTextMessage] Failed');
-      this.props.navigation.navigate('Stores');
+      this.navigateMapScreen();
     } catch (err) {
-      console.error('[StoreSelectScreen] (enableNotifications) Airtable:', err);
+      console.error('[PermissionsScreen] (enableNotifications) Airtable:', err);
       logErrorToSentry({
-        screen: 'StoreSelectScreen',
+        screen: 'PermissionsScreen',
         action: 'enableNotifications',
         error: err,
       });
@@ -170,17 +179,17 @@ export default class PermissionsScreen extends React.Component {
   }
 
   async navigateStoreSelect() {
-    await this._findCurrentLocation();
     await this._populateInitialStores();
     this.props.navigation.navigate('StoreSelect', {
       navigation: this.props.navigation,
       showDefaultStore: true,
       stores: this.state.stores,
+      updateStep: this.updateStep,
     });
   }
 
   async navigateMapScreen() {
-    this.props.navigation.navigate('Stores');
+    this.props.navigation.navigate('App');
   }
 
   render() {
@@ -235,7 +244,7 @@ export default class PermissionsScreen extends React.Component {
                   : this.navigateMapScreen()
               }>
               <ButtonLabel color={Colors.primaryGreen}>
-                {this.state.step === 1 ? 'Show nearby stores' : 'Not now'}
+                {this.state.step === 1 ? 'Search by ZIP or address' : 'Not now'}
               </ButtonLabel>
             </OutlinedButtonContainer>
           </ColumnContainer>
