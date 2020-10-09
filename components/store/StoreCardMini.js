@@ -9,7 +9,9 @@ import { logErrorToSentry } from '../../lib/logUtils';
 import {
   getMaxWidth,
   isFavoritefromCustomer,
+  openDirections,
   toggleFavoriteStore,
+  writeToClipboard,
 } from '../../lib/mapUtils';
 import {
   InLineContainer,
@@ -17,7 +19,7 @@ import {
   SpaceBetweenRowContainer,
 } from '../../styled/shared';
 import { DividerBar, StoreCardContainer } from '../../styled/store';
-import { ButtonContainer, Caption, Title } from '../BaseComponents';
+import { Body, ButtonContainer, Caption, Title } from '../BaseComponents';
 import ProgramTag from './ProgramTag';
 
 /**
@@ -28,11 +30,14 @@ function StoreCardMini({ store, storeList, seeDistance }) {
   const {
     storeName,
     storeOpenStatus,
+    address,
     distance,
     snapOrEbtAccepted,
     couponProgramPartner,
     wic,
     rewardsAccepted,
+    latitude,
+    longitude,
     id,
   } = store;
 
@@ -49,9 +54,9 @@ function StoreCardMini({ store, storeList, seeDistance }) {
             setFavorite(fav);
           }
         } catch (err) {
-          console.error('[RewardsFooter] Airtable:', err);
+          console.error('[StoreCard] Airtable:', err);
           logErrorToSentry({
-            screen: 'RewardsFooter',
+            screen: 'StoreCard',
             action: 'useFocusEffect',
             error: err,
           });
@@ -98,11 +103,13 @@ function StoreCardMini({ store, storeList, seeDistance }) {
           </RowContainer>
           <ButtonContainer
             onPress={async () => {
-              Analytics.logEvent('view_store_details', {
+              Analytics.logEvent('toggle_favorite_store', {
                 store_name: storeName,
               });
-              toggleFavoriteStore(id);
-              setFavorite(!isFavorite);
+              const updateFavorite = await toggleFavoriteStore(id);
+              if (updateFavorite) {
+                setFavorite(!isFavorite);
+              }
             }}
             style={{ paddingLeft: 10 }}>
             <FontAwesome5
@@ -113,7 +120,12 @@ function StoreCardMini({ store, storeList, seeDistance }) {
             />
           </ButtonContainer>
         </SpaceBetweenRowContainer>
-
+        <ButtonContainer
+          disabled={storeList}
+          onPress={() => openDirections(latitude, longitude, storeName)}
+          onLongPress={() => writeToClipboard(address)}>
+          <Body>{address}</Body>
+        </ButtonContainer>
         <RowContainer>
           {seeDistance && (
             <Caption
