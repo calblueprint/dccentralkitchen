@@ -18,14 +18,18 @@ import {
   ButtonLabel,
   Subtitle,
 } from '../BaseComponents';
-import StoreCard from '../store/StoreCard';
+import StoreCardMini from '../store/StoreCardMini';
 import ProductCard from './ProductCard';
 
 function StoreProducts({ navigation, store, products, showDefaultStore }) {
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   return (
     <View>
-      <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
+      <StoreCardMini
+        store={store}
+        key={store.id}
+        seeDistance={!showDefaultStore}
+      />
       <View>
         <ColumnContainer>
           <SpaceBetweenRowContainer
