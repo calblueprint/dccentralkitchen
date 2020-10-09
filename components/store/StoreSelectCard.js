@@ -19,7 +19,7 @@ import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
  * @prop
  * */
 
-function StoreSelectCard({ store, callBack, seeDistance }) {
+function StoreSelectCard({ store, selectStore, seeDistance }) {
   const { storeName, address } = store;
   const [selected, setSelected] = React.useState(false);
   const navigation = useNavigation();
@@ -28,7 +28,7 @@ function StoreSelectCard({ store, callBack, seeDistance }) {
     <ButtonContainer
       onPress={() => {
         setSelected(!selected);
-        callBack();
+        selectStore();
       }}>
       <RowContainer style={{ flex: 1, width: '100%' }}>
         <Feather
@@ -54,9 +54,15 @@ function StoreSelectCard({ store, callBack, seeDistance }) {
                 Analytics.logEvent('view_store_details', {
                   store_name: storeName,
                 });
-                navigation.navigate('StoreDetailsScreen', {
-                  store,
-                  seeDistance,
+                navigation.navigate('App', {
+                  screen: 'Stores',
+                  params: {
+                    screen: 'StoreDetailsScreen',
+                    params: {
+                      store,
+                      seeDistance,
+                    },
+                  },
                 });
               }}
               style={{ paddingLeft: 10 }}>
@@ -78,7 +84,7 @@ function StoreSelectCard({ store, callBack, seeDistance }) {
 StoreSelectCard.propTypes = {
   store: PropTypes.object,
   seeDistance: PropTypes.bool.isRequired,
-  callBack: PropTypes.func.isRequired,
+  selectStore: PropTypes.func.isRequired,
 };
 
 StoreSelectCard.defaultProps = {
