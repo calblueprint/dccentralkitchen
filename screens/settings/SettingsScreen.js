@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { CommonActions, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
@@ -27,7 +27,8 @@ import SettingsCard from '../../components/settings/SettingsCard';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
-import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
+import { completeLogout } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 
 export default function SettingsScreen(props) {
   const [isGuest, setGuest] = useState(false);
@@ -62,19 +63,9 @@ export default function SettingsScreen(props) {
       setLogoutIsLoading(true);
       await Analytics.logEvent('logout', {
         is_guest: isGuest,
-        redirect_to: signUp ? 'Sign Up' : 'Welcome', // Redirect not working yet
+        redirect_to: signUp ? 'Sign Up' : 'Welcome',
       });
-      // Delay to make sure the event is logged
-      const delay = (duration) =>
-        new Promise((resolve) => setTimeout(resolve, duration));
-      await delay(1500);
-      clearUserLog();
-      await AsyncStorage.clear();
-      props.navigation.dispatch(
-        CommonActions.reset({
-          routes: [{ name: 'Auth' }],
-        })
-      );
+      completeLogout(props.navigation, signUp);
     }
   };
 

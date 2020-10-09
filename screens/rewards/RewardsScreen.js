@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { CommonActions } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
@@ -23,6 +22,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomersById } from '../../lib/airtable/request';
+import { completeLogout } from '../../lib/authUtils';
 import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
@@ -95,30 +95,7 @@ export default class RewardsScreen extends React.Component {
       is_guest: true,
       redirect_to: 'PhoneNumber',
     });
-    // Delay to make sure the event is logged
-    const delay = (duration) =>
-      new Promise((resolve) => setTimeout(resolve, duration));
-    await delay(1500);
-    clearUserLog();
-    await AsyncStorage.clear();
-    this.props.navigation.dispatch(
-      CommonActions.reset({
-        routes: [
-          {
-            name: 'Auth',
-            params: {
-              screen: 'Onboarding',
-            },
-          },
-          {
-            name: 'Auth',
-            params: {
-              screen: 'PhoneNumber',
-            },
-          },
-        ],
-      })
-    );
+    completeLogout(this.props.navigation, true);
   };
 
   renderScene = ({ route }) => {
