@@ -19,9 +19,9 @@ import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
  * @prop
  * */
 
-function StoreSelectCard({ store, selectStore, seeDistance }) {
+function StoreSelectCard({ store, selectStore, seeDistance, favorited }) {
   const { storeName, address } = store;
-  const [selected, setSelected] = React.useState(false);
+  const [selected, setSelected] = React.useState(favorited);
   const navigation = useNavigation();
 
   return (
@@ -61,12 +61,13 @@ function StoreSelectCard({ store, selectStore, seeDistance }) {
                     params: {
                       store,
                       seeDistance,
+                      hideFavorite: true,
                     },
                   },
                 });
               }}
               style={{ paddingLeft: 10 }}>
-              <Feather name="info" size={24} color={Colors.primaryOrange} />
+              <Feather name="info" size={24} color={Colors.secondaryText} />
             </ButtonContainer>
           </SpaceBetweenRowContainer>
           <ColumnContainer>
@@ -85,6 +86,7 @@ StoreSelectCard.propTypes = {
   store: PropTypes.object,
   seeDistance: PropTypes.bool.isRequired,
   selectStore: PropTypes.func.isRequired,
+  favorited: PropTypes.bool.isRequired,
 };
 
 StoreSelectCard.defaultProps = {

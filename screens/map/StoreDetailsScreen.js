@@ -1,8 +1,9 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import {
   Body,
@@ -16,11 +17,44 @@ import {
 import AcceptedPrograms from '../../components/store/AcceptedPrograms';
 import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
-import { openDirections, writeToClipboard } from '../../lib/mapUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
+import {
+  isFavoritefromCustomer,
+  openDirections,
+  toggleFavoriteStore,
+  writeToClipboard,
+} from '../../lib/mapUtils';
 import { ColumnContainer, InLineContainer } from '../../styled/shared';
 
 export default function StoreDetailsScreen(props) {
-  const { store, seeDistance } = props.route.params;
+  const { store, seeDistance, hideFavorite } = props.route.params;
+  const [isFavorite, setFavorite] = useState(false);
+  useFocusEffect(
+    React.useCallback(() => {
+      let isActive = true;
+      const fetchUser = async () => {
+        try {
+          const fav = await isFavoritefromCustomer(store.id);
+          if (isActive) {
+            setFavorite(fav);
+          }
+        } catch (err) {
+          console.error('[StoreDetailsScreen] Airtable:', err);
+          logErrorToSentry({
+            screen: 'StoreDetailsScreen',
+            action: 'useFocusEffect',
+            error: err,
+          });
+        }
+      };
+
+      fetchUser();
+
+      return () => {
+        isActive = false;
+      };
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -28,7 +62,22 @@ export default function StoreDetailsScreen(props) {
         <NavButtonContainer onPress={() => props.navigation.goBack()}>
           <FontAwesome5 name="arrow-left" solid size={24} />
         </NavButtonContainer>
-        <NavTitle>{store.storeName}</NavTitle>
+        <NavTitle rightButton>{store.storeName}</NavTitle>
+        <NavButtonContainer
+          right
+          onPress={() => {
+            toggleFavoriteStore(store.id);
+            setFavorite(!isFavorite);
+          }}>
+          {hideFavorite || (
+            <FontAwesome5
+              name="heart"
+              color={Colors.darkerOrange}
+              solid={isFavorite}
+              size={24}
+            />
+          )}
+        </NavButtonContainer>
       </NavHeaderContainer>
       <ScrollView style={{ marginLeft: 16 }}>
         {/* Accepted Programs */}

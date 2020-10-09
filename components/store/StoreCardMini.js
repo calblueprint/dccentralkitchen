@@ -106,7 +106,7 @@ function StoreCardMini({ store, storeList, seeDistance }) {
               Analytics.logEvent('toggle_favorite_store', {
                 store_name: storeName,
               });
-              const updateFavorite = await toggleFavoriteStore(id);
+              const updateFavorite = await toggleFavoriteStore(navigation, id);
               if (updateFavorite) {
                 setFavorite(!isFavorite);
               }

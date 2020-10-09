@@ -5,6 +5,7 @@ import { AsyncStorage, FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import {
   Body,
+  ButtonContainer,
   ButtonLabel,
   FilledButtonContainer,
   NavHeaderContainer,
@@ -12,7 +13,7 @@ import {
 } from '../../components/BaseComponents';
 import StoreSelectCard from '../../components/store/StoreSelectCard';
 import Colors from '../../constants/Colors';
-import { updateCustomers } from '../../lib/airtable/request';
+import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
@@ -31,17 +32,26 @@ export default class StoreSelectScreen extends React.Component {
       showDefaultStore,
       selectedStores: [],
       updateStep,
+      isLoading: true,
     };
   }
 
-  selectStore = (store) => {
-    const index = this.state.selectedStores.indexOf(store.id);
+  async componentDidMount() {
+    const customerId = await AsyncStorage.getItem('customerId');
+    const cust = await getCustomersById(customerId);
+    const favoriteStores = cust.favoriteStoreIds || [];
+    this.setState({ selectedStores: favoriteStores });
+    this.setState({ isLoading: false });
+  }
+
+  selectStore = (storeId) => {
+    const index = this.state.selectedStores.indexOf(storeId);
     this.setState((state) => {
       let selectedStores;
       if (index > -1) {
         selectedStores = state.selectedStores.filter((_, i) => index !== i);
       } else {
-        selectedStores = [...state.selectedStores, store.id];
+        selectedStores = [...state.selectedStores, storeId];
       }
       return {
         selectedStores,
@@ -82,22 +92,27 @@ export default class StoreSelectScreen extends React.Component {
   }
 
   render() {
+    if (this.state.isLoading) return null;
     const { stores } = this.props.route.params;
     const { searchStr } = this.state;
     const filteredStores = stores.filter(this.filterStore(searchStr));
 
     return (
       <View style={{ flex: 1 }}>
-        <NavHeaderContainer vertical backgroundColor={Colors.primaryOrange}>
-          <ColumnContainer style={{ width: '100%' }}>
+        <NavHeaderContainer vertical backgroundColor={Colors.bgLight}>
+          <ColumnContainer
+            style={{
+              width: '100%',
+              paddingHorizontal: 8,
+            }}>
             <RowContainer
               style={{
                 width: '100%',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Title color={Colors.lightText} style={{ textAlign: 'center' }}>
-                {`Choose up to ${5 - this.state.selectedStores.length} stores`}
+              <Title color={Colors.activeText} style={{ textAlign: 'center' }}>
+                Select your favorite stores
               </Title>
             </RowContainer>
             <SearchBar
@@ -109,13 +124,13 @@ export default class StoreSelectScreen extends React.Component {
               value={searchStr}
               containerStyle={styles.container}
               inputContainerStyle={styles.inputContainer}
-              selectionColor={Colors.primaryOrange}
+              selectionColor={Colors.primaryGreen}
               returnKeyType="search"
               searchIcon={
                 <FontAwesome5
                   name="search"
                   size={16}
-                  color={Colors.primaryOrange}
+                  color={Colors.activeText}
                 />
               }
               inputStyle={styles.input}
@@ -130,11 +145,9 @@ export default class StoreSelectScreen extends React.Component {
             <StoreSelectCard
               key={item.id}
               store={item}
-              selected
-              callBack={() => this.selectStore(item)}
-              storeList
+              favorited={this.state.selectedStores.includes(item.id)}
+              selectStore={() => this.selectStore(item.id)}
               seeDistance={!this.state.showDefaultStore}
-              selectable
             />
           )}
           keyExtractor={(item) => item.id}
@@ -162,16 +175,23 @@ export default class StoreSelectScreen extends React.Component {
         />
         <View
           style={{
-            height: 128,
             paddingHorizontal: 24,
-            justifyContent: 'space-around',
+            paddingVertical: 12,
+            justifyContent: 'flex-end',
+            backgroundColor: Colors.lightestGray,
           }}>
           <FilledButtonContainer onPress={() => this.saveFavoriteStores()}>
-            <ButtonLabel>{`Save ${this.state.selectedStores.length} stores`}</ButtonLabel>
+            <ButtonLabel color={Colors.lightText}>
+              {`Save ${this.state.selectedStores.length} stores`}
+            </ButtonLabel>
           </FilledButtonContainer>
-          <FilledButtonContainer onPress={() => this.navigatePermissions()}>
-            <ButtonLabel>Skip this step</ButtonLabel>
-          </FilledButtonContainer>
+          <ButtonContainer
+            style={{ paddingVertical: 12 }}
+            onPress={() => this.navigatePermissions()}>
+            <ButtonLabel color={Colors.secondaryText}>
+              Skip this step
+            </ButtonLabel>
+          </ButtonContainer>
         </View>
       </View>
     );

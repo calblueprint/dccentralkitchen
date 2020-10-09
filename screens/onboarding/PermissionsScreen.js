@@ -65,6 +65,7 @@ export default class PermissionsScreen extends React.Component {
           longitude: location.coords.longitude,
           ...deltas,
         };
+        this.setState({ locationErrorMsg: null, region });
         Analytics.setUserProperty('location_permissions', 'granted');
       } catch (err) {
         console.log(err);
@@ -213,7 +214,7 @@ export default class PermissionsScreen extends React.Component {
           />
           <Title textAlign="center">
             {this.state.step === 1
-              ? 'What are your go-to corner stores?'
+              ? 'What are your favorite corner stores?'
               : 'Can we keep in touch?'}
           </Title>
           <Subtitle textAlign="center">
@@ -227,7 +228,7 @@ export default class PermissionsScreen extends React.Component {
               color={Colors.primaryGreen}
               onPress={() =>
                 this.state.step === 1
-                  ? this.navigateStoreSelect()
+                  ? this.getLocation()
                   : this.enableNotifications()
               }>
               <ButtonLabel color={Colors.lightText}>

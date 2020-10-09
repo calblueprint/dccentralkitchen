@@ -97,7 +97,8 @@ export const NavButtonContainer = styled.TouchableOpacity`
   height: 40px;
   z-index: 100;
   top: 0px;
-  left: 12px;
+  left: ${(props) => (props.right ? 'undefined' : '12px')};
+  right: ${(props) => (props.right ? '12px' : 'undefined')};
   border-radius: 23px;
   align-items: center;
   justify-content: center;
@@ -154,7 +155,7 @@ NavHeaderContainer.defaultProps = {
 export const NavTitle = styled(Title)`
   flex: 1;
   margin-left: 8px;
-  margin-right: 50px;
+  margin-right: ${(props) => (props.rightButton ? '8px' : '50px')};
   flex-wrap: wrap;
   text-align: ${(props) => props.textAlign || 'center'};
   color: ${(props) => (props.color ? props.color : Colors.activeText)};
