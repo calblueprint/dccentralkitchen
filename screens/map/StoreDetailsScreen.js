@@ -65,9 +65,14 @@ export default function StoreDetailsScreen(props) {
         <NavTitle rightButton>{store.storeName}</NavTitle>
         <NavButtonContainer
           right
-          onPress={() => {
-            toggleFavoriteStore(store.id);
-            setFavorite(!isFavorite);
+          onPress={async () => {
+            const updateFavorite = await toggleFavoriteStore(
+              props.navigation,
+              store.id
+            );
+            if (updateFavorite) {
+              setFavorite(!isFavorite);
+            }
           }}>
           {hideFavorite || (
             <FontAwesome5

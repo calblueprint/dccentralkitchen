@@ -143,6 +143,13 @@ export default function SettingsScreen(props) {
             }
           />
         )}
+        <CategoryBar title="Notifications" />
+        <SettingsCard
+          title="Notifications"
+          rightIcon="angle-right"
+          description="Control what messages you receive"
+          navigation={() => props.navigation.navigate('Notifications')}
+        />
         <CategoryBar title="Privacy" />
         <SettingsCard
           title="Location Settings"
