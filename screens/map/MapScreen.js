@@ -3,6 +3,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import * as Updates from 'expo-updates';
+import geo2zip from 'geo2zip';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Alert, PixelRatio, StyleSheet, View } from 'react-native';
@@ -167,10 +168,12 @@ export default class MapScreen extends React.Component {
   // Since it's initially set to a default value, we use that instead of this.state.location
   _orderStoresByDistance = async (stores) => {
     const sortedStores = [];
-    // Display distance in the StoreList
-    stores.forEach((store) => {
+    // Display distance in the StoreList, add ZIP
+    await stores.forEach(async (store) => {
       const currStore = store;
       currStore.distance = findDistance(this.state.region, store);
+      const [closestZip] = await geo2zip(currStore);
+      currStore.zip = closestZip;
       sortedStores.push(currStore);
     });
     // sorts in place
@@ -233,13 +236,13 @@ export default class MapScreen extends React.Component {
           <BottomSheetHeaderContainer>
             <DragBar />
           </BottomSheetHeaderContainer>
-          {PixelRatio.getFontScale() < 1.2 && (
+          {/* {PixelRatio.getFontScale() < 1.2 && (
             <Subtitle
               style={{ marginHorizontal: 16, marginBottom: 0 }}
               color={Colors.secondaryText}>
               Browsing healthy products at
             </Subtitle>
-          )}
+          )} */}
           <StoreProducts
             navigation={this.props.navigation}
             store={this.state.store}

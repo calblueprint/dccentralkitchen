@@ -68,11 +68,12 @@ export default class StoreListScreen extends React.Component {
   };
 
   filterStore = (searchStr) => {
-    if (searchStr !== '') {
-      this.searchStrHistory.push(searchStr);
-    }
     return (store) => {
-      return store.storeName.toLowerCase().includes(searchStr.toLowerCase());
+      return (
+        store.storeName.toLowerCase().includes(searchStr.toLowerCase()) ||
+        store.address.toLowerCase().includes(searchStr.toLowerCase()) ||
+        store.zip.includes(searchStr)
+      );
     };
   };
 
@@ -123,7 +124,7 @@ export default class StoreListScreen extends React.Component {
               maxFontSizeMultiplier={1.4}
               autoCapitalize="words"
               autoCorrect={false}
-              placeholder="Search by store name"
+              placeholder="Store name, ZIP, or address"
               onChangeText={(text) => this.setState({ searchStr: text })}
               value={searchStr}
               containerStyle={styles.container}
