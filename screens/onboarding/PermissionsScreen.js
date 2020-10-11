@@ -183,7 +183,7 @@ export default class PermissionsScreen extends React.Component {
     await this._populateInitialStores();
     this.props.navigation.navigate('StoreSelect', {
       navigation: this.props.navigation,
-      showDefaultStore: true,
+      showDefaultStore: this.state.showDefaultStore,
       stores: this.state.stores,
       updateStep: this.updateStep,
     });
@@ -245,7 +245,9 @@ export default class PermissionsScreen extends React.Component {
                   : this.navigateMapScreen()
               }>
               <ButtonLabel color={Colors.primaryGreen}>
-                {this.state.step === 1 ? 'Search by ZIP or address' : 'Not now'}
+                {this.state.step === 1
+                  ? 'Search store name, ZIP or address'
+                  : 'Not now'}
               </ButtonLabel>
             </OutlinedButtonContainer>
           </ColumnContainer>
