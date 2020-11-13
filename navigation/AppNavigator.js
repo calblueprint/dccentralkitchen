@@ -44,6 +44,9 @@ function DrawerNavigator() {
           paddingLeft: 16,
           borderRadius: 0,
         },
+      }}
+      screenOptions={{
+        headerShown: false,
       }}>
       <Drawer.Screen
         name="Stores"
