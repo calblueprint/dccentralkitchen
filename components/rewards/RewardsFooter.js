@@ -7,7 +7,7 @@ import { View } from 'react-native';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { rewardPointValue } from '../../constants/Rewards';
-import { getCustomersById } from '../../lib/airtable/request';
+import { getCustomerById } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { Subtitle } from '../BaseComponents';
 
@@ -29,7 +29,7 @@ export default function RewardsFooter() {
           const customerId = await AsyncStorage.getItem('customerId');
           const guest = customerId === RecordIds.guestCustomerId;
           try {
-            const cust = await getCustomersById(customerId);
+            const cust = await getCustomerById(customerId);
             const rew = customer
               ? Math.floor(parseInt(customer.points, 10) / rewardPointValue)
               : 0;

@@ -13,7 +13,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { newSignUpBonus } from '../../constants/Rewards';
-import { createCustomers, createPushTokens } from '../../lib/airtable/request';
+import { createCustomer, createPushToken } from '../../lib/airtable/request';
 import { inputFields } from '../../lib/authUtils';
 import {
   logAuthErrorToSentry,
@@ -104,9 +104,9 @@ export default class CompleteSignUpScreen extends React.Component {
     try {
       let pushTokenId = null;
       if (token) {
-        pushTokenId = await createPushTokens({ token });
+        pushTokenId = await createPushToken({ token });
       }
-      const customerId = await createCustomers({
+      const customerId = await createCustomer({
         name,
         phoneNumber,
         points: newSignUpBonus,
