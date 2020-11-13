@@ -26,7 +26,7 @@ import CategoryBar from '../../components/resources/CategoryBar';
 import SettingsCard from '../../components/settings/SettingsCard';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
-import { getCustomersById } from '../../lib/airtable/request';
+import { getCustomerById } from '../../lib/airtable/request';
 import { completeLogout } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 
@@ -79,7 +79,7 @@ export default function SettingsScreen(props) {
           const guest = customerId === RecordIds.guestCustomerId;
           setGuest(guest);
           if (isActive && customerId != null && !guest) {
-            const customer = await getCustomersById(customerId);
+            const customer = await getCustomerById(customerId);
             setName(customer.name);
             setNumber(customer.phoneNumber);
           }

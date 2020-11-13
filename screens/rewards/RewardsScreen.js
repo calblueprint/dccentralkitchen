@@ -21,7 +21,7 @@ import RewardsHome from '../../components/rewards/RewardsHome';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
-import { getCustomersById } from '../../lib/airtable/request';
+import { getCustomerById } from '../../lib/airtable/request';
 import { completeLogout } from '../../lib/authUtils';
 import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
@@ -57,7 +57,7 @@ export default class RewardsScreen extends React.Component {
     try {
       const customerId = await AsyncStorage.getItem('customerId');
       const isGuest = customerId === RecordIds.guestCustomerId;
-      const customer = await getCustomersById(customerId);
+      const customer = await getCustomerById(customerId);
       const transactions = await getCustomerTransactions(customerId);
       const participating = await getStoreData(`NOT({Rewards Accepted} = '')`);
 

@@ -14,9 +14,9 @@ import {
 import Colors from '../../constants/Colors';
 import { firebaseConfig } from '../../environment';
 import {
-  getCustomersById,
+  getCustomerById,
   getCustomersByPhoneNumber,
-  updateCustomers,
+  updateCustomer,
 } from '../../lib/airtable/request';
 import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
 import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
@@ -50,7 +50,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
   async componentDidMount() {
     const customerId = await AsyncStorage.getItem('customerId');
     try {
-      const customer = await getCustomersById(customerId);
+      const customer = await getCustomerById(customerId);
 
       this.setState({ customer });
     } catch (err) {
@@ -190,7 +190,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
   updatePhoneNumber = async () => {
     try {
-      await updateCustomers(this.state.customer.id, {
+      await updateCustomer(this.state.customer.id, {
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
     } catch (err) {

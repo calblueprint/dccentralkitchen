@@ -4,7 +4,7 @@ import {
 } from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
-import { useSafeArea } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
 import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
@@ -47,7 +47,7 @@ export default function StoresStackNavigator() {
           cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
           gestureDirection: 'vertical',
           gestureResponseDistance: {
-            vertical: 162 + useSafeArea().top,
+            vertical: 162 + useSafeAreaInsets().top,
           },
         }}
       />
