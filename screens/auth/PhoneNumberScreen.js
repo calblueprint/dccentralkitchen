@@ -1,10 +1,11 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard, View } from 'react-native';
+import { Button, Keyboard, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,

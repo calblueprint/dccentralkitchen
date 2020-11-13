@@ -1,10 +1,11 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import geo2zip from 'geo2zip';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
 import {
   ButtonLabel,
   FilledButtonContainer,
@@ -16,7 +17,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { initialRegion } from '../../constants/Map';
 import RecordIds from '../../constants/RecordIds';
-import { updateCustomers } from '../../lib/airtable/request';
+import { updateCustomer } from '../../lib/airtable/request';
 import { sendTextMessage } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { findDistance, getStoreData } from '../../lib/mapUtils';
@@ -158,7 +159,7 @@ export default class PermissionsScreen extends React.Component {
   async enableNotifications() {
     try {
       const customerId = await AsyncStorage.getItem('customerId');
-      await updateCustomers(customerId, {
+      await updateCustomer(customerId, {
         notifications: true,
       });
 

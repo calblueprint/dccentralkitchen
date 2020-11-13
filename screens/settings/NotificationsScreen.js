@@ -16,7 +16,7 @@ import {
   Subtitle,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
+import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
 
@@ -40,7 +40,7 @@ export default function NotificationsScreen(props) {
   const saveNotificationsSettings = async () => {
     try {
       const customerId = await AsyncStorage.getItem('customerId');
-      await updateCustomers(customerId, {
+      await updateCustomer(customerId, {
         notifications: deliveryAlerts,
       });
       await navigation.goBack();
@@ -91,7 +91,7 @@ export default function NotificationsScreen(props) {
         try {
           const customerId = await AsyncStorage.getItem('customerId');
           if (isActive && customerId != null) {
-            const customer = await getCustomersById(customerId);
+            const customer = await getCustomerById(customerId);
             setDeliveryAlerts(customer.notifications);
           }
         } catch (err) {

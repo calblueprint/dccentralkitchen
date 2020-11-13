@@ -1,7 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, FlatList, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import {
   Body,
@@ -13,7 +14,7 @@ import {
 } from '../../components/BaseComponents';
 import StoreSelectCard from '../../components/store/StoreSelectCard';
 import Colors from '../../constants/Colors';
-import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
+import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
@@ -38,7 +39,7 @@ export default class StoreSelectScreen extends React.Component {
 
   async componentDidMount() {
     const customerId = await AsyncStorage.getItem('customerId');
-    const cust = await getCustomersById(customerId);
+    const cust = await getCustomerById(customerId);
     const favoriteStores = cust.favoriteStoreIds || [];
     this.setState({ selectedStores: favoriteStores });
     this.setState({ isLoading: false });
@@ -72,7 +73,7 @@ export default class StoreSelectScreen extends React.Component {
   async saveFavoriteStores() {
     try {
       const customerId = await AsyncStorage.getItem('customerId');
-      await updateCustomers(customerId, {
+      await updateCustomer(customerId, {
         favoriteStoreIds: this.state.selectedStores,
       });
       await this.navigatePermissions();
