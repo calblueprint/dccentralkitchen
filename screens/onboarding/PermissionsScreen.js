@@ -18,7 +18,7 @@ import Window from '../../constants/Layout';
 import { initialRegion } from '../../constants/Map';
 import RecordIds from '../../constants/RecordIds';
 import { updateCustomer } from '../../lib/airtable/request';
-import { sendTextMessage } from '../../lib/authUtils';
+import { notificationTypes, sendTextMessage } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { findDistance, getStoreData } from '../../lib/mapUtils';
 import { PermissionsContainer } from '../../styled/auth';
@@ -159,16 +159,20 @@ export default class PermissionsScreen extends React.Component {
   async enableNotifications() {
     try {
       const customerId = await AsyncStorage.getItem('customerId');
+      // Only SMS supported as of 11/14/20
       await updateCustomer(customerId, {
-        notifications: true,
+        deliveryNotifications: [notificationTypes.SMS],
+        generalNotifications: [notificationTypes.SMS],
       });
 
-      const r = await sendTextMessage(
+      const response = await sendTextMessage(
         customerId,
         'Healthy Corners: Thank you for joining Healthy Corners notifications. Reply STOP to unsubscribe.'
       );
 
-      console.log(r ? '[sendTextMessage] Success' : '[sendTextMessage] Failed');
+      console.log(
+        response ? '[sendTextMessage] Success' : '[sendTextMessage] Failed'
+      );
       this.navigateMapScreen();
     } catch (err) {
       console.error('[PermissionsScreen] (enableNotifications) Airtable:', err);

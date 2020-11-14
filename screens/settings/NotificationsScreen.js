@@ -1,10 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { ScrollView, View } from 'react-native';
-import AlertAsync from 'react-native-alert-async';
 import { Switch } from 'react-native-paper';
 import {
   Body,
@@ -14,36 +12,120 @@ import {
   NavHeaderContainer,
   NavTitle,
   Subtitle,
+  Title,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
+import { notificationTypes } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
 
-export default function NotificationsScreen(props) {
-  const { navigation } = props;
-  const [notifications, setNotifications] = useState(false);
-  const [deliveryAlerts, setDeliveryAlerts] = React.useState(false);
-  const [notifsChanged, setNotifsChanged] = useState(false);
-  const [deliveryChanged, setDeliveryChanged] = useState(false);
+export default class NotificationsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      generalNotifs: {
+        [notificationTypes.SMS]: false,
+        [notificationTypes.PUSH]: false,
+      },
+      deliveryNotifs: {
+        [notificationTypes.SMS]: false,
+        [notificationTypes.PUSH]: false,
+      },
+    };
+  }
 
-  const onToggleNotifications = () => {
-    setNotifications(!notifications);
-    setNotifsChanged(!notifsChanged);
-  };
-
-  const onToggleDeliveryAlerts = () => {
-    setDeliveryAlerts(!deliveryAlerts);
-    setDeliveryChanged(!deliveryChanged);
-  };
-
-  const saveNotificationsSettings = async () => {
+  async componentDidMount() {
     try {
       const customerId = await AsyncStorage.getItem('customerId');
-      await updateCustomer(customerId, {
-        notifications: deliveryAlerts,
+      if (customerId != null) {
+        const customer = await getCustomerById(customerId);
+        if (customer.generalNotifications) {
+          customer.generalNotifications.forEach((element) => {
+            this.setState((prevState) => ({
+              generalNotifs: {
+                ...prevState.generalNotifs,
+                [notificationTypes[element.toUpperCase()]]: true,
+              },
+              deliveryNotifs: { ...prevState.deliveryNotifs },
+            }));
+          });
+        }
+        if (customer.deliveryNotifications) {
+          customer.deliveryNotifications.forEach((element) => {
+            this.setState((prevState) => ({
+              generalNotifs: {
+                ...prevState.generalNotifs,
+              },
+              deliveryNotifs: {
+                ...prevState.deliveryNotifs,
+                [notificationTypes[element.toUpperCase()]]: true,
+              },
+            }));
+          });
+        }
+      }
+    } catch (err) {
+      console.error('[NotificationsScreen] Airtable:', err);
+      logErrorToSentry({
+        screen: 'NotificationsScreen',
+        action: 'componentDidMount',
+        error: err,
       });
-      await navigation.goBack();
+    }
+  }
+
+  // TODO: consolidate these?
+
+  toggleGeneralNotif = (notificationType) => {
+    this.setState((prevState) => {
+      return {
+        generalNotifs: {
+          ...prevState.generalNotifs,
+          [notificationType]: !prevState.generalNotifs[notificationType],
+        },
+        deliveryNotifs: {
+          ...prevState.deliveryNotifs,
+        },
+      };
+    });
+  };
+
+  toggleDeliveryNotif = (notificationType) => {
+    this.setState((prevState) => {
+      return {
+        generalNotifs: {
+          ...prevState.generalNotifs,
+        },
+        deliveryNotifs: {
+          ...prevState.deliveryNotifs,
+          [notificationType]: !prevState.deliveryNotifs[notificationType],
+        },
+      };
+    });
+  };
+
+  saveNotificationsSettings = async () => {
+    try {
+      const customerId = await AsyncStorage.getItem('customerId');
+
+      const generalPrefs = Object.keys(this.state.generalNotifs).filter(
+        function(type) {
+          return this.state.generalNotifs[type];
+        }.bind(this)
+      );
+
+      const deliveryPrefs = Object.keys(this.state.deliveryNotifs).filter(
+        function(type) {
+          return this.state.deliveryNotifs[type];
+        }.bind(this)
+      );
+
+      await updateCustomer(customerId, {
+        generalNotifications: generalPrefs,
+        deliveryNotifications: deliveryPrefs,
+      });
+      await this.props.navigation.goBack();
     } catch (err) {
       console.error(
         '[NotificationsScreen] (saveNotificationsSettings) Airtable:',
@@ -57,113 +139,93 @@ export default function NotificationsScreen(props) {
     }
   };
 
-  const confirmExit = async () => {
-    let exit = true;
-    if (deliveryChanged || notifsChanged) {
-      exit = await AlertAsync(
-        'You have unsaved changes',
-        '',
-        [
-          {
-            text: 'Discard changes',
-            onPress: () => true,
-            style: 'destructive',
-          },
-          {
-            text: 'Cancel',
-            onPress: () => false,
-            style: 'cancel',
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-    if (exit) {
-      props.navigation.goBack();
-    }
-  };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      let isActive = true;
-
-      const fetchUser = async () => {
-        try {
-          const customerId = await AsyncStorage.getItem('customerId');
-          if (isActive && customerId != null) {
-            const customer = await getCustomerById(customerId);
-            setDeliveryAlerts(customer.notifications);
-          }
-        } catch (err) {
-          console.error('[NotificationsScreen] Airtable:', err);
-          logErrorToSentry({
-            screen: 'NotificationsScreen',
-            action: 'useFocusEffect',
-            error: err,
-          });
-        }
-      };
-
-      fetchUser();
-
-      return () => {
-        isActive = false;
-      };
-    }, [])
-  );
-
-  return (
-    <View style={{ flex: 1 }}>
-      <NavHeaderContainer withMargin>
-        <NavButtonContainer onPress={async () => confirmExit()}>
-          <FontAwesome5 name="arrow-left" solid size={24} />
-        </NavButtonContainer>
-        <NavTitle>Notifications</NavTitle>
-      </NavHeaderContainer>
-      <ScrollView>
-        <ResourceItemCard>
-          <ContentContainer>
-            <Subtitle color={Colors.activeText}>Delivery Alerts</Subtitle>
-            <Body color={Colors.secondaryText}>
-              Get a text message when your favorite stores get new products
-              delivered.
-            </Body>
-          </ContentContainer>
-          <Switch
-            style={{ marginLeft: 4 }}
-            value={deliveryAlerts}
-            onValueChange={onToggleDeliveryAlerts}
-            color={Colors.primaryGreen}
-          />
-        </ResourceItemCard>
-        <ResourceItemCard>
-          <ContentContainer>
-            <Subtitle color={Colors.activeText}>Discounts and News</Subtitle>
-            <Body color={Colors.secondaryText}>
-              Special offers, recommendations, store updates, and more.
-            </Body>
-          </ContentContainer>
-          <Switch
-            style={{ marginLeft: 4 }}
-            value={notifications}
-            onValueChange={onToggleNotifications}
-            color={Colors.primaryGreen}
-          />
-        </ResourceItemCard>
-      </ScrollView>
-      <View
-        style={{
-          paddingHorizontal: 24,
-          paddingBottom: 24,
-        }}>
-        {(notifsChanged || deliveryChanged) && (
-          <FilledButtonContainer onPress={() => saveNotificationsSettings()}>
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <NavHeaderContainer withMargin>
+          <NavButtonContainer onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </NavButtonContainer>
+          <NavTitle>Notifications</NavTitle>
+        </NavHeaderContainer>
+        <ScrollView>
+          <ResourceItemCard>
+            <ContentContainer>
+              <Title color={Colors.activeText}>Delivery Alerts</Title>
+              <Body color={Colors.secondaryText}>
+                Get notified when your favorite stores get new products
+                delivered.
+              </Body>
+            </ContentContainer>
+          </ResourceItemCard>
+          <ResourceItemCard>
+            <Subtitle color={Colors.activeText}>Text messages</Subtitle>
+            <Switch
+              style={{ marginLeft: 4 }}
+              value={this.state.deliveryNotifs[notificationTypes.SMS]}
+              onValueChange={() =>
+                this.toggleDeliveryNotif(notificationTypes.SMS)
+              }
+              color={Colors.primaryGreen}
+            />
+          </ResourceItemCard>
+          {/* 11/14/20 Temporarily removed until push notifications are supported */}
+          {/* <ResourceItemCard>
+            <Subtitle color={Colors.activeText}>Push notifications</Subtitle>
+            <Switch
+              style={{ marginLeft: 4 }}
+              value={this.state.deliveryNotifs[notificationTypes.PUSH]}
+              onValueChange={() =>
+                this.toggleDeliveryNotif(notificationTypes.PUSH)
+              }
+              color={Colors.primaryGreen}
+            />
+          </ResourceItemCard> */}
+          <ResourceItemCard style={{ paddingTop: 32 }}>
+            <ContentContainer>
+              <Title color={Colors.activeText}>Discounts and News</Title>
+              <Body color={Colors.secondaryText}>
+                Special offers, recommendations, store updates, and more.
+              </Body>
+            </ContentContainer>
+          </ResourceItemCard>
+          <ResourceItemCard>
+            <Subtitle color={Colors.activeText}>Text messages</Subtitle>
+            <Switch
+              style={{ marginLeft: 4 }}
+              value={this.state.generalNotifs[notificationTypes.SMS]}
+              onValueChange={() =>
+                this.toggleGeneralNotif(notificationTypes.SMS)
+              }
+              color={Colors.primaryGreen}
+            />
+          </ResourceItemCard>
+          {/* 11/14/20 Temporarily removed until push notifications are supported */}
+          {/* <ResourceItemCard>
+            <Subtitle color={Colors.activeText}>Push notifications</Subtitle>
+            <Switch
+              style={{ marginLeft: 4 }}
+              value={this.state.generalNotifs[notificationTypes.PUSH]}
+              onValueChange={() =>
+                this.toggleGeneralNotif(notificationTypes.PUSH)
+              }
+              color={Colors.primaryGreen}
+            />
+          </ResourceItemCard> */}
+        </ScrollView>
+        <View
+          style={{
+            paddingHorizontal: 24,
+            paddingBottom: 24,
+          }}>
+          <FilledButtonContainer
+            onPress={() => this.saveNotificationsSettings()}>
             <ButtonLabel color={Colors.lightText}>Save Changes</ButtonLabel>
           </FilledButtonContainer>
-        )}
+        </View>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 NotificationsScreen.propTypes = {

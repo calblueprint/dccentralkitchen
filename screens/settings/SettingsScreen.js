@@ -146,10 +146,19 @@ export default function SettingsScreen(props) {
         <CategoryBar title="Notifications" />
         <SettingsCard
           title="Notifications"
-          rightIcon="angle-right"
-          description="Control what messages you receive"
-          navigation={() => props.navigation.navigate('Notifications')}
+          rightIcon={isGuest ? 'sign-out-alt' : 'angle-right'}
+          description={
+            isGuest
+              ? 'Create an account to receive notifications and delivery alerts'
+              : 'Control what messages you receive'
+          }
+          navigation={
+            isGuest
+              ? () => logout(true)
+              : () => props.navigation.navigate('Notifications')
+          }
         />
+
         <CategoryBar title="Privacy" />
         <SettingsCard
           title="Location Settings"
