@@ -8,7 +8,7 @@ import Window from '../../constants/Layout';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
   getMaxWidth,
-  isFavoritefromCustomer,
+  isFavorite,
   openDirections,
   toggleFavoriteStore,
   writeToClipboard,
@@ -43,13 +43,13 @@ function StoreCardMini({ store, storeList, seeDistance }) {
 
   const navigation = useNavigation();
 
-  const [isFavorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
       let isActive = true;
       const fetchUser = async () => {
         try {
-          const fav = await isFavoritefromCustomer(id);
+          const fav = await isFavorite(id);
           if (isActive) {
             setFavorite(fav);
           }
@@ -108,13 +108,13 @@ function StoreCardMini({ store, storeList, seeDistance }) {
               });
               const updateFavorite = await toggleFavoriteStore(navigation, id);
               if (updateFavorite) {
-                setFavorite(!isFavorite);
+                setFavorite(!favorite);
               }
             }}
             style={{ paddingLeft: 10 }}>
             <FontAwesome5
               name="heart"
-              solid={isFavorite}
+              solid={favorite}
               size={24}
               color={Colors.darkerOrange}
             />
