@@ -22,7 +22,6 @@ import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
 function StoreProducts({ navigation, store, products, showDefaultStore }) {
-  console.log('store products:', store);
   // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   return (
     <View>
