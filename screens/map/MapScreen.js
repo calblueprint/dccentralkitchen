@@ -3,7 +3,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -128,9 +128,9 @@ export default function MapScreen(props) {
 
   // The state is initially populated with stores by calling the Airtable API to get all store records
   useEffect(() => {
-    // The state is initially populated with stores by calling the Airtable API to get all store records
     const populateInitialStoresProducts = async () => {
       try {
+        await findCurrentLocation();
         // Sets list of stores in state, populates initial products
         const allStores = await getStoreData();
         const sortedStores = await orderStoresByDistance(region, allStores);
@@ -208,7 +208,7 @@ export default function MapScreen(props) {
                   purpose: 'Centers map to current location',
                 });
                 await findCurrentLocation();
-                await orderStoresByDistance(stores);
+                // await orderStoresByDistance(stores);
               }}
             />
           )}
@@ -269,23 +269,21 @@ export default function MapScreen(props) {
     await mapRef.current.animateToRegion(newRegion, 1000);
   };
 
-  // useEffect(() => {
-  //   console.log('RUNNING, current is ', isFirstRun.current);
-  //   if (!isFirstRun.current) {
-  //     isFirstRun.current = true;
-  //     return;
-  //   }
-  //   const store = props.route.params.currentStore;
-  //   const resetSheet = true;
-  //   store.distance = findStoreDistance(store);
-  //   changeCurrentStore(store, resetSheet);
-  //   const newRegion = {
-  //     latitude: store.latitude,
-  //     longitude: store.longitude,
-  //     ...deltas,
-  //   };
-  //   setRegion(newRegion);
-  // }, [props.route.params]);
+  const isFirstRun = useRef(true);
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    const store = props.route.params.currentStore;
+    changeCurrentStore(store, true);
+    const newRegion = {
+      latitude: store.latitude,
+      longitude: store.longitude,
+      ...deltas,
+    };
+    setRegion(newRegion);
+  }, [props.route.params]);
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
@@ -382,5 +380,5 @@ export default function MapScreen(props) {
 
 MapScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  // route: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
