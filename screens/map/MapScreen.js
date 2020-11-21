@@ -37,13 +37,11 @@ import {
 
 const snapPoints = [185, 325, 488];
 
-function useCurrentLocation() {
-  const [error, setError] = useState(null);
-  const [region, setRegion] = useState(null);
-
+function useCurrentLocation(setRegion, setError) {
   useEffect(() => {
     const getCurrentLocation = async () => {
       try {
+        console.log('in use current location ');
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
           Analytics.setUserProperty('location_permissions', 'denied');
@@ -57,7 +55,9 @@ function useCurrentLocation() {
             longitude: location.coords.longitude,
             ...deltas,
           };
+          setError('');
           setRegion(currentRegion);
+          console.log('region in use current location: ', currentRegion);
           Analytics.setUserProperty('location_permissions', 'granted');
         }
       } catch (err) {
@@ -73,66 +73,54 @@ function useCurrentLocation() {
     getCurrentLocation();
   }, []);
 
-  return { error, region };
+  // return { error, region };
 }
 
 export default function MapScreen(props) {
-  const [locationErrorMsg, setlocationErrorMsg] = useState('');
+  const [locationErrorMsg, setlocationErrorMsg] = useState(null);
   const [region, setRegion] = useState(initialRegion);
   const [stores, setStores] = useState([]);
+  // const [initialLocation, setInitialLocation] = useState(null);
   const [currentStore, setCurrentStore] = useState(null);
   const [storeProducts, setStoreProducts] = useState([]);
-  const [showDefaultStore, setShowDefaultStore] = useState(false);
+  const [showDefaultStore, setShowDefaultStore] = useState(true);
   const bottomSheetRef = React.useRef(null);
 
   const mapRef = React.useRef(null);
 
-  // Asks for permission if necessary, then gets current location
-  const findCurrentLocation = async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    // Error message not checked anywhere
-    if (status !== 'granted') {
-      setlocationErrorMsg('Permission to access location was denied');
-      Analytics.setUserProperty('location_permissions', 'denied');
-    } else {
-      try {
-        const location = await Location.getCurrentPositionAsync({
-          timeout: 3000,
-        });
-        const currentRegion = {
-          latitude: location.coords.latitude - deltas.latitudeDelta / 3.5,
-          longitude: location.coords.longitude,
-          ...deltas,
-        };
-        // Don't re-animate if we're using the default store
-        if (mapRef.current && !showDefaultStore) {
-          mapRef.current.animateToRegion(currentRegion, 1000);
-          setlocationErrorMsg(null);
-        } else {
-          setlocationErrorMsg(null);
-          setRegion(currentRegion);
-        }
-        Analytics.setUserProperty('location_permissions', 'granted');
-      } catch (err) {
-        console.log(err);
-        setlocationErrorMsg('Permission to access location was denied');
-        Analytics.setUserProperty('location_permissions', 'error');
-        logErrorToSentry({
-          screen: 'MapScreen',
-          function: '_findCurrentLocation',
-          error: err,
-        });
-      }
-    }
-  };
+  useCurrentLocation(setRegion, setlocationErrorMsg);
 
-  // The state is initially populated with stores by calling the Airtable API to get all store records
+  const isFirst = useRef(true);
+  const initialComplete = useRef(false);
+
   useEffect(() => {
+    if (initialComplete.current) {
+      console.log('already done, not happenin');
+      return;
+    }
+    console.log('loc err msg is not null? : ', locationErrorMsg !== null);
+    console.log('region is not initial : ', region !== initialRegion);
+    console.log('initialcomplete not yet: ', !initialComplete.current);
+    // if (isFirst.current) {
+    if (!(locationErrorMsg != null && region !== initialRegion)) {
+      console.log('XXX not ALL conds met, blocking ');
+      return;
+      // isFirst.current = false;
+    }
+    //  else {
+    //   console.log('XXX not ALL conds met, blocking ');
+    // }
+    // console.log('first, not going, location error is  ', locationErrorMsg);
+    // }
+    console.log('>>> conditions met, going now with region:  ', region);
+
     const populateInitialStoresProducts = async () => {
+      console.log('starting populate initial sotre products');
       try {
-        await findCurrentLocation();
+        // await findCurrentLocation();
         // Sets list of stores in state, populates initial products
         const allStores = await getStoreData();
+        console.log('about to order stores with region:', region);
         const sortedStores = await orderStoresByDistance(region, allStores);
         setStores(sortedStores);
 
@@ -157,6 +145,9 @@ export default function MapScreen(props) {
         // Once we choose the closest store, we must populate its store products
         // Better to perform API calls at top level, and then pass data as props.
         await populateStoreProducts(currentStore);
+        console.log('all done, setting initial complete');
+
+        initialComplete.current = true;
       } catch (err) {
         // Alert.alert('Update required', 'Refresh the app to see changes', [
         //   { text: 'OK', onPress: async () => Updates.reloadAsync() },
@@ -172,8 +163,9 @@ export default function MapScreen(props) {
         });
       }
     };
+    // console.log('running populate using region ', region);
     populateInitialStoresProducts();
-  }, []);
+  }, [region]);
 
   const populateStoreProducts = async (store) => {
     if (store) {
@@ -207,7 +199,8 @@ export default function MapScreen(props) {
                 Analytics.logEvent('center_location', {
                   purpose: 'Centers map to current location',
                 });
-                await findCurrentLocation();
+                // useCurrentLocation();
+                // await findCurrentLocation();
                 // await orderStoresByDistance(stores);
               }}
             />
@@ -275,15 +268,17 @@ export default function MapScreen(props) {
       isFirstRun.current = false;
       return;
     }
-    const store = props.route.params.currentStore;
-    changeCurrentStore(store, true);
-    const newRegion = {
-      latitude: store.latitude,
-      longitude: store.longitude,
-      ...deltas,
-    };
-    setRegion(newRegion);
-  }, [props.route.params]);
+    if (props.route.params) {
+      const store = props.route.params.currentStore;
+      changeCurrentStore(store, true);
+      const newRegion = {
+        latitude: store.latitude,
+        longitude: store.longitude,
+        ...deltas,
+      };
+      setRegion(newRegion);
+    }
+  }, [props.route.params]); // TODO: figure out how to deal with none
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
