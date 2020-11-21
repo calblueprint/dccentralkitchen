@@ -1,7 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 import { PixelRatio, StyleSheet, View } from 'react-native';
@@ -27,6 +25,7 @@ import {
   getProductData,
   getStoreData,
   orderStoresByDistance,
+  useCurrentLocation,
 } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -37,40 +36,6 @@ import {
 
 const snapPoints = [185, 325, 488];
 
-function useCurrentLocation(setInitialLocation, setlocationErrorMsg) {
-  useEffect(() => {
-    const getCurrentLocation = async () => {
-      try {
-        const { status } = await Permissions.askAsync(Permissions.LOCATION);
-        if (status !== 'granted') {
-          Analytics.setUserProperty('location_permissions', 'denied');
-          throw new Error('Permission to access location was denied');
-        } else {
-          const location = await Location.getCurrentPositionAsync({
-            timeout: 3000,
-          });
-          const currentRegion = {
-            latitude: location.coords.latitude - deltas.latitudeDelta / 3.5,
-            longitude: location.coords.longitude,
-            ...deltas,
-          };
-          setInitialLocation(currentRegion);
-          Analytics.setUserProperty('location_permissions', 'granted');
-        }
-      } catch (err) {
-        Analytics.setUserProperty('location_permissions', 'error');
-        logErrorToSentry({
-          screen: 'MapScreen',
-          function: 'useCurrentLocation',
-          error: err,
-        });
-        setlocationErrorMsg(err.message);
-      }
-    };
-    getCurrentLocation();
-  }, []);
-}
-
 export default function MapScreen(props) {
   const [locationErrorMsg, setlocationErrorMsg] = useState(null);
   const [region, setRegion] = useState(initialRegion);
@@ -80,13 +45,10 @@ export default function MapScreen(props) {
   const [storeProducts, setStoreProducts] = useState([]);
   const [showDefaultStore, setShowDefaultStore] = useState(true);
   const bottomSheetRef = React.useRef(null);
-
   const mapRef = React.useRef(null);
-
   useCurrentLocation(setInitialLocation, setlocationErrorMsg);
 
   const initialLoadComplete = useRef(false);
-
   useEffect(() => {
     if (initialLoadComplete.current || !initialLocation) {
       return;
