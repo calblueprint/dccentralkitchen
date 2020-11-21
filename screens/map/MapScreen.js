@@ -37,11 +37,10 @@ import {
 
 const snapPoints = [185, 325, 488];
 
-function useCurrentLocation(setRegion, setError) {
+function useCurrentLocation(setInitialLocation, setlocationErrorMsg) {
   useEffect(() => {
     const getCurrentLocation = async () => {
       try {
-        console.log('in use current location ');
         const { status } = await Permissions.askAsync(Permissions.LOCATION);
         if (status !== 'granted') {
           Analytics.setUserProperty('location_permissions', 'denied');
@@ -55,9 +54,7 @@ function useCurrentLocation(setRegion, setError) {
             longitude: location.coords.longitude,
             ...deltas,
           };
-          setError('');
-          setRegion(currentRegion);
-          console.log('region in use current location: ', currentRegion);
+          setInitialLocation(currentRegion);
           Analytics.setUserProperty('location_permissions', 'granted');
         }
       } catch (err) {
@@ -67,20 +64,18 @@ function useCurrentLocation(setRegion, setError) {
           function: 'useCurrentLocation',
           error: err,
         });
-        setError(err.message);
+        setlocationErrorMsg(err.message);
       }
     };
     getCurrentLocation();
   }, []);
-
-  // return { error, region };
 }
 
 export default function MapScreen(props) {
   const [locationErrorMsg, setlocationErrorMsg] = useState(null);
   const [region, setRegion] = useState(initialRegion);
   const [stores, setStores] = useState([]);
-  // const [initialLocation, setInitialLocation] = useState(null);
+  const [initialLocation, setInitialLocation] = useState(null);
   const [currentStore, setCurrentStore] = useState(null);
   const [storeProducts, setStoreProducts] = useState([]);
   const [showDefaultStore, setShowDefaultStore] = useState(true);
@@ -88,40 +83,23 @@ export default function MapScreen(props) {
 
   const mapRef = React.useRef(null);
 
-  useCurrentLocation(setRegion, setlocationErrorMsg);
+  useCurrentLocation(setInitialLocation, setlocationErrorMsg);
 
-  const isFirst = useRef(true);
-  const initialComplete = useRef(false);
+  const initialLoadComplete = useRef(false);
 
   useEffect(() => {
-    if (initialComplete.current) {
-      console.log('already done, not happenin');
+    if (initialLoadComplete.current || !initialLocation) {
       return;
     }
-    console.log('loc err msg is not null? : ', locationErrorMsg !== null);
-    console.log('region is not initial : ', region !== initialRegion);
-    console.log('initialcomplete not yet: ', !initialComplete.current);
-    // if (isFirst.current) {
-    if (!(locationErrorMsg != null && region !== initialRegion)) {
-      console.log('XXX not ALL conds met, blocking ');
-      return;
-      // isFirst.current = false;
-    }
-    //  else {
-    //   console.log('XXX not ALL conds met, blocking ');
-    // }
-    // console.log('first, not going, location error is  ', locationErrorMsg);
-    // }
-    console.log('>>> conditions met, going now with region:  ', region);
 
     const populateInitialStoresProducts = async () => {
-      console.log('starting populate initial sotre products');
       try {
-        // await findCurrentLocation();
         // Sets list of stores in state, populates initial products
-        const allStores = await getStoreData();
-        console.log('about to order stores with region:', region);
-        const sortedStores = await orderStoresByDistance(region, allStores);
+        const storeData = await getStoreData();
+        const sortedStores = await orderStoresByDistance(
+          initialLocation,
+          storeData
+        );
         setStores(sortedStores);
 
         const { defaultStore, defaultRegion } = findDefaultStore(sortedStores);
@@ -134,20 +112,19 @@ export default function MapScreen(props) {
           sortedStores[0].focused = true;
           setCurrentStore(sortedStores[0]);
         }
-
         setShowDefaultStore(
           locationErrorMsg ? true : sortedStores[0].distance > 100
         );
         if (locationErrorMsg || sortedStores[0].distance > 100) {
           setRegion(defaultRegion);
+        } else {
+          setRegion(initialLocation);
         }
 
         // Once we choose the closest store, we must populate its store products
         // Better to perform API calls at top level, and then pass data as props.
         await populateStoreProducts(currentStore);
-        console.log('all done, setting initial complete');
-
-        initialComplete.current = true;
+        initialLoadComplete.current = true;
       } catch (err) {
         // Alert.alert('Update required', 'Refresh the app to see changes', [
         //   { text: 'OK', onPress: async () => Updates.reloadAsync() },
@@ -163,9 +140,21 @@ export default function MapScreen(props) {
         });
       }
     };
-    // console.log('running populate using region ', region);
     populateInitialStoresProducts();
-  }, [region]);
+  }, [initialLocation]);
+
+  useEffect(() => {
+    if (props.route.params) {
+      const store = props.route.params.currentStore;
+      changeCurrentStore(store, true);
+      const newRegion = {
+        latitude: store.latitude,
+        longitude: store.longitude,
+        ...deltas,
+      };
+      setRegion(newRegion);
+    }
+  }, [props.route.params]);
 
   const populateStoreProducts = async (store) => {
     if (store) {
@@ -183,51 +172,6 @@ export default function MapScreen(props) {
         });
       }
     }
-  };
-
-  const renderContent = () => {
-    return (
-      <View>
-        <View
-          style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-          }}>
-          {!showDefaultStore && (
-            <CenterLocation
-              callBack={async () => {
-                Analytics.logEvent('center_location', {
-                  purpose: 'Centers map to current location',
-                });
-                // useCurrentLocation();
-                // await findCurrentLocation();
-                // await orderStoresByDistance(stores);
-              }}
-            />
-          )}
-        </View>
-        <BottomSheetContainer>
-          <BottomSheetHeaderContainer>
-            <DragBar />
-          </BottomSheetHeaderContainer>
-          {PixelRatio.getFontScale() < 1.2 && (
-            <Subtitle
-              style={{ marginHorizontal: 16, marginBottom: 0 }}
-              color={Colors.secondaryText}>
-              Browsing healthy products at
-            </Subtitle>
-          )}
-          {currentStore && (
-            <StoreProducts
-              navigation={props.navigation}
-              store={currentStore}
-              products={storeProducts}
-              showDefaultStore={showDefaultStore}
-            />
-          )}
-        </BottomSheetContainer>
-      </View>
-    );
   };
 
   const onRegionChangeComplete = (newRegion) => {
@@ -262,23 +206,48 @@ export default function MapScreen(props) {
     await mapRef.current.animateToRegion(newRegion, 1000);
   };
 
-  const isFirstRun = useRef(true);
-  useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
-      return;
-    }
-    if (props.route.params) {
-      const store = props.route.params.currentStore;
-      changeCurrentStore(store, true);
-      const newRegion = {
-        latitude: store.latitude,
-        longitude: store.longitude,
-        ...deltas,
-      };
-      setRegion(newRegion);
-    }
-  }, [props.route.params]); // TODO: figure out how to deal with none
+  const renderContent = () => {
+    return (
+      <View>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+          }}>
+          {!showDefaultStore && (
+            <CenterLocation
+              callBack={async () => {
+                Analytics.logEvent('center_location', {
+                  purpose: 'Centers map to current location',
+                });
+                setRegion(initialLocation);
+              }}
+            />
+          )}
+        </View>
+        <BottomSheetContainer>
+          <BottomSheetHeaderContainer>
+            <DragBar />
+          </BottomSheetHeaderContainer>
+          {PixelRatio.getFontScale() < 1.2 && (
+            <Subtitle
+              style={{ marginHorizontal: 16, marginBottom: 0 }}
+              color={Colors.secondaryText}>
+              Browsing healthy products at
+            </Subtitle>
+          )}
+          {currentStore && (
+            <StoreProducts
+              navigation={props.navigation}
+              store={currentStore}
+              products={storeProducts}
+              showDefaultStore={showDefaultStore}
+            />
+          )}
+        </BottomSheetContainer>
+      </View>
+    );
+  };
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
