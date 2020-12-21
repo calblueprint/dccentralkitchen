@@ -2,13 +2,14 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { PixelRatio, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
   ButtonContainer,
   NavHeaderContainer,
   Subtitle,
+  Title,
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
@@ -23,9 +24,8 @@ import {
   deltas,
   findDefaultStore,
   getProductData,
-  getStoreData,
-  orderStoresByDistance,
   useCurrentLocation,
+  useInitialStores,
 } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -37,7 +37,7 @@ import {
 const snapPoints = [185, 325, 488];
 
 export default function MapScreen(props) {
-  const [locationErrorMsg, setlocationErrorMsg] = useState(null);
+  const [locationErrorMsg, setLocationErrorMsg] = useState(null);
   const [region, setRegion] = useState(initialRegion);
   const [stores, setStores] = useState([]);
   const [initialLocation, setInitialLocation] = useState(null);
@@ -46,38 +46,32 @@ export default function MapScreen(props) {
   const [showDefaultStore, setShowDefaultStore] = useState(true);
   const bottomSheetRef = React.useRef(null);
   const mapRef = React.useRef(null);
-  useCurrentLocation(setInitialLocation, setlocationErrorMsg);
+
+  useCurrentLocation(setInitialLocation, setLocationErrorMsg);
+  useInitialStores(initialLocation, setStores);
 
   const initialLoadComplete = useRef(false);
   useEffect(() => {
-    if (initialLoadComplete.current || !initialLocation) {
+    if (
+      initialLoadComplete.current ||
+      !initialLocation ||
+      stores.length === 0
+    ) {
       return;
     }
-
     const populateInitialStoresProducts = async () => {
       try {
-        // Sets list of stores in state, populates initial products
-        const storeData = await getStoreData();
-        const sortedStores = await orderStoresByDistance(
-          initialLocation,
-          storeData
-        );
-        setStores(sortedStores);
-
-        const { defaultStore, defaultRegion } = findDefaultStore(sortedStores);
-
+        const { defaultStore, defaultRegion } = findDefaultStore(stores);
         // Set current store to be focused
-        if (locationErrorMsg || sortedStores[0].distance > 100) {
+        if (locationErrorMsg || stores[0].distance > 100) {
           defaultStore.focused = true;
           setCurrentStore(defaultStore);
         } else {
-          sortedStores[0].focused = true;
-          setCurrentStore(sortedStores[0]);
+          stores[0].focused = true;
+          setCurrentStore(stores[0]);
         }
-        setShowDefaultStore(
-          locationErrorMsg ? true : sortedStores[0].distance > 100
-        );
-        if (locationErrorMsg || sortedStores[0].distance > 100) {
+        setShowDefaultStore(locationErrorMsg ? true : stores[0].distance > 100);
+        if (locationErrorMsg || stores[0].distance > 100) {
           setRegion(defaultRegion);
         } else {
           setRegion(initialLocation);
@@ -88,22 +82,19 @@ export default function MapScreen(props) {
         await populateStoreProducts(currentStore);
         initialLoadComplete.current = true;
       } catch (err) {
-        // Alert.alert('Update required', 'Refresh the app to see changes', [
-        //   { text: 'OK', onPress: async () => Updates.reloadAsync() },
-        // ]);
         console.error(
-          '[MapScreen] (_populateInitialStoresProducts) Airtable:',
+          '[MapScreen] (populateInitialStoresProducts) Airtable:',
           err
         );
         logErrorToSentry({
           screen: 'MapScreen',
-          function: '_populateInitialStoresProducts',
+          function: 'populateInitialStoresProducts',
           error: err,
         });
       }
     };
     populateInitialStoresProducts();
-  }, [initialLocation]);
+  }, [initialLocation, stores, currentStore, locationErrorMsg]);
 
   useEffect(() => {
     if (props.route.params) {
@@ -300,6 +291,23 @@ export default function MapScreen(props) {
         onPress={() => props.navigation.navigate('RewardsOverlay')}>
         <RewardsFooter />
       </ButtonContainer>
+      {/* TODO @wangannie redesign temporary map loading screen */}
+      {initialLocation === null && (
+        <View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(0,0,0,.4)',
+          }}>
+          <Title>Locating stores</Title>
+          <ActivityIndicator size="large" color={Colors.lightText} />
+        </View>
+      )}
     </View>
   );
 }
