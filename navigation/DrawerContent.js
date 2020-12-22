@@ -17,7 +17,7 @@ import {
   Title,
 } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
-import { getCustomersById } from '../lib/airtable/request';
+import { getCustomerById } from '../lib/airtable/request';
 import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
@@ -68,7 +68,7 @@ function DrawerContent(props) {
           const customerId = await AsyncStorage.getItem('customerId');
           let cust = null;
           if (customerId != null) {
-            cust = await getCustomersById(customerId);
+            cust = await getCustomerById(customerId);
           } else {
             cust = { name: 'Guest' };
           }

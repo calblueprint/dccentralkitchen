@@ -12,7 +12,7 @@ import {
   Title,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
-import { getCustomersById, updateCustomers } from '../../lib/airtable/request';
+import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
 import { inputFields } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
@@ -41,7 +41,7 @@ export default class NameChangeScreen extends React.Component {
   async componentDidMount() {
     const customerId = await AsyncStorage.getItem('customerId');
     try {
-      const customer = await getCustomersById(customerId);
+      const customer = await getCustomerById(customerId);
 
       this.setState({ customer });
     } catch (err) {
@@ -95,7 +95,7 @@ export default class NameChangeScreen extends React.Component {
   };
 
   changeName = async () => {
-    await updateCustomers(this.state.customer.id, {
+    await updateCustomer(this.state.customer.id, {
       name: this.state.values[inputFields.NAME],
     });
     this.setState({ success: true });
