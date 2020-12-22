@@ -148,11 +148,11 @@ Notably, the `REACT_APP_AIRTABLE_API_KEY` and `REFRESH_TOKEN` are personal to in
 To push new changes and deploy, run
 
 ```bash
-git push heroku master
+git push heroku main
 ```
 
 ::: danger
-Be sure to push your changes to the canonical repository (typically with `git push origin master`) as well as to the Heroku remote.
+Be sure to push your changes to the canonical repository (typically with `git push origin main`) as well as to the Heroku remote.
 :::
 
 Once the application is up and running, you will see this on the application homepage:

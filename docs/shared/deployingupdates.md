@@ -50,7 +50,7 @@ From [Expo Docs: Configuring OTA Updates](https://docs.expo.io/guides/configurin
 
 ### Set up your release branch
 
-1. Create a new branch from the most up-to-date version of master named `release` with the update version number using [Semantic Versioning](https://semver.org/) guidelines. For most updates, it is recommended to only increment the PATCH version.
+1. Create a new branch from the most up-to-date version of `main` named `release` with the update version number using [Semantic Versioning](https://semver.org/) guidelines. For most updates, it is recommended to only increment the PATCH version.
    ```bash
    git checkout -b release-1.1.2
    ```
@@ -77,7 +77,7 @@ Once the OTA update is successfully published, skip the next section and jump to
 
 ### Set up your release branch
 
-1. Create a new branch from the most up-to-date version of master named `release` with the update version number using [Semantic Versioning](https://semver.org/) guidelines.
+1. Create a new branch from the most up-to-date version of `main` named `release` with the update version number using [Semantic Versioning](https://semver.org/) guidelines.
    ```bash
    git checkout -b release-1.1.0
    ```
@@ -251,7 +251,7 @@ If there are any major updates that would require updating any of the following 
 
 ## Merge release changes
 
-Once the update is successfully deployed, merge the release branch into `master` to update any hotfixes and version numbers.
+Once the update is successfully deployed, merge the release branch into `main` to update any hotfixes and version numbers.
 
 ## Track the Release in GitHub
 

@@ -28,7 +28,7 @@ Go to the [design prototypes page](../design) (linked in the navbar) to see the 
 
 We use GitHub's built-in issue tracker to track issues we are aware of (e.g [the customer repo](https://github.com/calblueprint/dccentralkitchen/issues)). Looking at open issues may be helpful when attempting to triage or fix bugs.
 
-Additionally, we've done our best to document our work/thought process throughout development via the PR descriptions. We also used "Squash and merge" for almost all PRs, so running `git blame` from `master` and then inspecting the source PR(s) from a particular commit may be helpful as well.
+Additionally, we've done our best to document our work/thought process throughout development via the PR descriptions. We also used "Squash and merge" for almost all PRs, so running `git blame` from `main` and then inspecting the source PR(s) from a particular commit may be helpful as well.
 
 ## Navigating this site
 

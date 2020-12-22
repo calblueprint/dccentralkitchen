@@ -25,7 +25,7 @@ When breaking changes are made, **schema updates must be merged and deployed** v
 Generally speaking, it's best to create a new development branch with **solely** the schema updates because schema changes affect **all branches immediately**. Creating a separate PR for schema updates isolates those changes and is also good practice.
 
 ::: tip
-The nice thing about having both `[DEV]` and `[PROD]` bases is that we can merge the schema updates, update the Airtable `[DEV]` base (i.e make table and column changes), merge associated code/feature updates, and test `master` locally (connected to `[DEV]`) before pushing the schema updates to `[PROD]` and then making the Airtable `[PROD]` base changes.
+The nice thing about having both `[DEV]` and `[PROD]` bases is that we can merge the schema updates, update the Airtable `[DEV]` base (i.e make table and column changes), merge associated code/feature updates, and test `main` locally (connected to `[DEV]`) before pushing the schema updates to `[PROD]` and then making the Airtable `[PROD]` base changes.
 
 WARNING: Don't forget to update the `[PROD]` base once updates have been pushed!
 :::
@@ -41,7 +41,7 @@ WARNING: Don't forget to update the `[PROD]` base once updates have been pushed!
 ::: tip
 As you can tell, most changes are breaking. The only changes that aren't are **ADDING A TABLE** or **ADDING A COLUMN** to a table, since none of the live code attempts (and fails) to use information in the new column/table.
 
-However, you **must** create a separate PR for the schema update and make sure it is merged **before** your new feature's PR is merged. Otherwise, the schema in `master` will be out of sync and your feature will not work as expected.
+However, you **must** create a separate PR for the schema update and make sure it is merged **before** your new feature's PR is merged. Otherwise, the schema in `main` will be out of sync and your feature will not work as expected.
 
 \*Updating the schema in the same PR is technically correct as well, but we'll lose the electronic trail of schema updates in the commit history.
 :::
