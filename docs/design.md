@@ -6,7 +6,9 @@ sidebar: auto
 
 [[toc]]
 
-_TODO @wangannie add case study links_
+::: tip
+Check out Annie's [design case study](https://medium.com/blueprint/expanding-access-to-healthy-food-in-food-deserts-fa83f4810fca) on Medium for more details on the process and decisions behind the designs.
+::: 
 
 ## Navigating Figma
 
