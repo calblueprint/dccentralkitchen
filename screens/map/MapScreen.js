@@ -18,14 +18,14 @@ import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
-import { initialRegion } from '../../constants/Map';
+import { deltas, initialRegion } from '../../constants/Map';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
-  deltas,
   findDefaultStore,
   getProductData,
   useCurrentLocation,
   useInitialStores,
+  useSortedStores,
 } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -37,7 +37,7 @@ import {
 const snapPoints = [185, 325, 488];
 
 export default function MapScreen(props) {
-  const [locationErrorMsg, setLocationErrorMsg] = useState(null);
+  const [locationPermissions, setLocationPermissions] = useState(null);
   const [region, setRegion] = useState(initialRegion);
   const [stores, setStores] = useState([]);
   const [initialLocation, setInitialLocation] = useState(null);
@@ -46,32 +46,46 @@ export default function MapScreen(props) {
   const [showDefaultStore, setShowDefaultStore] = useState(true);
   const bottomSheetRef = React.useRef(null);
   const mapRef = React.useRef(null);
+  const [isSorted, setSorted] = useState(false);
 
-  useCurrentLocation(setInitialLocation, setLocationErrorMsg);
-  useInitialStores(initialLocation, setStores);
+  useCurrentLocation(setInitialLocation, setLocationPermissions);
+  useInitialStores(setStores);
+  useSortedStores(
+    locationPermissions,
+    stores,
+    setStores,
+    isSorted,
+    setSorted,
+    initialLocation
+  );
 
+  // Only populate initial store products on first load
   const initialLoadComplete = useRef(false);
   useEffect(() => {
     if (
+      !locationPermissions ||
       initialLoadComplete.current ||
-      !initialLocation ||
-      stores.length === 0
+      stores.length === 0 ||
+      (locationPermissions === 'granted' && initialLocation && !isSorted)
     ) {
       return;
     }
-    const populateInitialStoresProducts = async () => {
+    const populateInitialStoreProducts = async () => {
       try {
         const { defaultStore, defaultRegion } = findDefaultStore(stores);
         // Set current store to be focused
-        if (locationErrorMsg || stores[0].distance > 100) {
+        if (locationPermissions !== 'granted' || stores[0].distance > 100) {
           defaultStore.focused = true;
           setCurrentStore(defaultStore);
         } else {
           stores[0].focused = true;
           setCurrentStore(stores[0]);
         }
-        setShowDefaultStore(locationErrorMsg ? true : stores[0].distance > 100);
-        if (locationErrorMsg || stores[0].distance > 100) {
+
+        setShowDefaultStore(
+          locationPermissions !== 'granted' ? true : stores[0].distance > 100
+        );
+        if (locationPermissions !== 'granted' || stores[0].distance > 100) {
           setRegion(defaultRegion);
         } else {
           setRegion(initialLocation);
@@ -83,18 +97,18 @@ export default function MapScreen(props) {
         initialLoadComplete.current = true;
       } catch (err) {
         console.error(
-          '[MapScreen] (populateInitialStoresProducts) Airtable:',
+          '[MapScreen] (populateInitialStoreProducts) Airtable:',
           err
         );
         logErrorToSentry({
           screen: 'MapScreen',
-          function: 'populateInitialStoresProducts',
+          function: 'populateInitialStoreProducts',
           error: err,
         });
       }
     };
-    populateInitialStoresProducts();
-  }, [initialLocation, stores, currentStore, locationErrorMsg]);
+    populateInitialStoreProducts();
+  }, [initialLocation, stores, currentStore, locationPermissions, isSorted]);
 
   useEffect(() => {
     if (props.route.params) {
@@ -292,22 +306,24 @@ export default function MapScreen(props) {
         <RewardsFooter />
       </ButtonContainer>
       {/* TODO @wangannie redesign temporary map loading screen */}
-      {initialLocation === null && (
-        <View
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(0,0,0,.4)',
-          }}>
-          <Title>Locating stores</Title>
-          <ActivityIndicator size="large" color={Colors.lightText} />
-        </View>
-      )}
+      {locationPermissions === null ||
+        (locationPermissions !== 'granted' && stores.length > 0) ||
+        (initialLocation !== null && !isSorted && (
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(0,0,0,.4)',
+            }}>
+            <Title>Locating stores</Title>
+            <ActivityIndicator size="large" color={Colors.lightText} />
+          </View>
+        ))}
     </View>
   );
 }
