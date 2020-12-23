@@ -8,7 +8,7 @@ prev: false
 
 # Clerk Training Guide
 
-Welcome to the **Healthy Corners Clerk** app! This document will guide you through the app. (Last updated: 4/8/20)
+Welcome to the **Healthy Corners Clerk** app! This document will guide you through the app. (Last updated: 12/23/20)
 
 ::: details Throughout this guide, there are video demos like this. Tap the black triangle ▶ button on the left to open them.
 When opened, you'll see a short description like this with a GIF below!
@@ -16,6 +16,10 @@ When opened, you'll see a short description like this with a GIF below!
 
 ::: tip 
 To view just the video demos, click here: [Clerk Training Gif Demos](./clerktraininggifs.md)
+:::
+
+::: warning NOTE
+Some of the descriptions and visuals may have changed slightly since this guide was created. However, most of the core functionality should remain similar. 
 :::
 
 **Table of Contents:** 
@@ -230,6 +234,20 @@ This demo shows a clerk logging into clerk training mode with the pin 0000 and g
 ![../assets/clerk_training/clerk_training_demo.gif](../assets/clerk_training/clerk_training_demo.gif)
 :::
 
+## Register a Customer
+You can also register a new customer for the Healthy Rewards program directly from the tablet! Customers are **encouraged** to download the app for additional features, but they are also able to save with the rewards program without having to download the mobile app.
+
+1. Once you're logged into your clerk account (See [Step 1. Log In](#step-1-log-in)), select **`Register a customer`**.
+2. Enter the customer's preferred name (does not have to be a full/legal name) and phone number
+3. Select **`Register Customer`** to confirm.
+4. Once the customer is registered, you will be taken to the checkout screen for this customer -- you can continue to complete checkout for the new customer (See [Step 3. Checkout Products](#step-3-checkout-products) or go back.
+
+Now, the customer will be able to use their phone number to continue earning and redeeming rewards in stores or log into the mobile app!
+
+::: tip
+As of 12/23/20, customers can earn a 500 point bonus (redeemable for $5 of free produce) when they register for an account in-store. Customers would receive the same bonus amount if they register on the app.
+:::
+
 ##  Frequently Asked Questions
 
 ### How do I access Clerk Training Mode?
@@ -268,3 +286,7 @@ Ask the customer! Tell them how many rewards they have available.
 1. Tap and hold the `Transaction ID` if you are still on the confirmation screen
 2. Tap the menu button in the top left 
 3. Tap `Report Issue` and fill out the form
+
+### Does a customer have to download the customer mobile app to participate in the program?
+
+No! Though customers are encouraged to use the mobile app for additional features like tracking reward progress, the program is designed to be fully usable without the customer mobile app. Whenever the customer checks out in a participating Healthy Rewards store, they just need to give their phone number at checkout to receive points and redeem rewards.
