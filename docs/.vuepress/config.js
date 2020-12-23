@@ -53,10 +53,10 @@ const adminSidebar = [
       '/admin/newclerk',
       '/admin/stores',
       '/admin/storehours',
-
       '/admin/productimages',
     ],
   },
+  '/admin/sending-notifications',
   '/admin/scheduled-update',
   '/admin/marketingassets',
   '/admin/links',
