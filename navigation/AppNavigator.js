@@ -5,6 +5,7 @@ import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
+import VerificationScreen from '../screens/auth/VerificationScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
@@ -43,6 +44,9 @@ function DrawerNavigator() {
           paddingLeft: 16,
           borderRadius: 0,
         },
+      }}
+      screenOptions={{
+        headerShown: false,
       }}>
       <Drawer.Screen
         name="Stores"
@@ -54,7 +58,6 @@ function DrawerNavigator() {
         component={ResourcesStackNavigator}
         options={{
           title: 'Resources',
-          unmountOnBlur: true,
         }}
       />
       <Drawer.Screen
@@ -62,7 +65,6 @@ function DrawerNavigator() {
         component={SettingsStackNavigator}
         options={{
           title: 'Settings',
-          unmountOnBlur: true,
         }}
       />
     </Drawer.Navigator>
@@ -107,6 +109,7 @@ export default function createAppContainer() {
           options={{ animationEnabled: false }}
         />
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
+        <AppStack.Screen name="Verify" component={VerificationScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

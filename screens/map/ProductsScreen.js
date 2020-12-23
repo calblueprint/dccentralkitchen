@@ -48,7 +48,7 @@ export default function ProductsScreen(props) {
               <Title>{`Products (${products.length})`}</Title>
             </ColumnContainer>
           }
-          ListFooterComponent={<View style={{ height: 400 }} />}
+          ListFooterComponent={<View style={{ height: 500 }} />}
         />
       </ProductListContainer>
     </View>

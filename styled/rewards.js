@@ -1,17 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { PixelRatio, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
 export const RewardsCardContainer = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
-  border-radius: 9px;
-  width: 159px;
-  height: 64px;
+  border-radius: 8px;
   padding: 10px;
   margin: 6px 12px 6px 4px;
 
   flex-direction: row;
   background-color: ${Colors.lightestGreen};
+`;
+
+export const HowItWorksContainer = styled.View`
+  flex-direction: ${PixelRatio.getFontScale() < 1.2 ? 'row' : 'column'};
+  align-items: ${PixelRatio.getFontScale() < 1.2 ? 'center' : 'flex-start'};
+  margin-bottom: ${PixelRatio.getFontScale() < 1.2 ? '12px' : '32px'};
+  width: 100%;
 `;
 
 export const RewardDescriptionContainer = styled.View`
@@ -28,7 +33,6 @@ export const AvailableRewardsContainer = styled.View`
   margin: 8px 0;
   display: flex
   width: 100%
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 `;

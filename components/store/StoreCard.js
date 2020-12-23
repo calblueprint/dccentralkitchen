@@ -1,9 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
+import * as Linking from 'expo-linking';
 import PropTypes from 'prop-types';
 import React from 'react';
-import * as Linking from 'expo-linking';
+import { PixelRatio } from 'react-native';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import {
@@ -12,6 +13,7 @@ import {
   writeToClipboard,
 } from '../../lib/mapUtils';
 import {
+  ColumnContainer,
   InLineContainer,
   RowContainer,
   SpaceBetweenRowContainer,
@@ -107,57 +109,62 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             {`${distance} miles away`}
           </Caption>
         )}
-        <ButtonContainer
-          disabled={storeList}
-          onPress={() => openDirections(latitude, longitude, storeName)}
-          onLongPress={() => writeToClipboard(address)}>
-          <InLineContainer style={{ alignItems: 'center' }}>
-            <FontAwesome5
-              name="directions"
-              size={16}
-              color={Colors.secondaryText}
-            />
-            <StoreDetailText>{address}</StoreDetailText>
-          </InLineContainer>
-        </ButtonContainer>
-        <ButtonContainer
-          disabled={storeList || !phoneNumber}
-          onPress={() => {
-            Analytics.logEvent('click_phone_number', {
-              store_name: storeName,
-              store_phone_number: phoneNumber,
-            });
-            Linking.openURL('tel://'.concat(phoneNumber.replace(/\D/g, '')));
-          }}
-          onLongPress={() => writeToClipboard(phoneNumber)}>
-          <InLineContainer style={{ alignItems: 'center' }}>
-            <FontAwesome5
-              name="phone"
-              solid
-              size={16}
-              color={Colors.secondaryText}
-            />
-            <StoreDetailText>
-              {phoneNumber || 'Phone number unavailable'}
-            </StoreDetailText>
-          </InLineContainer>
-        </ButtonContainer>
-
-        <InLineContainer style={{ alignItems: 'center' }}>
-          <FontAwesome5
-            name="clock"
-            solid
-            size={16}
-            color={Colors.secondaryText}
-          />
-          {storeOpenStatus.includes('Open') ? (
-            <StoreDetailText greenText={storeOpenStatus}>
-              {storeOpenStatus}
-            </StoreDetailText>
-          ) : (
-            <StoreDetailText>{storeOpenStatus}</StoreDetailText>
+        <ColumnContainer>
+          <ButtonContainer
+            disabled={storeList}
+            onPress={() => openDirections(latitude, longitude, storeName)}
+            onLongPress={() => writeToClipboard(address)}>
+            <InLineContainer style={{ alignItems: 'center' }}>
+              <FontAwesome5
+                name="directions"
+                size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
+                color={Colors.secondaryText}
+              />
+              <StoreDetailText>{address}</StoreDetailText>
+            </InLineContainer>
+          </ButtonContainer>
+          {(storeList || PixelRatio.getFontScale() < 1.5) && (
+            <ButtonContainer
+              disabled={storeList || !phoneNumber}
+              onPress={() => {
+                Analytics.logEvent('click_phone_number', {
+                  store_name: storeName,
+                  store_phone_number: phoneNumber,
+                });
+                Linking.openURL(
+                  'tel://'.concat(phoneNumber.replace(/\D/g, ''))
+                );
+              }}
+              onLongPress={() => writeToClipboard(phoneNumber)}>
+              <InLineContainer style={{ alignItems: 'center' }}>
+                <FontAwesome5
+                  name="phone"
+                  solid
+                  size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
+                  color={Colors.secondaryText}
+                />
+                <StoreDetailText>
+                  {phoneNumber || 'Phone number unavailable'}
+                </StoreDetailText>
+              </InLineContainer>
+            </ButtonContainer>
           )}
-        </InLineContainer>
+          <InLineContainer style={{ alignItems: 'center' }}>
+            <FontAwesome5
+              name="clock"
+              solid
+              size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
+              color={Colors.secondaryText}
+            />
+            {storeOpenStatus.includes('Open') ? (
+              <StoreDetailText greenText={storeOpenStatus}>
+                {storeOpenStatus}
+              </StoreDetailText>
+            ) : (
+              <StoreDetailText>{storeOpenStatus}</StoreDetailText>
+            )}
+          </InLineContainer>
+        </ColumnContainer>
         <DividerBar />
       </StoreCardContainer>
     </ButtonContainer>

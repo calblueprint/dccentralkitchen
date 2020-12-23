@@ -5,7 +5,8 @@ import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import Colors from './constants/Colors';
@@ -20,6 +21,8 @@ Sentry.init({
 });
 
 export default function App(props) {
+  Text.defaultProps = Text.defaultProps || {};
+  Text.defaultProps.maxFontSizeMultiplier = 1.4;
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   // False to disable Analytics log and warning messages on the Expo client
@@ -35,12 +38,14 @@ export default function App(props) {
     );
   }
   return (
-    <SafeAreaProvider>
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar style="dark" />}
-        <AppNavigator />
-      </View>
-    </SafeAreaProvider>
+    <PaperProvider theme={theme}>
+      <SafeAreaProvider>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar style="dark" />}
+          <AppNavigator />
+        </View>
+      </SafeAreaProvider>
+    </PaperProvider>
   );
 }
 
@@ -50,6 +55,7 @@ async function loadResourcesAsync() {
       require('./assets/images/hc_start.png'),
       require('./assets/images/Marker_Focused.png'),
       require('./assets/images/Marker_Resting.png'),
+      require('./assets/images/Onboarding_1.png'),
     ]),
     Font.loadAsync({
       // This is the icon style we use
@@ -78,3 +84,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bgLight,
   },
 });
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.primaryGreen,
+    accent: Colors.primaryOrange,
+    background: 'white',
+    error: Colors.error,
+  },
+};

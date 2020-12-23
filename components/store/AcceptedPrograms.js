@@ -1,16 +1,14 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import * as Linking from 'expo-linking';
 import * as Analytics from 'expo-firebase-analytics';
+import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../../styled/shared';
 import { styles } from '../../styled/store';
 import { Body, ButtonContainer, ButtonLabel } from '../BaseComponents';
 import ProgramTag from './ProgramTag';
-
-/**
+/** i
  * @prop
  * */
 
@@ -22,13 +20,14 @@ const programToDesc = {
   'Healthy Rewards': 'Participates in Healthy Rewards',
 };
 
-const snapURL = 'https://dccentralkitchen.org/5for5/';
+const snapMatchURL =
+  'https://healthycorners.calblueprint.org/faq.html#snap-matching-and-coupons';
 
 function Program({ programName }) {
   return (
     <SpaceBetweenRowContainer>
       <ProgramTag program={programName} />
-      <View style={styles.tagChipDesc}>
+      <ColumnContainer style={styles.tagChipDesc}>
         <Body>{programToDesc[programName]}</Body>
         {programName === 'SNAP Match' && (
           <ButtonContainer
@@ -37,7 +36,7 @@ function Program({ programName }) {
               Analytics.logEvent('snap_match_learn_more', {
                 purpose: 'Clicked Learn More link about SNAP matching',
               });
-              Linking.openURL(snapURL);
+              WebBrowser.openBrowserAsync(snapMatchURL);
             }}>
             <ButtonLabel
               noCaps
@@ -52,7 +51,7 @@ function Program({ programName }) {
             />
           </ButtonContainer>
         )}
-      </View>
+      </ColumnContainer>
     </SpaceBetweenRowContainer>
   );
 }

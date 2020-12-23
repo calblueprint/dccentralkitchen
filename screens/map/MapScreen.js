@@ -1,13 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Updates } from 'expo';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import * as Updates from 'expo-updates';
 import convertDistance from 'geolib/es/convertDistance';
 import getDistance from 'geolib/es/getDistance';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
@@ -132,7 +132,7 @@ export default class MapScreen extends React.Component {
       await this._populateStoreProducts(this.state.store);
     } catch (err) {
       Alert.alert('Update required', 'Refresh the app to see changes', [
-        { text: 'OK', onPress: () => Updates.reload() },
+        { text: 'OK', onPress: async () => Updates.reloadAsync() },
       ]);
       console.error(
         '[MapScreen] (_populateInitialStoresProducts) Airtable:',
@@ -211,44 +211,45 @@ export default class MapScreen extends React.Component {
     );
   };
 
-  renderHeader = () => (
-    <View
-      style={{
-        display: 'flex',
-        alignItems: 'flex-end',
-      }}>
-      {!this.state.showDefaultStore && (
-        <CenterLocation
-          callBack={async () => {
-            Analytics.logEvent('center_location', {
-              purpose: 'Centers map to current location',
-            });
-            await this._findCurrentLocation();
-            await this._orderStoresByDistance(this.state.stores);
-          }}
-        />
-      )}
-      <BottomSheetHeaderContainer>
-        <DragBar />
-      </BottomSheetHeaderContainer>
-    </View>
-  );
-
   renderContent = () => {
     return (
-      <BottomSheetContainer>
-        <Subtitle
-          style={{ margin: 16, marginBottom: 0 }}
-          color={Colors.secondaryText}>
-          Browsing healthy products at
-        </Subtitle>
-        <StoreProducts
-          navigation={this.props.navigation}
-          store={this.state.store}
-          products={this.state.storeProducts}
-          showDefaultStore={this.state.showDefaultStore}
-        />
-      </BottomSheetContainer>
+      <View>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+          }}>
+          {!this.state.showDefaultStore && (
+            <CenterLocation
+              callBack={async () => {
+                Analytics.logEvent('center_location', {
+                  purpose: 'Centers map to current location',
+                });
+                await this._findCurrentLocation();
+                await this._orderStoresByDistance(this.state.stores);
+              }}
+            />
+          )}
+        </View>
+        <BottomSheetContainer>
+          <BottomSheetHeaderContainer>
+            <DragBar />
+          </BottomSheetHeaderContainer>
+          {PixelRatio.getFontScale() < 1.2 && (
+            <Subtitle
+              style={{ marginHorizontal: 16, marginBottom: 0 }}
+              color={Colors.secondaryText}>
+              Browsing healthy products at
+            </Subtitle>
+          )}
+          <StoreProducts
+            navigation={this.props.navigation}
+            store={this.state.store}
+            products={this.state.storeProducts}
+            showDefaultStore={this.state.showDefaultStore}
+          />
+        </BottomSheetContainer>
+      </View>
     );
   };
 
@@ -323,7 +324,7 @@ export default class MapScreen extends React.Component {
             }>
             <FontAwesome5
               name="search"
-              size={16}
+              size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
               color={Colors.primaryOrange}
             />
             <Subtitle color={Colors.secondaryText} style={{ marginLeft: 8 }}>
@@ -344,6 +345,7 @@ export default class MapScreen extends React.Component {
           ref={(mapView) => {
             this._map = mapView;
           }}
+          mapType="mutedStandard"
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete}>
           {/* Display store markers */}
@@ -356,9 +358,8 @@ export default class MapScreen extends React.Component {
               }}
               onPress={() => this.changeCurrentStore(store)}>
               <StoreMarker
-                storeName={
-                  this.state.region.longitudeDelta < 0.07 ? store.storeName : ''
-                }
+                showName={this.state.region.longitudeDelta < 0.07}
+                storeName={store.storeName}
                 focused={store.focused}
               />
             </Marker>
@@ -374,7 +375,6 @@ export default class MapScreen extends React.Component {
             overdragResistanceFactor={1}
             enabledContentTapInteraction={false}
             snapPoints={snapPoints}
-            renderHeader={this.renderHeader}
             renderContent={this.renderContent}
             // eslint-disable-next-line no-return-assign
             ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}

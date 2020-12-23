@@ -1,7 +1,7 @@
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, PixelRatio } from 'react-native';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { displayDollarValue } from '../../lib/common';
@@ -27,7 +27,13 @@ function ProductCard({
         });
       }}>
       <ColumnContainer
-        style={{ width: productsScreen ? (Window.width - 32 - 40) / 2 : 86 }}>
+        style={{
+          width: productsScreen
+            ? (Window.width - 32 - 40) / 2
+            : PixelRatio.getFontScale() < 1.2
+            ? 86
+            : 100,
+        }}>
         <Image
           source={{ uri: product.imageUrl }}
           style={{

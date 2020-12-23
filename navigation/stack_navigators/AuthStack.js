@@ -1,11 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Colors from '../../constants/Colors';
-import LogInScreen from '../../screens/auth/LogInScreen';
+import CompleteSignUpScreen from '../../screens/auth/CompleteSignUpScreen';
 import OnboardingScreen from '../../screens/auth/OnboardingScreen';
-import PasswordResetScreen from '../../screens/auth/PasswordResetScreen';
-import SignUpScreen from '../../screens/auth/SignUpScreen';
-import WelcomeScreen from '../../screens/auth/WelcomeScreen';
+import PhoneNumberScreen from '../../screens/auth/PhoneNumberScreen';
 
 const AuthStack = createStackNavigator();
 
@@ -17,10 +15,11 @@ export default function AuthStackNavigator() {
         cardStyle: { backgroundColor: Colors.bgLight },
       }}>
       <AuthStack.Screen name="Onboarding" component={OnboardingScreen} />
-      <AuthStack.Screen name="Welcome" component={WelcomeScreen} />
-      <AuthStack.Screen name="SignUp" component={SignUpScreen} />
-      <AuthStack.Screen name="LogIn" component={LogInScreen} />
-      <AuthStack.Screen name="Reset" component={PasswordResetScreen} />
+      <AuthStack.Screen name="PhoneNumber" component={PhoneNumberScreen} />
+      <AuthStack.Screen
+        name="CompleteSignUp"
+        component={CompleteSignUpScreen}
+      />
     </AuthStack.Navigator>
   );
 }
