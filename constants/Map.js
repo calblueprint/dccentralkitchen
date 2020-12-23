@@ -8,3 +8,8 @@ export const initialRegion = {
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
 };
+
+export const deltas = {
+  latitudeDelta: 0.01,
+  longitudeDelta: 0.01,
+};

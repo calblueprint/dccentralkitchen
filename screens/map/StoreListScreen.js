@@ -13,6 +13,7 @@ import {
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
 import Colors from '../../constants/Colors';
+import { filterStore } from '../../lib/mapUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, styles } from '../../styled/store';
 
@@ -67,16 +68,6 @@ export default class StoreListScreen extends React.Component {
     });
   };
 
-  filterStore = (searchStr) => {
-    return (store) => {
-      return (
-        store.storeName.toLowerCase().includes(searchStr.toLowerCase()) ||
-        store.address.toLowerCase().includes(searchStr.toLowerCase()) ||
-        store.zip.includes(searchStr)
-      );
-    };
-  };
-
   updateFilters = (name) => {
     this.filterHistory.push(name);
     this.setState((prevState) => ({
@@ -87,7 +78,7 @@ export default class StoreListScreen extends React.Component {
   render() {
     const { stores } = this.props.route.params;
     const { filters, searchStr } = this.state;
-    let filteredStores = stores.filter(this.filterStore(searchStr));
+    let filteredStores = stores.filter(filterStore(searchStr));
     const selectedFilters = Object.keys(filters).filter((key) => filters[key]);
     // Only apply filters if at least one is selected
     // Otherwise, apply all that are selected

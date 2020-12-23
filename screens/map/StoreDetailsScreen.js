@@ -19,7 +19,7 @@ import StoreHours from '../../components/store/StoreHours';
 import Colors from '../../constants/Colors';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
-  isFavoritefromCustomer,
+  isFavorite,
   openDirections,
   toggleFavoriteStore,
   writeToClipboard,
@@ -28,13 +28,13 @@ import { ColumnContainer, InLineContainer } from '../../styled/shared';
 
 export default function StoreDetailsScreen(props) {
   const { store, seeDistance, hideFavorite } = props.route.params;
-  const [isFavorite, setFavorite] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
       let isActive = true;
       const fetchUser = async () => {
         try {
-          const fav = await isFavoritefromCustomer(store.id);
+          const fav = await isFavorite(store.id);
           if (isActive) {
             setFavorite(fav);
           }
@@ -71,14 +71,14 @@ export default function StoreDetailsScreen(props) {
               store.id
             );
             if (updateFavorite) {
-              setFavorite(!isFavorite);
+              setFavorite(!favorite);
             }
           }}>
           {hideFavorite || (
             <FontAwesome5
               name="heart"
               color={Colors.darkerOrange}
-              solid={isFavorite}
+              solid={favorite}
               size={24}
             />
           )}

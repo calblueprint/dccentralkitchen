@@ -11,7 +11,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react-native', 'prettier'],
+  plugins: ['react-native', 'prettier', 'react-hooks'],
   rules: {
     'no-restricted-imports': [
       'error',
