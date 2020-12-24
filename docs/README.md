@@ -61,7 +61,7 @@ Run `yarn docs:dev` to get the documentation site running locally. It'll default
 We use Netlify for continuous deployment. It's configured to auto-build and deploy to <https://healthycorners-rewards.netlify.app/> whenever a commit is pushed to the `dccentralkitchen/docs` branch.
 
 ## Contact
-For any questions about the admin or developer side of this project, contact **Annie Wang** at <wangannie@berkeley.edu>
+For any questions about the admin or developer side of this project, contact **Annie Wang** at **wangannie [at] berkeley.edu**
 
 ## About
 

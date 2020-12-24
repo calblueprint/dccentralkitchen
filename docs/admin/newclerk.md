@@ -6,7 +6,7 @@
 - A 4-digit PIN number to use as this clerk's unique password.
   
 ::: warning NOTE
-For security reasons, these links are password protected. Contact <wangannie@berkeley.edu> if you need access.
+For security reasons, these links are password protected. Contact **wangannie [at] berkeley.edu** if you need access.
 :::
 
 ### Procedure
