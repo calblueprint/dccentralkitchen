@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../../constants/Colors';
 import { CategoryCard, CategoryHeadingContainer } from '../../styled/resources';
-import { Title } from '../BaseComponents';
+import { Subtitle, Title } from '../BaseComponents';
 import CircleIcon from '../CircleIcon';
 
-function CategoryBar({ icon, title }) {
+function CategoryBar({ icon, title, mini }) {
   return (
     <CategoryCard>
       {icon !== '' && (
@@ -16,7 +16,7 @@ function CategoryBar({ icon, title }) {
         />
       )}
       <CategoryHeadingContainer style={icon !== '' && { marginLeft: 12 }}>
-        <Title>{title}</Title>
+        {mini ? <Subtitle>{title}</Subtitle> : <Title>{title}</Title>}
       </CategoryHeadingContainer>
     </CategoryCard>
   );
@@ -25,10 +25,12 @@ function CategoryBar({ icon, title }) {
 CategoryBar.propTypes = {
   icon: PropTypes.string,
   title: PropTypes.string.isRequired,
+  mini: PropTypes.bool,
 };
 
 CategoryBar.defaultProps = {
   icon: '',
+  mini: false,
 };
 
 export default CategoryBar;
