@@ -11,20 +11,20 @@ import {
 } from '../../styled/resources';
 import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
-function cardPressed(resource) {
+function cardPressed(title, category, url) {
   Analytics.logEvent('open_resource_link', {
-    resource_name: resource.title,
-    resource_category: resource.category.toString(),
+    resource_name: title,
+    resource_category: category.toString(),
   });
-  WebBrowser.openBrowserAsync(resource.url);
+  WebBrowser.openBrowserAsync(url);
 }
-function ResourceCard({ resourceCard }) {
+function ResourceCard({ title, description, category, url }) {
   return (
-    <ButtonContainer onPress={() => cardPressed(resourceCard)}>
+    <ButtonContainer onPress={() => cardPressed(title, category, url)}>
       <ResourceItemCard>
         <ContentContainer>
-          <Subtitle>{resourceCard.title}</Subtitle>
-          <Body color={Colors.secondaryText}>{resourceCard.description}</Body>
+          <Subtitle>{title}</Subtitle>
+          <Body color={Colors.secondaryText}>{description}</Body>
         </ContentContainer>
         <IconContainer>
           <FontAwesome5
@@ -39,7 +39,15 @@ function ResourceCard({ resourceCard }) {
 }
 
 ResourceCard.propTypes = {
-  resourceCard: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  category: PropTypes.array,
+  url: PropTypes.string.isRequired,
+};
+
+ResourceCard.defaultProps = {
+  description: '',
+  category: [],
 };
 
 export default ResourceCard;

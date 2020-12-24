@@ -85,7 +85,10 @@ export default class ResourcesScreen extends React.Component {
           renderItem={({ item }) => (
             <ResourceCard
               key={item.id}
-              resourceCard={item}
+              title={item.title}
+              description={item.description}
+              category={item.category}
+              url={item.url}
               navigation={this.props.navigation}
             />
           )}
