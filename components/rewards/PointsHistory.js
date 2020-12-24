@@ -31,6 +31,7 @@ function PointsHistory({ transactions }) {
             totalSale={item.totalSale}
             rewardsUnlocked={item.rewardsUnlocked}
             rewardsApplied={item.rewardsApplied}
+            storeId={item.storeId}
           />
         )}
         keyExtractor={(item) => item.id}
