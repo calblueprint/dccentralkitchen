@@ -197,13 +197,6 @@ export default function MapScreen(props) {
           <BottomSheetHeaderContainer>
             <DragBar />
           </BottomSheetHeaderContainer>
-          {PixelRatio.getFontScale() < 1.2 && (
-            <Subtitle
-              style={{ marginHorizontal: 16, marginBottom: 0 }}
-              color={Colors.secondaryText}>
-              Browsing healthy products at
-            </Subtitle>
-          )}
           {currentStore && (
             <StoreProducts
               navigation={props.navigation}

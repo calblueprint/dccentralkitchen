@@ -62,7 +62,7 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
             </ButtonContainer>
           </SpaceBetweenRowContainer>
           {store.stocksOtherVendors && (
-            <Body style={{ marginHorizontal: 16, marginTop: -16 }}>
+            <Body style={{ marginHorizontal: 16, marginTop: -8 }}>
               This store regularly stocks additional produce from other vendors.
             </Body>
           )}
