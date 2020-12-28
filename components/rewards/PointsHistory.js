@@ -1,9 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import _ from 'lodash';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { SectionList, View } from 'react-native';
 import Colors from '../../constants/Colors';
-import { Body, Overline } from '../BaseComponents';
+import { Body } from '../BaseComponents';
+import CategoryBar from '../resources/CategoryBar';
 import Transaction from './Transaction';
 
 /**
@@ -11,16 +14,29 @@ import Transaction from './Transaction';
  * */
 
 function PointsHistory({ transactions }) {
+  const groupedTransactions = _.groupBy(transactions, (transaction) =>
+    moment(transaction.date)
+      .startOf('month')
+      .format('MMMM YYYY')
+  );
+  const sections = [];
+  Object.entries(groupedTransactions).forEach(([month, tactions]) => {
+    sections.push({
+      month,
+      data: tactions,
+    });
+  });
+
   return (
     <View>
-      <FlatList
-        ListHeaderComponent={
-          <Overline style={{ marginTop: 24, marginLeft: 16, marginBottom: 12 }}>
-            Recent Transactions
-          </Overline>
-        }
+      <SectionList
+        sections={sections}
         initialNumToRender={10}
-        data={transactions}
+        renderSectionHeader={({ section }) =>
+          section.data.length > 0 ? (
+            <CategoryBar mini title={section.month} />
+          ) : null
+        }
         renderItem={({ item }) => (
           <Transaction
             key={item.id}
@@ -31,6 +47,7 @@ function PointsHistory({ transactions }) {
             totalSale={item.totalSale}
             rewardsUnlocked={item.rewardsUnlocked}
             rewardsApplied={item.rewardsApplied}
+            storeId={item.storeId}
           />
         )}
         keyExtractor={(item) => item.id}

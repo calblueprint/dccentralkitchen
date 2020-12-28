@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
+import RecordIds from '../../constants/RecordIds';
 import { rewardDollarValue, rewardPointValue } from '../../constants/Rewards';
 import { displayDollarValue } from '../../lib/common';
 import { ContentContainer, TransactionCard } from '../../styled/transaction';
@@ -20,6 +21,7 @@ function Transaction(props) {
     totalSale,
     rewardsUnlocked,
     rewardsApplied,
+    storeId,
   } = props;
   const options = {
     weekday: 'short',
@@ -62,7 +64,9 @@ function Transaction(props) {
           </Caption>
           <Subtitle>{`${pointsEarned} points earned`}</Subtitle>
           <Caption color={Colors.secondaryText}>
-            {`for ${displayDollarValue(totalSale || 0)} of healthy products`}
+            {storeId === RecordIds.surveyStoreId
+              ? `for completing a survey`
+              : `for ${displayDollarValue(totalSale || 0)} of healthy products`}
           </Caption>
         </ContentContainer>
       </TransactionCard>
@@ -94,6 +98,7 @@ Transaction.propTypes = {
   totalSale: PropTypes.number,
   rewardsUnlocked: PropTypes.number,
   rewardsApplied: PropTypes.number,
+  storeId: PropTypes.string.isRequired,
 };
 
 Transaction.defaultProps = {
