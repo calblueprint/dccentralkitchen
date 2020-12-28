@@ -80,7 +80,7 @@ export default class RewardsScreen extends React.Component {
           text: 'OK',
           onPress: async () => {
             clearUserLog();
-            await AsyncStorage.clear();
+            await AsyncStorage.removeItem('customerId');
             await Updates.reloadAsync();
           },
         },

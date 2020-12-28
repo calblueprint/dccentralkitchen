@@ -79,7 +79,7 @@ function DrawerContent(props) {
               text: 'OK',
               onPress: async () => {
                 clearUserLog();
-                await AsyncStorage.clear();
+                await AsyncStorage.removeItem('customerId');
                 await Updates.reloadAsync();
               },
             },
