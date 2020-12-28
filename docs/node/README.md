@@ -5,18 +5,11 @@ next: ./getting-started
 
 # Backend Server (Node.js)
 
-This backend server built with Express and Node integrates the Airtable and Google Sheets APIs to run a scheduled daily job to update the products delivered in the customer app. Products displayed must have been delivered in the last seven days by default, though the number of days can be configured.
+This backend server built with Express and Node integrates the Airtable API with:
+1. the Appian API to update the products delivered in the customer app (see [Updating Store Products](store-products.md))
+2. the Twilio API to alert customers of recent product deliveries (see [SMS Notifications with Twilio](twilio-notifications.md))
 
----
-
-Here's a screenshot of the sheet (`Blueprint - Store Products`) that our app modifies, which acts as the data source for Airtable.
-![Google Sheet - Blueprint sheet](../assets/node/google-sheet.png)
-
-::: tip
-The details of how it's configured can be found in the [admin guide](../admin/#google-sheets), but for our purposes, we will assume this spreadsheet will always accurately list stores & products delivered during the range specified in the yellow-highlighted cells.
-:::
-
----
+Both processes are executed once a day through a scheduled daily job via Heroku.
 
 Here are some of the affected views in the customer application.
 |                           Map view                           |                        Individual store's product list                         |

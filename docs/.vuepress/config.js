@@ -104,6 +104,8 @@ const devSidebar = [
       ['/node/', 'Introduction'],
       '/node/getting-started',
       '/node/app-overview',
+      '/node/store-products',
+      '/node/twilio-notifications',
     ],
   },
   {

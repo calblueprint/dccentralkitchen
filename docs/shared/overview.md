@@ -13,7 +13,7 @@ See [the homepage](/#introduction) for an introduction to the project.
 - [Clerk-facing application](https://github.com/calblueprint/dccentralkitchen-clerks)
   - Designed for Android tablet usage
 - [Backend server](https://github.com/calblueprint/dccentralkitchen-node)
-  - Runs a scheduled job to port data from Google Sheets to Airtable (production base)
+  - Runs a scheduled job to port data from the Appian API to Airtable (production base)
   - Written in Node.js using an Express server. Deployed with Heroku to <https://healthycorners-rewards-node.herokuapp.com/.>
 - [Documentation site](https://healthycorners-rewards.netlify.app/)
   - This website! See the [homepage](/#editing-this-site) for details.

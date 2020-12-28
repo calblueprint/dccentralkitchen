@@ -38,7 +38,7 @@ The core features of the **customer app** are rewards and the map screen (where 
 
 The **clerk application** is designed to be use in conjunction with an existing POS system at checkout. With the tablet application, clerks can log in to their accounts, look up customers, and create transactions where customers can earn points towards rewards when they buy Healthy Corners products.
 
-**Admins** should learn to work with Airtable to ensure up-to-date information for the application(s). Since products displayed in the customer application must have been delivered recently, we've set up a scheduled product update using delivery data from Google Sheets to update Airtable. We've put together a [guide for admins](./admin) to help you get started!
+**Admins** should learn to work with Airtable to ensure up-to-date information for the application(s). Since products displayed in the customer application must have been delivered recently, we've set up a scheduled product update using delivery data from the Appian API to update Airtable. We've put together a [guide for admins](./admin) to help you get started!
 
 **Developers** should start with the [project overview in the developer documentation](./shared/overview).
 

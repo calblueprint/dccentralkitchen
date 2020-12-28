@@ -23,7 +23,7 @@ The **Airtable Guidelines** section:
 - [Formatting store hours](./storehours.md): Specifically, the `Store Hours` field is very finicky. Detailed examples of accepted/unaccepted format can be found in this page.
 - [Processing product images](./productimages.md): Image sizes are constrained. This guide walks through how to compress and upload images.
 
-[Scheduled Updates](./scheduled-update.md): Explains how we keep the products displayed in the app in-sync with deliveries, and what needs to be maintained through Google Sheets.  
+[Scheduled Updates](./scheduled-update.md): Explains how we keep the products displayed in the app in sync with deliveries based on the Appian API. 
 [Marketing assets](./marketingassets.md): Links to various marketing assets for the applications.  
 [Important links](./links.md): Shortlinks used for convenience.  
 [Future development](./future.md): Please take a look at this page when considering changes, new features, etc.

@@ -44,7 +44,7 @@ This application is set up with `babel-node` to allow `import/export` syntax ins
 
 Most of the information in the [customer/clerk documentation](../shared/getting-started.md#development-lifecycle) still holds true, with some exceptions:
 
-- There was only one developer for this repo, so no PRs were really made, though that can and should change (^:
+- There was initially only one developer for this repo, so no PRs were really made, though that can and should change (^:
 - This repo does not use `yarnhook`
 - This repo uses `pretty-quick` instead of `prettier` for the pre-commit hook
 - This repo doesn't have any fun scripts - just `start` and `generate-schema`
@@ -57,60 +57,12 @@ First, read through the [general "Working With Airtable" page](../shared/airtabl
 
 In our code, we only ever call functions in `request.js`; see `utils/storeProducts.js` for example usage of the helper functions.
 
-### Google API
-
-Any application that interacts with any of Google's products must utilize the auth flow (essentially getting consent from the user).
-
-::: danger
-With the currently deployed application, we've gotten auth set up such that the application uses `anniero@berkeley.edu`'s permissions for editing the "FY20 Sales Data and Trends" spreadsheet.
-
-This isn't sustainable, as the authenticated user will need "Edit access" to the spreadsheet source and the source Google Sheet may change. See the [code documentation](./app-overview.md#google-auth) for how to update the authenticated user.
-:::
-
-In general, I found the Google documentation a bit lacking, and the Google Cloud Platform page unintuitive to navigate. Thus, I've included screenshots along with minimal instructions for some common pages you may need to visit.
-
-#### Get project credentials
-
-Project credentials (`CLIENT_ID`, `CLIENT_SECRET`) are located in the `APIs & Services` section.
-
-![Locating Credentials screen](../assets/node/locating-credentials.png)
-
-Click on the "Healthy Corners Rewards OAuth Client"
-
-![OAuth2 Client Info](../assets/node/oauth2-client-info.png)
-
-Click "Download JSON" or alternatively directly copy-paste the Client ID and Client Secret. If you scroll down, you'll see this section:
-
-![Redirect URIs](../assets/node/redirect-URIs.png)
-
-Here, you can set redirect URIs - if the domain ever changes, you **must** update this. Otherwise, authorization will stop working! Furthermore, the `REDIRECT_URI` in `.env` and Heroku's config vars **must match and be listed here**.
-
-#### Revoke application permissions
-
-When testing auth, you may need to revoke application permission, since the `refreshToken` is by default only returned on the first authorization of the application.
-
-You can do so here: <https://myaccount.google.com/permissions>
-
-![Google app access](../assets/node/app-access.png)
-
-#### Add a user to the project
-
-This can be done via the [IAM page in the Google Cloud console](https://console.cloud.google.com/iam-admin/iam?authuser=1&folder=&organizationId=&orgonly=true&project=quickstart-1587887313757&supportedpurview=organizationId).
-
-![IAM page](../assets/node/iam.png)
-
 ### Working with Dates
 
-Since we need to update the date range in Google Sheets, we must manipulate Javascript `Date` objects. However, it's a well-known fact that the naive Javascript `Date` objects are difficult and can be unreliable.
-
-The easiest thing to do is use [moment.js](https://momentjs.com/docs/). Don't waste time (^:
+It's a well-known fact that the naive Javascript `Date` objects are difficult and can be unreliable. The easiest thing to do is use [moment.js](https://momentjs.com/docs/). Don't waste time (^:
 
 ## Interacting with the application
-
-Some routes are accessible via browser (e.g the `GET` routes - in particular, the initial authorization **must** be done via browser since it requires user consent).
-
-::: warning POSTMAN
-Another option is to do so via the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls that modify the spreadsheet are locked via a `HC_SECRET`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
+You can reach the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls that modify the spreadsheet are locked via a `HC_SECRET`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
 
 **Example**
 ![Postman example](../assets/node/postman.png)
@@ -123,11 +75,9 @@ Note that you **must** add the `Content-Type: application/json` header. Then, th
 }
 ```
 
-:::
-
 ## Deploying with Heroku
 
-Follow [the instructions here](https://devcenter.heroku.com/articles/collab#deploy-the-app) to get set up as a collaborator.
+Follow [the instructions here](https://devcenter.heroku.com/articles/collab#deploy-the-app) to get set up as a collaborator. NOTE: The Healthy Corners developer Gmail already has an account with access.
 
 ### Config vars
 
@@ -185,11 +135,6 @@ We've installed it because we might want to inspect the `console.log` output of 
 ![Logentries Output](../assets/node/output-logentries.png)
 
 ## References
-
-Google API
-
-- Google Sheets API reference: <https://developers.google.com/sheets/api/guides/concepts>
-- Google Project console (only viewable to authorized users for the project) <https://console.cloud.google.com/apis/credentials/consent?project=quickstart-1587887313757>
 
 Deploying
 
