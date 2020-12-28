@@ -69,6 +69,8 @@ The How it Works section explains how the Rewards program works using illustrate
 
 [Customer PR #147: Updated How It Works](https://github.com/calblueprint/dccentralkitchen/pull/147)
 
+This section also includes an FAQ section. Check out the guide on [Updating FAQs](updating-faqs.md)
+
 ## Participating stores
 
 `ParticipatingStores` displays the list of stores which accept rewards. Tapping the store name redirects to the map (just as tapping the store card in StoreListScreen does).

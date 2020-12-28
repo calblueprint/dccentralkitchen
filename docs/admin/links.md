@@ -26,6 +26,14 @@ We developed a guide on how to use the clerk tablet app to assist with clerk tra
 These links are still embedded within this documentation site, though the sidebars will disappear. To return to this site, go back to <https://healthycorners.calblueprint.org/>
 :::
 
+## Frequently Asked Questions (FAQs)
+
+The public link for the full app FAQs is <https://healthycorners.calblueprint.org/faq.html>. This includes FAQs related to Healthy Corners, SNAP Matching, Healthy Rewards, and more.
+
+The 'mini FAQ' section embedded **within** the 'How it Works' screen in the customer app can be found here <https://healthycorners.calblueprint.org/faq-mini.html>
+
+Modifying these FAQ pages requires access to this Github repository, so we recommend asking a developer to make changes. See the [Developer Guide: Updating FAQs](../customer/updating-faqs.md)
+
 ## Privacy Policy
 
 We developed a privacy policy for the customer-facing app to comply with App Store guidelines. This can be modified through the documentation site, which may require assistance from a developer.
