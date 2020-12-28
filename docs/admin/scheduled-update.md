@@ -1,4 +1,4 @@
-# Scheduled Updates
+# Scheduled Product Updates
 
 We run a daily job to automatically update a store's current products in Airtable from the most recent deliveries. Currently, the latest delivery information is pulled from the Appian API, which automatically filters out deliveries outside of the determined date range.
 

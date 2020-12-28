@@ -12,4 +12,4 @@ This repo contains code for the customer-facing application and contains the maj
 ## App Store
 - iOS App Store: [Healthy Corners](https://apps.apple.com/us/app/healthy-corners-rewards/id1503424404?ls=1)
 - Google Play Store: [Healthy Corners - DC Central Kitchen](https://play.google.com/store/apps/details?id=org.calblueprint.HealthyCornersRewards)
-- Cross-platform link: [tiny.cc/HealthyCornersApp](https://tiny.cc/HealthyCornersApp)
+- Cross-platform link: [healthycorners.app.link](http://healthycorners.app.link)

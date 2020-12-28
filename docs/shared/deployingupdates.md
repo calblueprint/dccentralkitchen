@@ -112,8 +112,8 @@ Once the OTA update is successfully published, skip the next section and jump to
 
 ### iOS - App Store
 
-::: warning Follow these instructions for the Customer app ONLY
-Only the customer-facing app is deployed to the App Store. The Clerk app is only deployed for Android on the Google Play Store. To deploy updates for the Clerk app, skip to the instructions on [deploying for Android](#android-google-play)
+::: tip Follow these instructions for both apps.
+As of Fall 2020, the Clerk app is also xavailable on iOS on the Apple App Store. Make sure all updates to the Clerk app are made for both iOS and Android.
 :::
 
 #### Start the Expo Build
@@ -144,7 +144,7 @@ To test the app on your device, you will need to install the TestFlight iOS app 
 #### Create a new Version in App Store Connect
 
 1. Sign in to the developer account in [App Store Connect](<https://appstoreconnect.apple.com/](https://appstoreconnect.apple.com/)>)
-2. Go to **My Apps** and select **Healthy Corners**
+2. Go to **My Apps** and select **Healthy Corners** (customer app) or **Healthy Corners Clerk**
 3. Under the **App Store** tab on the left menu bar, select **+ Version or Platform**, and select **iOS** from the dropdown
 
    ![./assets/appstoreupdate/AppStoreConnect.png](../assets/appstoreupdate/AppStoreConnect.png)
