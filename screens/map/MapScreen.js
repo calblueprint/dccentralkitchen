@@ -19,13 +19,12 @@ import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { deltas, initialRegion } from '../../constants/Map';
-import { logErrorToSentry } from '../../lib/logUtils';
 import {
   findDefaultStore,
-  getProductData,
+  orderStoresByDistance,
   useCurrentLocation,
-  useInitialStores,
-  useSortedStores,
+  useStoreProducts,
+  useStores,
 } from '../../lib/mapUtils';
 import {
   BottomSheetContainer,
@@ -37,78 +36,43 @@ import {
 const snapPoints = [185, 325, 488];
 
 export default function MapScreen(props) {
-  const [locationPermissions, setLocationPermissions] = useState(null);
   const [region, setRegion] = useState(initialRegion);
-  const [stores, setStores] = useState([]);
-  const [initialLocation, setInitialLocation] = useState(null);
   const [currentStore, setCurrentStore] = useState(null);
-  const [storeProducts, setStoreProducts] = useState([]);
-  const [showDefaultStore, setShowDefaultStore] = useState(true);
-  const bottomSheetRef = React.useRef(null);
-  const mapRef = React.useRef(null);
-  const [isSorted, setSorted] = useState(false);
 
-  useCurrentLocation(setInitialLocation, setLocationPermissions);
-  useInitialStores(setStores);
-  useSortedStores(
-    locationPermissions,
-    stores,
-    setStores,
-    isSorted,
-    setSorted,
-    initialLocation
-  );
+  const bottomSheetRef = useRef(null);
+  const mapRef = useRef(null);
+  const storeProducts = useStoreProducts(currentStore);
+  const { locationPermissions, initialLocation } = useCurrentLocation();
+  let stores = useStores();
 
-  // Only populate initial store products on first load
-  const initialLoadComplete = useRef(false);
+  if (locationPermissions === 'granted') {
+    stores = orderStoresByDistance(initialLocation, stores);
+  }
+
+  const showDefaultStore =
+    locationPermissions !== 'granted' ||
+    (stores.length > 0 && stores[0].distance > 100);
+
+  // This should only happen once on first load.
   useEffect(() => {
     if (
-      !locationPermissions ||
-      initialLoadComplete.current ||
-      stores.length === 0 ||
-      (locationPermissions === 'granted' && initialLocation && !isSorted)
+      (!currentStore || !region) &&
+      locationPermissions &&
+      stores.length > 0
     ) {
-      return;
-    }
-    const populateInitialStoreProducts = async () => {
-      try {
+      if (locationPermissions !== 'granted' || stores[0].distance > 100) {
         const { defaultStore, defaultRegion } = findDefaultStore(stores);
-        // Set current store to be focused
-        if (locationPermissions !== 'granted' || stores[0].distance > 100) {
-          defaultStore.focused = true;
-          setCurrentStore(defaultStore);
-        } else {
-          stores[0].focused = true;
-          setCurrentStore(stores[0]);
-        }
-
-        setShowDefaultStore(
-          locationPermissions !== 'granted' ? true : stores[0].distance > 100
-        );
-        if (locationPermissions !== 'granted' || stores[0].distance > 100) {
-          setRegion(defaultRegion);
-        } else {
-          setRegion(initialLocation);
-        }
-
-        // Once we choose the closest store, we must populate its store products
-        // Better to perform API calls at top level, and then pass data as props.
-        await populateStoreProducts(currentStore);
-        initialLoadComplete.current = true;
-      } catch (err) {
-        console.error(
-          '[MapScreen] (populateInitialStoreProducts) Airtable:',
-          err
-        );
-        logErrorToSentry({
-          screen: 'MapScreen',
-          function: 'populateInitialStoreProducts',
-          error: err,
-        });
+        defaultStore.focused = true;
+        setCurrentStore(defaultStore);
+        setRegion(defaultRegion);
+      } else {
+        const closestStore = stores[0];
+        closestStore.focused = true;
+        setCurrentStore(closestStore);
+        setRegion(initialLocation);
       }
-    };
-    populateInitialStoreProducts();
-  }, [initialLocation, stores, currentStore, locationPermissions, isSorted]);
+    }
+  }, [locationPermissions, stores]);
 
   useEffect(() => {
     if (props.route.params) {
@@ -122,28 +86,6 @@ export default function MapScreen(props) {
       setRegion(newRegion);
     }
   }, [props.route.params]);
-
-  const populateStoreProducts = async (store) => {
-    if (store) {
-      try {
-        const products = await getProductData(store);
-        if (products) {
-          setStoreProducts(products);
-        }
-      } catch (err) {
-        console.error('[MapScreen] (populateStoreProducts) Airtable:', err);
-        logErrorToSentry({
-          screen: 'MapScreen',
-          function: 'populateStoreProducts',
-          error: err,
-        });
-      }
-    }
-  };
-
-  const onRegionChangeComplete = (newRegion) => {
-    setRegion(newRegion);
-  };
 
   // Update current store and its products
   // Only called after initial store has been set
@@ -169,7 +111,6 @@ export default function MapScreen(props) {
     if (resetSheet) {
       bottomSheetRef.current.snapTo(1);
     }
-    await populateStoreProducts(store);
     await mapRef.current.animateToRegion(newRegion, 1000);
   };
 
@@ -258,7 +199,7 @@ export default function MapScreen(props) {
         ref={mapRef}
         mapType="mutedStandard"
         region={region}
-        onRegionChangeComplete={onRegionChangeComplete}>
+        onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
         {/* Display store markers */}
         {stores.map((store) => (
           <Marker
@@ -307,8 +248,7 @@ export default function MapScreen(props) {
       </ButtonContainer>
       {/* TODO @wangannie redesign temporary map loading screen */}
       {locationPermissions === null ||
-        (locationPermissions !== 'granted' && stores.length > 0) ||
-        (initialLocation !== null && !isSorted && (
+        (stores.length === 0 && (
           <View
             style={{
               position: 'absolute',
