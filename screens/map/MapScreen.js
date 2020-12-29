@@ -171,8 +171,6 @@ export default function MapScreen(props) {
           style={{ flex: 1 }}
           onPress={() =>
             props.navigation.navigate('StoreList', {
-              stores,
-              navigation: props.navigation,
               showDefaultStore,
             })
           }>
@@ -247,7 +245,8 @@ export default function MapScreen(props) {
         <RewardsFooter />
       </ButtonContainer>
       {/* TODO @wangannie redesign temporary map loading screen */}
-      {locationPermissions === null ||
+      {!locationPermissions ||
+        !currentStore ||
         (stores.length === 0 && (
           <View
             style={{
