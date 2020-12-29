@@ -26,7 +26,6 @@ export const CategoryCard = styled.View`
   background-color: ${Colors.lightestGray};
   padding: 10px 24px;
   flex-direction: row;
-  flex: 1;
 `;
 
 export const CategoryHeadingContainer = styled.View`

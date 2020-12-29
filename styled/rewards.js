@@ -29,14 +29,6 @@ export const RewardsProgressContainer = styled.View`
   flex-direction: column;
 `;
 
-export const AvailableRewardsContainer = styled.View`
-  margin: 8px 0;
-  display: flex
-  width: 100%
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
-
 export const styles = StyleSheet.create({
   tabView: {
     flex: 1,
