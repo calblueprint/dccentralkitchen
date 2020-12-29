@@ -13,14 +13,18 @@ import {
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
 import Colors from '../../constants/Colors';
-import { useFilteredStores, useStores } from '../../lib/mapUtils';
+import {
+  findStoreDistance,
+  sortByDistance,
+  useFilteredStores,
+  useStores,
+} from '../../lib/mapUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, styles } from '../../styled/store';
 
 export default function StoreListScreen(props) {
   const searchRef = useRef(null);
   const [searchStr, setSearchStr] = useState('');
-  const stores = useStores();
   const [filters, setFilters] = useState({
     openNow: false,
     productsInStock: false,
@@ -29,9 +33,10 @@ export default function StoreListScreen(props) {
     couponProgramPartner: false,
     rewardsAccepted: false,
   });
+  const stores = useStores();
   const filteredStores = useFilteredStores(stores, filters, searchStr);
-  const { showDefaultStore } = props.route.params;
-
+  const { currentLocation } = props.route.params;
+  stores.sort((a, b) => sortByDistance(currentLocation, a, b));
   // Focuses the search bar when the screen loads
   useFocusEffect(
     React.useCallback(() => {
@@ -40,8 +45,6 @@ export default function StoreListScreen(props) {
     }, [])
   );
 
-  // TODO: fix warning involving using a callback function to look up current store.
-  // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
   const mapTransition = (store) => {
     props.navigation.navigate('Stores', {
       currentStore: store,
@@ -156,7 +159,7 @@ export default function StoreListScreen(props) {
             store={item}
             callBack={() => mapTransition(item)}
             storeList
-            seeDistance={!showDefaultStore}
+            storeDistance={findStoreDistance(currentLocation, item)}
           />
         )}
         keyExtractor={(item) => item.id}

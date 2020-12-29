@@ -21,11 +21,15 @@ import {
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
-function StoreProducts({ navigation, store, products, showDefaultStore }) {
-  // TODO @tommypoa or @anniero98 - move this into shared utils with StoreListScreen
+export default function StoreProducts({
+  navigation,
+  store,
+  products,
+  storeDistance,
+}) {
   return (
     <View>
-      <StoreCard store={store} key={store.id} seeDistance={!showDefaultStore} />
+      <StoreCard store={store} key={store.id} storeDistance={storeDistance} />
       <View>
         <ColumnContainer>
           <SpaceBetweenRowContainer
@@ -48,7 +52,6 @@ function StoreProducts({ navigation, store, products, showDefaultStore }) {
                 });
                 navigation.navigate('Products', {
                   products,
-                  navigation,
                   store,
                 });
               }}>
@@ -108,7 +111,9 @@ StoreProducts.propTypes = {
   products: PropTypes.array.isRequired,
   store: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
-  showDefaultStore: PropTypes.bool.isRequired,
+  storeDistance: PropTypes.string,
 };
 
-export default StoreProducts;
+StoreProducts.defaultProps = {
+  storeDistance: null,
+};

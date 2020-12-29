@@ -30,13 +30,12 @@ import ProgramTag from './ProgramTag';
  * @prop
  * */
 
-export default function StoreCard({ store, storeList, seeDistance }) {
+export default function StoreCard({ store, storeList, storeDistance }) {
   const {
     storeName,
     storeOpenStatus,
     phoneNumber,
     address,
-    distance,
     snapOrEbtAccepted,
     couponProgramPartner,
     wic,
@@ -74,7 +73,7 @@ export default function StoreCard({ store, storeList, seeDistance }) {
               });
               navigation.navigate('StoreDetailsScreen', {
                 store,
-                seeDistance,
+                storeDistance,
               });
             }}
             style={{ paddingLeft: 10 }}>
@@ -102,11 +101,11 @@ export default function StoreCard({ store, storeList, seeDistance }) {
             {rewardsAccepted && <ProgramTag program="Healthy Rewards" />}
           </InLineContainer>
         )}
-        {seeDistance && (
+        {storeDistance && (
           <Caption
             style={{ marginBottom: 4, marginTop: 4 }}
             color={Colors.secondaryText}>
-            {`${distance} miles away`}
+            {`${storeDistance} miles away`}
           </Caption>
         )}
         <ColumnContainer>
@@ -174,10 +173,11 @@ export default function StoreCard({ store, storeList, seeDistance }) {
 StoreCard.propTypes = {
   store: PropTypes.object,
   storeList: PropTypes.bool,
-  seeDistance: PropTypes.bool.isRequired,
+  storeDistance: PropTypes.string,
 };
 
 StoreCard.defaultProps = {
   store: null,
   storeList: false,
+  storeDistance: null,
 };

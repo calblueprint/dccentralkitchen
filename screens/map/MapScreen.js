@@ -21,7 +21,8 @@ import Window from '../../constants/Layout';
 import { deltas, initialRegion } from '../../constants/Map';
 import {
   findDefaultStore,
-  orderStoresByDistance,
+  findStoreDistance,
+  sortByDistance,
   useCurrentLocation,
   useStoreProducts,
   useStores,
@@ -42,16 +43,14 @@ export default function MapScreen(props) {
   const bottomSheetRef = useRef(null);
   const mapRef = useRef(null);
   const storeProducts = useStoreProducts(currentStore);
-  const { locationPermissions, initialLocation } = useCurrentLocation();
-  let stores = useStores();
+  const { locationPermissions, currentLocation } = useCurrentLocation();
 
-  if (locationPermissions === 'granted') {
-    stores = orderStoresByDistance(initialLocation, stores);
-  }
+  const stores = useStores();
+  stores.sort((a, b) => sortByDistance(currentLocation, a, b));
 
   const showDefaultStore =
     locationPermissions !== 'granted' ||
-    (stores.length > 0 && stores[0].distance > 100);
+    (stores.length > 0 && !findStoreDistance(currentLocation, stores[0]));
 
   // This should only happen once on first load.
   useEffect(() => {
@@ -60,16 +59,11 @@ export default function MapScreen(props) {
       locationPermissions &&
       stores.length > 0
     ) {
-      if (locationPermissions !== 'granted' || stores[0].distance > 100) {
-        const { defaultStore, defaultRegion } = findDefaultStore(stores);
-        defaultStore.focused = true;
-        setCurrentStore(defaultStore);
-        setRegion(defaultRegion);
+      if (showDefaultStore) {
+        const { defaultStore } = findDefaultStore(stores);
+        changeCurrentStore(defaultStore, false, false);
       } else {
-        const closestStore = stores[0];
-        closestStore.focused = true;
-        setCurrentStore(closestStore);
-        setRegion(initialLocation);
+        changeCurrentStore(stores[0], false, false);
       }
     }
   }, [locationPermissions, stores]);
@@ -87,19 +81,18 @@ export default function MapScreen(props) {
     }
   }, [props.route.params]);
 
-  // Update current store and its products
-  // Only called after initial store has been set
+  // Update the current store and map region.
   // Only expand (reset) the bottom sheet to display products if navigated from StoreList
-  const changeCurrentStore = async (store, resetSheet = false) => {
+  const changeCurrentStore = async (
+    store,
+    resetSheet = false,
+    animate = true
+  ) => {
     Analytics.logEvent('view_store_products', {
-      store_name: currentStore.storeName,
+      store_name: store.storeName,
       products_in_stock: 'productIds' in store ? store.productIds.length : 0,
       purpose: 'View a store and products available',
     });
-    // Set store focus status
-    currentStore.focused = false;
-    // eslint-disable-next-line no-param-reassign
-    store.focused = true;
 
     // Animate to new store region
     const newRegion = {
@@ -111,7 +104,11 @@ export default function MapScreen(props) {
     if (resetSheet) {
       bottomSheetRef.current.snapTo(1);
     }
-    await mapRef.current.animateToRegion(newRegion, 1000);
+    if (animate) {
+      await mapRef.current.animateToRegion(newRegion, 1000);
+    } else {
+      setRegion(newRegion);
+    }
   };
 
   const renderContent = () => {
@@ -128,7 +125,7 @@ export default function MapScreen(props) {
                 Analytics.logEvent('center_location', {
                   purpose: 'Centers map to current location',
                 });
-                setRegion(initialLocation);
+                setRegion(currentLocation);
               }}
             />
           )}
@@ -149,7 +146,7 @@ export default function MapScreen(props) {
               navigation={props.navigation}
               store={currentStore}
               products={storeProducts}
-              showDefaultStore={showDefaultStore}
+              storeDistance={findStoreDistance(currentLocation, currentStore)}
             />
           )}
         </BottomSheetContainer>
@@ -170,9 +167,7 @@ export default function MapScreen(props) {
         <SearchBar
           style={{ flex: 1 }}
           onPress={() =>
-            props.navigation.navigate('StoreList', {
-              showDefaultStore,
-            })
+            props.navigation.navigate('StoreList', { currentLocation })
           }>
           <FontAwesome5
             name="search"
@@ -210,7 +205,7 @@ export default function MapScreen(props) {
             <StoreMarker
               showName={region.longitudeDelta < 0.07}
               storeName={store.storeName}
-              focused={store.focused}
+              focused={currentStore && currentStore.id === store.id}
             />
           </Marker>
         ))}
