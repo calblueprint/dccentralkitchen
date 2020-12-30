@@ -13,12 +13,7 @@ import {
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
 import Colors from '../../constants/Colors';
-import {
-  findStoreDistance,
-  sortByDistance,
-  useFilteredStores,
-  useStores,
-} from '../../lib/mapUtils';
+import { useFilteredStores } from '../../lib/mapUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, styles } from '../../styled/store';
 
@@ -33,10 +28,9 @@ export default function StoreListScreen(props) {
     couponProgramPartner: false,
     rewardsAccepted: false,
   });
-  const stores = useStores();
+  const { stores } = props.route.params;
   const filteredStores = useFilteredStores(stores, filters, searchStr);
-  const { currentLocation } = props.route.params;
-  stores.sort((a, b) => sortByDistance(currentLocation, a, b));
+
   // Focuses the search bar when the screen loads
   useFocusEffect(
     React.useCallback(() => {
@@ -159,7 +153,6 @@ export default function StoreListScreen(props) {
             store={item}
             callBack={() => mapTransition(item)}
             storeList
-            storeDistance={findStoreDistance(currentLocation, item)}
           />
         )}
         keyExtractor={(item) => item.id}

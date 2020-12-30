@@ -21,15 +21,10 @@ import {
 import StoreCard from '../store/StoreCard';
 import ProductCard from './ProductCard';
 
-export default function StoreProducts({
-  navigation,
-  store,
-  products,
-  storeDistance,
-}) {
+export default function StoreProducts({ navigation, store, products }) {
   return (
     <View>
-      <StoreCard store={store} key={store.id} storeDistance={storeDistance} />
+      <StoreCard store={store} key={store.id} />
       <View>
         <ColumnContainer>
           <SpaceBetweenRowContainer
@@ -111,9 +106,4 @@ StoreProducts.propTypes = {
   products: PropTypes.array.isRequired,
   store: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
-  storeDistance: PropTypes.string,
-};
-
-StoreProducts.defaultProps = {
-  storeDistance: null,
 };

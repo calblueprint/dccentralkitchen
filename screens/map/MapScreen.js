@@ -43,11 +43,15 @@ export default function MapScreen(props) {
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
   const stores = useStores();
-  stores.sort((a, b) => sortByDistance(currentLocation, a, b));
+  stores.forEach((store) => {
+    const currStore = store;
+    currStore.distance = findStoreDistance(currentLocation, store);
+  });
+  stores.sort((a, b) => sortByDistance(a, b));
 
   const showDefaultStore =
     locationPermissions !== 'granted' ||
-    (stores.length > 0 && !findStoreDistance(currentLocation, stores[0]));
+    (stores.length > 0 && !stores[0].distance);
 
   // This should only happen once on first load.
   useEffect(() => {
@@ -143,7 +147,6 @@ export default function MapScreen(props) {
               navigation={props.navigation}
               store={currentStore}
               products={storeProducts}
-              storeDistance={findStoreDistance(currentLocation, currentStore)}
             />
           )}
         </BottomSheetContainer>
@@ -163,9 +166,7 @@ export default function MapScreen(props) {
         {/* Display search bar */}
         <SearchBar
           style={{ flex: 1 }}
-          onPress={() =>
-            props.navigation.navigate('StoreList', { currentLocation })
-          }>
+          onPress={() => props.navigation.navigate('StoreList', { stores })}>
           <FontAwesome5
             name="search"
             size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
