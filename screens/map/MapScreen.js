@@ -210,7 +210,7 @@ export default function MapScreen(props) {
             right: 0,
             top: 0,
             bottom: 0,
-            zIndex: 10,
+            zIndex: 200,
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'rgba(255,255,255,.5)',

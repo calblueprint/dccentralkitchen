@@ -55,15 +55,15 @@ export default function RewardsFooter({ navigation }) {
   return (
     <ButtonContainer
       style={{
-        position: 'absolute',
         bottom: 0,
         width: Window.width,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        zIndex: 5,
+        zIndex: 100,
         padding: 16,
         height: 70,
+        elevation: 5,
         backgroundColor: Colors.primaryGreen,
       }}
       onPress={() => navigation.navigate('RewardsOverlay')}>
