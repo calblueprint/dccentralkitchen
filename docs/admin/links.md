@@ -16,7 +16,7 @@ We use editable short-links so the external links used throughout the apps can b
 
 ## Clerk Training Guide
 
-We developed a guide on how to use the clerk tablet app to assist with clerk training and serve as an ongoing reference for clerks. This guide is also linked in the hamburger menu within the app. They should also be in a printable format.
+We developed a guide on how to use the clerk tablet app to assist with clerk training and serve as an ongoing reference for clerks. This guide is also linked in the hamburger menu within the app. They should also be in a printable format. You can also use **ctrl/cmd + P** to open the system printing menu and generate a PDF to save.
 
 **Clerk Training Guide:** <http://healthycorners.calblueprint.org/admin/clerktraining.html>
 

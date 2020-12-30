@@ -57,6 +57,7 @@ const adminSidebar = [
     ],
   },
   '/admin/sending-notifications',
+  '/admin/updating-docs',
   '/admin/scheduled-update',
   '/admin/marketingassets',
   '/admin/links',
