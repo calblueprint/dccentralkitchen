@@ -40,7 +40,7 @@ function SettingsCard({
 }
 
 SettingsCard.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   titleColor: PropTypes.string,
   description: PropTypes.string,
   navigation: PropTypes.func.isRequired,
@@ -48,6 +48,7 @@ SettingsCard.propTypes = {
 };
 
 SettingsCard.defaultProps = {
+  title: '',
   titleColor: Colors.activeText,
   description: '',
   rightIcon: '',

@@ -29,14 +29,6 @@ export const RewardsProgressContainer = styled.View`
   flex-direction: column;
 `;
 
-export const AvailableRewardsContainer = styled.View`
-  margin: 8px 0;
-  display: flex
-  width: 100%
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
-
 export const styles = StyleSheet.create({
   tabView: {
     flex: 1,
@@ -56,7 +48,7 @@ export const styles = StyleSheet.create({
     color: Colors.lightText,
     textTransform: 'capitalize',
     fontSize: 16,
-    fontFamily: 'poppins-medium',
+    fontFamily: 'opensans-semibold',
     paddingLeft: 6,
     paddingRight: 6,
   },

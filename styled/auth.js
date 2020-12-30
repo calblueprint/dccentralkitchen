@@ -19,10 +19,18 @@ export const AuthScreenContainer = styled.KeyboardAvoidingView.attrs({
 // OnboardingScreen
 export const OnboardingContainer = styled.View`
   display: flex;
-  flex: 1
+  flex: 1;
   justify-content: center;
   margin-horizontal: 40px
   padding: 75px 0px
+`;
+
+// PermissionsScreen
+export const PermissionsContainer = styled.View`
+  display: flex;
+  flex: 1;
+  justify-content: space-between
+  margin: 40px 24px;
 `;
 
 export const OnboardingContentContainer = styled.View`

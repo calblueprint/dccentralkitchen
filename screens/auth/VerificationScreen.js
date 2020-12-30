@@ -141,7 +141,7 @@ export default class VerificationScreen extends React.Component {
               textStyle={{
                 color: Colors.activeText,
                 fontSize: 24,
-                fontFamily: 'poppins-regular',
+                fontFamily: 'opensans-regular',
               }}
               ref={(input) => {
                 this.pinInput = input;

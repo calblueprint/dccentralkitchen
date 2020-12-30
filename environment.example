@@ -31,6 +31,8 @@ const DEV_BASE_ID = 'appYfW7a2loPD26Vg';
 const PROD_BASE_ID = 'app4fXK49bqcjDMEo';
 const AIRTABLE_API_KEY = 'YOUR-API-KEY';
 
+const SMS_SECRET_KEY = 'SECRET_KEY_FROM_HEROKU';
+
 const prodFirebaseConfig = {
   apiKey: 'PROD-API-KEY',
   authDomain: 'quickstart-1587887313757.firebaseapp.com',

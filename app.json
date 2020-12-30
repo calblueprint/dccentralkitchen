@@ -3,7 +3,7 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "sdkVersion": "38.0.0",
+    "sdkVersion": "40.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.4.2",
     "primaryColor": "#008550",
@@ -14,6 +14,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "scheme": "healthycorners",
     "updates": {
       "fallbackToCacheTimeout": 3000
     },
@@ -34,7 +35,10 @@
         ]
       },
       "config": {
-        "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU"
+        "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU",
+        "branch": {
+          "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
+        }
       }
     },
     "android": {
@@ -43,6 +47,9 @@
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
+        },
+        "branch": {
+          "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
         }
       },
       "permissions": [

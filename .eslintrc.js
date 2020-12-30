@@ -11,7 +11,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react-native', 'prettier'],
+  plugins: ['react-native', 'prettier', 'react-hooks'],
   rules: {
     'no-restricted-imports': [
       'error',
@@ -54,5 +54,7 @@ module.exports = {
     'react/jsx-curly-newline': 'off',
     'react/jsx-wrap-multilines': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };
