@@ -106,7 +106,7 @@ Open the **menu** by tapping the icon in the top left corner next to your name!
 
 ![../assets/clerk_training/Screenshot_1585539053.png](../assets/clerk_training/Screenshot_1585539053.png)
 
-1. **Register Customer** — this is not being used yet, but will be later on to sign customers up for Healthy Rewards
+1. **Register Customer** — opens a popup to register a customer for a Healthy Rewards account (see [Register a Customer](#register-a-customer) guide)
 2. **Clerk Guide** — opens this guide!
 3. **Feedback** — opens a form to give feedback on the app/program 
 4. **Report Issue** — opens a form to report problems with the app
