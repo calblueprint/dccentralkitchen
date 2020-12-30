@@ -32,7 +32,7 @@ import { logErrorToSentry } from '../../lib/logUtils';
 
 export default function SettingsScreen(props) {
   const [customer, setCustomer] = useState(null);
-  const isGuest = customer && customer.id === RecordIds.guestCustomerId;
+  const isGuest = !customer || customer.id === RecordIds.guestCustomerId;
   const [logoutIsLoading, setLogoutIsLoading] = useState(false);
 
   const logout = async (signUp = false) => {
@@ -99,7 +99,7 @@ export default function SettingsScreen(props) {
   );
 
   return (
-    customer && (
+    (customer || isGuest) && (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
           <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
