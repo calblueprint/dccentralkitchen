@@ -37,9 +37,6 @@ const snapPoints = [185, 325, 488];
 export default function MapScreen(props) {
   const [region, setRegion] = useState(initialRegion);
   const [currentStore, setCurrentStore] = useState(null);
-
-  const bottomSheetRef = useRef(null);
-  const mapRef = useRef(null);
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
   const stores = useStores();
@@ -49,36 +46,17 @@ export default function MapScreen(props) {
   });
   stores.sort((a, b) => sortByDistance(a, b));
 
+  const bottomSheetRef = useRef(null);
+  const mapRef = useRef(null);
+
   const showDefaultStore =
     locationPermissions !== 'granted' ||
     (stores.length > 0 && !stores[0].distance);
 
-  // This should only happen once on first load.
-  useEffect(() => {
-    if (
-      (!currentStore || !region) &&
-      locationPermissions &&
-      stores.length > 0
-    ) {
-      if (showDefaultStore) {
-        const { defaultStore } = findDefaultStore(stores);
-        changeCurrentStore(defaultStore, false, false);
-      } else {
-        changeCurrentStore(stores[0], false, false);
-      }
-    }
-  }, [locationPermissions, stores]);
-
   useEffect(() => {
     if (props.route.params) {
       const store = props.route.params.currentStore;
-      changeCurrentStore(store, true);
-      const newRegion = {
-        latitude: store.latitude,
-        longitude: store.longitude,
-        ...deltas,
-      };
-      setRegion(newRegion);
+      changeCurrentStore(store, true, false);
     }
   }, [props.route.params]);
 
@@ -92,10 +70,8 @@ export default function MapScreen(props) {
     Analytics.logEvent('view_store_products', {
       store_name: store.storeName,
       products_in_stock: 'productIds' in store ? store.productIds.length : 0,
-      purpose: 'View a store and products available',
     });
 
-    // Animate to new store region
     const newRegion = {
       latitude: store.latitude - deltas.latitudeDelta / 3.5,
       longitude: store.longitude,
@@ -111,6 +87,16 @@ export default function MapScreen(props) {
       setRegion(newRegion);
     }
   };
+
+  // Once stores are loaded, set an initial store to focus on
+  if (!currentStore && stores.length > 0) {
+    if (showDefaultStore) {
+      const { defaultStore } = findDefaultStore(stores);
+      changeCurrentStore(defaultStore, false, false);
+    } else {
+      changeCurrentStore(stores[0], false, false);
+    }
+  }
 
   const renderContent = () => {
     return (
@@ -223,7 +209,7 @@ export default function MapScreen(props) {
         />
       </View>
       <RewardsFooter navigation={props.navigation} />
-      {(!locationPermissions || !currentStore || stores.length === 0) && (
+      {(!locationPermissions || stores.length === 0) && (
         <View
           style={{
             position: 'absolute',
