@@ -72,7 +72,7 @@ export default function StoreListScreen(props) {
             maxFontSizeMultiplier={1.4}
             autoCapitalize="words"
             autoCorrect={false}
-            placeholder="Search by store name"
+            placeholder="Store name, ZIP, or address"
             onChangeText={(text) => setSearchStr(text)}
             value={searchStr}
             containerStyle={styles.container}
