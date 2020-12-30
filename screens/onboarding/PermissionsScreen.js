@@ -95,17 +95,13 @@ export default function PermissionsScreen(props) {
               step === 1 ? navigateStoreSelect() : enableNotifications()
             }>
             <ButtonLabel color={Colors.lightText}>
-              {step === 1 ? 'Show nearby stores' : 'Enable SMS notifications'}
+              {step === 1 ? 'Search nearby stores' : 'Enable SMS notifications'}
             </ButtonLabel>
           </FilledButtonContainer>
           <OutlinedButtonContainer
             style={{ marginTop: 8 }}
-            onPress={() =>
-              step === 1 ? navigateStoreSelect() : navigateMapScreen()
-            }>
-            <ButtonLabel color={Colors.primaryGreen}>
-              {step === 1 ? 'Search store name, ZIP or address' : 'Not now'}
-            </ButtonLabel>
+            onPress={() => (step === 1 ? setStep(2) : navigateMapScreen())}>
+            <ButtonLabel color={Colors.primaryGreen}>Not now</ButtonLabel>
           </OutlinedButtonContainer>
         </ColumnContainer>
       </View>
