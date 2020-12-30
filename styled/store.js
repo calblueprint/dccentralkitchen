@@ -42,7 +42,7 @@ export const BottomSheetContainer = styled.View`
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   elevation: 7;
   background-color: ${Colors.bgLight};
-  padding-bottom: 100px;
+  padding-bottom: 300px;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
 `;

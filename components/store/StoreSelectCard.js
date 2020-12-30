@@ -19,7 +19,7 @@ import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
  * @prop
  * */
 
-function StoreSelectCard({ store, selectStore, seeDistance, favorited }) {
+function StoreSelectCard({ store, selectStore, favorited }) {
   const { storeName, address } = store;
   const [selected, setSelected] = React.useState(favorited);
   const navigation = useNavigation();
@@ -60,7 +60,6 @@ function StoreSelectCard({ store, selectStore, seeDistance, favorited }) {
                     screen: 'StoreDetailsScreen',
                     params: {
                       store,
-                      seeDistance,
                       hideFavorite: true,
                     },
                   },
@@ -84,7 +83,6 @@ function StoreSelectCard({ store, selectStore, seeDistance, favorited }) {
 
 StoreSelectCard.propTypes = {
   store: PropTypes.object,
-  seeDistance: PropTypes.bool.isRequired,
   selectStore: PropTypes.func.isRequired,
   favorited: PropTypes.bool.isRequired,
 };

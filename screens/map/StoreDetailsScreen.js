@@ -27,7 +27,7 @@ import {
 import { ColumnContainer, InLineContainer } from '../../styled/shared';
 
 export default function StoreDetailsScreen(props) {
-  const { store, seeDistance, hideFavorite } = props.route.params;
+  const { store, hideFavorite } = props.route.params;
   const [favorite, setFavorite] = useState(false);
   useFocusEffect(
     React.useCallback(() => {
@@ -140,7 +140,7 @@ export default function StoreDetailsScreen(props) {
               </ButtonContainer>
               <Body>{`Ward ${store.ward}`}</Body>
               <View style={{ flex: 1, marginBottom: 10 }}>
-                {seeDistance && (
+                {store.distance && (
                   <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
                     {`${store.distance} miles away · distance may vary by transportation`}
                   </Caption>
