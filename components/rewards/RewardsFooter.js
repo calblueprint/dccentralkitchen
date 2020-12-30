@@ -2,23 +2,27 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { rewardPointValue } from '../../constants/Rewards';
 import { getCustomerById } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
-import { Subtitle } from '../BaseComponents';
+import { ButtonContainer, Subtitle } from '../BaseComponents';
 
 /**
  * @prop
  * */
 
-export default function RewardsFooter() {
-  const [isGuest, setGuest] = useState(false);
+export default function RewardsFooter({ navigation }) {
   const [customer, setCustomer] = useState(null);
-  const [rewards, setRewards] = useState(0);
+  const rewards = customer
+    ? Math.floor(parseInt(customer.points, 10) / rewardPointValue)
+    : 0;
+  const isGuest = customer && customer.id === RecordIds.guestCustomerId;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -27,24 +31,9 @@ export default function RewardsFooter() {
       const fetchUser = async () => {
         try {
           const customerId = await AsyncStorage.getItem('customerId');
-          const guest = customerId === RecordIds.guestCustomerId;
-          try {
-            const cust = await getCustomerById(customerId);
-            const rew = customer
-              ? Math.floor(parseInt(customer.points, 10) / rewardPointValue)
-              : 0;
-            if (isActive) {
-              setGuest(guest);
-              setCustomer(cust);
-              setRewards(rew);
-            }
-          } catch (err) {
-            console.error(err);
-            logErrorToSentry({
-              screen: 'RewardsFooter',
-              action: 'useFocusEffect',
-              error: err,
-            });
+          const cust = await getCustomerById(customerId);
+          if (isActive) {
+            setCustomer(cust);
           }
         } catch (err) {
           console.error('[RewardsFooter] Airtable:', err);
@@ -64,13 +53,20 @@ export default function RewardsFooter() {
     }, [])
   );
   return (
-    <View
+    <ButtonContainer
       style={{
-        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        width: Window.width,
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
+        zIndex: 5,
         padding: 16,
-      }}>
+        height: 70,
+        backgroundColor: Colors.primaryGreen,
+      }}
+      onPress={() => navigation.navigate('RewardsOverlay')}>
       {customer && (
         <View
           style={{
@@ -99,6 +95,10 @@ export default function RewardsFooter() {
           {rewards > 0 ? `View your rewards >` : `View your points >`}
         </Subtitle>
       )}
-    </View>
+    </ButtonContainer>
   );
 }
+
+RewardsFooter.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};

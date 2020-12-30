@@ -6,7 +6,6 @@ import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {
-  ButtonContainer,
   NavHeaderContainer,
   Subtitle,
   Title,
@@ -17,7 +16,6 @@ import StoreProducts from '../../components/product/StoreProducts';
 import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
-import Window from '../../constants/Layout';
 import { deltas, initialRegion } from '../../constants/Map';
 import {
   findDefaultStore,
@@ -44,7 +42,6 @@ export default function MapScreen(props) {
   const mapRef = useRef(null);
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
-
   const stores = useStores();
   stores.sort((a, b) => sortByDistance(currentLocation, a, b));
 
@@ -221,43 +218,27 @@ export default function MapScreen(props) {
           enabledContentTapInteraction={false}
           snapPoints={snapPoints}
           renderContent={renderContent}
-          // eslint-disable-next-line no-return-assign
           ref={bottomSheetRef}
         />
       </View>
-      <ButtonContainer
-        style={{
-          position: 'absolute',
-          height: 70,
-          bottom: 0,
-          backgroundColor: Colors.primaryGreen,
-          alignSelf: 'stretch',
-          width: Window.width,
-          justifyContent: 'center',
-          zIndex: 1000,
-        }}
-        onPress={() => props.navigation.navigate('RewardsOverlay')}>
-        <RewardsFooter />
-      </ButtonContainer>
-      {/* TODO @wangannie redesign temporary map loading screen */}
-      {!locationPermissions ||
-        !currentStore ||
-        (stores.length === 0 && (
-          <View
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: 0,
-              bottom: 0,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(0,0,0,.4)',
-            }}>
-            <Title>Locating stores</Title>
-            <ActivityIndicator size="large" color={Colors.lightText} />
-          </View>
-        ))}
+      <RewardsFooter navigation={props.navigation} />
+      {(!locationPermissions || !currentStore || stores.length === 0) && (
+        <View
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            zIndex: 10,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(255,255,255,.5)',
+          }}>
+          <Title style={{ marginBottom: 24 }}>Loading stores</Title>
+          <ActivityIndicator size="large" color={Colors.bgDark} />
+        </View>
+      )}
     </View>
   );
 }
