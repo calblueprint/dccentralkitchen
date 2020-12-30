@@ -42,17 +42,25 @@ export default function StoreSelectScreen(props) {
   const searchRef = React.useRef(null);
 
   // Load initial customer info
-  // TODO cleanup, add try/catch
   useEffect(() => {
     if (stores.length === 0) {
       return;
     }
     const loadCustomer = async () => {
-      const customerId = await AsyncStorage.getItem('customerId');
-      const cust = await getCustomerById(customerId);
-      const favoriteStores = cust.favoriteStoreIds || [];
-      setSelectedStores(favoriteStores);
-      setLoading(false);
+      try {
+        const customerId = await AsyncStorage.getItem('customerId');
+        const cust = await getCustomerById(customerId);
+        const favoriteStores = cust.favoriteStoreIds || [];
+        setSelectedStores(favoriteStores);
+        setLoading(false);
+      } catch (err) {
+        console.log('[StoreSelectScreen](loadCustomer) Airtable:', err);
+        logErrorToSentry({
+          screen: 'StoreSelectScreen',
+          action: 'loadCustomer',
+          error: err,
+        });
+      }
     };
     loadCustomer();
   }, [stores]);
