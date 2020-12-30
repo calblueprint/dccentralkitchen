@@ -89,7 +89,7 @@ export default function MapScreen(props) {
   };
 
   // Once stores are loaded, set an initial store to focus on
-  if (!currentStore && stores.length > 0) {
+  if (!currentStore && locationPermissions && stores.length > 0) {
     if (showDefaultStore) {
       const { defaultStore } = findDefaultStore(stores);
       changeCurrentStore(defaultStore, false, false);
@@ -121,13 +121,6 @@ export default function MapScreen(props) {
           <BottomSheetHeaderContainer>
             <DragBar />
           </BottomSheetHeaderContainer>
-          {PixelRatio.getFontScale() < 1.2 && (
-            <Subtitle
-              style={{ marginHorizontal: 16, marginBottom: 0 }}
-              color={Colors.secondaryText}>
-              Browsing healthy products at
-            </Subtitle>
-          )}
           {currentStore && (
             <StoreProducts
               navigation={props.navigation}

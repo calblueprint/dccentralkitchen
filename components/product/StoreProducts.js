@@ -34,7 +34,7 @@ export default function StoreProducts({ navigation, store, products }) {
               {products.length > 0 && PixelRatio.getFontScale() < 1.2 && (
                 <StoreDetailText
                   color={Colors.secondaryText}
-                  style={{ marginTop: 2 }}>
+                  style={{ marginTop: 4 }}>
                   recently delivered
                 </StoreDetailText>
               )}
@@ -56,7 +56,7 @@ export default function StoreProducts({ navigation, store, products }) {
             </ButtonContainer>
           </SpaceBetweenRowContainer>
           {store.stocksOtherVendors && (
-            <Body style={{ marginHorizontal: 16, marginTop: -16 }}>
+            <Body style={{ marginHorizontal: 16, marginTop: -8 }}>
               This store regularly stocks additional produce from other vendors.
             </Body>
           )}

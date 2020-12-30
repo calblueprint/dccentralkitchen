@@ -1,10 +1,11 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { AsyncStorage, Button, Keyboard, View } from 'react-native';
+import { Button, Keyboard, View } from 'react-native';
 import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,
@@ -59,6 +60,13 @@ export default class PhoneNumberScreen extends React.Component {
     await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
     Keyboard.dismiss();
     this.props.navigation.navigate('App');
+  };
+
+  _favoriteBypass = async () => {
+    // Doesn't enforce any resolution for this async call
+    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    Keyboard.dismiss();
+    this.props.navigation.navigate('Permissions');
   };
 
   // Check for an error with updated text
@@ -169,7 +177,11 @@ export default class PhoneNumberScreen extends React.Component {
     if (customer) {
       await AsyncStorage.setItem('customerId', customer.id);
       Keyboard.dismiss();
-      this.props.navigation.navigate('App');
+      if ('favoriteStoreIds' in customer) {
+        this.props.navigation.navigate('App');
+      } else {
+        this.props.navigation.navigate('Permissions');
+      }
       setUserLog({
         id: customer.id,
         name: customer.name,
@@ -233,10 +245,16 @@ export default class PhoneNumberScreen extends React.Component {
             <ButtonLabel color={Colors.lightText}>Continue</ButtonLabel>
           </FilledButtonContainer>
           {env === 'dev' && (
-            <Button
-              title="Testing Bypass"
-              onPress={async () => this._devBypass()}
-            />
+            <View>
+              <Button
+                title="Testing Bypass"
+                onPress={async () => this._devBypass()}
+              />
+              <Button
+                title="Favorites Bypass"
+                onPress={async () => this._favoriteBypass()}
+              />
+            </View>
           )}
         </View>
       </AuthScreenContainer>

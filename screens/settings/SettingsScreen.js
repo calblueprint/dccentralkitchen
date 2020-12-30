@@ -1,6 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { CommonActions, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Linking from 'expo-linking';
@@ -27,11 +27,12 @@ import SettingsCard from '../../components/settings/SettingsCard';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomerById } from '../../lib/airtable/request';
-import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
+import { completeLogout } from '../../lib/authUtils';
+import { logErrorToSentry } from '../../lib/logUtils';
 
 export default function SettingsScreen(props) {
   const [customer, setCustomer] = useState(null);
-  const isGuest = customer && customer.id === RecordIds.guestCustomerId;
+  const isGuest = !customer || customer.id === RecordIds.guestCustomerId;
   const [logoutIsLoading, setLogoutIsLoading] = useState(false);
 
   const logout = async (signUp = false) => {
@@ -61,19 +62,9 @@ export default function SettingsScreen(props) {
       setLogoutIsLoading(true);
       await Analytics.logEvent('logout', {
         is_guest: isGuest,
-        redirect_to: signUp ? 'Sign Up' : 'Welcome', // Redirect not working yet
+        redirect_to: signUp ? 'Sign Up' : 'Welcome',
       });
-      // Delay to make sure the event is logged
-      const delay = (duration) =>
-        new Promise((resolve) => setTimeout(resolve, duration));
-      await delay(1500);
-      clearUserLog();
-      await AsyncStorage.clear();
-      props.navigation.dispatch(
-        CommonActions.reset({
-          routes: [{ name: 'Auth' }],
-        })
-      );
+      completeLogout(props.navigation, signUp);
     }
   };
 
@@ -108,7 +99,7 @@ export default function SettingsScreen(props) {
   );
 
   return (
-    customer && (
+    (customer || isGuest) && (
       <View style={{ flex: 1 }}>
         <NavHeaderContainer>
           <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
@@ -166,6 +157,21 @@ export default function SettingsScreen(props) {
               WebBrowser.openBrowserAsync(
                 'https://healthycorners-rewards.netlify.app/shared/privacypolicy.html'
               )
+            }
+          />
+          <CategoryBar title="Notifications" />
+          <SettingsCard
+            title="Notifications"
+            rightIcon={isGuest ? 'sign-out-alt' : 'angle-right'}
+            description={
+              isGuest
+                ? 'Create an account to receive notifications and delivery alerts'
+                : 'Control what messages you receive'
+            }
+            navigation={
+              isGuest
+                ? () => logout(true)
+                : () => props.navigation.navigate('Notifications')
             }
           />
           <CategoryBar title="Help & Support" />

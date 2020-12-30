@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { CommonActions } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
@@ -8,8 +7,6 @@ import AuthTextField from '../../components/AuthTextField';
 import {
   ButtonLabel,
   FilledButtonContainer,
-  Subtitle,
-  Title,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
@@ -27,7 +24,6 @@ export default class NameChangeScreen extends React.Component {
     const { name } = this.props.route.params;
     this.state = {
       customer: null,
-      success: false,
       values: {
         [inputFields.NAME]: name,
       },
@@ -98,7 +94,7 @@ export default class NameChangeScreen extends React.Component {
     await updateCustomer(this.state.customer.id, {
       name: this.state.values[inputFields.NAME],
     });
-    this.setState({ success: true });
+    this.props.navigation.navigate('Settings');
   };
 
   render() {
@@ -108,62 +104,32 @@ export default class NameChangeScreen extends React.Component {
 
     return (
       <AuthScreenContainer>
-        {!this.state.success && (
-          <View>
-            <BackButton onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5 name="arrow-left" solid size={24} />
-            </BackButton>
-            <FormContainer>
-              <AuthTextField
-                fieldType="Name"
-                value={this.state.values[inputFields.NAME]}
-                onBlurCallback={(value) =>
-                  this.updateError(value, inputFields.NAME)
-                }
-                changeTextCallback={async (text) =>
-                  this.onTextChange(text, inputFields.NAME)
-                }
-                error={this.state.errors[inputFields.NAME]}
-              />
-            </FormContainer>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={!permission ? Colors.lightestGreen : Colors.primaryGreen}
-              width="100%"
-              onPress={() => this.changeName()}
-              disabled={!permission}>
-              <ButtonLabel color={Colors.lightText}>Update Name</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
-
-        {this.state.success && (
-          <View>
-            <BackButton />
-            <Title>Success!</Title>
-            <Subtitle
-              style={{
-                marginTop: 8,
-              }}>
-              {`Your name was successfully changed to ${
-                this.state.values[inputFields.NAME]
-              }. Press refresh to see changes.`}
-            </Subtitle>
-            <FilledButtonContainer
-              style={{ marginTop: 48 }}
-              color={Colors.primaryGreen}
-              width="100%"
-              onPress={() =>
-                this.props.navigation.dispatch(
-                  CommonActions.reset({
-                    routes: [{ name: 'App' }],
-                  })
-                )
-              }>
-              <ButtonLabel color={Colors.lightText}>Refresh</ButtonLabel>
-            </FilledButtonContainer>
-          </View>
-        )}
+        <View>
+          <BackButton onPress={() => this.props.navigation.goBack()}>
+            <FontAwesome5 name="arrow-left" solid size={24} />
+          </BackButton>
+          <FormContainer>
+            <AuthTextField
+              fieldType="Name"
+              value={this.state.values[inputFields.NAME]}
+              onBlurCallback={(value) =>
+                this.updateError(value, inputFields.NAME)
+              }
+              changeTextCallback={async (text) =>
+                this.onTextChange(text, inputFields.NAME)
+              }
+              error={this.state.errors[inputFields.NAME]}
+            />
+          </FormContainer>
+          <FilledButtonContainer
+            style={{ marginTop: 48 }}
+            color={!permission ? Colors.lightestGreen : Colors.primaryGreen}
+            width="100%"
+            onPress={() => this.changeName()}
+            disabled={!permission}>
+            <ButtonLabel color={Colors.lightText}>Update Name</ButtonLabel>
+          </FilledButtonContainer>
+        </View>
       </AuthScreenContainer>
     );
   }

@@ -29,7 +29,7 @@ export default function StoreListScreen(props) {
     rewardsAccepted: false,
   });
   const { stores } = props.route.params;
-  const filteredStores = useFilteredStores(stores, filters, searchStr);
+  const filteredStores = useFilteredStores(stores, searchStr, filters);
 
   // Focuses the search bar when the screen loads
   useFocusEffect(
@@ -72,7 +72,7 @@ export default function StoreListScreen(props) {
             maxFontSizeMultiplier={1.4}
             autoCapitalize="words"
             autoCorrect={false}
-            placeholder="Search by store name"
+            placeholder="Store name, ZIP, or address"
             onChangeText={(text) => setSearchStr(text)}
             value={searchStr}
             containerStyle={styles.container}

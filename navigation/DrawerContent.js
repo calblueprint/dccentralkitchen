@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
-import { CommonActions, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Updates from 'expo-updates';
 import * as WebBrowser from 'expo-web-browser';
@@ -17,7 +17,9 @@ import {
   Title,
 } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
+import { env } from '../environment';
 import { getCustomerById } from '../lib/airtable/request';
+import { completeLogout } from '../lib/authUtils';
 import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
@@ -33,30 +35,7 @@ function DrawerContent(props) {
       is_guest: true,
       redirect_to: 'PhoneNumber',
     });
-    // Delay to make sure the event is logged
-    const delay = (duration) =>
-      new Promise((resolve) => setTimeout(resolve, duration));
-    await delay(1500);
-    clearUserLog();
-    await AsyncStorage.clear();
-    props.navigation.dispatch(
-      CommonActions.reset({
-        routes: [
-          {
-            name: 'Auth',
-            params: {
-              screen: 'Onboarding',
-            },
-          },
-          {
-            name: 'Auth',
-            params: {
-              screen: 'PhoneNumber',
-            },
-          },
-        ],
-      })
-    );
+    completeLogout(props.navigation, true);
   };
 
   useFocusEffect(
@@ -100,7 +79,7 @@ function DrawerContent(props) {
               text: 'OK',
               onPress: async () => {
                 clearUserLog();
-                await AsyncStorage.clear();
+                await AsyncStorage.removeItem('customerId');
                 await Updates.reloadAsync();
               },
             },
@@ -193,6 +172,13 @@ function DrawerContent(props) {
           verticalAlign: 'bottom',
           paddingBottom: 36,
         }}>
+        {env === 'dev' && (
+          <ButtonContainer
+            style={{ paddingBottom: 16 }}
+            onPress={() => completeLogout(props.navigation, false)}>
+            <Subtitle color={Colors.error}>TESTING LOGOUT</Subtitle>
+          </ButtonContainer>
+        )}
         <ButtonContainer
           style={{ paddingBottom: 16 }}
           onPress={() =>
