@@ -11,7 +11,7 @@ export const MarkerContainer = styled.View`
 
 export const MarkerStoreName = styled.Text`
   font-family: ${(props) =>
-    props.focused ? 'poppins-semibold' : 'poppins-medium'};
+    props.focused ? 'opensans-bold' : 'opensans-semibold'};
   font-size: ${(props) => (props.focused ? '16px' : '14px')};
   line-height: ${(props) => (props.focused ? '24px' : '20px')};
   text-align: center;
@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
     borderTopColor: 'transparent',
   },
   input: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'opensans-regular',
   },
   tagChip: {
     backgroundColor: Colors.lightestGreen,

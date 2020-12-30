@@ -61,10 +61,10 @@ async function loadResourcesAsync() {
     Font.loadAsync({
       // This is the icon style we use
       ...FontAwesome5.font,
-      // Poppins is the custom font used across the application
-      'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
-      'poppins-semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-      'poppins-medium': require('./assets/fonts/Poppins-Medium.ttf'),
+      // Open Sans is the custom font used across the application
+      'opensans-regular': require('./assets/fonts/OpenSans-Regular.ttf'),
+      'opensans-semibold': require('./assets/fonts/OpenSans-SemiBold.ttf'),
+      'opensans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
     }),
   ]);
 }

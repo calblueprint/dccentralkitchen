@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { PoppinsText } from './shared';
+import { OpenSansText } from './shared';
 
 export const Card = styled.View`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
@@ -18,7 +18,7 @@ export const DateContainer = styled.View`
   flex: 1;
 `;
 
-export const DateText = styled(PoppinsText)`
+export const DateText = styled(OpenSansText)`
   font-weight: bold;
 `;
 
@@ -27,11 +27,11 @@ export const ContentContainer = styled.View`
   flex: 4;
 `;
 
-export const ContentText = styled(PoppinsText)`
+export const ContentText = styled(OpenSansText)`
   font-weight: normal;
 `;
 
-export const TopText = styled(PoppinsText)`
+export const TopText = styled(OpenSansText)`
   font-style: normal;
   font-weight: 900;
   text-align: center;

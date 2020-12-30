@@ -47,7 +47,7 @@ function AuthTextField({
         selectionColor={Colors.primaryGreen}
         style={{
           marginBottom: 8,
-          fontFamily: 'poppins-regular',
+          fontFamily: 'opensans-regular',
         }}
       />
       {fieldType.includes('Name') && !error && (

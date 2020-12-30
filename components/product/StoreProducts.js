@@ -34,7 +34,7 @@ export default function StoreProducts({ navigation, store, products }) {
               {products.length > 0 && PixelRatio.getFontScale() < 1.2 && (
                 <StoreDetailText
                   color={Colors.secondaryText}
-                  style={{ marginTop: 4 }}>
+                  style={{ marginTop: 2 }}>
                   recently delivered
                 </StoreDetailText>
               )}

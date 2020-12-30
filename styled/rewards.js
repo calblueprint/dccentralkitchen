@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     color: Colors.lightText,
     textTransform: 'capitalize',
     fontSize: 16,
-    fontFamily: 'poppins-medium',
+    fontFamily: 'opensans-semibold',
     paddingLeft: 6,
     paddingRight: 6,
   },

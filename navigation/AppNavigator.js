@@ -32,7 +32,7 @@ function DrawerNavigator() {
       drawerContent={(props) => <DrawerContent {...props} />}
       drawerContentOptions={{
         labelStyle: {
-          fontFamily: 'poppins-medium',
+          fontFamily: 'opensans-semibold',
           fontWeight: 'normal',
           fontSize: 20,
           color: Colors.activeText,
@@ -73,7 +73,7 @@ function DrawerNavigator() {
 
 const AppStack = createStackNavigator();
 
-export default function createAppContainer() {
+export default function AppContainer() {
   const routeNameRef = React.useRef();
   const navigationRef = React.useRef();
 
