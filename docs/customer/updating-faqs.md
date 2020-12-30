@@ -26,7 +26,7 @@ Here is the answer in a dropdown
 Here is the answer in a dropdown
 :::
 ```
-The mini FAQ page is styled to blend in with the customer app, and embedded in the app through a React WebView. The page uses `NoMarginLayout`, a custom Vue component that removes default margins and modifies the font styling to match the rest of the app. If the app-wide font family changes from the current font Poppins, make sure to update the font in `NoMarginLayout` as well.
+The mini FAQ page is styled to blend in with the customer app, and embedded in the app through a React WebView. The page uses `NoMarginLayout`, a custom Vue component that removes default margins and modifies the font styling to match the rest of the app. If the app-wide font family changes from the current font Open Sans, make sure to update the font in `NoMarginLayout` as well.
 
 ## Modifying FAQ content
 To modify the content of either the [full FAQ page](../faq.md) or the [mini FAQs](../faq-mini.md), edit the source markdown in the customer repo and push updates to the `docs` branch just like any update to this docs site (see [Editing this site](../../#editing-this-site)).

@@ -15,12 +15,12 @@ export default {
 };
 </script>
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 <style lang="stylus">
 .flush
   padding 1px 0 0 0
-  font-family 'Poppins', serif
+  font-family 'Open Sans', sans-serif
   *:first-child
     margin-top 1px
 </style>
