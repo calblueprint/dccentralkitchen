@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
@@ -11,6 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from 'sentry-expo';
 import Colors from './constants/Colors';
 import { env } from './environment';
+import { logErrorToSentry } from './lib/logUtils';
 import AppNavigator from './navigation/AppNavigator';
 
 Sentry.init({
@@ -69,8 +70,10 @@ async function loadResourcesAsync() {
 }
 
 function handleLoadingError(error) {
-  // In this case, you might want to report the error to your error reporting
-  // service, for example Sentry
+  logErrorToSentry({
+    action: 'AppLoading',
+    error: err,
+  });
   console.warn(error);
 }
 
