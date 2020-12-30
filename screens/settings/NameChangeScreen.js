@@ -91,10 +91,19 @@ export default class NameChangeScreen extends React.Component {
   };
 
   changeName = async () => {
-    await updateCustomer(this.state.customer.id, {
-      name: this.state.values[inputFields.NAME],
-    });
-    this.props.navigation.navigate('Settings');
+    try {
+      await updateCustomer(this.state.customer.id, {
+        name: this.state.values[inputFields.NAME],
+      });
+      this.props.navigation.navigate('Settings');
+    } catch (err) {
+      console.log('[NameChangeScreen] (changeName) Airtable:', err);
+      logErrorToSentry({
+        screen: 'NameChangeScreen',
+        action: 'changeName',
+        error: err,
+      });
+    }
   };
 
   render() {
