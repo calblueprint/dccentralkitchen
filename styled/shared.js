@@ -25,8 +25,8 @@ export const SpaceAroundRowContainer = styled.View`
   justify-content: space-around;
 `;
 
-export const PoppinsText = styled.Text`
-  font-family: poppins-regular;
+export const OpenSansText = styled.Text`
+  font-family: opensans-regular;
 `;
 
 export const JustifyCenterContainer = styled.View`

@@ -3,7 +3,7 @@
     "name": "Healthy Corners",
     "slug": "healthy-corners",
     "privacy": "public",
-    "sdkVersion": "38.0.0",
+    "sdkVersion": "40.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.4.2",
     "primaryColor": "#008550",
