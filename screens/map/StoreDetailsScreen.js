@@ -20,7 +20,7 @@ import { openDirections, writeToClipboard } from '../../lib/mapUtils';
 import { ColumnContainer, InLineContainer } from '../../styled/shared';
 
 export default function StoreDetailsScreen(props) {
-  const { store, seeDistance } = props.route.params;
+  const { store } = props.route.params;
 
   return (
     <View style={{ flex: 1 }}>
@@ -86,7 +86,7 @@ export default function StoreDetailsScreen(props) {
               </ButtonContainer>
               <Body>{`Ward ${store.ward}`}</Body>
               <View style={{ flex: 1, marginBottom: 10 }}>
-                {seeDistance && (
+                {store.distance && (
                   <Caption style={{ flex: 1 }} color={Colors.secondaryText}>
                     {`${store.distance} miles away · distance may vary by transportation`}
                   </Caption>
