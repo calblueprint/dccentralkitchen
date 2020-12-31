@@ -41,7 +41,10 @@ You'll need access to our Airtable workspace in order to access the bases. Pleas
 
 3. Add environment files
 
-   - We use `environment.js` as our config file for secrets and API keys. Duplicate `environment.example`, name it `environment.js`, and fill in your Airtable API key.
+   - We use `environment.js` as our config file for secrets and API keys. Duplicate `environment.example`, name it `environment.js`, and fill in the following:
+     - `AIRTABLE_API_KEY`: if you are the primary developer and have access, use the healthycornersdev account's API key. See Airtable's guide on [how to find your API key](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-).
+     - `SENTRY_AUTH_TOKEN`: you can find this in your Sentry account [API/Auth Tokens](https://sentry.io/settings/account/api/auth-tokens/). We've found that this isn't necessary for the app to run in development, but is still good to have in preparation for publishing.
+     - (Customer app only) `HC_SECRET`: this key is needed to make calls to our [backend server](../node/README.md) to send SMS confirmation messages when users sign up for SMS notifications. You can find this key in Heroku's config vars. More about Heroku config vars in the [Backend Server Getting Started Guide](../node/getting-started.md#config-vars).
    - We use `.env.generator` as the config file for the `airtable-schema-generator` package. See the [Airtable section](#working-with-airtable) for more. Duplicate `.env.generator.example`, name it `.env.generator`, and fill in the missing variables.
 
    ::: danger

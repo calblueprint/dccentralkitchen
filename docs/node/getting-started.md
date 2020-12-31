@@ -62,7 +62,7 @@ In our code, we only ever call functions in `request.js`; see `utils/storeProduc
 It's a well-known fact that the naive Javascript `Date` objects are difficult and can be unreliable. The easiest thing to do is use [moment.js](https://momentjs.com/docs/). Don't waste time (^:
 
 ## Interacting with the application
-You can reach the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls that modify the spreadsheet are locked via a `HC_SECRET`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
+You can reach the API through an HTTP request (we recommend using [Postman](https://www.postman.com/)). All API calls are locked via a `HC_SECRET`. This secret key can be found in [Heroku's config vars](./getting-started.md#config-vars) (which should match the local `.env`).
 
 **Example**
 ![Postman example](../assets/node/postman.png)
