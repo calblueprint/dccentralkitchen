@@ -18,6 +18,9 @@ Additionally, you must have been added to the [Heroku](#deploying-with-heroku) p
 3. Add `.env`
 
    We use `.env` as our config file for secrets and API keys. Duplicate `.env.example`, name it `.env`, and fill in all missing fields.
+   - All Twilio credentials can be found in the **Project Info** section of the [Twilio Console](https://www.twilio.com/console).
+   - `APPIAN_API_KEY` comes directly from Appian -- ask the Healthy Corners administrators for the key, or ask for someone to contact from the Appian team.
+   - Airtable: if you are the primary developer and have access, use the healthycornersdev account's API key and other relevant information. See Airtable's guide on [how to find your API key](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-).
 
    ::: tip
    Some of these are specifically for using the `airtable-schema-generator` package.
@@ -91,7 +94,7 @@ You can access or update config vars via the Heroku dashboard.
 
 ![Heroku Dashboard - config vars](../assets/node/heroku-config-vars.png)
 
-Notably, the `REACT_APP_AIRTABLE_API_KEY` and `REFRESH_TOKEN` are personal to individual developers; the `HC_SECRET` securing `POST` routes is also a member of the config variables.
+Notably, the `REACT_APP_AIRTABLE_API_KEY` is personal to individual developers; the `HC_SECRET` securing `POST` routes is also a member of the config variables.
 
 ### Deploying
 
