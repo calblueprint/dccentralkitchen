@@ -31,7 +31,7 @@ const DEV_BASE_ID = 'appYfW7a2loPD26Vg';
 const PROD_BASE_ID = 'app4fXK49bqcjDMEo';
 const AIRTABLE_API_KEY = 'YOUR-API-KEY';
 
-const SMS_SECRET_KEY = 'SECRET_KEY_FROM_HEROKU';
+const HC_SECRET = 'HC_SECRET_FROM_HEROKU';
 
 const prodFirebaseConfig = {
   apiKey: 'AIzaSyBoE4ona7Ec_KIOxaETNCEJtuYZruU_FZg',
@@ -91,4 +91,5 @@ const getEnvVars = () => {
   // Fall through to dev
   return ENV_VARIABLES.dev;
 };
-export { getEnvVars as default, staticEnvVars, env, firebaseConfig };
+export { getEnvVars as default, staticEnvVars, env, firebaseConfig, HC_SECRET };
+
