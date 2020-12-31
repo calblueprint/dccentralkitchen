@@ -189,6 +189,13 @@ function DrawerContent(props) {
           <Subtitle>FAQs</Subtitle>
         </ButtonContainer>
         <ButtonContainer
+          style={{ paddingBottom: 16 }}
+          onPress={() =>
+            WebBrowser.openBrowserAsync('http://tiny.cc/nominatestore')
+          }>
+          <Subtitle>Nominate a store</Subtitle>
+        </ButtonContainer>
+        <ButtonContainer
           onPress={() =>
             WebBrowser.openBrowserAsync('http://tiny.cc/RewardsFeedback')
           }>
