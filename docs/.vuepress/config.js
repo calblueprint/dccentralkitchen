@@ -54,6 +54,7 @@ const adminSidebar = [
       '/admin/stores',
       '/admin/storehours',
       '/admin/productimages',
+      '/admin/managing-rewards',
     ],
   },
   '/admin/sending-notifications',
