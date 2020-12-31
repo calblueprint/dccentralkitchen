@@ -34,7 +34,7 @@ const AIRTABLE_API_KEY = 'YOUR-API-KEY';
 const SMS_SECRET_KEY = 'SECRET_KEY_FROM_HEROKU';
 
 const prodFirebaseConfig = {
-  apiKey: 'PROD-API-KEY',
+  apiKey: 'AIzaSyBoE4ona7Ec_KIOxaETNCEJtuYZruU_FZg',
   authDomain: 'quickstart-1587887313757.firebaseapp.com',
   databaseURL: 'https://quickstart-1587887313757.firebaseio.com',
   projectId: 'quickstart-1587887313757',
@@ -45,7 +45,7 @@ const prodFirebaseConfig = {
 };
 
 const devFirebaseConfig = {
-  apiKey: 'DEV-API-KEY',
+  apiKey: 'AIzaSyBjHTeYFCuZM7NcOD6z6_yPBWbAFDeieJo',
   authDomain: 'healthy-corners.firebaseapp.com',
   databaseURL: 'https://healthy-corners.firebaseio.com',
   projectId: 'healthy-corners',
