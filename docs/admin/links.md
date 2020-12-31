@@ -13,6 +13,8 @@ We use editable short-links so the external links used throughout the apps can b
 | <http://tiny.cc/SubmitFeedbackClerk> | Link in the **Feedback** button in the clerk app hamburger menu                                                                                                                                                                     |
 | <http://tiny.cc/ClerkFeedback>       | Link in the **Report Issue** button in the clerk app hamburger menu                                                                                                                                                                 |
 | <http://tiny.cc/RewardsFeedback>     | Link in the **Report Issue** button in the customer-facing app hamburger menu                                                                                                                                                       |
+| <http://tiny.cc/nominatestore>       | Link in the **Nominate a store** button in the customer-facing app hamburger menu. Also linked in the [FAQ](../faq.md)                                                                                                              |
+
 
 ## Clerk Training Guide
 
