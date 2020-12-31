@@ -2,12 +2,17 @@
 
 This document runs through the different components within the main `MapScreen` that a user uses to discovers stores and products.
 
+::: tip 
+See [Customer PR #184: Refactor MapScreen to functional component](https://github.com/calblueprint/dccentralkitchen/pull/184) for more details on how MapScreen, related helper functions, and custom hooks work.
+:::
+
 The different components/sections relevant for the `MapScreen` are as follows:
 [[toc]]
 
 <img src="../assets/stores/map.png" width="40%"/>
 
 ## Map
+
 
 - The map uses the component `MapView`, which is imported from the package [`react-native-maps`](https://github.com/react-native-community/react-native-maps)
 
@@ -48,7 +53,7 @@ The different components/sections relevant for the `MapScreen` are as follows:
 
 - Button only renders if location services is enabled on user's device
 - Clicking on this button brings the map to where the user currently is, and also displays the closest store to the user on the bottom sheet
-    - Supported with helper functions `_findCurrentLocation()` and `_orderStoresByDistance(stores)`
+  - NOTE: this doesn't actually re-fetch the user's location -- it just centers the screen on the user's location when it was initially fetched.
 
 ## Hamburger menu button
 
@@ -58,20 +63,6 @@ The different components/sections relevant for the `MapScreen` are as follows:
 
 - Component imported from the package `'reanimated-bottom-sheet'`
 - Takes in several different props as seen below, configured for the best user experience
-
-    ```jsx
-    <BottomSheet
-    	  initialSnap={1}
-    	  enabledInnerScrolling={false}
-    	  enabledBottomClamp
-    	  overdragResistanceFactor={1}
-    	  enabledContentTapInteraction={false}
-    	  snapPoints={[maxSnapPoint, midSnapPoint, minSnapPoint]}
-    	  renderHeader={this.renderHeader}
-    	  renderContent={this.renderContent}
-    	  ref={(bottomSheetRef) => (this.bottomSheetRef = bottomSheetRef)}
-    	/>
-    ```
 
 To modify the content, see the two functions below
 
@@ -134,27 +125,25 @@ The footer display changes depending on the user's guest and points status:
 
 [Customer PR #149: Rewards Footer](https://github.com/calblueprint/dccentralkitchen/pull/149)
 
-## Helper functions
+## `mapUtils` helper functions
 
-There are several helper functions that are used that can be modified for any type of repurposing
+There are several custom hooks that are used as helper functions:
 
-#### `_findCurrentLocation()`
+#### `useCurrentLocation()`
 
-- Checks if user has location services enabled
-- Animates map region to where the user's location is, if method is called
-- If user's location services are disabled, map region is animated to a default store
+- Prompts the user for location access. If location services are granted, set the user's location in `currentLocation` (otherwise null). 
+- Location permission status is saved in `locationPermissions` as either 'granted', 'denied', or 'error'.
 
-#### `_orderStoresByDistance(stores)`
 
-- Orders list of stores by their distance from user's current location, and sets the current store to the one that is nearest to the user
-- If user location is not available/location services are disabled, OR if the user is more than `100` miles away from the nearest store, the default store is set as the current store
+#### `useStores()`
 
-#### `_populateStoreProducts(store)`
+- Loads the list of stores from Airtable, not in any sorted order.
 
-- Fetches products for specific store
-- Populates the `StoreProducts` component used in the `BottomSheet` to allow user to see the list of products
+#### `useStoreProducts()`
 
-#### `_populateInitialStoresProducts()`
+- loads the products for `currentStore`, refreshing whenever `currentStore` is updated.
 
-- Get list of stores from Airtable, and order them by distance to current location (if available) using helper function `_orderStoresByDistance(stores)` (see below)
-- Populates `StoreProducts` component with `_populateStoreProducts(store)`
+#### `findStoreDistance(region, store)`
+
+- Finds the distance in miles from a reference region/location to a store object. 
+- Returns `null` if the store distance is greater than 100 miles.
