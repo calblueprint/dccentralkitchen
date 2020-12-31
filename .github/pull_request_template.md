@@ -26,6 +26,6 @@
 
 [//]: # "Add screenshots of expected behavior - GIFs if you're feeling fancy!"
 
-CC: @anniero98 @wangannie
+CC: @wangannie
 
-[//]: # 'This tags in both Annies as a default. Feel free to change, or add on anyone who you should be in on the conversation.'
+[//]: # 'This tags Annie as a default. Feel free to change, or add on anyone who you should be in on the conversation.'
