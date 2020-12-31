@@ -32,10 +32,13 @@ The public link for the full app FAQs is <https://healthycorners.calblueprint.or
 
 The 'mini FAQ' section embedded **within** the 'How it Works' screen in the customer app can be found here <https://healthycorners.calblueprint.org/faq-mini.html>
 
-Modifying these FAQ pages requires access to this Github repository, so we recommend asking a developer to make changes. See the [Developer Guide: Updating FAQs](../customer/updating-faqs.md)
-
 ## Privacy Policy
 
 We developed a privacy policy for the customer-facing app to comply with App Store guidelines. This can be modified through the documentation site, which may require assistance from a developer.
 
 **Healthy Corners Customer App Privacy Policy:** <https://healthycorners.calblueprint.org/shared/privacypolicy.html>
+
+
+::: tip Editing these pages
+To edit any of the pages listed above, see the Admin guide on [Updating Documentation](updating-docs.md).
+:::

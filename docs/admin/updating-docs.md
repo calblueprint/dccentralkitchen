@@ -1,6 +1,8 @@
 # Updating Documentation
 
-This guide outlines how to update select pages of the documentation hosted on this site.
+This guide outlines how **Admins** can update the Clerk Training guide, FAQs, and Privacy Policy hosted on this site. To edit the contents of other documentation pages, we recommend asking a developer. 
+
+If you are a developer, see the section on [Editing this site](../../#editing-this-site) or the [developer guide to Updating FAQs](../customer/updating-faqs.html#updating-faqs).
 
 ## HackMD Overview
 [HackMD](https://hackmd.io/) is a web-based Markdown editor that allows you to edit Markdown files that are hosted in Github.
@@ -26,11 +28,12 @@ The pages loaded in HackMD were selected as pages most relevant to Admins that m
 
 Before making any edits for the first time, I *strongly* recommend spending 10-15 minutes to go through [this Markdown tutorial](https://www.markdowntutorial.com/) to familiarize yourself with the basics of Markdown. Though thorough language expertise is not *required* to make basic edits, it helps to make the experience less intimidating!
 
-::: warning 
-The version of Markdown used on the documentation site is slightly modified with custom components. This means these elements will not have preview panels that exactly match how it would look in the real app. Most images that are not sourced from files instead of links will not display
-:::
-
 Even for people familiar with Markdown, a lot of the experience is trial and error (making a small change in the code and seeing how it shows up). As long as you keep an eye on the preview panel as you make changes, it should be fairly straightforward!
+
+
+::: warning 
+The version of Markdown used on the documentation site is slightly modified with custom components. This means the previews for certain elements may not exactly match how it would look in the real site. Additionally, most images that are sourced from files instead of links will not display.
+:::
 
 ## Editing Documents
 
@@ -39,7 +42,7 @@ The following instructions are applicable to editing *any* of the documents.
 1. First, open the document in HackMD. Make sure to use the split screen mode where you edit on the left panel and preview the results on the right. If this isn't automatically enabled, you can select it on the top left menu.
 2. Next, go to the three dots (•••) menu on the top right, and select **Versions and GitHub Sync**. 
 3. Click **Pull**. This panel should compare the version in HackMD with the version in GitHub (published publicly) and highlight changes (if any). You should be able to select **Apply all changes** to update the HackMD version to the latest in GitHub.
-4. Now, the file should be up to date, and you can begin to make edits.
+4. Now, the file should be up to date and you can begin to make edits.
 
 ::: tip
 These steps (pulling from Github) are *essential* to make sure there are no conflicts between the HackMD version and the live version! Since HackMD does not automatically sync, make sure you Pull changes every time before editing, even if it's unlikely the file has been edited since you last used it.
@@ -137,7 +140,7 @@ The `<br/>` tags indicate extra line breaks for spacing. Though the changes migh
 
 The 'mini' FAQ page is essentially a few selected questions from the full FAQ page without any headings. If you modify any content in the full FAQ, make sure to replicate those changes in the mini FAQ if applicable. 
 
-To add/edit/remove content on the mini FAQ, you can simply copy/paste content from the full FAQ, or delete full FAQ blocks by deleting everything between a set of `:::` indicators.
+To add/edit/remove content on the mini FAQ, you can simply copy/paste content from the full FAQ, or delete FAQ blocks by deleting everything between a set of `:::` indicators.
 
 Be careful not to include too much content in the 'mini FAQ' to make sure the page does not get too crowded in the app.
 

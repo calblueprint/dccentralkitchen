@@ -1,5 +1,9 @@
 # Updating FAQs
 
+::: tip NOTE
+This guide was designed for **developers**. If you are not a developer, see the section in the Admin Guide on [Updating Documentation](../admin/updating-docs.md).
+:::
+
 There are two customer-facing FAQ pages, both hosted on this documentation site.
 
 | Function                                                                                                                                                                                                                       | Screenshot                                               |
