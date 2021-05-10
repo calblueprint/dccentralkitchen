@@ -89,7 +89,7 @@
     "global": "^4.4.0",
     "install": "^0.13.0",
     "libphonenumber-js": "^1.7.52",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "npm": "^6.14.6",
     "prop-types": "^15.0",
