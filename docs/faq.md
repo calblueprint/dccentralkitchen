@@ -20,8 +20,8 @@ Healthy Corners is a [DC Central Kitchen (DCCK)](https://dccentralkitchen.org/) 
 
 ::: faq How do I save at Healthy Corners stores?
 - **Low prices** - Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app.
-- **SNAP matching** - At select stores, earn a $5 coupon for free fresh produce every time you spend $5 with SNAP and include 1 item of fresh produce in your purchase. Look for “SNAP Match” on the store profile to find stores that offer this program. 
-- **Healthy Rewards** - At select stores, earn points every time you buy Healthy Corners products including fresh produce, frozen produce, and healthy snacks. When you’ve earned 500 points, get $5 free! Look for “Healthy Rewards” on the store profile to find stores that offer this program. 
+- **SNAP matching** - At select stores, earn a $5 coupon for free fresh produce every time you spend $5 with SNAP and include 1 item of fresh produce in your purchase. Look for “SNAP Match” on the store profile to find stores that offer this program.
+[comment]: <> (- **Healthy Rewards** - At select stores, earn points every time you buy Healthy Corners products including fresh produce, frozen produce, and healthy snacks. When you’ve earned 500 points, get $5 free! Look for “Healthy Rewards” on the store profile to find stores that offer this program. )
 :::
 
 ::: faq Who runs and supports Healthy Corners?
@@ -65,150 +65,224 @@ We welcome your suggestions for new Healthy Corners stores. [Nominate a store he
 :::
 <br/>
 
-## Healthy Rewards 
-<br/>
+[comment]: <> (## Healthy Rewards )
 
-:::faq What is Healthy Rewards? How does it work?
-Healthy Rewards is an exciting new rewards program that allows shoppers to earn points with every purchase at participating Healthy Corners stores. Here’s how you save using Healthy Rewards: 
-1. **Shop.** Simply purchase the Healthy Corners products you need at participating stores.
-2. **Earn.** Earn 100 points for every dollar you spend on our products!
-	$1 = 100 points
-3. **Save.** Unlock a $5 reward for free Healthy Corners products every time you reach 500 points.
+[comment]: <> (<br/>)
 
-   500 points = $5 free
+[comment]: <> (:::faq What is Healthy Rewards? How does it work?)
 
-   ($5 spent = $5 saved!)
-:::
+[comment]: <> (Healthy Rewards is an exciting new rewards program that allows shoppers to earn points with every purchase at participating Healthy Corners stores. Here’s how you save using Healthy Rewards: )
 
-:::faq Who can use Healthy Rewards? Do I have to receive SNAP/EBT benefits to qualify?
-Anyone can use Healthy Rewards! You do not have to use SNAP/EBT benefits to qualify. Just sign up for an account in the Healthy Corners app to start earning points at participating stores. You can also register in person at participating stores, but you will only be able to view your points and rewards by downloading the app.
-:::
+[comment]: <> (1. **Shop.** Simply purchase the Healthy Corners products you need at participating stores.)
 
-:::faq How do I join the Healthy Rewards program?
-You can create a Healthy Rewards account by clicking “Log In” or “Get Started” in the [Healthy Corners app](https://tiny.cc/HealthyCornersApp). You can also register in person at participating stores, but you will only be able to view your points and rewards by downloading the app.
+[comment]: <> (2. **Earn.** Earn 100 points for every dollar you spend on our products!)
 
-**Registering through the Healthy Corners App**
-1. Open the Healthy Corners app, or download from the app store
-2. On the opening screen, select **Get Started** and **Sign Up** 
-3. Enter your name, phone number, and set a password. 
-4. Enter the code sent to you by text message to verify your phone number.
-5. Once your account is set up, you can start earning points and using Healthy Rewards!
+[comment]: <> (	$1 = 100 points)
+
+[comment]: <> (3. **Save.** Unlock a $5 reward for free Healthy Corners products every time you reach 500 points.)
+
+[comment]: <> (   500 points = $5 free)
+
+[comment]: <> (   &#40;$5 spent = $5 saved!&#41;)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq Who can use Healthy Rewards? Do I have to receive SNAP/EBT benefits to qualify?)
+
+[comment]: <> (Anyone can use Healthy Rewards! You do not have to use SNAP/EBT benefits to qualify. Just sign up for an account in the Healthy Corners app to start earning points at participating stores. You can also register in person at participating stores, but you will only be able to view your points and rewards by downloading the app.)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq How do I join the Healthy Rewards program?)
+
+[comment]: <> (You can create a Healthy Rewards account by clicking “Log In” or “Get Started” in the [Healthy Corners app]&#40;https://tiny.cc/HealthyCornersApp&#41;. You can also register in person at participating stores, but you will only be able to view your points and rewards by downloading the app.)
+
+[comment]: <> (**Registering through the Healthy Corners App**)
+
+[comment]: <> (1. Open the Healthy Corners app, or download from the app store)
+
+[comment]: <> (2. On the opening screen, select **Get Started** and **Sign Up** )
+
+[comment]: <> (3. Enter your name, phone number, and set a password. )
+
+[comment]: <> (4. Enter the code sent to you by text message to verify your phone number.)
+
+[comment]: <> (5. Once your account is set up, you can start earning points and using Healthy Rewards!)
    
-**Registering in person**
-1. At a participating Healthy Corners store, tell the clerk you want to sign up for Healthy Rewards
-2. They will ask for your **name** and **phone number** to register your account. You can then start earning points and using Healthy Rewards.
-3. If you registered for an account in person and want to use the [Healthy Corners app](https://tiny.cc/HealthyCornersApp) to see your points and rewards progress:
-   1. Open the Healthy Corners app
-   2. On the opening screen, select **Get Started** and **Set a password**
-   3. Enter the phone number you used to sign up in store 
-   4. Enter the code sent to you by text message to verify your phone number.
-   5. Set a password for your account
-   6. Log in using your new account information
+[comment]: <> (**Registering in person**)
+
+[comment]: <> (1. At a participating Healthy Corners store, tell the clerk you want to sign up for Healthy Rewards)
+
+[comment]: <> (2. They will ask for your **name** and **phone number** to register your account. You can then start earning points and using Healthy Rewards.)
+
+[comment]: <> (3. If you registered for an account in person and want to use the [Healthy Corners app]&#40;https://tiny.cc/HealthyCornersApp&#41; to see your points and rewards progress:)
+
+[comment]: <> (   1. Open the Healthy Corners app)
+
+[comment]: <> (   2. On the opening screen, select **Get Started** and **Set a password**)
+
+[comment]: <> (   3. Enter the phone number you used to sign up in store )
+
+[comment]: <> (   4. Enter the code sent to you by text message to verify your phone number.)
+
+[comment]: <> (   5. Set a password for your account)
+
+[comment]: <> (   6. Log in using your new account information)
     
-Once your account is set up, you can access your account from the Healthy Corners app!
-:::
+[comment]: <> (Once your account is set up, you can access your account from the Healthy Corners app!)
 
-:::faq Do I have to pay a membership fee?
-No, the Healthy Rewards program is completely free. Just use your registered phone number at checkout in a participating Healthy Corners store to earn points.
-:::
+[comment]: <> (:::)
 
-:::faq What is the difference between SNAP matching and Healthy Rewards?
-SNAP matching and Healthy Rewards are at different stores, so please check the store profile to see which program a store participates in. 
+[comment]: <> (:::faq Do I have to pay a membership fee?)
 
-| [SNAP matching](https://dccentralkitchen.org/snapmatch/)                                             | [Healthy Rewards](#healthy-rewards)                                                                                                  |
-| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| You must use SNAP/EBT to qualify                                                                     | Anyone can participate in Healthy Rewards—you don’t have to qualify for SNAP/EBT to earn points                                      |
-| Earn $5 by spending $5 with SNAP/EBT and including at least 1 item of fresh produce in your purchase | Earn $5 free by purchasing $5 of Healthy Corners products with any payment method                                                    |
-| The clerk will give you a $5 paper coupon                                                            | There are no paper coupons at Healthy Rewards stores Instead, you can track your points and rewards on the Healthy Corners app       |
-| You can only redeem your SNAP matching coupon on fresh fruits and vegetables                         | Earn and spend points on all Healthy Corners products listed in the app, including fresh and frozen produce and other healthy snacks |
+[comment]: <> (No, the Healthy Rewards program is completely free. Just use your registered phone number at checkout in a participating Healthy Corners store to earn points.)
 
-Learn more about [SNAP matching](https://dccentralkitchen.org/snapmatch/) or [Healthy Rewards](#healthy-rewards).
-:::
+[comment]: <> (:::)
 
-<br/>
+[comment]: <> (:::faq What is the difference between SNAP matching and Healthy Rewards?)
 
-### Healthy Rewards points and rewards
-<br/>
+[comment]: <> (SNAP matching and Healthy Rewards are at different stores, so please check the store profile to see which program a store participates in. )
 
-:::faq Where can I find the Healthy Rewards program? Can I use Healthy Rewards at any Healthy Corners store?
+[comment]: <> (| [SNAP matching]&#40;https://dccentralkitchen.org/snapmatch/&#41;                                             | [Healthy Rewards]&#40;#healthy-rewards&#41;                                                                                                  |)
 
-Healthy Rewards points and rewards may only be earned and redeemed at participating Healthy Corners stores. The updated list of participating stores can be found under **Participating Stores** in the Rewards page in the [Healthy Corners app.](https://tiny.cc/HealthyCornersApp)
-:::
+[comment]: <> (| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |)
 
-:::faq How do I earn and redeem rewards?
-**Earning rewards**
+[comment]: <> (| You must use SNAP/EBT to qualify                                                                     | Anyone can participate in Healthy Rewards—you don’t have to qualify for SNAP/EBT to earn points                                      |)
 
-You automatically unlock a reward every time you reach 500 points (by spending $5 on Healthy Corners products).
+[comment]: <> (| Earn $5 by spending $5 with SNAP/EBT and including at least 1 item of fresh produce in your purchase | Earn $5 free by purchasing $5 of Healthy Corners products with any payment method                                                    |)
 
-Earn points by purchasing Healthy Corners items at participating stores. When you go to check out, let the clerk know that you are in the rewards program and share your phone number. The clerk will apply the points to your account. You will earn 100 points for every $1 spent on Healthy Corners products at participating stores.
+[comment]: <> (| The clerk will give you a $5 paper coupon                                                            | There are no paper coupons at Healthy Rewards stores Instead, you can track your points and rewards on the Healthy Corners app       |)
 
-Once you reach 500 points, your reward will be added to your account within one hour of your purchase. You can find your available rewards any time by logging in to your account on the [Healthy Corners app](https://tiny.cc/HealthyCornersApp), or by asking a store clerk.
+[comment]: <> (| You can only redeem your SNAP matching coupon on fresh fruits and vegetables                         | Earn and spend points on all Healthy Corners products listed in the app, including fresh and frozen produce and other healthy snacks |)
+
+[comment]: <> (Learn more about [SNAP matching]&#40;https://dccentralkitchen.org/snapmatch/&#41; or [Healthy Rewards]&#40;#healthy-rewards&#41;.)
+
+[comment]: <> (:::)
+
+[comment]: <> (<br/>)
+
+[comment]: <> (### Healthy Rewards points and rewards)
+
+[comment]: <> (<br/>)
+
+[comment]: <> (:::faq Where can I find the Healthy Rewards program? Can I use Healthy Rewards at any Healthy Corners store?)
+
+[comment]: <> (Healthy Rewards points and rewards may only be earned and redeemed at participating Healthy Corners stores. The updated list of participating stores can be found under **Participating Stores** in the Rewards page in the [Healthy Corners app.]&#40;https://tiny.cc/HealthyCornersApp&#41;)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq How do I earn and redeem rewards?)
+
+[comment]: <> (**Earning rewards**)
+
+[comment]: <> (You automatically unlock a reward every time you reach 500 points &#40;by spending $5 on Healthy Corners products&#41;.)
+
+[comment]: <> (Earn points by purchasing Healthy Corners items at participating stores. When you go to check out, let the clerk know that you are in the rewards program and share your phone number. The clerk will apply the points to your account. You will earn 100 points for every $1 spent on Healthy Corners products at participating stores.)
+
+[comment]: <> (Once you reach 500 points, your reward will be added to your account within one hour of your purchase. You can find your available rewards any time by logging in to your account on the [Healthy Corners app]&#40;https://tiny.cc/HealthyCornersApp&#41;, or by asking a store clerk.)
 
 
-**Redeeming rewards**
+[comment]: <> (**Redeeming rewards**)
 
-Rewards can be redeemed in participating stores by providing a store clerk your account phone number. $5 will be deducted from your purchase.
-You can only redeem rewards on Healthy Corners products.
-:::
+[comment]: <> (Rewards can be redeemed in participating stores by providing a store clerk your account phone number. $5 will be deducted from your purchase.)
 
-:::faq How can I check how many points and rewards I have?
-You can check how many points you have through the [Healthy Corners app](https://tiny.cc/HealthyCornersApp) or by asking a store clerk at a participating store.
-Through the Healthy Corners app:
-1. Log in to your account using your account phone number and password. If you registered in person and haven’t used the app before, select **Set a password** to access your account.
-2. Once you are logged in, tap the green button at the bottom of the Store Map screen
-3. In the **My Rewards** tab:
-   - you can see how many points you have under **Reward Progress**
-   - you can see how many rewards you have under **Available Rewards**
-At a participating store:
-You can ask a clerk to check how many points and rewards you have with your account phone number.
-:::
+[comment]: <> (You can only redeem rewards on Healthy Corners products.)
 
-:::faq What can I redeem a reward for? How do I know a product is eligible for Healthy Rewards?
-You can redeem each reward for $5 of any Healthy Corners products at a participating Healthy Corners store. All Healthy Corners products that are listed in the app are eligible for Healthy Rewards. If you click on a product in the app, you will see the number of points earned.
-:::
+[comment]: <> (:::)
 
-:::faq If I spend less than the reward amount, can I save the rest for later?
-A reward must be redeemed in a single purchase, and cannot be divided over multiple visits. No change is given, so try to spend the full reward amount when you are redeeming a reward. If you have multiple rewards, you do not have to redeem all of them at once.
-:::
+[comment]: <> (:::faq How can I check how many points and rewards I have?)
 
-:::faq Can I earn more than one reward before I redeem? Is there a limit to how many rewards I can have at any given time?
-Yes, you can earn more than one reward before you redeem. There is no limit to how many rewards you can have or redeem at any given time.
-:::
+[comment]: <> (You can check how many points you have through the [Healthy Corners app]&#40;https://tiny.cc/HealthyCornersApp&#41; or by asking a store clerk at a participating store.)
 
-:::faq Will my rewards or points expire?
-Rewards and points do not have an expiration date, but we encourage you to use them as you earn them. If for any reason the program is discontinued, an expiration date may be applied and this will be noted in the app.
-:::
+[comment]: <> (Through the Healthy Corners app:)
 
-:::faq My points or rewards are incorrect. What do I do?
-Each time you reach 500 points, your points are automatically converted to a reward, and 500 points are deducted from your total points. If it seems like your points disappeared, first check to see if you have a new reward.
+[comment]: <> (1. Log in to your account using your account phone number and password. If you registered in person and haven’t used the app before, select **Set a password** to access your account.)
 
-If the issue persists, contact us through [our online form](https://tiny.cc/RewardsFeedback).
-:::
+[comment]: <> (2. Once you are logged in, tap the green button at the bottom of the Store Map screen)
 
-<br/>
+[comment]: <> (3. In the **My Rewards** tab:)
 
-### Healthy Rewards account and mobile app
-<br/>
+[comment]: <> (   - you can see how many points you have under **Reward Progress**)
 
-:::faq I signed up for Healthy Rewards in a store. How do I set up my account in the app?
-1. Download the [Healthy Corners app](https://tiny.cc/HealthyCornersApp) from the app store
-2. On the opening screen, select **Get Started** and **Set a password**
-3. Enter the phone number you used to sign up in store
-4. Enter the code sent to you by text message to verify your phone number
-5. Set a password for your account
-6. Log in using your new account information
+[comment]: <> (   - you can see how many rewards you have under **Available Rewards**)
+
+[comment]: <> (At a participating store:)
+
+[comment]: <> (You can ask a clerk to check how many points and rewards you have with your account phone number.)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq What can I redeem a reward for? How do I know a product is eligible for Healthy Rewards?)
+
+[comment]: <> (You can redeem each reward for $5 of any Healthy Corners products at a participating Healthy Corners store. All Healthy Corners products that are listed in the app are eligible for Healthy Rewards. If you click on a product in the app, you will see the number of points earned.)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq If I spend less than the reward amount, can I save the rest for later?)
+
+[comment]: <> (A reward must be redeemed in a single purchase, and cannot be divided over multiple visits. No change is given, so try to spend the full reward amount when you are redeeming a reward. If you have multiple rewards, you do not have to redeem all of them at once.)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq Can I earn more than one reward before I redeem? Is there a limit to how many rewards I can have at any given time?)
+
+[comment]: <> (Yes, you can earn more than one reward before you redeem. There is no limit to how many rewards you can have or redeem at any given time.)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq Will my rewards or points expire?)
+
+[comment]: <> (Rewards and points do not have an expiration date, but we encourage you to use them as you earn them. If for any reason the program is discontinued, an expiration date may be applied and this will be noted in the app.)
+
+[comment]: <> (:::)
+
+[comment]: <> (:::faq My points or rewards are incorrect. What do I do?)
+
+[comment]: <> (Each time you reach 500 points, your points are automatically converted to a reward, and 500 points are deducted from your total points. If it seems like your points disappeared, first check to see if you have a new reward.)
+
+[comment]: <> (If the issue persists, contact us through [our online form]&#40;https://tiny.cc/RewardsFeedback&#41;.)
+
+[comment]: <> (:::)
+
+[comment]: <> (<br/>)
+
+[comment]: <> (### Healthy Rewards account and mobile app)
+
+[comment]: <> (<br/>)
+
+[comment]: <> (:::faq I signed up for Healthy Rewards in a store. How do I set up my account in the app?)
+
+[comment]: <> (1. Download the [Healthy Corners app]&#40;https://tiny.cc/HealthyCornersApp&#41; from the app store)
+
+[comment]: <> (2. On the opening screen, select **Get Started** and **Set a password**)
+
+[comment]: <> (3. Enter the phone number you used to sign up in store)
+
+[comment]: <> (4. Enter the code sent to you by text message to verify your phone number)
+
+[comment]: <> (5. Set a password for your account)
+
+[comment]: <> (6. Log in using your new account information)
    
-Once your account is set up, you can access your account from the Healthy Corners app.
-:::
+[comment]: <> (Once your account is set up, you can access your account from the Healthy Corners app.)
 
-:::faq How do I manage my location permissions?
-To update your location permissions for Healthy Corners app:
-1. Access the Healthy Rewards app
-2. Select **Settings** in the Menu
-3. Select **Location Settings** under Privacy
-4. Select **Location** and choose a location setting
-:::
-</br>
+[comment]: <> (:::)
+
+[comment]: <> (:::faq How do I manage my location permissions?)
+
+[comment]: <> (To update your location permissions for Healthy Corners app:)
+
+[comment]: <> (1. Access the Healthy Rewards app)
+
+[comment]: <> (2. Select **Settings** in the Menu)
+
+[comment]: <> (3. Select **Location Settings** under Privacy)
+
+[comment]: <> (4. Select **Location** and choose a location setting)
+
+[comment]: <> (:::)
+
+[comment]: <> (</br>)
 
 ## SNAP Matching and Coupons
 <br/>
@@ -242,17 +316,25 @@ Use your coupons at the store where you received them, or at any store listed on
 No change is given, so please spend the full $5 at once. 
 :::
 
-:::faq What is the difference between SNAP matching and Healthy Rewards?
-SNAP matching and Healthy Rewards are at different stores, so please check the store profile to see which program a store participates in. 
+[comment]: <> (:::faq What is the difference between SNAP matching and Healthy Rewards?)
 
-| [SNAP matching](https://dccentralkitchen.org/snapmatch/)                                             | [Healthy Rewards](#healthy-rewards)                                                                                                  |
-| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| You must use SNAP/EBT to qualify                                                                     | Anyone can participate in Healthy Rewards—you don’t have to qualify for SNAP/EBT to earn points                                      |
-| Earn $5 by spending $5 with SNAP/EBT and including at least 1 item of fresh produce in your purchase | Earn $5 free by purchasing $5 of Healthy Corners products with any payment method                                                    |
-| The clerk will give you a $5 paper coupon                                                            | There are no paper coupons at Healthy Rewards stores Instead, you can track your points and rewards on the Healthy Corners app       |
-| You can only redeem your SNAP matching coupon on fresh fruits and vegetables                         | Earn and spend points on all Healthy Corners products listed in the app, including fresh and frozen produce and other healthy snacks |
+[comment]: <> (SNAP matching and Healthy Rewards are at different stores, so please check the store profile to see which program a store participates in. )
 
-Learn more about [SNAP matching](https://dccentralkitchen.org/snapmatch/) or [Healthy Rewards](#healthy-rewards).
+[comment]: <> (| [SNAP matching]&#40;https://dccentralkitchen.org/snapmatch/&#41;                                             | [Healthy Rewards]&#40;#healthy-rewards&#41;                                                                                                  |)
+
+[comment]: <> (| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |)
+
+[comment]: <> (| You must use SNAP/EBT to qualify                                                                     | Anyone can participate in Healthy Rewards—you don’t have to qualify for SNAP/EBT to earn points                                      |)
+
+[comment]: <> (| Earn $5 by spending $5 with SNAP/EBT and including at least 1 item of fresh produce in your purchase | Earn $5 free by purchasing $5 of Healthy Corners products with any payment method                                                    |)
+
+[comment]: <> (| The clerk will give you a $5 paper coupon                                                            | There are no paper coupons at Healthy Rewards stores Instead, you can track your points and rewards on the Healthy Corners app       |)
+
+[comment]: <> (| You can only redeem your SNAP matching coupon on fresh fruits and vegetables                         | Earn and spend points on all Healthy Corners products listed in the app, including fresh and frozen produce and other healthy snacks |)
+
+Learn more about [SNAP matching](https://dccentralkitchen.org/snapmatch/).
+
+[comment]: <> (or [Healthy Rewards]&#40;#healthy-rewards&#41;.)
 :::
 
 <br/>
