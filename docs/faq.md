@@ -21,6 +21,7 @@ Healthy Corners is a [DC Central Kitchen (DCCK)](https://dccentralkitchen.org/) 
 ::: faq How do I save at Healthy Corners stores?
 - **Low prices** - Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app.
 - **SNAP matching** - At select stores, earn a $5 coupon for free fresh produce every time you spend $5 with SNAP and include 1 item of fresh produce in your purchase. Look for “SNAP Match” on the store profile to find stores that offer this program.
+
 [comment]: <> (- **Healthy Rewards** - At select stores, earn points every time you buy Healthy Corners products including fresh produce, frozen produce, and healthy snacks. When you’ve earned 500 points, get $5 free! Look for “Healthy Rewards” on the store profile to find stores that offer this program. )
 :::
 
@@ -335,7 +336,8 @@ No change is given, so please spend the full $5 at once.
 Learn more about [SNAP matching](https://dccentralkitchen.org/snapmatch/).
 
 [comment]: <> (or [Healthy Rewards]&#40;#healthy-rewards&#41;.)
-:::
+
+[comment]: <> (:::)
 
 <br/>
 
