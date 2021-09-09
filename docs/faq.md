@@ -290,7 +290,7 @@ We welcome your suggestions for new Healthy Corners stores. [Nominate a store he
 
 :::faq What is SNAP Matching? How do I earn SNAP Match coupons?
 ![SNAP Matching Coupon](./assets/faq/snap_match_coupon.jpg)
-If a store offers SNAP Matching, shoppers who purchase fresh or frozen product with SNAP/EBT can get more fresh or frozen produce for free. To earn a $5 coupon for fresh or frozen products, spend at least $5 with SNAP/EBT at a participating store and include at least 1 item of fresh or frozen produce in your purchase. 
+If a store offers SNAP Matching, shoppers who purchase fresh or frozen products with SNAP/EBT can get more fresh or frozen products for free. To earn a $5 coupon for fresh or frozen products, spend at least $5 with SNAP/EBT at a participating store and include at least 1 item of fresh or frozen produce in your purchase. 
 :::
 
 :::faq How many SNAP Match coupons can I earn?
@@ -329,16 +329,16 @@ Pregnant women, new mothers, or infants and children under 5 years old may be el
 :::
 
 :::faq How do I apply for WIC?
-Apply for WIC by contacting your local [WIC clinic](dcwic.org/wic-locations) or calling (202)442-9397.
+Apply for WIC by contacting your local [WIC clinic](https://www.dcwic.org/wic-locations) or calling (202)442-9397.
 :::
 
-:::faq
-How do I know which Healthy Corners stores can accept by WIC benefits?
+:::faq How do I know which Healthy Corners stores can accept my WIC benefits?
 Find WIC authorized vendors through the app by selecting the WIC filter when searching for Healthy Corners stores. The Healthy Corners stores that accept DC WIC are also on the [autorized store locations list](https://20158fdc-f4db-4436-a8f3-8d0d4c02c740.filesusr.com/ugd/9c5a7a_627f11ff6db0433581896127534a165f.pdf) found on the DC WIC website.
 :::
 
 :::faq How can I use my WIC benefits at a Healthy Corners store?
-Check out [this tutorial](dcwic.org/wic-foods) to learn how to use your WIC benefits. Remember your WIC benefits, WIC ID folder, and look for the purple stickers place on the shelves to find WIC-eligible products.
+![WIC sticker](https://i.imgur.com/WV2HgiV.jpg)
+Check out [this tutorial](https://www.dcwic.org/wic-foods) to learn how to use your WIC benefits. Remember your WIC benefits, WIC ID folder, and look for the purple stickers place on the shelves to find WIC-eligible products.
 :::
 
 :::faq Will more Healthy Corners stores be able to accept WIC benefits?
@@ -369,7 +369,7 @@ DC Central Kitchen's Healthy Corners program works closely with DC Health's WIC 
 
 [comment]: <> (| You can only redeem your SNAP matching coupon on fresh fruits and vegetables                         | Earn and spend points on all Healthy Corners products listed in the app, including fresh and frozen produce and other healthy snacks |)
 
-Learn more about [SNAP matching & DC WIC](https://dccentralkitchen.org/benefitsprograms/).
+Learn more about [SNAP matching & DC WIC](https://dccentralkitchen.org/benefitprograms/).
 
 [comment]: <> (or [Healthy Rewards]&#40;#healthy-rewards&#41;.)
 
