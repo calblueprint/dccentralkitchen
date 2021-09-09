@@ -288,33 +288,69 @@ We welcome your suggestions for new Healthy Corners stores. [Nominate a store he
 ## SNAP Matching and Coupons
 <br/>
 
-:::faq What is SNAP Matching?
+:::faq What is SNAP Matching? How do I earn SNAP Match coupons?
 ![SNAP Matching Coupon](./assets/faq/snap_match_coupon.jpg)
-If a store offers SNAP matching, shoppers who purchase fresh produce with SNAP/EBT can get more fresh produce for free. To earn a $5 coupon for fresh produce, spend at least $5 with SNAP/EBT at a participating store and include at least 1 item of fresh produce in your purchase. 
+If a store offers SNAP Matching, shoppers who purchase fresh or frozen product with SNAP/EBT can get more fresh or frozen produce for free. To earn a $5 coupon for fresh or frozen products, spend at least $5 with SNAP/EBT at a participating store and include at least 1 item of fresh or frozen produce in your purchase. 
 :::
 
-:::faq How do I earn SNAP match coupons?
-Spend at least $5 using your SNAP/EBT card. Your SNAP/EBT purchase must contain at least 1 fresh fruit or vegetable. The store clerk will give you a $5 coupon at checkout.
+:::faq How many SNAP Match coupons can I earn?
+You will earn 1 coupon per qualifying transaction.
 :::
 
-:::faq How many SNAP match coupons can I earn?
-You will earn 1 coupon per purchase every time you make a qualifying purchase.
+:::faq What can I buy with my SNAP Match coupons?
+Each coupon is for $5 of fresh or frozen fruits and vegetables. Any fresh produce item or frozen fruit or vegetable without added sugar, seasoning, or oil. You cannot buy canned fruits or vegetables with your coupons.
 :::
 
-:::faq What can I buy with my SNAP match coupons?
-Each coupon is for $5 of fresh fruits and vegetables. You cannot buy canned or frozen items with your coupons.
+:::faq Do the SNAP Match coupons expire?
+Yes. Please use your coupons by the expiration date in the top right corner of your coupon.
 :::
 
-:::faq Do the SNAP match coupons expire?
-Yes. Please use your coupons by the expiration date.
+:::faq Where can I spend my SNAP Match coupons? What if my store does not have the fruits and vegetables I want? 
+You can use your coupons at the store you received them, or at any store listed on the coupon. Please request any new fruits or vegetables with the store manager.
 :::
 
-:::faq Where can I spend my SNAP match coupons? What if my store does not have the fruits and vegetables I want? 
-Use your coupons at the store where you received them, or at any store listed on the coupon. Please request any new fruits or vegetables with the store manager.
-:::
-
-:::faq If I spend less than $5 using my SNAP match coupon, will I get change?
+:::faq If I spend less than $5 using my SNAP Match coupon, will I get change?
 No change is given, so please spend the full $5 at once. 
+:::
+
+:::faq Who runs this program?
+The coupons come from DC Central Kitchen's Healthy Corners program, with funding from the USDA and DC Health.
+:::
+
+## DC WIC
+<br/>
+
+:::faq What is WIC?
+WIC stands for the Supplemental Nutrition Program for Women, Infants, and Children. WIC is a federal food assistance and nutrition education program for eligible women, infants, and children. WIC participants receive benefits to purchase a variety of healthy foods every month, tailored for them by WIC nutritionists. 
+:::
+
+:::faq How do I know if I'm eligible for WIC?
+Pregnant women, new mothers, or infants and children under 5 years old may be eligible for WIC. Fathers, guardians, and grandparents can also enroll their children in WIC. If you think you or your child(ren) might be eligible, use the [WIC pre-screening tool](https://wic.fns.usda.gov/wps/pages/preScreenTool.xhtml) to find out more. 
+:::
+
+:::faq How do I apply for WIC?
+Apply for WIC by contacting your local [WIC clinic](dcwic.org/wic-locations) or calling (202)442-9397.
+:::
+
+:::faq
+How do I know which Healthy Corners stores can accept by WIC benefits?
+Find WIC authorized vendors through the app by selecting the WIC filter when searching for Healthy Corners stores. The Healthy Corners stores that accept DC WIC are also on the [autorized store locations list](https://20158fdc-f4db-4436-a8f3-8d0d4c02c740.filesusr.com/ugd/9c5a7a_627f11ff6db0433581896127534a165f.pdf) found on the DC WIC website.
+:::
+
+:::faq How can I use my WIC benefits at a Healthy Corners store?
+Check out [this tutorial](dcwic.org/wic-foods) to learn how to use your WIC benefits. Remember your WIC benefits, WIC ID folder, and look for the purple stickers place on the shelves to find WIC-eligible products.
+:::
+
+:::faq Will more Healthy Corners stores be able to accept WIC benefits?
+Yes, we are working closely with the DC WIC State Agency to help more Healthy Corners stores become WIC authorized vendors.
+:::
+
+:::faq Will Healthy Corners stores be able to accept eWIC?
+Yes, just like the larger WIC authorized vendors, Healthy Corners stores that accept paper WIC benefits will also be making the transition to eWIC. You will be able to redeem your WIC benefits using a card instead of a check starting in Spring 2022.
+:::
+
+:::faq Who runs this program?
+DC Central Kitchen's Healthy Corners program works closely with DC Health's WIC State Agency, with funding from the USDA.
 :::
 
 [comment]: <> (:::faq What is the difference between SNAP matching and Healthy Rewards?)
@@ -333,7 +369,7 @@ No change is given, so please spend the full $5 at once.
 
 [comment]: <> (| You can only redeem your SNAP matching coupon on fresh fruits and vegetables                         | Earn and spend points on all Healthy Corners products listed in the app, including fresh and frozen produce and other healthy snacks |)
 
-Learn more about [SNAP matching](https://dccentralkitchen.org/snapmatch/).
+Learn more about [SNAP matching & DC WIC](https://dccentralkitchen.org/benefitsprograms/).
 
 [comment]: <> (or [Healthy Rewards]&#40;#healthy-rewards&#41;.)
 
