@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';

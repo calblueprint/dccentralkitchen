@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -117,7 +117,7 @@ export default class CompleteSignUpScreen extends React.Component {
       Analytics.logEvent('sign_up_complete', {
         customer_id: customerId,
       });
-      Sentry.captureMessage('Sign Up Successful');
+      Sentry.Native.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
       console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
