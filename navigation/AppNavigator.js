@@ -91,7 +91,9 @@ export default function AppContainer() {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = getActiveRouteName(state);
         if (previousRouteName !== currentRouteName) {
-          Analytics.setCurrentScreen(currentRouteName);
+          Analytics.logEvent('screen_view', {
+            screen_name: currentRouteName,
+          });
         }
         routeNameRef.current = currentRouteName;
       }}>
