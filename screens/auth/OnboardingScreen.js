@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -79,7 +78,7 @@ export default class OnboardingScreen extends React.Component {
   guestLogin = async () => {
     await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
     Analytics.logEvent('guest_login_complete', {
-      installation_id: Constants.installationId,
+      installation_id: RecordIds.guestCustomerId,
     });
     this.props.navigation.navigate('App');
   };
