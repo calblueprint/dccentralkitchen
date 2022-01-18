@@ -17,17 +17,19 @@ import { useFilteredStores } from '../../lib/mapUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, styles } from '../../styled/store';
 
+const initialFilterState = {
+  openNow: false,
+  productsInStock: false,
+  snapOrEbtAccepted: false,
+  wic: false,
+  couponProgramPartner: false,
+  rewardsAccepted: false,
+};
+
 export default function StoreListScreen(props) {
   const searchRef = useRef(null);
   const [searchStr, setSearchStr] = useState('');
-  const [filters, setFilters] = useState({
-    openNow: false,
-    productsInStock: false,
-    snapOrEbtAccepted: false,
-    wic: false,
-    couponProgramPartner: false,
-    rewardsAccepted: false,
-  });
+  const [filters, setFilters] = useState(initialFilterState);
   const { stores } = props.route.params;
   const filteredStores = useFilteredStores(stores, searchStr, filters);
 
