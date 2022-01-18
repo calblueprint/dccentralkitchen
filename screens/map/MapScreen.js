@@ -12,6 +12,7 @@ import {
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
+import MapFilter from '../../components/MapFilter';
 import StoreProducts from '../../components/product/StoreProducts';
 import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
@@ -141,20 +142,25 @@ export default function MapScreen(props) {
         style={{
           zIndex: 1,
         }}>
+        {/* Map Options - Hamburger Button */}
         <Hamburger navigation={props.navigation} />
+
         {/* Display search bar */}
         <SearchBar
-          style={{ flex: 1 }}
           onPress={() => props.navigation.navigate('StoreList', { stores })}>
           <FontAwesome5
             name="search"
             size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
             color={Colors.primaryOrange}
+            style={{ marginLeft: 12, marginRight: 12 }}
           />
-          <Subtitle color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+          <Subtitle color={Colors.secondaryText} style={{ marginRight: 12 }}>
             Find a store
           </Subtitle>
         </SearchBar>
+
+        {/* Map Filter */}
+        <MapFilter navigation={props.navigation} />
       </NavHeaderContainer>
       {/* Display Map */}
       <MapView
@@ -187,7 +193,7 @@ export default function MapScreen(props) {
           </Marker>
         ))}
       </MapView>
-      {/* Display bottom sheet. 
+      {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
       <View style={{ flex: 1, marginBottom: 20 }}>
         <BottomSheet
