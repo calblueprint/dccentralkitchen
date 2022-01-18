@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import { useSafeArea } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
 
@@ -96,10 +96,8 @@ export const NavButtonContainer = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   z-index: 100;
-  top: 0px;
-  left: ${(props) => (props.right ? 'undefined' : '12px')};
-  right: ${(props) => (props.right ? '12px' : 'undefined')};
-  border-radius: 23px;
+  border-radius: 20px;
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
@@ -111,17 +109,16 @@ export function NavHeaderContainer({
   vertical,
   noShadow,
 }) {
-  const topInset = useSafeArea().top;
+  const topInset = useSafeAreaInsets().top;
   return (
     <View
       style={{
         display: 'flex',
         flexDirection: vertical ? 'column' : 'row',
         alignItems: vertical ? 'flex-start' : 'center',
-        justifyContent: 'center',
-        paddingTop: 16 + topInset,
+        justifyContent: 'space-between',
         paddingBottom: 4,
-        minHeight: 62 + topInset,
+        marginTop: 16 + topInset,
         marginBottom: withMargin ? 16 : 0,
         backgroundColor: backgroundColor || Colors.bgLight,
         shadowColor: noShadow ? 'transparent' : Colors.bgDark,
