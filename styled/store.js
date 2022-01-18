@@ -52,15 +52,13 @@ export const StoreCardContainer = styled.View`
     props.includeMargins ? '0 16px 10px 16px' : '0 0 10px 0'};
 `;
 
-export const SearchBar = styled(ButtonContainer)`
+export const SearchBar = styled.View`
   padding-top: 2px;
   display: flex;
+  width: 200px;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-right: 72px;
-  margin-left: 32px;
-  padding-left: 12px;
   height: 40px;
   border-radius: 20px;
   background-color: white;
