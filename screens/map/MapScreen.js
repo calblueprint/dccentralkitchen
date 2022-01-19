@@ -1,15 +1,12 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
+import * as SplashScreen from 'expo-splash-screen';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
+import { PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
-import {
-  NavHeaderContainer,
-  Subtitle,
-  Title,
-} from '../../components/BaseComponents';
+import { NavHeaderContainer, Subtitle } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
@@ -39,6 +36,7 @@ export default function MapScreen(props) {
   const [currentStore, setCurrentStore] = useState(null);
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
+  const [appLoadComplete, setAppLoadComplete] = useState(false);
   const stores = useStores();
   stores.forEach((store) => {
     const currStore = store;
@@ -133,6 +131,20 @@ export default function MapScreen(props) {
     );
   };
 
+  useEffect(() => {
+    if (!locationPermissions || stores.length === 0) {
+      setAppLoadComplete(false);
+    } else {
+      setAppLoadComplete(true);
+    }
+  }, [locationPermissions, stores]);
+
+  useEffect(() => {
+    if (appLoadComplete) {
+      SplashScreen.hideAsync();
+    }
+  }, [appLoadComplete]);
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <NavHeaderContainer
@@ -202,7 +214,7 @@ export default function MapScreen(props) {
         />
       </View>
       <RewardsFooter navigation={props.navigation} />
-      {(!locationPermissions || stores.length === 0) && (
+      {/* (!locationPermissions || stores.length === 0) && (
         <View
           style={{
             position: 'absolute',
@@ -218,7 +230,7 @@ export default function MapScreen(props) {
           <Title style={{ marginBottom: 24 }}>Loading stores</Title>
           <ActivityIndicator size="large" color={Colors.bgDark} />
         </View>
-      )}
+        ) */}
     </View>
   );
 }

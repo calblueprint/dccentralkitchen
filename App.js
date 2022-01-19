@@ -3,6 +3,7 @@ import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
@@ -21,6 +22,11 @@ Sentry.init({
   environment: env,
 });
 
+// Instruct SplashScreen not to hide yet, we want to do this manually
+SplashScreen.preventAutoHideAsync().catch(() => {
+  /* reloading the app might trigger some race conditions, ignore them */
+});
+
 export default function App(props) {
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.maxFontSizeMultiplier = 1.4;
@@ -32,6 +38,8 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
+        // Instruct SplashScreen not to hide yet, we want to do this manually
+        autoHideSplash={false}
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => handleFinishLoading(setLoadingComplete)}
