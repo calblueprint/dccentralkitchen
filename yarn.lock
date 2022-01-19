@@ -7499,10 +7499,10 @@ electron-to-chromium@^1.4.17:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.37.tgz#eedd53cad229ae2d1632b958a92a3d7d7b27f553"
   integrity sha512-XIvFB1omSAxYgHYX48sC+HR8i/p7lx7R+0cX9faElg1g++h9IilCrJ12+bQuY+d96Wp7zkBiJwMOv+AhLtLrTg==
 
-electron@^9.1.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-9.4.0.tgz#c3c607e3598226ddbaaff8babcdffa8bb2210936"
-  integrity sha512-hOC4q0jkb+UDYZRy8vrZ1IANnq+jznZnbkD62OEo06nU+hIbp2IrwDRBNuSLmQ3cwZMVir0WSIA1qEVK0PkzGA==
+electron@^11.1.0:
+  version "11.5.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-11.5.0.tgz#f1650543b9d8f2047d3807755bdb120153ed210f"
+  integrity sha512-WjNDd6lGpxyiNjE3LhnFCAk/D9GIj1rU3GSDealVShhkkkPR3Vh4q8ErXGDl1OAO/faomVa10KoFPUN/pLbNxg==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
@@ -8115,6 +8115,17 @@ expo-asset@~8.4.5:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-asset@~8.4.6:
+  version "8.4.6"
+  resolved "https://registry.yarnpkg.com/expo-asset/-/expo-asset-8.4.6.tgz#1c40e9badac66dbd3d2be2810711937e5b9b09bd"
+  integrity sha512-Kpzcmmf1lceHnZkAdJOvq7l7SU/hCL59vAj2xUZS66U6lFkUf7LNEA/NzILA56loCd4cka5ShYlWs+BMchyFDQ==
+  dependencies:
+    blueimp-md5 "^2.10.0"
+    invariant "^2.2.4"
+    md5-file "^3.2.3"
+    path-browserify "^1.0.0"
+    url-parse "^1.4.4"
+
 expo-branch@~5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/expo-branch/-/expo-branch-5.1.0.tgz#6b93077249748bc0811b840819392e88a71d73a6"
@@ -8396,10 +8407,10 @@ expo-updates-interface@~0.5.0:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.5.0.tgz#30b05b9e190b3e2662d7cc26cd84d305d7ab4217"
   integrity sha512-3Yhip5LQ6x1nQ/2Xm/uP3Oeann7YkaBwsdUpxbcMtn2Ayucuu9U7r9ltwzBFxC4RWebfhXGJZ5+gx85y0leGXQ==
 
-expo-updates@~0.11.3:
-  version "0.11.3"
-  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.11.3.tgz#5dcd27ea7de47b6b222c525541a2e0dc91d6191e"
-  integrity sha512-W8oXaH0MKaH5ZLszupnm904A4epBjgvjPEfuIjy3JybTU+JC8319gqsOZ7nWBxZZck67utxHAlyJ9Ks/CcqFmA==
+expo-updates@~0.11.4:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.11.4.tgz#201c67406d541b80081819740e216ba8cc2fa85d"
+  integrity sha512-4szF44gK2mqILL7XSpv1V6fjs8FK+EXv6+vGMwzUa9SYWI1XliP/mAMGfJOYZkJlcegX/AOmmF7fSsIt++qciQ==
   dependencies:
     "@expo/config" "^6.0.6"
     "@expo/config-plugins" "^4.0.2"
@@ -15177,10 +15188,10 @@ react-dev-utils@~11.0.1:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-devtools-core@4.10.4:
-  version "4.10.4"
-  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-4.10.4.tgz#6d6e8cb87b281ab0267c4bbe396c0ee348213d78"
-  integrity sha512-N3RjSX9aumqxOhwExUkIqExMeizyxvbddkmkZ6pIVLaF6spV0aMmZfdqXFTpdSUUG5k71Q2EVlDtXO8a5y6Gtg==
+react-devtools-core@4.22.1:
+  version "4.22.1"
+  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-4.22.1.tgz#b276d42f860bedc373c9b3c0f5f96734318dd453"
+  integrity sha512-pvpNDHE7p0FtcCmIWGazoY8LLVfBI9sw0Kf10kdHhPI9Tzt3OG/qEt16GrAbE0keuna5WzX3r1qPKVjqOqsuUg==
   dependencies:
     shell-quote "^1.6.1"
     ws "^7"
@@ -15193,16 +15204,16 @@ react-devtools-core@^4.6.0:
     shell-quote "^1.6.1"
     ws "^7"
 
-react-devtools@4.10.4:
-  version "4.10.4"
-  resolved "https://registry.yarnpkg.com/react-devtools/-/react-devtools-4.10.4.tgz#62ecf9fe205f6bb31ed00462848554e5f464e6e8"
-  integrity sha512-Hr/yzBrFI1zbCtViNNiE5z0+PpTyNYXfDOcsTcAKbDmJ/oTuih4WcbU1NRymaLE8bju77qlIWToklNxRpapRZw==
+react-devtools@4.22.1:
+  version "4.22.1"
+  resolved "https://registry.yarnpkg.com/react-devtools/-/react-devtools-4.22.1.tgz#d0e1e22b34d6c9c6c4dc8b1a7159a86774fd8b15"
+  integrity sha512-NrjS3av6mrcnTmxPJCaanNZgYwhp3YYQLFwm7gTxRouQF6abKYo8uZ4RdONIDFDmwiB0zg6mM83RTMjRSJgGiA==
   dependencies:
     cross-spawn "^5.0.1"
-    electron "^9.1.0"
+    electron "^11.1.0"
     ip "^1.1.4"
     minimist "^1.2.3"
-    react-devtools-core "4.10.4"
+    react-devtools-core "4.22.1"
     update-notifier "^2.1.0"
 
 react-dom@17.0.1:
