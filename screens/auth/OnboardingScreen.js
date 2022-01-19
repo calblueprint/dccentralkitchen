@@ -1,3 +1,5 @@
+/* eslint-disable react/no-string-refs */
+/* eslint-disable react/jsx-curly-brace-presence */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
@@ -60,9 +62,9 @@ export default class OnboardingScreen extends React.Component {
           source={item.illustration}
           resizeMode="contain"
           style={{
-            flex: 1,
-            height: '100%',
+            height: '70%',
             width: '100%',
+            margin: 0,
           }}
         />
         <ColumnContainer>
@@ -71,6 +73,23 @@ export default class OnboardingScreen extends React.Component {
             {item.body}
           </Body>
         </ColumnContainer>
+        {/* Display login/get started buttons */}
+        {this.state.pageIndex === 4 && (
+          <ColumnContainer style={{ marginTop: 12 }}>
+            <FilledButtonContainer
+              width="100%"
+              onPress={() => this.navigateAuth()}>
+              <ButtonLabel color="white">Get started</ButtonLabel>
+            </FilledButtonContainer>
+            <ButtonContainer
+              style={{ marginTop: 4, padding: 12 }}
+              onPress={async () => this.guestLogin()}>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Continue as guest
+              </ButtonLabel>
+            </ButtonContainer>
+          </ColumnContainer>
+        )}
       </OnboardingContentContainer>
     );
   };
@@ -98,30 +117,22 @@ export default class OnboardingScreen extends React.Component {
         */}
         <Carousel
           data={ONBOARDING_CONTENT}
+          useScrollView
           renderItem={this._renderItem}
-          onSnapToItem={(index) => this.setState({ pageIndex: index })}
+          onSnapToItem={(index) => {
+            this.setState({ pageIndex: index });
+          }}
+          onScrollBeginDrag={(e) => {
+            if (this.state.pageIndex === 4) {
+              this.setState({ pageIndex: 3 });
+            }
+          }}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
         />
 
         {/* Display pagination dots */}
         {this.pagination}
-
-        {/* Display login/get started buttons */}
-        <ColumnContainer style={{ marginTop: 20 }}>
-          <FilledButtonContainer
-            width="100%"
-            onPress={() => this.navigateAuth()}>
-            <ButtonLabel color="white">Get started</ButtonLabel>
-          </FilledButtonContainer>
-          <ButtonContainer
-            style={{ marginTop: 4, padding: 12 }}
-            onPress={async () => this.guestLogin()}>
-            <ButtonLabel noCaps color={Colors.primaryGreen}>
-              Continue as guest
-            </ButtonLabel>
-          </ButtonContainer>
-        </ColumnContainer>
       </OnboardingContainer>
     );
   }

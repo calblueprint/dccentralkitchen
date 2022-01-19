@@ -1,11 +1,16 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack';
 import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import VerificationScreen from '../screens/auth/VerificationScreen';
+import LandingScreen from '../screens/map/LandingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
@@ -58,6 +63,18 @@ function DrawerNavigator() {
         component={ResourcesStackNavigator}
         options={{
           title: 'Resources',
+        }}
+      />
+      <Drawer.Screen
+        name="LandingScreenOverlay"
+        component={LandingScreen}
+        options={{
+          title: 'How Our App Works',
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+          gestureDirection: 'vertical',
+          gestureResponseDistance: {
+            vertical: 162 + useSafeAreaInsets().top,
+          },
         }}
       />
       <Drawer.Screen
