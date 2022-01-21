@@ -4,37 +4,21 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import {
-  BigTitle,
   NavButtonContainer,
   NavHeaderContainer,
+  NavTitle,
 } from '../../components/BaseComponents';
 import HowAppWorks from '../../components/rewards/HowAppWorks';
-import Colors from '../../constants/Colors';
 
 // eslint-disable-next-line react/prop-types
 export default function LandingScreen(props) {
   return (
     <View style={{ flex: 1 }}>
-      <NavHeaderContainer
-        vertical
-        noShadow
-        backgroundColor={Colors.primaryGreen}>
-        <NavButtonContainer onPress={() => props.navigation.navigate('Stores')}>
-          <FontAwesome5
-            name="arrow-down"
-            solid
-            size={24}
-            color={Colors.lightText}
-          />
+      <NavHeaderContainer>
+        <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
+          <FontAwesome5 name="bars" solid size={24} />
         </NavButtonContainer>
-        <BigTitle
-          style={{
-            marginLeft: 18,
-            color: Colors.lightText,
-            fontSize: 36,
-          }}>
-          How Our App Works
-        </BigTitle>
+        <NavTitle>How Our App Works</NavTitle>
       </NavHeaderContainer>
       <ScrollView style={{ backgroundColor: 'white' }}>
         <HowAppWorks isGuest={true} />
