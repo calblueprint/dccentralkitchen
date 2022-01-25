@@ -131,7 +131,12 @@ export default class CompleteSignUpScreen extends React.Component {
   };
 
   _asyncSignUp = async (customerId) => {
-    await AsyncStorage.setItem('customerId', customerId);
+    const customerObj = {
+      id: customerId,
+      showLandingScreen: true,
+    };
+    const jsonValue = JSON.stringify(customerObj);
+    await AsyncStorage.setItem('customerId', jsonValue);
     Keyboard.dismiss();
     this.props.navigation.navigate('Permissions');
   };

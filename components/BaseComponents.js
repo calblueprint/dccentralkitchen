@@ -110,6 +110,9 @@ export function NavHeaderContainer({
   children,
   vertical,
   noShadow,
+  justifyContent,
+  paddingTop,
+  alignItems,
 }) {
   const topInset = useSafeArea().top;
   return (
@@ -117,9 +120,9 @@ export function NavHeaderContainer({
       style={{
         display: 'flex',
         flexDirection: vertical ? 'column' : 'row',
-        alignItems: vertical ? 'flex-start' : 'center',
-        justifyContent: 'center',
-        paddingTop: 16 + topInset,
+        alignItems: alignItems || 'flex-start',
+        justifyContent: justifyContent || 'center',
+        paddingTop: paddingTop === 0 ? 0 : 16 + topInset,
         paddingBottom: 4,
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
@@ -143,6 +146,9 @@ NavHeaderContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   vertical: PropTypes.bool,
   noShadow: PropTypes.bool,
+  justifyContent: PropTypes.string,
+  paddingTop: PropTypes.number,
+  alignItems: PropTypes.string,
 };
 
 NavHeaderContainer.defaultProps = {
@@ -151,6 +157,9 @@ NavHeaderContainer.defaultProps = {
   vertical: null,
   withMargin: null,
   noShadow: null,
+  justifyContent: null,
+  paddingTop: null,
+  alignItems: null,
 };
 
 export const NavTitle = styled(Title)`

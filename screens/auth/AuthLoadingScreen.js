@@ -14,13 +14,13 @@ export default class AuthLoadingScreen extends React.Component {
   _bootstrapAsync = async () => {
     const jsonValue = await AsyncStorage.getItem('customerId');
     const userToken = jsonValue != null ? JSON.parse(jsonValue) : null;
-
+    console.log(userToken, 'userToken');
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
 
     // Correct version
 
-    userToken
+    userToken !== null && userToken.id
       ? this.props.navigation.navigate('App')
       : this.props.navigation.navigate('Auth');
 

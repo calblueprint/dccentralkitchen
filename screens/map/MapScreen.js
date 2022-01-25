@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import * as SplashScreen from 'expo-splash-screen';
 import PropTypes from 'prop-types';
@@ -60,9 +61,20 @@ export default function MapScreen(props) {
       const store = props.route.params.currentStore;
       changeCurrentStore(store, true, false);
     }
-
-    props.navigation.navigate('GettingStartedOverlay');
   }, [props.route.params]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const jsonValue = await AsyncStorage.getItem('customerId');
+      const customerId = JSON.parse(jsonValue);
+      if (customerId.showLandingScreen) {
+        console.log(customerId);
+        props.navigation.navigate('GettingStartedOverlay', { customerId });
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   // Update the current store and map region.
   // Only expand (reset) the bottom sheet to display products if navigated from StoreList

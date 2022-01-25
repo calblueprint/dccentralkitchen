@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
@@ -13,21 +14,37 @@ import {
 import Colors from '../../constants/Colors';
 import { HowItWorksContainer } from '../../styled/rewards';
 import { ColumnContainer } from '../../styled/shared';
+import { DragBar } from '../../styled/store';
 
-export default function GettingStartedScreen(props) {
+export default function GettingStartedScreen({ route, navigation }) {
   const [checked, setChecked] = React.useState(false);
+  const { customerId } = route.params;
+
+  async function handleCheckbox() {
+    setChecked(!checked);
+    const customerObj = {
+      id: customerId.id,
+      showLandingScreen: checked,
+    };
+    const jsonValue = JSON.stringify(customerObj);
+    await AsyncStorage.setItem('customerId', jsonValue);
+  }
 
   return (
     <View style={{ flex: 1 }}>
       <NavHeaderContainer
         vertical
         noShadow
-        backgroundColor={Colors.primaryGreen}>
+        backgroundColor={Colors.primaryGreen}
+        justifyContent="top"
+        paddingTop={0}
+        alignItems="center">
+        <DragBar style={{ backgroundColor: Colors.lightText }} />
         <BigTitle
           style={{
             color: Colors.lightText,
             fontSize: 36,
-            marginLeft: 60,
+            marginTop: 20,
           }}>
           Getting Started
         </BigTitle>
@@ -98,9 +115,8 @@ export default function GettingStartedScreen(props) {
         <View style={styles.checkboxContainer}>
           <Checkbox.Android
             status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {
-              setChecked(!checked);
-            }}
+            onPress={handleCheckbox}
+            color={Colors.primaryGreen}
           />
           <Text style={styles.label}>Do not show again</Text>
         </View>
@@ -109,7 +125,7 @@ export default function GettingStartedScreen(props) {
           width="100%"
           style={{ marginTop: 60 }}
           onPress={() => {
-            props.navigation.navigate('Stores');
+            navigation.navigate('Stores');
           }}>
           <ButtonLabel color="white">Continue To App</ButtonLabel>
         </FilledButtonContainer>
@@ -119,22 +135,16 @@ export default function GettingStartedScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   checkboxContainer: {
     flexDirection: 'row',
   },
-  checkbox: {
-    alignSelf: 'center',
-  },
+
   label: {
     margin: 8,
   },
 });
 
 GettingStartedScreen.propTypes = {
+  route: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
 };

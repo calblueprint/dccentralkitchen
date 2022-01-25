@@ -57,14 +57,24 @@ export default class PhoneNumberScreen extends React.Component {
 
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    const customerObj = {
+      id: RecordIds.testCustomerId,
+      showLandingScreen: true,
+    };
+    const jsonValue = JSON.stringify(customerObj);
+    await AsyncStorage.setItem('customerId', jsonValue);
     Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
   _favoriteBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    const customerObj = {
+      id: RecordIds.testCustomerId,
+      showLandingScreen: true,
+    };
+    const jsonValue = JSON.stringify(customerObj);
+    await AsyncStorage.setItem('customerId', jsonValue);
     Keyboard.dismiss();
     this.props.navigation.navigate('Permissions');
   };
@@ -175,7 +185,12 @@ export default class PhoneNumberScreen extends React.Component {
     const customer = await this.findCustomer();
 
     if (customer) {
-      await AsyncStorage.setItem('customerId', customer.id);
+      const customerObj = {
+        id: customer.id,
+        showLandingScreen: true,
+      };
+      const jsonValue = JSON.stringify(customerObj);
+      await AsyncStorage.setItem('customerId', jsonValue);
 
       Keyboard.dismiss();
       if ('favoriteStoreIds' in customer) {
