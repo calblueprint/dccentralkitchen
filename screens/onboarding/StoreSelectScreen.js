@@ -48,8 +48,10 @@ export default function StoreSelectScreen(props) {
     }
     const loadCustomer = async () => {
       try {
-        const customerId = await AsyncStorage.getItem('customerId');
-        const cust = await getCustomerById(customerId);
+        const jsonValue = await AsyncStorage.getItem('customerId');
+        const customerId = JSON.parse(jsonValue);
+
+        const cust = await getCustomerById(customerId.id);
         const favoriteStores = cust.favoriteStoreIds || [];
         setSelectedStores(favoriteStores);
         setLoading(false);
@@ -76,8 +78,9 @@ export default function StoreSelectScreen(props) {
 
   const saveFavoriteStores = async () => {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
-      await updateCustomer(customerId, {
+      const jsonValue = await AsyncStorage.getItem('customerId');
+      const customerId = JSON.parse(jsonValue);
+      await updateCustomer(customerId.id, {
         favoriteStoreIds: selectedStores,
       });
       await navigatePermissions();

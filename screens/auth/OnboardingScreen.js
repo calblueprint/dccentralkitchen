@@ -95,7 +95,12 @@ export default class OnboardingScreen extends React.Component {
   };
 
   guestLogin = async () => {
-    await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
+    const customerObj = {
+      id: RecordIds.guestCustomerId,
+      showLandingScreen: true,
+    };
+    const jsonValue = JSON.stringify(customerObj);
+    await AsyncStorage.setItem('customerId', jsonValue);
     Analytics.logEvent('guest_login_complete', {
       installation_id: RecordIds.guestCustomerId,
     });

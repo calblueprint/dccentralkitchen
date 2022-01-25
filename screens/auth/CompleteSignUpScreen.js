@@ -138,6 +138,7 @@ export default class CompleteSignUpScreen extends React.Component {
 
   completeSignUp = async () => {
     const customerId = await this.addCustomer();
+
     await this._asyncSignUp(customerId);
   };
 

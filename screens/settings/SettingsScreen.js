@@ -74,10 +74,11 @@ export default function SettingsScreen(props) {
 
       const fetchUser = async () => {
         try {
-          const customerId = await AsyncStorage.getItem('customerId');
-          const guest = customerId === RecordIds.guestCustomerId;
+          const jsonValue = await AsyncStorage.getItem('customerId');
+          const customerId = JSON.parse(jsonValue);
+          const guest = customerId.id === RecordIds.guestCustomerId;
           if (isActive && customerId != null && !guest) {
-            const customerRecord = await getCustomerById(customerId);
+            const customerRecord = await getCustomerById(customerId.id);
             setCustomer(customerRecord);
           }
         } catch (err) {

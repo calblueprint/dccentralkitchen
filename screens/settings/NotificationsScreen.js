@@ -37,9 +37,10 @@ export default class NotificationsScreen extends React.Component {
 
   async componentDidMount() {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
+      const jsonValue = await AsyncStorage.getItem('customerId');
+      const customerId = JSON.parse(jsonValue);
       if (customerId != null) {
-        const customer = await getCustomerById(customerId);
+        const customer = await getCustomerById(customerId.id);
         if (customer.generalNotifications) {
           customer.generalNotifications.forEach((element) => {
             this.setState((prevState) => ({
@@ -107,8 +108,8 @@ export default class NotificationsScreen extends React.Component {
 
   saveNotificationsSettings = async () => {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
-
+      const jsonValue = await AsyncStorage.getItem('customerId');
+      const customerId = JSON.parse(jsonValue);
       const generalPrefs = Object.keys(this.state.generalNotifs).filter(
         function(type) {
           return this.state.generalNotifs[type];
@@ -121,7 +122,7 @@ export default class NotificationsScreen extends React.Component {
         }.bind(this)
       );
 
-      await updateCustomer(customerId, {
+      await updateCustomer(customerId.id, {
         generalNotifications: generalPrefs,
         deliveryNotifications: deliveryPrefs,
       });

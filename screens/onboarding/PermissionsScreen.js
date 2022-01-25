@@ -22,15 +22,16 @@ export default function PermissionsScreen(props) {
 
   const enableNotifications = async () => {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
+      const jsonValue = await AsyncStorage.getItem('customerId');
+      const customerId = JSON.parse(jsonValue);
       // Only SMS supported as of 11/14/20
-      await updateCustomer(customerId, {
+      await updateCustomer(customerId.id, {
         deliveryNotifications: [notificationTypes.SMS],
         generalNotifications: [notificationTypes.SMS],
       });
 
       const response = await sendTextMessage(
-        customerId,
+        customerId.id,
         'Healthy Corners: Thank you for joining Healthy Corners notifications. Reply STOP to unsubscribe.'
       );
 

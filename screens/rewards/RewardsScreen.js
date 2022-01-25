@@ -55,10 +55,11 @@ export default class RewardsScreen extends React.Component {
   // Load customer record & transactions
   async componentDidMount() {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
-      const isGuest = customerId === RecordIds.guestCustomerId;
-      const customer = await getCustomerById(customerId);
-      const transactions = await getCustomerTransactions(customerId);
+      const jsonValue = await AsyncStorage.getItem('customerId');
+      const customerId = JSON.parse(jsonValue);
+      const isGuest = customerId.id === RecordIds.guestCustomerId;
+      const customer = await getCustomerById(customerId.id);
+      const transactions = await getCustomerTransactions(customerId.id);
       const participating = await getStoreData(`NOT({Rewards Accepted} = '')`);
 
       this.setState({

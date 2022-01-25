@@ -176,6 +176,7 @@ export default class PhoneNumberScreen extends React.Component {
 
     if (customer) {
       await AsyncStorage.setItem('customerId', customer.id);
+
       Keyboard.dismiss();
       if ('favoriteStoreIds' in customer) {
         this.props.navigation.navigate('App');

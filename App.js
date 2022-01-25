@@ -32,8 +32,6 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
-        // Instruct SplashScreen not to hide yet, we want to do this manually
-        // autoHideSplash={false}
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => handleFinishLoading(setLoadingComplete)}

@@ -35,9 +35,10 @@ export default class NameChangeScreen extends React.Component {
 
   // Load customer record
   async componentDidMount() {
-    const customerId = await AsyncStorage.getItem('customerId');
+    const jsonValue = await AsyncStorage.getItem('customerId');
+    const customerId = JSON.parse(jsonValue);
     try {
-      const customer = await getCustomerById(customerId);
+      const customer = await getCustomerById(customerId.id);
 
       this.setState({ customer });
     } catch (err) {
