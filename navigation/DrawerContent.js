@@ -153,15 +153,11 @@ function DrawerContent(props) {
       <ButtonContainer
         style={{ paddingLeft: 24, paddingVertical: 13 }}
         onPress={() => {
-          props.navigation.goBack();
-          setTimeout(
-            () =>
-              props.navigation.navigate('Stores', { screen: 'RewardsOverlay' }),
-            700
-          );
+          setTimeout(() => props.navigation.navigate('RewardsOverlay'), 700);
         }}>
         <Title>Healthy Rewards</Title>
       </ButtonContainer>
+
       <DrawerItemList {...props} />
       <View
         style={{

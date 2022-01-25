@@ -108,16 +108,18 @@ export default function AppContainer() {
       <AppStack.Navigator
         initialRouteName="AuthLoading"
         screenOptions={{
+          cardOverlayEnabled: true,
+          gestureEnabled: true,
           headerShown: false,
           cardStyle: { backgroundColor: Colors.bgLight },
-          gestureEnabled: false,
         }}>
-        <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
         <AppStack.Screen
           name="App"
           component={DrawerNavigator}
-          options={{ animationEnabled: false }}
+          // options={{ animationEnabled: false }}
         />
+        <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
+
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
         <AppStack.Screen name="Verify" component={VerificationScreen} />
       </AppStack.Navigator>

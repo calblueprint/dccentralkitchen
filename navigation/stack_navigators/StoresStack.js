@@ -1,11 +1,13 @@
 import {
   CardStyleInterpolators,
   createStackNavigator,
+  TransitionPresets,
 } from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
+import GettingStartedScreen from '../../screens/map/GettingStartedScreen';
 import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
@@ -27,7 +29,7 @@ export default function StoresStackNavigator() {
     <StoresStack.Navigator
       screenOptions={{
         cardOverlayEnabled: true,
-        drawerLabel: 'Stores',
+
         gestureEnabled: true,
         headerShown: false,
         cardStyle: { backgroundColor: Colors.bgLight },
@@ -51,6 +53,21 @@ export default function StoresStackNavigator() {
           },
         }}
       />
+
+      <StoresStack.Screen
+        name="GettingStartedOverlay"
+        component={GettingStartedScreen}
+        options={{
+          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+
+          gestureDirection: 'vertical',
+          gestureResponseDistance: {
+            vertical: 162 + useSafeAreaInsets().top,
+          },
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
+
       <StoresStack.Screen
         name="StoreDetailsScreen"
         component={StoreDetailsScreen}

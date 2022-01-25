@@ -130,6 +130,7 @@ export function NavHeaderContainer({
         shadowOpacity: 0.2,
         shadowRadius: 3,
         zIndex: 1,
+        textAlign: 'center',
       }}>
       {children}
     </View>

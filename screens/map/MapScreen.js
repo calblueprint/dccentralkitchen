@@ -60,6 +60,8 @@ export default function MapScreen(props) {
       const store = props.route.params.currentStore;
       changeCurrentStore(store, true, false);
     }
+
+    props.navigation.navigate('GettingStartedOverlay');
   }, [props.route.params]);
 
   // Update the current store and map region.

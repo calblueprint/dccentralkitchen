@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -17,7 +18,14 @@ export default class AuthLoadingScreen extends React.Component {
     // screen will be unmounted and thrown away.
 
     // Correct version
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    userToken
+      ? this.props.navigation.navigate('App')
+      : this.props.navigation.navigate('Auth');
+
+    /** this.props.navigation.navigate(
+      userToken ? 'GettingStartedOverlay' : 'Auth'
+    );  */
 
     // Auth/App testing purpose
     // this.props.navigation.navigate('Auth');
