@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/no-string-refs */
 /* eslint-disable react/jsx-curly-brace-presence */
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -55,7 +56,7 @@ export default class OnboardingScreen extends React.Component {
     );
   }
 
-  _renderItem = ({ item, _ }) => {
+  _renderItem = ({ item, index }) => {
     return (
       <OnboardingContentContainer>
         <Image
@@ -74,7 +75,7 @@ export default class OnboardingScreen extends React.Component {
           </Body>
         </ColumnContainer>
         {/* Display login/get started buttons */}
-        {this.state.pageIndex === 4 && (
+        {index === 4 && (
           <ColumnContainer style={{ marginTop: 12 }}>
             <FilledButtonContainer
               width="100%"
@@ -123,14 +124,12 @@ export default class OnboardingScreen extends React.Component {
         <Carousel
           data={ONBOARDING_CONTENT}
           useScrollView
+          ref={(c) => {
+            this._carousel = c;
+          }}
           renderItem={this._renderItem}
           onSnapToItem={(index) => {
             this.setState({ pageIndex: index });
-          }}
-          onScrollBeginDrag={(e) => {
-            if (this.state.pageIndex === 4) {
-              this.setState({ pageIndex: 3 });
-            }
           }}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
