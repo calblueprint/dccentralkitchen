@@ -113,6 +113,7 @@ export function NavHeaderContainer({
   justifyContent,
   paddingTop,
   alignItems,
+  height,
 }) {
   const topInset = useSafeArea().top;
   return (
@@ -124,6 +125,7 @@ export function NavHeaderContainer({
         justifyContent: justifyContent || 'center',
         paddingTop: paddingTop === 0 ? 0 : 16 + topInset,
         paddingBottom: 4,
+        height,
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
         backgroundColor: backgroundColor || Colors.bgLight,
@@ -149,6 +151,7 @@ NavHeaderContainer.propTypes = {
   justifyContent: PropTypes.string,
   paddingTop: PropTypes.number,
   alignItems: PropTypes.string,
+  height: PropTypes.number,
 };
 
 NavHeaderContainer.defaultProps = {
@@ -160,6 +163,7 @@ NavHeaderContainer.defaultProps = {
   justifyContent: null,
   paddingTop: null,
   alignItems: null,
+  height: null,
 };
 
 export const NavTitle = styled(Title)`

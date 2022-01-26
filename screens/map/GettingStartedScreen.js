@@ -12,6 +12,7 @@ import {
   Title,
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import { HowItWorksContainer } from '../../styled/rewards';
 import { ColumnContainer } from '../../styled/shared';
 import { DragBar } from '../../styled/store';
@@ -36,15 +37,17 @@ export default function GettingStartedScreen({ route, navigation }) {
         vertical
         noShadow
         backgroundColor={Colors.primaryGreen}
-        justifyContent="top"
         paddingTop={0}
-        alignItems="center">
-        <DragBar style={{ backgroundColor: Colors.lightText }} />
+        alignItems="center"
+        height={Window.height * (10 / 100)}>
+        <DragBar
+          style={{ backgroundColor: Colors.lightText, marginBottom: 'auto' }}
+        />
         <BigTitle
           style={{
             color: Colors.lightText,
             fontSize: 36,
-            marginTop: 20,
+            marginBottom: 'auto',
           }}>
           Getting Started
         </BigTitle>
@@ -52,65 +55,68 @@ export default function GettingStartedScreen({ route, navigation }) {
       <View
         style={{
           display: 'flex',
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          padding: 16,
+          padding: '2%',
+          height: Window.height * (75 / 100),
         }}>
-        <HowItWorksContainer>
-          <Image
-            source={require('../../assets/images/Onboarding_2.png')}
-            style={{
-              maxWidth: '40%',
-              resizeMode: 'contain',
-              height: 140,
-              marginRight: 12,
-            }}
-          />
-          <ColumnContainer style={{ flex: 1 }}>
-            <Title>Find Stores Near You</Title>
-            <Subtitle>
-              Explore the map to discover nearby stores stocking healthy fruits
-              and vegetables
-            </Subtitle>
-          </ColumnContainer>
-        </HowItWorksContainer>
+        <View>
+          <HowItWorksContainer>
+            <Image
+              source={require('../../assets/images/Onboarding_2.png')}
+              style={{
+                maxWidth: '40%',
+                resizeMode: 'contain',
+                height: 140,
+                marginRight: 12,
+              }}
+            />
+            <ColumnContainer style={{ flex: 1 }}>
+              <Title>Find Stores Near You</Title>
+              <Subtitle>
+                Explore the map to discover nearby stores stocking healthy
+                fruits and vegetables
+              </Subtitle>
+            </ColumnContainer>
+          </HowItWorksContainer>
 
-        <HowItWorksContainer>
-          <Image
-            source={require('../../assets/images/Onboarding_3.png')}
-            style={{
-              maxWidth: '40%',
-              resizeMode: 'contain',
-              height: 140,
-              marginRight: 12,
-            }}
-          />
-          <ColumnContainer style={{ flex: 1 }}>
-            <Title>Know What&apos;s In Stock</Title>
-            <Subtitle>
-              See what products are available when you leave the house
-            </Subtitle>
-          </ColumnContainer>
-        </HowItWorksContainer>
+          <HowItWorksContainer>
+            <Image
+              source={require('../../assets/images/Onboarding_3.png')}
+              style={{
+                maxWidth: '40%',
+                resizeMode: 'contain',
+                height: 140,
+                marginRight: 12,
+              }}
+            />
+            <ColumnContainer style={{ flex: 1 }}>
+              <Title>Know What&apos;s In Stock</Title>
+              <Subtitle>
+                See what products are available when you leave the house
+              </Subtitle>
+            </ColumnContainer>
+          </HowItWorksContainer>
 
-        <HowItWorksContainer>
-          <Image
-            source={require('../../assets/images/Onboarding_5.png')}
-            style={{
-              maxWidth: '40%',
-              resizeMode: 'contain',
-              height: 140,
-              marginRight: 12,
-            }}
-          />
-          <ColumnContainer style={{ flex: 1 }}>
-            <Title>Stay Informed</Title>
-            <Subtitle>
-              Access our resource database to help you continue eating and
-              living healthy.
-            </Subtitle>
-          </ColumnContainer>
-        </HowItWorksContainer>
+          <HowItWorksContainer>
+            <Image
+              source={require('../../assets/images/Onboarding_5.png')}
+              style={{
+                maxWidth: '40%',
+                resizeMode: 'contain',
+                height: 140,
+                marginRight: 12,
+              }}
+            />
+            <ColumnContainer style={{ flex: 1 }}>
+              <Title>Stay Informed</Title>
+              <Subtitle>
+                Access our resource database to help you continue eating and
+                living healthy.
+              </Subtitle>
+            </ColumnContainer>
+          </HowItWorksContainer>
+        </View>
 
         <View style={styles.checkboxContainer}>
           <Checkbox.Android
@@ -122,8 +128,7 @@ export default function GettingStartedScreen({ route, navigation }) {
         </View>
 
         <FilledButtonContainer
-          width="100%"
-          style={{ marginTop: 60 }}
+          width="90%"
           onPress={() => {
             navigation.navigate('Stores');
           }}>

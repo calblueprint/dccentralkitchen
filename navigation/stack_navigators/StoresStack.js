@@ -7,6 +7,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
+import Window from '../../constants/Layout';
 import GettingStartedScreen from '../../screens/map/GettingStartedScreen';
 import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
@@ -58,11 +59,9 @@ export default function StoresStackNavigator() {
         name="GettingStartedOverlay"
         component={GettingStartedScreen}
         options={{
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-
           gestureDirection: 'vertical',
           gestureResponseDistance: {
-            vertical: 162 + useSafeAreaInsets().top,
+            vertical: Window.height,
           },
           ...TransitionPresets.ModalPresentationIOS,
         }}

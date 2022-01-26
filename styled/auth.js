@@ -21,8 +21,8 @@ export const OnboardingContainer = styled.View`
   display: flex;
   flex: 1;
   justify-content: center;
-  margin-horizontal: 40px
-  padding: 75px 0px
+  margin-horizontal: 40px;
+  padding: 75px 0px;
 `;
 
 // PermissionsScreen

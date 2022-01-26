@@ -63,7 +63,7 @@ export default class OnboardingScreen extends React.Component {
           source={item.illustration}
           resizeMode="contain"
           style={{
-            height: '70%',
+            height: Window.height < 800 ? '60%' : '70%',
             width: '100%',
             margin: 0,
           }}
