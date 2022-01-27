@@ -3,26 +3,40 @@ import React from 'react';
 import { Image, PixelRatio, View } from 'react-native';
 import { MarkerContainer, MarkerStoreName } from '../../styled/store';
 
-function StoreMarker({ storeName, focused, showName }) {
+const MARKER_SIZE_FOCUSED = 80 * Math.min(PixelRatio.getFontScale(), 1.4);
+const MARKER_SIZE_REGULAR = 56 * Math.min(PixelRatio.getFontScale(), 1.4);
+
+function StoreMarker({ snapOrEbtAccepted, wic, storeName, focused, showName }) {
+  const imageSize = focused ? MARKER_SIZE_FOCUSED : MARKER_SIZE_REGULAR;
+  let imageSource;
+  if (snapOrEbtAccepted && wic) {
+    imageSource = focused
+      ? require('../../assets/images/mix/map/Marker_Focused_snap_wic_4x.png')
+      : require('../../assets/images/mix/map/Marker_Regular_snap_wic_4x.png');
+  } else if (snapOrEbtAccepted) {
+    imageSource = focused
+      ? require('../../assets/images/mix/map/Marker_Focused_snap_4x.png')
+      : require('../../assets/images/mix/map/Marker_Regular_snap_4x.png');
+  } else if (wic) {
+    imageSource = focused
+      ? require('../../assets/images/mix/map/Marker_Focused_wic_4x.png')
+      : require('../../assets/images/mix/map/Marker_Regular_wic_4x.png');
+  } else {
+    imageSource = focused
+      ? require('../../assets/images/mix/map/Marker_Focused_4x.png')
+      : require('../../assets/images/mix/map/Marker_Regular_4x.png');
+  }
+
   return (
     <MarkerContainer>
-      {focused ? (
-        <Image
-          style={{
-            width: 64 * Math.min(PixelRatio.getFontScale(), 1.4),
-            height: 64 * Math.min(PixelRatio.getFontScale(), 1.4),
-          }}
-          source={require('../../assets/images/Marker_Focused.png')}
-        />
-      ) : (
-        <Image
-          style={{
-            width: 32 * Math.min(PixelRatio.getFontScale(), 1.4),
-            height: 32 * Math.min(PixelRatio.getFontScale(), 1.4),
-          }}
-          source={require('../../assets/images/Marker_Resting.png')}
-        />
-      )}
+      <Image
+        style={{
+          width: imageSize,
+          height: imageSize,
+        }}
+        source={imageSource}
+      />
+
       {showName && (
         <View
           style={{
@@ -41,11 +55,15 @@ StoreMarker.propTypes = {
   storeName: PropTypes.string.isRequired,
   focused: PropTypes.bool,
   showName: PropTypes.bool,
+  wic: PropTypes.bool,
+  snapOrEbtAccepted: PropTypes.bool,
 };
 
 StoreMarker.defaultProps = {
   focused: false,
   showName: true,
+  wic: false,
+  snapOrEbtAccepted: false,
 };
 
 export default StoreMarker;
