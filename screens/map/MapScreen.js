@@ -12,7 +12,6 @@ import {
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
-import MapFilter from '../../components/MapFilter';
 import StoreProducts from '../../components/product/StoreProducts';
 import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
@@ -33,11 +32,16 @@ import {
   SearchBar,
 } from '../../styled/store';
 
+import MapFilterBlank from '../../components/map/MapFilterBlank';
+import MapFilter from '../../components/map/MapFilter';
+import MapFilterOptions from '../../components/map/MapFilterOptions';
+
 const snapPoints = [185, 325, 488];
 
 export default function MapScreen(props) {
   const [region, setRegion] = useState(initialRegion);
   const [currentStore, setCurrentStore] = useState(null);
+  const [showMapFilterOptions, setShowMapFilterOptions] = useState(false);
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
   const stores = useStores();
@@ -160,8 +164,11 @@ export default function MapScreen(props) {
         </SearchBar>
 
         {/* Map Filter */}
-        <MapFilter navigation={props.navigation} />
+        <MapFilterBlank />
+        {/* <MapFilter toggleMapFilterOptions={() => setShowMapFilterOptions(!showMapFilterOptions)} /> */}
+        {/* {showMapFilterOptions && <MapFilterOptions />} */}
       </NavHeaderContainer>
+
       {/* Display Map */}
       <MapView
         style={{
