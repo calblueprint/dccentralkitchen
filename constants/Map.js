@@ -13,3 +13,16 @@ export const deltas = {
   latitudeDelta: 0.01,
   longitudeDelta: 0.01,
 };
+
+export const INITIAL_MAP_FILTER_STATE = {
+  snapOrEbtAccepted: false,
+  wic: false,
+};
+
+export const INITIAL_FILTER_STATE = {
+  openNow: false,
+  productsInStock: false,
+  couponProgramPartner: false,
+  rewardsAccepted: false,
+  ...INITIAL_MAP_FILTER_STATE,
+};
