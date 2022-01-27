@@ -189,6 +189,8 @@ export default function MapScreen(props) {
               showName={region.longitudeDelta < 0.07}
               storeName={store.storeName}
               focused={currentStore && currentStore.id === store.id}
+              wic={store.wic}
+              snapOrEbtAccepted={store.snapOrEbtAccepted}
             />
           </Marker>
         ))}
