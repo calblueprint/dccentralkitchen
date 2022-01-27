@@ -13,23 +13,16 @@ import {
 import ProgramTag from '../../components/store/ProgramTag';
 import StoreCard from '../../components/store/StoreCard';
 import Colors from '../../constants/Colors';
+import { INITIAL_FILTER_STATE } from '../../constants/Map';
+
 import { useFilteredStores } from '../../lib/mapUtils';
 import { ColumnContainer, RowContainer } from '../../styled/shared';
 import { CancelButton, styles } from '../../styled/store';
 
-const initialFilterState = {
-  openNow: false,
-  productsInStock: false,
-  snapOrEbtAccepted: false,
-  wic: false,
-  couponProgramPartner: false,
-  rewardsAccepted: false,
-};
-
 export default function StoreListScreen(props) {
   const searchRef = useRef(null);
   const [searchStr, setSearchStr] = useState('');
-  const [filters, setFilters] = useState(initialFilterState);
+  const [filters, setFilters] = useState(INITIAL_FILTER_STATE);
   const { stores } = props.route.params;
   const filteredStores = useFilteredStores(stores, searchStr, filters);
 
