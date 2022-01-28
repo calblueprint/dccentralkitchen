@@ -15,7 +15,6 @@ import {
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
 import StoreProducts from '../../components/product/StoreProducts';
-import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
@@ -231,7 +230,7 @@ export default function MapScreen(props) {
           ref={bottomSheetRef}
         />
       </View>
-      <RewardsFooter navigation={props.navigation} />
+      {/** <RewardsFooter navigation={props.navigation} /> */}
       {(!locationPermissions || stores.length === 0) && (
         <View
           style={{

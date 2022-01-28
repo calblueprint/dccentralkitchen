@@ -14,7 +14,6 @@ import {
   ButtonLabel,
   FilledButtonContainer,
   Subtitle,
-  Title,
 } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { env } from '../environment';
@@ -152,14 +151,14 @@ function DrawerContent(props) {
           )}
         </ColumnContainer>
       </View>
+      {/** 
       <ButtonContainer
         style={{ paddingLeft: 24, paddingVertical: 13 }}
         onPress={() => {
           setTimeout(() => props.navigation.navigate('RewardsOverlay'), 700);
         }}>
         <Title>Healthy Rewards</Title>
-      </ButtonContainer>
-
+      </ButtonContainer> */}
       <DrawerItemList {...props} />
       <View
         style={{
