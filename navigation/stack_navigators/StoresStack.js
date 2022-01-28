@@ -29,8 +29,6 @@ export default function StoresStackNavigator() {
   return (
     <StoresStack.Navigator
       screenOptions={{
-        cardOverlayEnabled: true,
-
         gestureEnabled: true,
         headerShown: false,
         cardStyle: { backgroundColor: Colors.bgLight },

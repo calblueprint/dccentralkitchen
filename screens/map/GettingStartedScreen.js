@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
+import logo from '../../assets/images/hc_splash.png';
 import {
-  BigTitle,
   ButtonLabel,
   FilledButtonContainer,
   NavHeaderContainer,
@@ -39,18 +39,27 @@ export default function GettingStartedScreen({ route, navigation }) {
         backgroundColor={Colors.primaryGreen}
         paddingTop={0}
         alignItems="center"
-        height={Window.height * (10 / 100)}>
-        <DragBar
-          style={{ backgroundColor: Colors.lightText, marginBottom: 'auto' }}
-        />
-        <BigTitle
+        justifyContent="space-between"
+        height={Window.height * (12 / 100)}>
+        <DragBar style={{ backgroundColor: Colors.lightText }} />
+        <Image
+          source={logo}
+          resizeMode="contain"
           style={{
+            height: '40%',
+            width: '100%',
+          }}
+        />
+        <Text
+          style={{
+            textAlign: 'center',
             color: Colors.lightText,
-            fontSize: 36,
-            marginBottom: 'auto',
+
+            marginBottom: '1.5%',
           }}>
-          Getting Started
-        </BigTitle>
+          DC Central Kitchen partners with corner stores across D.C. to bring
+          affordable, fresh produce close to home.
+        </Text>
       </NavHeaderContainer>
       <View
         style={{
@@ -93,7 +102,7 @@ export default function GettingStartedScreen({ route, navigation }) {
             <ColumnContainer style={{ flex: 1 }}>
               <Title>Know What&apos;s In Stock</Title>
               <Subtitle>
-                See what products are available when you leave the house
+                See what products are available before you leave the house
               </Subtitle>
             </ColumnContainer>
           </HowItWorksContainer>
@@ -111,8 +120,8 @@ export default function GettingStartedScreen({ route, navigation }) {
             <ColumnContainer style={{ flex: 1 }}>
               <Title>Stay Informed</Title>
               <Subtitle>
-                Access our resource database to help you continue eating and
-                living healthy.
+                Connect with resources to access benefits and tools for healthy
+                living.
               </Subtitle>
             </ColumnContainer>
           </HowItWorksContainer>
