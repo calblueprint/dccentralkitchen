@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
+import WebComponent from '../components/WebComponent';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import VerificationScreen from '../screens/auth/VerificationScreen';
@@ -68,6 +69,13 @@ function DrawerNavigator() {
         component={LandingScreen}
         options={{
           title: 'How Our App Works',
+        }}
+      />
+      <Drawer.Screen
+        name="WebComponent"
+        component={WebComponent}
+        options={{
+          title: 'FAQ',
         }}
       />
       <Drawer.Screen

@@ -177,15 +177,7 @@ function DrawerContent(props) {
             <Subtitle color={Colors.error}>TESTING LOGOUT</Subtitle>
           </ButtonContainer>
         )}
-        <ButtonContainer
-          style={{ paddingBottom: 16 }}
-          onPress={() =>
-            WebBrowser.openBrowserAsync(
-              'https://healthycorners.calblueprint.org/faq.html'
-            )
-          }>
-          <Subtitle>FAQs</Subtitle>
-        </ButtonContainer>
+
         <ButtonContainer
           style={{ paddingBottom: 16 }}
           onPress={() =>
