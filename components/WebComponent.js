@@ -16,7 +16,7 @@ export default function WebComponent({ navigation }) {
         <NavButtonContainer onPress={() => navigation.toggleDrawer()}>
           <FontAwesome5 name="bars" solid size={24} />
         </NavButtonContainer>
-        <NavTitle>Settings</NavTitle>
+        <NavTitle>FAQ</NavTitle>
       </NavHeaderContainer>
       <WebView
         source={{ uri: 'https://healthycorners.calblueprint.org/faq.html' }}
