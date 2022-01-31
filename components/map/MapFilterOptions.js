@@ -64,18 +64,18 @@ export default function MapFilterOptions() {
           </MapFilterTouchableButtonStyling>
 
           <MapFilterTouchableButtonStyling
-            selected={mapFilterState.snapOrEbtAccepted}
+            selected={mapFilterState.couponProgramPartner}
             onPress={() => {
               const newMapFilter = {
                 ...mapFilterState,
-                snapOrEbtAccepted: !mapFilterState.snapOrEbtAccepted,
+                couponProgramPartner: !mapFilterState.couponProgramPartner,
               };
 
               updateFilterState(newMapFilter);
             }}>
             <MapFilterButtonTextStyling
-              selected={mapFilterState.snapOrEbtAccepted}>
-              SNAP/EBT
+              selected={mapFilterState.couponProgramPartner}>
+              SNAP Match
             </MapFilterButtonTextStyling>
           </MapFilterTouchableButtonStyling>
         </>

@@ -164,9 +164,13 @@ export default function MapScreen(props) {
         </SearchBar>
 
         {/* Map Filter */}
-        <MapFilterBlank />
-        {/* <MapFilter toggleMapFilterOptions={() => setShowMapFilterOptions(!showMapFilterOptions)} /> */}
-        {/* {showMapFilterOptions && <MapFilterOptions />} */}
+        {/* <MapFilterBlank /> */}
+        <MapFilter
+          toggleMapFilterOptions={() =>
+            setShowMapFilterOptions(!showMapFilterOptions)
+          }
+        />
+        {showMapFilterOptions && <MapFilterOptions />}
       </NavHeaderContainer>
 
       {/* Display Map */}
@@ -197,7 +201,7 @@ export default function MapScreen(props) {
               storeName={store.storeName}
               focused={currentStore && currentStore.id === store.id}
               wic={store.wic}
-              snapOrEbtAccepted={store.snapOrEbtAccepted}
+              couponProgramPartner={store.couponProgramPartner}
             />
           </Marker>
         ))}
@@ -216,7 +220,8 @@ export default function MapScreen(props) {
           ref={bottomSheetRef}
         />
       </View>
-      <RewardsFooter navigation={props.navigation} />
+
+      {/* <RewardsFooter navigation={props.navigation} /> */}
       {(!locationPermissions || stores.length === 0) && (
         <View
           style={{

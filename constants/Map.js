@@ -15,14 +15,14 @@ export const deltas = {
 };
 
 export const INITIAL_MAP_FILTER_STATE = {
-  snapOrEbtAccepted: false,
   wic: false,
+  couponProgramPartner: false,
 };
 
 export const INITIAL_FILTER_STATE = {
   openNow: false,
   productsInStock: false,
-  couponProgramPartner: false,
   rewardsAccepted: false,
+  snapOrEbtAccepted: false,
   ...INITIAL_MAP_FILTER_STATE,
 };

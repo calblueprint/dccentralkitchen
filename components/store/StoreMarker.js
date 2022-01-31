@@ -6,14 +6,20 @@ import { MarkerContainer, MarkerStoreName } from '../../styled/store';
 const MARKER_SIZE_FOCUSED = 80 * Math.min(PixelRatio.getFontScale(), 1.4);
 const MARKER_SIZE_REGULAR = 56 * Math.min(PixelRatio.getFontScale(), 1.4);
 
-function StoreMarker({ snapOrEbtAccepted, wic, storeName, focused, showName }) {
+function StoreMarker({
+  couponProgramPartner,
+  wic,
+  storeName,
+  focused,
+  showName,
+}) {
   const imageSize = focused ? MARKER_SIZE_FOCUSED : MARKER_SIZE_REGULAR;
   let imageSource;
-  if (snapOrEbtAccepted && wic) {
+  if (couponProgramPartner && wic) {
     imageSource = focused
       ? require('../../assets/images/mix/map/Marker_Focused_snap_wic_4x.png')
       : require('../../assets/images/mix/map/Marker_Regular_snap_wic_4x.png');
-  } else if (snapOrEbtAccepted) {
+  } else if (couponProgramPartner) {
     imageSource = focused
       ? require('../../assets/images/mix/map/Marker_Focused_snap_4x.png')
       : require('../../assets/images/mix/map/Marker_Regular_snap_4x.png');
@@ -56,14 +62,14 @@ StoreMarker.propTypes = {
   focused: PropTypes.bool,
   showName: PropTypes.bool,
   wic: PropTypes.bool,
-  snapOrEbtAccepted: PropTypes.bool,
+  couponProgramPartner: PropTypes.bool,
 };
 
 StoreMarker.defaultProps = {
   focused: false,
   showName: true,
   wic: false,
-  snapOrEbtAccepted: false,
+  couponProgramPartner: false,
 };
 
 export default StoreMarker;
