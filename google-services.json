@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "683063775827",
+    "firebase_url": "https://quickstart-1587887313757.firebaseio.com",
+    "project_id": "quickstart-1587887313757",
+    "storage_bucket": "quickstart-1587887313757.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683063775827:android:e879ad9eebf81a1ecf6ca6",
+        "android_client_info": {
+          "package_name": "org.calblueprint.HealthyCornersRewards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683063775827-b62ni46crodvu3qmqcv69urt9jqtomje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA49XqGp-0XSsYH_w2jpAjV_nTKZVsEqJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683063775827-b62ni46crodvu3qmqcv69urt9jqtomje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
