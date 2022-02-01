@@ -42,7 +42,6 @@ const snapPoints = [185, 325, 488];
 export default function MapScreen(props) {
   const [region, setRegion] = useState(initialRegion);
   const [currentStore, setCurrentStore] = useState(null);
-  const [showMapFilterOptions, setShowMapFilterOptions] = useState(false);
   const [mapFilterObj, setMapFilterObj] = useState();
   const [filteredStores, setFilteredStores] = useState([]);
 
@@ -84,12 +83,10 @@ export default function MapScreen(props) {
   }, [props.route.params]);
 
   useEffect(() => {
-    if (mapFilterObj) {
+    if (mapFilterObj && stores.length) {
       setFilteredStores((prevState) => {
         if (mapFilterObj.wic && !mapFilterObj.couponProgramPartner) {
-          return stores.filter(
-            (store) => store.wic && !store.couponProgramPartner
-          );
+          return stores.filter((store) => store.wic);
         } else if (mapFilterObj.couponProgramPartner && !mapFilterObj.wic) {
           return stores.filter(
             (store) => store.couponProgramPartner && !store.wic
@@ -103,7 +100,7 @@ export default function MapScreen(props) {
         }
       });
     }
-  }, [mapFilterObj]);
+  }, [mapFilterObj, stores]);
 
   // Update the current store and map region.
   // Only expand (reset) the bottom sheet to display products if navigated from StoreList
@@ -241,8 +238,8 @@ export default function MapScreen(props) {
               showName={region.longitudeDelta < 0.07}
               storeName={store.storeName}
               focused={currentStore && currentStore.id === store.id}
-              wic={store.wic}
-              couponProgramPartner={store.couponProgramPartner}
+              wic={mapFilterObj.wic}
+              couponProgramPartner={mapFilterObj.couponProgramPartner}
             />
           </Marker>
         ))}
