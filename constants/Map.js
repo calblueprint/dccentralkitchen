@@ -10,8 +10,8 @@ export const initialRegion = {
 };
 
 export const deltas = {
-  latitudeDelta: 0.09,
-  longitudeDelta: 0.09,
+  latitudeDelta: 0.05,
+  longitudeDelta: 0.05,
 };
 
 export const INITIAL_MAP_FILTER_STATE = {

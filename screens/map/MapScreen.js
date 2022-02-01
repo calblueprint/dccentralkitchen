@@ -84,21 +84,23 @@ export default function MapScreen(props) {
 
   useEffect(() => {
     if (mapFilterObj && stores.length) {
-      setFilteredStores((prevState) => {
-        if (mapFilterObj.wic && !mapFilterObj.couponProgramPartner) {
-          return stores.filter((store) => store.wic);
-        } else if (mapFilterObj.couponProgramPartner && !mapFilterObj.wic) {
-          return stores.filter(
-            (store) => store.couponProgramPartner && !store.wic
-          );
-        } else if (mapFilterObj.wic && mapFilterObj.couponProgramPartner) {
-          return stores.filter(
-            (store) => store.couponProgramPartner && store.wic
-          );
-        } else {
-          return stores;
-        }
-      });
+      let filteredStoresCopy;
+      if (mapFilterObj.wic && !mapFilterObj.couponProgramPartner) {
+        filteredStoresCopy = stores.filter((store) => store.wic);
+      } else if (mapFilterObj.couponProgramPartner && !mapFilterObj.wic) {
+        filteredStoresCopy = stores.filter(
+          (store) => store.couponProgramPartner && !store.wic
+        );
+      } else if (mapFilterObj.wic && mapFilterObj.couponProgramPartner) {
+        filteredStoresCopy = stores.filter(
+          (store) => store.couponProgramPartner && store.wic
+        );
+      } else {
+        filteredStoresCopy = stores;
+      }
+      setFilteredStores(filteredStoresCopy);
+
+      changeCurrentStore(filteredStoresCopy[0], true, true);
     }
   }, [mapFilterObj, stores]);
 
