@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Image, View } from 'react-native';
@@ -12,7 +11,11 @@ import {
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { updateCustomer } from '../../lib/airtable/request';
-import { notificationTypes, sendTextMessage } from '../../lib/authUtils';
+import {
+  getAsyncCustomerAuth,
+  notificationTypes,
+  sendTextMessage,
+} from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { PermissionsContainer } from '../../styled/auth';
 import { ColumnContainer } from '../../styled/shared';
@@ -22,8 +25,7 @@ export default function PermissionsScreen(props) {
 
   const enableNotifications = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem('customerId');
-      const customerId = JSON.parse(jsonValue);
+      const customerId = await getAsyncCustomerAuth();
       // Only SMS supported as of 11/14/20
       await updateCustomer(customerId.id, {
         deliveryNotifications: [notificationTypes.SMS],

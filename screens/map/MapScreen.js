@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import * as SplashScreen from 'expo-splash-screen';
 import PropTypes from 'prop-types';
@@ -18,6 +17,7 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
+import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   findDefaultStore,
   findStoreDistance,
@@ -64,8 +64,7 @@ export default function MapScreen(props) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const jsonValue = await AsyncStorage.getItem('customerId');
-      const customerId = JSON.parse(jsonValue);
+      const customerId = await getAsyncCustomerAuth();
       if (customerId.showLandingScreen) {
         console.log(customerId);
         props.navigation.navigate('GettingStartedOverlay', { customerId });

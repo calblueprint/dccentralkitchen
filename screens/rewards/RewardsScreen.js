@@ -22,7 +22,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomerById } from '../../lib/airtable/request';
-import { completeLogout } from '../../lib/authUtils';
+import { completeLogout, getAsyncCustomerAuth } from '../../lib/authUtils';
 import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
@@ -55,8 +55,7 @@ export default class RewardsScreen extends React.Component {
   // Load customer record & transactions
   async componentDidMount() {
     try {
-      const jsonValue = await AsyncStorage.getItem('customerId');
-      const customerId = JSON.parse(jsonValue);
+      const customerId = await getAsyncCustomerAuth();
       const isGuest = customerId.id === RecordIds.guestCustomerId;
       const customer = await getCustomerById(customerId.id);
       const transactions = await getCustomerTransactions(customerId.id);

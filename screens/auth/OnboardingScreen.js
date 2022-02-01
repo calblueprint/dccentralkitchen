@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/no-string-refs */
 /* eslint-disable react/jsx-curly-brace-presence */
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -18,6 +17,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import ONBOARDING_CONTENT from '../../constants/Onboarding';
 import RecordIds from '../../constants/RecordIds';
+import { setAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   OnboardingContainer,
   OnboardingContentContainer,
@@ -100,8 +100,7 @@ export default class OnboardingScreen extends React.Component {
       id: RecordIds.guestCustomerId,
       showLandingScreen: true,
     };
-    const jsonValue = JSON.stringify(customerObj);
-    await AsyncStorage.setItem('customerId', jsonValue);
+    await setAsyncCustomerAuth(customerObj);
     Analytics.logEvent('guest_login_complete', {
       installation_id: RecordIds.guestCustomerId,
     });

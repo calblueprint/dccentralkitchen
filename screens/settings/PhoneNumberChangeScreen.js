@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
@@ -18,7 +17,11 @@ import {
   getCustomersByPhoneNumber,
   updateCustomer,
 } from '../../lib/airtable/request';
-import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
+import {
+  formatPhoneNumberInput,
+  getAsyncCustomerAuth,
+  inputFields,
+} from '../../lib/authUtils';
 import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
@@ -48,8 +51,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
   // Load customer record
   async componentDidMount() {
-    const jsonValue = await AsyncStorage.getItem('customerId');
-    const customerId = JSON.parse(jsonValue);
+    const customerId = await getAsyncCustomerAuth();
     try {
       const customer = await getCustomerById(customerId.id);
 
