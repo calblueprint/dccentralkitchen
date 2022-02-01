@@ -14,7 +14,7 @@ import {
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
-import MapFilter from '../../components/map/MapFilter';
+import MapFilterBlank from '../../components/map/MapFilterBlank';
 import MapFilterOptions from '../../components/map/MapFilterOptions';
 import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
@@ -87,7 +87,9 @@ export default function MapScreen(props) {
     if (mapFilterObj) {
       setFilteredStores((prevState) => {
         if (mapFilterObj.wic && !mapFilterObj.couponProgramPartner) {
-          return stores.filter((store) => store.wic);
+          return stores.filter(
+            (store) => store.wic && !store.couponProgramPartner
+          );
         } else if (mapFilterObj.couponProgramPartner && !mapFilterObj.wic) {
           return stores.filter(
             (store) => store.couponProgramPartner && !store.wic
@@ -202,15 +204,14 @@ export default function MapScreen(props) {
         </SearchBar>
 
         {/* Map Filter */}
-        {/* <MapFilterBlank /> */}
-        <MapFilter
+        <MapFilterBlank />
+        {/**  <MapFilter
           toggleMapFilterOptions={() =>
             setShowMapFilterOptions(!showMapFilterOptions)
           }
-        />
-        {showMapFilterOptions && (
-          <MapFilterOptions setMapFilterObj={setMapFilterObj} />
-        )}
+        /> */}
+
+        <MapFilterOptions setMapFilterObj={setMapFilterObj} />
       </NavHeaderContainer>
 
       {/* Display Map */}
@@ -228,7 +229,7 @@ export default function MapScreen(props) {
         region={region}
         onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
         {/* Display store markers */}
-        {stores.map((store) => (
+        {filteredStores.map((store) => (
           <Marker
             key={store.id}
             coordinate={{

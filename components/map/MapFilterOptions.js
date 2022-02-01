@@ -45,25 +45,10 @@ export default function MapFilterOptions({ setMapFilterObj }) {
       style={{
         position: 'absolute',
         top: MAP_FILTER_OPTIONS_TOP,
-        right: MAP_FILTER_OPTIONS_PADDING,
+        left: MAP_FILTER_OPTIONS_PADDING,
       }}>
       {mapFilterState && (
         <>
-          <MapFilterTouchableButtonStyling
-            selected={mapFilterState.wic}
-            onPress={() => {
-              const newMapFilter = {
-                ...mapFilterState,
-                wic: !mapFilterState.wic,
-              };
-
-              updateFilterState(newMapFilter);
-            }}>
-            <MapFilterButtonTextStyling selected={mapFilterState.wic}>
-              WIC
-            </MapFilterButtonTextStyling>
-          </MapFilterTouchableButtonStyling>
-
           <MapFilterTouchableButtonStyling
             selected={mapFilterState.couponProgramPartner}
             onPress={() => {
@@ -77,6 +62,20 @@ export default function MapFilterOptions({ setMapFilterObj }) {
             <MapFilterButtonTextStyling
               selected={mapFilterState.couponProgramPartner}>
               SNAP Match
+            </MapFilterButtonTextStyling>
+          </MapFilterTouchableButtonStyling>
+          <MapFilterTouchableButtonStyling
+            selected={mapFilterState.wic}
+            onPress={() => {
+              const newMapFilter = {
+                ...mapFilterState,
+                wic: !mapFilterState.wic,
+              };
+
+              updateFilterState(newMapFilter);
+            }}>
+            <MapFilterButtonTextStyling selected={mapFilterState.wic}>
+              WIC
             </MapFilterButtonTextStyling>
           </MapFilterTouchableButtonStyling>
         </>
