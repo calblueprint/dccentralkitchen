@@ -1,7 +1,9 @@
+/* eslint-disable no-else-return */
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -12,14 +14,17 @@ import {
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
+import MapFilter from '../../components/map/MapFilter';
+import MapFilterOptions from '../../components/map/MapFilterOptions';
 import StoreProducts from '../../components/product/StoreProducts';
-import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
 import {
   findDefaultStore,
   findStoreDistance,
+  getAsyncStorageMapFilters,
+  setInitialAsyncStorageMapFilters,
   sortByDistance,
   useCurrentLocation,
   useStoreProducts,
@@ -32,16 +37,15 @@ import {
   SearchBar,
 } from '../../styled/store';
 
-import MapFilterBlank from '../../components/map/MapFilterBlank';
-import MapFilter from '../../components/map/MapFilter';
-import MapFilterOptions from '../../components/map/MapFilterOptions';
-
 const snapPoints = [185, 325, 488];
 
 export default function MapScreen(props) {
   const [region, setRegion] = useState(initialRegion);
   const [currentStore, setCurrentStore] = useState(null);
   const [showMapFilterOptions, setShowMapFilterOptions] = useState(false);
+  const [mapFilterObj, setMapFilterObj] = useState();
+  const [filteredStores, setFilteredStores] = useState([]);
+
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
   const stores = useStores();
@@ -58,12 +62,46 @@ export default function MapScreen(props) {
     locationPermissions !== 'granted' ||
     (stores.length > 0 && !stores[0].distance);
 
+  useFocusEffect(
+    useCallback(() => {
+      getAsyncStorageMapFilters().then((initialMapFilters) => {
+        if (initialMapFilters) {
+          setMapFilterObj(initialMapFilters);
+        } else {
+          setInitialAsyncStorageMapFilters().then((mapFilters) => {
+            setMapFilterObj(mapFilters);
+          });
+        }
+      });
+    }, [])
+  );
+
   useEffect(() => {
     if (props.route.params) {
       const store = props.route.params.currentStore;
       changeCurrentStore(store, true, false);
     }
   }, [props.route.params]);
+
+  useEffect(() => {
+    if (mapFilterObj) {
+      setFilteredStores((prevState) => {
+        if (mapFilterObj.wic && !mapFilterObj.couponProgramPartner) {
+          return stores.filter((store) => store.wic);
+        } else if (mapFilterObj.couponProgramPartner && !mapFilterObj.wic) {
+          return stores.filter(
+            (store) => store.couponProgramPartner && !store.wic
+          );
+        } else if (mapFilterObj.wic && mapFilterObj.couponProgramPartner) {
+          return stores.filter(
+            (store) => store.couponProgramPartner && store.wic
+          );
+        } else {
+          return stores;
+        }
+      });
+    }
+  }, [mapFilterObj]);
 
   // Update the current store and map region.
   // Only expand (reset) the bottom sheet to display products if navigated from StoreList
@@ -170,7 +208,9 @@ export default function MapScreen(props) {
             setShowMapFilterOptions(!showMapFilterOptions)
           }
         />
-        {showMapFilterOptions && <MapFilterOptions />}
+        {showMapFilterOptions && (
+          <MapFilterOptions setMapFilterObj={setMapFilterObj} />
+        )}
       </NavHeaderContainer>
 
       {/* Display Map */}

@@ -1,18 +1,18 @@
+import { useFocusEffect } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-
-import {
-  MapFilterTouchableButtonStyling,
-  MapFilterButtonTextStyling,
-} from './MapFilterOptions.styled';
 import {
   getAsyncStorageMapFilters,
   setAsyncStorageMapFilters,
   setInitialAsyncStorageMapFilters,
 } from '../../lib/mapUtils';
+import {
+  MapFilterButtonTextStyling,
+  MapFilterTouchableButtonStyling,
+} from './MapFilterOptions.styled';
 
-export default function MapFilterOptions() {
+export default function MapFilterOptions({ setMapFilterObj }) {
   const SEARCH_BAR_HEIGHT = 40;
   const MAP_FILTER_OPTIONS_PADDING = 12;
   const MAP_FILTER_OPTIONS_TOP = SEARCH_BAR_HEIGHT + MAP_FILTER_OPTIONS_PADDING;
@@ -36,6 +36,7 @@ export default function MapFilterOptions() {
   const updateFilterState = (updatedMapFilter) => {
     setAsyncStorageMapFilters(updatedMapFilter).then(() => {
       setMapFilterState(updatedMapFilter);
+      setMapFilterObj(updatedMapFilter);
     });
   };
 
@@ -83,3 +84,7 @@ export default function MapFilterOptions() {
     </View>
   );
 }
+
+MapFilterOptions.propTypes = {
+  setMapFilterObj: PropTypes.func.isRequired,
+};
