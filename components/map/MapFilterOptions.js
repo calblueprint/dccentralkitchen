@@ -41,12 +41,7 @@ export default function MapFilterOptions({ setMapFilterObj }) {
   };
 
   return (
-    <View
-      style={{
-        position: 'absolute',
-        top: MAP_FILTER_OPTIONS_TOP,
-        left: MAP_FILTER_OPTIONS_PADDING,
-      }}>
+    <View>
       {mapFilterState && (
         <>
           <MapFilterTouchableButtonStyling

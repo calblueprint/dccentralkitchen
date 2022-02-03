@@ -209,9 +209,14 @@ export default function MapScreen(props) {
             setShowMapFilterOptions(!showMapFilterOptions)
           }
         /> */}
-
-        <MapFilterOptions setMapFilterObj={setMapFilterObj} />
       </NavHeaderContainer>
+      <View
+        style={{
+          zIndex: 1,
+          marginLeft: 12,
+        }}>
+        <MapFilterOptions setMapFilterObj={setMapFilterObj} />
+      </View>
 
       {/* Display Map */}
       <MapView
