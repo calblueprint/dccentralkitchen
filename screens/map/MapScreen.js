@@ -100,7 +100,7 @@ export default function MapScreen(props) {
       }
       setFilteredStores(filteredStoresCopy);
 
-      changeCurrentStore(filteredStoresCopy[0], true, true);
+      changeCurrentStore(filteredStoresCopy[0], true, false);
     }
   }, [mapFilterObj, stores]);
 
