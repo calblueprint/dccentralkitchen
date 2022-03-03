@@ -23,7 +23,8 @@ export default class RecipesScreen extends React.Component {
   async componentDidMount() {
     try {
       const recipes = await getAllRecipes();
-      console.log(recipes);
+      console.log(recipes[0]);
+      console.log('url:', recipes[0].image[0].thumbnails.small.url);
       this.setState({ recipes });
     } catch (err) {
       logErrorToSentry({
@@ -51,8 +52,9 @@ export default class RecipesScreen extends React.Component {
               key={item.id}
               title={item.title}
               description={item.description}
-              url={item.url}
               navigation={this.props.navigation}
+              thumbnail={item.image[0].thumbnails.small.url}
+              picture={item.image[0].thumbnails.large.url}
             />
           )}
           renderSectionHeader={({ section }) =>

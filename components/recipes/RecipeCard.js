@@ -1,53 +1,64 @@
-import { FontAwesome5 } from '@expo/vector-icons';
 import * as Analytics from 'expo-firebase-analytics';
 import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 import Colors from '../../constants/Colors';
-import {
-  ContentContainer,
-  IconContainer,
-  ResourceItemCard,
-} from '../../styled/resources';
+import { ContentContainer, RecipeItemCard } from '../../styled/recipes';
+import { IconContainer } from '../../styled/resources';
 import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
 
-function cardPressed(title, category, url) {
-  Analytics.logEvent('open_resource_link', {
-    resource_name: title,
-    resource_category: category.toString(),
+function cardPressed(title, url) {
+  Analytics.logEvent('open_receipe_link', {
+    receipe_name: title,
   });
   WebBrowser.openBrowserAsync(url);
 }
-function ResourceCard({ title, description, category, url }) {
+function RecipeCard({ title, description, thumbnail, picture }) {
   return (
-    <ButtonContainer onPress={() => cardPressed(title, category, url)}>
-      <ResourceItemCard>
+    <ButtonContainer onPress={() => cardPressed(title)}>
+      <RecipeItemCard>
         <ContentContainer>
           <Subtitle>{title}</Subtitle>
           <Body color={Colors.secondaryText}>{description}</Body>
         </ContentContainer>
         <IconContainer>
-          <FontAwesome5
-            name="external-link-alt"
-            size={24}
-            color={Colors.primaryGray}
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: thumbnail,
+            }}
+            alt="test"
           />
         </IconContainer>
-      </ResourceItemCard>
+      </RecipeItemCard>
     </ButtonContainer>
   );
 }
 
-ResourceCard.propTypes = {
+RecipeCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  category: PropTypes.array,
-  url: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
 };
 
-ResourceCard.defaultProps = {
+RecipeCard.defaultProps = {
   description: '',
-  category: [],
 };
 
-export default ResourceCard;
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+  logo: {
+    width: 66,
+    height: 58,
+  },
+});
+
+export default RecipeCard;
