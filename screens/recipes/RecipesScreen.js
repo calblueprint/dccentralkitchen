@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { FAB, Searchbar } from 'react-native-paper';
 import {
   NavButtonContainer,
@@ -46,47 +46,46 @@ export default class RecipesScreen extends React.Component {
 
   render() {
     return (
-      <View>
-        <View>
-          <NavHeaderContainer>
-            <NavButtonContainer
-              onPress={() => this.props.navigation.toggleDrawer()}>
-              <FontAwesome5 name="bars" solid size={24} />
-            </NavButtonContainer>
-            <NavTitle>Recipes</NavTitle>
-          </NavHeaderContainer>
-          <Searchbar
-            placeholder="Search"
-            iconColor="blue"
-            onChangeText={this.updateSearch}
-            value={this.state.search}
-          />
-          <View style={styles.listView}>
-            <ScrollView style={styles.listContainer}>
-              <FlatList
-                contentContainerStyle={styles.list}
-                data={this.state.recipes}
-                renderItem={({ item }) => (
-                  <RecipeCard navigation={this.props.navigation} item={item} />
-                )}
-                renderSectionHeader={({ section }) =>
-                  section.data.length > 0 ? (
-                    <CategoryBar icon={section.icon} title={section.category} />
-                  ) : null
-                }
-                ListFooterComponent={<View style={{ height: 200 }} />}
-              />
-            </ScrollView>
-          </View>
-        </View>
-        <View style={styles.container}>
+      <View style={styles.slideContainer}>
+        <NavHeaderContainer>
+          <NavButtonContainer
+            onPress={() => this.props.navigation.toggleDrawer()}>
+            <FontAwesome5 name="bars" solid size={24} />
+          </NavButtonContainer>
+          <NavTitle>Recipes</NavTitle>
+        </NavHeaderContainer>
+        <Searchbar
+          placeholder="Search"
+          iconColor="blue"
+          onChangeText={this.updateSearch}
+          value={this.state.search}
+        />
+        {/* <View style={styles.listView}> */}
+        {/* <ScrollView style={styles.listContainer}> */}
+        <FlatList
+          contentContainerStyle={styles.list}
+          data={this.state.recipes}
+          renderItem={({ item }) => (
+            <RecipeCard navigation={this.props.navigation} item={item} />
+          )}
+          renderSectionHeader={({ section }) =>
+            section.data.length > 0 ? (
+              <CategoryBar icon={section.icon} title={section.category} />
+            ) : null
+          }
+          ListFooterComponent={<View style={{ height: 200 }} />}
+        />
+        <TouchableOpacity onPress={() => alert('FAB clicked')}>
           <FAB
-            style={styles.container}
+            style={styles.fab}
             small
             icon="plus"
             onPress={() => console.log('Pressed')}
           />
-        </View>
+        </TouchableOpacity>
+        {/* </ScrollView> */}
+        {/* <View style={styles.container}>
+        </View> */}
       </View>
     );
   }
@@ -97,38 +96,37 @@ RecipesScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  slideContainer: {
+    flex: 1,
+  },
   listView: {
-    height: '100%',
     width: '100%',
-    flexGrow: 1,
-    paddingBottom: 300,
     justifyContent: 'flex-start',
     elevation: 1,
   },
   listContainer: {
-    height: '100%',
-    width: '100%',
-    flexGrow: 1,
-    // justifyContent: 'flex-end',
     elevation: 1,
   },
   list: {
-    flexGrow: 1,
     justifyContent: 'flex-end',
-    // paddingBottom: 50,
+    elevation: 1,
   },
   container: {
     position: 'absolute',
-    elevation: 100,
     left: 20,
-    flex: 1,
-    height: 100,
-    width: 100,
     bottom: 20,
+    elevation: 1,
   },
   fab: {
-    backgroundColor: 'green',
-    height: '100%',
-    width: '100%',
+    position: 'absolute',
+    width: 56,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 20,
+    bottom: 20,
+    backgroundColor: '#03A9F4',
+    borderRadius: 30,
+    elevation: -1,
   },
 });

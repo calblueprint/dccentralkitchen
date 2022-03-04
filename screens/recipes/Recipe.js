@@ -22,20 +22,22 @@ const Recipe = (props) => {
         <NavTitle>Recipes</NavTitle>
       </NavHeaderContainer>
       {/* ! Does not scroll all the way */}
-      <ScrollView style={styles.container}>
-        <Text style={styles.heading}>{item.title}</Text>
-        <IconContainer>
-          <Image
-            style={styles.bigPicture}
-            source={{
-              uri: item.image[0].thumbnails.large.url,
-            }}
-            alt={`${item.title}`}
-          />
-        </IconContainer>
-        <Text style={styles.textContainer}>{item.ingredients}</Text>
-        <Text style={styles.textContainer}>{item.instructions}</Text>
-      </ScrollView>
+      <View style={styles.listView}>
+        <ScrollView style={styles.container}>
+          <Text style={styles.heading}>{item.title}</Text>
+          <IconContainer>
+            <Image
+              style={styles.bigPicture}
+              source={{
+                uri: item.image[0].thumbnails.large.url,
+              }}
+              alt={`${item.title}`}
+            />
+          </IconContainer>
+          <Text style={styles.textContainer}>{item.ingredients}</Text>
+          <Text style={styles.textContainer}>{item.instructions}</Text>
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -46,10 +48,16 @@ Recipe.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  listView: {
+    height: '100%',
+    width: '100%',
+    flexGrow: 1,
+    justifyContent: 'flex-start',
+    elevation: 1,
+  },
   container: {
-    height: '250%',
     paddingTop: 20,
-    paddingBottom: 50,
+    paddingBottom: 900,
     paddingHorizontal: 20,
   },
   heading: {
