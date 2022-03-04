@@ -13,7 +13,6 @@ const config = Platform.select({
   },
 });
 function RecipeCard({ navigation, item }) {
-  console.log('item', item);
   return (
     <TouchableOpacity
       onPress={() => {
