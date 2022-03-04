@@ -1,50 +1,52 @@
-import * as Analytics from 'expo-firebase-analytics';
-import * as WebBrowser from 'expo-web-browser';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/Colors';
 import { ContentContainer, RecipeItemCard } from '../../styled/recipes';
 import { IconContainer } from '../../styled/resources';
-import { Body, ButtonContainer, Subtitle } from '../BaseComponents';
+import { Body, Subtitle } from '../BaseComponents';
 
-function cardPressed(title, url) {
-  Analytics.logEvent('open_receipe_link', {
-    receipe_name: title,
-  });
-  WebBrowser.openBrowserAsync(url);
-}
-function RecipeCard({ title, description, thumbnail, picture }) {
+const config = Platform.select({
+  web: { headerMode: 'screen' },
+  default: {
+    headerMode: 'none',
+  },
+});
+function RecipeCard({ navigation, item }) {
+  console.log('item', item);
   return (
-    <ButtonContainer onPress={() => cardPressed(title)}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Recipe', { item });
+      }}
+      screenOptions={{
+        drawerLabel: `${item.title}`,
+        headerShown: false,
+        cardStyle: { backgroundColor: Colors.bgLight },
+        config,
+      }}>
       <RecipeItemCard>
         <ContentContainer>
-          <Subtitle>{title}</Subtitle>
-          <Body color={Colors.secondaryText}>{description}</Body>
+          <Subtitle>{item.title}</Subtitle>
+          <Body color={Colors.secondaryText}>{item.description}</Body>
         </ContentContainer>
         <IconContainer>
           <Image
             style={styles.tinyLogo}
             source={{
-              uri: thumbnail,
+              uri: item.image[0].thumbnails.small.url,
             }}
-            alt="test"
+            alt={`${item.description}`}
           />
         </IconContainer>
       </RecipeItemCard>
-    </ButtonContainer>
+    </TouchableOpacity>
   );
 }
 
 RecipeCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  thumbnail: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
-};
-
-RecipeCard.defaultProps = {
-  description: '',
+  item: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
