@@ -1,7 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   NavButtonContainer,
   NavHeaderContainer,
@@ -14,12 +15,14 @@ const Recipe = (props) => {
   return (
     <View>
       <NavHeaderContainer>
-        <NavButtonContainer onPress={() => props.navigation.toggleDrawer()}>
-          <FontAwesome5 name="bars" solid size={24} />
+        <NavButtonContainer
+          onPress={() => props.navigation.navigate('Recipes')}>
+          <FontAwesome5 name="arrow-left" solid size={24} />
         </NavButtonContainer>
         <NavTitle>Recipes</NavTitle>
       </NavHeaderContainer>
-      <View style={styles.container}>
+      {/* ! Does not scroll all the way */}
+      <ScrollView style={styles.container}>
         <Text style={styles.heading}>{item.title}</Text>
         <IconContainer>
           <Image
@@ -32,7 +35,7 @@ const Recipe = (props) => {
         </IconContainer>
         <Text style={styles.textContainer}>{item.ingredients}</Text>
         <Text style={styles.textContainer}>{item.instructions}</Text>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -44,7 +47,9 @@ Recipe.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    height: '250%',
     paddingTop: 20,
+    paddingBottom: 50,
     paddingHorizontal: 20,
   },
   heading: {
