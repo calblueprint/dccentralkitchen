@@ -1,8 +1,8 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { FAB, Searchbar } from 'react-native-paper';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
 import {
   NavButtonContainer,
   NavHeaderContainer,
@@ -60,8 +60,6 @@ export default class RecipesScreen extends React.Component {
           onChangeText={this.updateSearch}
           value={this.state.search}
         />
-        {/* <View style={styles.listView}> */}
-        {/* <ScrollView style={styles.listContainer}> */}
         <FlatList
           contentContainerStyle={styles.list}
           data={this.state.recipes}
