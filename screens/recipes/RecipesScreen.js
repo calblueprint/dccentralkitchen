@@ -75,17 +75,6 @@ export default class RecipesScreen extends React.Component {
           }
           ListFooterComponent={<View style={{ height: 200 }} />}
         />
-        <TouchableOpacity onPress={() => alert('FAB clicked')}>
-          <FAB
-            style={styles.fab}
-            small
-            icon="plus"
-            onPress={() => console.log('Pressed')}
-          />
-        </TouchableOpacity>
-        {/* </ScrollView> */}
-        {/* <View style={styles.container}>
-        </View> */}
       </View>
     );
   }
