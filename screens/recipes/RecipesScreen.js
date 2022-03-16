@@ -8,7 +8,6 @@ import {
   NavHeaderContainer,
   NavTitle,
 } from '../../components/BaseComponents';
-import CategoryBar from '../../components/recipes/CategoryBar';
 import RecipeCard from '../../components/recipes/RecipeCard';
 import { getAllRecipes } from '../../lib/airtable/request';
 import { logErrorToSentry } from '../../lib/logUtils';
@@ -66,11 +65,6 @@ export default class RecipesScreen extends React.Component {
           renderItem={({ item }) => (
             <RecipeCard navigation={this.props.navigation} item={item} />
           )}
-          renderSectionHeader={({ section }) =>
-            section.data.length > 0 ? (
-              <CategoryBar icon={section.icon} title={section.category} />
-            ) : null
-          }
           ListFooterComponent={<View style={{ height: 200 }} />}
         />
       </View>

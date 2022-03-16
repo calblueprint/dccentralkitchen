@@ -25,8 +25,8 @@ function RecipeCard({ navigation, item }) {
         config,
       }}>
       <RecipeItemCard>
-        <ContentContainer>
-          <Subtitle>{item.title}</Subtitle>
+        <ContentContainer style={styles.subtitle}>
+          <Subtitle style={styles.subtitle}>{item.title}</Subtitle>
           <Body color={Colors.secondaryText}>{item.description}</Body>
         </ContentContainer>
         <IconContainer>
@@ -49,6 +49,10 @@ RecipeCard.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  subtitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   container: {
     paddingTop: 50,
   },

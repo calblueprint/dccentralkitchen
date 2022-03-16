@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Window from '../../constants/Layout';
 import {
   NavButtonContainer,
   NavHeaderContainer,
@@ -49,7 +50,7 @@ Recipe.propTypes = {
 
 const styles = StyleSheet.create({
   listView: {
-    height: '100%',
+    height: Window.height - 120, // calc
     width: '100%',
     flexGrow: 1,
     justifyContent: 'flex-start',
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingTop: 20,
-    paddingBottom: 900,
+    paddingBottom: 100,
     paddingHorizontal: 20,
   },
   heading: {
@@ -75,8 +76,7 @@ const styles = StyleSheet.create({
     height: 58,
   },
   textContainer: {
-    marginTop: 20,
-    marginHorizontal: 30,
+    margin: 20,
   },
 });
 
