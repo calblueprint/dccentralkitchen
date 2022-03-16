@@ -3,9 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Analytics from 'expo-firebase-analytics';
 import React from 'react';
+import WebComponent from '../components/WebComponent';
 import Colors from '../constants/Colors';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import VerificationScreen from '../screens/auth/VerificationScreen';
+import LandingScreen from '../screens/map/LandingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
@@ -14,6 +16,8 @@ import StoresStackNavigator from './stack_navigators/StoresStack';
 import RecipesStackNavigator from './stack_navigators/RecipesStack';
 
 const Drawer = createDrawerNavigator();
+
+const AppStack = createStackNavigator();
 
 const getActiveRouteName = (state) => {
   const route = state.routes[state.index];
@@ -69,6 +73,20 @@ function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
+        name="LandingScreenOverlay"
+        component={LandingScreen}
+        options={{
+          title: 'How Our App Works',
+        }}
+      />
+      <Drawer.Screen
+        name="WebComponent"
+        component={WebComponent}
+        options={{
+          title: 'FAQ',
+        }}
+      />
+      <Drawer.Screen
         name="Settings"
         component={SettingsStackNavigator}
         options={{
@@ -78,8 +96,6 @@ function DrawerNavigator() {
     </Drawer.Navigator>
   );
 }
-
-const AppStack = createStackNavigator();
 
 export default function AppContainer() {
   const routeNameRef = React.useRef();
@@ -108,16 +124,18 @@ export default function AppContainer() {
       <AppStack.Navigator
         initialRouteName="AuthLoading"
         screenOptions={{
+          cardOverlayEnabled: true,
+          gestureEnabled: true,
           headerShown: false,
           cardStyle: { backgroundColor: Colors.bgLight },
-          gestureEnabled: false,
         }}>
-        <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
         <AppStack.Screen
           name="App"
           component={DrawerNavigator}
           options={{ animationEnabled: false }}
         />
+        <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
+
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
         <AppStack.Screen name="Verify" component={VerificationScreen} />
       </AppStack.Navigator>

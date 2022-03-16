@@ -20,6 +20,7 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
+import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   findDefaultStore,
   findStoreDistance,
@@ -47,6 +48,7 @@ export default function MapScreen(props) {
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
+
   const stores = useStores();
   stores.forEach((store) => {
     const currStore = store;
@@ -81,6 +83,17 @@ export default function MapScreen(props) {
       changeCurrentStore(store, true, false);
     }
   }, [props.route.params]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const customerId = await getAsyncCustomerAuth();
+      if (customerId.showLandingScreen) {
+        props.navigation.navigate('GettingStartedOverlay', { customerId });
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     if (mapFilterObj && stores.length) {
@@ -266,7 +279,6 @@ export default function MapScreen(props) {
         />
       </View>
 
-      {/* <RewardsFooter navigation={props.navigation} /> */}
       {(!locationPermissions || stores.length === 0) && (
         <View
           style={{
