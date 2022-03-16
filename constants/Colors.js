@@ -9,6 +9,9 @@ const Colors = {
   lighterOrange: '#F7AA68',
   primaryOrange: '#F07723',
   darkerOrange: '#8F3000',
+  // Purple
+  lightPurple: '#6C54A3',
+  primaryPurple: '#2E3192',
   // Gray
   primaryGray: '#BDBDBD',
   lighterGray: '#DEDEDE',
