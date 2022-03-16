@@ -1,4 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+/* eslint-disable react/jsx-boolean-value */
+/* eslint-disable react/no-string-refs */
+/* eslint-disable react/jsx-curly-brace-presence */
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -15,6 +17,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import ONBOARDING_CONTENT from '../../constants/Onboarding';
 import RecordIds from '../../constants/RecordIds';
+import { setAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   OnboardingContainer,
   OnboardingContentContainer,
@@ -53,16 +56,16 @@ export default class OnboardingScreen extends React.Component {
     );
   }
 
-  _renderItem = ({ item, _ }) => {
+  _renderItem = ({ item, index }) => {
     return (
       <OnboardingContentContainer>
         <Image
           source={item.illustration}
           resizeMode="contain"
           style={{
-            flex: 1,
-            height: '100%',
+            height: Window.height < 800 ? '60%' : '70%',
             width: '100%',
+            margin: 0,
           }}
         />
         <ColumnContainer>
@@ -71,12 +74,33 @@ export default class OnboardingScreen extends React.Component {
             {item.body}
           </Body>
         </ColumnContainer>
+        {/* Display login/get started buttons */}
+        {index === 4 && (
+          <ColumnContainer style={{ marginTop: 12 }}>
+            <FilledButtonContainer
+              width="100%"
+              onPress={() => this.navigateAuth()}>
+              <ButtonLabel color="white">Get started</ButtonLabel>
+            </FilledButtonContainer>
+            <ButtonContainer
+              style={{ marginTop: 4, padding: 12 }}
+              onPress={async () => this.guestLogin()}>
+              <ButtonLabel noCaps color={Colors.primaryGreen}>
+                Continue as guest
+              </ButtonLabel>
+            </ButtonContainer>
+          </ColumnContainer>
+        )}
       </OnboardingContentContainer>
     );
   };
 
   guestLogin = async () => {
-    await AsyncStorage.setItem('customerId', RecordIds.guestCustomerId);
+    const customerObj = {
+      id: RecordIds.guestCustomerId,
+      showLandingScreen: true,
+    };
+    await setAsyncCustomerAuth(customerObj);
     Analytics.logEvent('guest_login_complete', {
       installation_id: RecordIds.guestCustomerId,
     });
@@ -98,30 +122,20 @@ export default class OnboardingScreen extends React.Component {
         */}
         <Carousel
           data={ONBOARDING_CONTENT}
+          useScrollView
+          ref={(c) => {
+            this._carousel = c;
+          }}
           renderItem={this._renderItem}
-          onSnapToItem={(index) => this.setState({ pageIndex: index })}
+          onSnapToItem={(index) => {
+            this.setState({ pageIndex: index });
+          }}
           sliderWidth={Window.width - 80}
           itemWidth={Window.width - 80}
         />
 
         {/* Display pagination dots */}
         {this.pagination}
-
-        {/* Display login/get started buttons */}
-        <ColumnContainer style={{ marginTop: 20 }}>
-          <FilledButtonContainer
-            width="100%"
-            onPress={() => this.navigateAuth()}>
-            <ButtonLabel color="white">Get started</ButtonLabel>
-          </FilledButtonContainer>
-          <ButtonContainer
-            style={{ marginTop: 4, padding: 12 }}
-            onPress={async () => this.guestLogin()}>
-            <ButtonLabel noCaps color={Colors.primaryGreen}>
-              Continue as guest
-            </ButtonLabel>
-          </ButtonContainer>
-        </ColumnContainer>
       </OnboardingContainer>
     );
   }

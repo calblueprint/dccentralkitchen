@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+/* eslint-disable no-unused-expressions */
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getAsyncCustomerAuth } from '../../lib/authUtils';
 
 // TODO: combine with AuthLoading?
 export default class AuthLoadingScreen extends React.Component {
@@ -11,13 +12,15 @@ export default class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('customerId');
-
+    const userToken = await getAsyncCustomerAuth();
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
 
     // Correct version
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+
+    userToken !== null && userToken.id
+      ? this.props.navigation.navigate('App')
+      : this.props.navigation.navigate('Auth');
 
     // Auth/App testing purpose
     // this.props.navigation.navigate('Auth');

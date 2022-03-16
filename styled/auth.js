@@ -21,8 +21,8 @@ export const OnboardingContainer = styled.View`
   display: flex;
   flex: 1;
   justify-content: center;
-  margin-horizontal: 40px
-  padding: 75px 0px
+  margin-horizontal: 40px;
+  padding: 75px 0px;
 `;
 
 // PermissionsScreen
@@ -34,10 +34,7 @@ export const PermissionsContainer = styled.View`
 `;
 
 export const OnboardingContentContainer = styled.View`
-  display: flex;
-  flex-direction: column
-  flex: 1
-  justify-content: flex-end
+  flex: 1;
 `;
 
 // Used in AuthTextField
