@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -15,7 +16,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
-import { getAsyncCustomerAuth, notificationTypes } from '../../lib/authUtils';
+import { notificationTypes } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { ContentContainer, ResourceItemCard } from '../../styled/resources';
 
@@ -36,9 +37,9 @@ export default class NotificationsScreen extends React.Component {
 
   async componentDidMount() {
     try {
-      const customerId = await getAsyncCustomerAuth();
+      const customerId = await AsyncStorage.getItem('customerId');
       if (customerId != null) {
-        const customer = await getCustomerById(customerId.id);
+        const customer = await getCustomerById(customerId);
         if (customer.generalNotifications) {
           customer.generalNotifications.forEach((element) => {
             this.setState((prevState) => ({
@@ -106,7 +107,8 @@ export default class NotificationsScreen extends React.Component {
 
   saveNotificationsSettings = async () => {
     try {
-      const customerId = await getAsyncCustomerAuth();
+      const customerId = await AsyncStorage.getItem('customerId');
+
       const generalPrefs = Object.keys(this.state.generalNotifs).filter(
         function(type) {
           return this.state.generalNotifs[type];
@@ -119,7 +121,7 @@ export default class NotificationsScreen extends React.Component {
         }.bind(this)
       );
 
-      await updateCustomer(customerId.id, {
+      await updateCustomer(customerId, {
         generalNotifications: generalPrefs,
         deliveryNotifications: deliveryPrefs,
       });

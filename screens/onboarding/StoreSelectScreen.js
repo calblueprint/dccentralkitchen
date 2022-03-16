@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
@@ -14,7 +15,6 @@ import {
 import StoreSelectCard from '../../components/store/StoreSelectCard';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
-import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
   findStoreDistance,
@@ -48,9 +48,8 @@ export default function StoreSelectScreen(props) {
     }
     const loadCustomer = async () => {
       try {
-        const customerId = await getAsyncCustomerAuth();
-
-        const cust = await getCustomerById(customerId.id);
+        const customerId = await AsyncStorage.getItem('customerId');
+        const cust = await getCustomerById(customerId);
         const favoriteStores = cust.favoriteStoreIds || [];
         setSelectedStores(favoriteStores);
         setLoading(false);
@@ -77,8 +76,8 @@ export default function StoreSelectScreen(props) {
 
   const saveFavoriteStores = async () => {
     try {
-      const customerId = await getAsyncCustomerAuth();
-      await updateCustomer(customerId.id, {
+      const customerId = await AsyncStorage.getItem('customerId');
+      await updateCustomer(customerId, {
         favoriteStoreIds: selectedStores,
       });
       await navigatePermissions();
