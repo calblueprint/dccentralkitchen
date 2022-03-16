@@ -55,7 +55,7 @@ export default class RecipesScreen extends React.Component {
         </NavHeaderContainer>
         <Searchbar
           placeholder="Search"
-          iconColor="blue"
+          iconColor="black"
           onChangeText={this.updateSearch}
           value={this.state.search}
         />
@@ -65,7 +65,6 @@ export default class RecipesScreen extends React.Component {
           renderItem={({ item }) => (
             <RecipeCard navigation={this.props.navigation} item={item} />
           )}
-          ListFooterComponent={<View style={{ height: 200 }} />}
         />
       </View>
     );

@@ -22,7 +22,6 @@ const Recipe = (props) => {
         </NavButtonContainer>
         <NavTitle>Recipes</NavTitle>
       </NavHeaderContainer>
-      {/* ! Does not scroll all the way */}
       <View style={styles.listView}>
         <ScrollView style={styles.container}>
           <Text style={styles.heading}>{item.title}</Text>
