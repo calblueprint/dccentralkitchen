@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
@@ -54,12 +54,12 @@ function DrawerContent(props) {
           if (isActive) {
             setUserLog(cust);
             if (cust.name === 'Guest') {
-              Sentry.captureMessage('Guest Login Successful');
+              Sentry.Native.captureMessage('Guest Login Successful');
               Analytics.logEvent('drawer_load', {
                 purpose: 'Guest Login Successful',
               });
             } else {
-              Sentry.captureMessage('Returning User');
+              Sentry.Native.captureMessage('Returning User');
               Analytics.logEvent('drawer_load', {
                 purpose: 'Returning User',
               });
