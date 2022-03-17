@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
@@ -196,7 +196,9 @@ export default class RewardsScreen extends React.Component {
             onIndexChange={(index) => {
               // eslint-disable-next-line react/no-unused-state
               this.setState({ index });
-              Analytics.setCurrentScreen(routes[index].title);
+              Analytics.logEvent('screen_view', {
+                screen_name: routes[index].title,
+              });
             }}
             initialLayout={{
               width: Window.width,

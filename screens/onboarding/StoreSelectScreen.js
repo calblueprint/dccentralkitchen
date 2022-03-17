@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';

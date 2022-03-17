@@ -1,7 +1,9 @@
+/* eslint-disable no-else-return */
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import BottomSheet from 'reanimated-bottom-sheet';
@@ -12,14 +14,18 @@ import {
 } from '../../components/BaseComponents';
 import CenterLocation from '../../components/CenterLocation';
 import Hamburger from '../../components/Hamburger';
+import MapFilter from '../../components/map/MapFilter';
+import MapFilterBlank from '../../components/map/MapFilterBlank';
+import MapFilterOptions from '../../components/map/MapFilterOptions';
 import StoreProducts from '../../components/product/StoreProducts';
-import RewardsFooter from '../../components/rewards/RewardsFooter';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
 import {
   findDefaultStore,
   findStoreDistance,
+  getAsyncStorageMapFilters,
+  setInitialAsyncStorageMapFilters,
   sortByDistance,
   useCurrentLocation,
   useStoreProducts,
@@ -37,6 +43,9 @@ const snapPoints = [185, 325, 488];
 export default function MapScreen(props) {
   const [region, setRegion] = useState(initialRegion);
   const [currentStore, setCurrentStore] = useState(null);
+  const [mapFilterObj, setMapFilterObj] = useState();
+  const [filteredStores, setFilteredStores] = useState([]);
+
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
   const stores = useStores();
@@ -53,12 +62,48 @@ export default function MapScreen(props) {
     locationPermissions !== 'granted' ||
     (stores.length > 0 && !stores[0].distance);
 
+  useFocusEffect(
+    useCallback(() => {
+      getAsyncStorageMapFilters().then((initialMapFilters) => {
+        if (initialMapFilters) {
+          setMapFilterObj(initialMapFilters);
+        } else {
+          setInitialAsyncStorageMapFilters().then((mapFilters) => {
+            setMapFilterObj(mapFilters);
+          });
+        }
+      });
+    }, [])
+  );
+
   useEffect(() => {
     if (props.route.params) {
       const store = props.route.params.currentStore;
       changeCurrentStore(store, true, false);
     }
   }, [props.route.params]);
+
+  useEffect(() => {
+    if (mapFilterObj && stores.length) {
+      let filteredStoresCopy;
+      if (mapFilterObj.wic && !mapFilterObj.couponProgramPartner) {
+        filteredStoresCopy = stores.filter((store) => store.wic);
+      } else if (mapFilterObj.couponProgramPartner && !mapFilterObj.wic) {
+        filteredStoresCopy = stores.filter(
+          (store) => store.couponProgramPartner && !store.wic
+        );
+      } else if (mapFilterObj.wic && mapFilterObj.couponProgramPartner) {
+        filteredStoresCopy = stores.filter(
+          (store) => store.couponProgramPartner && store.wic
+        );
+      } else {
+        filteredStoresCopy = stores;
+      }
+      setFilteredStores(filteredStoresCopy);
+
+      changeCurrentStore(filteredStoresCopy[0], true, false);
+    }
+  }, [mapFilterObj, stores]);
 
   // Update the current store and map region.
   // Only expand (reset) the bottom sheet to display products if navigated from StoreList
@@ -141,21 +186,39 @@ export default function MapScreen(props) {
         style={{
           zIndex: 1,
         }}>
+        {/* Map Options - Hamburger Button */}
         <Hamburger navigation={props.navigation} />
+
         {/* Display search bar */}
         <SearchBar
-          style={{ flex: 1 }}
           onPress={() => props.navigation.navigate('StoreList', { stores })}>
           <FontAwesome5
             name="search"
             size={16 * Math.min(PixelRatio.getFontScale(), 1.4)}
             color={Colors.primaryOrange}
+            style={{ marginLeft: 12, marginRight: 12 }}
           />
-          <Subtitle color={Colors.secondaryText} style={{ marginLeft: 8 }}>
+          <Subtitle color={Colors.secondaryText} style={{ marginRight: 12 }}>
             Find a store
           </Subtitle>
         </SearchBar>
+
+        {/* Map Filter */}
+        <MapFilterBlank />
+        {/* <MapFilter
+          toggleMapFilterOptions={() =>
+            setShowMapFilterOptions(!showMapFilterOptions)
+          }
+        /> */}
       </NavHeaderContainer>
+      <View
+        style={{
+          zIndex: 1,
+          marginLeft: 12,
+        }}>
+        <MapFilterOptions setMapFilterObj={setMapFilterObj} />
+      </View>
+
       {/* Display Map */}
       <MapView
         style={{
@@ -171,7 +234,7 @@ export default function MapScreen(props) {
         region={region}
         onRegionChangeComplete={(newRegion) => setRegion(newRegion)}>
         {/* Display store markers */}
-        {stores.map((store) => (
+        {filteredStores.map((store) => (
           <Marker
             key={store.id}
             coordinate={{
@@ -183,11 +246,13 @@ export default function MapScreen(props) {
               showName={region.longitudeDelta < 0.07}
               storeName={store.storeName}
               focused={currentStore && currentStore.id === store.id}
+              wic={mapFilterObj.wic}
+              couponProgramPartner={mapFilterObj.couponProgramPartner}
             />
           </Marker>
         ))}
       </MapView>
-      {/* Display bottom sheet. 
+      {/* Display bottom sheet.
             snapPoints: Params representing the resting positions of the bottom sheet relative to the bottom of the screen. */}
       <View style={{ flex: 1, marginBottom: 20 }}>
         <BottomSheet
@@ -201,7 +266,8 @@ export default function MapScreen(props) {
           ref={bottomSheetRef}
         />
       </View>
-      <RewardsFooter navigation={props.navigation} />
+
+      {/* <RewardsFooter navigation={props.navigation} /> */}
       {(!locationPermissions || stores.length === 0) && (
         <View
           style={{

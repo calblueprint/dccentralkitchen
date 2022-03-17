@@ -173,12 +173,12 @@ In the `NavHeaderContainer`, the `topInset` is calculated with `useSafeArea().to
 
 ```jsx
 // Source: BaseComponents.js
-import { useSafeArea } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 ...
 export function NavHeaderContainer({
     ...
 }) {
-  const topInset = useSafeArea().top;
+  const topInset = useSafeAreaInsets().top;
   return (
     <View
       style={{

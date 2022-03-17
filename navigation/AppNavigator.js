@@ -11,6 +11,7 @@ import AuthStackNavigator from './stack_navigators/AuthStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
 import SettingsStackNavigator from './stack_navigators/SettingsStack';
 import StoresStackNavigator from './stack_navigators/StoresStack';
+import RecipesStackNavigator from './stack_navigators/RecipesStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -54,6 +55,13 @@ function DrawerNavigator() {
         options={{ title: 'Map', swipeEnabled: false }}
       />
       <Drawer.Screen
+        name="Recipes"
+        component={RecipesStackNavigator}
+        options={{
+          title: 'Recipes',
+        }}
+      />
+      <Drawer.Screen
         name="Resources"
         component={ResourcesStackNavigator}
         options={{
@@ -91,7 +99,9 @@ export default function AppContainer() {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = getActiveRouteName(state);
         if (previousRouteName !== currentRouteName) {
-          Analytics.setCurrentScreen(currentRouteName);
+          Analytics.logEvent('screen_view', {
+            screen_name: currentRouteName,
+          });
         }
         routeNameRef.current = currentRouteName;
       }}>
