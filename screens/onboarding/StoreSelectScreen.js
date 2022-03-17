@@ -55,7 +55,7 @@ export default function StoreSelectScreen(props) {
         setSelectedStores(favoriteStores);
         setLoading(false);
       } catch (err) {
-        console.log('[StoreSelectScreen](loadCustomer) Airtable:', err);
+        // console.log('[StoreSelectScreen](loadCustomer) Airtable:', err);
         logErrorToSentry({
           screen: 'StoreSelectScreen',
           action: 'loadCustomer',
@@ -83,7 +83,7 @@ export default function StoreSelectScreen(props) {
       });
       await navigatePermissions();
     } catch (err) {
-      console.error('[StoreSelectScreen] (saveFavoriteStores) Airtable:', err);
+      // console.error('[StoreSelectScreen] (saveFavoriteStores) Airtable:', err);
       logErrorToSentry({
         screen: 'StoreSelectScreen',
         action: 'saveFavoriteStores',

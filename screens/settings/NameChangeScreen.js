@@ -40,7 +40,7 @@ export default class NameChangeScreen extends React.Component {
 
       this.setState({ customer });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       logErrorToSentry({
         screen: 'NameChangeScreen',
         action: 'componentDidMount',
@@ -61,7 +61,7 @@ export default class NameChangeScreen extends React.Component {
         if (error) errorMsg = 'Name cannot be blank';
         break;
       default:
-        console.log('Not reached');
+        break;
     }
     this.setState((prevState) => ({
       errors: { ...prevState.errors, [inputField]: errorMsg },
@@ -96,7 +96,7 @@ export default class NameChangeScreen extends React.Component {
       });
       this.props.navigation.navigate('Settings');
     } catch (err) {
-      console.log('[NameChangeScreen] (changeName) Airtable:', err);
+      // console.log('[NameChangeScreen] (changeName) Airtable:', err);
       logErrorToSentry({
         screen: 'NameChangeScreen',
         action: 'changeName',

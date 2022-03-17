@@ -68,7 +68,7 @@ function DrawerContent(props) {
             setIsLoading(false);
           }
         } catch (err) {
-          console.error('[DrawerContent] Airtable:', err);
+          // console.error('[DrawerContent] Airtable:', err);
           logErrorToSentry({
             screen: 'DrawerContent',
             action: 'componentDidMount',

@@ -57,7 +57,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
       this.setState({ customer });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       logErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'componentDidMount',
@@ -79,7 +79,8 @@ export default class PhoneNumberChangeScreen extends React.Component {
         error = errorMsg !== null;
         break;
       default:
-        console.log('Not reached');
+        break;
+      // console.log('Not reached');
     }
     this.setState((prevState) => ({
       errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
@@ -133,7 +134,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
           await this.completeVerification();
           return;
         }
-        console.log('Phone number already in use');
+        // console.log('Phone number already in use');
         const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
           screen: 'PhoneNumberChangeScreen',
@@ -150,10 +151,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
         return;
       }
     } catch (err) {
-      console.error(
-        '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
-        err
-      );
+      // console.error(
+      //   '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
+      //   err
+      // );
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'checkDuplicateCustomers',
@@ -182,7 +183,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
         },
       });
-      console.log(err);
+      // console.log(err);
       logErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'componentDidMount',
@@ -197,10 +198,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
     } catch (err) {
-      console.error(
-        '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
-        err
-      );
+      // console.error(
+      //   '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
+      //   err
+      // );
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'updatePhoneNumber',

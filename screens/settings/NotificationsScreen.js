@@ -65,7 +65,7 @@ export default class NotificationsScreen extends React.Component {
         }
       }
     } catch (err) {
-      console.error('[NotificationsScreen] Airtable:', err);
+      // console.error('[NotificationsScreen] Airtable:', err);
       logErrorToSentry({
         screen: 'NotificationsScreen',
         action: 'componentDidMount',
@@ -108,12 +108,14 @@ export default class NotificationsScreen extends React.Component {
     try {
       const customerId = await getAsyncCustomerAuth();
       const generalPrefs = Object.keys(this.state.generalNotifs).filter(
+        // eslint-disable-next-line
         function(type) {
           return this.state.generalNotifs[type];
         }.bind(this)
       );
 
       const deliveryPrefs = Object.keys(this.state.deliveryNotifs).filter(
+        // eslint-disable-next-line
         function(type) {
           return this.state.deliveryNotifs[type];
         }.bind(this)
@@ -125,10 +127,10 @@ export default class NotificationsScreen extends React.Component {
       });
       await this.props.navigation.goBack();
     } catch (err) {
-      console.error(
-        '[NotificationsScreen] (saveNotificationsSettings) Airtable:',
-        err
-      );
+      // console.error(
+      //   '[NotificationsScreen] (saveNotificationsSettings) Airtable:',
+      //   err
+      // );
       logErrorToSentry({
         screen: 'NotificationsScreen',
         action: 'saveNotificationsSettings',

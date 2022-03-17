@@ -44,7 +44,6 @@ export default class CompleteSignUpScreen extends React.Component {
     try {
       this.completeSignUp();
     } catch (err) {
-      console.error('[CompleteSignUpScreen] (handleSubmit) Airtable:', err);
       logAuthErrorToSentry({
         screen: 'CompleteSignUpScreen',
         action: 'handleSubmit',
@@ -67,7 +66,7 @@ export default class CompleteSignUpScreen extends React.Component {
         if (error) errorMsg = 'Name cannot be blank';
         break;
       default:
-        console.log('Not reached');
+        break;
     }
     this.setState((prevState) => ({
       errors: { ...prevState.errors, [inputField]: errorMsg },
@@ -119,7 +118,7 @@ export default class CompleteSignUpScreen extends React.Component {
       Sentry.Native.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
-      console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
+      // console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
       logErrorToSentry({
         screen: 'CompleteSignUpScreen',
         action: 'addCustomer',

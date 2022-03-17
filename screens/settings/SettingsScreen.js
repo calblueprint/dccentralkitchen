@@ -80,7 +80,7 @@ export default function SettingsScreen(props) {
             setCustomer(customerRecord);
           }
         } catch (err) {
-          console.error('[SettingsScreen] Airtable:', err);
+          // console.error('[SettingsScreen] Airtable:', err);
           logErrorToSentry({
             screen: 'SettingsScreen',
             action: 'useFocusEffect',

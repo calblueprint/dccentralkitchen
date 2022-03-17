@@ -37,7 +37,7 @@ export default function RewardsFooter({ navigation }) {
             setCustomer(cust);
           }
         } catch (err) {
-          console.error('[RewardsFooter] Airtable:', err);
+          // console.error('[RewardsFooter] Airtable:', err);
           logErrorToSentry({
             screen: 'RewardsFooter',
             action: 'useFocusEffect',

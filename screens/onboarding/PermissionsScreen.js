@@ -32,17 +32,17 @@ export default function PermissionsScreen(props) {
         generalNotifications: [notificationTypes.SMS],
       });
 
+      // eslint-disable-next-line
       const response = await sendTextMessage(
         customerId.id,
         'Healthy Corners: Thank you for joining Healthy Corners notifications. Reply STOP to unsubscribe.'
       );
 
-      console.log(
-        response ? '[sendTextMessage] Success' : '[sendTextMessage] Failed'
-      );
+      // console.log(
+      //   response ? '[sendTextMessage] Success' : '[sendTextMessage] Failed'
+      // );
       navigateMapScreen();
     } catch (err) {
-      console.error('[PermissionsScreen] (enableNotifications) Airtable:', err);
       logErrorToSentry({
         screen: 'PermissionsScreen',
         action: 'enableNotifications',

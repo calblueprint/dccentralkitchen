@@ -69,7 +69,7 @@ export default class RewardsScreen extends React.Component {
         isLoading: false,
       });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       logErrorToSentry({
         screen: 'RewardsScreem',
         action: 'componentDidMount',

@@ -60,7 +60,7 @@ export default class ResourcesScreen extends React.Component {
 
       this.setState({ sections });
     } catch (err) {
-      console.error('[ResourcesScreen] Airtable: ', err);
+      // console.error('[ResourcesScreen] Airtable: ', err);
       logErrorToSentry({
         screen: 'ResourcesScreen',
         action: 'componentDidMount',

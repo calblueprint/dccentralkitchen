@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
@@ -119,7 +119,6 @@ export function NavHeaderContainer({
       style={{
         display: 'flex',
         flexDirection: vertical ? 'column' : 'row',
-        // <<<<<<< HEAD
         alignItems: alignItems || 'flex-start',
         justifyContent: justifyContent || 'center',
         paddingTop: paddingTop === 0 ? 0 : 16 + topInset,
@@ -127,13 +126,6 @@ export function NavHeaderContainer({
         height,
         minHeight: 62 + topInset,
         marginBottom: withMargin ? 16 : 0,
-        // =======
-        //         alignItems: vertical ? 'flex-start' : 'center',
-        //         justifyContent: 'space-between',
-        //         paddingBottom: 4,
-        //         marginTop: Platform.OS === 'ios' ? 2 + topInset : 20 + topInset,
-        //         marginBottom: withMargin ? 16 : 10,
-        // >>>>>>> main
         backgroundColor: backgroundColor || Colors.bgLight,
         shadowColor: noShadow ? 'transparent' : Colors.bgDark,
         elevation: noShadow ? 0 : 7,

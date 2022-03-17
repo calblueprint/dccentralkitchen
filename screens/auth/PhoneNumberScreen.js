@@ -92,7 +92,7 @@ export default class PhoneNumberScreen extends React.Component {
         error = errorMsg !== null;
         break;
       default:
-        console.log('Not reached');
+        break;
     }
     this.setState((prevState) => ({
       errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
@@ -152,7 +152,6 @@ export default class PhoneNumberScreen extends React.Component {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
         },
       });
-      console.log(err);
       logErrorToSentry({
         screen: 'PhoneNumberScreen',
         action: 'openRecaptcha',
@@ -172,7 +171,6 @@ export default class PhoneNumberScreen extends React.Component {
       }
       return null;
     } catch (err) {
-      console.log(err);
       logErrorToSentry({
         screen: 'PhoneNumberScreen',
         action: 'findCustomer',
