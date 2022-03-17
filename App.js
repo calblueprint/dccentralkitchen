@@ -74,7 +74,7 @@ function handleLoadingError(error) {
     action: 'AppLoading',
     error: err,
   });
-  console.warn(error);
+  // console.warn(error);
 }
 
 function handleFinishLoading(setLoadingComplete) {

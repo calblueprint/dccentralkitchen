@@ -20,6 +20,7 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
+import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   findDefaultStore,
   findStoreDistance,
@@ -47,6 +48,7 @@ export default function MapScreen(props) {
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
+
   const stores = useStores();
   stores.forEach((store) => {
     const currStore = store;
@@ -103,6 +105,17 @@ export default function MapScreen(props) {
       changeCurrentStore(filteredStoresCopy[0], true, false);
     }
   }, [mapFilterObj, stores]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const customerId = await getAsyncCustomerAuth();
+      if (customerId.showLandingScreen) {
+        // console.log(customerId);
+        props.navigation.navigate('GettingStartedOverlay', { customerId });
+      }
+    };
+
+    fetchUser();
+  }, []); // eslint-disable-line
 
   // Update the current store and map region.
   // Only expand (reset) the bottom sheet to display products if navigated from StoreList
@@ -204,7 +217,7 @@ export default function MapScreen(props) {
 
         {/* Map Filter */}
         <MapFilterBlank />
-        {/**  <MapFilter
+        {/* <MapFilter
           toggleMapFilterOptions={() =>
             setShowMapFilterOptions(!showMapFilterOptions)
           }

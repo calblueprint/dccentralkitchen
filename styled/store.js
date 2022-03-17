@@ -64,6 +64,7 @@ export const SearchBar = styled.TouchableOpacity`
   background-color: white;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
   elevation: 12;
+  margin: auto;
 `;
 
 export const StoreDetailText = styled(Body)`
