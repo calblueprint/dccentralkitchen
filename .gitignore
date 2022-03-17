@@ -88,3 +88,7 @@ typings/
 
 # next.js build output
 .next
+
+# WebStorm project
+.idea
+temp

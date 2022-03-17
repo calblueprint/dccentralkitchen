@@ -3,11 +3,11 @@ import * as Haptics from 'expo-haptics';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Colors from '../constants/Colors';
-import { HamburgerButton } from '../styled/hamburger';
+import { MapButtonStyling } from '../styled/MapButtonStyling';
 
 function CenterLocation(props) {
   return (
-    <HamburgerButton
+    <MapButtonStyling
       onPress={() => {
         Haptics.impactAsync('medium');
         props.callBack();
@@ -24,7 +24,7 @@ function CenterLocation(props) {
         size={20}
         color={Colors.lightText}
       />
-    </HamburgerButton>
+    </MapButtonStyling>
   );
 }
 

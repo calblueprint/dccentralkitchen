@@ -1,13 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { HamburgerButton } from '../styled/hamburger';
+import { MapButtonStyling } from '../styled/MapButtonStyling';
 
 function Hamburger({ navigation }) {
   return (
-    <HamburgerButton onPress={() => navigation.toggleDrawer()}>
+    <MapButtonStyling onPress={() => navigation.toggleDrawer()}>
       <FontAwesome5 name="bars" solid size={24} />
-    </HamburgerButton>
+    </MapButtonStyling>
   );
 }
 

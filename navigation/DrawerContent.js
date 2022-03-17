@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerItemList } from '@react-navigation/drawer';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Analytics from 'expo-firebase-analytics';
@@ -14,12 +14,11 @@ import {
   ButtonLabel,
   FilledButtonContainer,
   Subtitle,
-  Title,
 } from '../components/BaseComponents';
 import Colors from '../constants/Colors';
 import { env } from '../environment';
 import { getCustomerById } from '../lib/airtable/request';
-import { completeLogout } from '../lib/authUtils';
+import { completeLogout, getAsyncCustomerAuth } from '../lib/authUtils';
 import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
@@ -44,22 +43,23 @@ function DrawerContent(props) {
 
       const fetchUser = async () => {
         try {
-          const customerId = await AsyncStorage.getItem('customerId');
+          const customerId = await getAsyncCustomerAuth();
+
           let cust = null;
           if (customerId != null) {
-            cust = await getCustomerById(customerId);
+            cust = await getCustomerById(customerId.id);
           } else {
             cust = { name: 'Guest' };
           }
           if (isActive) {
             setUserLog(cust);
             if (cust.name === 'Guest') {
-              Sentry.captureMessage('Guest Login Successful');
+              Sentry.Native.captureMessage('Guest Login Successful');
               Analytics.logEvent('drawer_load', {
                 purpose: 'Guest Login Successful',
               });
             } else {
-              Sentry.captureMessage('Returning User');
+              Sentry.Native.captureMessage('Returning User');
               Analytics.logEvent('drawer_load', {
                 purpose: 'Returning User',
               });
@@ -68,7 +68,7 @@ function DrawerContent(props) {
             setIsLoading(false);
           }
         } catch (err) {
-          console.error('[DrawerContent] Airtable:', err);
+          // console.error('[DrawerContent] Airtable:', err);
           logErrorToSentry({
             screen: 'DrawerContent',
             action: 'componentDidMount',
@@ -150,18 +150,14 @@ function DrawerContent(props) {
           )}
         </ColumnContainer>
       </View>
+      {/** 
       <ButtonContainer
         style={{ paddingLeft: 24, paddingVertical: 13 }}
         onPress={() => {
-          props.navigation.goBack();
-          setTimeout(
-            () =>
-              props.navigation.navigate('Stores', { screen: 'RewardsOverlay' }),
-            700
-          );
+          setTimeout(() => props.navigation.navigate('RewardsOverlay'), 700);
         }}>
         <Title>Healthy Rewards</Title>
-      </ButtonContainer>
+      </ButtonContainer> */}
       <DrawerItemList {...props} />
       <View
         style={{
@@ -179,15 +175,7 @@ function DrawerContent(props) {
             <Subtitle color={Colors.error}>TESTING LOGOUT</Subtitle>
           </ButtonContainer>
         )}
-        <ButtonContainer
-          style={{ paddingBottom: 16 }}
-          onPress={() =>
-            WebBrowser.openBrowserAsync(
-              'https://healthycorners.calblueprint.org/faq.html'
-            )
-          }>
-          <Subtitle>FAQs</Subtitle>
-        </ButtonContainer>
+
         <ButtonContainer
           style={{ paddingBottom: 16 }}
           onPress={() =>
