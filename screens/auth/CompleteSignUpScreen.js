@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -13,7 +14,7 @@ import {
 import Colors from '../../constants/Colors';
 import { newSignUpBonus } from '../../constants/Rewards';
 import { createCustomer, createPushToken } from '../../lib/airtable/request';
-import { inputFields, setAsyncCustomerAuth } from '../../lib/authUtils';
+import { inputFields } from '../../lib/authUtils';
 import {
   logAuthErrorToSentry,
   logErrorToSentry,
@@ -129,18 +130,13 @@ export default class CompleteSignUpScreen extends React.Component {
   };
 
   _asyncSignUp = async (customerId) => {
-    const customerObj = {
-      id: customerId,
-      showLandingScreen: true,
-    };
-    await setAsyncCustomerAuth(customerObj);
+    await AsyncStorage.setItem('customerId', customerId);
     Keyboard.dismiss();
     this.props.navigation.navigate('Permissions');
   };
 
   completeSignUp = async () => {
     const customerId = await this.addCustomer();
-
     await this._asyncSignUp(customerId);
   };
 

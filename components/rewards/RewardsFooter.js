@@ -30,9 +30,8 @@ export default function RewardsFooter({ navigation }) {
 
       const fetchUser = async () => {
         try {
-          const jsonValue = await AsyncStorage.getItem('customerId');
-          const customerId = jsonValue !== null ? JSON.parse(jsonValue) : null;
-          const cust = await getCustomerById(customerId.id);
+          const customerId = await AsyncStorage.getItem('customerId');
+          const cust = await getCustomerById(customerId);
           if (isActive) {
             setCustomer(cust);
           }

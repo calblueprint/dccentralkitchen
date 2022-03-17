@@ -1,4 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
@@ -9,7 +10,7 @@ import {
 } from '../../components/BaseComponents';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
-import { getAsyncCustomerAuth, inputFields } from '../../lib/authUtils';
+import { inputFields } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
@@ -34,9 +35,9 @@ export default class NameChangeScreen extends React.Component {
 
   // Load customer record
   async componentDidMount() {
-    const customerId = await getAsyncCustomerAuth();
+    const customerId = await AsyncStorage.getItem('customerId');
     try {
-      const customer = await getCustomerById(customerId.id);
+      const customer = await getCustomerById(customerId);
 
       this.setState({ customer });
     } catch (err) {

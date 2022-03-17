@@ -20,7 +20,6 @@ import StoreProducts from '../../components/product/StoreProducts';
 import StoreMarker from '../../components/store/StoreMarker';
 import Colors from '../../constants/Colors';
 import { deltas, initialRegion } from '../../constants/Map';
-import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   findDefaultStore,
   findStoreDistance,
@@ -48,7 +47,6 @@ export default function MapScreen(props) {
 
   const storeProducts = useStoreProducts(currentStore);
   const { locationPermissions, currentLocation } = useCurrentLocation();
-
   const stores = useStores();
   stores.forEach((store) => {
     const currStore = store;

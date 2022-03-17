@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import Colors from '../constants/Colors';
@@ -108,10 +108,6 @@ export function NavHeaderContainer({
   children,
   vertical,
   noShadow,
-  justifyContent,
-  paddingTop,
-  alignItems,
-  height,
 }) {
   const topInset = useSafeAreaInsets().top;
   return (
@@ -119,13 +115,11 @@ export function NavHeaderContainer({
       style={{
         display: 'flex',
         flexDirection: vertical ? 'column' : 'row',
-        alignItems: alignItems || 'flex-start',
-        justifyContent: justifyContent || 'center',
-        paddingTop: paddingTop === 0 ? 0 : 16 + topInset,
+        alignItems: vertical ? 'flex-start' : 'center',
+        justifyContent: 'space-between',
         paddingBottom: 4,
-        height,
-        minHeight: 62 + topInset,
-        marginBottom: withMargin ? 16 : 0,
+        marginTop: Platform.OS === 'ios' ? 2 + topInset : 20 + topInset,
+        marginBottom: withMargin ? 16 : 10,
         backgroundColor: backgroundColor || Colors.bgLight,
         shadowColor: noShadow ? 'transparent' : Colors.bgDark,
         elevation: noShadow ? 0 : 7,
@@ -133,7 +127,6 @@ export function NavHeaderContainer({
         shadowOpacity: 0.2,
         shadowRadius: 3,
         zIndex: 1,
-        textAlign: 'center',
       }}>
       {children}
     </View>
@@ -146,10 +139,6 @@ NavHeaderContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   vertical: PropTypes.bool,
   noShadow: PropTypes.bool,
-  justifyContent: PropTypes.string,
-  paddingTop: PropTypes.number,
-  alignItems: PropTypes.string,
-  height: PropTypes.number,
 };
 
 NavHeaderContainer.defaultProps = {
@@ -158,10 +147,6 @@ NavHeaderContainer.defaultProps = {
   vertical: null,
   withMargin: null,
   noShadow: null,
-  justifyContent: null,
-  paddingTop: null,
-  alignItems: null,
-  height: null,
 };
 
 export const NavTitle = styled(Title)`
