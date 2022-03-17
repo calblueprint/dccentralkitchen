@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { FlatList, View } from 'react-native';
@@ -15,6 +14,7 @@ import {
 import StoreSelectCard from '../../components/store/StoreSelectCard';
 import Colors from '../../constants/Colors';
 import { getCustomerById, updateCustomer } from '../../lib/airtable/request';
+import { getAsyncCustomerAuth } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import {
   findStoreDistance,
@@ -48,13 +48,14 @@ export default function StoreSelectScreen(props) {
     }
     const loadCustomer = async () => {
       try {
-        const customerId = await AsyncStorage.getItem('customerId');
-        const cust = await getCustomerById(customerId);
+        const customerId = await getAsyncCustomerAuth();
+
+        const cust = await getCustomerById(customerId.id);
         const favoriteStores = cust.favoriteStoreIds || [];
         setSelectedStores(favoriteStores);
         setLoading(false);
       } catch (err) {
-        console.log('[StoreSelectScreen](loadCustomer) Airtable:', err);
+        // console.log('[StoreSelectScreen](loadCustomer) Airtable:', err);
         logErrorToSentry({
           screen: 'StoreSelectScreen',
           action: 'loadCustomer',
@@ -76,13 +77,13 @@ export default function StoreSelectScreen(props) {
 
   const saveFavoriteStores = async () => {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
-      await updateCustomer(customerId, {
+      const customerId = await getAsyncCustomerAuth();
+      await updateCustomer(customerId.id, {
         favoriteStoreIds: selectedStores,
       });
       await navigatePermissions();
     } catch (err) {
-      console.error('[StoreSelectScreen] (saveFavoriteStores) Airtable:', err);
+      // console.error('[StoreSelectScreen] (saveFavoriteStores) Airtable:', err);
       logErrorToSentry({
         screen: 'StoreSelectScreen',
         action: 'saveFavoriteStores',

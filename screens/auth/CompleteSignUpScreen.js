@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -14,7 +13,7 @@ import {
 import Colors from '../../constants/Colors';
 import { newSignUpBonus } from '../../constants/Rewards';
 import { createCustomer, createPushToken } from '../../lib/airtable/request';
-import { inputFields } from '../../lib/authUtils';
+import { inputFields, setAsyncCustomerAuth } from '../../lib/authUtils';
 import {
   logAuthErrorToSentry,
   logErrorToSentry,
@@ -45,7 +44,6 @@ export default class CompleteSignUpScreen extends React.Component {
     try {
       this.completeSignUp();
     } catch (err) {
-      console.error('[CompleteSignUpScreen] (handleSubmit) Airtable:', err);
       logAuthErrorToSentry({
         screen: 'CompleteSignUpScreen',
         action: 'handleSubmit',
@@ -68,7 +66,7 @@ export default class CompleteSignUpScreen extends React.Component {
         if (error) errorMsg = 'Name cannot be blank';
         break;
       default:
-        console.log('Not reached');
+        break;
     }
     this.setState((prevState) => ({
       errors: { ...prevState.errors, [inputField]: errorMsg },
@@ -117,10 +115,10 @@ export default class CompleteSignUpScreen extends React.Component {
       Analytics.logEvent('sign_up_complete', {
         customer_id: customerId,
       });
-      Sentry.captureMessage('Sign Up Successful');
+      Sentry.Native.captureMessage('Sign Up Successful');
       return customerId;
     } catch (err) {
-      console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
+      // console.error('[CompleteSignUpScreen] (addCustomer) Airtable:', err);
       logErrorToSentry({
         screen: 'CompleteSignUpScreen',
         action: 'addCustomer',
@@ -131,13 +129,18 @@ export default class CompleteSignUpScreen extends React.Component {
   };
 
   _asyncSignUp = async (customerId) => {
-    await AsyncStorage.setItem('customerId', customerId);
+    const customerObj = {
+      id: customerId,
+      showLandingScreen: true,
+    };
+    await setAsyncCustomerAuth(customerObj);
     Keyboard.dismiss();
     this.props.navigation.navigate('Permissions');
   };
 
   completeSignUp = async () => {
     const customerId = await this.addCustomer();
+
     await this._asyncSignUp(customerId);
   };
 

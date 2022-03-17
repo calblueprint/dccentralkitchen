@@ -22,8 +22,6 @@ export default function StoresStackNavigator() {
   return (
     <StoresStack.Navigator
       screenOptions={{
-        cardOverlayEnabled: true,
-        drawerLabel: 'Stores',
         gestureEnabled: true,
         headerShown: false,
         cardStyle: { backgroundColor: Colors.bgLight },
@@ -48,6 +46,17 @@ export default function StoresStackNavigator() {
           },
         }}
       /> */}
+      <StoresStack.Screen
+        name="GettingStartedOverlay"
+        component={GettingStartedScreen}
+        options={{
+          gestureDirection: 'vertical',
+          gestureResponseDistance: {
+            vertical: Window.height,
+          },
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
       <StoresStack.Screen
         name="StoreDetailsScreen"
         component={StoreDetailsScreen}

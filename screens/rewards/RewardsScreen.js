@@ -1,5 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import * as Updates from 'expo-updates';
 import PropTypes from 'prop-types';
@@ -22,7 +22,7 @@ import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomerById } from '../../lib/airtable/request';
-import { completeLogout } from '../../lib/authUtils';
+import { completeLogout, getAsyncCustomerAuth } from '../../lib/authUtils';
 import { clearUserLog, logErrorToSentry } from '../../lib/logUtils';
 import { getStoreData } from '../../lib/mapUtils';
 import { getCustomerTransactions } from '../../lib/rewardsUtils';
@@ -55,10 +55,10 @@ export default class RewardsScreen extends React.Component {
   // Load customer record & transactions
   async componentDidMount() {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
-      const isGuest = customerId === RecordIds.guestCustomerId;
-      const customer = await getCustomerById(customerId);
-      const transactions = await getCustomerTransactions(customerId);
+      const customerId = await getAsyncCustomerAuth();
+      const isGuest = customerId.id === RecordIds.guestCustomerId;
+      const customer = await getCustomerById(customerId.id);
+      const transactions = await getCustomerTransactions(customerId.id);
       const participating = await getStoreData(`NOT({Rewards Accepted} = '')`);
 
       this.setState({
@@ -69,7 +69,7 @@ export default class RewardsScreen extends React.Component {
         isLoading: false,
       });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       logErrorToSentry({
         screen: 'RewardsScreem',
         action: 'componentDidMount',
@@ -196,7 +196,9 @@ export default class RewardsScreen extends React.Component {
             onIndexChange={(index) => {
               // eslint-disable-next-line react/no-unused-state
               this.setState({ index });
-              Analytics.setCurrentScreen(routes[index].title);
+              Analytics.logEvent('screen_view', {
+                screen_name: routes[index].title,
+              });
             }}
             initialLayout={{
               width: Window.width,

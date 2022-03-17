@@ -10,6 +10,19 @@ export const initialRegion = {
 };
 
 export const deltas = {
-  latitudeDelta: 0.01,
-  longitudeDelta: 0.01,
+  latitudeDelta: 0.05,
+  longitudeDelta: 0.05,
+};
+
+export const INITIAL_MAP_FILTER_STATE = {
+  wic: false,
+  couponProgramPartner: false,
+};
+
+export const INITIAL_FILTER_STATE = {
+  openNow: false,
+  productsInStock: false,
+  rewardsAccepted: false,
+  snapOrEbtAccepted: false,
+  ...INITIAL_MAP_FILTER_STATE,
 };

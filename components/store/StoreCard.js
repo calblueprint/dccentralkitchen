@@ -54,7 +54,7 @@ function StoreCard({ store, storeList }) {
             setFavorite(fav);
           }
         } catch (err) {
-          console.error('[StoreCard] Airtable:', err);
+          // console.error('[StoreCard] Airtable:', err);
           logErrorToSentry({
             screen: 'StoreCard',
             action: 'useFocusEffect',
@@ -68,7 +68,7 @@ function StoreCard({ store, storeList }) {
       return () => {
         isActive = false;
       };
-    }, [])
+    }, []) // eslint-disable-line
   );
 
   const favoriteStore = async () => {
