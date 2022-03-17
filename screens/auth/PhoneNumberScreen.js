@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Analytics from 'expo-firebase-analytics';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
@@ -17,7 +16,11 @@ import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { env, firebaseConfig } from '../../environment';
 import { getCustomersByPhoneNumber } from '../../lib/airtable/request';
-import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
+import {
+  formatPhoneNumberInput,
+  inputFields,
+  setAsyncCustomerAuth,
+} from '../../lib/authUtils';
 import { logErrorToSentry, setUserLog } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
@@ -57,14 +60,22 @@ export default class PhoneNumberScreen extends React.Component {
 
   _devBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    const customerObj = {
+      id: RecordIds.testCustomerId,
+      showLandingScreen: true,
+    };
+    await setAsyncCustomerAuth(customerObj);
     Keyboard.dismiss();
     this.props.navigation.navigate('App');
   };
 
   _favoriteBypass = async () => {
     // Doesn't enforce any resolution for this async call
-    await AsyncStorage.setItem('customerId', RecordIds.testCustomerId);
+    const customerObj = {
+      id: RecordIds.testCustomerId,
+      showLandingScreen: true,
+    };
+    await setAsyncCustomerAuth(customerObj);
     Keyboard.dismiss();
     this.props.navigation.navigate('Permissions');
   };
@@ -173,7 +184,11 @@ export default class PhoneNumberScreen extends React.Component {
     const customer = await this.findCustomer();
 
     if (customer) {
-      await AsyncStorage.setItem('customerId', customer.id);
+      const customerObj = {
+        id: customer.id,
+        showLandingScreen: true,
+      };
+      await setAsyncCustomerAuth(customerObj);
       Keyboard.dismiss();
       if ('favoriteStoreIds' in customer) {
         this.props.navigation.navigate('App');
