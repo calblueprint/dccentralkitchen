@@ -1,14 +1,18 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
 import Colors from '../../constants/Colors';
-import MapScreen from '../../screens/map/MapScreen';
+// import RewardsScreen from '../../screens/rewards/RewardsScreen';
+import Window from '../../constants/Layout';
 import GettingStartedScreen from '../../screens/map/GettingStartedScreen';
+import MapScreen from '../../screens/map/MapScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
 import StoreDetailsScreen from '../../screens/map/StoreDetailsScreen';
 import StoreListScreen from '../../screens/map/StoreListScreen';
-// import RewardsScreen from '../../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
