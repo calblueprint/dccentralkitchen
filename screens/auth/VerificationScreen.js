@@ -40,7 +40,7 @@ export default class VerificationScreen extends React.Component {
         errorMsg = validate('code', text);
         break;
       default:
-        console.log('Not reached');
+        break;
     }
 
     this.setState((prevState) => ({
@@ -99,7 +99,6 @@ export default class VerificationScreen extends React.Component {
         },
         isVerifyLoading: false,
       }));
-      console.log(err);
       logErrorToSentry({
         screen: 'VerificationScreen',
         action: 'verifyCode',

@@ -39,7 +39,7 @@ export default function StoreDetailsScreen(props) {
             setFavorite(fav);
           }
         } catch (err) {
-          console.error('[StoreDetailsScreen] Airtable:', err);
+          // console.error('[StoreDetailsScreen] Airtable:', err);
           logErrorToSentry({
             screen: 'StoreDetailsScreen',
             action: 'useFocusEffect',
@@ -53,7 +53,7 @@ export default function StoreDetailsScreen(props) {
       return () => {
         isActive = false;
       };
-    }, [])
+    }, []) // eslint-disable-line
   );
 
   return (

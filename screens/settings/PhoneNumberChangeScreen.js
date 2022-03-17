@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import * as firebase from 'firebase';
 import PropTypes from 'prop-types';
@@ -18,7 +17,11 @@ import {
   getCustomersByPhoneNumber,
   updateCustomer,
 } from '../../lib/airtable/request';
-import { formatPhoneNumberInput, inputFields } from '../../lib/authUtils';
+import {
+  formatPhoneNumberInput,
+  getAsyncCustomerAuth,
+  inputFields,
+} from '../../lib/authUtils';
 import { logAuthErrorToSentry, logErrorToSentry } from '../../lib/logUtils';
 import {
   AuthScreenContainer,
@@ -48,13 +51,13 @@ export default class PhoneNumberChangeScreen extends React.Component {
 
   // Load customer record
   async componentDidMount() {
-    const customerId = await AsyncStorage.getItem('customerId');
+    const customerId = await getAsyncCustomerAuth();
     try {
-      const customer = await getCustomerById(customerId);
+      const customer = await getCustomerById(customerId.id);
 
       this.setState({ customer });
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       logErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'componentDidMount',
@@ -76,7 +79,8 @@ export default class PhoneNumberChangeScreen extends React.Component {
         error = errorMsg !== null;
         break;
       default:
-        console.log('Not reached');
+        break;
+      // console.log('Not reached');
     }
     this.setState((prevState) => ({
       errors: { ...prevState.errors, [inputField]: errorMsg, submit: '' },
@@ -130,7 +134,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
           await this.completeVerification();
           return;
         }
-        console.log('Phone number already in use');
+        // console.log('Phone number already in use');
         const errorMsg = 'Phone number already in use';
         logAuthErrorToSentry({
           screen: 'PhoneNumberChangeScreen',
@@ -147,10 +151,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
         return;
       }
     } catch (err) {
-      console.error(
-        '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
-        err
-      );
+      // console.error(
+      //   '[PhoneNumberChangeScreen] (checkDuplicateCustomers) Airtable:',
+      //   err
+      // );
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'checkDuplicateCustomers',
@@ -179,7 +183,7 @@ export default class PhoneNumberChangeScreen extends React.Component {
           submit: `Error: You must complete the verification pop-up. Make sure your phone number is valid and try again.`,
         },
       });
-      console.log(err);
+      // console.log(err);
       logErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'componentDidMount',
@@ -194,10 +198,10 @@ export default class PhoneNumberChangeScreen extends React.Component {
         phoneNumber: this.state.values[inputFields.PHONENUM],
       });
     } catch (err) {
-      console.error(
-        '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
-        err
-      );
+      // console.error(
+      //   '[PhoneNumberChangeScreen] (updatePhoneNumber) Airtable:',
+      //   err
+      // );
       logAuthErrorToSentry({
         screen: 'PhoneNumberChangeScreen',
         action: 'updatePhoneNumber',

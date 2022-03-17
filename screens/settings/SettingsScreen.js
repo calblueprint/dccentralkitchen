@@ -1,5 +1,4 @@
 import { FontAwesome5 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Analytics from 'expo-firebase-analytics';
@@ -27,7 +26,7 @@ import SettingsCard from '../../components/settings/SettingsCard';
 import Colors from '../../constants/Colors';
 import RecordIds from '../../constants/RecordIds';
 import { getCustomerById } from '../../lib/airtable/request';
-import { completeLogout } from '../../lib/authUtils';
+import { completeLogout, getAsyncCustomerAuth } from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 
 export default function SettingsScreen(props) {
@@ -74,14 +73,14 @@ export default function SettingsScreen(props) {
 
       const fetchUser = async () => {
         try {
-          const customerId = await AsyncStorage.getItem('customerId');
-          const guest = customerId === RecordIds.guestCustomerId;
+          const customerId = await getAsyncCustomerAuth();
+          const guest = customerId.id === RecordIds.guestCustomerId;
           if (isActive && customerId != null && !guest) {
-            const customerRecord = await getCustomerById(customerId);
+            const customerRecord = await getCustomerById(customerId.id);
             setCustomer(customerRecord);
           }
         } catch (err) {
-          console.error('[SettingsScreen] Airtable:', err);
+          // console.error('[SettingsScreen] Airtable:', err);
           logErrorToSentry({
             screen: 'SettingsScreen',
             action: 'useFocusEffect',

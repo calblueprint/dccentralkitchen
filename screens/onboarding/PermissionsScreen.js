@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Image, View } from 'react-native';
@@ -12,7 +11,11 @@ import {
 import Colors from '../../constants/Colors';
 import Window from '../../constants/Layout';
 import { updateCustomer } from '../../lib/airtable/request';
-import { notificationTypes, sendTextMessage } from '../../lib/authUtils';
+import {
+  getAsyncCustomerAuth,
+  notificationTypes,
+  sendTextMessage,
+} from '../../lib/authUtils';
 import { logErrorToSentry } from '../../lib/logUtils';
 import { PermissionsContainer } from '../../styled/auth';
 import { ColumnContainer } from '../../styled/shared';
@@ -22,24 +25,24 @@ export default function PermissionsScreen(props) {
 
   const enableNotifications = async () => {
     try {
-      const customerId = await AsyncStorage.getItem('customerId');
+      const customerId = await getAsyncCustomerAuth();
       // Only SMS supported as of 11/14/20
-      await updateCustomer(customerId, {
+      await updateCustomer(customerId.id, {
         deliveryNotifications: [notificationTypes.SMS],
         generalNotifications: [notificationTypes.SMS],
       });
 
+      // eslint-disable-next-line
       const response = await sendTextMessage(
-        customerId,
+        customerId.id,
         'Healthy Corners: Thank you for joining Healthy Corners notifications. Reply STOP to unsubscribe.'
       );
 
-      console.log(
-        response ? '[sendTextMessage] Success' : '[sendTextMessage] Failed'
-      );
+      // console.log(
+      //   response ? '[sendTextMessage] Success' : '[sendTextMessage] Failed'
+      // );
       navigateMapScreen();
     } catch (err) {
-      console.error('[PermissionsScreen] (enableNotifications) Airtable:', err);
       logErrorToSentry({
         screen: 'PermissionsScreen',
         action: 'enableNotifications',

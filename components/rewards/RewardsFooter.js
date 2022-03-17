@@ -30,13 +30,14 @@ export default function RewardsFooter({ navigation }) {
 
       const fetchUser = async () => {
         try {
-          const customerId = await AsyncStorage.getItem('customerId');
-          const cust = await getCustomerById(customerId);
+          const jsonValue = await AsyncStorage.getItem('customerId');
+          const customerId = jsonValue !== null ? JSON.parse(jsonValue) : null;
+          const cust = await getCustomerById(customerId.id);
           if (isActive) {
             setCustomer(cust);
           }
         } catch (err) {
-          console.error('[RewardsFooter] Airtable:', err);
+          // console.error('[RewardsFooter] Airtable:', err);
           logErrorToSentry({
             screen: 'RewardsFooter',
             action: 'useFocusEffect',

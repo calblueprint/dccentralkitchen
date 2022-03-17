@@ -13,7 +13,7 @@ const ONBOARDING_CONTENT = [
   {
     title: 'Know what’s in stock',
     body:
-      'See what products are available in stores before you even leave the house',
+      'See what products are available in stores before you leave the house',
     illustration: require('../assets/images/Onboarding_3.png'),
   },
   {
