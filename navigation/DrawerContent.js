@@ -195,8 +195,6 @@ function DrawerContent(props) {
   );
 }
 
-//export default DrawerContent;
-
 DrawerContent.propTypes = {
   navigation: PropTypes.object.isRequired,
 };

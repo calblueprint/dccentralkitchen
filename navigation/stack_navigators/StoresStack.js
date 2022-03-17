@@ -3,6 +3,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import Colors from '../../constants/Colors';
 import MapScreen from '../../screens/map/MapScreen';
+import GettingStartedScreen from '../../screens/map/GettingStartedScreen';
 import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
 import StoreDetailsScreen from '../../screens/map/StoreDetailsScreen';
