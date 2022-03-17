@@ -1,12 +1,11 @@
 import {
-  CardStyleInterpolators,
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
 import React from 'react';
 import { Platform } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../../constants/Colors';
+// import RewardsScreen from '../../screens/rewards/RewardsScreen';
 import Window from '../../constants/Layout';
 import GettingStartedScreen from '../../screens/map/GettingStartedScreen';
 import MapScreen from '../../screens/map/MapScreen';
@@ -14,7 +13,6 @@ import ProductDetailsScreen from '../../screens/map/ProductDetailsScreen';
 import ProductsScreen from '../../screens/map/ProductsScreen';
 import StoreDetailsScreen from '../../screens/map/StoreDetailsScreen';
 import StoreListScreen from '../../screens/map/StoreListScreen';
-import RewardsScreen from '../../screens/rewards/RewardsScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -41,7 +39,8 @@ export default function StoresStackNavigator() {
         name="ProductDetails"
         component={ProductDetailsScreen}
       />
-      <StoresStack.Screen
+      {/* request hide healthy rewards */}
+      {/* <StoresStack.Screen
         name="RewardsOverlay"
         component={RewardsScreen}
         options={{
@@ -51,8 +50,7 @@ export default function StoresStackNavigator() {
             vertical: 162 + useSafeAreaInsets().top,
           },
         }}
-      />
-
+      /> */}
       <StoresStack.Screen
         name="GettingStartedOverlay"
         component={GettingStartedScreen}
@@ -64,7 +62,6 @@ export default function StoresStackNavigator() {
           ...TransitionPresets.ModalPresentationIOS,
         }}
       />
-
       <StoresStack.Screen
         name="StoreDetailsScreen"
         component={StoreDetailsScreen}

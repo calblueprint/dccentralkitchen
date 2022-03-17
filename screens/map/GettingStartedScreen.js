@@ -130,6 +130,7 @@ export default function GettingStartedScreen({ route, navigation }) {
         <View style={styles.checkboxContainer}>
           <Checkbox.Android
             status={checked ? 'checked' : 'unchecked'}
+            // eslint-disable-next-line
             onPress={handleCheckbox}
             color={Colors.primaryGreen}
           />

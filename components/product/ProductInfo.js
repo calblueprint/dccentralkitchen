@@ -17,7 +17,8 @@ function ProductInfo({ product }) {
       <Subtitle>{detail}</Subtitle>
       <SpaceBetweenRowContainer style={{ marginTop: 12, paddingBottom: 16 }}>
         <Body>{`${displayDollarValue(customerCost)} each`}</Body>
-        <Body>{`Earns ${Math.round(points)} pts`}</Body>
+        {/* request hide healthy rewards */}
+        {/* <Body>{`Earns ${Math.round(points)} pts`}</Body> */}
       </SpaceBetweenRowContainer>
       <Caption color={Colors.secondaryText}>
         Note: Pricing and availability may vary. Please contact or visit this

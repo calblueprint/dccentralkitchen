@@ -278,6 +278,7 @@ export default function MapScreen(props) {
           ref={bottomSheetRef}
         />
       </View>
+      {/* request hide healthy rewards */}
 
       {/* <RewardsFooter navigation={props.navigation} /> */}
       {(!locationPermissions || stores.length === 0) && (

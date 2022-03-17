@@ -143,15 +143,16 @@ function DrawerContent(props) {
               </FilledButtonContainer>
             )}
           </SpaceBetweenRowContainer>
-          {isGuest && (
+          {/* request hide healthy rewards */}
+          {/* {isGuest && (
             <Subtitle style={{ color: Colors.lightText }}>
               Log in to start saving with Healthy Rewards
             </Subtitle>
-          )}
+          )} */}
         </ColumnContainer>
       </View>
-      {/** 
-      <ButtonContainer
+      {/* request hide healthy rewards */}
+      {/* <ButtonContainer
         style={{ paddingLeft: 24, paddingVertical: 13 }}
         onPress={() => {
           setTimeout(() => props.navigation.navigate('RewardsOverlay'), 700);
@@ -194,6 +195,9 @@ function DrawerContent(props) {
   );
 }
 
+DrawerContent.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 export default DrawerContent;
 
 DrawerContent.propTypes = {

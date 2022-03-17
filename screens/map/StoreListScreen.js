@@ -131,14 +131,14 @@ export default function StoreListScreen(props) {
             updateFilters('couponProgramPartner');
           }}
         />
-        <ProgramTag
+        {/* <ProgramTag
           program="Healthy Rewards"
           tag
           selected={filters.rewardsAccepted}
           selectedFunc={() => {
             updateFilters('rewardsAccepted');
           }}
-        />
+        /> */}
       </ScrollView>
       <FlatList
         data={filteredStores}
