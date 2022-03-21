@@ -172,14 +172,30 @@ function DrawerContent(props) {
           }>
           <Subtitle>Nominate a store</Subtitle>
         </ButtonContainer>
+        {/* <ButtonContainer> */}
+        <Drawer.Screen
+          name="LandingScreenOverlay"
+          component={LandingScreen}
+          options={{
+            title: 'How Our App Works',
+          }}
+        />
+        {/* </ButtonContainer> */}
+        <ButtonContainer
+          onPress={() => props.navigation.navigate('LandingScreenOverlay')}>
+          <Subtitle>How Our App Works</Subtitle>
+        </ButtonContainer>
         <ButtonContainer
           onPress={() =>
             WebBrowser.openBrowserAsync('http://tiny.cc/RewardsFeedback')
           }>
           <Subtitle>Submit feedback</Subtitle>
         </ButtonContainer>
-        <ButtonContainer>
-          <Drawer.Screen name="Home" component={LandingScreen} />
+        <ButtonContainer
+          onPress={() =>
+            WebBrowser.openBrowserAsync('http://tiny.cc/RewardsFeedback')
+          }>
+          <Subtitle>Submit feedback</Subtitle>
         </ButtonContainer>
       </View>
     </View>
