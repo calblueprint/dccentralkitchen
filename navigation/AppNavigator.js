@@ -34,7 +34,7 @@ function DrawerNavigator() {
   return (
     <Drawer.Navigator
       // eslint-disable-next-line react/jsx-props-no-spreading
-      drawerContent={(props) => <DrawerContent {...props} />}
+      drawerContent={(props) => <DrawerContent {...props} Drawer={Drawer} />}
       drawerContentOptions={{
         labelStyle: {
           fontFamily: 'opensans-semibold',
@@ -72,13 +72,13 @@ function DrawerNavigator() {
           title: 'Resources',
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="LandingScreenOverlay"
         component={LandingScreen}
         options={{
           title: 'How Our App Works',
         }}
-      />
+      /> */}
       <Drawer.Screen
         name="WebComponent"
         component={WebComponent}
@@ -135,7 +135,6 @@ export default function AppContainer() {
           options={{ animationEnabled: false }}
         />
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
-
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
         <AppStack.Screen name="Verify" component={VerificationScreen} />
       </AppStack.Navigator>

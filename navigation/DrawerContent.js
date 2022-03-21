@@ -20,6 +20,7 @@ import { env } from '../environment';
 import { getCustomerById } from '../lib/airtable/request';
 import { completeLogout, getAsyncCustomerAuth } from '../lib/authUtils';
 import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
+import LandingScreen from '../screens/map/LandingScreen';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
@@ -87,6 +88,7 @@ function DrawerContent(props) {
         }
       };
 
+      console.log(Object.keys(props));
       fetchUser();
 
       return () => {
@@ -100,7 +102,7 @@ function DrawerContent(props) {
   }
 
   const isGuest = customer.name === 'Guest';
-
+  const { Drawer } = props;
   return (
     <View
       style={{
@@ -143,26 +145,12 @@ function DrawerContent(props) {
               </FilledButtonContainer>
             )}
           </SpaceBetweenRowContainer>
-          {/* request hide healthy rewards */}
-          {/* {isGuest && (
-            <Subtitle style={{ color: Colors.lightText }}>
-              Log in to start saving with Healthy Rewards
-            </Subtitle>
-          )} */}
         </ColumnContainer>
       </View>
-      {/* request hide healthy rewards */}
-      {/* <ButtonContainer
-        style={{ paddingLeft: 24, paddingVertical: 13 }}
-        onPress={() => {
-          setTimeout(() => props.navigation.navigate('RewardsOverlay'), 700);
-        }}>
-        <Title>Healthy Rewards</Title>
-      </ButtonContainer> */}
       <DrawerItemList {...props} />
       <View
         style={{
-          flex: 1,
+          flex: 2,
           marginLeft: 24,
           flexDirection: 'column',
           justifyContent: 'flex-end',
@@ -190,6 +178,9 @@ function DrawerContent(props) {
           }>
           <Subtitle>Submit feedback</Subtitle>
         </ButtonContainer>
+        <ButtonContainer>
+          <Drawer.Screen name="Home" component={LandingScreen} />
+        </ButtonContainer>
       </View>
     </View>
   );
@@ -197,9 +188,11 @@ function DrawerContent(props) {
 
 DrawerContent.propTypes = {
   navigation: PropTypes.object.isRequired,
+  Drawer: PropTypes.object.isRequired,
 };
 export default DrawerContent;
 
 DrawerContent.propTypes = {
   navigation: PropTypes.object.isRequired,
+  Drawer: PropTypes.object.isRequired,
 };
