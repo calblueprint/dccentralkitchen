@@ -88,7 +88,6 @@ function DrawerContent(props) {
         }
       };
 
-      console.log(Object.keys(props));
       fetchUser();
 
       return () => {

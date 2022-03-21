@@ -72,13 +72,13 @@ function DrawerNavigator() {
           title: 'Resources',
         }}
       />
-      {/* <Drawer.Screen
+      <Drawer.Screen
         name="LandingScreenOverlay"
         component={LandingScreen}
         options={{
           title: 'How Our App Works',
         }}
-      /> */}
+      />
       <Drawer.Screen
         name="WebComponent"
         component={WebComponent}
