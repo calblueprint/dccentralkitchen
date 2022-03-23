@@ -10,10 +10,10 @@ import VerificationScreen from '../screens/auth/VerificationScreen';
 import LandingScreen from '../screens/map/LandingScreen';
 import DrawerContent from './DrawerContent';
 import AuthStackNavigator from './stack_navigators/AuthStack';
+import RecipesStackNavigator from './stack_navigators/RecipesStack';
 import ResourcesStackNavigator from './stack_navigators/ResourcesStack';
 import SettingsStackNavigator from './stack_navigators/SettingsStack';
 import StoresStackNavigator from './stack_navigators/StoresStack';
-import RecipesStackNavigator from './stack_navigators/RecipesStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -59,6 +59,13 @@ function DrawerNavigator() {
         options={{ title: 'Map', swipeEnabled: false }}
       />
       <Drawer.Screen
+        name="WebComponent"
+        component={WebComponent}
+        options={{
+          title: 'About',
+        }}
+      />
+      <Drawer.Screen
         name="Recipes"
         component={RecipesStackNavigator}
         options={{
@@ -73,24 +80,17 @@ function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name="LandingScreenOverlay"
-        component={LandingScreen}
-        options={{
-          title: 'How Our App Works',
-        }}
-      />
-      <Drawer.Screen
-        name="WebComponent"
-        component={WebComponent}
-        options={{
-          title: 'FAQ',
-        }}
-      />
-      <Drawer.Screen
         name="Settings"
         component={SettingsStackNavigator}
         options={{
           title: 'Settings',
+        }}
+      />
+      <Drawer.Screen
+        name="LandingScreenOverlay"
+        component={LandingScreen}
+        options={{
+          title: 'How Our App Works',
         }}
       />
     </Drawer.Navigator>
