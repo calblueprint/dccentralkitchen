@@ -34,7 +34,7 @@ function DrawerNavigator() {
   return (
     <Drawer.Navigator
       // eslint-disable-next-line react/jsx-props-no-spreading
-      drawerContent={(props) => <DrawerContent {...props} Drawer={Drawer} />}
+      drawerContent={(props) => <DrawerContent {...props} />}
       drawerContentOptions={{
         labelStyle: {
           fontFamily: 'opensans-semibold',

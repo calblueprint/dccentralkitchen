@@ -101,7 +101,6 @@ function DrawerContent(props) {
   }
 
   const isGuest = customer.name === 'Guest';
-  const { Drawer } = props;
   return (
     <View
       style={{
@@ -177,9 +176,6 @@ function DrawerContent(props) {
           }>
           <Subtitle>Submit feedback</Subtitle>
         </ButtonContainer>
-        <ButtonContainer>
-          <Drawer.Screen name="Home" component={LandingScreen} />
-        </ButtonContainer>
       </View>
     </View>
   );
@@ -187,11 +183,9 @@ function DrawerContent(props) {
 
 DrawerContent.propTypes = {
   navigation: PropTypes.object.isRequired,
-  Drawer: PropTypes.object.isRequired,
 };
 export default DrawerContent;
 
 DrawerContent.propTypes = {
   navigation: PropTypes.object.isRequired,
-  Drawer: PropTypes.object.isRequired,
 };
