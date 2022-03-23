@@ -135,7 +135,6 @@ export default function AppContainer() {
           options={{ animationEnabled: false }}
         />
         <AppStack.Screen name="AuthLoading" component={AuthLoadingScreen} />
-
         <AppStack.Screen name="Auth" component={AuthStackNavigator} />
         <AppStack.Screen name="Verify" component={VerificationScreen} />
       </AppStack.Navigator>
