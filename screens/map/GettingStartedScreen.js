@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { Checkbox } from 'react-native-paper';
-import logo from '../../assets/images/hc_splash.png';
+import bannerLogo from '../../assets/images/banner_logo.png';
 import {
   ButtonLabel,
   FilledButtonContainer,
@@ -43,7 +43,7 @@ export default function GettingStartedScreen({ route, navigation }) {
         height={Window.height * (12 / 100)}>
         <DragBar style={{ backgroundColor: Colors.lightText }} />
         <Image
-          source={logo}
+          source={bannerLogo}
           resizeMode="contain"
           style={{
             height: '40%',
