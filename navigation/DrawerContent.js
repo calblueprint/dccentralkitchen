@@ -20,7 +20,6 @@ import { env } from '../environment';
 import { getCustomerById } from '../lib/airtable/request';
 import { completeLogout, getAsyncCustomerAuth } from '../lib/authUtils';
 import { clearUserLog, logErrorToSentry, setUserLog } from '../lib/logUtils';
-import LandingScreen from '../screens/map/LandingScreen';
 import { ColumnContainer, SpaceBetweenRowContainer } from '../styled/shared';
 
 function DrawerContent(props) {
