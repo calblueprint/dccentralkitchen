@@ -75,7 +75,7 @@ export default class OnboardingScreen extends React.Component {
           </Body>
         </ColumnContainer>
         {/* Display login/get started buttons */}
-        {index === 4 && (
+        {index === 3 && (
           <ColumnContainer style={{ marginTop: 12 }}>
             <FilledButtonContainer
               width="100%"
