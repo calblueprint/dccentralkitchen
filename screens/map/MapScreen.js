@@ -50,6 +50,9 @@ export default function MapScreen(props) {
   const { locationPermissions, currentLocation } = useCurrentLocation();
 
   const stores = useStores();
+
+  console.log('stores', stores);
+
   stores.forEach((store) => {
     const currStore = store;
     currStore.distance = findStoreDistance(currentLocation, store);
