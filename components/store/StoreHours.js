@@ -63,10 +63,6 @@ export default function StoreHours({ hours }) {
     if (hoursPerDayDict && Object.keys(hoursPerDayDict).length > 0) {
       return hoursList(hoursPerDayDict);
     }
-    // console.log(
-    //   '[StoreHours] parseHours: Issue parsing store hours. Hours were: ',
-    //   hours
-    // );
     return <Body>Store hours unavailable</Body>;
   };
 
