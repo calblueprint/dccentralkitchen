@@ -16,12 +16,12 @@ const ONBOARDING_CONTENT = [
       'See what products are available in stores before you leave the house',
     illustration: require('../assets/images/Onboarding_3.png'),
   },
-  {
-    title: 'Shop healthy and save',
-    body:
-      'Earn Healthy Rewards for buying healthy products and get $5 FREE if you sign up now',
-    illustration: require('../assets/images/Onboarding_4.png'),
-  },
+  // {
+  //   title: 'Shop healthy and save',
+  //   body:
+  //     'Earn Healthy Rewards for buying healthy products and get $5 FREE if you sign up now',
+  //   illustration: require('../assets/images/Onboarding_4.png'),
+  // },
   {
     title: 'Stay informed',
     body:

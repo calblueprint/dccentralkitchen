@@ -1,0 +1,76 @@
+{
+  "expo": {
+    "name": "Healthy Corners",
+    "slug": "healthy-corners",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.5.0",
+    "primaryColor": "#008550",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "image": "./assets/images/hc_splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "scheme": "healthycorners",
+    "updates": {
+      "fallbackToCacheTimeout": 3000
+    },
+    "assetBundlePatterns": [
+      "assets/images/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.blueraster.dcckbeta",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "buildNumber": "1.5.0",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "To find nearby stores and see what products are available.",
+        "LSApplicationQueriesSchemes": [
+          "comgooglemaps",
+          "citymapper",
+          "uber",
+          "lyft",
+          "waze"
+        ]
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyAt2wwpTvYIBhVpgkFZ3fa7dY3Kw2cc5uU",
+        "branch": {
+          "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
+        }
+      }
+    },
+    "android": {
+      "package": "org.calblueprint.HealthyCornersRewards",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD_-M-Tjp0-QN2exYtlNZk3eMBnQPPkxWk"
+        },
+        "branch": {
+          "apiKey": "key_live_ikGZzufqsAKf84CYNZ1fGpkcBtlLsdc7"
+        }
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "VIBRATE"
+      ],
+      "versionCode": 8
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps"
+        }
+      ]
+    },
+    "description": ""
+  }
+}
