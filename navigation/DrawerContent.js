@@ -44,7 +44,6 @@ function DrawerContent(props) {
       const fetchUser = async () => {
         try {
           const customerId = await getAsyncCustomerAuth();
-
           let cust = null;
           if (customerId != null) {
             cust = await getCustomerById(customerId.id);
@@ -100,6 +99,7 @@ function DrawerContent(props) {
   }
 
   const isGuest = customer.name === 'Guest';
+
   return (
     <View
       style={{

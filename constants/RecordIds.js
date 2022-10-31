@@ -18,7 +18,7 @@ if (env === 'dev') {
   // IDs from PROD base
 } else if (env === 'prod') {
   RecordIds.testCustomerId = 'recomWMtzSUQCcIvr';
-  RecordIds.guestCustomerId = 'recxEGfvExP4Dv8nr';
+  RecordIds.guestCustomerId = 'recHSoc8R94UYNIR5';
   RecordIds.defaultStoreId = 'recwQ6SoM5pEj37xl';
   RecordIds.surveyStoreId = 'recQa6jv9KGqobDAZ';
 }
