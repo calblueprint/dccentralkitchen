@@ -19,8 +19,8 @@ Healthy Corners is a [DC Central Kitchen (DCCK)](https://dccentralkitchen.org/) 
 :::
 
 ::: faq How do I save at Healthy Corners stores?
-- **Low prices** -  Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app and on the Healthy Corners product and pricing lists at stores. 
-- **SNAP matching** - If a store offers SNAP Matching, shoppers who purchase fresh or frozen products with SNAP can get more fresh or frozen products for free. To earn a $5 coupon for fresh for frozen products, spend at least $5 with SNAP at a participating store and include at least 1 item of fresh or frozen produce in your purchase. 
+- **Low prices** - Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app and on the Healthy Corners product and pricing lists at stores. 
+- **SNAP matching** - If a store offers SNAP Matching, shoppers who purchase one piece of a fresh or frozen fruit or vegetable using EBT can get a $5 coupon for fresh or frozen products. 
 
 [comment]: <> (- **Healthy Rewards** - At select stores, earn points every time you buy Healthy Corners products including fresh produce, frozen produce, and healthy snacks. When you’ve earned 500 points, get $5 free! Look for “Healthy Rewards” on the store profile to find stores that offer this program. )
 :::
@@ -290,11 +290,11 @@ We welcome your suggestions for new Healthy Corners stores. [Nominate a store he
 
 :::faq What is SNAP Matching? How do I earn SNAP Match coupons?
 ![SNAP Matching Coupon](./assets/faq/snap_match_coupon.jpg)
-With SNAP Matching, you can earn a free $5 coupon for fresh for frozen products by spending at least $5 with SNAP at a participating store and including at least 1 item of fresh or frozen produce in your purchase. Select the “SNAP Match” button on the map or look for “SNAP Match” on the store profile to find the stores that offer this program.  
+With SNAP Matching, you can earn a $5 coupon for fresh or frozen produce by purchasing any one piece of fresh or frozen fruit or vegetable (valued at 50¢ or more) with your EBT card. Select the "SNAP Match" button on the map or look for "SNAP Match" on the store profile to find the stores that offer this program.  
 :::
 
 :::faq How many SNAP Match coupons can I earn?
-You will earn 1 coupon per qualifying transaction.
+You will earn 1 coupon per qualifying transaction. You may receive up to 2 coupons per person per day.
 :::
 
 :::faq What can I buy with my SNAP Match coupons?
