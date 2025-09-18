@@ -15,18 +15,18 @@ navbar: false
 <br/>
 
 ::: faq What is Healthy Corners?
-Healthy Corners is a [DC Central Kitchen (DCCK)](https://dccentralkitchen.org/) social enterprise that strives to expand healthy food access in DC. We deliver fresh produce and healthy snacks to corner stores in areas where food access is limited, offering produce at wholesale prices and providing marketing and technical assistance to store owners. 
+Healthy Corners is a [DC Central Kitchen (DCCK)](https://dccentralkitchen.org/) social enterprise that strives to expand healthy food access in DC. We deliver fresh and frozen and healthy snacks to corner stores in areas where food access is limited, offering produce at wholesale prices and providing marketing and technical assistance to store owners. 
 :::
 
 ::: faq How do I save at Healthy Corners stores?
-- **Low prices** - Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app.
-- **SNAP matching** - At select stores, earn a $5 coupon for free fresh produce every time you spend $5 with SNAP and include 1 item of fresh produce in your purchase. Look for “SNAP Match” on the store profile to find stores that offer this program.
+- **Low prices** -  Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app and on the Healthy Corners product and pricing lists at stores. 
+- **SNAP matching** - If a store offers SNAP Matching, shoppers who purchase fresh or frozen products with SNAP can get more fresh or frozen products for free. To earn a $5 coupon for fresh for frozen products, spend at least $5 with SNAP at a participating store and include at least 1 item of fresh or frozen produce in your purchase. 
 
 [comment]: <> (- **Healthy Rewards** - At select stores, earn points every time you buy Healthy Corners products including fresh produce, frozen produce, and healthy snacks. When you’ve earned 500 points, get $5 free! Look for “Healthy Rewards” on the store profile to find stores that offer this program. )
 :::
 
 ::: faq Who runs and supports Healthy Corners?
-Healthy Corners is a DC Central Kitchen (DCCK) social enterprise that launched in 2011. Our team includes several graduates of our esteemed Culinary Job Training program, as well as community-based Store Champions, and other DCCK staff and volunteers. We are funded and supported in large majority by DC Health and the US Department of Agriculture. Our program depends on the commitment and engagement of corner store owners and managers. To find out more about DCCK and Healthy Corners, visit our website at [www.dccentralkitchen.org](https://dccentralkitchen.org/).
+Healthy Corners is a DC Central Kitchen (DCCK) social enterprise that launched in 2011. Our team includes several graduates of our esteemed Culinary Job Training program, as well as community-based Store Navigators, and other DCCK staff and volunteers. We are funded and supported in large majority by DC Health and the US Department of Agriculture. Our program depends on the commitment and engagement of corner store owners and managers.To find out more about DCCK and Healthy Corners, visit our website at [www.dccentralkitchen.org](https://dccentralkitchen.org/).
 :::
 
 <br/>
@@ -36,7 +36,7 @@ Healthy Corners is a DC Central Kitchen (DCCK) social enterprise that launched i
 <br/>
 
 :::faq What does it mean if a store shows 'No recent deliveries'?
-“No recent deliveries” means a store has not received a Healthy Corners delivery in the past week. The store may have fruits and vegetables in stock from another vendor or a previous delivery. 
+“No recent deliveries” means a store has not received a Healthy Corners delivery in the past week. The store may have fruits and vegetables in stock from another vendor. 
 :::
 
 :::faq How often are products listed in the app updated?
@@ -44,11 +44,11 @@ Products are updated daily at 5 PM EST.
 :::
 
 :::faq How are prices set?
-Prices are set quarterly with the seasons: summer, fall, winter, and spring. Healthy Corners charges stores the exact cost of produce from distributors, with no minimums or markups. In the event of COVID-19, prices have been further discounted: 25% off whole fruits and 50% off whole vegetables. Stores are expected to follow the customer prices set by Healthy Corners. Occasionally the price for an item will change mid-season due to factors like weather or supply chain issues.
+Prices are set quarterly with the seasons: summer, fall, winter, and spring. Healthy Corners charges stores the cost of produce from distributors and has very low minimums for stores. Many products are further discounted to allow for easy access to customers while giving stores profit. Stores are expected to follow the customer prices set by Healthy Corners. Occasionally the price for an item will change mid-season due to factors like weather or supply chain issues, but Healthy Corners strives to maintain stable pricing throughout the season.
 :::
 
 :::faq Why are the prices listed on this app different from the prices in-store?
-Healthy Corners stores agree to charge customers no higher than the displayed prices for their items. However, it can be difficult to regulate this across all stores and employees. If prices do not match what you see in the app, it could be because a clerk is not aware of a price change or because the manager has not updated the prices in the cash register. If stores choose to buy fresh produce from other vendors, those items may also have different prices. If you notice this while shopping, you can ask the store manager or [submit the feedback form](https://airtable.com/shr1Rh6ZUaJNQTQqf) to Healthy Corners.
+Healthy Corners stores agree to charge customers no higher than the displayed prices for their items. However, it can be difficult to regulate this across all stores and employees. If prices do not match what you see in the app, it could be because a clerk is not aware of a price change or because the manager has not updated the prices in the cash register. If stores choose to buy fresh produce from other vendors, those items may also have different prices.If you notice this while shopping, you can ask the store manager or [submit the feedback form](https://airtable.com/shr1Rh6ZUaJNQTQqf) to Healthy Corners.
 :::
 
 ### Stores
@@ -56,9 +56,9 @@ Healthy Corners stores agree to charge customers no higher than the displayed pr
 
 :::faq How are stores chosen for Healthy Corners?
 To qualify for Healthy Corners, a store must: 
-- serve a low-income population
-- be located in an area where food security needs are not being met by full-service grocery stores
-- have owners that are committed to promoting healthy and affordable food in the community
+- Serve a low-income population
+- Be located in an area where food security needs are not being met, especially by full-service grocery stores 
+- Have owners that are committed to promoting healthy and affordable food in the community 
 :::
 
 :::faq I know a store that would make a great addition to Healthy Corners. How can I recommend them?
@@ -78,7 +78,7 @@ We welcome your suggestions for new Healthy Corners stores. [Nominate a store he
 
 [comment]: <> (2. **Earn.** Earn 100 points for every dollar you spend on our products!)
 
-[comment]: <> (	$1 = 100 points)
+[comment]: <> ( $1 = 100 points)
 
 [comment]: <> (3. **Save.** Unlock a $5 reward for free Healthy Corners products every time you reach 500 points.)
 
@@ -290,7 +290,7 @@ We welcome your suggestions for new Healthy Corners stores. [Nominate a store he
 
 :::faq What is SNAP Matching? How do I earn SNAP Match coupons?
 ![SNAP Matching Coupon](./assets/faq/snap_match_coupon.jpg)
-If a store offers SNAP Matching, shoppers who purchase fresh or frozen products with SNAP/EBT can get more fresh or frozen products for free. To earn a $5 coupon for fresh or frozen products, spend at least $5 with SNAP/EBT at a participating store and include at least 1 item of fresh or frozen produce in your purchase. 
+With SNAP Matching, you can earn a free $5 coupon for fresh for frozen products by spending at least $5 with SNAP at a participating store and including at least 1 item of fresh or frozen produce in your purchase. Select the “SNAP Match” button on the map or look for “SNAP Match” on the store profile to find the stores that offer this program.  
 :::
 
 :::faq How many SNAP Match coupons can I earn?
@@ -298,7 +298,7 @@ You will earn 1 coupon per qualifying transaction.
 :::
 
 :::faq What can I buy with my SNAP Match coupons?
-Each coupon is for $5 of fresh or frozen fruits and vegetables. Any fresh produce item or frozen fruit or vegetable without added sugar, seasoning, or oil. You cannot buy canned fruits or vegetables with your coupons.
+Each coupon is for $5 of fresh or frozen fruits and vegetables. Any fresh produce item or frozen fruit or vegetable without added sugar, seasoning, or oil. You cannot buy canned fruits or vegetables with your coupons.  
 :::
 
 :::faq Do the SNAP Match coupons expire?
@@ -306,7 +306,7 @@ Yes. Please use your coupons by the expiration date in the top right corner of y
 :::
 
 :::faq Where can I spend my SNAP Match coupons? What if my store does not have the fruits and vegetables I want? 
-You can use your coupons at the store you received them, or at any store listed on the coupon. Please request any new fruits or vegetables with the store manager.
+You can use your coupons at the store you received them, or at any store in the SNAP Match program. Please select the “SNAP Match” button on the map within the app to find the qualifying SNAP Match stores. Please also request any new fruits or vegetables with the store manager, or through selecting “Submit Feedback” on the menu bar. 
 :::
 
 :::faq If I spend less than $5 using my SNAP Match coupon, will I get change?
@@ -329,7 +329,7 @@ Pregnant women, new mothers, or infants and children under 5 years old may be el
 :::
 
 :::faq How do I apply for WIC?
-Apply for WIC by contacting your local [WIC clinic](https://www.dcwic.org/wic-locations) or calling (202)442-9397.
+Apply for WIC by contacting your local WIC clinic or calling (202)442-9397.
 :::
 
 :::faq How do I know which Healthy Corners stores can accept my WIC benefits?
@@ -338,15 +338,15 @@ Find WIC authorized vendors through the app by selecting the WIC filter when sea
 
 :::faq How can I use my WIC benefits at a Healthy Corners store?
 ![WIC sticker](https://i.imgur.com/WV2HgiV.jpg)
-Check out [this tutorial](https://www.dcwic.org/wic-foods) to learn how to use your WIC benefits. Remember your WIC benefits, WIC ID folder, and look for the purple stickers placed on the shelves to find WIC-eligible products.
+You can use your e-WIC card like a debit card to redeem your WIC benefits. Use the WIC app to scan food items’ barcodes to see if it is WIC approved or not. 
 :::
 
 :::faq Will more Healthy Corners stores be able to accept WIC benefits?
 Yes, we are working closely with the DC WIC State Agency to help more Healthy Corners stores become WIC authorized vendors.
 :::
 
-:::faq Will Healthy Corners stores be able to accept eWIC?
-Yes, just like the larger WIC authorized vendors, Healthy Corners stores that accept paper WIC benefits will also be making the transition to eWIC. You will be able to redeem your WIC benefits using a card instead of a check starting in Spring 2022.
+:::faq Do Healthy Corners stores use eWIC? 
+Yes, just like the larger WIC authorized vendors, Healthy Corners stores are now using eWIC. 
 :::
 
 :::faq Who runs this program?
@@ -380,3 +380,4 @@ DC Central Kitchen's Healthy Corners program works closely with DC Health's WIC 
 To contact us, [use our online form](https://tiny.cc/RewardsFeedback).
 
 To learn more about [DC Central Kitchen](https://dccentralkitchen.org/) and the [Healthy Corners program](https://dccentralkitchen.org/healthy-corners/), visit our website at [www.dccentralkitchen.org](https://dccentralkitchen.org/).
+
