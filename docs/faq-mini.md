@@ -39,7 +39,7 @@ layout: NoMarginLayout
 
 :::faq How do I save at Healthy Corners stores?
 
-- **Low price** - Healthy Corners keeps price low for stores and customers. Prices are listed on each product in the app.
+- **Low prices** - Healthy Corners keeps prices low for stores and customers. Prices are listed on each product in the app.
 
 - **SNAP matching** - At select stores, earn a $5 coupon for free fresh produce every time you spend $5 with SNAP and include 1 item of fresh produce in your purchase. Look for “SNAP Match” on the store profile to find stores that offer this program. 
 
